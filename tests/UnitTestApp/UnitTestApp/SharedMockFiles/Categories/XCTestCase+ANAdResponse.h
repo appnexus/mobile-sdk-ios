@@ -37,6 +37,6 @@ static NSString *const kSecondPriceForDFPParamIsUnset = @"SecondPriceForDFPParam
 
 @interface XCTestCase (ANAdResponse)
 
-- (ANUniversalTagAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource;
+- (NSMutableArray<id> *)adsArrayFromFirstTagInJSONResource:(NSString *)JSONResource;
 
 @end

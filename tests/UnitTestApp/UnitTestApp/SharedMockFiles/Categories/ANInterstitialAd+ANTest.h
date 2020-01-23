@@ -15,8 +15,13 @@
 
 #import "ANInterstitialAd.h"
 #import "ANInterstitialAdViewController.h"
-@interface ANInterstitialAd (ANTest)
+#import "ANUniversalAdFetcher.h"
+
+@interface ANInterstitialAd (ANTest) <ANUniversalAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 @property (nonatomic, readwrite, strong)  ANInterstitialAdViewController  *controller;
+
++ (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled;
+
 @end

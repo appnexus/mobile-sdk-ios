@@ -309,6 +309,10 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 #pragma mark - Basic Mediation Tests
 
+-(void)tearDown {
+    [self clearTest];
+
+}
 - (void)test1ResponseWhereClassExists
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];

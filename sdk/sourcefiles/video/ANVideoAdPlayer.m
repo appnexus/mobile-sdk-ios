@@ -24,10 +24,11 @@
 #import "ANVideoPlayerSettings.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
 
-static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
+static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>
 
+@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession * omidAdSession;
 @property (strong,nonatomic)              WKWebView                *webView;
 @property (nonatomic, readwrite, strong)  ANBrowserViewController  *browserViewController;
 @property (nonatomic, strong)             NSString                 *vastContent;
@@ -87,6 +88,9 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 
 -(void) removePlayer{
     if(self.webView != nil){
+        WKUserContentController *controller = self.webView.configuration.userContentController;
+        [controller removeScriptMessageHandlerForName:@"observe"];
+        [controller removeScriptMessageHandlerForName:@"interOp"];
         [self.webView setNavigationDelegate:nil];
         [self.webView setUIDelegate:nil];
         [self.webView removeFromSuperview];
@@ -106,6 +110,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 - (void)stopOMIDAdSession {
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
+        self.omidAdSession = nil;
     }
 }
 

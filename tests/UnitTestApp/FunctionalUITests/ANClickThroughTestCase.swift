@@ -51,7 +51,6 @@ class ANClickThroughTestCase: XCTestCase {
         app.toolbars["Toolbar"].buttons["OK"].tap()
         XCTAssertEqual(webViewsQuery.frame.size.height, 480)
         XCTAssertEqual(webViewsQuery.frame.size.width, 320)
-        XCGlobal.screenshotWithTitle(title: FunctionalTestConstants.BannerAdClickthru.testClickThruSettingsWithOpenSDKBrowserUITest)
         wait(2)
         
     }

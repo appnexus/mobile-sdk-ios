@@ -17,11 +17,14 @@
 
 #import <Foundation/Foundation.h>
 #import "ANInstreamVideoAd.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANVideoAdPlayer+Test.h"
 
-@interface ANInstreamVideoAd(Test)
+@interface ANInstreamVideoAd(Test) <ANUniversalAdFetcherDelegate>
 
     @property (nonatomic, strong) ANVideoAdPlayer * adPlayer;
 
+
 -(void)createInstreamVideoAdPlayer;
++ (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled;
 @end

@@ -27,11 +27,21 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 
 
-static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
+
+#pragma mark - Public constants.
+
+NSString *const  kANUniversalTagAdServerResponseKeyTagNoAdUrl  = @"no_ad_url";
+NSString *const  kANUniversalTagAdServerResponseKeyTagUUID     = @"uuid";
+NSString *const  kANUniversalTagAdServerResponseKeyNoBid       = @"nobid";
+
+
+
+#pragma mark - Private constants.
+
 static NSString *const kANUniversalTagAdServerResponseKeyTags = @"tags";
 
-static NSString *const kANUniversalTagAdServerResponseKeyTagNoAdUrl = @"no_ad_url";
-static NSString *const kANUniversalTagAdServerResponseKeyTagAds = @"ads";
+static NSString *const  kANUniversalTagAdServerResponseKeyTagAds      = @"ads";
+static NSString *const  kANUniversalTagAdServerResponseKeyTagNoBid    = @"tagReceivedNoBid";
 
 static NSString *const kANUniversalTagAdServerResponseKeyAdsContentSource = @"content_source";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsAdType = @"ad_type";
@@ -105,8 +115,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyNativeVideo = @"video";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeVideoContent = @"content";
 static NSString *const kANUniversalTagAdServerResponseKeyNativePrivacyLink = @"privacy_link";
 
-
-
 // Trackers
 static NSString *const kANUniversalTagAdServerResponseKeyTrackers = @"trackers";
 
@@ -125,238 +133,229 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 
 
-@interface ANUniversalTagAdServerResponse ()
-
-@property (nonatomic, readwrite, strong, nullable) NSMutableArray *ads;
-@property (nonatomic, readwrite, strong, nullable) NSString *noAdUrlString;
-
-@end
-
-
-
+#pragma mark -
 
 @implementation ANUniversalTagAdServerResponse
 
-#pragma mark - Lifecycle.
+#pragma mark Inject creative content.
 
-- (nullable instancetype)initWithAdServerData:(nullable NSData *)data {
-    self = [super init];
-    if (self) {
-        [self processResponseData:data];
-    }
-    return self;
-}
-- (nullable instancetype)initWitXMLContent:(nonnull NSString *)vastContent
-                                    width:(NSInteger)width
-                                   height:(NSInteger)height
++ (nullable ANRTBVideoAd *)generateRTBVideoAdUnitFromVASTObject: (nonnull NSString *)vastContent
+                                                          width: (NSInteger)width
+                                                         height: (NSInteger)height
 {
-    self = [super init];
-    if (!self)  { return nil; }
-    
     ANRTBVideoAd  *rtbVideoAd  = [[ANRTBVideoAd alloc] init];
     if (!rtbVideoAd)  { return nil; }
     
     rtbVideoAd.width    = [NSString stringWithFormat:@"%ld", (long)width];
     rtbVideoAd.height   = [NSString stringWithFormat:@"%ld", (long)height];
     rtbVideoAd.content  = vastContent;
-    
-    [self.ads addObject:rtbVideoAd];
-    
-    return self;
+
+    return  rtbVideoAd;
 }
 
 
-+ (nullable ANUniversalTagAdServerResponse *)responseWithData:(nullable NSData *)data; {
-    return [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:data];
-}
-
-- (nullable instancetype)initWithContent: (nonnull NSString *)htmlContent
-                                  width: (NSInteger)width
-                                 height: (NSInteger)height
++ (nullable ANStandardAd *)generateStandardAdUnitFromHTMLContent: (nonnull NSString *)htmlContent
+                                                           width: (NSInteger)width
+                                                          height: (NSInteger)height
 {
-    self = [super init];
-    if (!self)  { return nil; }
-    
     ANStandardAd  *standardAd  = [[ANStandardAd alloc] init];
     if (!standardAd)  { return nil; }
     
     standardAd.width    = [NSString stringWithFormat:@"%ld", (long)width];
     standardAd.height   = [NSString stringWithFormat:@"%ld", (long)height];
     standardAd.content  = htmlContent;
-    
-    [self.ads addObject:standardAd];
-    
-    return self;
+
+    return  standardAd;
 }
+
+
+
 
 #pragma mark - Universal Tag Support
 
-- (void)processResponseData:(NSData *)data
++ (nullable NSArray<NSDictionary<NSString *, id> *> *)generateTagsFromResponseData:(nullable NSData *)data
 {
-    NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
+    if (!data) {
+        ANLogError(@"data is UNDEFINED.");
+        return  nil;
+    }
+
+    NSDictionary<NSString *, id>  *jsonResponse  = [[self class] generateDictionaryFromJSONResponse:data];
+
+    if (!jsonResponse) {
+        ANLogError(@"FAILED to acquire JSON response from data.");
+        return  nil;
+    }
+
     ANLogDebug(@"jsonResponse=%@", [jsonResponse description]);
-    
-    if (jsonResponse) {
-        NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
-        NSDictionary *firstTag = [tags firstObject];
-        if ([[self class] isNoBidTag:firstTag]) {
-            return;
-        }
-        // Only the first tag is supported today
-        self.noAdUrlString = firstTag[kANUniversalTagAdServerResponseKeyTagNoAdUrl];
-        NSArray *adsArray = [[self class] adsArrayFromTag:firstTag];
-        if (adsArray)
+
+    if (! [jsonResponse[kANUniversalTagAdServerResponseKeyTags] isKindOfClass:[NSArray class]]) {
+        ANLogError(@"FAILED to find an array of tags in UT Reponse data.");
+        return  nil;
+    }
+
+    //
+    NSArray<NSString *>                             *initialAdsArray   = (NSArray<NSString *> *)jsonResponse[kANUniversalTagAdServerResponseKeyTags];
+    NSMutableArray<NSDictionary<NSString *, id> *>  *validtedAdsArray  = [[NSMutableArray<NSDictionary<NSString *, id> *> alloc] initWithCapacity:[initialAdsArray count]];
+
+    [initialAdsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
         {
-            
-            for (id adObject in adsArray)
-            {
-                
-                if (![adObject isKindOfClass:[NSDictionary class]]) {
-                    continue;
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                [validtedAdsArray addObject:obj];
+            }
+        } ];
+
+    if (validtedAdsArray.count) {
+        return [validtedAdsArray copy];
+    }
+
+    return nil;
+}
+
+
+
++ (nonnull NSMutableArray<id> *)generateAdObjectInstanceFromJSONAdServerResponseTag:(nonnull NSDictionary<NSString *, id> *)tag
+{
+    NSArray             *arrayOfJSONAdObjects   = [[self class] adsArrayFromTag:tag];
+    NSMutableArray<id>  *arrayOfAdUnits         = [[NSMutableArray<id> alloc] init];
+
+
+    for (id adObject in arrayOfJSONAdObjects)
+    {
+        if (![adObject isKindOfClass:[NSDictionary class]]) {
+            continue;
+        }
+
+        NSString  *contentSource  = [adObject[kANUniversalTagAdServerResponseKeyAdsContentSource] description];
+        NSString  *adType         = [adObject[kANUniversalTagAdServerResponseKeyAdsAdType] description];
+        NSString  *creativeId     = @"";
+
+        if (adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId] != nil)
+        {
+            creativeId  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId]];
+        }
+
+        if (!contentSource && !adType) {
+            ANLogError(@"Response from ad server in an unexpected format content_source/ad_type UNDEFINED.  (adObject=%@)", adObject);
+            continue;
+        }
+
+
+        // RTB
+        if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
+        {
+            NSDictionary  *rtbObject  = [[self class] rtbObjectFromAdObject:adObject];
+
+            if (rtbObject) {
+                // RTB Banner / Interstitial
+                if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]) {
+                    ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
+                    if (standardAd) {
+                        standardAd.creativeId = creativeId;
+                        [arrayOfAdUnits addObject:standardAd];
+                    }
+
+                // RTB - Video
+                } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
+                    ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
+                    if (videoAd) {
+                        videoAd.creativeId = creativeId;
+                        videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
+
+                        [arrayOfAdUnits addObject:videoAd];
+                    }
+                // RTB - Native
+                } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
+                    ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
+                    if (nativeAd) {
+                        nativeAd.creativeId = creativeId;
+                        if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
+                        {
+                        NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
+                        NSString *nativeRenderingElements  =  [[self class] nativeRenderingJSON:rtbObject];
+                         if(nativeRenderingUrl && nativeRenderingElements){
+                            nativeAd.nativeRenderingObject =nativeRenderingElements;
+                            nativeAd.nativeRenderingUrl = nativeRenderingUrl;
+                         }
+                        }
+
+                        // Parsing viewability object to create measurement resources for OMID Native integration
+                        ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
+                        if (verificationScriptResource) {
+                            nativeAd.verificationScriptResource = verificationScriptResource;
+                        }
+                        [arrayOfAdUnits addObject:nativeAd];
+                    }
+
+                } else {
+                    ANLogError(@"UNRECOGNIZED AD_TYPE in RTB.  (adType=%@  rtbObject=%@)", adType, rtbObject);
                 }
-                NSString *contentSource = [adObject[kANUniversalTagAdServerResponseKeyAdsContentSource] description];
-                NSString *adType = [adObject[kANUniversalTagAdServerResponseKeyAdsAdType] description];
+            }
 
-                NSString *creativeId  = @"";
-                if(adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId] != nil)
-                {
-                    creativeId  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId]];
-                }
-                if(!contentSource && !adType){
-                    ANLogError(@"Response from ad server in an unexpected format content_source/ad_type UNDEFINED.  (adObject=%@)", adObject);
-                    continue;
-                }
-                
-                
-                
-                // RTB
-                if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
-                {
-                    NSDictionary  *rtbObject  = [[self class] rtbObjectFromAdObject:adObject];
 
-                    if (rtbObject) {
-                        // RTB Banner / Interstitial
-                        if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]) {
-                            ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
-                            if (standardAd) {
-                                standardAd.creativeId = creativeId;
-                                [self.ads addObject:standardAd];
+        // CSM
+        } else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSMObject]){
+            if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject] || [adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
+                NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
+                if (csmObject) {
+                    ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
+                    if (mediatedAd) {
+                        if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
+                            mediatedAd.isAdTypeNative = YES;
+                            // Parsing viewability object to create measurement resources for OMID Native integration
+                            ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
+                            if (verificationScriptResource) {
+                                mediatedAd.verificationScriptResource = verificationScriptResource;
                             }
-
-                        // RTB - Video
-                        } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
-                            ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
-                            if (videoAd) {
-                                videoAd.creativeId = creativeId;
-                                videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
-
-                                [self.ads addObject:videoAd];
-                            }
-                        // RTB - Native
-                        } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
-                            ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
-                            if (nativeAd) {
-                                nativeAd.creativeId = creativeId;
-                                if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
-                                {
-                                NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
-                                NSString *nativeRenderingElements  =  [[self class] nativeRenderingJSON:rtbObject];
-                                 if(nativeRenderingUrl && nativeRenderingElements){
-                                    nativeAd.nativeRenderingObject =nativeRenderingElements;
-                                    nativeAd.nativeRenderingUrl = nativeRenderingUrl;
-                                 }
-                                }
-
-                                // Parsing viewability object to create measurement resources for OMID Native integration
-                                ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
-                                if (verificationScriptResource) {
-                                    nativeAd.verificationScriptResource = verificationScriptResource;
-                                }
-                                [self.ads addObject:nativeAd];
-                            }
-
-                        } else {
-                            ANLogError(@"UNRECOGNIZED AD_TYPE in RTB.  (adType=%@  rtbObject=%@)", adType, rtbObject);
+                        }
+                        mediatedAd.creativeId = creativeId;
+                        if (mediatedAd.className.length > 0) {
+                            [arrayOfAdUnits addObject:mediatedAd];
                         }
                     }
                 }
+            } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]) {
+                ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:tag];
+                if(csmVideoAd){
+                    [arrayOfAdUnits addObject:csmVideoAd];
+                }
+            }else{
+                ANLogError(@"UNRECOGNIZED AD_TYPE in CSM.  (adObject=%@)", adObject);
+            }
 
-                // CSM
-                else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSMObject]){
-                    if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject] || [adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
-                        NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
-                        if (csmObject) {
-                            ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
-                            if (mediatedAd) {
-                                if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
-                                    mediatedAd.isAdTypeNative = YES;
-                                    // Parsing viewability object to create measurement resources for OMID Native integration
-                                    ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
-                                    if (verificationScriptResource) {
-                                        mediatedAd.verificationScriptResource = verificationScriptResource;
-                                    }
-                                }
-                                mediatedAd.creativeId = creativeId;
-                                if (mediatedAd.className.length > 0) {
-                                    [self.ads addObject:mediatedAd];
-                                }
-                            }
-                        }
-                    } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]) {
-                        ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
-                        if(csmVideoAd){
-                            [self.ads addObject:csmVideoAd];
-                        }
-                    }else{
-                        ANLogError(@"UNRECOGNIZED AD_TYPE in CSM.  (adObject=%@)", adObject);
+
+        // SSM - Only Banner and Interstitial are supported in SSM
+        } else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsSSMObject]){
+            if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]){
+                NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
+                if (ssmObject) {
+                    ANSSMStandardAd *ssmStandardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
+                    if (ssmStandardAd) {
+                        ssmStandardAd.creativeId = creativeId;
+                        [arrayOfAdUnits addObject:ssmStandardAd];
                     }
                 }
+            }else{
+                ANLogError(@"UNRECOGNIZED AD_TYPE in SSM.  (adObject=%@)", adObject);
+            }
+        }else{
+            ANLogError(@"UNRECOGNIZED adObject.  (adObject=%@)", adObject);
+        }
 
-                // SSM - Only Banner and Interstitial are supported in SSM
-                else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsSSMObject]){
-                    if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]){
-                        NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
-                        if (ssmObject) {
-                            ANSSMStandardAd *ssmStandardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
-                            if (ssmStandardAd) {
-                                ssmStandardAd.creativeId = creativeId;
-                                [self.ads addObject:ssmStandardAd];
-                            }
-                        }
-                    }else{
-                        ANLogError(@"UNRECOGNIZED AD_TYPE in SSM.  (adObject=%@)", adObject);
-                    }
-                }else{
-                    ANLogError(@"UNRECOGNIZED adObject.  (adObject=%@)", adObject);
-                }
-                
 
-                // Store general attributes of UT Response into select ad objects.
-                //
-                id  lastAdsObject  = [self.ads lastObject];
+        // Store general attributes of UT Response into select ad objects.
+        //
+        id  lastAdsObject  = [arrayOfAdUnits lastObject];
 
-                if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
-                    ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
-                    baseAdObject.adType = [adType copy];
-                }
-
-            } //endfor -- adObject
+        if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
+            ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
+            baseAdObject.adType = [adType copy];
         }
     }
-}
 
 
-+ (NSArray *)tagsFromJSONResponse:(NSDictionary *)jsonResponse {
-    return [[self class] validDictionaryArrayForKey:kANUniversalTagAdServerResponseKeyTags
-                                     inJSONResponse:jsonResponse];
-}
-
-+ (BOOL)isNoBidTag:(NSDictionary *)tag {
-    if (tag[kANUniversalTagAdServerResponseKeyNoBid]) {
-        BOOL noBid = [tag[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
-        return noBid;
-    }
-    return NO;
+    //
+    return  [arrayOfAdUnits mutableCopy];
 }
 
 
@@ -496,7 +495,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     if ([secondPrice length] > 0)
                     {
                         NSMutableDictionary  *paramDict  = [[[self class]
-                                                                 jsonResponseFromData:[mediatedAd.param dataUsingEncoding:NSASCIIStringEncoding]
+                                                                 generateDictionaryFromJSONResponse:[mediatedAd.param dataUsingEncoding:NSUTF8StringEncoding]
                                                              ] mutableCopy ];
 
                         if (paramDict[kANUniversalTagAdServerResponseKeyOptimized])
@@ -586,7 +585,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     NSData  *utResponseJSONData  = [NSJSONSerialization dataWithJSONObject:nativeAd
                                                                    options: NSJSONWritingPrettyPrinted
                                                                      error: nil ];
-    NSString  *utResponseJSONString  = [[NSString alloc] initWithData:utResponseJSONData encoding:NSASCIIStringEncoding];
+    NSString  *utResponseJSONString  = [[NSString alloc] initWithData:utResponseJSONData encoding:NSUTF8StringEncoding];
     return utResponseJSONString;
 }
 
@@ -734,51 +733,33 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 
 
-#pragma mark - Helper Methods
+#pragma mark - Helper class methods (internal facing).
 
-- (nullable NSMutableArray *)ads {
-    if (!_ads) _ads = [[NSMutableArray alloc] init];
-    return _ads;
-}
++ (nullable NSDictionary<NSString *, id> *)generateDictionaryFromJSONResponse:(NSData *)data
+{
+    NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-+ (NSDictionary *)jsonResponseFromData:(NSData *)data {
-    NSString *responseString = [[NSString alloc] initWithData:data
-                                                     encoding:NSUTF8StringEncoding];
-    if (!responseString || [responseString length] == 0) {
+    if (!responseString || ([responseString length] <= 0)) {
         ANLogDebug(@"Received empty response from ad server");
         return nil;
     }
-    
+
+    //
     NSError *jsonParsingError = nil;
-    id jsonResponse = [NSJSONSerialization JSONObjectWithData:data
-                                                      options:0
-                                                        error:&jsonParsingError];
+
+    id responseDictionary = [NSJSONSerialization JSONObjectWithData: data
+                                                            options: 0
+                                                              error: &jsonParsingError];
     if (jsonParsingError) {
         ANLogError(@"response_json_error %@", jsonParsingError);
         return nil;
-    } else if (![jsonResponse isKindOfClass:[NSDictionary class]]) {
-        ANLogError(@"Response from ad server in an unexpected format: %@", jsonResponse);
+
+    } else if (![responseDictionary isKindOfClass:[NSDictionary class]]) {
+        ANLogError(@"Response from ad server in an unexpected format: %@", responseDictionary);
         return nil;
     }
-    
-    return (NSDictionary *)jsonResponse;
-}
 
-+ (NSArray *)validDictionaryArrayForKey:(NSString *)key
-                         inJSONResponse:(NSDictionary *)jsonResponse {
-    if ([jsonResponse[key] isKindOfClass:[NSArray class]]) {
-        NSArray *adsArray = (NSArray *)jsonResponse[key];
-        NSMutableArray *validAdsArray = [[NSMutableArray alloc] initWithCapacity:[adsArray count]];
-        [adsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if ([obj isKindOfClass:[NSDictionary class]]) {
-                [validAdsArray addObject:obj];
-            }
-        }];
-        if (validAdsArray.count) {
-            return [validAdsArray copy];
-        }
-    }
-    return nil;
+    return  (NSDictionary<NSString *, id> *)responseDictionary;
 }
 
 @end

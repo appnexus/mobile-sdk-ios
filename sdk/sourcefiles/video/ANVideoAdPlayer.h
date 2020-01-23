@@ -77,8 +77,6 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 
 @property (strong, nonatomic, nullable) id <ANVideoAdPlayerDelegate> delegate;
 
-@property (nonatomic, readwrite, strong, nonnull) OMIDAppnexusAdSession *omidAdSession;
-
 -(void) loadAdWithVastContent:(nonnull NSString *) vastContent;
 -(void) loadAdWithVastUrl:(nonnull NSString *) vastUrl;
 -(void) loadAdWithJSONContent:(nonnull NSString *) jsonContent;

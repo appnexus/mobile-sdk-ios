@@ -16,10 +16,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANCSMVideoAd : NSObject
+#import "ANBaseAdObject.h"
+
+
+
+@interface ANCSMVideoAd : ANBaseAdObject
 
 @property (nonatomic, readwrite, strong) NSDictionary *adDictionary;
-
-
 
 @end

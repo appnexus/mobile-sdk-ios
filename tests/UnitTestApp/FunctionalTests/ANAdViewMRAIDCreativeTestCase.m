@@ -39,8 +39,9 @@
 
     self.adFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:bannerAdView];
 
-    ANUniversalTagAdServerResponse *adServerResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
-    [self.adFetcher handleStandardAd:adServerResponse.ads[0]];
+    NSMutableArray<id>  *adsArray  = [self adsArrayFromFirstTagInJSONResource:kANAdResponseSuccessfulMRAIDListener];
+
+    [self.adFetcher handleStandardAd:adsArray[0]];
     UIView *view = self.adFetcher.adView;
     [bannerAdView setContentView:view];
 }

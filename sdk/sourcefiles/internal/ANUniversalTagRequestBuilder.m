@@ -20,105 +20,249 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGDPRSettings.h"
+#import "ANUSPrivacySettings.h"
 #import "ANCarrierObserver.h"
+#import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANNativeAdRequest+PrivateMethods.h"
+
+
+
+
+#pragma mark -
+
+// This protocol definition meant for local use only, to simplify typecasting of MAR Manager objects.
+//
+@protocol  ANUniversalTagRequestBuilderFetcherDelegate  <   ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
+                                                            ANAdProtocolVideo, ANAdProtocolPublicServiceAnnouncement >
+    //EMPTY
+@end
+
+
+
+
+#pragma mark -
 
 @interface ANUniversalTagRequestBuilder()
 
-@property (nonatomic, readwrite, weak) id<ANUniversalRequestTagBuilderDelegate> adFetcherDelegate;
-@property (nonatomic) NSString *baseURLString;
+// NB  adFetcherDelegate and marManager are mutually exclusive in initialization methods.
+//
+@property (nonatomic, readwrite, weak)  id<ANUniversalTagRequestBuilderFetcherDelegate>  adFetcherDelegate;
+
+@property (nonatomic, readwrite, weak)  ANMultiAdRequest    *fetcherMARManager;
+@property (nonatomic, readwrite, weak)  ANMultiAdRequest    *adunitMARManager;
+
+@property (nonatomic, readwrite, strong)  NSString  *baseURLString;
 
 @end
 
 
 
 
+#pragma mark -
+
 @implementation ANUniversalTagRequestBuilder
 
+#pragma mark Lifecycle.
+
 // NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
+// NB  marManager is defined when this class is involed by MultiAdRequest, otherwise it is nil.
 //
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id)adFetcherDelegate
-                                      baseUrlString:(NSString *)baseUrlString
++ (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
+                                               baseUrlString: (nonnull NSString *)baseUrlString
 {
-    ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate:adFetcherDelegate
-                                                                                                     baseUrlString:baseUrlString];
+    ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: adFetcherDelegate
+                                                                         optionallyWithAdunitMultiAdRequestManager: nil
+                                                                                           orMultiAdRequestManager: nil
+                                                                                                     baseUrlString: baseUrlString ];
+    return [requestBuilder request];
+}
+
++ (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
+                                 adunitMultiAdRequestManager: (nonnull ANMultiAdRequest *)adunitMARManager
+                                               baseUrlString: (nonnull NSString *)baseUrlString
+{
+    ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: adFetcherDelegate
+                                                                         optionallyWithAdunitMultiAdRequestManager: adunitMARManager
+                                                                                           orMultiAdRequestManager: nil
+                                                                                                     baseUrlString: baseUrlString ];
+    return [requestBuilder request];
+}
+
++ (nullable NSURLRequest *)buildRequestWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
+                                                   baseUrlString: (nonnull NSString *)baseUrlString
+{
+    ANUniversalTagRequestBuilder *requestBuilder =
+        [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: (id<ANUniversalRequestTagBuilderDelegate>)marManager
+                              optionallyWithAdunitMultiAdRequestManager: nil
+                                                orMultiAdRequestManager: marManager
+                                                          baseUrlString: baseUrlString ];
     return [requestBuilder request];
 }
 
 
-- (instancetype)initWithAdFetcherDelegate:(id)adFetcherDelegate
-                            baseUrlString:(NSString *)baseUrlString
+- (instancetype)initWithAdFetcherDelegate: (nullable id)adFetcherDelegate
+optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMARManager
+                  orMultiAdRequestManager: (nullable ANMultiAdRequest *)fetcherMARManager
+                            baseUrlString: (nonnull NSString *)baseUrlString
 {
-    if (self = [super init]) {
-        _adFetcherDelegate = adFetcherDelegate;
-        _baseURLString = baseUrlString;
-    }
+    self = [super init];
+    if (!self)  { return nil; }
+
+
+    //
+    _adFetcherDelegate  = adFetcherDelegate;
+    _fetcherMARManager  = fetcherMARManager;
+    _adunitMARManager   = adunitMARManager;
+
+    _baseURLString = baseUrlString;
+
     return self;
 }
 
+
+
+
+#pragma mark - UT Request builder methods.
+
 - (NSURLRequest *)request
 {
-    
     NSURL                *URL             = [NSURL URLWithString:self.baseURLString];
     NSMutableURLRequest  *mutableRequest  = [[NSMutableURLRequest alloc] initWithURL: URL
                                                                          cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                                                      timeoutInterval: kAppNexusRequestTimeoutInterval];
-    
-    
+
+    // Set header fields for HTTP request.
+    // NB  Content-Type needs to be set explicity else will default to "application/x-www-form-urlencoded".
+    //
     [mutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
-    //needs to be set explicity else will default to "application/x-www-form-urlencoded"
     [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableRequest setHTTPMethod:@"POST"];
     
     NSError       *error       = nil;
+    NSData        *postData    = nil;
     NSDictionary  *jsonObject  = [self requestBody];
-    NSData        *postData    = [NSJSONSerialization dataWithJSONObject: jsonObject
-                                                                 options: kNilOptions
-                                                                   error: &error];
-    
+
+    if (!jsonObject)
+    {
+        NSDictionary  *userInfo  = @{ NSLocalizedDescriptionKey : @"[ANUniversalTagRequestBuilder requestBody] returned nil." };
+        error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInternalError userInfo:userInfo];
+    }
+
     if (!error) {
-        NSString *jsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
-        ANLogDebug(@"Post JSON: %@", jsonString);
-        ANLogDebug(@"[self requestBody] = %@", jsonObject);   //DEBUG
-        
-        [mutableRequest setHTTPBody:postData];
-        return [mutableRequest copy];
-        
-    } else {
+        postData = [NSJSONSerialization dataWithJSONObject: jsonObject
+                                                   options: kNilOptions
+                                                     error: &error ];
+    }
+
+    if (error) {
         ANLogError(@"Error formulating Universal Tag request: %@", error);
         return nil;
     }
+
+    //
+    NSString  *jsonString  = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+
+    ANLogDebug(@"Post JSON: %@", jsonString);
+    ANLogDebug(@"[self requestBody] = %@", jsonObject);   //DEBUG
+
+    [mutableRequest setHTTPBody:postData];
+    return [mutableRequest copy];
 }
+
 
 - (NSDictionary *)requestBody
 {
-    NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<NSString *, id>  *requestDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
     
-    NSDictionary *tags = [self tag:requestDict];
-    if (tags) {
-        requestDict[@"tags"] = @[tags];
+    // Set tags node array.
+    //
+    NSMutableArray<NSDictionary<NSString *, id> *>  *arrayOfTags  = [[NSMutableArray<NSDictionary<NSString *, id> *> alloc] init];
+
+    if (!self.fetcherMARManager)
+    {
+        NSDictionary<NSString *, id>  *singleTag =  [self tag:requestDict];
+
+        if (singleTag) {
+            arrayOfTags = [@[singleTag] mutableCopy];
+        }
+
+    } else {
+        NSPointerArray  *arrayOfAdUnits  = [self.fetcherMARManager internalGetAdUnits];
+
+        //
+        for (id au in arrayOfAdUnits)
+        {
+            if (!au) {
+                ANLogWarn(@"IGNORING nil ELEMENT in array of AdUnits.");
+                continue;
+            }
+            
+            self.adFetcherDelegate = au;
+
+            NSDictionary<NSString *, id>  *tagFromAdUnit  = [self tag:requestDict];
+
+            if (tagFromAdUnit) {
+                [arrayOfTags addObject:tagFromAdUnit];
+            }
+        }
+
+        self.adFetcherDelegate = (id<ANUniversalTagRequestBuilderFetcherDelegate>)self.fetcherMARManager;
     }
-    
-    NSDictionary *user = [self user];
+
+    if (arrayOfTags.count > 0) {
+        requestDict[@"tags"] = arrayOfTags;
+    } else {
+        ANLogError(@"FAILED TO GENERATE AT LEAST ONE TAG for this UT Request.");
+        return  nil;
+    }
+
+
+    // If the festcher is loading an individual AdUnit that is encapsulated by MultiAdRequest,
+    //   begin using the MultiAdRequest context to define page global fields.
+    //
+    if (!self.fetcherMARManager && self.adunitMARManager) {
+        self.fetcherMARManager = self.adunitMARManager;
+        self.adFetcherDelegate = (id<ANUniversalTagRequestBuilderFetcherDelegate>)self.adunitMARManager;
+    }
+
+
+    // For MultiAdRequest (AdUnit is encapsulated in MAR): set nodes for member_id and/or publisher_id.
+    //   Compare to similar case in [self tag:].
+    //
+    if (self.fetcherMARManager)
+    {
+        requestDict[@"member_id"] = @(self.fetcherMARManager.memberId);
+
+        //TBD -- set publisherID if it exists
+    }
+
+
+    // Set remaining page global nodes (user, device, app, keywords, sdk) and other fields.
+    //
+    NSDictionary<NSString *, id> *user = [self user];
     if (user) {
         requestDict[@"user"] = user;
     }
     
-    NSDictionary *device = [self device];
+    NSDictionary<NSString *, id> *device = [self device];
     if (device) {
         requestDict[@"device"] = device;
     }
     
-    NSDictionary *app = [self app];
+    NSDictionary<NSString *, id> *app = [self app];
     if (app) {
         requestDict[@"app"] = app;
     }
-    
-    NSArray *keywords = [self keywords];
-    if (keywords) {
-        requestDict[@"keywords"] = keywords;
+
+    if (self.fetcherMARManager) {
+        NSArray<NSSet<NSString *> *>  *keywords  = [self keywords];
+        if (keywords) {
+            requestDict[@"keywords"] = keywords;
+        }
     }
     
-    NSDictionary  *sdk  = [self sdk];
+    NSDictionary<NSString *, id>  *sdk  = [self sdk];
     if (sdk) {
         requestDict[@"sdk"] = sdk;
     }
@@ -127,108 +271,84 @@
     
     requestDict[@"supply_type"] = @"mobile_app";
     
+    // add GDPR Consent
     NSDictionary *gdprConsent = [self getGDPRConsentObject];
     if (gdprConsent) {
         requestDict[@"gdpr_consent"] = gdprConsent;
     }
     
+    // add USPrivacy String
+    NSString *privacyString = [ANUSPrivacySettings getUSPrivacyString];
+    if (privacyString.length != 0) {
+        requestDict[@"us_privacy"] = privacyString;
+    }
     
     return [requestDict copy];
 }
 
-- (NSDictionary *)nativeRendererRequest {
-    
-    if ([self.adFetcherDelegate respondsToSelector:@selector(nativeAdRendererId)]) {
-        
-        NSInteger rendererId = [self.adFetcherDelegate nativeAdRendererId];
-        NSArray *adAllowedMediaTypes = [self.adFetcherDelegate adAllowedMediaTypes];
-        if (rendererId != 0  && [adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]) {
-            return @{
-                     @"renderer_id": [NSNumber numberWithInteger:rendererId]
-                    };
-        }
-    }
-    return nil;
-    
-}
 
-
-
-// RETURN:  An NSArray pointer to NSDictionary of key/value pairs where each value object is an NSSet.
-//
-- (NSArray<NSSet *> *)keywords
+- (NSDictionary *)tag:(NSMutableDictionary *)requestDict
+                        //TBD -- move placementID vs memberID/inventoryCode logic out of tag: method...
 {
-    
-    NSDictionary  *customKeywords  = [self.adFetcherDelegate customKeywords];
-    
-    if ([customKeywords count] < 1) {
-        return nil;
-    }
+    NSMutableDictionary<NSString *, id>  *tagDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
     
     //
-    NSMutableArray<NSDictionary *>  *kvSegmentsArray  = [[NSMutableArray alloc] init];
-    
-    for (NSString *key in customKeywords)
+    [self.adFetcherDelegate internalUTRequestUUIDStringReset];
+
+    tagDict[@"uuid"] = [self.adFetcherDelegate internalGetUTRequestUUIDString];
+
+    // For AdUnit (MultiAdRequest is not active): set nodes for member_id and/or publisher_id.
+    //   Compare to similar case in [self requestbody].
+    //
+    NSInteger   placementId  = [[self.adFetcherDelegate placementId] integerValue];
+    NSInteger   memberId     = [self.adFetcherDelegate memberId];
+    NSString   *invCode      = [self.adFetcherDelegate inventoryCode];
+
+    if (invCode && memberId>0)
     {
-        NSArray  *valueArray  = [customKeywords objectForKey:key];
-        if ([valueArray count] < 1)  {
-            ANLogWarn(@"DISCARDING key with empty value array.  (%@)", key);
-            continue;
-        }
-        
-        NSSet  *setOfUniqueArrayValues  = [NSSet setWithArray:valueArray];
-        
-        [kvSegmentsArray addObject:@{
-                                     @"key"      : key,
-                                     @"value"    : [setOfUniqueArrayValues allObjects]
-                                     } ];
-    }
-    
-    return [kvSegmentsArray copy];
-}
-
-
-- (NSDictionary *)tag:(NSMutableDictionary *) requestDict
-{
-    
-    NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
-    
-    NSInteger placementId = [[self.adFetcherDelegate placementId] integerValue];
-    
-    NSString *invCode = [self.adFetcherDelegate inventoryCode];
-    NSInteger memberId = [self.adFetcherDelegate memberId];
-    if(invCode && memberId>0){
         tagDict[@"code"] = invCode;
-        requestDict[@"member_id"] = @(memberId);
-    }else {
+
+        if (!self.fetcherMARManager)
+        {
+            requestDict[@"member_id"] = @(memberId);
+
+            //TBD -- set publisherID if it exists
+        }
+
+    } else {
         tagDict[@"id"] = @(placementId);
     }
     
     
+    // Set nodes for primary_size, sizes, allow_smaller_sizes.
     //
-    NSDictionary             *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
+    NSDictionary<NSString *, id>  *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
     
-    CGSize                    primarySize               = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
-    NSMutableSet<NSValue *>  *sizes                     = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
-    BOOL                      allowSmallerSizes         = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
+    CGSize                    primarySize         = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
+    NSMutableSet<NSValue *>  *sizes               = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
+    BOOL                      allowSmallerSizes   = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
     
     tagDict[@"primary_size"] = @{
-                                 @"width"  : @(primarySize.width),
-                                 @"height" : @(primarySize.height)
+                                     @"width"  : @(primarySize.width),
+                                     @"height" : @(primarySize.height)
                                  };
     
-    NSMutableArray  *sizesArray  = [[NSMutableArray alloc] init];
+    NSMutableArray<NSDictionary<NSString *, id> *>  *sizesArray  = [[NSMutableArray alloc] init];
     
-    for (id sizeElement in sizes) {
-        if ([sizeElement isKindOfClass:[NSValue class]]) {
+    for (id sizeElement in sizes)
+    {
+        if ([sizeElement isKindOfClass:[NSValue class]])
+        {
             CGSize  sizeValue  = [sizeElement CGSizeValue];
-            [sizesArray addObject:@{
-                                    @"width"  : @(sizeValue.width),
-                                    @"height" : @(sizeValue.height)
-                                    } ];
+
+            [sizesArray addObject: @{
+                                         @"width"  : @(sizeValue.width),
+                                         @"height" : @(sizeValue.height)
+                                     } ];
         }
     }
-    
+
     tagDict[@"sizes"] = sizesArray;
     
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
@@ -236,7 +356,8 @@
     
     //
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
-    
+
+
     //
     if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
         tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
@@ -248,43 +369,99 @@
     //
     tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
     
-    NSDictionary  *nativeRendererRequest  = [self nativeRendererRequest];
+    NSDictionary<NSString *, id>  *nativeRendererRequest  = [self nativeRendererRequest];
     if (nativeRendererRequest) {
         tagDict[@"native"] = nativeRendererRequest;
     }
     
     NSDictionary *video = [self video];
     if(video){
-        
         tagDict[@"video"] = video;
     }
-    
     
     //
     CGFloat  reservePrice  = [self.adFetcherDelegate reserve];
     if (reservePrice > 0)  {
         tagDict[@"reserve"] = @(reservePrice);
     }
-    
-    
-    
-    
+
+    //
+    NSArray<NSSet<NSString *> *>  *keywords  = [self keywords];
+    if (keywords) {
+        tagDict[@"keywords"] = keywords;
+    }
+
     //
     return [tagDict copy];
 }
 
-- (NSDictionary *)user {
-    NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
-    
-    
-    NSInteger ageValue = [[self.adFetcherDelegate age] integerValue]; // Invalid value for hyphenated age
+- (NSDictionary<NSString *, id> *)nativeRendererRequest
+{
+    if ([self.adFetcherDelegate respondsToSelector:@selector(nativeAdRendererId)])
+    {
+        NSInteger   rendererId              = [self.adFetcherDelegate nativeAdRendererId];
+        NSArray    *adAllowedMediaTypes     = [self.adFetcherDelegate adAllowedMediaTypes];
+
+        if ((rendererId != 0) && [adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)])
+        {
+            return @{
+                         @"renderer_id": [NSNumber numberWithInteger:rendererId]
+                     };
+        }
+    }
+
+    return nil;
+}
+
+
+- (NSDictionary<NSString *, id> *) video
+{
+    NSMutableDictionary<NSString *, id>  *videoDict  = [[NSMutableDictionary alloc] init];
+
+    if ([self.adFetcherDelegate respondsToSelector:@selector(minDuration)])
+    {
+        NSUInteger minDurationValue = [self.adFetcherDelegate minDuration];
+
+        if (minDurationValue > 0) {
+            videoDict[@"minduration"] = @(minDurationValue);
+        }
+    }
+
+    if ([self.adFetcherDelegate respondsToSelector:@selector(maxDuration)])
+    {
+        NSUInteger maxDurationValue = [self.adFetcherDelegate maxDuration];
+
+        if (maxDurationValue > 0) {
+            videoDict[@"maxduration"] = @(maxDurationValue);
+        }
+    }
+
+    if ([videoDict count] > 0) {
+        return videoDict;
+    } else {
+        return nil;
+    }
+}
+
+
+- (NSDictionary<NSString *, id> *)user
+{
+    NSMutableDictionary<NSString *, id>  *userDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
+
+    //
+    NSInteger ageValue = [[self.adFetcherDelegate age] integerValue];   // TBDFIX  Fails for hyphenated age range.
     if (ageValue > 0) {
         userDict[@"age"] = @(ageValue);
     }
-    
-    ANGender genderValue = [self.adFetcherDelegate gender];
-    NSUInteger gender;
-    switch (genderValue) {
+
+
+    //
+    ANGender    genderValue  = [self.adFetcherDelegate gender];
+    NSUInteger  gender;
+
+    switch (genderValue)
+    {
         case ANGenderMale:
             gender = 1;
             break;
@@ -296,44 +473,58 @@
             break;
     }
     userDict[@"gender"] = @(gender);
-    
+
+
+    //
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {
         userDict[@"language"] = language;
     }
     
     
-    
+    //
     NSString *externalUid = [self.adFetcherDelegate externalUid];
     if (externalUid) {
         userDict[@"external_uid"] = externalUid;
     }
-    
+
+
+    //
     return [userDict copy];
 }
 
-- (NSDictionary *)device {
-    NSMutableDictionary *deviceDict = [[NSMutableDictionary alloc] init];
-    
+- (NSDictionary<NSString *, id> *)device
+{
+    NSMutableDictionary<NSString *, id>  *deviceDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
+
+    //
     NSString *userAgent = [ANGlobal getUserAgent];
     if (userAgent) {
         deviceDict[@"useragent"] = userAgent;
     }
-    
-    NSDictionary *geo = [self geo];
+
+
+    //
+    NSDictionary<NSString *, id> *geo = [self geo];
     if (geo) {
         deviceDict[@"geo"] = geo;
     }
-    
+
+
+    //
     deviceDict[@"make"] = @"Apple";
     
     NSString *deviceModel = ANDeviceModel();
     if (deviceModel) {
         deviceDict[@"model"] = deviceModel;
     }
-    
-    ANCarrierObserver *carrierObserver = ANCarrierObserver.shared;
-    ANCarrierMeta *carrierMeta = carrierObserver.carrierMeta;
+
+
+    //
+    ANCarrierObserver   *carrierObserver    = ANCarrierObserver.shared;
+    ANCarrierMeta       *carrierMeta        = carrierObserver.carrierMeta;
+
     if (carrierMeta.name.length > 0) {
         deviceDict[@"carrier"] = carrierMeta.name;
     }
@@ -346,9 +537,10 @@
         deviceDict[@"mnc"] = @([carrierMeta.networkCode integerValue]);
     }
     
-    ANReachability *reachability = [ANReachability sharedReachabilityForInternetConnection];
-    ANNetworkStatus status = [reachability currentReachabilityStatus];
-    NSUInteger connectionType = 0;
+    ANReachability      *reachability    = [ANReachability sharedReachabilityForInternetConnection];
+    ANNetworkStatus      status          = [reachability currentReachabilityStatus];
+    NSUInteger           connectionType  = 0;
+
     switch (status) {
         case ANNetworkStatusReachableViaWiFi:
             connectionType = 1;
@@ -360,100 +552,128 @@
             connectionType = 0;
             break;
     }
+
     deviceDict[@"connectiontype"] = @(connectionType);
-    
+
+
+    //
     deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:!ANAdvertisingTrackingEnabled()];
     
-    NSDictionary *deviceId = [self deviceId];
+    NSDictionary<NSString *, id> *deviceId = [self deviceId];
     if (deviceId) {
         deviceDict[@"device_id"] = deviceId;
     }
-    
+
+
+    //
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
     deviceDict[@"devtime"] = @(timeInMiliseconds);
-    
+
+
+    //
     return [deviceDict copy];
 }
 
-- (NSDictionary *)deviceId {
-    NSString *idfa = ANUDID();
-    if (idfa) {
-        return @{@"idfa":idfa};
-    } else {
-        return nil;
-    }
-}
-
-- (NSDictionary *)geo 
+- (NSDictionary<NSString *, id> *)geo
 {
     ANLocation  *location  = [self.adFetcherDelegate location];
+
+    if (!location)  { return nil; }
     
+    NSMutableDictionary<NSString *, id>  *geoDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
+
     //
-    if (!location)  {
-        return nil;
-    }
-    
-    NSMutableDictionary  *geoDict  = [[NSMutableDictionary alloc] init];
-    
-    //
-    if (location) {
-        CGFloat latitude = location.latitude;
-        CGFloat longitude = location.longitude;
+    if (location)
+    {
+        CGFloat  latitude   = location.latitude;
+        CGFloat  longitude  = location.longitude;
         
-        if (location.precision >= 0) {
+        if (location.precision >= 0)
+        {
             NSNumberFormatter *nf = [[self class] precisionNumberFormatter];
+
             nf.maximumFractionDigits = location.precision;
             nf.minimumFractionDigits = location.precision;
+
             geoDict[@"lat"] = [nf numberFromString:[NSString stringWithFormat:@"%f", location.latitude]];
             geoDict[@"lng"] = [nf numberFromString:[NSString stringWithFormat:@"%f", location.longitude]];
+
         } else {
             geoDict[@"lat"] = @(latitude);
             geoDict[@"lng"] = @(longitude);
         }
         
-        NSDate *locationTimestamp = location.timestamp;
-        NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
-        NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
+        NSDate          *locationTimestamp      = location.timestamp;
+        NSTimeInterval   ageInSeconds           = -1.0 * [locationTimestamp timeIntervalSinceNow];
+        NSInteger        ageInMilliseconds      = (NSInteger)(ageInSeconds * 1000);
         
-        geoDict[@"loc_age"] = @(ageInMilliseconds);
-        geoDict[@"loc_precision"] = @((NSInteger)location.horizontalAccuracy);
+        geoDict[@"loc_age"]         = @(ageInMilliseconds);
+        geoDict[@"loc_precision"]   = @((NSInteger)location.horizontalAccuracy);
     }
-    
+
+
     //
     return [geoDict copy];
 }
 
+- (NSDictionary<NSString *, id> *)deviceId
+{
+    NSString *idfa = ANAdvertisingIdentifier();
 
-- (NSDictionary *)app {
-    NSString *appId = [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"];
-    if (appId) {
-        return @{@"appid":appId};
+    if (idfa) {
+        return  @{ @"idfa" : idfa };
     } else {
-        return nil;
+        return  nil;
     }
 }
 
 
--(NSDictionary *) video {
-    NSMutableDictionary *videoDict = [[NSMutableDictionary alloc] init];
-    if([self.adFetcherDelegate respondsToSelector:@selector(minDuration)]){
-        NSUInteger minDurationValue = [self.adFetcherDelegate minDuration];
-        if (minDurationValue > 0) {
-            videoDict[@"minduration"] = @(minDurationValue);
-        }
+- (NSDictionary<NSString *, id> *)app
+{
+    NSString  *appId  = [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"];
+
+    if (appId) {
+        return  @{ @"appid" : appId };
+    } else {
+        return  nil;
     }
-    if([self.adFetcherDelegate respondsToSelector:@selector(maxDuration)]){
-        NSUInteger maxDurationValue = [self.adFetcherDelegate maxDuration];
-        if (maxDurationValue > 0) {
-            videoDict[@"maxduration"] = @(maxDurationValue);
-        }
-    }
-    
-    if([videoDict count] > 0)
-        return videoDict;
-    else
-        return nil;
 }
+
+
+// RETURN:  NSArray of NSDictionaries containing key/value pairs where the value is an NSArray of NSString.
+//
+- (NSArray<NSSet<NSString *> *> *)keywords
+{
+    NSDictionary<NSString *, NSArray<NSString *> *>  *customKeywords  = [self.adFetcherDelegate customKeywords];
+
+    if ([customKeywords count] <= 0)  { return nil; }
+
+
+    //
+    NSMutableArray<NSDictionary<NSString *, id> *>  *kvSegmentsArray  = [[NSMutableArray<NSDictionary<NSString *, id> *> alloc] init];
+
+    for (NSString *key in customKeywords)
+    {
+        NSArray<NSString *>  *valueArray  = [customKeywords objectForKey:key];
+
+        if ([valueArray count] <= 0)  {
+            ANLogWarn(@"DISCARDING entry with values that are empty arrays.  (%@)", key);
+            continue;
+        }
+
+        NSSet<NSString *>  *setOfUniqueArrayValues  = [NSSet setWithArray:valueArray];
+
+        [kvSegmentsArray addObject:@{
+                                         @"key"      : key,
+                                         @"value"    : [setOfUniqueArrayValues allObjects]
+                                     } ];
+    }
+
+    //
+    return [kvSegmentsArray copy];
+}
+
 
 - (NSDictionary *)sdk {
     return  @{
@@ -462,30 +682,41 @@
               };
 }
 
-- (NSDictionary *)getGDPRConsentObject {
+- (NSDictionary *)getGDPRConsentObject
+{
+    NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
+    NSString  *gdprRequired  = [ANGDPRSettings getConsentRequired];
     
-    NSString *gdprConsent = [ANGDPRSettings getConsentString];
-    NSString *gdprRequired = [ANGDPRSettings getConsentRequired];
-    
-    if(gdprRequired != nil){
+    if (gdprRequired != nil)
+    {
         NSNumber *gdprRequiredBool = ([gdprRequired isEqualToString:@"1"])?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
-        return @{
-                 @"consent_required" : gdprRequiredBool,
-                 @"consent_string" : gdprConsent
+
+        return  @{
+                     @"consent_required"  : gdprRequiredBool,
+                     @"consent_string"    : gdprConsent
                  };
-    }else{
-        return nil;
+
+    } else {
+        return  nil;
     }
 }
 
-+ (NSNumberFormatter *)precisionNumberFormatter {
-    static dispatch_once_t precisionNumberFormatterToken;
-    static NSNumberFormatter *precisionNumberFormatter;
+
+
+
+#pragma mark - Class methods.
+
++ (NSNumberFormatter *)precisionNumberFormatter
+{
+    static  NSNumberFormatter  *precisionNumberFormatter;
+    static  dispatch_once_t     precisionNumberFormatterToken;
+
     dispatch_once(&precisionNumberFormatterToken, ^{
-        precisionNumberFormatter = [[NSNumberFormatter alloc] init];
-        precisionNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+        precisionNumberFormatter         = [[NSNumberFormatter alloc] init];
+        precisionNumberFormatter.locale  = [NSLocale localeWithLocaleIdentifier:@"en_US"];
     });
-    return precisionNumberFormatter;
+
+    return  precisionNumberFormatter;
 }
 
 @end
