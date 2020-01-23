@@ -14,6 +14,9 @@
  */
 
 #import <XCTest/XCTest.h>
+
+#import "TestGlobal.h"
+
 #import "ANUniversalTagAdServerResponse.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANNativeStandardAdResponse.h"
@@ -36,10 +39,10 @@
 
 - (void)testRTBNativeResponseForViewabilityObject
 {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"OMID_Native_RTBResponse"]];
-    XCTAssertTrue([response.ads count] > 0);
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"OMID_Native_RTBResponse"]];
+    XCTAssertTrue([adsArray count] > 0);
     
-    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)response.ads[0];
+    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)adsArray[0];
     XCTAssertNotNil(nativeAd);
     XCTAssertNotNil(nativeAd.verificationScriptResource);
     XCTAssertNotNil(nativeAd.verificationScriptResource.url);
@@ -50,11 +53,12 @@
     XCTAssertEqualObjects(nativeAd.verificationScriptResource.params, @"v;vk=appnexus.com-omid;tv=native1-18h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;ab=10;cid=1;tag_id=13255429;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Freferrer%3Ditunes.apple.com%252Fus%252Fapp%252Fappnexus-sdk-app%252Fid736869833%26e%3DwqT_3QLTCKBTBAAAAwDWAAUBCI79reQFEPOdyJjM7L-pHBiK9rXIxs6lnlIqNgkAAAECCBRAEQEHNAAAFEAZAAAA4HoUFEAhERIAKREJADERG6AwhYapBji-B0C-B0gCUMDY7C5Yy7tOYABokUB4qf0EgAEBigEDVVNEkgUG8GaYAQGgAQGoAQGwAQC4AQHAAQTIAQLQAQDYAQDgAQDwAQD6ARJ1bml2ZXJzYWxQbGFjZW1lbnSKAjt1ZignYScsIDE3OTc4NjUsIDE1NTI2NDU3NzQpO3VmKCdyJywgOTgyNDk3OTIsMh4A8JCSAvkBIVNqbTNJd2o5Njk0TEVNRFk3QzRZQUNETHUwNHdBRGdBUUFSSXZnZFFoWWFwQmxnQVlPSUhhQUJ3TW5pc3JnR0FBVEtJQWF5dUFaQUJBWmdCQWFBQkFhZ0JBN0FCQUxrQjg2MXFwQUFBRkVEQkFmT3RhcVFBQUJSQXlRRWFQY1U4QVpIeFA5a0JBQUFBAQMkOERfZ0FRRDFBUQEOQENZQWdDZ0F2X19fXzhQdFFJARUEQXYNCHx3QUlBeUFJQTRBSUE2QUlBLUFJQWdBTUJtQU1CcUFQOQHUgHVnTUpVMGxPTVRvek5UZzA0QVBXQ0EuLpoCYSFCUTVybDr8ACh5N3RPSUFRb0FERQVsGEFBQVVRRG8yRAAQUU5ZSVMFoBhBQUFQQV9VEQwMQUFBVx0MiNgC6AfgAsfTAeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwAQQkbmV4dXMtc2RrLQERXGlkNzM2ODY5ODMz8gIRCgZBRFZfSUQSBy3hBRQIQ1BHBRQYNjU0NTc0OQEUCAVDUAETZAgyNDYyMjU4OfICEwoPQ1VTVE9NX01PREVMAR4UAPICGgoWMhYAIExFQUZfTkFNRQEdCB4KGjYdAAhBU1QBPvC0SUZJRUQSAIADAYgDAZADAJgDF6ADAaoDAMAD4KgByAMA0gMoCAASJDJhYjBkNmIwLWY1NTYtNGY1NC1iMzY3LWU0YzE5MDZlMzgxZtgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQLMTAuMTQuMTIuMTWoBI7sAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDTk1OCNTSU4xOjM1ODTaBAIIAeAEAfAEwNjsLoIFCTVHIIgFAZgFAKAF_xEBFAHABQDJBWmyFPA_0gUJCQkMcAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGCSMk8D_IBgDaBhYKEAkQGQEYEAAYAOAGDA..%26s%3D7ce10a2c54e33c67be60fe5ccbaabed1a37c6b4d;ts=1552645774;cet=0;cecb=");
 }
 
-- (void)testCSMNativeResponseForViewabilityObject {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"OMID_Native_CSMResponse"]];
-    XCTAssertTrue([response.ads count] > 0);
+- (void)testCSMNativeResponseForViewabilityObject
+{
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"OMID_Native_CSMResponse"]];
+    XCTAssertTrue([adsArray count] > 0);
     
-    ANMediatedAd *mediatedAd = [response.ads objectAtIndex:0];
+    ANMediatedAd *mediatedAd = [adsArray objectAtIndex:0];
     XCTAssertNotNil(mediatedAd);
     XCTAssertNotNil(mediatedAd.verificationScriptResource);
     XCTAssertNotNil(mediatedAd.verificationScriptResource.url);

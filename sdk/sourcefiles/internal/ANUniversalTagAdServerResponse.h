@@ -15,23 +15,36 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ANBaseAdObject.h"
 
+#import "ANStandardAd.h"
+#import "ANRTBVideoAd.h"
+
+
+
+#pragma mark - Global contants.
+
+extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyTagNoAdUrl;
+extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyTagUUID;
+extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyNoBid;
+
+
+
+#pragma mark -
 
 @interface ANUniversalTagAdServerResponse : NSObject
 
-+ (nullable ANUniversalTagAdServerResponse *)responseWithData:(nullable NSData *)data;
++ (nullable ANStandardAd *)generateStandardAdUnitFromHTMLContent: (nonnull NSString *)htmlContent
+                                                           width: (NSInteger)width
+                                                          height: (NSInteger)height;
 
-- (nullable instancetype)initWithAdServerData:(nullable NSData *)data;
++ (nullable ANRTBVideoAd *)generateRTBVideoAdUnitFromVASTObject: (nonnull NSString *)vastContent
+                                                          width: (NSInteger)width
+                                                         height: (NSInteger)height;
 
-- (nullable instancetype)initWithContent: (nonnull NSString *)htmlContent
-                          width: (NSInteger)width
-                         height: (NSInteger)height;
 
-- (nullable instancetype)initWitXMLContent:(nonnull NSString *)vastContent
-                            width:(NSInteger)width
-                           height:(NSInteger)height;
++ (nullable NSArray<NSDictionary<NSString *, id> *> *)generateTagsFromResponseData:(nullable NSData *)data;
 
-@property (nonatomic, readonly, strong, nullable) NSMutableArray *ads;
-@property (nonatomic, readonly, strong, nullable) NSString *noAdUrlString;
++ (nonnull NSMutableArray<id> *)generateAdObjectInstanceFromJSONAdServerResponseTag:(nonnull NSDictionary<NSString *, id> *)tag;
 
 @end

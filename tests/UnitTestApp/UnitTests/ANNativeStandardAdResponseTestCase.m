@@ -16,6 +16,8 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
+#import "TestGlobal.h"
+
 #import "ANUniversalTagAdServerResponse.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANMediatedAd.h"
@@ -31,11 +33,11 @@
 @implementation ANUniversalTagAdServerResponseTestCase
 
 - (void)testMediationResponse {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
 
-    XCTAssertEqual([response.ads count], 4);
+    XCTAssertEqual([adsArray count], 4);
 
-    for (ANMediatedAd *mediatedAd in response.ads) {
+    for (ANMediatedAd *mediatedAd in adsArray) {
         XCTAssertNotNil(mediatedAd.responseURL);
         XCTAssertNotNil(mediatedAd.className);
     }
@@ -43,10 +45,11 @@
 
 // Native Video
 - (void)testNativeVideoResponse {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"native_videoResponse"]];
-    XCTAssertTrue([response.ads count] > 0);
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"native_videoResponse"]];
+
+    XCTAssertTrue([adsArray count] > 0);
     
-    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)response.ads[0];
+    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)adsArray[0];
     
     XCTAssertNotNil(nativeAd);
     XCTAssertNotNil(nativeAd.rating);
@@ -65,10 +68,11 @@
 }
 
 - (void)testNativeResponse {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"appnexus_standard_response"]];
-    XCTAssertTrue([response.ads count] > 0);
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"appnexus_standard_response"]];
 
-    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)response.ads[0];
+    XCTAssertTrue([adsArray count] > 0);
+
+    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)adsArray[0];
 
     XCTAssertNotNil(nativeAd);
     XCTAssertNotNil(nativeAd.rating);
@@ -93,21 +97,21 @@
 # pragma mark - Invalid JSON
 
 - (void)testNativeResponseInvalid1 {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse1"]];
-    XCTAssertFalse([response.ads count] > 0);
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"nativeResponse1"]];
+    XCTAssertFalse([adsArray count] > 0);
 }
 
 - (void)testNativeResponseInvalid2 {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse2"]];
-    XCTAssertFalse([response.ads count] > 0);
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"nativeResponse2"]];
+    XCTAssertFalse([adsArray count] > 0);
 }
 
 
 - (void)testNativeNoImpTrackers {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponseWithoutImpTrackers"]];
-    XCTAssertTrue([response.ads count] > 0);
+    NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"nativeResponseWithoutImpTrackers"]];
+    XCTAssertTrue([adsArray count] > 0);
 
-    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)response.ads[0];
+    ANNativeStandardAdResponse  *nativeAd  = (ANNativeStandardAdResponse *)adsArray[0];
 
     XCTAssertTrue(nativeAd.title);
     XCTAssertTrue(nativeAd.body);

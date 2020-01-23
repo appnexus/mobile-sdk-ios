@@ -153,7 +153,7 @@ NSString *const kANKeyCaller = @"caller";
     NSDictionary *paramsList = @{
                                  kANKeyCaller: kANCallGetDeviceID,
                                  @"idname": @"idfa",
-                                 @"id": ANUDID()
+                                 @"id": ANAdvertisingIdentifier()
                                  };
     [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
 }

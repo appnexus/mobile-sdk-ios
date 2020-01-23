@@ -1,0 +1,35 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 0,
+            "auction_id": "1234567890",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "native",
+                    "buyer_member_id": 444433322,
+                    "creative_id": 108,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "client_initiated_ad_counting": true,
+
+                    "csm": {
+                         "timeout_ms" : 500,
+                         "handler":[
+                         ],
+                         "request_url":"MOCK__request_url",
+                         "response_url":"MOCK__response_url"
+                    }
+
+                }
+            ]
+        }
+    ]
+}

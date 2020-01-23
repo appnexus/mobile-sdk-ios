@@ -13,13 +13,15 @@
  limitations under the License.
  */
 
+#import "TestGlobal.h"
+
 #import "XCTestCase+ANAdResponse.h"
 
 @implementation XCTestCase (ANAdResponse)
 
-- (ANUniversalTagAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource {
-    ANUniversalTagAdServerResponse *response = [ANUniversalTagAdServerResponse responseWithData:[self dataWithJSONResource:JSONResource]];
-    return response;
+- (NSMutableArray<id> *)adsArrayFromFirstTagInJSONResource:(NSString *)JSONResource
+{
+    return  [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:JSONResource]];
 }
 
 @end

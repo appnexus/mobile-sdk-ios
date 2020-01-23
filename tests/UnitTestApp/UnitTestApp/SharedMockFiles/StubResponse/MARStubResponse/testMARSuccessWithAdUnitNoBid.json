@@ -1,0 +1,19 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "1",
+            "tag_id": 18108595,
+            "auction_id": "2346944798776862921",
+            "nobid": true,
+            "ad_profile_id": 1266762
+        },
+        {
+                   "uuid": "2",
+                   "tag_id": 18108596,
+                   "auction_id": "2346944798776862921",
+                   "nobid": true,
+                   "ad_profile_id": 1266763
+               }
+    ]
+}

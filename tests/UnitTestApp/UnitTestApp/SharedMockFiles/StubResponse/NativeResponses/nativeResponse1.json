@@ -1,0 +1,54 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 0,
+            "auction_id": "1234567890",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 444433322,
+                    "creative_id": 108,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "client_initiated_ad_counting": true,
+
+                    "rtb": {
+                        "native": {
+                            "title": "AppNexusSDKApp",
+                            "desc": "Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+                            "sponsored": "AppNexus Sponsored",
+                            "ctatext": "Call-to-Action",
+                            "icon": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/17/3d/33/81/173d3381-9364-4b4a-8303-da65cae1c6f0.png",
+                                "width": 600,
+                                "height": 600
+                            }
+                            "main_img": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/64/3a/13/fc/643a13fc-290d-40a2-b1f8-e8a8161234e5.png",
+                                "width": 278,
+                                "height": 181
+                            },
+                            "link": {
+                                "url": "http://www.appnexus.com",
+                                "click_trackers": [
+                                    "http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWUH9hCvqByNSaARb5ciyYNseFbAAAAAAVDygC-AwAAvgMAAAAAAABm36kGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEANg2PmwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
+                                ]
+                            },
+                            "id": 111796070,
+                            "desc2": "Additional Desc2"
+                        }
+                    }
+
+                }
+            ]
+        }
+    ]
+}

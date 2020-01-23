@@ -14,21 +14,28 @@
  */
 
 #import "ANNativeAdRequest.h"
+#import "ANNativeAdRequest+PrivateMethods.h"
 #import "ANNativeMediatedAdResponse.h"
 #import "ANNativeAdFetcher.h"
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANOMIDImplementation.h"
+#import "ANMultiAdRequest+PrivateMethods.h"
+
+
 
 
 @interface ANNativeAdRequest() <ANNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) ANNativeAdFetcher *adFetcher;
 
-@property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+@property (nonatomic, strong)     NSMutableSet<NSValue *>  *allowedAdSizes;
+@property (nonatomic, readwrite)  BOOL                      allowSmallerSizes;
 
-@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+@property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest  *marManager;
+
+@property (nonatomic, readwrite, strong, nonnull)  NSString  *utRequestUUIDString;
 
 @end
 
@@ -51,22 +58,27 @@
 @synthesize  customKeywords  = __customKeywords;
 @synthesize  externalUid     = __externalUid;
 
-@synthesize  adType          = __adType;
-@synthesize  rendererId      = _rendererId;
+@synthesize  adType                 = __adType;
+@synthesize  rendererId             = _rendererId;
 
 
 
 
 #pragma mark - Lifecycle.
 
-- (instancetype)init {
-    
-    if (self = [super init]) {
-        self.customKeywords = [[NSMutableDictionary alloc] init];
-        
-        [self setupSizeParametersAs1x1];
-        [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
-    }
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)  { return nil; }
+
+
+    //
+    self.customKeywords = [[NSMutableDictionary alloc] init];
+
+    [self setupSizeParametersAs1x1];
+    [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
+    self.utRequestUUIDString = ANUUID();
+
     return self;
 }
 
@@ -75,33 +87,52 @@
     self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     self.allowSmallerSizes  = NO;
     _rendererId             = 0;
-
-    
 }
 
-- (void)loadAd {
-    
-    if (self.delegate) {
-        [self createAdFetcher];
-    } else {
+- (void)loadAd
+{
+    if (!self.delegate) {
         ANLogError(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to begin loading");
+        return;
     }
-}
 
-
-- (void)createAdFetcher {
-    if (self.adFetcher != nil) {
-        [self.adFetcher cancelRequest];
-    }
-    self.adFetcher  = [[ANNativeAdFetcher alloc] initWithDelegate:self];
+    [self createAdFetcher];
     [self.adFetcher requestAd];
 }
 
+/**
+ *  This method provides a single point of entry for the MAR object to pass tag content received in the UT Request to the fetcher defined by the adunit.
+ *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
+ */
+- (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
+      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
+{
+    if (!self.delegate) {
+        ANLogError(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to be ingested.");
+        return;
+    }
+
+    //
+    [self createAdFetcher];
+
+    [self.adFetcher prepareForWaterfallWithAdServerResponseTag: tag
+                                      andTotalLatencyStartTime: totalLatencyStartTime ];
+}
+
+
+- (void)createAdFetcher
+{
+    if (self.marManager) {
+        self.adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self andAdunitMultiAdRequestManager:self.marManager];
+    } else {
+        self.adFetcher  = [[ANNativeAdFetcher alloc] initWithDelegate:self];
+    }
+}
 
 
 
 
-#pragma mark - ANUniversalNativeAdFetcherDelegate.
+#pragma mark - ANNativeAdFetcherDelegate.
 
 -(void)didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response
 {
@@ -115,7 +146,10 @@
     }
 
     if (error) {
-        [self.delegate adRequest:self didFailToLoadWithError:error];
+        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:)]) {
+            [self.delegate adRequest:self didFailToLoadWithError:error];
+        }
+
         return;
     }
 
@@ -173,7 +207,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             ANLogDebug(@"...END NSURL sessions.");
 
-            [strongSelf.delegate adRequest:strongSelf didReceiveResponse:nativeResponse];
+            if ([strongSelf.delegate respondsToSelector:@selector(adRequest:didReceiveResponse:)]) {
+                [strongSelf.delegate adRequest:strongSelf didReceiveResponse:nativeResponse];
+            }
         });
     });
 }
@@ -197,7 +233,15 @@
     return  delegateReturnDictionary;
 }
 
+- (NSString *)internalGetUTRequestUUIDString
+{
+    return  self.utRequestUUIDString;
+}
 
+- (void)internalUTRequestUUIDStringReset
+{
+    self.utRequestUUIDString = ANUUID();
+}
 
 
 // NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
@@ -289,15 +333,25 @@
     }
 }
 
-- (void)setInventoryCode:(nullable NSString *)invCode memberId:(NSInteger) memberId{
-    invCode = ANConvertToNSString(invCode);
-    if (invCode && invCode != __invCode) {
-        ANLogDebug(@"Setting inventory code to %@", invCode);
-        __invCode = invCode;
+- (void)setInventoryCode:(nullable NSString *)newInvCode memberId:(NSInteger)newMemberId
+{
+    if ((newMemberId > 0) && self.marManager)
+    {
+        if (self.marManager.memberId != newMemberId) {
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            return;
+        }
     }
-    if (memberId > 0 && memberId != __memberId) {
-        ANLogDebug(@"Setting member id to %d", (int) memberId);
-        __memberId = memberId;
+
+    //
+    newInvCode = ANConvertToNSString(newInvCode);
+    if (newInvCode && newInvCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", newInvCode);
+        __invCode = newInvCode;
+    }
+    if (newMemberId > 0 && newMemberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) newMemberId);
+        __memberId = newMemberId;
     }
 }
 

@@ -131,8 +131,8 @@ static NSString   *inventoryCode    = @"trucksmash";
     
     self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
-    XCTAssertEqualObjects(self.jsonRequestBody[@"keywords"][0][@"key"], @"force_creative_id");
-    XCTAssertEqualObjects(self.jsonRequestBody[@"keywords"][0][@"value"][0], @"123456789");
+    XCTAssertEqualObjects(self.jsonRequestBody[@"tags"][0][@"keywords"][0][@"key"], @"force_creative_id");
+    XCTAssertEqualObjects(self.jsonRequestBody[@"tags"][0][@"keywords"][0][@"value"][0], @"123456789");
 
     XCTAssertEqual(instreamVideoAd.placementId, placementID);
 }

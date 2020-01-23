@@ -17,11 +17,36 @@
 
 
 #import "ANInstreamVideoAd+Test.h"
+#import "NSObject+Swizzling.h"
+#import <objc/runtime.h>
 
 @implementation ANInstreamVideoAd(Test)
+
+static BOOL kDoNotResetAdUnitUUIDEnabled = NO;
 
 -(void)createInstreamVideoAdPlayer{
     
     self.adPlayer = [[ANVideoAdPlayer alloc] init];
+}
+
+
++ (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled {
+    kDoNotResetAdUnitUUIDEnabled = simulationEnabled;
+}
+
++ (void)load {
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        [[self class] exchangeInstanceSelector:@selector(internalUTRequestUUIDStringReset)
+                                  withSelector:@selector(swizzle_internalUTRequestUUIDStringReset)];
+    }];
+    [operation start];
+}
+
+- (void)swizzle_internalUTRequestUUIDStringReset {
+    if(kDoNotResetAdUnitUUIDEnabled){
+        NSLog(@"Do nothing");
+    }else{
+        [self swizzle_internalUTRequestUUIDStringReset];
+    }
 }
 @end

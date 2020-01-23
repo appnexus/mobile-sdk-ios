@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "6.2"
+  s.version      = "7.0"
   s.platform     = :ios, "9.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
@@ -79,7 +79,7 @@ DESC
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
     subspec.source_files = "mediation/mediatedviews/SmartAd/*.{h,m}"
     subspec.public_header_files = "mediation/mediatedviews/SmartAd/ANAdAdapterSmartAdBase.h"
-    subspec.dependency 'Smart-Display-SDK', '7.2'
+    subspec.dependency 'Smart-Display-SDK', '7.3.0'
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Smart-Display-SDK/**' }
   end
  

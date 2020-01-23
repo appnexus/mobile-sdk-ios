@@ -39,10 +39,10 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 @protocol  ANInstreamVideoAdLoadDelegate <NSObject>
 
     @required
-    - (void)adDidReceiveAd:(nonnull id<ANAdProtocol>)ad;
+    - (void)adDidReceiveAd:(nonnull id)ad;
 
     @optional
-    - (void)ad:(nonnull id<ANAdProtocol>)ad requestFailedWithError:(nonnull NSError *)error;
+    - (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error;
 
 @end
 
@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     // Public properties.
     //
-    @property  (weak, nonatomic, readonly, nullable)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
+    @property  (weak, nonatomic, readwrite, nullable)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readonly, nullable)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
     //

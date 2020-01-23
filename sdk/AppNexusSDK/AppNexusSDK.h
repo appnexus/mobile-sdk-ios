@@ -20,18 +20,20 @@ FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 
 #import <AppNexusSDK/ANAdConstants.h>
 #import <AppNexusSDK/ANAdProtocol.h>
-#import <AppNexusSDK/ANAdView.h>
-#import <AppNexusSDK/ANBannerAdView.h>
-#import <AppNexusSDK/ANCustomAdapter.h>
-#import <AppNexusSDK/ANInterstitialAd.h>
-#import <AppNexusSDK/ANLocation.h>
+#import <AppNexusSDK/ANSDKSettings.h>
 #import <AppNexusSDK/ANLogManager.h>
 #import <AppNexusSDK/ANLogging.h>
+
+#import <AppNexusSDK/ANCustomAdapter.h>
+#import <AppNexusSDK/ANLocation.h>
 #import <AppNexusSDK/ANTargetingParameters.h>
-#import <AppNexusSDK/ANSDKSettings.h>
+#import <AppNexusSDK/ANProxyViewController.h>
+
+#import <AppNexusSDK/ANAdView.h>
+#import <AppNexusSDK/ANBannerAdView.h>
+#import <AppNexusSDK/ANInterstitialAd.h>
 #import <AppNexusSDK/ANVideoPlayerSettings.h>
 #import <AppNexusSDK/ANInstreamVideoAd.h>
-#import <AppNexusSDK/ANProxyViewController.h>
 
 #import <AppNexusSDK/ANNativeAdDelegate.h>
 #import <AppNexusSDK/ANNativeAdRequest.h>
@@ -39,5 +41,8 @@ FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 #import <AppNexusSDK/ANNativeAdStarRating.h>
 #import <AppNexusSDK/ANNativeCustomAdapter.h>
 #import <AppNexusSDK/ANNativeMediatedAdResponse.h>
+
+#import <AppNexusSDK/ANMultiAdRequest.h>
+
 #import <AppNexusSDK/ANGDPRSettings.h>
 #import <AppNexusSDK/ANUSPrivacySettings.h>

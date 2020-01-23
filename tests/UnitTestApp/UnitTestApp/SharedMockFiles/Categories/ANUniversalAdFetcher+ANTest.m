@@ -17,6 +17,9 @@
 
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANTestGlobal.h"
+#import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANAdView+PrivateMethods.h"
+#import "ANNativeAdRequest+PrivateMethods.h"
 
 
 
