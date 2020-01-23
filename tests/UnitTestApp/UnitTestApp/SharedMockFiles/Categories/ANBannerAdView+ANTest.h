@@ -24,4 +24,6 @@
 
 - (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 
++ (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled;
+
 @end

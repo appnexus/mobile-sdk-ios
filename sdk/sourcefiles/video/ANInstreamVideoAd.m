@@ -19,6 +19,9 @@
 #import "ANLogging.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANOMIDImplementation.h"
+#import "ANMultiAdRequest+PrivateMethods.h"
+
+
 
 //---------------------------------------------------------- -o--
 NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
@@ -29,7 +32,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
 
-@property  (weak, nonatomic, readwrite, nullable)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
 @property  (weak, nonatomic, readwrite, nullable)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
 @property (nonatomic, strong)  ANVideoAdPlayer  *adPlayer;
@@ -474,16 +476,25 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 @synthesize  memberId       = _memberId;
 @synthesize  inventoryCode  = _inventoryCode;
 
-- (void)setInventoryCode: (nullable NSString *)inventoryCode
-                memberId: (NSInteger)memberID
+- (void)setInventoryCode: (nullable NSString *)newInventoryCode
+                memberId: (NSInteger)newMemberID
 {
-    if (inventoryCode && (inventoryCode != _inventoryCode)) {
-        ANLogDebug(@"Setting inventory code to %@", inventoryCode);
-        _inventoryCode = inventoryCode;
+    if ((newMemberID > 0) && self.marManager)
+    {
+        if (self.marManager.memberId != newMemberID) {
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberID));
+            return;
+        }
     }
-    if ( (memberID > 0) && (memberID != _memberId) ) {
-        ANLogDebug(@"Setting member id to %d", (int) memberID);
-        _memberId = memberID;
+
+    //
+    if (newInventoryCode && ![newInventoryCode isEqualToString:_inventoryCode]) {
+        ANLogDebug(@"Setting inventory code to %@", newInventoryCode);
+        _inventoryCode = newInventoryCode;
+    }
+    if ( (newMemberID > 0) && (newMemberID != _memberId) ) {
+        ANLogDebug(@"Setting member id to %d", (int) newMemberID);
+        _memberId = newMemberID;
     }
 }
 

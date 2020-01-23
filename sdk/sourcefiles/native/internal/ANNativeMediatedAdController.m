@@ -183,7 +183,7 @@
     targetingParameters.gender            = self.adRequestDelegate.gender;
     targetingParameters.externalUid       = self.adRequestDelegate.externalUid;
     targetingParameters.location          = self.adRequestDelegate.location;
-    targetingParameters.idforadvertising  = ANUDID();
+    targetingParameters.idforadvertising  = ANAdvertisingIdentifier();
 
     return targetingParameters;
 }

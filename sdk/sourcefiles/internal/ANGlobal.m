@@ -74,7 +74,12 @@ BOOL ANIsFirstLaunch()
 }
 
 
-NSString *__nonnull ANUDID() {
+NSString * __nonnull ANUUID()
+{
+    return  [[[NSUUID alloc] init] UUIDString];
+}
+
+NSString *__nonnull ANAdvertisingIdentifier() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {

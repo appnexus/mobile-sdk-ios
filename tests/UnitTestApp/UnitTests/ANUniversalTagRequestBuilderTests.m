@@ -165,7 +165,7 @@ static NSString  *videoPlacementID  = @"9924001";
         NSDictionary *deviceId = device[@"device_id"];
         XCTAssertNotNil(deviceId);
         NSString *idfa = deviceId[@"idfa"];
-        XCTAssertEqualObjects(idfa, ANUDID());
+        XCTAssertEqualObjects(idfa, ANAdvertisingIdentifier());
 
         //
         [expectation fulfill];
@@ -262,7 +262,7 @@ static NSString  *videoPlacementID  = @"9924001";
         NSArray *tags = jsonDict[@"tags"];
         NSDictionary *user = jsonDict[@"user"];
         NSDictionary *device = jsonDict[@"device"];
-        NSArray *keywords = jsonDict[@"keywords"];
+        NSArray *keywords = jsonDict[@"tags"][0][@"keywords"];
         
         XCTAssertNotNil(tags);
         XCTAssertNotNil(user);
@@ -312,7 +312,7 @@ static NSString  *videoPlacementID  = @"9924001";
         NSArray *tags = jsonDict[@"tags"];
         NSDictionary *user = jsonDict[@"user"];
         NSDictionary *device = jsonDict[@"device"];
-        NSArray *keywords = jsonDict[@"keywords"];
+        NSArray *keywords = jsonDict[@"tags"][0][@"keywords"];
         
         XCTAssertNotNil(tags);
         XCTAssertNotNil(user);
@@ -378,7 +378,7 @@ static NSString  *videoPlacementID  = @"9924001";
         XCTAssertNotNil(jsonObject);
         XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
         NSDictionary *jsonDict = (NSDictionary *)jsonObject;
-        NSArray *keywords = jsonDict[@"keywords"];
+        NSArray *keywords = jsonDict[@"tags"][0][@"keywords"];
 
         XCTAssertNotNil(keywords);
         

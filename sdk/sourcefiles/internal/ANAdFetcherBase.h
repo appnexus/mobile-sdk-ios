@@ -14,28 +14,49 @@
  */
 
 #import <Foundation/Foundation.h>
+
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"
 #import "ANUniversalTagAdServerResponse.h"
 
+//#import "ANAdView.h"
+#import "ANNativeAdRequest.h"
+#import "ANMultiAdRequest.h"
+
+
+
+
 @interface ANAdFetcherBase : NSObject
 
-@property (nonatomic, readwrite, strong, nullable)  NSMutableArray                    *ads;
-@property (nonatomic, readwrite, strong, nullable)  NSString                          *noAdUrl;
-@property (nonatomic, readwrite, weak, nullable)    id                              delegate;
-@property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
-@property (nonatomic, readwrite, strong, nullable)  id                                adObjectHandler;
+@property (nonatomic, readwrite, strong, nullable)  NSMutableArray<id>    *ads;
+@property (nonatomic, readwrite, strong, nullable)  NSString              *noAdUrl;
 
--(void)setup;
--(void)requestAd;
--(void)cancelRequest;
+@property (nonatomic, readwrite)                    BOOL  isFetcherLoading;
+@property (nonatomic, readwrite, strong, nullable)  id    adObjectHandler;
 
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
+@property (nonatomic, readwrite, weak, nullable)    id                  delegate;
+@property (nonatomic, readwrite, weak, nullable)    ANMultiAdRequest   *fetcherMARManager;
+@property (nonatomic, readwrite, weak, nullable)    ANMultiAdRequest   *adunitMARManager;
+
+@property (nonatomic, readwrite, assign)  NSTimeInterval  totalLatencyStart;
+
+
+//
+- (nonnull instancetype)init;
+- (void)setup;
+- (void)requestAd;
+
 - (void)fireResponseURL:(nullable NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
                adObject:(nonnull id)adObject;
 
-- (void)processAdServerResponse:(nonnull ANUniversalTagAdServerResponse *)response;
 
+- (void)prepareForWaterfallWithAdServerResponseTag: (nullable NSDictionary<NSString *, id> *)ads
+                          andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
+
+- (void) beginWaterfallWithAdObjects:(nonnull NSMutableArray<id> *)ads;
+
+
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
 @end

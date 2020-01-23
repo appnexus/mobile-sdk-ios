@@ -29,107 +29,261 @@
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
 
+
+
+
+#pragma mark -
+
 @interface ANAdFetcherBase()
-
-
-@property (nonatomic, readwrite, assign)  NSTimeInterval                    totalLatencyStart;
-
+    //EMPTY
 @end
+
+
+
+
+#pragma mark -
 
 @implementation ANAdFetcherBase
 
-- (void)setup{
-      [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+#pragma mark Lifecycle.
+
+- (nonnull instancetype)init
+{
+    self = [super init];
+    if (!self)  { return nil; }
+
+    //
+    [self setup];
+
+    return  self;
+}
+
+- (void)setup
+{
+    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 
 - (void)requestAd
 {
+    if (self.isFetcherLoading)  { return; }
+
+
+    //
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
-    
-    
-    [self markLatencyStart];
-    
-    if (!self.isLoading)
+    NSURLRequest  *request    = nil;
+
+    if (self.fetcherMARManager) {
+        request = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:self.fetcherMARManager baseUrlString:urlString];
+    } else if (self.adunitMARManager) {
+        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate adunitMultiAdRequestManager:self.adunitMARManager baseUrlString:urlString];
+    } else {
+        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
+    }
+
+    if (!request)
     {
-        NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
-        
-        ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
-                            @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
-        
-        ANAdFetcherBase *__weak weakSelf = self;
-        
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession]
-                                      dataTaskWithRequest:request
-                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          ANAdFetcherBase *__strong strongSelf = weakSelf;
-                                          
-                                          if(!strongSelf){
-                                              return;
-                                          }
-                                          NSInteger statusCode = -1;
+        if (self.fetcherMARManager) {
+            NSError  *sessionError  = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, @"request is nil.");
+            ANLogError(@"%@", sessionError);
+
+            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+            [self processFinalResponse:response];
+        }
+
+        return;
+    }
+
+    [self markLatencyStart];
+
+
+    //
+    NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
+
+    NSURLSessionDataTask       *requestAdTask   = nil;
+    ANAdFetcherBase *__weak     weakSelf        = self;
+
+
+    ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                        @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
+
+    requestAdTask = [[NSURLSession sharedSession] dataTaskWithRequest: request
+                                                         completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
+                                    {
+                                      ANAdFetcherBase * __strong  strongSelf  = weakSelf;
+
+                                      if (!strongSelf) {
+                                          ANLogError(@"FAILED to establish strongSelf.");
+                                          return;
+                                      }
+
+                                      NSInteger statusCode = -1;
+
+                                      if (!self.fetcherMARManager) {
                                           [strongSelf restartAutoRefreshTimer];
-                                          
-                                          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                              statusCode = [httpResponse statusCode];
-                                              
-                                          }
-                                          
-                                          if (statusCode >= 400 || statusCode == -1)  {
-                                              strongSelf.loading = NO;
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  NSError *sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-                                                  ANLogError(@"%@", sessionError);
-                                                  
-                                                  ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-                                                  [strongSelf processFinalResponse:response];
-                                              });
-                                              
-                                          }else{
-                                              strongSelf.loading  = YES;
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  NSString *responseString = [[NSString alloc] initWithData:data
-                                                                                                   encoding:NSUTF8StringEncoding];
-                                                  ANLogDebug(@"Response JSON %@", responseString);
-                                                  ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
-                                                                      @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-                                                  
-                                                  ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:data];
-                                                  [strongSelf processAdServerResponse:adResponse];
-                                                  
-                                              });
-                                              
-                                          }
-                                          
-                                      }];
-        
-        [task resume];
+                                      }
+
+                                      if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                          statusCode = [httpResponse statusCode];
+                                      }
+
+                                      if (statusCode >= 400 || statusCode == -1)
+                                      {
+                                          strongSelf.isFetcherLoading = NO;
+
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              NSError  *sessionError  = nil;
+
+                                              if (strongSelf.fetcherMARManager) {
+                                                  sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
+                                              } else {
+                                                  sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
+                                              }
+                                              ANLogError(@"%@", sessionError);
+
+                                              ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+                                              [strongSelf processFinalResponse:response];
+                                          });
+
+                                      } else {
+                                          strongSelf.isFetcherLoading = YES;
+
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              NSString *responseString = [[NSString alloc] initWithData:data
+                                                                                               encoding:NSUTF8StringEncoding];
+                                              if (! strongSelf.fetcherMARManager) {
+                                                  ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
+                                              }
+
+                                              ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
+                                                                  @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
+
+                                              [strongSelf handleAdServerResponse:data];
+                                          });
+                                      }   // ENDIF -- statusCode
+                                  } ];
+
+    [requestAdTask resume];
+}
+
+
+
+
+#pragma mark - Response processing methods.
+
+/**
+ * Start with raw data from a UT Response.
+ * Transform the data into an array of dictionaries representing UT Response tags.
+ *
+ * If the fetcher is called by an ad unit, the process the tag with the existing fetcher.
+ * If the fetcher is called in Multi-Ad Request Mode, then process each tag with fetcher from the ad unit that generated the tag.
+ */
+- (void)handleAdServerResponse:(NSData *)data
+{
+    NSArray<NSDictionary *>  *arrayOfTags  = [ANUniversalTagAdServerResponse generateTagsFromResponseData:data];
+
+    if (!self.fetcherMARManager)
+    {
+        // If the UT Response is for a single adunit only, there should only be one ad object.
+        //
+        if (arrayOfTags.count > 1) {
+            ANLogWarn(@"UT Response contains MORE THAN ONE TAG (%@).  Using FIRST TAG ONLY and ignoring the rest...", @(arrayOfTags.count));
+        }
+
+        [self prepareForWaterfallWithAdServerResponseTag:[arrayOfTags firstObject] andTotalLatencyStartTime:-1];
+
+        return;
+
+    } else {
+        [self handleAdServerResponseForMultiAdRequest:arrayOfTags];
     }
 }
 
-- (void)cancelRequest{
-    
-}
 
-#pragma mark - UT ad response processing methods
-- (void)processAdServerResponse:(nonnull ANUniversalTagAdServerResponse *)response
+/**
+ * Accept a single tag from an UT Response and the totalLatencyStart time of the UT Request.
+ * Divide the tag into ad objects and begin to process them via the waterfall.
+ */
+- (void)prepareForWaterfallWithAdServerResponseTag: (NSDictionary<NSString *, id> *)tag
+                          andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
 {
-    BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
-    
-    if (!containsAds) {
+    if (!tag) {
+        ANLogError(@"tag is nil.");
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        return;
+    }
+
+    if (tag[kANUniversalTagAdServerResponseKeyNoBid])
+    {
+        BOOL  noBid  = [tag[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
+
+        if (noBid) {
+            ANLogWarn(@"response_no_ads");
+            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+            return;
+        }
+    }
+
+    //
+    NSMutableArray<id>  *ads            = [ANUniversalTagAdServerResponse generateAdObjectInstanceFromJSONAdServerResponseTag:tag];
+    NSString            *noAdURLString  = tag[kANUniversalTagAdServerResponseKeyTagNoAdUrl];
+
+    if (ads.count <= 0)
+    {
         ANLogWarn(@"response_no_ads");
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
-    if (response.noAdUrlString) {
-        self.noAdUrl = response.noAdUrlString;
+    if (noAdURLString) {
+        self.noAdUrl = noAdURLString;
     }
-    self.ads = response.ads;
-    
+
+    // If this fetcher is run by Multi-Ad Request Mode, then the start time for the request must be passed
+    //   from the MAR Manager to each adunit.
+    //
+    if (self.fetcherMARManager) {
+        self.totalLatencyStart = totalLatencyStartTime;
+    }
+
+    [self beginWaterfallWithAdObjects:ads];
+}
+
+- (void) beginWaterfallWithAdObjects:(nonnull NSMutableArray<id> *)ads
+{
+    self.ads = ads;
+
     [self clearMediationController];
     [self continueWaterfall];
+}
+
+
+- (void)fireResponseURL:(nullable NSString *)urlString
+                 reason:(ANAdResponseCode)reason
+               adObject:(nonnull id)adObject
+{
+    if (urlString) {
+        [ANTrackerManager fireTrackerURL:urlString];
+    }
+
+    if (reason == ANAdResponseSuccessful) {
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
+        [self processFinalResponse:response];
+
+    } else {
+        ANLogError(@"FAILED with reason=%@.", @(reason));
+
+        // mediated ad failed. clear mediation controller
+        [self clearMediationController];
+
+        // stop waterfall if delegate reference (adview) was lost
+        if (!self.delegate) {
+            self.isFetcherLoading = NO;
+            return;
+        }
+
+        [self continueWaterfall];
+    }
 }
 
 
@@ -154,39 +308,6 @@
     
     //
     return  totalLatency;
-}
-
-
-
-#pragma mark - Ad handlers.
-
-- (void)fireResponseURL:(nullable NSString *)urlString
-                 reason:(ANAdResponseCode)reason
-               adObject:(nonnull id)adObject
-{
-    
-    if (urlString) {
-        [ANTrackerManager fireTrackerURL:urlString];
-    }
-    
-    if (reason == ANAdResponseSuccessful) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
-        [self processFinalResponse:response];
-        
-    } else {
-        ANLogError(@"FAILED with reason=%@.", @(reason));
-        
-        // mediated ad failed. clear mediation controller
-        [self clearMediationController];
-        
-        // stop waterfall if delegate reference (adview) was lost
-        if (!self.delegate) {
-            self.loading = NO;
-            return;
-        }
-        
-        [self continueWaterfall];
-    }
 }
 
 

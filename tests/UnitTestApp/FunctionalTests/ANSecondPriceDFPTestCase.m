@@ -16,13 +16,18 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
+#import "TestGlobal.h"
+
 #import "XCTestCase+ANAdResponse.h"
 #import "XCTestCase+ANBannerAdView.h"
+#import "XCTestCase+ANCategory.h"
+
 #import "ANMediatedAd.h"
 #import "ANStandardAd.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANRTBVideoAd.h"
 #import "ANNativeStandardAdResponse.h"
+#import "ANUniversalTagAdServerResponse.h"
 
 
 
@@ -47,10 +52,10 @@
 
 - (void)testSecondPriceForDFPSuccess
 {
-    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kSecondPriceForDFPSuccess];
-    XCTAssert([response.ads count] == 2);
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kSecondPriceForDFPSuccess]];
+    XCTAssert([adsArray count] == 2);
     
-    ANMediatedAd  *mediatedAd          = [response.ads objectAtIndex:0];
+    ANMediatedAd  *mediatedAd          = [adsArray objectAtIndex:0];
     ANMediatedAd  *expectedMediatedAd  = [[ANMediatedAd alloc] init];
 
     expectedMediatedAd.width        = @"300";
@@ -65,10 +70,10 @@
 
 - (void)testSecondPriceForDFPParamIsUnset
 {
-    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kSecondPriceForDFPParamIsUnset];
-    XCTAssert([response.ads count] == 2);
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kSecondPriceForDFPParamIsUnset]];
+    XCTAssert([adsArray count] == 2);
 
-    ANMediatedAd  *mediatedAd          = [response.ads objectAtIndex:0];
+    ANMediatedAd  *mediatedAd          = [adsArray objectAtIndex:0];
     ANMediatedAd  *expectedMediatedAd  = [[ANMediatedAd alloc] init];
 
     expectedMediatedAd.width        = @"300";

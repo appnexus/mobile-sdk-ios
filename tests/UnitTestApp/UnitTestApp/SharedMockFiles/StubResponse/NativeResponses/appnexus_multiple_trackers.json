@@ -1,0 +1,62 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 13255429,
+            "auction_id": "1534548450681314927",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL6AqB6AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfCrMIWGqQY4vgdAvgdIAFAAWABgAGgAeACAAQCKAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAQAsgQOCAAQARisAiD6ATAAOAK4BADABADIBADaBAIIAOAEAfAEAPoEEgkAAABAluRCQAHZYMACml7AggUbY29tLmFwcG5leHVzLkFwcE4BCUxTREtBcHCIBQGYBQCgBQDABQDJBQnpEPA_0gUJAUkFAaDYBQDgBQDwBQD6BQQIABAAkAYAmAYAuAYAwQYAAAAAAADwv8gGANAGAA..&s=2b2e00b4b0730ebaac47ac360738bebe7b96c550",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 958,
+                    "creative_id": 111796070,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/s/145/trk.js#v;tv=native1-18h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;ab=10;cid=1;tag_id=13255429;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Ftest%3D1%26e%3DwqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.%26s%3D4491c8b157a293238e5008f105efafd2a681cef2;ts=1541519569;cet=0;cecb=\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "AppNexusSDKApp",
+                            "desc": "Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+                            "sponsored": "AppNexus Sponsored",
+                            "ctatext": "Call-to-Action",
+                            "rating": "5",
+                            "icon": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/17/3d/33/81/173d3381-9364-4b4a-8303-da65cae1c6f0.png",
+                                "width": 600,
+                                "height": 600
+                            },
+                            "main_img": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/64/3a/13/fc/643a13fc-290d-40a2-b1f8-e8a8161234e5.png",
+                                "width": 300,
+                                "height": 250
+                            },
+                            "link": {
+                                "url": "http://www.appnexus.com",
+                                "click_trackers": [
+                                    "http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG9efH2vz0sVNSaARb5ciybRuOFbAAAAAAVDygC-AwAAvgMAAAAAAABm36kGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEA4w1dzQAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/",
+                                    "https://acdn.adnxs.com/mobile/native_test/trackClick",
+                                    "https://acdn.adnxs.com/mobile/native_test/trackClick2",
+                                    "https://acdn.adnxs.com/mobile/native_test/trackClick3"
+                                ]
+                            },
+                            "impression_trackers": [
+                                "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2",
+                                 "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2",
+                                  "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2"
+                            ],
+                            "id": 111796070,
+                            "desc2": "Additional Desc2"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

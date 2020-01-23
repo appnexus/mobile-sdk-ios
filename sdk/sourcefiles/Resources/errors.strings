@@ -26,6 +26,7 @@
 "bad_url_connection"="Unable to make request because of a bad URL connection.";
 "malformed_url"="Unable to make request because of a malformed URL.";
 "ad_request_failed %@%@"="Ad request %@ failed with error %@";
+"multi_ad_request_failed %@%@"="Multi ad request %@ FAILED with error %@";
 "connection_failed %d"="Ad request connection failed with status code %d";
 "no_ad_received_error %@"="No ad received. Error: %@";
 "response_received %@"="Received ad server response: %@";

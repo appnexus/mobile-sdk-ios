@@ -28,16 +28,21 @@
 
 
 
+
+#pragma mark -
+
 @protocol ANUniversalAdFetcherDelegate;
 
 @interface ANUniversalAdFetcher : ANAdFetcherBase
 
-- (nonnull instancetype)initWithDelegate: (nonnull id)delegate;
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;
+- (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
 
 - (void)stopAdLoad;
-- (void) startAutoRefreshTimer;
-- (void) restartAutoRefreshTimer;
-- (void) stopAutoRefreshTimer;
+- (void)startAutoRefreshTimer;
+- (void)restartAutoRefreshTimer;
+- (void)stopAutoRefreshTimer;
 
 - (CGSize)getWebViewSizeForCreativeWidth:(nonnull NSString *)width
                                andHeight:(nonnull NSString *)height;
@@ -47,30 +52,11 @@
 
 
 
-#pragma mark - ANUniversalAdFetcherDelegate partitions.
+#pragma mark - Ad Fetcher Delegates.
 
-@protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
+@protocol  ANUniversalRequestTagBuilderCore
 
-@required
-
-- (void)       universalAdFetcher: (nonnull ANUniversalAdFetcher *)fetcher
-     didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
-
-- (nonnull NSArray<NSValue *> *)adAllowedMediaTypes;
-
-// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
-//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
-//
-- (nonnull NSDictionary *) internalDelegateUniversalTagSizeParameters;
-
-
-@optional
-//   If rendererId is not set, the default is zero (0).
-//   A value of zero indicates that renderer_id will not be sent in the UT Request.
-//   nativeRendererId is sufficient for ANBannerAdView and ANNativeAdRequest entry point.
--(NSInteger) nativeAdRendererId;
-
-// customKeywords is shared between the entrypoints and the fetcher.
+// customKeywords is shared between the adunits and the fetcher.
 //
 // NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
 //       which is shared between fetcher and the mediation adapters.
@@ -79,6 +65,50 @@
 @property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
 
 @end
+
+
+
+@protocol  ANUniversalRequestTagBuilderDelegate <ANUniversalRequestTagBuilderCore>
+
+@required
+
+- (nonnull NSArray<NSValue *> *)adAllowedMediaTypes;
+
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
+//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
+//
+- (nonnull NSDictionary *) internalDelegateUniversalTagSizeParameters;
+
+// AdUnit internal methods to manage UUID property used during Multi-Tag Requests.
+//
+- (nonnull NSString *)internalGetUTRequestUUIDString;
+- (void)internalUTRequestUUIDStringReset;
+
+
+@optional
+
+//   If rendererId is not set, the default is zero (0).
+//   A value of zero indicates that renderer_id will not be sent in the UT Request.
+//   nativeRendererId is sufficient for ANBannerAdView and ANNativeAdRequest entry point.
+//
+- (NSInteger) nativeAdRendererId;
+
+//
+- (void)       universalAdFetcher: (nonnull ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
+
+@end
+
+
+
+@protocol  ANUniversalAdFetcherFoundationDelegate <ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation>
+    //EMPTY
+@end
+
+
+
+
+#pragma mark -
 
 // NB  ANUniversalAdFetcherDelegate is sufficient for Banner, Interstitial entry point.
 //
@@ -92,7 +122,7 @@
 @optional
 
 // NB  autoRefreshIntervalForAdFetcher: and videoAdTypeForAdFetcher: are required for ANBannerAdView,
-//       but are not used by any other entrypoint.
+//       but are not used by any other adunit.
 //
 - (NSTimeInterval) autoRefreshIntervalForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
 - (ANVideoAdSubtype) videoAdTypeForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
@@ -108,14 +138,4 @@
 -(void)setVideoAdOrientation:(ANVideoOrientation)videoOrientation;
 
 @end
-
-// Note  ANUniversalRequestTagBuilderDelegate is the consolidated list of all protocols defined & used at multiple entry points.
-// this protocol is used only by the tagBuilder so any protocol newly defined must be included in this protocol to be
-// available for constucting the ut post body object
-//
-
-@protocol  ANUniversalRequestTagBuilderDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate, ANVideoAdProtocol>
-
-@end
-
 

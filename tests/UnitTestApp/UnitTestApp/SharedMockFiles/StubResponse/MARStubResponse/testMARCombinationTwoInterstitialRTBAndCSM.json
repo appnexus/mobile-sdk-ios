@@ -1,0 +1,94 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "1",
+            "tag_id": 16433875,
+            "auction_id": "2959126615353332417",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKhA6ChAQAAAwDWAAUBCKC50fAFEMGlqIyov7uIKRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDlMNOF6wc47k5A7k5IAFAAWABgAGgAeACAAQCKAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQD6ARdwbGFjZW1lbnRfY29kZV8xNjQzMzg3NdgCAOACAIADAIgDAZADAJgDF6ADAKoDAMADrALIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACoBACyBBAIABABGJ4DIIAHKAAwADgCuAQAwAQAyAQA2gQCCADgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAB7hTwP9IFCQkBCgEBaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBgEfIAAA8L_aBhYKEAkNGQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=18c233dca1d6684b99df55baf5eaf903b2c97efe",
+            "timeout_ms": 0,
+            "ad_profile_id": 0,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843825,
+                    "media_type_id": 3,
+                    "media_subtype_id": 5,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "banner": {
+                            "content": "<!-- Creative 166843825 served by Member 10094 via AppNexus --><script>(function() {\n  function isIE() {\n      return (navigator.appVersion.indexOf(\"MSIE\") != -1);\n  }\n  \n   function isSafari3() {\n      var retval = false;\n      if (navigator.vendor && navigator.vendor.indexOf('Apple') > -1) {\n        var index=navigator.appVersion.indexOf('Version');\n        if (index > -1) {\n          retval = (parseInt(navigator.appVersion.substring(index+8))==3);\n        }\n      }\n      return retval;\n   }\n  \n  function createInterstitial() {\n      var iframe = document.createElement('iframe');\n      iframe.id = 'interstitial_iframe';\n      iframe.name = 'interstitial_iframe';\n      iframe.setAttribute('frameborder', '0');\n      iframe.setAttribute('marginheight', '0');\n      iframe.setAttribute('marginwidth', '0');\n      iframe.marginHeight = 0;\n      iframe.marginWidth = 0;\n      iframe.frameBorder = 0;\n      iframe.style.position = 'absolute';\n      iframe.style.top = 0;\n      iframe.style.left = 0;\n      iframe.style.background = 'white';\n      iframe.style.display = 'block';\n      iframe.style.zIndex = (isSafari3() ? 16777271 : 2147483647);\n      var height;\n      var width;\n      if (!document.body) {\n          document.body = document.createElement('BODY');\n      }\n      if (typeof (window.innerHeight) == 'number') {\n          height = window.innerHeight;\n          width = window.innerWidth;\n      } else if (document.documentElement.clientWidth && document.documentElement.clientHeight) {\n          height = document.documentElement.clientHeight;\n          width = document.documentElement.clientWidth - 1;\n      } else if (document.body.clientWidth && document.body.clientHeight) {\n          height = document.body.clientHeight;\n          width = document.body.clientWidth - 1;\n      }\n      iframe.width = \"100%\";\n      iframe.height = \"100%\";\n      iframe.src = 'about:blank';\n      window.oldOverflow = document.body.style.overflow;\n      document.body.style.overflow = 'hidden';\n\n      iframe = document.body.insertBefore(iframe, document.body.firstChild);\n      \n      if (isIE()) {\n        return iframe;\n      }\n      \n      if (iframe.contentDocument) {\n          return iframe.contentDocument;\n      } else if (iframe.contentWindow) {\n          return iframe.contentWindow.document;\n      } else if (iframe.document) {\n          return iframe.document;\n      } else {\n          return null;\n      }\n  }\n\n  var interstitialDoc = createInterstitial();\n  var timeoutSeconds = 7;\n  var timeoutMs = timeoutSeconds * 1000;\n  var content = '';\n  content += '<html><head><title>Advertisement</title>';  \n  content += '<script type=\"text/javascript\">function closeInterstitial() {';\n  content += 'parent.document.body.style.overflow = parent.oldOverflow; parent.document.body.removeChild(parent.document.getElementById(\"interstitial_iframe\"));';\n  content += '}<\/script>';\n  content += '<scr';\n  content += 'ipt type=\"text/javascript\">window.setTimeout(\"closeInterstitial();\",';\n  content += timeoutMs;\n  content += ');</scr';\n  content += 'ipt>';\n  content += '<scr';\n  content += 'ipt type=\"text/javascript\">var secondsRemaining=';\n  content += timeoutSeconds;\n  content += ';';\n  content += 'function countdown() {document.getElementById(\"secondsRemaining\").innerHTML=secondsRemaining;secondsRemaining--;window.setTimeout(\"countdown()\",1000);}</scr';\n  content += 'ipt>';\n  content += '</head><body><div style=\"text-align:center;padding:10px\"><p><a href=\"javascript:closeInterstitial();\">Skip this ad</a> or wait <span id=\"secondsRemaining\">_</span>';\n  content += '<scr';\n  content += 'ipt type=\"text/javascript\">countdown();</scr';\n  content += 'ipt> seconds</p>';\n  content += '<a href=\\\"http://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMESioH67RApHrEH3fs3LXigXBReAAAAANPC-gBuJwAAbicAAAAAAACx1fEJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEANg_tIAAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/clickenc=https%3A%2F%2Fappnexus.com\\\" target=\\\"_blank\\\"><img width=\\\"300\\\" height=\\\"250\\\" style=\\\"border-style: none\\\" src=\\\"http://vcdn.adnxs.com/p/creative-image/6d/97/35/49/6d973549-609d-4b9e-af84-073164839674.png\\\"\/><\/a>';\n  content += '</div></body></html>';\n  if (isIE())\n  {\n    interstitialDoc.contentWindow.contents = content;\n    interstitialDoc.src = 'javascript:window[\"contents\"]';\n  }\n  else\n  {\n    interstitialDoc.write(content);\n    interstitialDoc.close();\n  }\n})();\n</script><script async=\"true\" src=\"https://acdn.adnxs.com/ij/static/34/disca.js#enc=CaBcFF4AAAAAEcESioH67RApGO5OIO5OKNOF6wcwsavHTzgAQABIAVAB\"></script>",
+                            "width": 1,
+                            "height": 1
+                        },
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKlA6ClAQAAAwDWAAUBCKC50fAFEMGlqIyov7uIKRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfD1MNOF6wc47k5A7k5IAFCxq8dPWABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQD6ARdwbGFjZW1lbnRfY29kZV8xNjQzMzg3NdgCAOACAIADAIgDAZADAJgDF6ADAKoDAMAD4KgByAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAQAsgQQCAAQARieAyCABygAMAA4ArgEAMAEAMgEANoEAggA4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQAACf5o2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGCSEYAADaBhYKEBENEQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=8907e9f8fcfb6dd2a63c555acbb1ebba5c90bad7"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "uuid": "2",
+            "tag_id": 16433875,
+            "auction_id": "240241969921720430",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLNB6DNAwAAAwDWAAUBCPub1vAFEO6AzOrH2eCqAxie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwfeA_MLWh0Qg47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBBrABALgBAMABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODQ3MDkwNyk7dWYoJ3InLCAxOTk2Mzk3NDQsIC4fAPD1kgK1AiE3enVDQWdqNWpNMFJFTUNGbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdGFIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFHR2JFN0VaR3VMUDhFQmhteE94R1JyaXpfSkFla0pRd25tYV9VXzJRRUFBQUFBQUFEd1AtQUJBUFVCSDF0YlBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRC1Zek5FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhQVJJVjV3NjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQA8ATAhZlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwv9AG1jPaBhYKEAAAAABpWAkBUBAAGADgBgPyBgIIAIAHAYgHAKAHBQ..&s=1e2dbf410610fcee43ddedb699d34c506e529df2",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843826,
+                    "media_type_id": 3,
+                    "media_subtype_id": 5,
+                    "brand_category_id": 53,
+                    "client_initiated_ad_counting": false,
+                    "csm": {
+                        "banner": {
+                            "content": "<!-- Creative 199639744 served by Member 10094 via AppNexus --><script>document.write('document.write(\"\")');</script><iframe src=\"http://acdn.adnxs.com/dmp/async_usersync.html?gdpr=0&seller_id=10094&pub_id=1435524\" width=\"1\" height=\"1\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" topmargin=\"0\" leftmargin=\"0\" style=\"position:absolute;overflow:hidden;clip:rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0;\"></iframe><script>try {!function(){function e(e,t){return\"function\"==typeof __an_obj_extend_thunk?__an_obj_extend_thunk(e,t):e}function t(e,t){\"function\"==typeof __an_err_thunk&&__an_err_thunk(e,t)}function n(e,t){if(\"function\"==typeof __an_redirect_thunk)__an_redirect_thunk(e);else{var n=navigator.connection;navigator.__an_connection&&(n=navigator.__an_connection),window==window.top&&n&&n.downlinkMax<=.115&&\"function\"==typeof HTMLIFrameElement&&HTMLIFrameElement.prototype.hasOwnProperty(\"srcdoc\")?(window.__an_resize=function(e,t,n){var r=e.frameElement;r&&\"__an_if\"==r.getAttribute(\"name\")&&(t&&(r.style.width=t+\"px\"),n&&(r.style.height=n+\"px\"))},document.write('<iframe name=\"__an_if\" style=\"width:0;height:0\" srcdoc=\"<script type=\\'text/javascript\\' src=\\''+e+\"&\"+t.bdfif+\"=1'></sc\"),document.write('ript>\" frameborder=\"0\" scrolling=\"no\" marginheight=0 marginwidth=0 topmargin=\"0\" leftmargin=\"0\" allowtransparency=\"true\"></iframe>')):document.write('<script language=\"javascript\" src=\"'+e+'\"></scr'+'ipt>')}};var r=function(e){this.rdParams=e};r.prototype={constructor:r,walkAncestors:function(e){try{if(!window.location.ancestorOrigins)return;for(var t=0,n=window.location.ancestorOrigins.length;n>t;t++)e.call(null,window.location.ancestorOrigins[t],t)}catch(r){\"undefined\"!=typeof console}return[]},walkUpWindows:function(e){var t,n=[];do try{t=t?t.parent:window,e.call(null,t,n)}catch(r){return\"undefined\"!=typeof console,n.push({referrer:null,location:null,isTop:!1}),n}while(t!=window.top);return n},getPubUrlStack:function(e){var n,r=[],o=null,i=null,a=null,c=null,d=null,s=null,u=null;for(n=e.length-1;n>=0;n--){try{a=e[n].location}catch(l){\"undefined\"!=typeof console,t(l,\"AnRDModule::getPubUrlStack:: location\")}if(a)i=encodeURIComponent(a),r.push(i),u||(u=i);else if(0!==n){c=e[n-1];try{d=c.referrer,s=c.ancestor}catch(l){\"undefined\"!=typeof console,t(l,\"AnRDModule::getPubUrlStack:: prevFrame\")}d?(i=encodeURIComponent(d),r.push(i),u||(u=i)):s?(i=encodeURIComponent(s),r.push(i),u||(u=i)):r.push(o)}else r.push(o)}return{stack:r,detectUrl:u}},getLevels:function(){var e=this.walkUpWindows(function(e,n){try{n.push({referrer:e.document.referrer||null,location:e.location.href||null,isTop:e==window.top})}catch(r){n.push({referrer:null,location:null,isTop:e==window.top}),\"undefined\"!=typeof console,t(r,\"AnRDModule::getLevels\")}});return this.walkAncestors(function(t,n){e[n].ancestor=t}),e},getRefererInfo:function(){var e=\"\";try{var n=this.getLevels(),r=n.length-1,o=null!==n[r].location||r>0&&null!==n[r-1].referrer,i=this.getPubUrlStack(n);e=this.rdParams.rdRef+\"=\"+i.detectUrl+\"&\"+this.rdParams.rdTop+\"=\"+o+\"&\"+this.rdParams.rdIfs+\"=\"+r+\"&\"+this.rdParams.rdStk+\"=\"+i.stack+\"&\"+this.rdParams.rdQs}catch(a){e=\"\",\"undefined\"!=typeof console,t(a,\"AnRDModule::getRefererInfo\")}return e}};var o=function(n){var o=\"\";try{n=e(n,0);var i=e(new r(n),1);return i.getRefererInfo()}catch(a){o=\"\",\"undefined\"!=typeof console,t(a,\"AnRDModule::executeRD\")}return o};;var c=\"http://nym1-mobile.adnxs.com/rd_log?an_audit=0&e=wqT_3QKqCOgqBAAAAwDWAAUBCPub1vAFELmAxpqgrN2cDxie4p7ovf_NlngqNgmfPCzUmuaNPxGfPCzUmuaNPxkAAAECCOA_IREbACkRCQAxARm4AADgPzCzodEIOO5OQO5OSAJQ-IKZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAHAAqABMqgBBrABALgBAcABBMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODQ3MDkwNyk7dWYoJ3InLCAxOTk2Mzk0MTYsIDEdH_D1kgK1AiE2RDI4SWdqdGpNMFJFUGlDbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRczZIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFIQlh4LVltdWVOUDhFQndWOGZtSnJualRfSkFXdzB5QWJ3WFBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCelR4dlBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRDdZek5FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhS2hKdjlRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDJhlQUEu2AIA4ALKqE3yAhMKD0NVU1RPTV9NT0RFTF9JRBIA8gIaChYyFgAgTEVBRl9OQU1FAR0IHgoaNh0ACEFTVAE-8LxJRklFRBIAgAMAiAMBkAMAmAMXoAMBqgMAwAOsAsgDAdgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKIEDDEwLjc1LjEwLjE0MagEtLABsgQPCAAQARjAAiAyKAAwADgCuAQAwAQAyAQA0gQPMTAwOTQjTllNMjo0MDA42gQCCAHgBAHwBPiCmV-CBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAF____________AcAFAMkFAABhcRTwP9IFCQkBCgEBcNgFAeAFAfAFjZcG-gUECAAQAJAGAJgGALgGAMEGASEwAADwP9AG1jPaBhYKEAkRGQFQEAAYAOAGAfIGAggAgAcBiAcAoAcB&s=4aac03cf14ceb9cf621d83072546c6e17ac95332\";c+=\"&\"+o({rdRef:\"bdref\",rdTop:\"bdtop\",rdIfs:\"bdifs\",rdStk:\"bstk\",rdQs:\"\"}),n(c,{bdfif:\"bdfif\"})}();} catch (e) { }</script>",
+                            "width": 1,
+                            "height": 1
+                        },
+                        "timeout_ms": 500,
+                        "handler": [
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterInterstitialMock",
+                                "id": "ca-app-pub-3940256099942544/4411468910"
+                            },
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.mediatedviews.AdMobInterstitial",
+                                "id": "ca-app-pub-3940256099942544/4411468910"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLVB-jVAwAAAwDWAAUBCPub1vAFEO6AzOrH2eCqAxie4p7ovf_NlngqNgl5Xb9gN2yLPxF5Xb9gN2yLPxkAAAECCOA_IREbACkRCQAxARm4AADgPzC1odEIOO5OQO5OSAJQwIWZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEBwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4NDcwOTA3KTt1ZigncicsIDE5OTYzOTc0NCwgMTUZH_D1kgK1AiE3enVDQWdqNWpNMFJFTUNGbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdGFIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFHR2JFN0VaR3VMUDhFQmhteE94R1JyaXpfSkFla0pRd25tYV9VXzJRRUFBQUFBQUFEd1AtQUJBUFVCSDF0YlBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRC1Zek5FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhQVJJVjV3NjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQB8ATAhZlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP9AG1jPaBhYKEAAAAABpYAkBUBAAGADgBgPyBgIIAIAHAYgHAKAHBQ..&s=2fdfb94e1c48351ce8958b5e962aa623c11b0d5a"
+                                ],
+                                "video_events": {}
+                            }
+                        ],
+                        "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQj7m9bwBRDugMzqx9ngqgMY7k4heV2_YDdsiz8owIWZXzAKOAA.&s=99d1fcb48e03adefba194a6fe28858131f8497bb",
+                        "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQj7m9bwBRDugMzqx9ngqgMY7k4heV2_YDdsiz8owIWZXzAKOAA.&s=99d1fcb48e03adefba194a6fe28858131f8497bb"
+                    }
+                }
+            ]
+        }
+    ]
+}

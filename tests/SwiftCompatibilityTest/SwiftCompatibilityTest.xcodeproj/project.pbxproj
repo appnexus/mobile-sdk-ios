@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E1C95F123263F65004D4F2E /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0E5AF04B22F02522005B4721 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; };
 		0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */; };
 		0E70611022DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608622DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
 		0E70611122DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608722DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json */; };
@@ -402,7 +401,7 @@
 				97FFF2BF214034C7008599A4 /* Accounts.framework in Frameworks */,
 				97FFF2C3214034DF008599A4 /* AdSupport.framework in Frameworks */,
 				0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */,
-				0E5AF04B22F02522005B4721 /* AppNexusSDK.framework in Frameworks */,
+				0E1C95F023263F65004D4F2E /* AppNexusSDK.framework in Frameworks */,
 				97FFF2C7214034F5008599A4 /* AssetsLibrary.framework in Frameworks */,
 				97FFF2C9214034FC008599A4 /* AudioToolbox.framework in Frameworks */,
 				97FFF2CB21403503008599A4 /* AVFoundation.framework in Frameworks */,
@@ -1355,7 +1354,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
-				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
+				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/SwiftCompatibilityTest-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
@@ -1388,7 +1387,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
-				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
+				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/SwiftCompatibilityTest-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";

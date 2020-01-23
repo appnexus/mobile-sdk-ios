@@ -164,9 +164,9 @@
 
 // Checks to see if RTB video ad is parsed properly
 - (void)testRTBVideoAd {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:@"SuccessfulOutstreamBannerVideoResponse"];
-    ANRTBVideoAd                    *rtbVideoAd  = [response.ads firstObject];
-    
+    NSMutableArray<id>  *adsArray    = [self adsArrayFromFirstTagInJSONResource:@"SuccessfulOutstreamBannerVideoResponse"];
+    ANRTBVideoAd        *rtbVideoAd  = [adsArray firstObject];
+
     XCTAssertNotNil(rtbVideoAd.notifyUrlString);
     XCTAssert([rtbVideoAd.width isEqualToString:@"300"]);
     XCTAssert([rtbVideoAd.height isEqualToString:@"250"]);

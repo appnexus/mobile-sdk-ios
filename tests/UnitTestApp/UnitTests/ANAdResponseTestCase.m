@@ -15,13 +15,19 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+
+#import "TestGlobal.h"
+
 #import "XCTestCase+ANAdResponse.h"
 #import "XCTestCase+ANBannerAdView.h"
+
 #import "ANMediatedAd.h"
 #import "ANStandardAd.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANRTBVideoAd.h"
 #import "ANNativeStandardAdResponse.h"
+
+
 
 @interface ANUniversalTagAdServerResponse ()
 + (ANRTBVideoAd *)videoAdFromRTBObject:(NSDictionary *)rtbObject;
@@ -43,8 +49,8 @@
 
 - (void)testLocalSuccessfulMRAIDResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
-    ANStandardAd                    *standardAd  = [response.ads firstObject];
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdResponseSuccessfulMRAID]];
+    ANStandardAd        *standardAd  = [adsArray firstObject];
 
     XCTAssert(standardAd.mraid == YES);
     XCTAssert([standardAd.height isEqualToString:@"50"]);
@@ -57,55 +63,53 @@
 
 - (void)testLocalSuccessfulNativeStandardAdResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kANAdSuccessfulNativeStandardAdResponse];
-    ANStandardAd                    *standardAd  = [response.ads firstObject];
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdSuccessfulNativeStandardAdResponse]];
+    ANStandardAd        *standardAd  = [adsArray firstObject];
     XCTAssertNotNil(standardAd.creativeId);
-    
 }
 
 
 - (void)testLocalSuccessfulANRTBVideoAdResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kANAdSuccessfulANRTBVideoAdResponse];
-    ANRTBVideoAd                    *rtbVideoAd  = [response.ads firstObject];
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdSuccessfulANRTBVideoAdResponse]];
+    ANRTBVideoAd        *rtbVideoAd  = [adsArray firstObject];
     
     XCTAssertNotNil(rtbVideoAd.creativeId);
-    
 }
 
 - (void)testLocalSuccessfulStandardAdFromRTBObjectResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kStandardAdFromRTBObjectResponse];
-    ANNativeStandardAdResponse                    *nativeStandardAdResponse  = [response.ads firstObject];
+    NSMutableArray<id>          *adsArray                  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kStandardAdFromRTBObjectResponse]];
+    ANNativeStandardAdResponse  *nativeStandardAdResponse  = [adsArray firstObject];
     
     XCTAssertNotNil(nativeStandardAdResponse.creativeId);
-    
 }
 
 
 
 - (void)testLocalSuccessfulNativeStandardAdWithoutCreativeIdResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kANAdSuccessfulNativeStandardAdWithoutCreativeIdResponse];
-    ANStandardAd                    *standardAd  = [response.ads firstObject];
-    XCTAssertEqual(standardAd.creativeId.length, 0);
+    NSMutableArray<id>  *adsArray  =
+        [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdSuccessfulNativeStandardAdWithoutCreativeIdResponse]];
+    ANStandardAd        *standardAd  = [adsArray firstObject];
 
+    XCTAssertEqual(standardAd.creativeId.length, 0);
 }
 
 
 - (void)testLocalSuccessfulANRTBVideoAdWithoutCreativeIdResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kANAdSuccessfulANRTBVideoAdWithoutCreativeIdResponse];
-    ANRTBVideoAd                    *rtbVideoAd  = [response.ads firstObject];
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdSuccessfulANRTBVideoAdWithoutCreativeIdResponse]];
+    ANRTBVideoAd        *rtbVideoAd  = [adsArray firstObject];
     
     XCTAssertEqual(rtbVideoAd.creativeId.length, 0);
-
 }
 
 - (void)testLocalSuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse
 {
-    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kStandardAdFromRTBObjectWithoutCreativeIdResponse];
-    ANNativeStandardAdResponse                    *nativeStandardAdResponse  = [response.ads firstObject];
+    NSMutableArray<id>          *adsArray  =
+        [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kStandardAdFromRTBObjectWithoutCreativeIdResponse]];
+    ANNativeStandardAdResponse  *nativeStandardAdResponse  = [adsArray firstObject];
     
     XCTAssertEqual(nativeStandardAdResponse.creativeId.length, 0);
 
@@ -114,12 +118,10 @@
 
 - (void)testLocalSuccessfulMediationResponse
 {
-    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMediation];
-    XCTAssert([response.ads count] == 4);
+    NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdResponseSuccessfulMediation]];
+    XCTAssert([adsArray count] == 4);
 
-
-    
-    ANMediatedAd *firstMediatedAd = [response.ads objectAtIndex:0];
+    ANMediatedAd *firstMediatedAd = [adsArray objectAtIndex:0];
     ANMediatedAd *expectedFirstMediatedAd = [[ANMediatedAd alloc] init];
     expectedFirstMediatedAd.width = @"320";
     expectedFirstMediatedAd.height = @"50";
@@ -128,10 +130,8 @@
     [self mediatedAd:firstMediatedAd equalToMediatedAd:expectedFirstMediatedAd];
     XCTAssertNotNil(firstMediatedAd.responseURL);
     XCTAssertEqual(firstMediatedAd.creativeId.length, 0);
-
-
     
-    ANMediatedAd *secondMediatedAd = [response.ads objectAtIndex:1];
+    ANMediatedAd *secondMediatedAd = [adsArray objectAtIndex:1];
     ANMediatedAd *expectedSecondMediatedAd = [[ANMediatedAd alloc] init];
     expectedSecondMediatedAd.width = @"320";
     expectedSecondMediatedAd.height = @"50";
@@ -143,7 +143,7 @@
 
 
     
-    ANMediatedAd *thirdMediatedAd = [response.ads objectAtIndex:2];
+    ANMediatedAd *thirdMediatedAd = [adsArray objectAtIndex:2];
     ANMediatedAd *expectedThirdMediatedAd = [[ANMediatedAd alloc] init];
     expectedThirdMediatedAd.width = @"320";
     expectedThirdMediatedAd.height = @"50";
@@ -155,7 +155,7 @@
 
 
     
-    ANMediatedAd *fourthMediatedAd = [response.ads objectAtIndex:3];
+    ANMediatedAd *fourthMediatedAd = [adsArray objectAtIndex:3];
     ANMediatedAd *expectedFourthMediatedAd = [[ANMediatedAd alloc] init];
     expectedFourthMediatedAd.className = @"ANAdAdapterBanneriAd";
     [self mediatedAd:fourthMediatedAd equalToMediatedAd:expectedFourthMediatedAd];

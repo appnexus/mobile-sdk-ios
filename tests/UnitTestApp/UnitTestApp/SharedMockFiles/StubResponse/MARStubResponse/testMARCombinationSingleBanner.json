@@ -1,0 +1,43 @@
+{
+    "version": "3.0.0",
+    "tags": [
+       
+        {
+            "uuid": "1",
+            "tag_id": 17982237,
+            "auction_id": "8399265387636925190",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKMA6CMAQAAAwDWAAUBCNW-0vAFEIbG1OLm64vIdBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDQMJ3GyQg47k5A7k5IAFAAWABgAGgAeACAAQGKAQCSAQNVU0SYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAS6qAGyBA0IABABGMACIDIwADgCuAQAwAQAyAQA2gQCCADgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAB2RTwP9IFCQkBCgEBaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBgEfIAAA8L_aBhYKEAkNGQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=ee9504f7135bed4255c05d4f66defd190088c7c5",
+            "timeout_ms": 0,
+            "ad_profile_id": 0,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843311,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "banner": {
+                            "content": "<!-- Creative 166843001 served by Member 10094 via AppNexus --><a href=\"http://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYjVWxeL5B0HrEH3fs3LXhVnxReAAAAAB1jEgFuJwAAbicAAAAAAAB50vEJAAAAAAAAAAAAAAAAVVNEAAAAAAAAAAAAAAABAQMAAAAAAAEAYAzILwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/clickenc=https%3A%2F%2Fappnexus.com\" target=\"_blank\"><img width=\"320\" height=\"50\" style=\"border-style: none\" src=\"http://vcdn.adnxs.com/p/creative-image/f1/26/9a/8c/f1269a8c-6e51-4965-807d-d10445e8eab4.png\"/></a><script async=\"true\" src=\"https://acdn.adnxs.com/ij/static/34/disca.js#enc=CVWfFF4AAAAAEQYjVWxeL5B0GO5OIO5OKJ3GyQgw-aTHTzgAQABIAVAB\"></script><div name=\"anxv\" lnttag=\"app;tv=omd1-21h;st=2;d=320x50;vc=iab;vid_ccr=1;tag_id=17982237;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKQA6CQAQAAAwDWAAUBCNW-0vAFEIbG1OLm64vIdBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFD5pMdPWABgAGgAeACAAQGKAQCSAQNVU0SYAcACoAEyqAEBsAEAuAEBwAEDyAEA0AEA2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQNCAAQARjAAiAyMAA4ArgEAMAEAMgEANoEAggB4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCRHnaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBhEjENoGFgoQEQ0RAVAQABgA4AYA8gYCCACABwGIBwCgBwA.%26s%3Dcf9daaffca0d0e14825aba9d7b2e5e4979fdabac;ts=1578409813;cet=0;cecb=\" width=\"0\" height=\"0\" style=\"display: block; margin: 0; padding: 0; height: 0; width: 0;\"><script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js\"></script></div>",
+                            "width": 320,
+                            "height": 50
+                        },
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKQA6CQAQAAAwDWAAUBCNW-0vAFEIbG1OLm64vIdBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFD5pMdPWABgAGgAeACAAQGKAQCSAQNVU0SYAcACoAEyqAEBsAEAuAEBwAEDyAEA0AEA2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQNCAAQARjAAiAyMAA4ArgEAMAEAMgEANoEAggB4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCRHnaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBhEjENoGFgoQEQ0RAVAQABgA4AYA8gYCCACABwGIBwCgBwA.&s=cf9daaffca0d0e14825aba9d7b2e5e4979fdabac"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
