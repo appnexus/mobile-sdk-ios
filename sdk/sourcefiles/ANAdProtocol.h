@@ -26,7 +26,6 @@
 
 
 #pragma mark - ANAdProtocol partitions.
-
 /**
  ANAdProtocol defines the properties and methods that are common to *all* ad types.
  It can be understood as a toolkit for implementing ad types.
@@ -34,17 +33,10 @@
  
  Currently, it is used in the implementation of banner and interstitial ads and instream video.
  */
-@protocol ANAdProtocolFoundation <NSObject>
+
+@protocol ANAdProtocolFoundationCore <NSObject>
 
 @required
-/**
- An AppNexus placement ID.  A placement ID is a numeric ID that's
- associated with a place where ads can be shown.  In our
- implementations of banner and interstitial ad views, we associate
- each ad view with a placement ID.
- */
-@property (nonatomic, readwrite, strong, nullable) NSString *placementId;
-
 /**
  An AppNexus member ID. A member ID is a numeric ID that's associated
  with the member that this app belongs to.
@@ -52,25 +44,10 @@
 @property (nonatomic, readonly, assign) NSInteger memberId;
 
 /**
- An inventory code for a placement to represent a place where ads can
- be shown. In the presence of both placement and inventory code, AppNexus
- SDK favors inventory code over placement id. A member ID is required to request
- an ad using inventory code.
- */
-@property (nonatomic, readonly, strong, nullable) NSString *inventoryCode;
-
-/**
  The user's location.  See ANLocation.h in this directory for
  details.
  */
 @property (nonatomic, readwrite, strong, nullable) ANLocation *location;
-
-/**
- The reserve price is the minimum bid amount you'll accept to show
- an ad.  Use this with caution, as it can drastically reduce fill
- rates (i.e., you will make less money).
- */
-@property (nonatomic, readwrite, assign) CGFloat reserve;
 
 /**
  The user's age.  This can contain a numeric age, a birth year, or a
@@ -87,12 +64,6 @@
  Specifies a string that corresponds to an external user ID for  user
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
-
-/**
- Report the Ad Type of the returned ad object.
- Not available until load is complete and successful.
- */
-@property (nonatomic, readwrite)  ANAdType  adType DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 
 /**
@@ -135,6 +106,43 @@
  */
 - (void)clearCustomKeywords;
 
+@end   //ANAdProtocolFoundationCore
+
+
+
+#pragma mark -
+
+@protocol ANAdProtocolFoundation <ANAdProtocolFoundationCore>
+
+@required
+/**
+ An AppNexus placement ID.  A placement ID is a numeric ID that's
+ associated with a place where ads can be shown.  In our
+ implementations of banner and interstitial ad views, we associate
+ each ad view with a placement ID.
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *placementId;
+
+/**
+ An inventory code for a placement to represent a place where ads can
+ be shown. In the presence of both placement and inventory code, AppNexus
+ SDK favors inventory code over placement id. A member ID is required to request
+ an ad using inventory code.
+ */
+@property (nonatomic, readonly, strong, nullable) NSString *inventoryCode;
+
+/**
+ The reserve price is the minimum bid amount you'll accept to show
+ an ad.  Use this with caution, as it can drastically reduce fill
+ rates (i.e., you will make less money).
+ */
+@property (nonatomic, readwrite, assign) CGFloat reserve;
+
+/**
+ Report the Ad Type of the returned ad object.
+ Not available until load is complete and successful.
+ */
+@property (nonatomic, readwrite)  ANAdType  adType DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 /**
  Set the inventory code and member id for the place that ads will be shown.
@@ -142,6 +150,10 @@
 - (void)setInventoryCode:(nullable NSString *)inventoryCode memberId:(NSInteger)memberID;
 
 @end   //ANAdProtocolFoundation
+
+
+
+#pragma mark -
 
 @protocol ANAdProtocolBrowser
 
@@ -173,6 +185,8 @@
 
 
 
+#pragma mark -
+
 @protocol ANAdProtocolPublicServiceAnnouncement
 
 @required
@@ -201,7 +215,7 @@
 
 
 
-#pragma mark - ANAdProtocol entrypoint combinations.
+#pragma mark - ANAdProtocol adunit combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
 
@@ -268,7 +282,6 @@
  Sent when the ad request to the server has failed.
  */
 - (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error;
-
 
 
 /**

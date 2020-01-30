@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E1C95F023263F65004D4F2E /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; };
 		0E1C95F123263F65004D4F2E /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0E5AF04B22F02522005B4721 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; };
 		0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */; };
 		0E70611022DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608622DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
 		0E70611122DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608722DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json */; };
@@ -96,6 +94,7 @@
 		0E70616322DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610F22DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m */; };
 		971E8D5F2146C0C600B66AE8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B942140309E00234B9A /* ViewController.swift */; };
 		97355D2F21620BB200AF423B /* ANAdProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97355D2E21620BB200AF423B /* ANAdProtocolTestCase.swift */; };
+		973B23BC238D863000717D67 /* ANUSPrivacySettingsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B23BB238D863000717D67 /* ANUSPrivacySettingsTestCase.swift */; };
 		976304CD2141165900ACA477 /* ANBannerAdTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976304CC2141165900ACA477 /* ANBannerAdTestCase.swift */; };
 		976C41AA214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976C41A9214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift */; };
 		97717642215B855F00985C39 /* ANLocationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97717641215B855F00985C39 /* ANLocationTestCase.swift */; };
@@ -152,13 +151,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
 			remoteInfo = AppNexusSDK;
-		};
-		0E70607E22DE293F00EF2A91 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC48177B1845046A0066BBFE;
-			remoteInfo = AppNexusSDKResources;
 		};
 		0E70608022DE293F00EF2A91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -329,6 +321,7 @@
 		0E70610E22DE297700EF2A91 /* ANAdAdapterBannerNetworkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNetworkError.h; sourceTree = "<group>"; };
 		0E70610F22DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFill.m; sourceTree = "<group>"; };
 		97355D2E21620BB200AF423B /* ANAdProtocolTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANAdProtocolTestCase.swift; sourceTree = "<group>"; };
+		973B23BB238D863000717D67 /* ANUSPrivacySettingsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANUSPrivacySettingsTestCase.swift; sourceTree = "<group>"; };
 		976304CC2141165900ACA477 /* ANBannerAdTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANBannerAdTestCase.swift; sourceTree = "<group>"; };
 		976C41A9214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANNativeAdRequestTestCase.swift; sourceTree = "<group>"; };
 		97717641215B855F00985C39 /* ANLocationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANLocationTestCase.swift; sourceTree = "<group>"; };
@@ -408,7 +401,6 @@
 				97FFF2BF214034C7008599A4 /* Accounts.framework in Frameworks */,
 				97FFF2C3214034DF008599A4 /* AdSupport.framework in Frameworks */,
 				0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */,
-				0E5AF04B22F02522005B4721 /* AppNexusSDK.framework in Frameworks */,
 				0E1C95F023263F65004D4F2E /* AppNexusSDK.framework in Frameworks */,
 				97FFF2C7214034F5008599A4 /* AssetsLibrary.framework in Frameworks */,
 				97FFF2C9214034FC008599A4 /* AudioToolbox.framework in Frameworks */,
@@ -459,7 +451,6 @@
 			children = (
 				0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */,
 				0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */,
-				0E70607F22DE293F00EF2A91 /* AppNexusSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -681,6 +672,14 @@
 			path = ANAdProtocol;
 			sourceTree = "<group>";
 		};
+		973B23B9238D85EB00717D67 /* ANUSPrivacySettings */ = {
+			isa = PBXGroup;
+			children = (
+				973B23BB238D863000717D67 /* ANUSPrivacySettingsTestCase.swift */,
+			);
+			path = ANUSPrivacySettings;
+			sourceTree = "<group>";
+		};
 		976304CB2141164600ACA477 /* ANBannerAdView */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +765,7 @@
 				9771762D215B853800985C39 /* ANLocation */,
 				976C4196214FE1D9006DEBA2 /* ANNativeAdRequest */,
 				97717640215B854100985C39 /* ANSDKSettings */,
+				973B23B9238D85EB00717D67 /* ANUSPrivacySettings */,
 				97BB40D12223FA70002B4EE5 /* ResponseJSON */,
 				97B06BA92140309F00234B9A /* Info.plist */,
 			);
@@ -919,7 +919,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					97B06B8E2140309E00234B9A = {
@@ -959,13 +959,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0E70607F22DE293F00EF2A91 /* AppNexusSDKResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AppNexusSDKResources.bundle;
-			remoteRef = 0E70607E22DE293F00EF2A91 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1098,6 +1091,7 @@
 				0E70614422DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0E70614022DE297700EF2A91 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				0E70613E22DE297700EF2A91 /* ANURLConnectionStub.m in Sources */,
+				973B23BC238D863000717D67 /* ANUSPrivacySettingsTestCase.swift in Sources */,
 				0E70614C22DE297700EF2A91 /* ANVerificationScriptResource+ANTest.m in Sources */,
 				97EC9629214A7A580007681A /* ANVideoAdPlayer+Test.m in Sources */,
 				0E70614E22DE297700EF2A91 /* NSObject+Swizzling.m in Sources */,
@@ -1360,7 +1354,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
-				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
+				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/SwiftCompatibilityTest-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
@@ -1393,7 +1387,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
-				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
+				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/SwiftCompatibilityTest-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";

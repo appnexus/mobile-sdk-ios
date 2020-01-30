@@ -1,0 +1,55 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 14362403,
+            "auction_id": "1432920679616588836",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QLIB6DIAwAAAwDWAAUBCNycy98FEKTY7p7CuLDxExi1zICs5JfXxSYqNgkAAAkCABEJBywAABkAAABA4XqEPyEREgApEQkAMREb8Hswo87sBji-B0C-B0gAUABY9-I_YABokUB4AIABAYoBAJIBA1VTRJgBAaABAagBAbABALgBAcABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMTEwNzYxNywgMTU0MjYzOTE5Nik7dWYoJ3InLCAxMjMwMTcxNzksIDE1GR_wkJIC9QEhZERxMkFRaldsNTRNRU51djFEb1lBQ0QzNGo4d0FEZ0FRQVJJdmdkUW84N3NCbGdBWUtVRmFBQndFbmpPaEFHQUFSS0lBYzZFQVpBQkFaZ0JBYUFCQWFnQkE3QUJBTGtCa2U4SzhPRjZoRF9CQVpIdkN2RGhlb1FfeVFFN3VlM085X2J4UDlrQkFBQUEBAyQ4RF9nQVFEMUFRAQ4sQ1lBZ0NnQWdDMUFnBRAAOQkI8EpEQUFnRElBZ0RnQWdEb0FnRDRBZ0NBQXdHUUF3Q1lBd0dvQTlhWG5neTZBd2xUU1U0eE9qTTFOVFBnQTlVQpoCYSF0eEJyQmdqV2wd-KA5LUlfSUFRb0FERjdGSzVINFhxRVB6b0pVMGxPTVRvek5UVXpRTlVCUwWcGEFBQVBBX1URDAxBQUFXHQyI2ALoB-ACx9MB6gI0aXR1bmVzLmFwcGxlLmNvbS91cy9hcHABBCRuZXh1cy1zZGstARHw_GlkNzM2ODY5ODMzgAMBiAMBkAMAmAMXoAMBqgMAwAOsAsgDANIDKAgAEiRlZTFjNjkzYy0xOGY2LTQ3MTUtODIyMi0yYTExYWJkMGQ0ZjfSAygIChIkMmU1N2Y0N2QtZWFiMi00NGU1LWJkMjEtZmQyNDdlZTQwY2E42AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAsxMC4xNC4xMi41MagE7poSsgQOCAAQARgAIAAoADAAOAK4BADABADIBADSBA05NTgjU0lOMTozNTUz2gQCCADgBAHwBNuv1Dr6BBIJAAAAQJbkQkARAAAAwAKaXsCCBQk3MzYJ-CCIBQGYBQCgBf8RARQBwAUAyQVpQxDwP9IFCQFABQGU2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGAAAAAAAA8L_IBgA.&s=a8dbc46411548dcfefdc8802516f5bbcf30a61d1",
+            "timeout_ms": 10000,
+            "ad_profile_id": 27079,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 958,
+                    "creative_id": 123017179,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "renderer_url": "http://fakeurl.adnxs.com",
+                    "renderer_id": 127,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/s/146/trk.js#v;tv=native1-18h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;ab=35;cid=1;tag_id=14362403;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Freferrer%3Ditunes.apple.com%252Fus%252Fapp%252Fappnexus-sdk-app%252Fid736869833%26e%3DwqT_3QLhCPA8YQQAAAMA1gAFAQjcnMvfBRCk2O6ewriw8RMYtcyArOSX18UmKjYJexSuR-F6hD8RexSuR-F6hD8ZAAAAQAESACERGwApEQkAMREboDCjzuwGOL4HQL4HSAJQ26_UOlj34j9gAGiRQHjLpAWAAQGKAQNVU0SSBQbw8JgBAaABAagBAbABALgBAcABBMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMTEwNzYxNywgMTU0MjYzOTE5Nik7dWYoJ3InLCAxMjMwMTcxNzksIDE1NDI2MzkxOTYpO5IC9QEhZERxMkFRaldsNTRNRU51djFEb1lBQ0QzNGo4d0FEZ0FRQVJJdmdkUW84N3NCbGdBWUtVRmFBQndFbmpPaEFHQUFSS0lBYzZFQVpBQkFaZ0JBYUFCQWFnQkE3QUJBTGtCa2U4SzhPRjZoRF9CQVpIdkN2RGhlb1FfeVFFN3VlM085X2J4UDlrQkFBQUEBBCQ4RF9nQVFEMUFRAQ4sQ1lBZ0NnQWdDMUFnBRAAOQkI8ExEQUFnRElBZ0RnQWdEb0FnRDRBZ0NBQXdHUUF3Q1lBd0dvQTlhWG5neTZBd2xUU1U0eE9qTTFOVFBnQTlVQpoCYSF0eEJyQmdqV2w1NBX4oDktSV9JQVFvQURGN0ZLNUg0WHFFUHpvSlUwbE9NVG96TlRVelFOVUJTBZwYQUFBUEFfVREMDEFBQVcdDIjYAugH4ALH0wHqAjRpdHVuZXMuYXBwbGUuY29tL3VzL2FwcAEEJG5leHVzLXNkay0BEWBpZDczNjg2OTgzM_ICEQoGQURWX0lEEgcxKd4FFAhDUEcFFBgzMzQxNzQ2ARQIBUNQARNkCDI1NjYwMzc08gITCg9DVVNUT01fTU9ERUwBHhQA8gIaChYyFgAgTEVBRl9OQU1FAR0IHgoaNh0ACEFTVAE-8PhJRklFRBIAgAMBiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwDSAygIABIkZWUxYzY5M2MtMThmNi00NzE1LTgyMjItMmExMWFiZDBkNGY30gMoCAoSJDJlNTdmNDdkLWVhYjItNDRlNS1iZDIxLWZkMjQ3ZWU0MGNhONgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQLMTAuMTQuMTIuNTGoBO6aErIEDggAEAEYACAAKAAwADgCuAQAwAQAyAQA0gQNOTU4I1NJTjE6MzU1M9oEAggB4AQB8ATbr9Q6-gQSCQAAAECW5EJAEQAAAMACml7AggUJNzMtiSCIBQGYBQCgBf8RARgBwAUAyQUABQEU8D_SBQkJBQugAAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGAAAAAAAA8D_IBgA.%26s%3D78b74a7b70b194fca3bd6bdd93cdf3f1a2c6231b;ts=1542639196;cet=0;cecb=\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "AppNexusSDKApp",
+                            "desc": "Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+                            "sponsored": "AppNexus Sponsored",
+                            "ctatext": "Call-to-Action",
+                            "icon": {
+                                "url": http://vcdn.adnxs.com/p/creative-image/17/3d/33/81/173d3381-9364-4b4a-8303-da65cae1c6f0.png",
+                                "width": 600,
+                                "height": 600
+                            },
+                            "main_img": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/64/3a/13/fc/643a13fc-290d-40a2-b1f8-e8a8161234e5.png",
+                                "width": 278,
+                                "height": 181
+                            },
+                            "link": {
+                                "url": "http://www.appnexus.com",
+                                "click_trackers": [
+                                    "http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWUH9hCvqByNSaARb5ciyYNseFbAAAAAAVDygC-AwAAvgMAAAAAAABm36kGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEANg2PmwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
+                                ]
+                            },
+                            "id": 111796070,
+                            "desc2": "Additional Desc2"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

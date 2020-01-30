@@ -31,7 +31,7 @@
 
 
 
-@interface ANBannerNativeTestCase : XCTestCase <ANBannerAdViewDelegate>
+@interface ANBannerNativeTestCase : XCTestCase <ANBannerAdViewDelegate , ANNativeAdDelegate , ANNativeAdRequestDelegate >
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *multiFormatAd;
 @property (nonatomic, readwrite, strong)  ANNativeAdResponse    *nativeAd;
@@ -217,11 +217,11 @@
     self.multiFormatAd.delegate = self;
     self.multiFormatAd.shouldAllowNativeDemand = YES;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
+    [self.multiFormatAd loadAd];
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
 
-    [self.multiFormatAd loadAd];
     [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest*2 handler:nil];
 
     XCTAssertTrue(self.foundNativeMediatedAdResponseObject);

@@ -1,3 +1,27 @@
+## 7.0
+
+### New Feature
++ MS-3885 Added support for Multi Ad Request (MAR) (https://wiki.xandr.com/display/sdk/Single+Request+Mode+for+iOS
+
+### Mediation partner upgrade
++ Smart Server SDK v7.3.0
+
+### Improvements/Bug Fixes
++ MS-4122 - Fixed potential memory leak issue caused by improper deallocation of InstreamVideoAd object
++ MS-4094 - Code clean up to fix issue with OMID SDK video implementation
+
+
+## 6.2
+
+### New Features
++ MS-4097 California Consumer Privacy Act (CCPA) Support (https://wiki.xandr.com/display/sdk/SDK+Privacy+for+iOS)
+
+### Bug Fixes
++ MS-4124: Special characters not rendering over native assembly 
++ MS-4084: VideoAd Object not getting deallocated
++ MS-4095: Updated OMID partner name
+
+
 ## 6.1.2
 
 ### Improvements/Bug Fixes

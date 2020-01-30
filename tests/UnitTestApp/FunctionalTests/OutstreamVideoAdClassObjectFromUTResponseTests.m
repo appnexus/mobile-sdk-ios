@@ -22,15 +22,20 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANUniversalTagRequestBuilder.h"
 
 static NSString         *outstreamVideoPlacementID  = @"12534678";
 
-@interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase<ANUniversalRequestTagBuilderDelegate, ANVideoAdPlayerDelegate>
+@interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase< ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation, 
+                                                                        ANVideoAdPlayerDelegate, ANAdProtocolVideo,
+                                                                        ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement
+                                                                      >
 
 @property (nonatomic, strong)  ANUniversalAdFetcher  *universalAdFetcher;
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 @property (nonatomic)          BOOL                      allowSmallerSizes;
 @property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
+@property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
 @end
 
@@ -67,6 +72,15 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 }
 
 
+- (nonnull NSString *)internalGetUTRequestUUIDString
+{
+    return  self.utRequestUUIDString;
+}
+
+- (void)internalUTRequestUUIDStringReset
+{
+     self.utRequestUUIDString = ANUUID();
+}
 
 #pragma mark - Test methods.
 

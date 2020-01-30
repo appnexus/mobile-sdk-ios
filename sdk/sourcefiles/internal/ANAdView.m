@@ -26,6 +26,13 @@
 
 #import "ANBannerAdView.h"
 
+#import "ANStandardAd.h"
+#import "ANRTBVideoAd.h"
+
+#import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANAdView+PrivateMethods.h"
+
+
 
 
 #define  DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT  NO
@@ -37,9 +44,14 @@
 
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>         delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>   appEventDelegate;
+
 @property (nonatomic, readwrite, strong)  ANUniversalAdFetcher    *universalAdFetcher;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+
+@property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest  *marManager;
+
+@property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
 @end
 
@@ -70,6 +82,7 @@
 
 @synthesize  adResponse                          = __adResponse;
 
+
 #pragma mark - Initialization
 
 - (instancetype)init {
@@ -92,8 +105,8 @@
 - (void)initialize {
     self.clipsToBounds = YES;
     
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-    
+    self.utRequestUUIDString            = ANUUID();
+
     __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
     __location                               = nil;
     __reserve                                = 0.0f;
@@ -101,12 +114,16 @@
 
     __clickThroughAction                     = ANClickThroughActionOpenSDKBrowser;
     __landingPageLoadsInBackground           = YES;
-    }
+}
 
 - (void)dealloc
 {
+    ANLogDebug(@"%@", self.utRequestUUIDString);   //DEBUG
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.universalAdFetcher stopAdLoad];
+
+    if (_universalAdFetcher) {
+        [self.universalAdFetcher stopAdLoad];
+    }
 }
 
 - (BOOL) errorCheckConfiguration
@@ -168,21 +185,37 @@
 }
 
 
-- (void)loadAdFromHtml: (NSString *)html
+- (void)loadAdFromHtml: (nonnull NSString *)html
                  width: (int)width
                 height: (int)height
 {
-    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWithContent: html
-                                                                                                   width: width
-                                                                                                  height: height ];
-    [self.universalAdFetcher processAdServerResponse:response];
+    ANStandardAd  *standardAd  = [ANUniversalTagAdServerResponse generateStandardAdUnitFromHTMLContent:html width:width height:height];
+
+    NSMutableArray<id>  *adsArray  = [[NSMutableArray<id> alloc] initWithObjects:standardAd, nil];
+
+    [self.universalAdFetcher beginWaterfallWithAdObjects:adsArray];
 }
 
-- (void)loadAdFromVast: (NSString *)xml width: (int)width
+- (void)loadAdFromVast: (nonnull NSString *)xml
+                 width: (int)width
                 height: (int)height
 {
-    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWitXMLContent:xml width:width height:height];
-    [self.universalAdFetcher processAdServerResponse:response];
+    ANRTBVideoAd  *rtbVideoAd  = [ANUniversalTagAdServerResponse generateRTBVideoAdUnitFromVASTObject:xml width:width height:height];
+
+    NSMutableArray<id>  *adsArray  = [[NSMutableArray<id> alloc] initWithObjects:rtbVideoAd, nil];
+
+    [self.universalAdFetcher beginWaterfallWithAdObjects:adsArray];
+}
+
+/**
+ *  This method provides a single point of entry for the MAR object to pass tag content received in the UT Request to the fetcher defined by the adunit.
+ *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
+ */
+- (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
+      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
+{
+    [self.universalAdFetcher prepareForWaterfallWithAdServerResponseTag: tag
+                                               andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime ];
 }
 
 
@@ -190,7 +223,7 @@
 
 #pragma mark - ANAdProtocol: Setter methods
 
-- (void)setCreativeId:(NSString *)creativeId {
+- (void)setCreativeId:(nonnull NSString *)creativeId {
     creativeId = ANConvertToNSString(creativeId);
     if ([creativeId length] < 1) {
         ANLogError(@"Could not set creativeId to non-string value");
@@ -236,18 +269,34 @@
 }
 
 
-- (void)setInventoryCode:(nullable NSString *)invCode memberId:(NSInteger) memberId{
-    invCode = ANConvertToNSString(invCode);
-    if (invCode && invCode != __invCode) {
-        ANLogDebug(@"Setting inventory code to %@", invCode);
-        __invCode = invCode;
+
+/**
+ *  Set inventoryCode and memberId.
+ *  When marMangerDelegate is set, then only inventoryCode can be set if memberId is already set.
+ *
+ *  NB  If bound to MultiAdRequest, memberId/inventoryCode cannot be set in exchange of placementId.
+ */
+- (void)setInventoryCode:(nullable NSString *)newInvCode memberId:(NSInteger)newMemberId
+{
+    if ((newMemberId > 0) && self.marManager)
+    {
+        if (self.marManager.memberId != newMemberId) {
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            return;
+        }
     }
-    if (memberId > 0 && memberId != __memberId) {
-        ANLogDebug(@"Setting member id to %d", (int) memberId);
-        __memberId = memberId;
+
+    //
+    newInvCode = ANConvertToNSString(newInvCode);
+    if (newInvCode && newInvCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", newInvCode);
+        __invCode = newInvCode;
+    }
+    if (newMemberId > 0 && newMemberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) newMemberId);
+        __memberId = newMemberId;
     }
 }
-
 
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
@@ -311,6 +360,9 @@
 {
     __clickThroughAction = clickThroughAction;
 }
+
+
+
 
 #pragma mark - ANAdProtocol: Getter methods
 
@@ -379,47 +431,73 @@
     return __externalUid;
 }
 
-#pragma mark - ANUniversalAdFetcherDelegate  -- abstract methods.
+- (ANUniversalAdFetcher *)universalAdFetcher
+{
+    if (_universalAdFetcher) {
+        return  _universalAdFetcher;
+    }
+
+    if (self.marManager) {
+        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self andAdUnitMultiAdRequestManager:self.marManager];
+    } else {
+        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    }
+
+    return  _universalAdFetcher;
+}
+
+
+
+#pragma mark - ANUniversalAdFetcherDelegate
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
-    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    ANLogError(@"ABSTRACT METHOD -- Implement in each adunit.");
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    ANLogError(@"ABSTRACT METHOD -- Implement in each adunit.");
     return  nil;
 }
 - (BOOL)enableNativeRendering
 {
-    ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner entrypoint");
+    ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner adunit");
     return NO;
 }
 - (NSInteger)nativeAdRendererId
 {
-    ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner and Native entrypoint");
+    ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner and Native adunit");
     return 0;
 }
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
-    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    ANLogError(@"ABSTRACT METHOD -- Implement in each adunit.");
     return  nil;
+}
+
+- (nonnull NSString *)internalGetUTRequestUUIDString
+{
+    return  self.utRequestUUIDString;
+}
+
+- (void)internalUTRequestUUIDStringReset
+{
+     self.utRequestUUIDString = ANUUID();
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher
 {
-    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    ANLogError(@"ABSTRACT METHOD -- Implement in each adunit.");
     return  CGSizeMake(-1, -1);
 }
 
 - (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher
 {
-    ANLogWarn(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    ANLogWarn(@"ABSTRACT METHOD -- Implement in each adunit.");
     return  ANVideoAdSubtypeUnknown;
 }
-
 
 
 
@@ -473,6 +551,7 @@
     }
 }
 
+
 - (void)adDidReceiveAd:(id)adObject
 {
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
@@ -487,11 +566,13 @@
     }
 }
 
-- (void)adRequestFailedWithError:(NSError *)error {
+- (void)adRequestFailedWithError:(NSError *)error
+{
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }
 }
+
 
 - (void)adInteractionDidBegin
 {

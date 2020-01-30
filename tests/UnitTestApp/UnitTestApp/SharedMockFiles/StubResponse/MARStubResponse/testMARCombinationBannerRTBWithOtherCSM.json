@@ -1,0 +1,219 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "1",
+            "tag_id": 17982237,
+            "auction_id": "8399265387636925190",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKMA6CMAQAAAwDWAAUBCNW-0vAFEIbG1OLm64vIdBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDQMJ3GyQg47k5A7k5IAFAAWABgAGgAeACAAQGKAQCSAQNVU0SYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAS6qAGyBA0IABABGMACIDIwADgCuAQAwAQAyAQA2gQCCADgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAB2RTwP9IFCQkBCgEBaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBgEfIAAA8L_aBhYKEAkNGQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=ee9504f7135bed4255c05d4f66defd190088c7c5",
+            "timeout_ms": 0,
+            "ad_profile_id": 0,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843311,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "banner": {
+                            "content": "<!-- Creative 166843001 served by Member 10094 via AppNexus --><a href=\"http://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYjVWxeL5B0HrEH3fs3LXhVnxReAAAAAB1jEgFuJwAAbicAAAAAAAB50vEJAAAAAAAAAAAAAAAAVVNEAAAAAAAAAAAAAAABAQMAAAAAAAEAYAzILwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/clickenc=https%3A%2F%2Fappnexus.com\" target=\"_blank\"><img width=\"320\" height=\"50\" style=\"border-style: none\" src=\"http://vcdn.adnxs.com/p/creative-image/f1/26/9a/8c/f1269a8c-6e51-4965-807d-d10445e8eab4.png\"/></a><script async=\"true\" src=\"https://acdn.adnxs.com/ij/static/34/disca.js#enc=CVWfFF4AAAAAEQYjVWxeL5B0GO5OIO5OKJ3GyQgw-aTHTzgAQABIAVAB\"></script><div name=\"anxv\" lnttag=\"app;tv=omd1-21h;st=2;d=320x50;vc=iab;vid_ccr=1;tag_id=17982237;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKQA6CQAQAAAwDWAAUBCNW-0vAFEIbG1OLm64vIdBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFD5pMdPWABgAGgAeACAAQGKAQCSAQNVU0SYAcACoAEyqAEBsAEAuAEBwAEDyAEA0AEA2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQNCAAQARjAAiAyMAA4ArgEAMAEAMgEANoEAggB4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCRHnaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBhEjENoGFgoQEQ0RAVAQABgA4AYA8gYCCACABwGIBwCgBwA.%26s%3Dcf9daaffca0d0e14825aba9d7b2e5e4979fdabac;ts=1578409813;cet=0;cecb=\" width=\"0\" height=\"0\" style=\"display: block; margin: 0; padding: 0; height: 0; width: 0;\"><script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js\"></script></div>",
+                            "width": 320,
+                            "height": 50
+                        },
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKQA6CQAQAAAwDWAAUBCNW-0vAFEIbG1OLm64vIdBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFD5pMdPWABgAGgAeACAAQGKAQCSAQNVU0SYAcACoAEyqAEBsAEAuAEBwAEDyAEA0AEA2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQNCAAQARjAAiAyMAA4ArgEAMAEAMgEANoEAggB4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCRHnaNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBhEjENoGFgoQEQ0RAVAQABgA4AYA8gYCCACABwGIBwCgBwA.&s=cf9daaffca0d0e14825aba9d7b2e5e4979fdabac"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "uuid": "2",
+            "tag_id": 18108597,
+            "auction_id": "240241969921720430",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLNB6DNAwAAAwDWAAUBCPub1vAFEO6AzOrH2eCqAxie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwfeA_MLWh0Qg47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBBrABALgBAMABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODQ3MDkwNyk7dWYoJ3InLCAxOTk2Mzk3NDQsIC4fAPD1kgK1AiE3enVDQWdqNWpNMFJFTUNGbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdGFIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFHR2JFN0VaR3VMUDhFQmhteE94R1JyaXpfSkFla0pRd25tYV9VXzJRRUFBQUFBQUFEd1AtQUJBUFVCSDF0YlBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRC1Zek5FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhQVJJVjV3NjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQA8ATAhZlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwv9AG1jPaBhYKEAAAAABpWAkBUBAAGADgBgPyBgIIAIAHAYgHAKAHBQ..&s=1e2dbf410610fcee43ddedb699d34c506e529df2",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843825,
+                    "media_type_id": 3,
+                    "media_subtype_id": 5,
+                    "brand_category_id": 53,
+                    "client_initiated_ad_counting": false,
+                    "csm": {
+                        "banner": {
+                            "content": "<!-- Creative 199639744 served by Member 10094 via AppNexus --><script>document.write('document.write(\"\")');</script><iframe src=\"http://acdn.adnxs.com/dmp/async_usersync.html?gdpr=0&seller_id=10094&pub_id=1435524\" width=\"1\" height=\"1\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" topmargin=\"0\" leftmargin=\"0\" style=\"position:absolute;overflow:hidden;clip:rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0;\"></iframe><script>try {!function(){function e(e,t){return\"function\"==typeof __an_obj_extend_thunk?__an_obj_extend_thunk(e,t):e}function t(e,t){\"function\"==typeof __an_err_thunk&&__an_err_thunk(e,t)}function n(e,t){if(\"function\"==typeof __an_redirect_thunk)__an_redirect_thunk(e);else{var n=navigator.connection;navigator.__an_connection&&(n=navigator.__an_connection),window==window.top&&n&&n.downlinkMax<=.115&&\"function\"==typeof HTMLIFrameElement&&HTMLIFrameElement.prototype.hasOwnProperty(\"srcdoc\")?(window.__an_resize=function(e,t,n){var r=e.frameElement;r&&\"__an_if\"==r.getAttribute(\"name\")&&(t&&(r.style.width=t+\"px\"),n&&(r.style.height=n+\"px\"))},document.write('<iframe name=\"__an_if\" style=\"width:0;height:0\" srcdoc=\"<script type=\\'text/javascript\\' src=\\''+e+\"&\"+t.bdfif+\"=1'></sc\"),document.write('ript>\" frameborder=\"0\" scrolling=\"no\" marginheight=0 marginwidth=0 topmargin=\"0\" leftmargin=\"0\" allowtransparency=\"true\"></iframe>')):document.write('<script language=\"javascript\" src=\"'+e+'\"></scr'+'ipt>')}};var r=function(e){this.rdParams=e};r.prototype={constructor:r,walkAncestors:function(e){try{if(!window.location.ancestorOrigins)return;for(var t=0,n=window.location.ancestorOrigins.length;n>t;t++)e.call(null,window.location.ancestorOrigins[t],t)}catch(r){\"undefined\"!=typeof console}return[]},walkUpWindows:function(e){var t,n=[];do try{t=t?t.parent:window,e.call(null,t,n)}catch(r){return\"undefined\"!=typeof console,n.push({referrer:null,location:null,isTop:!1}),n}while(t!=window.top);return n},getPubUrlStack:function(e){var n,r=[],o=null,i=null,a=null,c=null,d=null,s=null,u=null;for(n=e.length-1;n>=0;n--){try{a=e[n].location}catch(l){\"undefined\"!=typeof console,t(l,\"AnRDModule::getPubUrlStack:: location\")}if(a)i=encodeURIComponent(a),r.push(i),u||(u=i);else if(0!==n){c=e[n-1];try{d=c.referrer,s=c.ancestor}catch(l){\"undefined\"!=typeof console,t(l,\"AnRDModule::getPubUrlStack:: prevFrame\")}d?(i=encodeURIComponent(d),r.push(i),u||(u=i)):s?(i=encodeURIComponent(s),r.push(i),u||(u=i)):r.push(o)}else r.push(o)}return{stack:r,detectUrl:u}},getLevels:function(){var e=this.walkUpWindows(function(e,n){try{n.push({referrer:e.document.referrer||null,location:e.location.href||null,isTop:e==window.top})}catch(r){n.push({referrer:null,location:null,isTop:e==window.top}),\"undefined\"!=typeof console,t(r,\"AnRDModule::getLevels\")}});return this.walkAncestors(function(t,n){e[n].ancestor=t}),e},getRefererInfo:function(){var e=\"\";try{var n=this.getLevels(),r=n.length-1,o=null!==n[r].location||r>0&&null!==n[r-1].referrer,i=this.getPubUrlStack(n);e=this.rdParams.rdRef+\"=\"+i.detectUrl+\"&\"+this.rdParams.rdTop+\"=\"+o+\"&\"+this.rdParams.rdIfs+\"=\"+r+\"&\"+this.rdParams.rdStk+\"=\"+i.stack+\"&\"+this.rdParams.rdQs}catch(a){e=\"\",\"undefined\"!=typeof console,t(a,\"AnRDModule::getRefererInfo\")}return e}};var o=function(n){var o=\"\";try{n=e(n,0);var i=e(new r(n),1);return i.getRefererInfo()}catch(a){o=\"\",\"undefined\"!=typeof console,t(a,\"AnRDModule::executeRD\")}return o};;var c=\"http://nym1-mobile.adnxs.com/rd_log?an_audit=0&e=wqT_3QKqCOgqBAAAAwDWAAUBCPub1vAFELmAxpqgrN2cDxie4p7ovf_NlngqNgmfPCzUmuaNPxGfPCzUmuaNPxkAAAECCOA_IREbACkRCQAxARm4AADgPzCzodEIOO5OQO5OSAJQ-IKZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAHAAqABMqgBBrABALgBAcABBMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODQ3MDkwNyk7dWYoJ3InLCAxOTk2Mzk0MTYsIDEdH_D1kgK1AiE2RDI4SWdqdGpNMFJFUGlDbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRczZIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFIQlh4LVltdWVOUDhFQndWOGZtSnJualRfSkFXdzB5QWJ3WFBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCelR4dlBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRDdZek5FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhS2hKdjlRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDJhlQUEu2AIA4ALKqE3yAhMKD0NVU1RPTV9NT0RFTF9JRBIA8gIaChYyFgAgTEVBRl9OQU1FAR0IHgoaNh0ACEFTVAE-8LxJRklFRBIAgAMAiAMBkAMAmAMXoAMBqgMAwAOsAsgDAdgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKIEDDEwLjc1LjEwLjE0MagEtLABsgQPCAAQARjAAiAyKAAwADgCuAQAwAQAyAQA0gQPMTAwOTQjTllNMjo0MDA42gQCCAHgBAHwBPiCmV-CBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAF____________AcAFAMkFAABhcRTwP9IFCQkBCgEBcNgFAeAFAfAFjZcG-gUECAAQAJAGAJgGALgGAMEGASEwAADwP9AG1jPaBhYKEAkRGQFQEAAYAOAGAfIGAggAgAcBiAcAoAcB&s=4aac03cf14ceb9cf621d83072546c6e17ac95332\";c+=\"&\"+o({rdRef:\"bdref\",rdTop:\"bdtop\",rdIfs:\"bdifs\",rdStk:\"bstk\",rdQs:\"\"}),n(c,{bdfif:\"bdfif\"})}();} catch (e) { }</script>",
+                            "width": 1,
+                            "height": 1
+                        },
+                        "timeout_ms": 500,
+                        "handler": [
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterInterstitialMock",
+                                "id": "ca-app-pub-3940256099942544/4411468910"
+                            },
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.mediatedviews.AdMobInterstitial",
+                                "id": "ca-app-pub-3940256099942544/4411468910"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLVB-jVAwAAAwDWAAUBCPub1vAFEO6AzOrH2eCqAxie4p7ovf_NlngqNgl5Xb9gN2yLPxF5Xb9gN2yLPxkAAAECCOA_IREbACkRCQAxARm4AADgPzC1odEIOO5OQO5OSAJQwIWZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEBwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4NDcwOTA3KTt1ZigncicsIDE5OTYzOTc0NCwgMTUZH_D1kgK1AiE3enVDQWdqNWpNMFJFTUNGbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdGFIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFHR2JFN0VaR3VMUDhFQmhteE94R1JyaXpfSkFla0pRd25tYV9VXzJRRUFBQUFBQUFEd1AtQUJBUFVCSDF0YlBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRC1Zek5FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhQVJJVjV3NjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQB8ATAhZlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP9AG1jPaBhYKEAAAAABpYAkBUBAAGADgBgPyBgIIAIAHAYgHAKAHBQ..&s=2fdfb94e1c48351ce8958b5e962aa623c11b0d5a"
+                                ],
+                                "video_events": {}
+                            }
+                        ],
+                        "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQj7m9bwBRDugMzqx9ngqgMY7k4heV2_YDdsiz8owIWZXzAKOAA.&s=99d1fcb48e03adefba194a6fe28858131f8497bb",
+                        "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQj7m9bwBRDugMzqx9ngqgMY7k4heV2_YDdsiz8owIWZXzAKOAA.&s=99d1fcb48e03adefba194a6fe28858131f8497bb"
+                    }
+                }
+            ]
+        },
+        {
+            "uuid": "3",
+            "tag_id": 17982237,
+            "auction_id": "723239967005238194",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLNB6DNAwAAAwDWAAUBCPub1vAFELLH2cWw3d2EChie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwfeA_MLSh0Qg47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBBrABALgBAMABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODQ3MDkwNyk7dWYoJ3InLCAxOTk2NDAwNzMsIC4fAPD1kgK1AiFDRDBNY3dpR2pjMFJFSW1JbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdEtIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFWnBlOFpuS21PUDhFQkdhWHZHWnlwampfSkFhVG9WQy1COVBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCMlV4MVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGhvM05FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhV3hIVnFRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQA8ASJiJlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwv9AG1jPaBhYKEAAAAABpWAkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..&s=aec95c237a6ed6af0066f1ffe42eeabaced82c24",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "native",
+                    "buyer_member_id": 10094,
+                    "creative_id": 154506782,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 53,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=18108596;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26e%3DwqT_3QLVB-jVAwAAAwDWAAUBCPub1vAFELLH2cWw3d2EChie4p7ovf_NlngqNgkqdF5jl6iOPxEqdF5jl6iOPxkAAAECCOA_IREbACkRCQAxARm4AADgPzC0odEIOO5OQO5OSAJQiYiZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4NDcwOTA3KTt1ZigncicsIDE5OTY0MDA3MywgMTUZH_D1kgK1AiFDRDBNY3dpR2pjMFJFSW1JbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdEtIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFWnBlOFpuS21PUDhFQkdhWHZHWnlwampfSkFhVG9WQy1COVBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCMlV4MVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGhvM05FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhV3hIVnFRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggB4AQA8ASJiJlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP9AG1jPaBhYKEAAAAABpYAkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..%26s%3Df337c629e5677f4576492efe5112cbf9eec44408;ts=1578470907;cet=0;cecb=\"></script>"
+                    },
+                    "csm": {
+                        "timeout_ms": 500,
+                        "handler": [
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterNativeMock",
+                                "param": "",
+                                "id": "ca-app-pub-3940256099942544/3986624511"
+                            },
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.mediatednativead.AdMobNativeAd",
+                                "param": "",
+                                "id": "ca-app-pub-3940256099942544/3986624511"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLVB-jVAwAAAwDWAAUBCPub1vAFELLH2cWw3d2EChie4p7ovf_NlngqNgkqdF5jl6iOPxEqdF5jl6iOPxkAAAECCOA_IREbACkRCQAxARm4AADgPzC0odEIOO5OQO5OSAJQiYiZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4NDcwOTA3KTt1ZigncicsIDE5OTY0MDA3MywgMTUZH_D1kgK1AiFDRDBNY3dpR2pjMFJFSW1JbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdEtIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFWnBlOFpuS21PUDhFQkdhWHZHWnlwampfSkFhVG9WQy1COVBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCMlV4MVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGhvM05FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhV3hIVnFRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggB4AQA8ASJiJlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP9AG1jPaBhYKEAAAAABpYAkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..&s=f337c629e5677f4576492efe5112cbf9eec44408"
+                                ],
+                                "video_events": {}
+                            }
+                        ],
+                        "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQj7m9bwBRCyx9nFsN3dhAoY7k4hKnReY5eojj8oiYiZXzBaOAA.&s=40283034d048966c1e1af16bd16d6fed09bda38a",
+                        "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQj7m9bwBRCyx9nFsN3dhAoY7k4hKnReY5eojj8oiYiZXzBaOAA.&s=40283034d048966c1e1af16bd16d6fed09bda38a"
+                    }
+                }
+            ]
+        },{
+            "uuid": "4",
+            "tag_id": 17982237,
+            "auction_id": "2366693127784178872",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLLB6DLAwAAAwDWAAUBCPub1vAFELjJvK_E24vsIBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwfeA_MIiG0gg47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBBrABALgBAMABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5NjUyMCwgMTU3ODQ3MDkwNyk7dWYoJ3InLCAyMDAwNDY0MTcsIC4fAPD1kgK1AiFXVHBDQXdpSDc4OFJFTkh1c1Y4WUFDRE9zMnd3QURnQVFBUkk3azVRaUliU0NGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFGRkRCUXJMcEtRUDhFQlJRd1VLeTZTa0RfSkFiaE9kRTVuNVBrXzJRRUFBQUFBQUFEd1AtQUJBUFVCYlpHRVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGgtX1BFYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhaGhJcUZRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPDJZUFBLtgCAOACyqhNgAMAiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwHYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAwxMC43NS4xMC4xNDGoBLSwAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQA8ATR7rFfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCWkceAAA2AUB4AUB8AXo9Cn6BQQIABAAkAYBmAYAuAYAwQYJJSjwv9AG1jPaBhYKEAkRGQFQEAAYAOAGBPIGAggAgAcBiAcAoAdA&s=5106350fbdf2b55097dc46491cecb2d29791bdb5",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "video",
+                    "notify_url": "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=1",
+                    "usersync_url": "http%3A%2F%2Facdn.adnxs.com%2Fdmp%2Fasync_usersync.html",
+                    "buyer_member_id": 10094,
+                    "creative_id": 162035356,
+                    "media_type_id": 4,
+                    "media_subtype_id": 64,
+                    "brand_category_id": 17,
+                    "client_initiated_ad_counting": true,
+                    "csm": {
+                        "video": {
+                            "playback_methods": [
+                                "unknown"
+                            ],
+                            "frameworks": []
+                        },
+                        "timeout_ms": 5000,
+                        "handler": [
+                            {
+                                "url": "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator="
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLTB-jTAwAAAwDWAAUBCPub1vAFELjJvK_E24vsIBie4p7ovf_NlngqNgmoqWVrfZGQPxGoqWVrfZGQPxkAAAECCOA_IREbACkRCQAxARm4AADgPzCIhtIIOO5OQO5OSAJQ0e6xX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEDwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzk2NTIwLCAxNTc4NDcwOTA3KTt1ZigncicsIDIwMDA0NjQxNywgMTUZH_D1kgK1AiFXVHBDQXdpSDc4OFJFTkh1c1Y4WUFDRE9zMnd3QURnQVFBUkk3azVRaUliU0NGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFGRkRCUXJMcEtRUDhFQlJRd1VLeTZTa0RfSkFiaE9kRTVuNVBrXzJRRUFBQUFBQUFEd1AtQUJBUFVCYlpHRVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGgtX1BFYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhaGhJcUZRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPDJZUFBLtgCAOACyqhNgAMAiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwHYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAwxMC43NS4xMC4xNDGoBLSwAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggB4AQA8ATR7rFfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCWkkeAAA2AUB4AUB8AXo9Cn6BQQIABAAkAYBmAYAuAYAwQYJJSjwP9AG1jPaBhYKEAkRGQFQEAAYAOAGBPIGAggAgAcBiAcAoAdA&s=d4172c33efa683f62397990af19c0111af87685c"
+                                ],
+                                "error_urls": [
+                                    "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=4&error_code=[ERRORCODE]"
+                                ],
+                                "video_click_urls": [
+                                    "http://nym1-mobile.adnxs.com/click?qKlla32RkD-oqWVrfZGQPwAAAAAAAOA_qKlla32RkD-oqWVrfZGQP7gk70XcLtggHrEH3fs3LXj7jRVeAAAAAAiDFAFuJwAAbicAAAIAAABRd-wLzhkbAAAAAABVU0QAVVNEAAEAAQCkiQAAAAAGAwQCAAAAAMIAFCMCgAAAAAA./bcr=AAAAAAAA8D8=/cnd=%21hhIqFQiH788RENHusV8YzrNsIAQoADF7FK5H4XqEPzoJTllNMjo0MDA4QIcZSQAAAAAAAPA_UQAAAAAAAAAAWQAAAAAAAAAAYQAAAAAAAAAAaQAAAAAAAAAAcQAAAAAAAAAAeAA./cca=MTAwOTQjTllNMjo0MDA4/bn=77339/"
+                                ],
+                                "video_events": {
+                                    "start": [
+                                        "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=2"
+                                    ],
+                                    "skip": [
+                                        "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=3"
+                                    ],
+                                    "firstQuartile": [
+                                        "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=5"
+                                    ],
+                                    "midpoint": [
+                                        "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=6"
+                                    ],
+                                    "thirdQuartile": [
+                                        "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=7"
+                                    ],
+                                    "complete": [
+                                        "http://nym1-mobile.adnxs.com/vast_track/v2?info=ZgAAAAMArgAFAQn7jRVeAAAAABG4JO9F3C7YIBn7jRVeAAAAACDR7rFfKAAw7k447k5AhM9XSJHxogJQiIbSCFjo9CliAi0taAFwAXgAgAEAiAEAkAEAmAEAoAEAqAHR7rFfsAEB&s=d65955292a551d8263e15c6402b518b486721a6d&event_type=8"
+                                    ]
+                                }
+                            }
+                        ],
+                        "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQj7m9bwBRC4ybyvxNuL7CAY7k4hqKlla32RkD8o0e6xXzBMOAA.&s=a9de3a143c1ad831462b86d865e391204b935e96",
+                        "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQj7m9bwBRC4ybyvxNuL7CAY7k4hqKlla32RkD8o0e6xXzBMOAA.&s=a9de3a143c1ad831462b86d865e391204b935e96"
+                    }
+                }
+            ]
+        }
+        
+    ]
+}

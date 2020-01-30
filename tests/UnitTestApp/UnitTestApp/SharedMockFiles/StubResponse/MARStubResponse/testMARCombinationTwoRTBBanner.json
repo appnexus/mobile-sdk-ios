@@ -1,0 +1,79 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "1",
+            "tag_id": 18128677,
+            "auction_id": "2019767406543030803",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKFA6CFAQAAAwDWAAUBCOeB0fAFEJOUo9-U-OmDHBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDJMKW-0gg47k5A7k5IAFAAWABgAGgAeACAAQCKAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAQAsgQOCAAQARisAiD6ATAAOAK4BADABADIBADaBAIIAOAEAfAEAIIFF2NvbS54YW5kci5TaW1wbGVNdWx0aUFkiAUBmAUAoAUAwAUAyQUAAAHSFPA_0gUJCQEKAQFo2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAR8gAADwv9oGFgoQCQ0ZAVAQABgA4AYA8gYCCACABwGIBwCgBwA.&s=9ce6ff328abc764e28a7879f692e55d4269e2e3f",
+            "timeout_ms": 0,
+            "ad_profile_id": 0,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843311,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "banner": {
+                            "content": "<!-- Creative 166843311 served by Member 10094 via AppNexus --><a href=\"http://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPK6EvBpwccHrEH3fs3LXjnQBReAAAAACWfFAFuJwAAbicAAAAAAACv0_EJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEARA25oAAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/clickenc=https%3A%2F%2Fappnexus.com\" target=\"_blank\"><img width=\"300\" height=\"250\" style=\"border-style: none\" src=\"http://vcdn.adnxs.com/p/creative-image/e5/3c/95/bc/e53c95bc-55a9-4ba7-80f3-e25d36d8c52d.png\"/></a><script async=\"true\" src=\"https://acdn.adnxs.com/ij/static/34/disca.js#enc=CedAFF4AAAAAERPK6EvBpwccGO5OIO5OKKW-0ggwr6fHTzgAQABIAVAB\"></script><div name=\"anxv\" lnttag=\"app;tv=omd1-21h;st=2;d=300x250;vc=iab;vid_ccr=1;tag_id=18128677;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKKA6CKAQAAAwDWAAUBCOeB0fAFEJOUo9-U-OmDHBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfD9MKW-0gg47k5A7k5IAFCvp8dPWABgAGgAeACAAQCKAQCYAawCoAH6AagBAbABALgBAcABA8gBANABANgBAOABAfABANgCAOACAIADAIgDAZADAJgDF6ADAKoDAMADrALIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACoBACyBA4IABABGKwCIPoBMAA4ArgEAMAEAMgEANoEAggB4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAApBhDaBhYKEAkLGQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA%26s%3D32d15f80a7444c62e40df41c14a166bb79cdfc74;ts=1578385639;cet=0;cecb=\" width=\"0\" height=\"0\" style=\"display: block; margin: 0; padding: 0; height: 0; width: 0;\"><script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js\"></script></div>",
+                            "width": 300,
+                            "height": 250
+                        },
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKKA6CKAQAAAwDWAAUBCOeB0fAFEJOUo9-U-OmDHBie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfD9MKW-0gg47k5A7k5IAFCvp8dPWABgAGgAeACAAQCKAQCYAawCoAH6AagBAbABALgBAcABA8gBANABANgBAOABAfABANgCAOACAIADAIgDAZADAJgDF6ADAKoDAMADrALIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACoBACyBA4IABABGKwCIPoBMAA4ArgEAMAEAMgEANoEAggB4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAApBhDaBhYKEAkLGQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=32d15f80a7444c62e40df41c14a166bb79cdfc74"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "uuid": "2",
+            "tag_id": 18128677,
+            "auction_id": "3128924816225243890",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKEA6CEAQAAAwDWAAUBCOeB0fAFEPKlisCukYu2Kxie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfD1MKW-0gg47k5A7k5IAFAAWABgAGgAeACAAQCKAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAQAsgQNCAAQARjAAiAyMAA4ArgEAMAEAMgEANoEAggA4AQB8AQAggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGCf4Y8L_aBhYKEAkNGQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=07ad8c88753bc2b9f76ce43e19c3a2374c07e0ec",
+            "timeout_ms": 0,
+            "ad_profile_id": 0,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 10094,
+                    "creative_id": 166843001,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "banner": {
+                            "content": "<!-- Creative 166843001 served by Member 10094 via AppNexus --><a href=\"http://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPKSAuiKLGwrHrEH3fs3LXjnQBReAAAAACWfFAFuJwAAbicAAAAAAAB50vEJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEALQ0TogAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/clickenc=https%3A%2F%2Fappnexus.com\" target=\"_blank\"><img width=\"320\" height=\"50\" style=\"border-style: none\" src=\"http://vcdn.adnxs.com/p/creative-image/f1/26/9a/8c/f1269a8c-6e51-4965-807d-d10445e8eab4.png\"/></a><script async=\"true\" src=\"https://acdn.adnxs.com/ij/static/34/disca.js#enc=CedAFF4AAAAAEfKSAuiKLGwrGO5OIO5OKKW-0ggw-aTHTzgAQABIAVAB\"></script><div name=\"anxv\" lnttag=\"app;tv=omd1-21h;st=2;d=320x50;vc=iab;vid_ccr=1;tag_id=18128677;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKIA6CIAQAAAwDWAAUBCOeB0fAFEPKlisCukYu2Kxie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDXMKW-0gg47k5A7k5IAFD5pMdPWABgAGgAeACAAQCKAQCYAcACoAEyqAEBsAEAuAEBwAEDyAEA0AEA2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDQgAEAEYwAIgMjAAOAK4BADABADIBADaBAIIAeAEAfAEAIIFF2NvbS54YW5kci5TaW1wbGVNdWx0aUFkiAUBmAUAoAUAwAUAyQUAAAAAAADwP9IFCQkADeBo2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGDSIUANoGFgoQEQ0RAVAQABgA4AYA8gYCCACABwGIBwCgBwA.%26s%3D4afb0a437f95e694af85e073c73f65c30e5e6799;ts=1578385639;cet=0;cecb=\" width=\"0\" height=\"0\" style=\"display: block; margin: 0; padding: 0; height: 0; width: 0;\"><script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js\"></script></div>",
+                            "width": 320,
+                            "height": 50
+                        },
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKIA6CIAQAAAwDWAAUBCOeB0fAFEPKlisCukYu2Kxie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDXMKW-0gg47k5A7k5IAFD5pMdPWABgAGgAeACAAQCKAQCYAcACoAEyqAEBsAEAuAEBwAEDyAEA0AEA2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDQgAEAEYwAIgMjAAOAK4BADABADIBADaBAIIAeAEAfAEAIIFF2NvbS54YW5kci5TaW1wbGVNdWx0aUFkiAUBmAUAoAUAwAUAyQUAAAAAAADwP9IFCQkADeBo2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGDSIUANoGFgoQEQ0RAVAQABgA4AYA8gYCCACABwGIBwCgBwA.&s=4afb0a437f95e694af85e073c73f65c30e5e6799"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

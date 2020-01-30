@@ -14,14 +14,17 @@
  */
 
 #import "ANNativeAdRequest.h"
+#import "ANNativeAdFetcher.h"
 
 
 
-@interface ANNativeAdRequest (ANTest)
+@interface ANNativeAdRequest (ANTest) <ANNativeAdFetcherDelegate>
 
 - (NSUInteger) incrementCountOfMethodInvocationInBackgroundOrReset:(BOOL)reset;
 
 - (BOOL) getIncrementCountEnabledOrIfSet: (BOOL)setEnable
                                thenValue: (BOOL)enableValue;
+
++ (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled;
 
 @end

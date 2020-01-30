@@ -27,7 +27,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"6.1.2"
+#define AN_SDK_VERSION                  @"7.0"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -76,8 +76,12 @@ extern NSString * __nonnull const  kANUniversalAdFetcherWillInstantiateMediatedC
 extern NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey;
 
 extern NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification;
-extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;
+extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;                 
 
+static NSString * __nonnull const kANCreativeId= @"creativeId";
+static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
+static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
+static NSString * __nonnull const kANAdResponse= @"adResponse";
 
 
 #pragma mark - Banner AutoRefresh
@@ -108,7 +112,10 @@ extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;
 NSString *__nonnull ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL ANIsFirstLaunch(void);
-NSString *__nonnull ANUDID(void);
+
+NSString * __nonnull ANUUID(void);
+NSString *__nonnull ANAdvertisingIdentifier(void);
+
 NSString *__nonnull ANErrorString( NSString * __nonnull key);
 NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
 NSBundle *__nonnull ANResourcesBundle(void);
@@ -125,10 +132,6 @@ NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
 
-static NSString * __nonnull const kANCreativeId= @"creativeId";
-static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
-static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
-static NSString * __nonnull const kANAdResponse= @"adResponse";
 
 #pragma mark - Global class.
 

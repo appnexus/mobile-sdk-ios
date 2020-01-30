@@ -67,7 +67,7 @@ static NSString *const kANativeRenderingValidURL = @"validRenderingURL";
     
     NSURL     *nativeRenderingUrl   = [[[ANSDKSettings sharedInstance] baseUrlConfig] nativeRenderingUrl];
     NSString  *renderNativeAssetsHTML  = [NSString stringWithContentsOfURL: nativeRenderingUrl
-                                                                  encoding: NSASCIIStringEncoding
+                                                                  encoding: NSUTF8StringEncoding
                                                                      error: nil ];
     
     renderNativeAssetsHTML = [renderNativeAssetsHTML stringByReplacingOccurrencesOfString: kANNativeResponseObject

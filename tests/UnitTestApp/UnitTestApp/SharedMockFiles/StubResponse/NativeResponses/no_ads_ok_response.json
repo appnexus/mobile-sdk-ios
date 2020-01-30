@@ -1,0 +1,17 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 0,
+            "auction_id": "1234567890",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+
+            "ads": [
+            ]
+        }
+    ]
+}

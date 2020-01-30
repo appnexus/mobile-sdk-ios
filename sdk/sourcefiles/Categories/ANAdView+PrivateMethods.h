@@ -21,22 +21,42 @@
 
 @interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *universalAdFetcher;
+@property (nonatomic, readwrite, strong, nonnull)  ANUniversalAdFetcher  *universalAdFetcher;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
+
+//
 - (void)initialize;
 - (BOOL)errorCheckConfiguration;
 
 - (void)loadAd;
-- (void)loadAdFromHtml:(NSString *)html
+- (void)loadAdFromHtml:(nonnull NSString *)html
                  width:(int)width
                 height:(int)height;
 
-- (void)loadAdFromVast: (NSString *)xml width: (int)width
+- (void)loadAdFromVast: (nonnull NSString *)xml width: (int)width
                 height: (int)height;
 
-- (void)setCreativeId:(NSString *)creativeId;
-- (void)setAdResponse:(ANAdResponse *)adResponse;
+- (void)setAdResponse:(nonnull ANAdResponse *)adResponse;
+- (void)setCreativeId:(nonnull NSString *)creativeId;
+
+
+
+// Multi-Ad Request support.
+//
+@property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest  *marManager;
+
+/**
+ * utRequestUUIDString associates a unique identifier with each adunit per request, allowing ad objects
+ *   in the UT Response to be matched with adunit elements of the UT Request.
+ *
+ * NB  This value is updated for each UT Request.  It does not persist across the lifecycle of the instance.
+ */
+@property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
+
+
+- (void)ingestAdResponseTag: (nonnull id)tag
+      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
 
 @end

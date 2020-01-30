@@ -35,10 +35,16 @@
 #import "ANNativeRenderingViewController.h"
 #import "ANRTBNativeAdResponse.h"
 
-@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate , ANNativeRenderingViewControllerLoadingDelegate>
+#import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANAdView+PrivateMethods.h"
+#import "ANNativeAdRequest+PrivateMethods.h"
+
+
+
+@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate, ANNativeRenderingViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
-@property (nonatomic, readwrite, strong)  ANNativeRenderingViewController       *nativeAdView;
+@property (nonatomic, readwrite, strong)  ANNativeRenderingViewController   *nativeAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
@@ -50,25 +56,54 @@
 
 
 
+#pragma mark -
+
 @implementation ANUniversalAdFetcher
 
-#pragma mark - Lifecycle.
+#pragma mark Lifecycle.
 
-- (nonnull instancetype)initWithDelegate: (nonnull id)delegate
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate
 {
-    if (self = [self init]) {
-        self.delegate = delegate;
-        [self setup];
-    }
-    return self;
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.delegate = delegate;
+
+    return  self;
 }
 
-- (void)dealloc {
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
+{
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.delegate = delegate;
+    self.adunitMARManager = adunitMARManager;
+
+    return  self;
+}
+- (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
+{
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.fetcherMARManager = marManager;
+
+    return  self;
+}
+
+- (void)dealloc
+{
     [self stopAdLoad];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)clearMediationController {
+
+- (void)clearMediationController
+{
     /*
      * Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher.  The controller maintains a weak reference to the
      * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
@@ -89,7 +124,7 @@
 - (void)stopAdLoad
 {
     [self stopAutoRefreshTimer];
-    self.loading = NO;
+    self.isFetcherLoading = NO;
     self.ads = nil;
     [self clearMediationController];
 }
@@ -101,7 +136,7 @@
 
 - (void)finishRequestWithError:(NSError *)error
 {
-    self.loading = NO;
+    self.isFetcherLoading = NO;
     
     NSTimeInterval interval = [self getAutoRefreshFromDelegate];
     if (interval > 0.0) {
@@ -117,8 +152,25 @@
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
     self.ads = nil;
-    self.loading = NO;
-    
+    self.isFetcherLoading = NO;
+
+
+    // MAR case.
+    //
+    if (self.fetcherMARManager)
+    {
+        if (!response.isSuccessful) {
+            [self.fetcherMARManager internalMultiAdRequestDidFailWithError:response.error];
+        } else {
+            ANLogError(@"MultiAdRequest manager SHOULD NEVER CALL processFinalResponse, except on error.");
+        }
+
+        return;
+    }
+
+
+    // AdUnit case.
+    //
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
@@ -133,15 +185,60 @@
     [self startAutoRefreshTimer];
 }
 
+- (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags
+{
+    // Multi-Ad Request Mode.
+    //
+    if (arrayOfTags.count <= 0)
+    {
+        NSError  *responseError  = ANError(@"multi_ad_request_failed %@", ANAdResponseUnableToFill, @"UT Response FAILED to return any ad objects.");
+
+        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:responseError];
+        return;
+    }
+
+    [self.fetcherMARManager internalMultiAdRequestDidComplete];
+
+    // Process each ad object in turn, matching with adunit via UUID.
+    //
+    if (self.fetcherMARManager.countOfAdUnits != [arrayOfTags count]) {
+        ANLogWarn(@"Number of tags in UT Response (%@) DOES NOT MATCH number of ad units in MAR instance (%@).",
+                         @([arrayOfTags count]), @(self.fetcherMARManager.countOfAdUnits));
+    }
+
+    for (NSDictionary<NSString *, id> *tag in arrayOfTags)
+    {
+        NSString  *uuid     = tag[kANUniversalTagAdServerResponseKeyTagUUID];
+        id         adunit   = [self.fetcherMARManager internalGetAdUnitByUUID:uuid];
+
+        if (!adunit) {
+            ANLogWarn(@"UT Response tag UUID DOES NOT MATCH any ad unit in MAR instance.  Ignoring this tag...  (%@)", uuid);
+
+        } else if ([adunit isKindOfClass:[ANAdView class]])
+        {
+            ANAdView  *adView  = (ANAdView *)adunit;
+            [adView ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+
+        } else if ([adunit isKindOfClass:[ANNativeAdRequest class]])
+        {
+            ANNativeAdRequest  *nativeAd  = (ANNativeAdRequest *)adunit;
+            [nativeAd ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+
+        } else {
+            ANLogError(@"UNRECOGNIZED adunit type.  (%@)", [adunit class]);
+        }
+    }
+}
+
 //NB  continueWaterfall is co-functional the ad handler methods.
 //    The loop of the waterfall lifecycle is managed by methods calling one another
 //      until a valid ad object is found OR when the waterfall runs out.
 //
 - (void)continueWaterfall
 {
-    // stop waterfall if delegate reference (adview) was lost
+    // stop waterfall if delegate reference was lost
     if (!self.delegate) {
-        self.loading = NO;
+        self.isFetcherLoading = NO;
         return;
     }
     

@@ -59,6 +59,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 
 @implementation ANInterstitialAd
+@synthesize frame;
 
 #pragma mark - Initialization
 

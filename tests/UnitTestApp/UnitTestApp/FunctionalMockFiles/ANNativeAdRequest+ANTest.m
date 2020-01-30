@@ -15,11 +15,15 @@
 
 #import "ANNativeAdRequest+ANTest.h"
 #import "NSObject+Swizzling.h"
+#import <objc/runtime.h>
 #import "ANTestGlobal.h"
 
 
 
 @implementation ANNativeAdRequest (ANTest)
+
+
+static BOOL kDoNotResetAdUnitUUIDEnabled = NO;
 
 + (void)load {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
@@ -27,6 +31,9 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         [ANNativeAdRequest exchangeInstanceSelector:@selector(setImageInBackgroundForImageURL:onObject:forKeyPath:)
                                        withSelector:@selector(test_setImageInBackgroundForImageURL:onObject:forKeyPath:) ];
+        [ANNativeAdRequest exchangeInstanceSelector:@selector(internalUTRequestUUIDStringReset)
+                                         withSelector:@selector(swizzle_internalUTRequestUUIDStringReset)];
+        
     }];
 #pragma clang diagnostic pop
     [operation start];
@@ -77,6 +84,18 @@ TESTTRACE();
     }
 
     return  invocationCountEnabled;
+}
+
++ (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled {
+    kDoNotResetAdUnitUUIDEnabled = simulationEnabled;
+}
+
+- (void)swizzle_internalUTRequestUUIDStringReset {
+    if(kDoNotResetAdUnitUUIDEnabled){
+        NSLog(@"Do nothing");
+    }else{
+        [self swizzle_internalUTRequestUUIDStringReset];
+    }
 }
 
 

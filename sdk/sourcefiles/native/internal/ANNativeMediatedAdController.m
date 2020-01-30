@@ -183,7 +183,7 @@
     targetingParameters.gender            = self.adRequestDelegate.gender;
     targetingParameters.externalUid       = self.adRequestDelegate.externalUid;
     targetingParameters.location          = self.adRequestDelegate.location;
-    targetingParameters.idforadvertising  = ANUDID();
+    targetingParameters.idforadvertising  = ANAdvertisingIdentifier();
 
     return targetingParameters;
 }
@@ -223,7 +223,7 @@
     // use queue to force return
     [self runInBlock:^(void) {
         NSString *responseURLString = [self createResponseURLRequest: self.mediatedAd.responseURL
-                                                              reason: errorCode ];
+                                                              reason: (int)errorCode ];
 
         // fireResulCB will clear the adapter if fetcher exists
         if (!self.adFetcher) {

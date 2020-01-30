@@ -74,7 +74,12 @@ BOOL ANIsFirstLaunch()
 }
 
 
-NSString *__nonnull ANUDID() {
+NSString * __nonnull ANUUID()
+{
+    return  [[[NSUUID alloc] init] UUIDString];
+}
+
+NSString *__nonnull ANAdvertisingIdentifier() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {
@@ -293,12 +298,13 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (void) openURL: (nonnull NSString *)urlString
 {
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)])
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    if (@available(iOS 10.0, *)) {
+        if([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
+            return;
+        }
     }
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 

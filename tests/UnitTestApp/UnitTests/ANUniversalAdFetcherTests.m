@@ -26,10 +26,13 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 
 
 
-@interface ANUniversalAdFetcherTests : XCTestCase<ANUniversalRequestTagBuilderDelegate>
+@interface ANUniversalAdFetcherTests : XCTestCase<  ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
+                                                    ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement
+                                                 >
 
     @property (nonatomic, strong) ANUniversalAdFetcher *universalAdFetcher;
     @property (nonatomic) BOOL callbackInvoked;
+    @property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
 @end
 
@@ -91,6 +94,15 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 }
 
 
+- (nonnull NSString *)internalGetUTRequestUUIDString
+{
+    return  self.utRequestUUIDString;
+}
+
+- (void)internalUTRequestUUIDStringReset
+{
+     self.utRequestUUIDString = ANUUID();
+}
 
 
 #pragma mark - For ANUniversalRequestTagBuilderDelegate.

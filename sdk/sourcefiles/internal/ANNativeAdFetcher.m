@@ -36,9 +36,20 @@
 
 @implementation ANNativeAdFetcher
 
--(nonnull instancetype) initWithDelegate:(nonnull id)delegate{
+-(nonnull instancetype) initWithDelegate:(nonnull id)delegate
+{
     if (self = [self init]) {
         self.delegate = delegate;
+        [self setup];
+    }
+    return self;
+}
+
+-(nonnull instancetype) initWithDelegate:(nonnull id)delegate andAdunitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
+{
+    if (self = [self init]) {
+        self.delegate = delegate;
+        self.adunitMARManager = adunitMARManager;
         [self setup];
     }
     return self;
@@ -59,7 +70,7 @@
 #pragma mark - UT ad response processing methods
 - (void)finishRequestWithError:(NSError *)error
 {
-    self.loading = NO;
+    self.isFetcherLoading = NO;
     ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
     [self processFinalResponse:response];
@@ -68,7 +79,7 @@
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
     self.ads = nil;
-    self.loading = NO;
+    self.isFetcherLoading = NO;
     
     if ([self.delegate respondsToSelector:@selector(didFinishRequestWithResponse:)]) {
         [self.delegate didFinishRequestWithResponse:response];
@@ -83,7 +94,7 @@
 {
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
-        self.loading = NO;
+        self.isFetcherLoading = NO;
         return;
     }
     

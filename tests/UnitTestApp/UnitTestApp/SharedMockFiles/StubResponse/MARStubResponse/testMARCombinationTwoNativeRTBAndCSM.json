@@ -1,0 +1,112 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "1",
+            "tag_id": 14790206,
+            "auction_id": "3384477771362183312",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QL-B6D-AwAAAwDWAAUBCLTr0fAFEJDR_oGfk4X8Lhie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwhuA_ML7chgc47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBAbABALgBAcABAMgBAtABANgBAOABAPABAIoCWXVmKCdhJywgMzAzODMxNCwgMTU3ODM5OTE1Nik7dWYoJ2knLCAzMjgzNzg3LCAxNTc4Mzk5MTU2KQUdBHInARQYNDUwNjc4MgELGR_wtpICzQIhZkVWNXpRanlncllSRUo2czFra1lBQ0RPczJ3d0FEZ0FRQVJJN2s1UXZ0eUdCMWdBWUlZRmFBQndBSGdBZ0FFRWlBR3lFcEFCQUpnQkFLQUJBYWdCQTdBQkFMa0JkYXNOYkpxWnFUX0JBWFdyRFd5YW1ha195UUZ1YTExT0U2SDNQOWtCQUFBQUFBQUE4RF9nQWN1MnlBSDFBUUFBQUFDWUFnQ2dBZ0MxQWdBQUFBQzlBZwErgERRQWdUWUFySVM0QUlBNkFJQS1BSUFnQU1CbUFNQnFBUAXQgHVnTUpUbGxOTWpvME9UYzM0QVA4R0lBRW05ZVRBNGdFbgEIKDVBRUFKZ0VBY0VFAVoJAQhESkIJCQUBGDJBUUE4UVEFDAUBLFBnRUFJZ0Y4U2FwQhEXOFBBX5oCiQEhWlJNelJ3agWBMVE0enJOc0lBUW9BREdhbVoFAgxwUHpvMp0AEFFQd1lTHU0AVREMDEFBQVcdDABZHQwAYR0MAGMdDPDJZUFBLtgCAOACyqhNgAMAiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAwxMC43NS4xMC4xNDGoBIinAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDk3N9oEAggA4AQB8ASerNZJggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCWlRcAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGCSMo8L_QBtYz2gYWChAJERkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..&s=c0e247358889ff0ea02b0e78cd7b8de767ed4fff",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 10094,
+                    "creative_id": 154506782,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=14790206;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26e%3DwqT_3QKGCMAGBAAAAwDWAAUBCLTr0fAFEJDR_oGfk4X8Lhie4p7ovf_NlngqNgmamZmZmZmpPxGaAQgQmak_GQAFAQjgPyERGwApEQkAMQUauADgPzC-3IYHOO5OQO5OSAJQnqzWSVjOs2xgAGikk4YBeNu8BYABAYoBA1VTRJIBAQbwT5gBAaABAagBAbABALgBAcABBMgBAtABANgBAOABAPABAIoCWXVmKCdhJywgMzAzODMxNCwgMTU3ODM5OTE1Nik7dWYoJ2knLCAzMjgzNzg3Rh0ABHInARQYNDUwNjc4MgELGTzwtpICzQIhZkVWNXpRanlncllSRUo2czFra1lBQ0RPczJ3d0FEZ0FRQVJJN2s1UXZ0eUdCMWdBWUlZRmFBQndBSGdBZ0FFRWlBR3lFcEFCQUpnQkFLQUJBYWdCQTdBQkFMa0JkYXNOYkpxWnFUX0JBWFdyRFd5YW1ha195UUZ1YTExT0U2SDNQOWtCQUFBQUFBQUE4RF9nQWN1MnlBSDFBUUFBQUFDWUFnQ2dBZ0MxQWdBQUFBQzlBZwErgERRQWdUWUFySVM0QUlBNkFJQS1BSUFnQU1CbUFNQnFBUAXQgHVnTUpUbGxOTWpvME9UYzM0QVA4R0lBRW05ZVRBNGdFbgEIKDVBRUFKZ0VBY0VFAVoJAQhESkIJCQUBGDJBUUE4UVEFDAUBLFBnRUFJZ0Y4U2FwQhEXOFBBX5oCiQEhWlJNelJ3agWBMVE0enJOc0lBUW9BREdhbVoFAgxwUHpvMp0AEFFQd1lTHU0AVREMDEFBQVcdDABZHQwAYR0MAGMdDPDJZUFBLtgCAOACyqhNgAMAiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAwxMC43NS4xMC4xNDGoBIinAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDk3N9oEAggB4AQB8ASerNZJggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCWlZcAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGCSMo8D_QBtYz2gYWChAJERkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..%26s%3D99265f1d39cccb5a6b7ea649bdad8b390c820cdd;ts=1578399156;cet=0;cecb=\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "Vision",
+                            "desc": "Vision having mind stone",
+                            "sponsored": "Abhishek Sharma",
+                            "ctatext": "MindStone",
+                            "icon": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/6a/8c/98/ee/6a8c98ee-4a73-4595-b342-bea14458fefb.png",
+                                "width": 774,
+                                "height": 1152,
+                                "prevent_crop": false
+                            },
+                            "main_img": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/bb/b5/e8/fb/bbb5e8fb-2318-407e-ad4c-bf1e7536b247.png",
+                                "width": 868,
+                                "height": 996,
+                                "prevent_crop": false
+                            },
+                            "link": {
+                                "url": "https://appnexus.com",
+                                "click_trackers": [
+                                    "http://nym1-mobile.adnxs.com/click?mpmZmZmZqT-amZmZmZmpPwAAAAAAAOA_mpmZmZmZqT-amZmZmZmpP5CoP_CZFPguHrEH3fs3LXi0dRReAAAAAD6u4QBuJwAAbicAAAIAAAAeljUJzhkbAAAAAABVU0QAVVNEAAEAAQCkiQAAAAABAQQCAAAAAMIAOSWZbwAAAAA./bcr=AAAAAAAA8D8=/cnd=%21ZRMzRwjygrYREJ6s1kkYzrNsIAQoADGamZmZmZmpPzoJTllNMjo0OTc3QPwYSQAAAAAAAPA_UQAAAAAAAAAAWQAAAAAAAAAAYQAAAAAAAAAAaQAAAAAAAAAAcQAAAAAAAAAAeAA./cca=MTAwOTQjTllNMjo0OTc3/bn=89691/"
+                                ]
+                            },
+                            "impression_trackers": [
+                                "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QKGCMAGBAAAAwDWAAUBCLTr0fAFEJDR_oGfk4X8Lhie4p7ovf_NlngqNgmamZmZmZmpPxGaAQgQmak_GQAFAQjgPyERGwApEQkAMQUauADgPzC-3IYHOO5OQO5OSAJQnqzWSVjOs2xgAGikk4YBeNu8BYABAYoBA1VTRJIBAQbwT5gBAaABAagBAbABALgBAcABBMgBAtABANgBAOABAPABAIoCWXVmKCdhJywgMzAzODMxNCwgMTU3ODM5OTE1Nik7dWYoJ2knLCAzMjgzNzg3Rh0ABHInARQYNDUwNjc4MgELGTzwtpICzQIhZkVWNXpRanlncllSRUo2czFra1lBQ0RPczJ3d0FEZ0FRQVJJN2s1UXZ0eUdCMWdBWUlZRmFBQndBSGdBZ0FFRWlBR3lFcEFCQUpnQkFLQUJBYWdCQTdBQkFMa0JkYXNOYkpxWnFUX0JBWFdyRFd5YW1ha195UUZ1YTExT0U2SDNQOWtCQUFBQUFBQUE4RF9nQWN1MnlBSDFBUUFBQUFDWUFnQ2dBZ0MxQWdBQUFBQzlBZwErgERRQWdUWUFySVM0QUlBNkFJQS1BSUFnQU1CbUFNQnFBUAXQgHVnTUpUbGxOTWpvME9UYzM0QVA4R0lBRW05ZVRBNGdFbgEIKDVBRUFKZ0VBY0VFAVoJAQhESkIJCQUBGDJBUUE4UVEFDAUBLFBnRUFJZ0Y4U2FwQhEXOFBBX5oCiQEhWlJNelJ3agWBMVE0enJOc0lBUW9BREdhbVoFAgxwUHpvMp0AEFFQd1lTHU0AVREMDEFBQVcdDABZHQwAYR0MAGMdDPDJZUFBLtgCAOACyqhNgAMAiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAwxMC43NS4xMC4xNDGoBIinAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDk3N9oEAggB4AQB8ASerNZJggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCWlZcAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGCSMo8D_QBtYz2gYWChAJERkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..&s=99265f1d39cccb5a6b7ea649bdad8b390c820cdd"
+                            ],
+                            "id": 154506782
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "uuid": "2",
+            "tag_id": 17982237,
+            "auction_id": "723239967005238194",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLNB6DNAwAAAwDWAAUBCPub1vAFELLH2cWw3d2EChie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwfeA_MLSh0Qg47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBBrABALgBAMABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODQ3MDkwNyk7dWYoJ3InLCAxOTk2NDAwNzMsIC4fAPD1kgK1AiFDRDBNY3dpR2pjMFJFSW1JbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdEtIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFWnBlOFpuS21PUDhFQkdhWHZHWnlwampfSkFhVG9WQy1COVBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCMlV4MVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGhvM05FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhV3hIVnFRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggA4AQA8ASJiJlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwv9AG1jPaBhYKEAAAAABpWAkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..&s=aec95c237a6ed6af0066f1ffe42eeabaced82c24",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "native",
+                    "buyer_member_id": 10094,
+                    "creative_id": 196441069,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 53,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=18108596;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26e%3DwqT_3QLVB-jVAwAAAwDWAAUBCPub1vAFELLH2cWw3d2EChie4p7ovf_NlngqNgkqdF5jl6iOPxEqdF5jl6iOPxkAAAECCOA_IREbACkRCQAxARm4AADgPzC0odEIOO5OQO5OSAJQiYiZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4NDcwOTA3KTt1ZigncicsIDE5OTY0MDA3MywgMTUZH_D1kgK1AiFDRDBNY3dpR2pjMFJFSW1JbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdEtIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFWnBlOFpuS21PUDhFQkdhWHZHWnlwampfSkFhVG9WQy1COVBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCMlV4MVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGhvM05FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhV3hIVnFRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggB4AQA8ASJiJlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP9AG1jPaBhYKEAAAAABpYAkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..%26s%3Df337c629e5677f4576492efe5112cbf9eec44408;ts=1578470907;cet=0;cecb=\"></script>"
+                    },
+                    "csm": {
+                        "timeout_ms": 500,
+                        "handler": [
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterNativeMock",
+                                "param": "",
+                                "id": "ca-app-pub-3940256099942544/3986624511"
+                            },
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.mediatednativead.AdMobNativeAd",
+                                "param": "",
+                                "id": "ca-app-pub-3940256099942544/3986624511"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&e=wqT_3QLVB-jVAwAAAwDWAAUBCPub1vAFELLH2cWw3d2EChie4p7ovf_NlngqNgkqdF5jl6iOPxEqdF5jl6iOPxkAAAECCOA_IREbACkRCQAxARm4AADgPzC0odEIOO5OQO5OSAJQiYiZX1jOs2xgAGikk4YBeJvcBIABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4NDcwOTA3KTt1ZigncicsIDE5OTY0MDA3MywgMTUZH_D1kgK1AiFDRDBNY3dpR2pjMFJFSW1JbVY4WUFDRE9zMnd3QURnQVFBUkk3azVRdEtIUkNGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFWnBlOFpuS21PUDhFQkdhWHZHWnlwampfSkFhVG9WQy1COVBjXzJRRUFBQUFBQUFEd1AtQUJBUFVCMlV4MVBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRGhvM05FYm9EQ1U1WlRUSTZOREF3T09BRGh4bUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNAZAsNEJBQ0lCYWdmcVFVAREBFDx3UHcuLpoCiQEhV3hIVnFRNjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTURBNFFJY1pTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQFAWVBQS7YAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMB2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqAS0sAGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDAwONoEAggB4AQA8ASJiJlfggUXY29tLnhhbmRyLlNpbXBsZU11bHRpQWSIBQGYBQCgBf___________wHABQDJBQAAAAAAAPA_0gUJCQAAAAAAAAAA2AUB4AUB8AWNlwb6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP9AG1jPaBhYKEAAAAABpYAkBUBAAGADgBgzyBgIIAIAHAYgHAKAHQQ..&s=f337c629e5677f4576492efe5112cbf9eec44408"
+                                ],
+                                "video_events": {}
+                            }
+                        ],
+                        "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQj7m9bwBRCyx9nFsN3dhAoY7k4hKnReY5eojj8oiYiZXzBaOAA.&s=40283034d048966c1e1af16bd16d6fed09bda38a",
+                        "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQj7m9bwBRCyx9nFsN3dhAoY7k4hKnReY5eojj8oiYiZXzBaOAA.&s=40283034d048966c1e1af16bd16d6fed09bda38a"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -36,11 +36,20 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANNativeRenderingViewController.h"
 
-static NSString *const kANAdType = @"adType";
-static NSString *const kANBannerWidth = @"width";
-static NSString *const kANBannerHeight = @"height";
-static NSString *const kANInline = @"inline";
 
+
+
+#pragma mark - Local constants.
+
+static NSString *const kANAdType        = @"adType";
+static NSString *const kANBannerWidth   = @"width";
+static NSString *const kANBannerHeight  = @"height";
+static NSString *const kANInline        = @"inline";
+
+
+
+
+#pragma mark -
 
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 
@@ -61,6 +70,9 @@ static NSString *const kANInline = @"inline";
 
 
 
+
+#pragma mark -
+
 @implementation ANBannerAdView
 
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
@@ -72,8 +84,10 @@ static NSString *const kANInline = @"inline";
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
 @synthesize  adResponse           = _adResponse;
+@synthesize  minDuration             = __minDuration;
+@synthesize  maxDuration             = __maxDuration;
 
-#pragma mark - Lifecycle.
+#pragma mark Lifecycle.
 
 - (void)initialize {
     [super initialize];
@@ -324,7 +338,7 @@ static NSString *const kANInline = @"inline";
 
 #pragma mark - Implementation of abstract methods from ANAdView
 
-- (void)loadAdFromHtml: (NSString *)html
+- (void)loadAdFromHtml: (nonnull NSString *)html
                  width: (int)width
                 height: (int)height
 {
@@ -343,6 +357,8 @@ static NSString *const kANInline = @"inline";
     
     if ([response isSuccessful]) 
     {
+        self.loadAdHasBeenInvoked = YES;
+
         id  adObject         = response.adObject;
         id  adObjectHandler  = response.adObjectHandler;
 
@@ -545,6 +561,7 @@ static NSString *const kANInline = @"inline";
         }
     }
 }
+
 
 @end
 
