@@ -316,6 +316,10 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self adRequestFailedWithError:response.error];
         return;
     }
+    ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
+    if (adResponse) {
+        [self setAdResponse:adResponse];
+    }
     NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
     if(creativeId){
         [self setCreativeId:creativeId];

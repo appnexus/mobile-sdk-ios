@@ -157,12 +157,19 @@
     //
     __weak ANNativeAdRequest  *weakSelf        = self;
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
-
-    //
-    if (nativeResponse.creativeId == nil) {
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-        [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
+    
+    // In case of Mediation
+    if (nativeResponse.adResponse == nil) {
+        ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
+        if (adResponse) {
+            [self setAdResponse:adResponse onObject:nativeResponse forKeyPath:kANAdResponse];
+        }
     }
+    //
+     if (nativeResponse.creativeId == nil) {
+         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
+         [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
+     }
 
     //
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
@@ -254,6 +261,11 @@
     [object setValue:creativeId forKeyPath:keyPath];
 }
 
+- (void)setAdResponse:(ANAdResponse *)adResponse
+             onObject:(id)object forKeyPath:(NSString *)keyPath
+{
+    [object setValue:adResponse forKeyPath:keyPath];
+}
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.
 //          nil                     When image is cached  -OR-  if imageURL is undefined.

@@ -83,6 +83,7 @@ static NSString *const kANInline        = @"inline";
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
+@synthesize  adResponse           = _adResponse;
 @synthesize  minDuration             = __minDuration;
 @synthesize  maxDuration             = __maxDuration;
 
@@ -364,6 +365,11 @@ static NSString *const kANInline        = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
+        _adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:adObjectHandler];
+        if (_adResponse) {
+            [self setAdResponse:_adResponse];
+        }
+        
         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
         if (creativeId) {
              [self setCreativeId:creativeId];
@@ -397,7 +403,7 @@ static NSString *const kANInline        = @"inline";
             }
             [self adDidReceiveAd:self];
 
-            if ([self adType] == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            if (_adResponse.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
                 
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
@@ -418,7 +424,7 @@ static NSString *const kANInline        = @"inline";
 
         } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
-
+            
             self.creativeId  = nativeAdResponse.creativeId;
             self.adType      = ANAdTypeNative;
 
@@ -541,7 +547,7 @@ static NSString *const kANInline        = @"inline";
 
 - (void)didMoveToWindow
 {
-    if (self.contentView  && ( [self adType] == ANAdTypeBanner)) {
+    if (self.contentView  && ( _adResponse.adType == ANAdTypeBanner)) {
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
         self.impressionURLs = nil;
         

@@ -81,7 +81,7 @@ extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;
 static NSString * __nonnull const kANCreativeId= @"creativeId";
 static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
 static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
-
+static NSString * __nonnull const kANAdResponse= @"adResponse";
 
 
 #pragma mark - Banner AutoRefresh
@@ -131,7 +131,6 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
-
 
 
 #pragma mark - Global class.
