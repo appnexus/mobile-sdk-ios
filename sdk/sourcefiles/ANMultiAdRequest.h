@@ -67,6 +67,7 @@ limitations under the License.
  * PARAMETERS
  *
  *   memberId: Member ID common to all encapsulated AdUnits.
+ *   publisherID: Publisher ID common to all encapsulated AdUnits.
  *
  *   delegate: Used to receive notification of success or failure from this instance and all encapsulated AdUnits.
  *
@@ -76,12 +77,18 @@ limitations under the License.
                                  delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
                                   adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ... NS_REQUIRES_NIL_TERMINATION;
 
+- (nullable instancetype)initWithMemberId: (NSInteger)memberId
+                              publisherId: (NSInteger)publisherId
+                                 delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
+                                  adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ... NS_REQUIRES_NIL_TERMINATION;
+
 /**
  * Initializer for ANMultiAdRequest.  This method takes all essential arguments and invokes load method.  Returns a new instance upon success.
  *
  * PARAMETERS
  *
  *   memberId: Member ID common to all encapsulated AdUnits.
+ *   publisherID: Publisher ID common to all encapsulated AdUnits.
  *
  *   delegate: Used to receive notification of success or failure from this instance and all encapsulated AdUnits.
  *
@@ -91,18 +98,27 @@ limitations under the License.
                                         delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
                                          adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ... NS_REQUIRES_NIL_TERMINATION;
 
+- (nullable instancetype)initAndLoadWithMemberId: (NSInteger)memberId
+                                     publisherId: (NSInteger)publisherId
+                                        delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
+                                         adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ... NS_REQUIRES_NIL_TERMINATION;
+
 /**
  * Initializer for ANMultiAdRequest.  This method takes the minimum required arguments and returns a new instance on success.
  *
  * PARAMETERS
  *
  *   memberId: Member ID common to all encapsulated AdUnits.
+ *   publisherID: Publisher ID common to all encapsulated AdUnits.
  *
  *   delegate: Used to receive notification of success or failure from this instance and all encapsulated AdUnits.
  */
 - (nullable instancetype)initWithMemberId: (NSInteger)memberId
                               andDelegate: (nullable id<ANMultiAdRequestDelegate>)delegate;
 
+- (nullable instancetype)initWithMemberId: (NSInteger)memberId
+                              publisherId: (NSInteger)publisherId
+                              andDelegate: (nullable id<ANMultiAdRequestDelegate>)delegate;
 
 
 /**

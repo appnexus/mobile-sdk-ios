@@ -489,7 +489,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     if ((newMemberID > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberID) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberID));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberID));
             return;
         }
     }

@@ -20,6 +20,7 @@ limitations under the License.
 #import "ANHTTPStubbingManager.h"
 
 #import "ANBannerAdView.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
 
@@ -27,26 +28,20 @@ limitations under the License.
 
 
 
-@interface DefaultPlacementLogic : XCTestCase
+@interface DefaultPlacementLogic : XCTestCase  <ANMultiAdRequestDelegate>
 
-@property (nonatomic, readwrite, strong, nullable)  MARAdUnits          *adUnitsForTest;
+@property (nonatomic, readwrite, strong, nullable)  MARAdUnits              *adUnitsForTest;
 
-@property (nonatomic, readwrite, strong, nullable)            ANMultiAdRequest    *mar;
-//@property (nonatomic, readwrite, strong)            ANMultiAdRequest    *mar2;
+@property (nonatomic, readwrite, strong, nullable)  ANAdResponseElements    *adResponseElements;
+
+@property (nonatomic, strong, readwrite, nullable)  ANHTTPStubbingManager   *httpStubManager;
 
 
 //
+@property (nonatomic, readwrite, strong, nullable)  ANMultiAdRequest     *mar;
+
 @property (nonatomic, readwrite, strong, nullable)  ANBannerAdView       *bannerAd1;
-//@property (nonatomic, readwrite, strong)  ANBannerAdView        *bannerAd2;
-
-//@property (strong, nonatomic) ANInterstitialAd *interstitialAd1;
-//
-@property (nonatomic, readwrite, strong, nullable) ANNativeAdRequest *nativeAdRequest1;
-//@property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse1;
-//
-//@property (strong, nonatomic)  ANInstreamVideoAd  *videoAd1;
-
-@property (strong, nonatomic, nullable)  ANAdResponseElements  *adResponseElements;
+@property (nonatomic, readwrite, strong, nullable)  ANNativeAdRequest    *nativeAdRequest1;
 
 
 //
@@ -55,29 +50,30 @@ limitations under the License.
 @property (nonatomic, readwrite)  NSUInteger  AdUnit_countOfReceiveSuccesses;
 @property (nonatomic, readwrite)  NSUInteger  AdUnit_countOfReceiveFailures;
 
-//@property (nonatomic, strong) XCTestExpectation *loadAdResponseReceivedExpectation;
-//@property (nonatomic, strong) XCTestExpectation *loadAdResponseFailedExpectation;
-
 @property (nonatomic, strong, readwrite, nullable)  XCTestExpectation  *expectationMARLoadCompletionOrFailure;
 @property (nonatomic, strong, readwrite, nullable)  XCTestExpectation  *expectationAdUnitLoadResponseOrFailure;
-//@property (nonatomic, strong, readwrite, nullable)  XCTestExpectation  *expectationBackgroundBlockIsComplete;
-//
 
 
 //
-@property (nonatomic, strong, readwrite, nullable)  ANHTTPStubbingManager  *httpStubManager;
-@property (nonatomic, readwrite)  NSUInteger  countOfRequestedAdUnits;
+@property (nonatomic, readwrite)          NSUInteger   publisherIDWithNobid;
+@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeWithNobidGood;
+@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeWithNobidBad;
+
+@property (nonatomic, readwrite, strong)  NSString    *placementIDNobidResponseWhenAllIsCorrect;
+@property (nonatomic, readwrite, strong)  NSString    *placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined;
+@property (nonatomic, readwrite, strong)  NSString    *placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined;
 
 
+//@property (nonatomic, readwrite)          NSUInteger   publisherIDWithSuccess;
+//@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeWithSuccessGood;
+//@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeWithSuccessBad;
 //
-@property (nonatomic, readwrite)          NSUInteger   publisherID;
-@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeGood;
-@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeBad;
+//@property (nonatomic, readwrite, strong)  NSString    *placementIDSuccessResponseWhenAllIsCorrect;
+//@property (nonatomic, readwrite, strong)  NSString    *placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined;
+//@property (nonatomic, readwrite, strong)  NSString    *placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined;
+                //FIX -- use these properties.
 
-@property (nonatomic, readwrite, strong)  NSString    *placementIDResponseWhenAllIsCorrect;
-@property (nonatomic, readwrite, strong)  NSString    *placementIDResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined;
-@property (nonatomic, readwrite, strong)  NSString    *placementIDResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined;
-
+@property (nonatomic, readwrite)  NSUInteger  publisherIDWeirdMaskedValue;
 @end
 
 
@@ -87,13 +83,24 @@ limitations under the License.
 
 - (void)setUp
 {
-    self.publisherID        = 1456489;
-    self.inventoryCodeGood  = @"pascal_med_rect";
-    self.inventoryCodeBad   = @"this_is_a_badInventoryCode";
+    self.publisherIDWithNobid        = 1456489;
+    self.inventoryCodeWithNobidGood  = @"pascal_med_rect";
+    self.inventoryCodeWithNobidBad   = @"this_is_a_badInventoryCode";
 
-    self.placementIDResponseWhenAllIsCorrect                                    = @"15712318";
-    self.placementIDResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined     = @"15028015";
-    self.placementIDResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"17383879";
+    self.placementIDNobidResponseWhenAllIsCorrect                                    = @"15712318";
+    self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined     = @"15028015";
+    self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"17383879";
+
+
+//    self.publisherIDWithSuccess        = FIX;
+//    self.inventoryCodeWithSuccessGood  = @"FIX";
+//    self.inventoryCodeWithSuccessBad   = @"FIX";
+//
+//    self.placementIDSuccessResponseWhenAllIsCorrect                                    = @"FIX";
+//    self.placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined     = @"FIX";
+//    self.placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"FIX";
+
+    self.publisherIDWeirdMaskedValue = 99009900;
 
     //
     self.httpStubManager = [ANHTTPStubbingManager sharedStubbingManager];
@@ -122,46 +129,147 @@ limitations under the License.
 
 #pragma mark - Tests.
 
-- (void)testBannerAdUnitForDefaultTagIDResponseWithAndWithoutMAR
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithAndWithoutMAR
 {
 TMARK();
     self.adUnitsForTest  = [[MARAdUnits alloc] initWithDelegate:self];
 
-    ANMultiAdRequest  *mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
-                                                             andDelegate: self ];
-
     ANBannerAdView  *banner  = self.adUnitsForTest.banner;
+    banner.shouldServePublicServiceAnnouncements = NO;
 
 
+
+    // ANBannerAdView, receiving nobid, without MAR association.
     //
-    [banner setInventoryCode:self.inventoryCodeGood memberId:self.adUnitsForTest.memberIDDefault];
+    [banner setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
     [banner loadAd];
-
 
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
-    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
-    if (banner.adResponseElements) {
-        XCTAssertTrue([banner.adResponseElements.placementId isEqualToString:self.placementIDResponseWhenAllIsCorrect]);
-
-    } else if (self.adResponseElements) {
-        XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDResponseWhenAllIsCorrect]);
-
-    } else {
-        TERROR(@"FAILED to acquire adResponseElements.");
-        XCTAssertTrue(false);
-    }
-
-
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
 
     //
+    [self clearCounters];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [banner loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+
+    //
+    [self clearCounters];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [banner setPublisherId:self.publisherIDWithNobid];
+    [banner loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+
+
+
+    // ANBannerAdView, receiving nobid, associated with MAR, loaded via MAR.
+    //
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                                  delegate: self
+                                                   adUnits: banner, nil];
 
     [self clearCounters];
-    //    XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
+    [self.mar load];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+
+    //
+    [self clearCounters];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [self.mar load];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+
+    //
+    [self clearCounters];
+
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                               publisherId: self.publisherIDWithNobid
+                                                  delegate: self
+                                                   adUnits: banner, nil];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [self.mar load];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 
 
 
+    // ANBannerAdView, receiving nobid, associated with MAR, loaded independently.
+    //
+    [self clearCounters];
+
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                                  delegate: self
+                                                   adUnits: banner, nil];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
+    [banner loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+
+    //
+    [self clearCounters];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [banner loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+
+    //
+    [self clearCounters];
+
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                               publisherId: self.publisherIDWithNobid
+                                                  delegate: self
+                                                   adUnits: banner, nil];
+
+    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [banner loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
 
@@ -213,7 +321,7 @@ TMARK();
 TERROR(@"%@ -- %@", [MARHelper adunitDescription:ad], error.userInfo);
 
     self.adResponseElements = adResponseElements;
-    
+
     self.AdUnit_countOfReceiveFailures += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
 }

@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, MultiAdPropertyType)
     MultiAdPropertyTypeAutoRefreshInterval,
     MultiAdPropertyTypeManager,
     MultiAdPropertyTypeMemberID,
+    MultiAdPropertyTypePublisherID,
     MultiAdPropertyTypeUUID
 };
 
@@ -63,6 +64,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 #pragma mark Synthesized properties.
 
 @synthesize  memberId            = __memberId;
+@synthesize  publisherId         = __publisherId;
 @synthesize  age                 = __age;
 @synthesize  gender              = __gender;
 @synthesize  location            = __location;
@@ -83,7 +85,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     self = [super self];
     if (!self)  { return nil; }
 
-    if (! [self setupWithMemberId:memberID andDelegate:delegate]) {
+    if (! [self setupWithMemberId:memberID publisherID:0 andDelegate:delegate]) {
         return  nil;
     }
 
@@ -110,8 +112,45 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 }
 
 /**
-* adUnits is a list of AdUnits ending with nil.
-*/
+ * adUnits is a list of AdUnits ending with nil.
+ */
+- (nullable instancetype)initWithMemberId: (NSInteger)memberID
+                              publisherId: (NSInteger)publisherID
+                                 delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
+                                  adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ...
+{
+    self = [super self];
+    if (!self)  { return nil; }
+
+    if (! [self setupWithMemberId:memberID publisherID:publisherID andDelegate:delegate]) {
+        return  nil;
+    }
+
+    //
+    id<ANAdProtocolFoundationCore>   adUnitArgument  = nil;
+
+    if (! [self addAdUnit:(id<ANAdProtocolFoundationCore>)firstAdUnit])  { return nil; }
+
+    va_list adUnitArgs;
+    va_start(adUnitArgs, firstAdUnit);
+
+
+    adUnitArgument = va_arg(adUnitArgs, id<ANAdProtocolFoundationCore>);
+
+    while(adUnitArgument != nil) {
+          if (! [self addAdUnit:(id<ANAdProtocolFoundationCore>)adUnitArgument])  { return nil; }
+          adUnitArgument = va_arg(adUnitArgs, id<ANAdProtocolFoundationCore>);
+    }
+
+    va_end(adUnitArgs);
+
+    //
+    return  self;
+}
+
+/**
+ * adUnits is a list of AdUnits ending with nil.
+ */
 - (nullable instancetype)initAndLoadWithMemberId: (NSInteger)memberID
                                         delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
                                          adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ...
@@ -119,7 +158,50 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     self = [super self];
     if (!self)  { return nil; }
 
-    if (! [self setupWithMemberId:memberID andDelegate:delegate]) {
+    if (! [self setupWithMemberId:memberID publisherID:0 andDelegate:delegate]) {
+        return  nil;
+    }
+
+
+    //
+    id<ANAdProtocolFoundationCore>   adUnitArgument  = nil;
+
+    if (! [self addAdUnit:(id<ANAdProtocolFoundationCore>)firstAdUnit])  { return nil; }
+
+    va_list adUnitArgs;
+    va_start(adUnitArgs, firstAdUnit);
+
+
+    adUnitArgument = va_arg(adUnitArgs, id<ANAdProtocolFoundationCore>);
+
+    while(adUnitArgument != nil) {
+          if (! [self addAdUnit:(id<ANAdProtocolFoundationCore>)adUnitArgument])  { return nil; }
+          adUnitArgument = va_arg(adUnitArgs, id<ANAdProtocolFoundationCore>);
+    }
+
+    va_end(adUnitArgs);
+
+
+    //
+    if (! [self load]) {
+        return  nil;
+    }
+
+    return  self;
+}
+
+/**
+ * adUnits is a list of AdUnits ending with nil.
+ */
+- (nullable instancetype)initAndLoadWithMemberId: (NSInteger)memberID
+                                     publisherId: (NSInteger)publisherID
+                                        delegate: (nullable id<ANMultiAdRequestDelegate>)delegate
+                                         adUnits: (nonnull id<ANAdProtocolFoundationCore>) firstAdUnit, ...
+{
+    self = [super self];
+    if (!self)  { return nil; }
+
+    if (! [self setupWithMemberId:memberID publisherID:publisherID andDelegate:delegate]) {
         return  nil;
     }
 
@@ -156,20 +238,40 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     self = [super self];
     if (!self)  { return nil; }
 
-    if (! [self setupWithMemberId:memberID andDelegate:delegate]) {
+    if (! [self setupWithMemberId:memberID publisherID:0 andDelegate:delegate]) {
         return  nil;
     }
 
     return  self;
 }
 
+- (nullable instancetype)initWithMemberId: (NSInteger)memberID
+                              publisherId: (NSInteger)publisherID
+                              andDelegate: (nullable id<ANMultiAdRequestDelegate>)delegate
+{
+    self = [super self];
+    if (!self)  { return nil; }
+
+    if (! [self setupWithMemberId:memberID publisherID:publisherID andDelegate:delegate]) {
+        return  nil;
+    }
+
+    return  self;
+}
+
+
 /*
  * Return: YES on success; otherwise, NO.
  */
-- (BOOL)setupWithMemberId:(NSInteger)memberId andDelegate:(nullable id<ANMultiAdRequestDelegate>)delegate
+- (BOOL)setupWithMemberId:(NSInteger)memberId publisherID:(NSInteger)publisherId andDelegate:(nullable id<ANMultiAdRequestDelegate>)delegate
 {
     if (memberId <= 0) {
         ANLogError(@"memberId MUST BE GREATER THAN zero (0).");
+        return  NO;
+    }
+
+    if (publisherId < 0) {
+        ANLogError(@"publisherId MUST BE non-negative.");
         return  NO;
     }
 
@@ -182,6 +284,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 
     //
     __memberId          = memberId;
+    __publisherId       = publisherId;
     __age               = @"";
     __gender            = ANGenderUnknown;
     __location          = nil;
@@ -201,8 +304,9 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
  */
 - (BOOL)addAdUnit:(nonnull id<ANAdProtocolFoundationCore>)newAdUnit
 {
-    NSInteger   newMemberID  = -1;
-    NSString   *newUUIDKey   = @"";
+    NSInteger   newMemberID     = -1;
+    NSInteger   newPublisherId  = -1;
+    NSString   *newUUIDKey      = @"";
 
     NSArray<id>  *getProperties  = nil;
     NSNull       *nullObj        = [NSNull null];
@@ -211,26 +315,28 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     // Capture memberID, UUID and delegate from newAdUnit.
     //
     getProperties = [self adUnit: newAdUnit
-                   getProperties: @[ @(MultiAdPropertyTypeMemberID), @(MultiAdPropertyTypeUUID), @(MultiAdPropertyTypeManager) ] ];
+                   getProperties: @[ @(MultiAdPropertyTypeMemberID), @(MultiAdPropertyTypePublisherID), @(MultiAdPropertyTypeUUID), @(MultiAdPropertyTypeManager) ] ];
 
-    if ([getProperties count] != 3) {
+    if ([getProperties count] != 4) {
         ANLogError(@"FAILED to read newAdUnit properties.");
         return  NO;
     }
 
     if (@available(iOS 11, *))
     {
-        [getProperties[0] getValue:&newMemberID size:sizeof(NSUInteger)];
+        [getProperties[0] getValue:&newMemberID    size:sizeof(NSUInteger)];
+        [getProperties[1] getValue:&newPublisherId size:sizeof(NSUInteger)];
     } else {
         [getProperties[0] getValue:&newMemberID];
+        [getProperties[1] getValue:&newPublisherId];
     }
 
-    newUUIDKey = getProperties[1];
+    newUUIDKey = getProperties[2];
 
 
     // Check that newAdUnit is not already managed by this or another MultiAdRequest object.
     //
-    if (getProperties[2] != nullObj)
+    if (getProperties[3] != nullObj)
     {
         if ([self indexOfAdUnitWithUUIDKey:newUUIDKey] != kMARAdUnitIndexNotFound) {
             ANLogError(@"IGNORING newAdUnit because it is already managed by this MultiAdRequest object.");
@@ -242,11 +348,14 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     }
 
 
-    // If newAdUnit defines its memberID, check against the MultiAdRequest memberID and also against all existing ad units.
+    // If newAdUnit defines its memberID or publisherID, check against equivalent MultiAdRequest values.
     //
-    if (newMemberID > 0)
-    {
+    if (newMemberID > 0) {
         if (self.memberId != newMemberID)  { return NO; }
+    }
+
+    if (newPublisherId > 0) {
+        if (self.publisherId != newPublisherId)  { return NO; }
     }
 
     // Set the MultiAdRequest manager delegates in the ad unit.
@@ -352,6 +461,11 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     return  [self.adUnits count];
 }
 
+- (void)setPublisherId:(NSInteger)publisherId
+{
+    ANLogError(@"publisherId may only be SET WITH INITIALIZERS.");
+}
+
 
 
 
@@ -444,6 +558,10 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 
             case MultiAdPropertyTypeMemberID:
                 [returnValuesArray addObject:(adview ? @(adview.memberId) : @(nativead.memberId))];
+                break;
+
+            case MultiAdPropertyTypePublisherID:
+                [returnValuesArray addObject:(adview ? @(adview.publisherId) : @(nativead.publisherId) )];
                 break;
 
             case MultiAdPropertyTypeUUID:

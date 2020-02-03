@@ -348,11 +348,16 @@
 
 - (void)setPublisherId:(NSInteger)newPublisherId
 {
-    if (newPublisherId > 0 && newPublisherId != __publisherId)
+    if ((newPublisherId > 0) && self.marManager)
     {
-        ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
-        __publisherId = newPublisherId;
+        if (self.marManager.publisherId != newPublisherId) {
+            ANLogError(@"Arguments ignored because newPublisherID (%@) is not equal to publisherID used in Multi-Ad Request.", @(newPublisherId));
+            return;
+        }
     }
+
+    ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+    __publisherId = newPublisherId;
 }
 
 - (void)setInventoryCode:(nullable NSString *)newInvCode memberId:(NSInteger)newMemberId
@@ -360,7 +365,7 @@
     if ((newMemberId > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberId) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberId));
             return;
         }
     }
