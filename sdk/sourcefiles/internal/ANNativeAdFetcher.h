@@ -25,7 +25,6 @@
 @interface ANNativeAdFetcher : ANAdFetcherBase
 
 -(nonnull instancetype) initWithDelegate:(nonnull id)delegate;
--(nonnull instancetype) initWithDelegate:(nonnull id)delegate andAdunitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;
 
 @end
 
@@ -34,9 +33,7 @@
 
 #pragma mark - ANUniversalAdFetcherDelegate partitions.
 
-@protocol ANNativeAdFetcherDelegate <ANAdProtocolFoundation>
-
-@property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+@protocol ANNativeAdFetcherDelegate <ANAdProtocolFoundation,ANRequestTagBuilderCore>
 
 - (void)didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
 

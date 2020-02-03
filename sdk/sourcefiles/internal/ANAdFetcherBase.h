@@ -19,12 +19,21 @@
 #import "ANAdProtocol.h"
 #import "ANUniversalTagAdServerResponse.h"
 
-//#import "ANAdView.h"
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
 
 
+@protocol  ANRequestTagBuilderCore
 
+// customKeywords is shared between the adunits and the fetcher.
+//
+// NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
+//       which is shared between fetcher and the mediation adapters.
+//     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
+//
+@property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
+@end
 
 @interface ANAdFetcherBase : NSObject
 
@@ -43,6 +52,8 @@
 
 //
 - (nonnull instancetype)init;
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;
+- (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
 - (void)setup;
 - (void)requestAd;
 
@@ -60,3 +71,5 @@
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
 @end
+
+

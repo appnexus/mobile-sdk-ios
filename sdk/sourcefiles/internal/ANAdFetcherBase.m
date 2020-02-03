@@ -58,6 +58,27 @@
     return  self;
 }
 
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
+{
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.delegate = delegate;
+    self.adunitMARManager = adunitMARManager;
+    return  self;
+}
+- (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
+{
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.fetcherMARManager = marManager;
+
+    return  self;
+}
+
 - (void)setup
 {
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;

@@ -15,18 +15,11 @@
 		001DAD082214A10200D0D5B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 001DAD072214A10200D0D5B6 /* main.m */; };
 		001DAD512214A5C800D0D5B6 /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 001DAD4F2214A5C800D0D5B6 /* ANNativeAdView.m */; };
 		002FDDEA2214AD1B00EDBAA3 /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 002FDDD72214AD1B00EDBAA3 /* ANNativeAdView.xib */; };
-		0E747C9722DE11E000CDD1BC /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747C9422DE11DA00CDD1BC /* AppNexusSDK.framework */; };
-		0E747C9822DE11E000CDD1BC /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747C9422DE11DA00CDD1BC /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		607BB5B123E87199002A0F57 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747C9622DE11DA00CDD1BC /* AppNexusNativeSDK.framework */; };
+		607BB5B423E871BC002A0F57 /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747C9622DE11DA00CDD1BC /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0E747C9122DE11DA00CDD1BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E747C8B22DE11DA00CDD1BC /* AppNexusSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC48177B1845046A0066BBFE;
-			remoteInfo = AppNexusSDKResources;
-		};
 		0E747C9322DE11DA00CDD1BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E747C8B22DE11DA00CDD1BC /* AppNexusSDK.xcodeproj */;
@@ -41,12 +34,12 @@
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
 		};
-		0E747C9922DE11E000CDD1BC /* PBXContainerItemProxy */ = {
+		607BB5B223E871A2002A0F57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E747C8B22DE11DA00CDD1BC /* AppNexusSDK.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
-			remoteInfo = AppNexusSDK;
+			remoteGlobalIDString = F5731AFC228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -57,7 +50,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0E747C9822DE11E000CDD1BC /* AppNexusSDK.framework in Embed Frameworks */,
+				607BB5B423E871BC002A0F57 /* AppNexusNativeSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E747C9722DE11E000CDD1BC /* AppNexusSDK.framework in Frameworks */,
+				607BB5B123E87199002A0F57 /* AppNexusNativeSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,9 +133,8 @@
 		0E747C8C22DE11DA00CDD1BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E747C9622DE11DA00CDD1BC /* AppNexusNativeSDK.framework */,
 				0E747C9422DE11DA00CDD1BC /* AppNexusSDK.framework */,
-				0E747C9222DE11DA00CDD1BC /* AppNexusSDKResources.bundle */,
+				0E747C9622DE11DA00CDD1BC /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,7 +154,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				0E747C9A22DE11E000CDD1BC /* PBXTargetDependency */,
+				607BB5B323E871A2002A0F57 /* PBXTargetDependency */,
 			);
 			name = SimpleNative;
 			productName = SimpleNative;
@@ -208,13 +200,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0E747C9222DE11DA00CDD1BC /* AppNexusSDKResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AppNexusSDKResources.bundle;
-			remoteRef = 0E747C9122DE11DA00CDD1BC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		0E747C9422DE11DA00CDD1BC /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -260,10 +245,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0E747C9A22DE11E000CDD1BC /* PBXTargetDependency */ = {
+		607BB5B323E871A2002A0F57 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = AppNexusSDK;
-			targetProxy = 0E747C9922DE11E000CDD1BC /* PBXContainerItemProxy */;
+			name = AppNexusNativeSDK;
+			targetProxy = 607BB5B223E871A2002A0F57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

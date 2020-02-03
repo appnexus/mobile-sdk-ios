@@ -29,6 +29,10 @@
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
 
+#import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANNativeAdRequest+PrivateMethods.h"
+
+
 @interface ANNativeAdFetcher()
 
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
@@ -45,15 +49,15 @@
     return self;
 }
 
--(nonnull instancetype) initWithDelegate:(nonnull id)delegate andAdunitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
-{
-    if (self = [self init]) {
-        self.delegate = delegate;
-        self.adunitMARManager = adunitMARManager;
-        [self setup];
-    }
-    return self;
-}
+//-(nonnull instancetype) initWithDelegate:(nonnull id)delegate andAdunitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
+//{
+//    if (self = [self init]) {
+//        self.delegate = delegate;
+//        self.adunitMARManager = adunitMARManager;
+//        [self setup];
+//    }
+//    return self;
+//}
 
 - (void)clearMediationController {
     /*
@@ -152,6 +156,47 @@
     
     ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObject:nativeStandardAd andAdObjectHandler:nil];
     [self processFinalResponse:fetcherResponse];
+}
+
+- (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags
+{
+    // Multi-Ad Request Mode.
+    //
+    if (arrayOfTags.count <= 0)
+    {
+        NSError  *responseError  = ANError(@"multi_ad_request_failed %@", ANAdResponseUnableToFill, @"UT Response FAILED to return any ad objects.");
+
+        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:responseError];
+        return;
+    }
+
+    [self.fetcherMARManager internalMultiAdRequestDidComplete];
+
+    // Process each ad object in turn, matching with adunit via UUID.
+    //
+    if (self.fetcherMARManager.countOfAdUnits != [arrayOfTags count]) {
+        ANLogWarn(@"Number of tags in UT Response (%@) DOES NOT MATCH number of ad units in MAR instance (%@).",
+                         @([arrayOfTags count]), @(self.fetcherMARManager.countOfAdUnits));
+    }
+
+    for (NSDictionary<NSString *, id> *tag in arrayOfTags)
+    {
+        NSString  *uuid     = tag[kANUniversalTagAdServerResponseKeyTagUUID];
+        id         adunit   = [self.fetcherMARManager internalGetAdUnitByUUID:uuid];
+
+        if (!adunit) {
+            ANLogWarn(@"UT Response tag UUID DOES NOT MATCH any ad unit in MAR instance.  Ignoring this tag...  (%@)", uuid);
+
+        }
+        if ([adunit isKindOfClass:[ANNativeAdRequest class]])
+        {
+            ANNativeAdRequest  *nativeAd  = (ANNativeAdRequest *)adunit;
+            [nativeAd ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+
+        } else {
+            ANLogError(@"UNRECOGNIZED adunit type.  (%@)", [adunit class]);
+        }
+    }
 }
 
 

@@ -14,13 +14,15 @@
  */
 
 #import "ViewController.h"
-#import <AppNexusSDK/ANNativeAdRequest.h>
-#import <AppNexusSDK/AppNexusSDK.h>
+#import <AppNexusNativeSDK/ANNativeAdRequest.h>
+#import <AppNexusNativeSDK/AppNexusNativeSDK.h>
+#import <AppNexusNativeSDK/ANMultiAdRequest.h>
 #import "ANNativeAdView.h"
 
-@interface ViewController () <ANNativeAdRequestDelegate,ANNativeAdDelegate>
+@interface ViewController () <ANNativeAdRequestDelegate,ANNativeAdDelegate, ANMultiAdRequestDelegate>
 @property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest;
 @property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse;
+@property (nonatomic, readwrite,strong) ANMultiAdRequest *multiRequest;
 @end
 
 @implementation ViewController
@@ -30,6 +32,9 @@
     [super viewDidLoad];
     ANSDKSettings.sharedInstance.HTTPSEnabled=YES;
     [ANLogManager setANLogLevel:ANLogLevelAll];
+    
+    self.multiRequest = [[ANMultiAdRequest alloc] initWithMemberId:10094 andDelegate:self];
+    
    
     self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
     self.nativeAdRequest.placementId = @"14361525";
@@ -37,9 +42,15 @@
     self.nativeAdRequest.shouldLoadIconImage = YES;
     self.nativeAdRequest.shouldLoadMainImage = YES;
     self.nativeAdRequest.delegate = self;
-    [self.nativeAdRequest loadAd];
+    
+    [self.multiRequest addAdUnit:self.nativeAdRequest];
+    [self.multiRequest load];
 }
 
+
+- (void) multiAdRequestDidComplete:(nonnull ANMultiAdRequest *)MulitAdRequest {
+    ANLogDebug(@"request complete");
+}
 
 - (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error {
     

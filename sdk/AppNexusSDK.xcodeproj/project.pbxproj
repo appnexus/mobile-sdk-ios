@@ -99,6 +99,7 @@
 		607A21001F85541900BD8353 /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
 		607A21131F85554F00BD8353 /* ANTrackerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607A21141F85557E00BD8353 /* ANAdFetcherResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		607BB5B623E88019002A0F57 /* ANMultiAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5758B02303A8CB00AFF4B6 /* ANMultiAdRequest.m */; };
 		609732B01E42E73D0061EC0A /* NSDictionary+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732AE1E42E73D0061EC0A /* NSDictionary+ANCategory.h */; };
 		609732B21E42E73D0061EC0A /* NSDictionary+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732AF1E42E73D0061EC0A /* NSDictionary+ANCategory.m */; };
 		609732B41E42E7910061EC0A /* ANInstreamVideoAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1389,6 +1390,7 @@
 				F5731B7E228C94990012B134 /* ANTrackerManager.m in Sources */,
 				F5731B5A228C8DE90012B134 /* ANUniversalTagAdServerResponse.m in Sources */,
 				F5731B5C228C8DEF0012B134 /* ANUniversalTagRequestBuilder.m in Sources */,
+				607BB5B623E88019002A0F57 /* ANMultiAdRequest.m in Sources */,
 				973B23AE238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				F5731B4E228C8D170012B134 /* ANVerificationScriptResource.m in Sources */,
 				006F6BA12295FFD0003D2DF0 /* ANWebView.m in Sources */,
