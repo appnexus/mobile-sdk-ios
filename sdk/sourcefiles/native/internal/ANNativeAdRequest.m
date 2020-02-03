@@ -49,6 +49,7 @@
 // ANNativeAdRequestProtocol properties.
 //
 @synthesize  placementId     = __placementId;
+@synthesize  publisherId     = __publisherId;
 @synthesize  memberId        = __memberId;
 @synthesize  inventoryCode   = __invCode;
 @synthesize  location        = __location;
@@ -159,10 +160,10 @@
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
     
     // In case of Mediation
-    if (nativeResponse.adResponse == nil) {
-        ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
-        if (adResponse) {
-            [self setAdResponse:adResponse onObject:nativeResponse forKeyPath:kANAdResponse];
+    if (nativeResponse.adResponseElements == nil) {
+        ANAdResponseElements *adResponseElements  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:response.adObjectHandler];
+        if (adResponseElements) {
+            [self setAdResponse:adResponseElements onObject:nativeResponse forKeyPath:kANAdResponseElements];
         }
     }
     //
@@ -261,10 +262,10 @@
     [object setValue:creativeId forKeyPath:keyPath];
 }
 
-- (void)setAdResponse:(ANAdResponse *)adResponse
+- (void)setAdResponse:(ANAdResponseElements *)adResponseElements
              onObject:(id)object forKeyPath:(NSString *)keyPath
 {
-    [object setValue:adResponse forKeyPath:keyPath];
+    [object setValue:adResponseElements forKeyPath:keyPath];
 }
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.
@@ -342,6 +343,15 @@
     if (placementId != __placementId) {
         ANLogDebug(@"Setting placementId to %@", placementId);
         __placementId = placementId;
+    }
+}
+
+- (void)setPublisherId:(NSInteger)newPublisherId
+{
+    if (newPublisherId > 0 && newPublisherId != __publisherId)
+    {
+        ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+        __publisherId = newPublisherId;
     }
 }
 

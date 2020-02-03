@@ -35,7 +35,7 @@
 @interface ANNativeAdRequestTestCase : XCTestCase <ANNativeAdRequestDelegate>
 
 @property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
-@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponse;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseElements;
 
 @property (nonatomic)                     NSURLRequest  *request;
 @property (nonatomic, readwrite, strong)  NSError       *adRequestError;
@@ -72,7 +72,7 @@
     self.adRequest = nil;
     self.delegateCallbackExpectation = nil;
     self.successfulAdCall = NO;
-    self.adResponse = nil;
+    self.adResponseElements = nil;
     self.adRequestError = nil;
 
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
@@ -159,11 +159,11 @@
                                  handler:nil];
     [self validateGenericNativeAdObject];
     
-    XCTAssertNotNil(self.adResponse.iconImageURL);
-    XCTAssertNotNil(self.adResponse.vastXML);
-    XCTAssertNotNil(self.adResponse.privacyLink);
-    XCTAssertGreaterThan(self.adResponse.iconImageSize.width, 0);
-    XCTAssertGreaterThan(self.adResponse.iconImageSize.height, 0);
+    XCTAssertNotNil(self.adResponseElements.iconImageURL);
+    XCTAssertNotNil(self.adResponseElements.vastXML);
+    XCTAssertNotNil(self.adResponseElements.privacyLink);
+    XCTAssertGreaterThan(self.adResponseElements.iconImageSize.width, 0);
+    XCTAssertGreaterThan(self.adResponseElements.iconImageSize.height, 0);
 }
 
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
@@ -232,12 +232,12 @@
                                  handler:nil];
     [self validateGenericNativeAdObject];
 
-    XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
-    XCTAssertNil(self.adResponse.iconImage);
-    XCTAssertEqual(self.adResponse.mainImageSize.width, 300);
-    XCTAssertEqual(self.adResponse.mainImageSize.height, 250);
-    self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
-    self.adResponse.mainImageURL ? XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]) : nil;
+    XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeAppNexus);
+    XCTAssertNil(self.adResponseElements.iconImage);
+    XCTAssertEqual(self.adResponseElements.mainImageSize.width, 300);
+    XCTAssertEqual(self.adResponseElements.mainImageSize.height, 250);
+    self.adResponseElements.mainImageURL ? XCTAssertNotNil(self.adResponseElements.mainImage) : XCTAssertNil(self.adResponseElements.mainImage);
+    self.adResponseElements.mainImageURL ? XCTAssertTrue([self.adResponseElements.mainImage isKindOfClass:[UIImage class]]) : nil;
 }
 
 - (void)testAppNexusWithAdditionalDescription {
@@ -249,8 +249,8 @@
                                  handler:nil];
     [self validateGenericNativeAdObject];
     
-    XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
-    XCTAssertNotNil(self.adResponse.additionalDescription);
+    XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeAppNexus);
+    XCTAssertNotNil(self.adResponseElements.additionalDescription);
 }
 
 - (void)testFacebook {
@@ -261,10 +261,10 @@
                                  handler:nil];
     if (self.successfulAdCall) {
         [self validateGenericNativeAdObject];
-        XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
-        XCTAssertNil(self.adResponse.iconImage);
-        XCTAssertNil(self.adResponse.mainImage);
-        XCTAssertEqualObjects(self.adResponse.creativeId, @"111");
+        XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeFacebook);
+        XCTAssertNil(self.adResponseElements.iconImage);
+        XCTAssertNil(self.adResponseElements.mainImage);
+        XCTAssertEqualObjects(self.adResponseElements.creativeId, @"111");
     } else {
         XCTAssertNotNil(self.adRequestError);
     }
@@ -279,10 +279,10 @@
                                  handler:nil];
     if (self.successfulAdCall) {
         [self validateGenericNativeAdObject];
-        XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
-        self.adResponse.iconImageURL ? XCTAssertNotNil(self.adResponse.iconImage) : XCTAssertNil(self.adResponse.iconImage);
-        self.adResponse.iconImageURL ? XCTAssertTrue([self.adResponse.iconImage isKindOfClass:[UIImage class]]) : nil;
-        XCTAssertNil(self.adResponse.mainImage);
+        XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeFacebook);
+        self.adResponseElements.iconImageURL ? XCTAssertNotNil(self.adResponseElements.iconImage) : XCTAssertNil(self.adResponseElements.iconImage);
+        self.adResponseElements.iconImageURL ? XCTAssertTrue([self.adResponseElements.iconImage isKindOfClass:[UIImage class]]) : nil;
+        XCTAssertNil(self.adResponseElements.mainImage);
     } else {
         XCTAssertNotNil(self.adRequestError);
     }
@@ -306,9 +306,9 @@
                                  handler:nil];
     if (self.successfulAdCall) {
         [self validateGenericNativeAdObject];
-        XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
-        XCTAssertNil(self.adResponse.iconImage);
-        XCTAssertNil(self.adResponse.mainImage);
+        XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeFacebook);
+        XCTAssertNil(self.adResponseElements.iconImage);
+        XCTAssertNil(self.adResponseElements.mainImage);
     } else {
         XCTAssertNotNil(self.adRequestError);
     }
@@ -332,11 +332,11 @@
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:nil];
     [self validateGenericNativeAdObject];
-    XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
-    XCTAssertNil(self.adResponse.iconImage);
-    XCTAssertEqualObjects(self.adResponse.creativeId, @"125");
-    self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
-    self.adResponse.mainImageURL ? XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]) : nil;
+    XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeAppNexus);
+    XCTAssertNil(self.adResponseElements.iconImage);
+    XCTAssertEqualObjects(self.adResponseElements.creativeId, @"125");
+    self.adResponseElements.mainImageURL ? XCTAssertNotNil(self.adResponseElements.mainImage) : XCTAssertNil(self.adResponseElements.mainImage);
+    self.adResponseElements.mainImageURL ? XCTAssertTrue([self.adResponseElements.mainImage isKindOfClass:[UIImage class]]) : nil;
 }
 
 - (void)testMediatedResponseInvalidType {
@@ -391,8 +391,8 @@
     //
     XCTAssertTrue(self.successfulAdCall);
 
-    XCTAssertNotNil(self.adResponse.mainImage);
-    XCTAssertNotNil(self.adResponse.iconImage);
+    XCTAssertNotNil(self.adResponseElements.mainImage);
+    XCTAssertNotNil(self.adResponseElements.iconImage);
 }
 
 
@@ -401,30 +401,30 @@
 #pragma mark - Helper methods.
 
 - (void)validateGenericNativeAdObject {
-    XCTAssertNotNil(self.adResponse);
-    if (self.adResponse.title) {
-        XCTAssert([self.adResponse.title isKindOfClass:[NSString class]]);
+    XCTAssertNotNil(self.adResponseElements);
+    if (self.adResponseElements.title) {
+        XCTAssert([self.adResponseElements.title isKindOfClass:[NSString class]]);
     }
-    if (self.adResponse.body) {
-        XCTAssert([self.adResponse.body isKindOfClass:[NSString class]]);
+    if (self.adResponseElements.body) {
+        XCTAssert([self.adResponseElements.body isKindOfClass:[NSString class]]);
     }
-    if (self.adResponse.callToAction) {
-        XCTAssert([self.adResponse.body isKindOfClass:[NSString class]]);
+    if (self.adResponseElements.callToAction) {
+        XCTAssert([self.adResponseElements.body isKindOfClass:[NSString class]]);
     }
-    if (self.adResponse.rating) {
-        XCTAssert([self.adResponse.rating isKindOfClass:[ANNativeAdStarRating class]]);
+    if (self.adResponseElements.rating) {
+        XCTAssert([self.adResponseElements.rating isKindOfClass:[ANNativeAdStarRating class]]);
     }
-    if (self.adResponse.mainImageURL) {
-        XCTAssert([self.adResponse.mainImageURL isKindOfClass:[NSURL class]]);
+    if (self.adResponseElements.mainImageURL) {
+        XCTAssert([self.adResponseElements.mainImageURL isKindOfClass:[NSURL class]]);
     }
-    if (self.adResponse.iconImageURL) {
-        XCTAssert([self.adResponse.iconImageURL isKindOfClass:[NSURL class]]);
+    if (self.adResponseElements.iconImageURL) {
+        XCTAssert([self.adResponseElements.iconImageURL isKindOfClass:[NSURL class]]);
     }
-    if (self.adResponse.customElements) {
-        XCTAssert([self.adResponse.customElements isKindOfClass:[NSDictionary class]]);
+    if (self.adResponseElements.customElements) {
+        XCTAssert([self.adResponseElements.customElements isKindOfClass:[NSDictionary class]]);
     }
-    if (self.adResponse.creativeId) {
-        XCTAssert([self.adResponse.creativeId isKindOfClass:[NSString class]]);
+    if (self.adResponseElements.creativeId) {
+        XCTAssert([self.adResponseElements.creativeId isKindOfClass:[NSString class]]);
     }
 }
 
@@ -446,7 +446,7 @@ TESTTRACE();
 
 
     //
-    self.adResponse = response;
+    self.adResponseElements = response;
     self.successfulAdCall = YES;
     [self.delegateCallbackExpectation fulfill];
 }

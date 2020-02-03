@@ -83,11 +83,13 @@ static NSString *const kANInline        = @"inline";
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
-@synthesize  adResponse           = _adResponse;
+@synthesize  adResponseElements           = _adResponse;
 @synthesize  minDuration             = __minDuration;
 @synthesize  maxDuration             = __maxDuration;
 
-#pragma mark Lifecycle.
+
+
+#pragma mark - Lifecycle.
 
 - (void)initialize {
     [super initialize];
@@ -365,7 +367,7 @@ static NSString *const kANInline        = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
-        _adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:adObjectHandler];
+        _adResponse  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:adObjectHandler];
         if (_adResponse) {
             [self setAdResponse:_adResponse];
         }
@@ -455,7 +457,7 @@ static NSString *const kANInline        = @"inline";
 
     if (error) {
         self.contentView = nil;
-        [self adRequestFailedWithError:error];
+        [self adRequestFailedWithError:error andAdResponseElements:response.adResponseElements];
     }
 }
 

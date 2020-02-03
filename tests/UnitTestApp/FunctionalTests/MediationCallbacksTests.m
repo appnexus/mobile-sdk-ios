@@ -16,6 +16,7 @@
 #import "ANBaseTestCase.h"
 #import "ANMockMediationAdapterTimeout.h"
 #import "ANHTTPStubbingManager.h"
+#import "ANAdResponseElements.h"
 
 
 float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
@@ -169,11 +170,13 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
     [super adDidReceiveAd:ad];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error andAdReponseElements:(ANAdResponseElements *)adResponseElements
+{
     if (self.adFailedToLoadCalled) {
         self.adFailedMultiple = YES;
     }
-    [super ad:ad requestFailedWithError:error];
+    [super ad:ad requestFailedWithError:error andAdResponseElements:nil];
+            //FIX -- jow to use responseeleents?
 }
 
 

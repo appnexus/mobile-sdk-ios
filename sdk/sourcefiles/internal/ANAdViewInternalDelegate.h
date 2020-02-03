@@ -34,7 +34,7 @@
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
 
 @required
-- (void)adRequestFailedWithError:(NSError *)error;
+- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements;
 
 - (void)adWasClicked;
 - (void)adWillPresent;

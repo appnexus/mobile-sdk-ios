@@ -238,6 +238,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     
     if ([self.loadDelegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
         [self.loadDelegate ad:self requestFailedWithError:self.failureNSError];
+                //FIX -- need return responseelements? ??
     }
 }
 
@@ -406,17 +407,18 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
         self.adPlayer.delegate = self;
         
-        ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
-        if (adResponse) {
-            [self setAdResponse:adResponse];
+        ANAdResponseElements *adResponseElements  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:response.adObjectHandler];
+        if (adResponseElements) {
+            [self setAdResponse:adResponseElements];
         }
         
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
            if(creativeId){
                   [self setCreativeId:creativeId];
            }
+                //TBD -- remove and use ANAdResponseElements instead?
 
-        [self videoAdReady];
+            [self videoAdReady];
 
         
     }else if(!response.isSuccessful && (response.adObject == nil)){

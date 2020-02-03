@@ -26,7 +26,7 @@
 @interface NativeSDKTestAppTests : XCTestCase <ANNativeAdRequestDelegate>
 
 @property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
-@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponse;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseElements;
 
 @property (nonatomic)                     NSURLRequest  *request;
 @property (nonatomic, readwrite, strong)  NSError       *adRequestError;
@@ -58,7 +58,7 @@
     
     self.adRequest = nil;
     self.delegateCallbackExpectation = nil;
-    self.adResponse = nil;
+    self.adResponseElements = nil;
     self.adRequestError = nil;
     
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
@@ -79,7 +79,7 @@
                                  handler:nil];
     [self validateGenericNativeAdObject];
     
-    XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
+    XCTAssertEqual(self.adResponseElements.networkCode, ANNativeAdNetworkCodeAppNexus);
    
 }
 
@@ -93,7 +93,7 @@
                                  handler:nil];
     
     
-    XCTAssertNotNil(self.adResponse);
+    XCTAssertNotNil(self.adResponseElements);
     XCTAssertNil(self.adRequestError);
 
 }
@@ -102,44 +102,44 @@
 #pragma mark - Helper methods.
 
 - (void)validateGenericNativeAdObject {
-    //    XCTAssertNotNil(self.adResponse);
-    if (self.adResponse.title) {
-        XCTAssert([self.adResponse.title isKindOfClass:[NSString class]]);
+    //    XCTAssertNotNil(self.adResponseElements);
+    if (self.adResponseElements.title) {
+        XCTAssert([self.adResponseElements.title isKindOfClass:[NSString class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.body) {
-        XCTAssert([self.adResponse.body isKindOfClass:[NSString class]]);
+    if (self.adResponseElements.body) {
+        XCTAssert([self.adResponseElements.body isKindOfClass:[NSString class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.callToAction) {
-        XCTAssert([self.adResponse.body isKindOfClass:[NSString class]]);
+    if (self.adResponseElements.callToAction) {
+        XCTAssert([self.adResponseElements.body isKindOfClass:[NSString class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.rating) {
-        XCTAssert([self.adResponse.rating isKindOfClass:[ANNativeAdStarRating class]]);
+    if (self.adResponseElements.rating) {
+        XCTAssert([self.adResponseElements.rating isKindOfClass:[ANNativeAdStarRating class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.mainImageURL) {
-        XCTAssert([self.adResponse.mainImageURL isKindOfClass:[NSURL class]]);
+    if (self.adResponseElements.mainImageURL) {
+        XCTAssert([self.adResponseElements.mainImageURL isKindOfClass:[NSURL class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.iconImageURL) {
-        XCTAssert([self.adResponse.iconImageURL isKindOfClass:[NSURL class]]);
+    if (self.adResponseElements.iconImageURL) {
+        XCTAssert([self.adResponseElements.iconImageURL isKindOfClass:[NSURL class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.customElements) {
-        XCTAssert([self.adResponse.customElements isKindOfClass:[NSDictionary class]]);
+    if (self.adResponseElements.customElements) {
+        XCTAssert([self.adResponseElements.customElements isKindOfClass:[NSDictionary class]]);
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponse.creativeId) {
-        XCTAssert([self.adResponse.creativeId isKindOfClass:[NSString class]]);
+    if (self.adResponseElements.creativeId) {
+        XCTAssert([self.adResponseElements.creativeId isKindOfClass:[NSString class]]);
     }else{
         XCTAssertTrue(false);
     }
@@ -152,7 +152,7 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
-    self.adResponse = response;
+    self.adResponseElements = response;
     [self.delegateCallbackExpectation fulfill];
 }
 

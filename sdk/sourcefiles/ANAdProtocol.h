@@ -19,7 +19,7 @@
 
 #import "ANAdConstants.h"
 #import "ANLocation.h"
-#import "ANAdResponse.h"
+#import "ANAdResponseElements.h"
 
 @class ANLocation;
 
@@ -42,6 +42,11 @@
  with the member that this app belongs to.
  */
 @property (nonatomic, readonly, assign) NSInteger memberId;
+
+/**
+ * A publisher ID associates this member with a publisher.
+ */
+@property (nonatomic, readwrite, assign) NSInteger publisherId;
 
 /**
  The user's location.  See ANLocation.h in this directory for
@@ -229,8 +234,8 @@
 /**
  An AppNexus Single Unified object that will contain all the common fields of all the ads types
  */
-// ANAdResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponse being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong, nullable) ANAdResponse *adResponse;
+// ANAdResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseElements being accessed through ANNativeAdRequest.
+@property (nonatomic, readonly, strong, nullable) ANAdResponseElements *adResponseElements;
 
 
 @end
@@ -281,7 +286,7 @@
 /**
  Sent when the ad request to the server has failed.
  */
-- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error;
+- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error andAdResponseElements:(nullable ANAdResponseElements *)adResponseElements;
 
 
 /**

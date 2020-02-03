@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdResponse.h"
+#import "ANAdResponseElements.h"
 
 
 @interface ANBaseAdObject : NSObject
@@ -26,6 +26,6 @@
 @property (nonatomic, readwrite, strong)  NSString              *adType;
 @property (nonatomic, readwrite, strong)  NSString              *creativeId;
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
-@property (nonatomic, readwrite, strong)  ANAdResponse *adResponse;
+@property (nonatomic, readwrite, strong)  ANAdResponseElements *adResponseElements;
 
 @end

@@ -62,6 +62,7 @@
 // ANAdProtocol properties.
 //
 @synthesize  placementId                            = __placementId;
+@synthesize  publisherId                            = __publisherId;
 @synthesize  memberId                               = __memberId;
 @synthesize  inventoryCode                          = __invCode;
 
@@ -80,7 +81,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponse                          = __adResponse;
+@synthesize  adResponseElements                          = __adResponse;
 
 
 #pragma mark - Initialization
@@ -163,7 +164,7 @@
     //
     if (error) {
         ANLogError(@"%@", errorString);
-        [self adRequestFailedWithError:error];
+        [self adRequestFailedWithError:error andAdResponseElements:nil];
 
         return  NO;
     }
@@ -244,14 +245,14 @@
     }
 }
 
-- (void)setAdResponse:(ANAdResponse *)adResponse {
-    if (!adResponse) {
-        ANLogError(@"Could not set adResponse");
+- (void)setAdResponse:(ANAdResponseElements *)adResponseElements {
+    if (!adResponseElements) {
+        ANLogError(@"Could not set adResponseElements");
         return;
     }
-    if (adResponse != __adResponse) {
-        ANLogDebug(@"Setting adResponse to %@", adResponse);
-        __adResponse = adResponse;
+    if (adResponseElements != __adResponse) {
+        ANLogDebug(@"Setting adResponseElements to %@", adResponseElements);
+        __adResponse = adResponseElements;
     }
 }
 
@@ -268,6 +269,14 @@
     }
 }
 
+- (void)setPublisherId:(NSInteger)newPublisherId
+{
+    if (newPublisherId > 0 && newPublisherId != __publisherId)
+    {
+        ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+        __publisherId = newPublisherId;
+    }
+}
 
 
 /**
@@ -366,7 +375,7 @@
 
 #pragma mark - ANAdProtocol: Getter methods
 
-- (nullable ANAdResponse *)adResponse {
+- (nullable ANAdResponseElements *)adResponseElements {
     ANLogDebug(@"ANAdResponse returned %@", __adResponse);
     return __adResponse;
 }
@@ -563,13 +572,14 @@
 {
     if ([self.delegate respondsToSelector:@selector(ad:didReceiveNativeAd:)]) {
         [self.delegate ad:loadInstance didReceiveNativeAd:responseInstance];
-    }
+    }   
 }
 
-- (void)adRequestFailedWithError:(NSError *)error
+- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
 {
-    if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
-        [self.delegate ad:self requestFailedWithError:error];
+ANLogMark();
+    if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:andAdResponseElements:)]) {
+        [self.delegate ad:self requestFailedWithError:error andAdResponseElements:adResponseElements];
     }
 }
 

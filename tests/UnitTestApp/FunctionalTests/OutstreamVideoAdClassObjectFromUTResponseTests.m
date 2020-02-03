@@ -212,7 +212,8 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     //EMPTY
 }
 
-- (void)adRequestFailedWithError:(NSError *)error {
+- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
+{
     //EMPTY
 }
 

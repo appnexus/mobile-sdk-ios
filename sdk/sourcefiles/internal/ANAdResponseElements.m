@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANAdResponse.h"
+#import "ANAdResponseElements.h"
 
-@implementation ANAdResponse
+@implementation ANAdResponseElements
 
 @synthesize  creativeId, adType, memberId, placementId, contentSource, networkName;
 

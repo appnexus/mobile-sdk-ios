@@ -955,8 +955,9 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 - (void)videoAdLoadFailed:(NSError *)error
 {
-    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:)]) {
-        [self.adViewDelegate adRequestFailedWithError:error];
+    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:andAdResponseElements:)]) {
+        [self.adViewDelegate adRequestFailedWithError:error andAdResponseElements:nil];
+                //FIX -- update videoAdLoadFailed:withAdResponseElements: ??
     }
 }
 

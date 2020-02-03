@@ -78,10 +78,10 @@ extern NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey;
 extern NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification;
 extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;                 
 
-static NSString * __nonnull const kANCreativeId= @"creativeId";
-static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
-static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
-static NSString * __nonnull const kANAdResponse= @"adResponse";
+static NSString * __nonnull const kANCreativeId             = @"creativeId";
+static NSString * __nonnull const kANImpressionUrls         = @"impressionUrls";
+static NSString * __nonnull const kANAspectRatio            = @"aspectRatio";
+static NSString * __nonnull const kANAdResponseElements     = @"adResponseElements";
 
 
 #pragma mark - Banner AutoRefresh

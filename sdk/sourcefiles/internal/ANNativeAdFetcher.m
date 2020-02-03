@@ -68,11 +68,12 @@
 
 
 #pragma mark - UT ad response processing methods
-- (void)finishRequestWithError:(NSError *)error
+- (void)finishRequestWithError:(NSError *)error andAdResponse:(ANAdResponseElements *)adReponse
 {
     self.isFetcherLoading = NO;
     ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
+    response.adResponseElements = adReponse;
     [self processFinalResponse:response];
 }
 
@@ -106,7 +107,7 @@
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
             [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponse:nil];
         return;
     }
     

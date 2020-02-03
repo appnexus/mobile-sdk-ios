@@ -313,12 +313,12 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     if (!response.isSuccessful) {
-        [self adRequestFailedWithError:response.error];
+        [self adRequestFailedWithError:response.error andAdResponseElements:response.adResponseElements];
         return;
     }
-    ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
-    if (adResponse) {
-        [self setAdResponse:adResponse];
+    ANAdResponseElements *adResponseElements  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:response.adObjectHandler];
+    if (adResponseElements) {
+        [self setAdResponse:adResponseElements];
     }
     NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
     if(creativeId){
