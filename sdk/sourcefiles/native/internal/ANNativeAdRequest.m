@@ -163,7 +163,7 @@
     if (nativeResponse.adResponseElements == nil) {
         ANAdResponseElements *adResponseElements  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:response.adObjectHandler];
         if (adResponseElements) {
-            [self setAdResponse:adResponseElements onObject:nativeResponse forKeyPath:kANAdResponseElements];
+            [self setAdResponseElements:adResponseElements onObject:nativeResponse forKeyPath:kANAdResponseElements];
         }
     }
     //
@@ -262,7 +262,7 @@
     [object setValue:creativeId forKeyPath:keyPath];
 }
 
-- (void)setAdResponse:(ANAdResponseElements *)adResponseElements
+- (void)setAdResponseElements:(ANAdResponseElements *)adResponseElements
              onObject:(id)object forKeyPath:(NSString *)keyPath
 {
     [object setValue:adResponseElements forKeyPath:keyPath];

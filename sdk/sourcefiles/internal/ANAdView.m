@@ -81,7 +81,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponseElements                          = __adResponse;
+@synthesize  adResponseElements                          = __adResponseElements;
 
 
 #pragma mark - Initialization
@@ -245,14 +245,14 @@
     }
 }
 
-- (void)setAdResponse:(ANAdResponseElements *)adResponseElements {
+- (void)setAdResponseElements:(ANAdResponseElements *)adResponseElements {
     if (!adResponseElements) {
         ANLogError(@"Could not set adResponseElements");
         return;
     }
-    if (adResponseElements != __adResponse) {
+    if (adResponseElements != __adResponseElements) {
         ANLogDebug(@"Setting adResponseElements to %@", adResponseElements);
-        __adResponse = adResponseElements;
+        __adResponseElements = adResponseElements;
     }
 }
 
@@ -381,8 +381,8 @@
 #pragma mark - ANAdProtocol: Getter methods
 
 - (nullable ANAdResponseElements *)adResponseElements {
-    ANLogDebug(@"ANAdResponse returned %@", __adResponse);
-    return __adResponse;
+    ANLogDebug(@"ANAdResponse returned %@", __adResponseElements);
+    return __adResponseElements;
 }
 
 - (nullable NSString *)placementId {
@@ -599,7 +599,7 @@ ANLogMark();
 {
     ANLogDebug(@"");
 
-    if (ANAdTypeVideo != __adResponse.adType) {
+    if (ANAdTypeVideo != __adResponseElements.adType) {
         [self.universalAdFetcher restartAutoRefreshTimer];
         [self.universalAdFetcher startAutoRefreshTimer];
     }

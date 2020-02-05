@@ -409,7 +409,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         
         ANAdResponseElements *adResponseElements  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:response.adObjectHandler];
         if (adResponseElements) {
-            [self setAdResponse:adResponseElements];
+            [self setAdResponseElements:adResponseElements];
         }
         
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
