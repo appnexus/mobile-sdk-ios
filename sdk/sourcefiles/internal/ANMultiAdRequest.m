@@ -17,7 +17,7 @@ limitations under the License.
 
 #import "ANMultiAdRequest.h"
 
-#if AppNexusSDK
+#if FULLSDK
 #import "ANAdView+PrivateMethods.h"
 #import "ANUniversalAdFetcher.h"
 #else
@@ -50,7 +50,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 // It is declared in a manner capable of storing weak pointers.  Pointers to deallocated AdUnits are automatically assigned to nil.
 //
 @property (nonatomic, readwrite, strong, nonnull)  NSPointerArray  *adUnits;
-#if AppNexusSDK
+#if FULLSDK
 @property (nonatomic, readwrite, strong)  ANUniversalAdFetcher    *universalAdFetcher;
 #else
 @property (nonatomic, readwrite, strong)  ANNativeAdFetcher    *nativeAdFetcher;
@@ -184,7 +184,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 
     _adUnits             = [NSPointerArray weakObjectsPointerArray];
 
-#if AppNexusSDK
+#if FULLSDK
     _universalAdFetcher  = [[ANUniversalAdFetcher alloc] initWithMultiAdRequestManager: self];
 #else
     _nativeAdFetcher = [[ANNativeAdFetcher alloc] initWithMultiAdRequestManager:self];
@@ -341,7 +341,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     }
 
     
-    #if AppNexusSDK
+    #if FULLSDK
     [self.universalAdFetcher stopAdLoad];
     [self.universalAdFetcher requestAd];
     #else
@@ -424,7 +424,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 - (nullable NSArray<id> *)adUnit: (nonnull id)adUnit
                    getProperties: (nonnull NSArray<NSNumber *> *)getTypes
 {
-#if AppNexusSDK
+#if FULLSDK
     ANAdView           *adview      = nil;
 #endif
     ANNativeAdRequest  *nativead    = nil;
@@ -433,17 +433,14 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     NSNull              *nullObj            = [NSNull null];
 
 
-    #if AppNexusSDK
+    #if FULLSDK
             if ([adUnit isKindOfClass:[ANAdView class]]) {
                 adview = (ANAdView *)adUnit;
             }
     #endif
     if ([adUnit isKindOfClass:[ANNativeAdRequest class]]) {
         nativead = (ANNativeAdRequest *)adUnit;
-    } else {
-        //ANLogError(@"(internal) UNRECOGNIZED ad unit class.  (%@)", [adUnit class]);
-        return  nil;
-    }
+    } 
 
 
     // Get values.
@@ -456,7 +453,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
         {
             case MultiAdPropertyTypeManager:
             {
-                #if AppNexusSDK
+                #if FULLSDK
                     id  marManager  = (adview ? (id)adview.marManager : (id)nativead.marManager);
                     [returnValuesArray addObject:(marManager ? marManager : nullObj)];
                 #else
@@ -467,7 +464,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
             }
 
             case MultiAdPropertyTypeMemberID:
-                #if AppNexusSDK
+                #if FULLSDK
                     [returnValuesArray addObject:(adview ? @(adview.memberId) : @(nativead.memberId))];
                 #else
                     [returnValuesArray addObject:(@(nativead.memberId))];
@@ -476,7 +473,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
                 break;
 
             case MultiAdPropertyTypeUUID:
-                #if AppNexusSDK
+                #if FULLSDK
                     [returnValuesArray addObject:(adview ? adview.utRequestUUIDString : nativead.utRequestUUIDString)];
                 #else
                     [returnValuesArray addObject:(nativead.utRequestUUIDString)];
@@ -503,7 +500,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 - (void)adUnit: (nonnull id)adUnit
     setManager: (nullable id)delegate
 {
-    #if AppNexusSDK
+    #if FULLSDK
         ANAdView           *adview      = nil;
         if ([adUnit isKindOfClass:[ANAdView class]])
         {
@@ -543,14 +540,14 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
             continue;
         }
 
-#if AppNexusSDK
+#if FULLSDK
         if ([au isKindOfClass:[ANAdView class]]) {
             adunitUUID = ((ANAdView *)au).utRequestUUIDString;
         }
 #endif
         if ([au isKindOfClass:[ANNativeAdRequest class]]) {
             adunitUUID = ((ANNativeAdRequest *)au).utRequestUUIDString;
-        } else {
+        } else if(adunitUUID == nil) {
             //ANLogError(@"(internal) UNRECOGNIZED ad unit class.  (%@)", [au class]);
             return  kMARAdUnitIndexNotFound;
         }
