@@ -83,6 +83,12 @@ limitations under the License.
 
 - (void)setUp
 {
+    self.adUnitsForTest  = [[MARAdUnits alloc] initWithDelegate:self];
+
+    self.adUnitsForTest.banner.shouldServePublicServiceAnnouncements = NO;
+
+
+    //
     self.publisherIDWithNobid        = 1456489;
     self.inventoryCodeWithNobidGood  = @"pascal_med_rect";
     self.inventoryCodeWithNobidBad   = @"this_is_a_badInventoryCode";
@@ -129,14 +135,10 @@ limitations under the License.
 
 #pragma mark - Tests.
 
-- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithAndWithoutMAR
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
 {
 TMARK();
-    self.adUnitsForTest  = [[MARAdUnits alloc] initWithDelegate:self];
-
     ANBannerAdView  *banner  = self.adUnitsForTest.banner;
-    banner.shouldServePublicServiceAnnouncements = NO;
-
 
 
     // ANBannerAdView, receiving nobid, without MAR association.
@@ -174,15 +176,18 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+}
 
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
+{
+    ANBannerAdView  *banner  = self.adUnitsForTest.banner;
 
 
     // ANBannerAdView, receiving nobid, associated with MAR, loaded via MAR.
     //
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
-                                                   adUnits: banner, nil];
-
+                                                   adUnits: self.adUnitsForTest.banner, nil];
     [self clearCounters];
 
     [banner setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
@@ -203,16 +208,17 @@ TMARK();
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
-    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + _AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
 
     //
     [self clearCounters];
+    [self.mar removeAdUnit:self.adUnitsForTest.banner];
 
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                publisherId: self.publisherIDWithNobid
                                                   delegate: self
-                                                   adUnits: banner, nil];
+                                                   adUnits: self.adUnitsForTest.banner, nil];
 
     [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
     [self.mar load];
@@ -222,16 +228,21 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+}
 
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
+{
+    ANBannerAdView  *banner  = self.adUnitsForTest.banner;
 
-
+    
     // ANBannerAdView, receiving nobid, associated with MAR, loaded independently.
     //
     [self clearCounters];
+    [self.mar removeAdUnit:self.adUnitsForTest.banner];
 
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
-                                                   adUnits: banner, nil];
+                                                   adUnits: self.adUnitsForTest.banner, nil];
 
     [banner setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
     [banner loadAd];
@@ -251,24 +262,25 @@ TMARK();
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
-    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
 
     //
     [self clearCounters];
+    [self.mar removeAdUnit:self.adUnitsForTest.banner];
 
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                publisherId: self.publisherIDWithNobid
                                                   delegate: self
-                                                   adUnits: banner, nil];
+                                                   adUnits: self.adUnitsForTest.banner, nil];
 
-    [banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
-    [banner loadAd];
+    [self.adUnitsForTest.banner setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [self.adUnitsForTest.banner loadAd];
 
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
-    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
@@ -302,6 +314,9 @@ TMARK();
 {
     TINFO(@"%@", [MARHelper adunitDescription:ad]);
 
+    ANAdView  *adview  = (ANAdView *)ad;
+    self.adResponseElements = adview.adResponseElements;
+
     self.AdUnit_countOfReceiveSuccesses += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
 }
@@ -310,6 +325,9 @@ TMARK();
     didReceiveNativeAd: (nonnull id)responseInstance
 {
     TINFO(@"%@", [MARHelper adunitDescription:loadInstance]);
+
+    ANNativeAdResponse  *nativead  = (ANNativeAdResponse *)loadInstance;
+    self.adResponseElements = nativead.adResponseElements;
 
     self.AdUnit_countOfReceiveSuccesses += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
