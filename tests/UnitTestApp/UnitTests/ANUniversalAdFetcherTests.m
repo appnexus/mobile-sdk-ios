@@ -167,7 +167,7 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     
 }
 
-- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
+- (void)adRequestFailedWithError:(NSError *)error
 {
 
 }

@@ -81,7 +81,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponseElements                          = __adResponseElements;
+@synthesize  adResponseElements                     = __adResponseElements;
 
 
 #pragma mark - Initialization
@@ -583,8 +583,10 @@
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
 {
 ANLogMark();
-    if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:andAdResponseElements:)]) {
-        [self.delegate ad:self requestFailedWithError:error andAdResponseElements:adResponseElements];
+    [self setAdResponseElements:adResponseElements];
+    
+    if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
+        [self.delegate ad:self requestFailedWithError:error];
     }
 }
 

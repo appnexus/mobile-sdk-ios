@@ -178,12 +178,11 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
 }
 
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error andAdResponseElements:(nullable ANAdResponseElements *)adResponseElements
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
 {
     NSLog(@"ad:requestFailedWithError callback called");
     _adFailedToLoadCalled = YES;
     _testComplete = YES;
-            //FIX -- use adResponseElements
 }
 
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad {

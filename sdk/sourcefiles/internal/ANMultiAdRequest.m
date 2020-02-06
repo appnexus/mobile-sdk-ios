@@ -659,12 +659,12 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 }
 
 
-- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error andAdResponseElements:(nullable ANAdResponseElements *)adResponseElements
+- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error
 {
     //EMPTY
 }
 
-- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
+- (void)adRequestFailedWithError:(NSError *)error
 {
     //UNUSED
 }

@@ -211,7 +211,7 @@
 {
     if (!tag) {
         ANLogError(@"tag is nil.");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponse:nil];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseElements:nil];
         return;
     }
 
@@ -233,7 +233,7 @@
 
             adResponseElements.placementId = placementId;
 
-            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponse:adResponseElements];
+            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseElements:adResponseElements];
             return;
         }
     }
@@ -245,7 +245,7 @@
     if (ads.count <= 0)
     {
         ANLogWarn(@"response_no_ads");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponse:nil];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseElements:nil];
         return;
     }
     

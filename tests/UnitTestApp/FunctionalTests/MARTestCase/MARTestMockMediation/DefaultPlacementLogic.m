@@ -148,7 +148,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+    XCTAssertTrue([banner.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
 
     //
     [self clearCounters];
@@ -316,11 +316,17 @@ TMARK();
 }
 
 
-- (void)ad:(nonnull id)ad requestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
+- (void)ad:(nonnull id)ad requestFailedWithError:(NSError *)error
 {
 TERROR(@"%@ -- %@", [MARHelper adunitDescription:ad], error.userInfo);
 
-    self.adResponseElements = adResponseElements;
+    if ([ad isKindOfClass:[ANAdView class]]) {
+        ANAdView  *adview  = (ANAdView *)ad;
+        self.adResponseElements = adview.adResponseElements;
+    } else {
+        ANNativeAdResponse  *nativead  = (ANNativeAdResponse *)ad;
+        self.adResponseElements = nativead.adResponseElements;
+    }
 
     self.AdUnit_countOfReceiveFailures += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];

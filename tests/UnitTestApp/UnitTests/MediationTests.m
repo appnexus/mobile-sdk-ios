@@ -222,7 +222,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 - (void)adFailedToDisplay  {};
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data  {};
 - (void)adDidReceiveAd  {};
-- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements {};
+- (void)adRequestFailedWithError:(NSError *)error  {};
 - (void)adInteractionDidBegin  {};
 - (void)adInteractionDidEnd  {};
 

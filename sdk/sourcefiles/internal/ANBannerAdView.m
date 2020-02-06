@@ -14,6 +14,7 @@
  */
 
 #import "ANBannerAdView.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANMRAIDContainerView.h"
 
 #import "ANUniversalAdFetcher.h"
@@ -457,7 +458,9 @@ static NSString *const kANInline        = @"inline";
 
     if (error) {
         self.contentView = nil;
+//        [self setAdResponseElements:response.adResponseElements];  //FIX -- handle in anadview?
         [self adRequestFailedWithError:error andAdResponseElements:response.adResponseElements];
+
     }
 }
 

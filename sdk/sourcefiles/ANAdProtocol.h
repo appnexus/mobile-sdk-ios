@@ -232,10 +232,12 @@
 
 
 /**
- An AppNexus Single Unified object that will contain all the common fields of all the ads types
+ * An AppNexus Single Unified object that will contain all the common fields of all the ads types
+ *
+ * adResponseElements should be accessible from response Object only -- ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd and ANNativeAdResponse).
+ * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseElements being accessed through ANNativeAdRequest.
  */
-// ANAdResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseElements being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong, nullable) ANAdResponseElements *adResponseElements;
+@property (nonatomic, readwrite, strong, nullable) ANAdResponseElements *adResponseElements;
 
 
 @end
@@ -286,7 +288,7 @@
 /**
  Sent when the ad request to the server has failed.
  */
-- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error andAdResponseElements:(nullable ANAdResponseElements *)adResponseElements;
+- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error;
 
 
 /**
