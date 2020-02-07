@@ -18,6 +18,7 @@ limitations under the License.
 #import "ANMultiAdRequest.h"
 #import "ANLogging.h"
 #import "ANAdFetcherBase.h"
+#import "ANGlobal.h"
 
 #pragma mark - Private types.
 
@@ -311,8 +312,6 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     
     if (errorString)
     {
-        //NSError  *sessionError  = ANError(@"multi_ad_request_failed");
-
         if ([self.delegate respondsToSelector:@selector(multiAdRequest:didFailWithError:)]) {
             [self.delegate multiAdRequest:self didFailWithError:nil];
         }

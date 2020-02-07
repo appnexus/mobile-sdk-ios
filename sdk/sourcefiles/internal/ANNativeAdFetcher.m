@@ -29,9 +29,6 @@
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
 
-#import "ANNativeAdRequest+PrivateMethods.h"
-
-
 @interface ANNativeAdFetcher()
 
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;

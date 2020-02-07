@@ -35,8 +35,6 @@
 #import "ANNativeRenderingViewController.h"
 #import "ANRTBNativeAdResponse.h"
 #import "ANAdView+PrivateMethods.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
-
 #import "ANMultiAdRequest+PrivateMethods.h"
 
 @interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate, ANNativeRenderingViewControllerLoadingDelegate>

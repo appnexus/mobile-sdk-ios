@@ -87,8 +87,6 @@
 		4F8EBCD4235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
 		4F8EBCD5235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
 		4F99240E2357BEC1008E31B6 /* ANMultiAdRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C690231F0C0C00678DB8 /* ANMultiAdRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4FDF2280235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FDF227F235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h */; };
-		4FDF2281235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FDF227F235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h */; };
 		60183FD52293482700CFDE33 /* ANWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FD222933E9500CFDE33 /* ANWebView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		60183FD622934AB500CFDE33 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FD322933E9500CFDE33 /* ANWebView.m */; };
 		602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
@@ -377,7 +375,6 @@
 		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
 		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
 		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
-		4FDF227F235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+PrivateMethods.h"; sourceTree = "<group>"; };
 		60183FD222933E9500CFDE33 /* ANWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		60183FD322933E9500CFDE33 /* ANWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ANCategory.h"; sourceTree = "<group>"; };
@@ -745,7 +742,6 @@
 				0E1D14AB2278493800343050 /* NativeRendering */,
 				8AB876201A0994310022D9A5 /* ANNativeAdImageCache.h */,
 				8AB876211A0994310022D9A5 /* ANNativeAdImageCache.m */,
-				4FDF227F235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h */,
 				8AB876231A0994310022D9A5 /* ANNativeAdRequest.m */,
 				8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */,
 				8AB876261A0994310022D9A5 /* ANNativeAdResponse.m */,
@@ -1018,7 +1014,6 @@
 				8A9AEDBA1A1BE8CE00C58BDA /* ANNativeAdDelegate.h in Headers */,
 				F5731BCE228F07F30012B134 /* ANNativeAdFetcher.h in Headers */,
 				8A9AEDE11A1BF88300C58BDA /* ANNativeAdImageCache.h in Headers */,
-				4FDF2280235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h in Headers */,
 				8A9AEDBB1A1BE8CE00C58BDA /* ANNativeAdRequest.h in Headers */,
 				8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				8A9AEDBC1A1BE8CE00C58BDA /* ANNativeAdResponse.h in Headers */,
@@ -1087,7 +1082,6 @@
 				F5731B4F228C8D1A0012B134 /* ANNativeAdDelegate.h in Headers */,
 				F5731BCD228DD90B0012B134 /* ANNativeAdFetcher.h in Headers */,
 				F5731B3F228C8CA80012B134 /* ANNativeAdImageCache.h in Headers */,
-				4FDF2281235CF205005E7615 /* ANNativeAdRequest+PrivateMethods.h in Headers */,
 				F5731B50228C8D230012B134 /* ANNativeAdRequest.h in Headers */,
 				F5731B42228C8CC30012B134 /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				F5731B51228C8D290012B134 /* ANNativeAdResponse.h in Headers */,

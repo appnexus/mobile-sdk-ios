@@ -14,7 +14,6 @@
  */
 
 #import "ANNativeAdRequest.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 #import "ANNativeMediatedAdResponse.h"
 #import "ANNativeAdFetcher.h"
 #import "ANNativeAdImageCache.h"
