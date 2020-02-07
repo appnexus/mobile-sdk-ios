@@ -22,7 +22,6 @@
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
 
-
 @protocol  ANRequestTagBuilderCore
 
 // customKeywords is shared between the adunits and the fetcher.
@@ -34,6 +33,29 @@
 @property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
 
 @end
+
+
+@protocol  ANMultiAdProtocol
+
+@property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest                                    *marManager;
+
+
+/**
+ This property is only used with ANMultiAdRequest.
+ It associates a unique identifier with each adunit per request, allowing ad objects in the UT Response to be
+   matched with adunit elements of the UT Request.
+ NB  This value is updated for each UT Request.  It does not persist across the lifecycle of the instance.
+ */
+@property (nonatomic, readwrite, strong, nonnull)  NSString  *utRequestUUIDString;
+
+/*!
+ * Used only in MultiAdRequest to pass ad object returned by impbus directly to the adunit though it was requested by MAR UT Request.
+ */
+- (void)ingestAdResponseTag: (nonnull id)tag
+      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
+
+@end
+
 
 @interface ANAdFetcherBase : NSObject
 
@@ -56,7 +78,7 @@
 - (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
 - (void)setup;
 - (void)requestAd;
-
+- (void)stopAdLoad;
 - (void)fireResponseURL:(nullable NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
                adObject:(nonnull id)adObject;

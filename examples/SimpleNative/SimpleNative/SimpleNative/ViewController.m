@@ -22,7 +22,10 @@
 @interface ViewController () <ANNativeAdRequestDelegate,ANNativeAdDelegate, ANMultiAdRequestDelegate>
 @property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest;
 @property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse;
+@property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest2;
+@property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse2;
 @property (nonatomic, readwrite,strong) ANMultiAdRequest *multiRequest;
+
 @end
 
 @implementation ViewController
@@ -42,8 +45,18 @@
     self.nativeAdRequest.shouldLoadIconImage = YES;
     self.nativeAdRequest.shouldLoadMainImage = YES;
     self.nativeAdRequest.delegate = self;
-    
     [self.multiRequest addAdUnit:self.nativeAdRequest];
+    
+    
+    self.nativeAdRequest2= [[ANNativeAdRequest alloc] init];
+    self.nativeAdRequest2.placementId = @"14361525";
+    self.nativeAdRequest2.gender = ANGenderMale;
+    self.nativeAdRequest2.shouldLoadIconImage = YES;
+    self.nativeAdRequest2.shouldLoadMainImage = YES;
+    self.nativeAdRequest2.delegate = self;
+    
+    
+    [self.multiRequest addAdUnit:self.nativeAdRequest2];
     [self.multiRequest load];
 }
 
@@ -58,6 +71,8 @@
 
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
+    
+    if(request== self.nativeAdRequest){
     // (code which loads the view)
     self.nativeAdResponse = response;
     
@@ -74,12 +89,36 @@
     self.nativeAdResponse.delegate = self;
     self.nativeAdResponse.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
     
-    [self.view addSubview:nativeAdView];
+    [self.view1 addSubview:nativeAdView];
     
     [self.nativeAdResponse registerViewForTracking:nativeAdView
                    withRootViewController:self
                            clickableViews:@[nativeAdView.callToActionButton,nativeAdView.mainImageView]
                                     error:nil];
+    }else  if(request == self.nativeAdRequest2){
+    // (code which loads the view)
+    self.nativeAdResponse2 = response;
+    
+    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle mainBundle]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    ANNativeAdView *nativeAdView = [array firstObject];
+    nativeAdView.titleLabel.text = self.nativeAdResponse2.title;
+    nativeAdView.bodyLabel.text = self.nativeAdResponse2.body;
+    nativeAdView.iconImageView.image = self.nativeAdResponse2.iconImage;
+    nativeAdView.mainImageView.image = self.nativeAdResponse2.mainImage;
+    nativeAdView.sponsoredLabel.text = self.nativeAdResponse2.sponsoredBy;
+    
+    [nativeAdView.callToActionButton setTitle:self.nativeAdResponse2.callToAction forState:UIControlStateNormal];
+    self.nativeAdResponse2.delegate = self;
+    self.nativeAdResponse2.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
+    
+    [self.view2 addSubview:nativeAdView];
+    
+    [self.nativeAdResponse2 registerViewForTracking:nativeAdView
+                   withRootViewController:self
+                           clickableViews:@[nativeAdView.callToActionButton,nativeAdView.mainImageView]
+                                    error:nil];
+    }
     
 }
 

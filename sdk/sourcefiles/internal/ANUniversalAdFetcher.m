@@ -34,12 +34,10 @@
 #import "NSTimer+ANCategory.h"
 #import "ANNativeRenderingViewController.h"
 #import "ANRTBNativeAdResponse.h"
-
-#import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANNativeAdRequest+PrivateMethods.h"
 
-
+#import "ANMultiAdRequest+PrivateMethods.h"
 
 @interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate, ANNativeRenderingViewControllerLoadingDelegate>
 
@@ -52,9 +50,6 @@
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 
 @end
-
-
-
 
 #pragma mark -
 
@@ -72,28 +67,6 @@
 
     return  self;
 }
-
-//- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
-//{
-//    self = [self init];
-//    if (!self)  { return nil; }
-//
-//    //
-//    self.delegate = delegate;
-//    self.adunitMARManager = adunitMARManager;
-//
-//    return  self;
-//}
-//- (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
-//{
-//    self = [self init];
-//    if (!self)  { return nil; }
-//
-//    //
-//    self.fetcherMARManager = marManager;
-//
-//    return  self;
-//}
 
 - (void)dealloc
 {
@@ -116,21 +89,15 @@
     self.ssmMediationController = nil;
 }
 
-
-
-
 #pragma mark - Ad Request
 
 - (void)stopAdLoad
 {
-    [self stopAutoRefreshTimer];
-    self.isFetcherLoading = NO;
-    self.ads = nil;
+    [super stopAdLoad];
     [self clearMediationController];
+    [self stopAutoRefreshTimer];
+    
 }
-
-
-
 
 #pragma mark - Ad Response
 
@@ -183,51 +150,6 @@
     }
 
     [self startAutoRefreshTimer];
-}
-
-- (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags
-{
-    // Multi-Ad Request Mode.
-    //
-    if (arrayOfTags.count <= 0)
-    {
-        NSError  *responseError  = ANError(@"multi_ad_request_failed %@", ANAdResponseUnableToFill, @"UT Response FAILED to return any ad objects.");
-
-        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:responseError];
-        return;
-    }
-
-    [self.fetcherMARManager internalMultiAdRequestDidComplete];
-
-    // Process each ad object in turn, matching with adunit via UUID.
-    //
-    if (self.fetcherMARManager.countOfAdUnits != [arrayOfTags count]) {
-        ANLogWarn(@"Number of tags in UT Response (%@) DOES NOT MATCH number of ad units in MAR instance (%@).",
-                         @([arrayOfTags count]), @(self.fetcherMARManager.countOfAdUnits));
-    }
-
-    for (NSDictionary<NSString *, id> *tag in arrayOfTags)
-    {
-        NSString  *uuid     = tag[kANUniversalTagAdServerResponseKeyTagUUID];
-        id         adunit   = [self.fetcherMARManager internalGetAdUnitByUUID:uuid];
-
-        if (!adunit) {
-            ANLogWarn(@"UT Response tag UUID DOES NOT MATCH any ad unit in MAR instance.  Ignoring this tag...  (%@)", uuid);
-
-        } else if ([adunit isKindOfClass:[ANAdView class]])
-        {
-            ANAdView  *adView  = (ANAdView *)adunit;
-            [adView ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
-
-        } else if ([adunit isKindOfClass:[ANNativeAdRequest class]])
-        {
-            ANNativeAdRequest  *nativeAd  = (ANNativeAdRequest *)adunit;
-            [nativeAd ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
-
-        } else {
-            ANLogError(@"UNRECOGNIZED adunit type.  (%@)", [adunit class]);
-        }
-    }
 }
 
 //NB  continueWaterfall is co-functional the ad handler methods.
