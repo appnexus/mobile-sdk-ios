@@ -375,20 +375,7 @@
     __clickThroughAction = clickThroughAction;
 }
 
-/**
- * universalAdFetcher getter returns fetcher conditional upon whether marManager is set.
- * Therefore, universalAdFetcher must be cleared anytime marManager is set to a different value.
- * universalAdFetcher will be lazily recreated next time it is needed.
- */
-- (void)setMarManager:(ANMultiAdRequest *)marManager
-{
-    if (self.universalAdFetcher  &&  (marManager != _marManager)) {
-        [self.universalAdFetcher stopAdLoad];
-        self.universalAdFetcher = nil;
-    }
 
-    _marManager = marManager;
-}
 
 
 #pragma mark - ANAdProtocol: Getter methods
