@@ -18,16 +18,14 @@
 #import "ANLogManager.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ANLocation.h"
-#import "ANMultiAdRequest.h"
-#import "ANLogging.h"
 
 
-@interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate, ANMultiAdRequestDelegate>
+
+@interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, readwrite, strong) CLLocationManager *locationManager;
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 @property (nonatomic, readwrite, strong) NSString *clickThroughURL;
-@property (nonatomic, readwrite,strong) ANMultiAdRequest *multiRequest;
 
 
 @end
@@ -40,9 +38,7 @@
     
     int adWidth  = 300;
     int adHeight = 250;
-    NSString *adID = @"15891454";
-    
-    self.multiRequest = [[ANMultiAdRequest alloc] initWithMemberId:10094 andDelegate:self];
+    NSString *adID = @"1281482";
     
     // We want to center our ad on the screen.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -54,31 +50,23 @@
     CGSize size = CGSizeMake(adWidth, adHeight);
     
     // Make a banner ad view.
-    
-    self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
-    //banner.externalUid = @"123e4567e89b12da456426655440000";
-    self.banner.rootViewController = self;
-    self.banner.delegate = self;
-    self.banner.clickThroughAction = ANClickThroughActionReturnURL;
-    [self.view addSubview:self.banner];
+    ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    banner.externalUid = @"123e4567e89b12da456426655440000";
+    banner.rootViewController = self;
+    banner.delegate = self;
+    banner.clickThroughAction = ANClickThroughActionReturnURL;
+    [self.view addSubview:banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
-    self.banner.shouldServePublicServiceAnnouncements = false;
+    banner.shouldServePublicServiceAnnouncements = true;
     [ANLogManager setANLogLevel:ANLogLevelDebug];
     
-    [self.multiRequest addAdUnit:self.banner];
-    
     // Load an ad.
-    [self.multiRequest load];
+    [banner loadAd];
     
     [self locationSetup]; // If you want to pass location...
-    //self.banner = banner;
+    self.banner = banner;
 }
-
-- (void) multiAdRequestDidComplete:(nonnull ANMultiAdRequest *)MulitAdRequest {
-    ANLogDebug(@"request complete");
-}
-
 
 - (void)locationSetup {
     self.locationManager = [[CLLocationManager alloc] init];
