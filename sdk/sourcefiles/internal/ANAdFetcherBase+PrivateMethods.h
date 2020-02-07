@@ -19,8 +19,6 @@
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response;
 
-- (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags;
-
 - (void)clearMediationController;
 
 - (void)continueWaterfall;

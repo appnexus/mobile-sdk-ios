@@ -22,7 +22,6 @@
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
 
-
 @protocol  ANRequestTagBuilderCore
 
 // customKeywords is shared between the adunits and the fetcher.
