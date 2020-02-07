@@ -28,4 +28,5 @@
 - (void)finishRequestWithError:(NSError *)error;
 
 - (void)restartAutoRefreshTimer;
+
 @end

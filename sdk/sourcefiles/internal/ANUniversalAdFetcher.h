@@ -37,7 +37,6 @@
 
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
 
-- (void)stopAdLoad;
 - (void)startAutoRefreshTimer;
 - (void)restartAutoRefreshTimer;
 - (void)stopAutoRefreshTimer;

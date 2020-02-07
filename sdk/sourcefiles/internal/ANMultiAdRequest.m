@@ -18,15 +18,6 @@ limitations under the License.
 #import "ANMultiAdRequest.h"
 #import "ANLogging.h"
 #import "ANAdFetcherBase.h"
-//#if FULLSDK
-//#import "ANAdView+PrivateMethods.h"
-//#import "ANUniversalAdFetcher.h"
-//#else
-//#import "ANNativeAdFetcher.h"
-//#endif
-//#import "ANNativeAdRequest+PrivateMethods.h"
-
-
 
 #pragma mark - Private types.
 
@@ -51,11 +42,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 // It is declared in a manner capable of storing weak pointers.  Pointers to deallocated AdUnits are automatically assigned to nil.
 //
 @property (nonatomic, readwrite, strong, nonnull)  NSPointerArray  *adUnits;
-//#if FULLSDK
 @property (nonatomic, readwrite, strong)  ANAdFetcherBase    *adFetcher;
-//#else
-//@property (nonatomic, readwrite, strong)  ANNativeAdFetcher    *nativeAdFetcher;
-//#endif
 @end
 
 
@@ -185,12 +172,8 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 
     _adUnits             = [NSPointerArray weakObjectsPointerArray];
 
-//#if FULLSDK
     _adFetcher  = [[ANAdFetcherBase alloc] initWithMultiAdRequestManager: self];
-//#else
-//    _nativeAdFetcher = [[ANNativeAdFetcher alloc] initWithMultiAdRequestManager:self];
-//#endif
-    //
+
     __memberId          = memberId;
     __age               = @"";
     __gender            = ANGenderUnknown;
@@ -209,7 +192,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
  *
  * Returns: YES on success; otherwise, NO.
  */
-- (BOOL)addAdUnit:(nonnull id<ANAdProtocolFoundationCore>)newAdUnit
+- (BOOL)addAdUnit:(nonnull id<ANMultiAdProtocol,ANAdProtocolFoundationCore>)newAdUnit
 {
     NSInteger   newMemberID  = -1;
     NSString   *newUUIDKey   = @"";
@@ -321,15 +304,11 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     if ([self.adUnits count] <= 0)  {
         errorString = @"MultiAdRequest instance CONTAINS NO AdUnits.";
     }
-    #if AppNexusSDK
-
-    if (! self.universalAdFetcher)  {
+    
+    if (! self.adFetcher)  {
         errorString = @"Fetcher is UNALLOCATED.  FAILED TO FETCH tags via UT.";
     }
     
-    #endif
-
-
     if (errorString)
     {
         //NSError  *sessionError  = ANError(@"multi_ad_request_failed");
@@ -342,24 +321,16 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     }
 
     
-//    #if FULLSDK
-//    [self.adFetcher stopAdLoad]; // Fix it later
+    [self.adFetcher stopAdLoad]; // Fix it later
     [self.adFetcher requestAd];
-//    #else
-//    [self.nativeAdFetcher requestAd];
-//    #endif
     return  YES;
 }
 
 - (void)dealloc
 {
-    #if AppNexusSDK
-   // [self.adFetcher stopAdLoad];
-    #endif
+    [self.adFetcher stopAdLoad];
+    
 }
-
-
-
 
 #pragma mark - Getters/Setters.
 
@@ -425,23 +396,8 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 - (nullable NSArray<id> *)adUnit: (nonnull id<ANMultiAdProtocol,ANAdProtocolFoundationCore>)adUnit
                    getProperties: (nonnull NSArray<NSNumber *> *)getTypes
 {
-//#if FULLSDK
-//    ANAdView           *adview      = nil;
-//#endif
-//    ANNativeAdRequest  *nativead    = nil;
-
     NSMutableArray<id>  *returnValuesArray  = [[NSMutableArray<id> alloc] init];
     NSNull              *nullObj            = [NSNull null];
-
-
-//    #if FULLSDK
-//            if ([adUnit isKindOfClass:[ANAdView class]]) {
-//                adview = (ANAdView *)adUnit;
-//            }
-//    #endif
-//    if ([adUnit isKindOfClass:[ANNativeAdRequest class]]) {
-//        nativead = (ANNativeAdRequest *)adUnit;
-//    }
 
 
     // Get values.
@@ -454,32 +410,18 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
         {
             case MultiAdPropertyTypeManager:
             {
-               // #if FULLSDK
                     id  marManager  = (adUnit.marManager);
                     [returnValuesArray addObject:(marManager ? marManager : nullObj)];
-//                #else
-//                [returnValuesArray addObject:((id)nativead.marManager ? (id)nativead.marManager : nullObj)];
-//                #endif
                 
                 break;
             }
 
             case MultiAdPropertyTypeMemberID:
-            //    #if FULLSDK
                     [returnValuesArray addObject:(@(adUnit.memberId))];
-//                #else
-//                    [returnValuesArray addObject:(@(nativead.memberId))];
-//                #endif
-                
                 break;
 
             case MultiAdPropertyTypeUUID:
-//                #if FULLSDK
-//                    [returnValuesArray addObject:(adview ? adview.utRequestUUIDString : nativead.utRequestUUIDString)];
-//                #else
                     [returnValuesArray addObject:(adUnit.utRequestUUIDString)];
-//                #endif
-                
                 break;
 
             default:
@@ -488,8 +430,6 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
         }
     }
 
-
-    //
     return  returnValuesArray;
 }
 
@@ -502,27 +442,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     setManager: (nullable id)delegate
 {
     adUnit.marManager =(ANMultiAdRequest *)delegate;
-//    #if FULLSDK
-//        ANAdView           *adview      = nil;
-//        if ([adUnit isKindOfClass:[ANAdView class]])
-//        {
-//            adview = (ANAdView *)adUnit;
-//            adview.marManager = (ANMultiAdRequest *)delegate;
-//
-//        }
-//    #endif
-//    ANNativeAdRequest  *nativead        = nil;
-//
-//    //
-//    if ([adUnit isKindOfClass:[ANNativeAdRequest class]])
-//    {
-//        nativead = (ANNativeAdRequest *)adUnit;
-//        nativead.marManager = (ANMultiAdRequest *)delegate;
-//
-//    }
-
-    //
-    return;
+   return;
 }
 
 - (NSInteger)indexOfAdUnitWithUUIDKey:(nonnull NSString *)uuidKey
@@ -539,17 +459,9 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
             continue;
         }
 
-//#if FULLSDK
-//        if ([au isKindOfClass:[ANAdView class]]) {
-//            adunitUUID = ((ANAdView *)au).utRequestUUIDString;
-//        }
-//#endif
-//        if ([au isKindOfClass:[ANNativeAdRequest class]]) {
-            adunitUUID = au.utRequestUUIDString;
-        //} else
+        adunitUUID = au.utRequestUUIDString;
         if(adunitUUID == nil) {
-           // ANLogError(@"(internal) UNRECOGNIZED ad unit class.  (%@)", [au class]);
-            return  kMARAdUnitIndexNotFound;
+           return  kMARAdUnitIndexNotFound;
         }
 
         if ([adunitUUID isEqualToString:uuidKey])
@@ -559,7 +471,6 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
         }
     }
 
-    //
     return  kMARAdUnitIndexNotFound;
 }
 

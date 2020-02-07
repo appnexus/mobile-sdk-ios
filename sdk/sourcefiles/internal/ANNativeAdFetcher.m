@@ -132,6 +132,10 @@
     }
 }
 
+-(void) stopAdLoad {
+    [super stopAdLoad];
+}
+
 - (void)restartAutoRefreshTimer
 {
     // Implemented only by ANUniversalAdFetcher

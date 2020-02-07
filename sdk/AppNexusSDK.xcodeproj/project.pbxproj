@@ -1443,7 +1443,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"FULLSDK=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include;
@@ -1480,7 +1479,7 @@
 					"\"$(SRCROOT)/sourcefiles/Viewability\"/**",
 					"$(PROJECT_DIR)/sourcefiles/Viewability",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = "FULLSDK=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include;
 				INFOPLIST_FILE = AppNexusSDK/Info.plist;

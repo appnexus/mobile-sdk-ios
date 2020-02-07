@@ -79,7 +79,7 @@
 - (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
 - (void)setup;
 - (void)requestAd;
-
+- (void)stopAdLoad;
 - (void)fireResponseURL:(nullable NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
                adObject:(nonnull id)adObject;

@@ -84,6 +84,12 @@
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 
+-(void) stopAdLoad{
+    self.isFetcherLoading = NO;
+    self.ads = nil;
+    
+}
+
 - (void)requestAd
 {
     if (self.isFetcherLoading)  { return; }
