@@ -147,8 +147,8 @@
     }
 
     if (error) {
-        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:)]) {
-            [self.delegate adRequest:self didFailToLoadWithError:error];
+        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:withAdResponseInfo:)]) {
+            [self.delegate adRequest:self didFailToLoadWithError:error withAdResponseInfo:response.adResponseInfo];
         }
 
         return;

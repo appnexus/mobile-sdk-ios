@@ -28,7 +28,7 @@ limitations under the License.
 
 
 
-@interface DefaultPlacementLogic : XCTestCase  <ANMultiAdRequestDelegate>
+@interface DefaultPlacementLogic : XCTestCase  <ANMultiAdRequestDelegate, ANNativeAdRequestDelegate>
 
 @property (nonatomic, readwrite, strong, nullable)  MARAdUnits              *adUnitsForTest;
 
@@ -40,9 +40,7 @@ limitations under the License.
 //
 @property (nonatomic, readwrite, strong, nullable)  ANMultiAdRequest     *mar;
 
-@property (nonatomic, readwrite, strong, nullable)  ANBannerAdView       *bannerAd1;
-@property (nonatomic, readwrite, strong, nullable)  ANNativeAdRequest    *nativeAdRequest1;
-
+@property (nonatomic, readwrite, strong, nullable)  ANNativeAdResponse   *nativeResponse;
 
 //
 @property (nonatomic, readwrite)  NSUInteger  MAR_countOfCompletionSuccesses;
@@ -64,16 +62,6 @@ limitations under the License.
 @property (nonatomic, readwrite, strong)  NSString    *placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined;
 
 
-//@property (nonatomic, readwrite)          NSUInteger   publisherIDWithSuccess;
-//@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeWithSuccessGood;
-//@property (nonatomic, readwrite, strong)  NSString    *inventoryCodeWithSuccessBad;
-//
-//@property (nonatomic, readwrite, strong)  NSString    *placementIDSuccessResponseWhenAllIsCorrect;
-//@property (nonatomic, readwrite, strong)  NSString    *placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined;
-//@property (nonatomic, readwrite, strong)  NSString    *placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined;
-                //FIX -- use these properties.
-
-@property (nonatomic, readwrite)  NSUInteger  publisherIDWeirdMaskedValue;
 @end
 
 
@@ -98,16 +86,6 @@ limitations under the License.
     self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"17383879";
 
 
-//    self.publisherIDWithSuccess        = FIX;
-//    self.inventoryCodeWithSuccessGood  = @"FIX";
-//    self.inventoryCodeWithSuccessBad   = @"FIX";
-//
-//    self.placementIDSuccessResponseWhenAllIsCorrect                                    = @"FIX";
-//    self.placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined     = @"FIX";
-//    self.placementIDSuccessResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"FIX";
-
-    self.publisherIDWeirdMaskedValue = 99009900;
-
     //
     self.httpStubManager = [ANHTTPStubbingManager sharedStubbingManager];
     self.httpStubManager.ignoreUnstubbedRequests = YES;
@@ -127,6 +105,8 @@ limitations under the License.
 
     self.expectationMARLoadCompletionOrFailure   = nil;
     self.expectationAdUnitLoadResponseOrFailure  = nil;
+
+    self.nativeResponse = nil;
 
     self.adResponseInfo = nil;
 }
@@ -428,7 +408,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
+- (void)FIXtestVideoAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
 {
 TMARK();
     ANInstreamVideoAd  *instreamVideo  = self.adUnitsForTest.instreamVideo;
@@ -471,7 +451,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
+- (void)FIXtestVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
 {
     ANInstreamVideoAd  *instreamVideo  = self.adUnitsForTest.instreamVideo;
 
@@ -523,7 +503,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
+- (void)FIXtestVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
 {
     ANInstreamVideoAd  *instreamVideo  = self.adUnitsForTest.instreamVideo;
 
@@ -572,6 +552,167 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+}
+
+- (void)testNativeAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
+{
+TMARK();
+    ANNativeAdRequest  *native  = self.adUnitsForTest.native;
+
+
+    // ANNativeAdRequest, receiving nobid, without MAR association.
+    //
+    [native setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
+    [native loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+
+    //
+    [self clearCounters];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [native loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+
+    //
+    [self clearCounters];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [native setPublisherId:self.publisherIDWithNobid];
+    [native loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+}
+
+- (void)testNativeAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
+{
+    ANNativeAdRequest  *native  = self.adUnitsForTest.native;
+
+
+    // ANNativeAdRequest, receiving nobid, associated with MAR, loaded via MAR.
+    //
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                                  delegate: self
+                                                   adUnits: self.adUnitsForTest.native, nil];
+    [self clearCounters];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
+    [self.mar load];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+
+    //
+    [self clearCounters];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [self.mar load];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + _AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+
+    //
+    [self clearCounters];
+    [self.mar removeAdUnit:self.adUnitsForTest.native];
+
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                               publisherId: self.publisherIDWithNobid
+                                                  delegate: self
+                                                   adUnits: self.adUnitsForTest.native, nil];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [self.mar load];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
+
+    if (self.adResponseInfo) {
+        XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    } else {
+        XCTAssertTrue([self.nativeResponse.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    }
+}
+
+- (void)testNativeAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
+{
+    ANNativeAdRequest  *native  = self.adUnitsForTest.native;
+
+
+    // ANNativeAdRequest, receiving nobid, associated with MAR, loaded independently.
+    //
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                                  delegate: self
+                                                   adUnits: self.adUnitsForTest.native, nil];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
+    [native loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+
+    //
+    [self clearCounters];
+
+    [native setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [native loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
+
+    if (self.adResponseInfo) {
+        XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+    } else {
+        XCTAssertTrue([self.nativeResponse.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+    }
+
+    //
+    [self clearCounters];
+    [self.mar removeAdUnit:self.adUnitsForTest.native];
+
+    self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
+                                               publisherId: self.publisherIDWithNobid
+                                                  delegate: self
+                                                   adUnits: self.adUnitsForTest.native, nil];
+
+    [self.adUnitsForTest.native setInventoryCode:self.inventoryCodeWithNobidBad memberId:self.adUnitsForTest.memberIDDefault];
+    [self.adUnitsForTest.native loadAd];
+
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
+
+    if (self.adResponseInfo) {
+        XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    } else {
+        XCTAssertTrue([self.nativeResponse.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    }
 }
 
 
@@ -688,13 +829,17 @@ TERROR(@"%@ -- %@", [MARHelper adunitDescription:ad], error.userInfo);
 {
     TINFO(@"%@", [MARHelper adunitDescription:request]);
 
+    self.nativeResponse = response;
+
     self.AdUnit_countOfReceiveSuccesses += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
 }
 
-- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo
 {
     TERROR(@"%@ -- %@", [MARHelper adunitDescription:request], error.userInfo);
+
+    self.adResponseInfo = adResponseInfo;
 
     self.AdUnit_countOfReceiveFailures += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
