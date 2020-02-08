@@ -237,9 +237,6 @@ TMARK();
     
     // ANBannerAdView, receiving nobid, associated with MAR, loaded independently.
     //
-    [self clearCounters];
-    [self.mar removeAdUnit:self.adUnitsForTest.banner];
-
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
                                                    adUnits: self.adUnitsForTest.banner, nil];
