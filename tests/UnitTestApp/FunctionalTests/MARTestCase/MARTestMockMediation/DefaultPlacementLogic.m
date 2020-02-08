@@ -115,7 +115,7 @@ limitations under the License.
 
 #pragma mark - Tests.
 
-- (void)FIXtestBannerAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
 {
 TMARK();
     ANBannerAdView  *banner  = self.adUnitsForTest.banner;
@@ -154,11 +154,11 @@ TMARK();
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
-    XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
 {
     ANBannerAdView  *banner  = self.adUnitsForTest.banner;
 
@@ -210,7 +210,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
+- (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
 {
     ANBannerAdView  *banner  = self.adUnitsForTest.banner;
 
@@ -262,7 +262,7 @@ TMARK();
 }
 
 
-- (void)FIXtestInterstitialAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
+- (void)testInterstitialAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
 {
 TMARK();
     ANInterstitialAd  *interstitial  = self.adUnitsForTest.interstitial;
@@ -305,7 +305,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestInterstitialAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
+- (void)testInterstitialAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
 {
     ANInterstitialAd  *interstitial  = self.adUnitsForTest.interstitial;
 
@@ -357,7 +357,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestInterstitialAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
+- (void)testInterstitialAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
 {
     ANInterstitialAd  *interstitial  = self.adUnitsForTest.interstitial;
 
@@ -408,7 +408,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestVideoAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
+- (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
 {
 TMARK();
     ANInstreamVideoAd  *instreamVideo  = self.adUnitsForTest.instreamVideo;
@@ -451,7 +451,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
+- (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
 {
     ANInstreamVideoAd  *instreamVideo  = self.adUnitsForTest.instreamVideo;
 
@@ -503,7 +503,7 @@ TMARK();
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
-- (void)FIXtestVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
+- (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
 {
     ANInstreamVideoAd  *instreamVideo  = self.adUnitsForTest.instreamVideo;
 

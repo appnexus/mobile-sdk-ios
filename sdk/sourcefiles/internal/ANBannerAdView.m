@@ -458,7 +458,6 @@ static NSString *const kANInline        = @"inline";
 
     if (error) {
         self.contentView = nil;
-//        [self setAdResponseInfo:response.adResponseInfo];  //FIX -- handle in anadview?
         [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
 
     }

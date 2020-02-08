@@ -28,7 +28,6 @@
 @property (nonatomic, readonly, strong, nullable) NSError *error;
 
 @property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo  *adResponseInfo;
-        ///FIX -- here on error; in adObjecgHandler on success?  SEE kANAdResponseInfo
 
 
 //
