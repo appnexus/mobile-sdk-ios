@@ -127,7 +127,8 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 
 #pragma mark - ANVideoAdPlayerDelegate.
 
-- (void)videoAdLoadFailed:(NSError *)error {
+- (void)videoAdLoadFailed:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
+{
     TESTTRACE();
 }
 

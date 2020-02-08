@@ -226,19 +226,20 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
--(void) videoAdLoadFailed:(nonnull NSError *)error
+-(void) videoAdLoadFailed:(nonnull NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
     self.didVideoTagFail = YES;
     
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
     
+    [self setAdResponseInfo:adResponseInfo];
+
     ANLogError(@"Delegate indicates FAILURE.");
     [self removeAd];
     
     if ([self.loadDelegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
         [self.loadDelegate ad:self requestFailedWithError:self.failureNSError];
-                //FIX -- need return responseelements? ??
     }
 }
 
@@ -413,16 +414,15 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         }
         
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-           if(creativeId){
-                  [self setCreativeId:creativeId];
-           }
-                //TBD -- remove and use ANAdResponseInfo instead?
+        if(creativeId){
+            [self setCreativeId:creativeId];
+        }
 
-            [self videoAdReady];
+        [self videoAdReady];
 
         
     }else if(!response.isSuccessful && (response.adObject == nil)){
-        [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat)];
+        [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat) withAdResponseInfo:response.adResponseInfo];
         return;
     }
 }

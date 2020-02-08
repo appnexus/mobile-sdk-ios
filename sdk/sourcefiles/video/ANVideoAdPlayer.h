@@ -15,9 +15,12 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
+
 #import "WKWebView+ANCategory.h"
 #import "ANAdConstants.h"
 #import <OMSDK_Appnexus/OMIDImports.h>
+
+#import "ANAdResponseInfo.h"
 
 
 
@@ -44,7 +47,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 @protocol ANVideoAdPlayerDelegate <NSObject>
 
 -(void) videoAdReady;
--(void) videoAdLoadFailed:(nonnull NSError *)error;
+-(void) videoAdLoadFailed:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo;
 
 @optional
 
