@@ -407,16 +407,16 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
         self.adPlayer.delegate = self;
         
-        ANAdResponseElements *adResponseElements  = (ANAdResponseElements *) [ANGlobal valueOfGetterProperty:kANAdResponseElements forObject:response.adObjectHandler];
-        if (adResponseElements) {
-            [self setAdResponseElements:adResponseElements];
+        ANAdResponseInfo *adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:response.adObjectHandler];
+        if (adResponseInfo) {
+            [self setAdResponseInfo:adResponseInfo];
         }
         
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
            if(creativeId){
                   [self setCreativeId:creativeId];
            }
-                //TBD -- remove and use ANAdResponseElements instead?
+                //TBD -- remove and use ANAdResponseInfo instead?
 
             [self videoAdReady];
 

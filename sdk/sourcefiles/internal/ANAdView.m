@@ -81,7 +81,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponseElements                     = __adResponseElements;
+@synthesize  adResponseInfo                     = __adResponseInfo;
 
 
 #pragma mark - Initialization
@@ -164,7 +164,7 @@
     //
     if (error) {
         ANLogError(@"%@", errorString);
-        [self adRequestFailedWithError:error andAdResponseElements:nil];
+        [self adRequestFailedWithError:error andAdResponseInfo:nil];
 
         return  NO;
     }
@@ -245,14 +245,14 @@
     }
 }
 
-- (void)setAdResponseElements:(ANAdResponseElements *)adResponseElements {
-    if (!adResponseElements) {
-        ANLogError(@"Could not set adResponseElements");
+- (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo {
+    if (!adResponseInfo) {
+        ANLogError(@"Could not set adResponseInfo");
         return;
     }
-    if (adResponseElements != __adResponseElements) {
-        ANLogDebug(@"Setting adResponseElements to %@", adResponseElements);
-        __adResponseElements = adResponseElements;
+    if (adResponseInfo != __adResponseInfo) {
+        ANLogDebug(@"Setting adResponseInfo to %@", adResponseInfo);
+        __adResponseInfo = adResponseInfo;
     }
 }
 
@@ -380,9 +380,9 @@
 
 #pragma mark - ANAdProtocol: Getter methods
 
-- (nullable ANAdResponseElements *)adResponseElements {
-    ANLogDebug(@"ANAdResponse returned %@", __adResponseElements);
-    return __adResponseElements;
+- (nullable ANAdResponseInfo *)adResponseInfo {
+    ANLogDebug(@"ANAdResponse returned %@", __adResponseInfo);
+    return __adResponseInfo;
 }
 
 - (nullable NSString *)placementId {
@@ -580,10 +580,10 @@
     }   
 }
 
-- (void)adRequestFailedWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements
+- (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
 ANLogMark();
-    [self setAdResponseElements:adResponseElements];
+    [self setAdResponseInfo:adResponseInfo];
     
     if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
@@ -601,7 +601,7 @@ ANLogMark();
 {
     ANLogDebug(@"");
 
-    if (ANAdTypeVideo != __adResponseElements.adType) {
+    if (ANAdTypeVideo != __adResponseInfo.adType) {
         [self.universalAdFetcher restartAutoRefreshTimer];
         [self.universalAdFetcher startAutoRefreshTimer];
     }

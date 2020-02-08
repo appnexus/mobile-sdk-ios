@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ANAdResponseElements.h"
+#import "ANAdResponseInfo.h"
 
 
 
@@ -27,8 +27,8 @@
 @property (nonatomic, readonly, strong, nullable) id  adObjectHandler;
 @property (nonatomic, readonly, strong, nullable) NSError *error;
 
-@property (nonatomic, readwrite, strong, nullable)  ANAdResponseElements  *adResponseElements;
-        ///FIX -- here on error; in adObjecgHandler on success?  SEE kANAdResponseElements
+@property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo  *adResponseInfo;
+        ///FIX -- here on error; in adObjecgHandler on success?  SEE kANAdResponseInfo
 
 
 //

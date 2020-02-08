@@ -33,7 +33,7 @@ limitations under the License.
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
 @property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
-@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseElements;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseInfo;
 @property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
 @property (nonatomic, readwrite)  BOOL  receiveAdSuccess;
 @property (nonatomic, readwrite)  BOOL  receiveAdFailure;
@@ -94,7 +94,7 @@ limitations under the License.
 
 - (void)clearSetupNativeAd {
     self.adRequest = nil;
-    self.adResponseElements = nil;
+    self.adResponseInfo = nil;
 }
 
 -(void) setupNativeAd{
@@ -131,12 +131,12 @@ limitations under the License.
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqualObjects(self.banner.adResponseElements.creativeId, @"163051950");
-    XCTAssertEqualObjects(self.banner.adResponseElements.placementId, @"16392991");
-    XCTAssertTrue(self.banner.adResponseElements.memberId == 10094);
-    XCTAssertTrue(self.banner.adResponseElements.adType == ANAdTypeBanner);
-    XCTAssertEqualObjects(self.banner.adResponseElements.contentSource, @"rtb");
-    XCTAssertNil(self.banner.adResponseElements.networkName);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"163051950");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"16392991");
+    XCTAssertTrue(self.banner.adResponseInfo.memberId == 10094);
+    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
+    XCTAssertNil(self.banner.adResponseInfo.networkName);
     
 }
 
@@ -151,12 +151,12 @@ limitations under the License.
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqualObjects(self.banner.adResponseElements.creativeId, @"187027997");
-    XCTAssertEqualObjects(self.banner.adResponseElements.placementId, @"17432496");
-    XCTAssertTrue(self.banner.adResponseElements.memberId == 958);
-    XCTAssertTrue(self.banner.adResponseElements.adType == ANAdTypeBanner);
-    XCTAssertEqualObjects(self.banner.adResponseElements.contentSource, @"csm");
-    XCTAssertEqualObjects(self.banner.adResponseElements.networkName, @"ANAdAdapterBannerDFP");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"187027997");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"17432496");
+    XCTAssertTrue(self.banner.adResponseInfo.memberId == 958);
+    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"csm");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.networkName, @"ANAdAdapterBannerDFP");
     
 }
 
@@ -173,12 +173,12 @@ limitations under the License.
                                 handler:^(NSError *error) {
                                     
                                 }];
-   XCTAssertEqualObjects(self.banner.adResponseElements.creativeId, @"162039377");
-   XCTAssertEqualObjects(self.banner.adResponseElements.placementId, @"16392991");
-   XCTAssertTrue(self.banner.adResponseElements.memberId == 10094);
-   XCTAssertTrue(self.banner.adResponseElements.adType == ANAdTypeNative);
-   XCTAssertEqualObjects(self.banner.adResponseElements.contentSource, @"rtb");
-   XCTAssertNil(self.banner.adResponseElements.networkName);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"162039377");
+   XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"16392991");
+   XCTAssertTrue(self.banner.adResponseInfo.memberId == 10094);
+   XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeNative);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
+   XCTAssertNil(self.banner.adResponseInfo.networkName);
 }
 
 - (void) testAdResponseWithBannerVideoAd
@@ -193,12 +193,12 @@ limitations under the License.
                                 handler:^(NSError *error) {
                                     
                                 }];
-   XCTAssertEqualObjects(self.banner.adResponseElements.creativeId, @"162035356");
-   XCTAssertEqualObjects(self.banner.adResponseElements.placementId, @"16392991");
-   XCTAssertTrue(self.banner.adResponseElements.memberId == 10094);
-   XCTAssertTrue(self.banner.adResponseElements.adType == ANAdTypeVideo);
-   XCTAssertEqualObjects(self.banner.adResponseElements.contentSource, @"rtb");
-   XCTAssertNil(self.banner.adResponseElements.networkName);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"162035356");
+   XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"16392991");
+   XCTAssertTrue(self.banner.adResponseInfo.memberId == 10094);
+   XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeVideo);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
+   XCTAssertNil(self.banner.adResponseInfo.networkName);
 }
 
 - (void)testAdResponseWithInterstitialAd {
@@ -212,12 +212,12 @@ limitations under the License.
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqualObjects(self.interstitial.adResponseElements.creativeId, @"163051950");
-    XCTAssertEqualObjects(self.interstitial.adResponseElements.placementId, @"16392991");
-    XCTAssertTrue(self.interstitial.adResponseElements.memberId == 10094);
-    XCTAssertTrue(self.interstitial.adResponseElements.adType == ANAdTypeBanner);
-    XCTAssertEqualObjects(self.interstitial.adResponseElements.contentSource, @"rtb");
-    XCTAssertNil(self.interstitial.adResponseElements.networkName);
+    XCTAssertEqualObjects(self.interstitial.adResponseInfo.creativeId, @"163051950");
+    XCTAssertEqualObjects(self.interstitial.adResponseInfo.placementId, @"16392991");
+    XCTAssertTrue(self.interstitial.adResponseInfo.memberId == 10094);
+    XCTAssertTrue(self.interstitial.adResponseInfo.adType == ANAdTypeBanner);
+    XCTAssertEqualObjects(self.interstitial.adResponseInfo.contentSource, @"rtb");
+    XCTAssertNil(self.interstitial.adResponseInfo.networkName);
     
 }
 
@@ -231,12 +231,12 @@ limitations under the License.
                                 handler:^(NSError *error) {
                                     
                                 }];
-   XCTAssertEqualObjects(self.adResponseElements.adResponseElements.creativeId, @"162039377");
-   XCTAssertEqualObjects(self.adResponseElements.adResponseElements.placementId, @"16392991");
-   XCTAssertTrue(self.adResponseElements.adResponseElements.memberId == 10094);
-   XCTAssertTrue(self.adResponseElements.adResponseElements.adType == ANAdTypeNative);
-   XCTAssertEqualObjects(self.adResponseElements.adResponseElements.contentSource, @"rtb");
-   XCTAssertNil(self.adResponseElements.adResponseElements.networkName);
+   XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.creativeId, @"162039377");
+   XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.placementId, @"16392991");
+   XCTAssertTrue(self.adResponseInfo.adResponseInfo.memberId == 10094);
+   XCTAssertTrue(self.adResponseInfo.adResponseInfo.adType == ANAdTypeNative);
+   XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.contentSource, @"rtb");
+   XCTAssertNil(self.adResponseInfo.adResponseInfo.networkName);
 }
 
 - (void) testAdResponseWithInstreamAd
@@ -249,12 +249,12 @@ limitations under the License.
                                 handler:^(NSError *error) {
                                     
                                 }];
-   XCTAssertEqualObjects(self.instreamVideoAd.adResponseElements.creativeId, @"162035356");
-   XCTAssertEqualObjects(self.instreamVideoAd.adResponseElements.placementId, @"16392991");
-   XCTAssertTrue(self.instreamVideoAd.adResponseElements.memberId == 10094);
-   XCTAssertTrue(self.instreamVideoAd.adResponseElements.adType == ANAdTypeVideo);
-   XCTAssertEqualObjects(self.instreamVideoAd.adResponseElements.contentSource, @"rtb");
-   XCTAssertNil(self.instreamVideoAd.adResponseElements.networkName);
+   XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.creativeId, @"162035356");
+   XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.placementId, @"16392991");
+   XCTAssertTrue(self.instreamVideoAd.adResponseInfo.memberId == 10094);
+   XCTAssertTrue(self.instreamVideoAd.adResponseInfo.adType == ANAdTypeVideo);
+   XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.contentSource, @"rtb");
+   XCTAssertNil(self.instreamVideoAd.adResponseInfo.networkName);
 }
 
 #pragma mark - Stubbing
@@ -313,7 +313,7 @@ limitations under the License.
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
-    self.adResponseElements = response;
+    self.adResponseInfo = response;
     [self.loadAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;
 }

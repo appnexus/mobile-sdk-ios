@@ -211,7 +211,7 @@
 {
     if (!tag) {
         ANLogError(@"tag is nil.");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseElements:nil];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
         return;
     }
 
@@ -223,7 +223,7 @@
             ANLogWarn(@"response_no_ads");
 
             //
-            ANAdResponseElements *adResponseElements = [[ANAdResponseElements alloc] init];
+            ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
 
             NSString *placementId  = @"";
             if(tag[kANUniversalTagAdServerResponseKeyAdsTagId] != nil)
@@ -231,9 +231,9 @@
                 placementId = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsTagId]];
             }
 
-            adResponseElements.placementId = placementId;
+            adResponseInfo.placementId = placementId;
 
-            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseElements:adResponseElements];
+            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:adResponseInfo];
             return;
         }
     }
@@ -245,7 +245,7 @@
     if (ads.count <= 0)
     {
         ANLogWarn(@"response_no_ads");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseElements:nil];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
         return;
     }
     

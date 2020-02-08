@@ -25,7 +25,7 @@
 
 - (void)continueWaterfall;
 
-- (void)finishRequestWithError:(NSError *)error andAdResponseElements:(ANAdResponseElements *)adResponseElements;
+- (void)finishRequestWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 
 - (void)restartAutoRefreshTimer;
 @end

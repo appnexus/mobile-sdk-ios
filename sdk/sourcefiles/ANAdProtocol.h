@@ -19,7 +19,7 @@
 
 #import "ANAdConstants.h"
 #import "ANLocation.h"
-#import "ANAdResponseElements.h"
+#import "ANAdResponseInfo.h"
 
 @class ANLocation;
 
@@ -234,10 +234,10 @@
 /**
  * An AppNexus Single Unified object that will contain all the common fields of all the ads types
  *
- * adResponseElements should be accessible from response Object only -- ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd and ANNativeAdResponse).
- * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseElements being accessed through ANNativeAdRequest.
+ * adResponseInfo should be accessible from response Object only -- ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd and ANNativeAdResponse).
+ * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseInfo being accessed through ANNativeAdRequest.
  */
-@property (nonatomic, readwrite, strong, nullable) ANAdResponseElements *adResponseElements;
+@property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
 
 
 @end

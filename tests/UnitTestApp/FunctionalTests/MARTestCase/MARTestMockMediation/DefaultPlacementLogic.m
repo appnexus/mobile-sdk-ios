@@ -24,7 +24,7 @@ limitations under the License.
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
 
-#import "ANAdResponseElements.h"
+#import "ANAdResponseInfo.h"
 
 
 
@@ -32,7 +32,7 @@ limitations under the License.
 
 @property (nonatomic, readwrite, strong, nullable)  MARAdUnits              *adUnitsForTest;
 
-@property (nonatomic, readwrite, strong, nullable)  ANAdResponseElements    *adResponseElements;
+@property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo    *adResponseInfo;
 
 @property (nonatomic, strong, readwrite, nullable)  ANHTTPStubbingManager   *httpStubManager;
 
@@ -128,7 +128,7 @@ limitations under the License.
     self.expectationMARLoadCompletionOrFailure   = nil;
     self.expectationAdUnitLoadResponseOrFailure  = nil;
 
-    self.adResponseElements = nil;
+    self.adResponseInfo = nil;
 }
 
 
@@ -150,7 +150,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([banner.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+    XCTAssertTrue([banner.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
 
     //
     [self clearCounters];
@@ -162,7 +162,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
 
     //
     [self clearCounters];
@@ -175,7 +175,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
 - (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
@@ -197,7 +197,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
 
     //
     [self clearCounters];
@@ -209,7 +209,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + _AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
 
     //
     [self clearCounters];
@@ -227,7 +227,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
 - (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
@@ -251,7 +251,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
 
     //
     [self clearCounters];
@@ -263,7 +263,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined]);
 
     //
     [self clearCounters];
@@ -281,7 +281,7 @@ TMARK();
     [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
-    XCTAssertTrue([self.adResponseElements.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
 }
 
 
@@ -315,7 +315,7 @@ TMARK();
     TINFO(@"%@", [MARHelper adunitDescription:ad]);
 
     ANAdView  *adview  = (ANAdView *)ad;
-    self.adResponseElements = adview.adResponseElements;
+    self.adResponseInfo = adview.adResponseInfo;
 
     self.AdUnit_countOfReceiveSuccesses += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
@@ -327,7 +327,7 @@ TMARK();
     TINFO(@"%@", [MARHelper adunitDescription:loadInstance]);
 
     ANNativeAdResponse  *nativead  = (ANNativeAdResponse *)loadInstance;
-    self.adResponseElements = nativead.adResponseElements;
+    self.adResponseInfo = nativead.adResponseInfo;
 
     self.AdUnit_countOfReceiveSuccesses += 1;
     [self.expectationAdUnitLoadResponseOrFailure fulfill];
@@ -340,10 +340,10 @@ TERROR(@"%@ -- %@", [MARHelper adunitDescription:ad], error.userInfo);
 
     if ([ad isKindOfClass:[ANAdView class]]) {
         ANAdView  *adview  = (ANAdView *)ad;
-        self.adResponseElements = adview.adResponseElements;
+        self.adResponseInfo = adview.adResponseInfo;
     } else {
         ANNativeAdResponse  *nativead  = (ANNativeAdResponse *)ad;
-        self.adResponseElements = nativead.adResponseElements;
+        self.adResponseInfo = nativead.adResponseInfo;
     }
 
     self.AdUnit_countOfReceiveFailures += 1;

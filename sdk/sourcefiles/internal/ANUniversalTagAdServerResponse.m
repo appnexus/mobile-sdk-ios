@@ -25,7 +25,7 @@
 #import "ANAdConstants.h"
 #import "ANNativeStandardAdResponse.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
-#import "ANAdResponseElements.h"
+#import "ANAdResponseInfo.h"
 #import "ANGlobal.h"
 
 
@@ -256,12 +256,12 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          }
          
          //Initialise AdResponse object to expose all the public facing APIs from the UTv3 response
-         ANAdResponseElements *adResponseElements = [[ANAdResponseElements alloc] init];
-         adResponseElements.creativeId = creativeId;
-         adResponseElements.placementId = placementId;
-         adResponseElements.adType = [ANGlobal adTypeStringToEnum:adType];
-         adResponseElements.contentSource = contentSource;
-         adResponseElements.memberId = memberId;
+         ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
+         adResponseInfo.creativeId = creativeId;
+         adResponseInfo.placementId = placementId;
+         adResponseInfo.adType = [ANGlobal adTypeStringToEnum:adType];
+         adResponseInfo.contentSource = contentSource;
+         adResponseInfo.memberId = memberId;
 
 
         // RTB
@@ -292,7 +292,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                     if (nativeAd) {
                         nativeAd.creativeId = creativeId;
-                        nativeAd.adResponseElements = adResponseElements;
+                        nativeAd.adResponseInfo = adResponseInfo;
                         if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
                         {
                         NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
@@ -334,7 +334,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         }
                         mediatedAd.creativeId = creativeId;
                         if (mediatedAd.className.length > 0) {
-                            adResponseElements.networkName = mediatedAd.className;
+                            adResponseInfo.networkName = mediatedAd.className;
                             [arrayOfAdUnits addObject:mediatedAd];
                         }
                     }
@@ -375,7 +375,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
             ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
             baseAdObject.adType = [adType copy];
-            baseAdObject.adResponseElements = adResponseElements;
+            baseAdObject.adResponseInfo = adResponseInfo;
         }
     }
 

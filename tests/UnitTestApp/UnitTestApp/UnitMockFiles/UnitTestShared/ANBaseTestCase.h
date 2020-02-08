@@ -19,7 +19,7 @@
 #import "ANInterstitialAd.h"
 
 #import "ANCustomAdapter.h"
-#import "ANAdResponseElements.h"
+#import "ANAdResponseInfo.h"
 
 #import "ANTestResponses.h"
 #import "ANGlobal.h"

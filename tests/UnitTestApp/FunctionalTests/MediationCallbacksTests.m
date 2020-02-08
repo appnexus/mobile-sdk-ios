@@ -16,7 +16,7 @@
 #import "ANBaseTestCase.h"
 #import "ANMockMediationAdapterTimeout.h"
 #import "ANHTTPStubbingManager.h"
-#import "ANAdResponseElements.h"
+#import "ANAdResponseInfo.h"
 
 
 float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds

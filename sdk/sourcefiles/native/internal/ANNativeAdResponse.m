@@ -52,7 +52,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 @property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
-@property (nonatomic, readwrite, strong)  ANAdResponseElements *adResponseElements;
+@property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
 
 @end
 
