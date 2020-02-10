@@ -312,8 +312,11 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     
     if (errorString)
     {
+        NSError  *sessionError  = ANError(@"multi_ad_request_failed %@", ANAdResponseInvalidRequest, errorString);
+
+        
         if ([self.delegate respondsToSelector:@selector(multiAdRequest:didFailWithError:)]) {
-            [self.delegate multiAdRequest:self didFailWithError:nil];
+            [self.delegate multiAdRequest:self didFailWithError:sessionError];
         }
 
         return  NO;

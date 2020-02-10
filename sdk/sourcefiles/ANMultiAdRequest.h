@@ -43,7 +43,7 @@ limitations under the License.
 *
 *   error: Error describing the load failure.
 */
-- (void) multiAdRequest:(nonnull ANMultiAdRequest *)mar didFailWithError:(nullable NSError *)error;
+- (void) multiAdRequest:(nonnull ANMultiAdRequest *)mar didFailWithError:(nonnull NSError *)error;
 
 @end
 
