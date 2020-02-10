@@ -105,7 +105,6 @@
  *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
  */
 - (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
 {
     if (!self.delegate) {
         ANLogError(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to be ingested.");
@@ -115,8 +114,7 @@
     //
     [self createAdFetcher];
 
-    [self.adFetcher prepareForWaterfallWithAdServerResponseTag: tag
-                                      andTotalLatencyStartTime: totalLatencyStartTime ];
+    [self.adFetcher prepareForWaterfallWithAdServerResponseTag:tag];
 }
 
 
