@@ -45,16 +45,6 @@
     return self;
 }
 
-//-(nonnull instancetype) initWithDelegate:(nonnull id)delegate andAdunitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
-//{
-//    if (self = [self init]) {
-//        self.delegate = delegate;
-//        self.adunitMARManager = adunitMARManager;
-//        [self setup];
-//    }
-//    return self;
-//}
-
 - (void)clearMediationController {
     /*
      * Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher.  The controller maintains a weak reference to the
