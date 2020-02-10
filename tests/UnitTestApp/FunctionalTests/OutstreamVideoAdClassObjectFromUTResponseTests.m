@@ -44,6 +44,7 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 @implementation OutstreamVideoAdClassObjectFromUTResponseTests
 
 @synthesize  externalUid;
+@synthesize  publisherId;
 
 
 
