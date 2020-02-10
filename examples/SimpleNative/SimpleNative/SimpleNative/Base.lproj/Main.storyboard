@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,41 +9,16 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXO-Qt-3y4">
-                                <rect key="frame" x="10" y="54" width="394" height="474"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtX-gY-Ccj">
-                                <rect key="frame" x="10" y="538" width="394" height="314"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="SXO-Qt-3y4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="9H9-fW-9tU"/>
-                            <constraint firstItem="jtX-gY-Ccj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="538" id="BOT-TP-Rsv"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="jtX-gY-Ccj" secondAttribute="bottom" constant="10" id="R1H-lf-7jt"/>
-                            <constraint firstItem="jtX-gY-Ccj" firstAttribute="centerX" secondItem="SXO-Qt-3y4" secondAttribute="centerX" id="RyJ-Nk-T6P"/>
-                            <constraint firstItem="jtX-gY-Ccj" firstAttribute="top" secondItem="SXO-Qt-3y4" secondAttribute="bottom" constant="10" id="WyI-0R-y8D"/>
-                            <constraint firstItem="SXO-Qt-3y4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="ZJI-mn-vVa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jtX-gY-Ccj" secondAttribute="trailing" constant="10" id="qqT-4Q-fCd"/>
-                            <constraint firstItem="jtX-gY-Ccj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="xcC-jI-nCO"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <connections>
-                        <outlet property="view1" destination="SXO-Qt-3y4" id="U5O-5Q-hwK"/>
-                        <outlet property="view2" destination="jtX-gY-Ccj" id="gNR-A4-R8b"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="90"/>
         </scene>
     </scenes>
 </document>
