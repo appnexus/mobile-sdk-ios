@@ -18,7 +18,7 @@
 
 
 
-@interface ANNativeAdRequest (ANTest) <ANNativeAdFetcherDelegate>
+@interface ANNativeAdRequest (ANTest) <ANNativeAdFetcherDelegate,ANMultiAdProtocol>
 
 - (NSUInteger) incrementCountOfMethodInvocationInBackgroundOrReset:(BOOL)reset;
 
