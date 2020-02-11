@@ -15,14 +15,11 @@
 
 
 #import "SimpleAppDelegate.h"
-#import "ANAdAdapterBaseInMobi.h"
 
 @implementation SimpleAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    [ANAdAdapterBaseInMobi setInMobiAppID:@"dee5929ff94841c8a9594f3006c28b69"];
     // Override point for customization after application launch.
     return YES;
 }

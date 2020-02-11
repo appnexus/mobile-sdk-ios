@@ -10,11 +10,6 @@
 		0E747C8622DE11A600CDD1BC /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */; };
 		0E747C8722DE11A600CDD1BC /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0EB23738210931CC00A9C1BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB23737210931CC00A9C1BD /* CoreLocation.framework */; };
-		607BB5FC23F2012D002A0F57 /* InMobiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB5FB23F2012D002A0F57 /* InMobiSDK.framework */; };
-		607BB60223F2030A002A0F57 /* ANAdAdapterBannerInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 607BB60123F2030A002A0F57 /* ANAdAdapterBannerInMobi.m */; };
-		607BB60423F20312002A0F57 /* ANAdAdapterBaseInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 607BB60323F20312002A0F57 /* ANAdAdapterBaseInMobi.m */; };
-		607BB60623F20316002A0F57 /* ANAdAdapterInterstitialInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 607BB60523F20316002A0F57 /* ANAdAdapterInterstitialInMobi.m */; };
-		607BB60823F2031A002A0F57 /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 607BB60723F2031A002A0F57 /* ANAdAdapterNativeInMobi.m */; };
 		6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6083C4151FBCA3D900DED744 /* AVKit.framework */; };
 		8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3EDB481D0873A200957227 /* WebKit.framework */; };
 		FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7AC19706A5D002CAD63 /* Foundation.framework */; };
@@ -48,6 +43,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0E747C8022DE116100CDD1BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E747C7A22DE116100CDD1BC /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC48177B1845046A0066BBFE;
+			remoteInfo = AppNexusSDKResources;
+		};
 		0E747C8222DE116100CDD1BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E747C7A22DE116100CDD1BC /* AppNexusSDK.xcodeproj */;
@@ -95,15 +97,6 @@
 /* Begin PBXFileReference section */
 		0E747C7A22DE116100CDD1BC /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
 		0EB23737210931CC00A9C1BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		607BB5FB23F2012D002A0F57 /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = InMobiSDK.framework; sourceTree = "<group>"; };
-		607BB5FF23F202C6002A0F57 /* InMobi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = InMobi; path = ../../mediation/mediatedviews/InMobi; sourceTree = "<group>"; };
-		607BB60123F2030A002A0F57 /* ANAdAdapterBannerInMobi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerInMobi.m; path = ../../mediation/mediatedviews/InMobi/ANAdAdapterBannerInMobi.m; sourceTree = "<group>"; };
-		607BB60323F20312002A0F57 /* ANAdAdapterBaseInMobi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseInMobi.m; path = ../../mediation/mediatedviews/InMobi/ANAdAdapterBaseInMobi.m; sourceTree = "<group>"; };
-		607BB60523F20316002A0F57 /* ANAdAdapterInterstitialInMobi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialInMobi.m; path = ../../mediation/mediatedviews/InMobi/ANAdAdapterInterstitialInMobi.m; sourceTree = "<group>"; };
-		607BB60723F2031A002A0F57 /* ANAdAdapterNativeInMobi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeInMobi.m; path = ../../mediation/mediatedviews/InMobi/ANAdAdapterNativeInMobi.m; sourceTree = "<group>"; };
-		607BB60A23F20477002A0F57 /* ANAdAdapterBannerInMobi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerInMobi.h; path = ../../mediation/mediatedviews/InMobi/ANAdAdapterBannerInMobi.h; sourceTree = "<group>"; };
-		607BB60B23F2047C002A0F57 /* ANAdAdapterBaseInMobi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseInMobi.h; path = ../../mediation/mediatedviews/InMobi/ANAdAdapterBaseInMobi.h; sourceTree = "<group>"; };
-		607BB60C23F20509002A0F57 /* ANAdAdapterBaseInMobi+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ANAdAdapterBaseInMobi+PrivateMethods.h"; path = "../../mediation/mediatedviews/InMobi/ANAdAdapterBaseInMobi+PrivateMethods.h"; sourceTree = "<group>"; };
 		6083C4151FBCA3D900DED744 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		8A3EDB481D0873A200957227 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8A3EDB591D0873B200957227 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -153,7 +146,6 @@
 				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
 				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
 				6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */,
-				607BB5FC23F2012D002A0F57 /* InMobiSDK.framework in Frameworks */,
 				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
 				FF2FD7AF19706A5D002CAD63 /* CoreGraphics.framework in Frameworks */,
 				0EB23738210931CC00A9C1BD /* CoreLocation.framework in Frameworks */,
@@ -189,8 +181,9 @@
 		0E747C7B22DE116100CDD1BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */,
 				0E747C8522DE116100CDD1BC /* AppNexusNativeSDK.framework */,
+				0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */,
+				0E747C8122DE116100CDD1BC /* AppNexusSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,15 +191,6 @@
 		FF2FD7A019706A5D002CAD63 = {
 			isa = PBXGroup;
 			children = (
-				607BB60C23F20509002A0F57 /* ANAdAdapterBaseInMobi+PrivateMethods.h */,
-				607BB60B23F2047C002A0F57 /* ANAdAdapterBaseInMobi.h */,
-				607BB60A23F20477002A0F57 /* ANAdAdapterBannerInMobi.h */,
-				607BB60723F2031A002A0F57 /* ANAdAdapterNativeInMobi.m */,
-				607BB60523F20316002A0F57 /* ANAdAdapterInterstitialInMobi.m */,
-				607BB60323F20312002A0F57 /* ANAdAdapterBaseInMobi.m */,
-				607BB60123F2030A002A0F57 /* ANAdAdapterBannerInMobi.m */,
-				607BB5FF23F202C6002A0F57 /* InMobi */,
-				607BB5FB23F2012D002A0F57 /* InMobiSDK.framework */,
 				FF2FD7AB19706A5D002CAD63 /* Frameworks */,
 				FF2FD7AA19706A5D002CAD63 /* Products */,
 				FF2FD7B219706A5D002CAD63 /* SimpleBanner */,
@@ -382,6 +366,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0E747C8122DE116100CDD1BC /* AppNexusSDKResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppNexusSDKResources.bundle;
+			remoteRef = 0E747C8022DE116100CDD1BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -425,10 +416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF2FD7B919706A5D002CAD63 /* main.m in Sources */,
-				607BB60223F2030A002A0F57 /* ANAdAdapterBannerInMobi.m in Sources */,
-				607BB60423F20312002A0F57 /* ANAdAdapterBaseInMobi.m in Sources */,
-				607BB60623F20316002A0F57 /* ANAdAdapterInterstitialInMobi.m in Sources */,
-				607BB60823F2031A002A0F57 /* ANAdAdapterNativeInMobi.m in Sources */,
 				FF2FD7BD19706A5D002CAD63 /* SimpleAppDelegate.m in Sources */,
 				FF2FD7C619706A5D002CAD63 /* SimpleViewController.m in Sources */,
 			);
@@ -564,10 +551,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -591,10 +574,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

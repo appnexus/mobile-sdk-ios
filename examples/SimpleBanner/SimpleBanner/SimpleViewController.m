@@ -18,7 +18,6 @@
 #import "ANLogManager.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ANLocation.h"
-#import "ANSDKSettings.h"
 
 
 
@@ -37,9 +36,9 @@
 {
     [super viewDidLoad];
     
-    int adWidth  = 320;
-    int adHeight = 50;
-    NSString *adID = @"18457593";
+    int adWidth  = 300;
+    int adHeight = 250;
+    NSString *adID = @"1281482";
     
     // We want to center our ad on the screen.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -50,18 +49,16 @@
     CGRect rect = CGRectMake(originX, originY, adWidth, adHeight);
     CGSize size = CGSizeMake(adWidth, adHeight);
     
-    [[ANSDKSettings sharedInstance] setHTTPSEnabled:TRUE];
-    
     // Make a banner ad view.
     ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
-    //banner.externalUid = @"123e4567e89b12da456426655440000";
+    banner.externalUid = @"123e4567e89b12da456426655440000";
     banner.rootViewController = self;
     banner.delegate = self;
     banner.clickThroughAction = ANClickThroughActionReturnURL;
     [self.view addSubview:banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
-    banner.shouldServePublicServiceAnnouncements = false;
+    banner.shouldServePublicServiceAnnouncements = true;
     [ANLogManager setANLogLevel:ANLogLevelDebug];
     
     // Load an ad.
