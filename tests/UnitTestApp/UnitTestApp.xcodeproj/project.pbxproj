@@ -335,6 +335,9 @@
 		4F9CED4A23CCAAEF00BE3443 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE16F22007317002B5F5F /* SuccessfulInstreamVideoAdResponse.json */; };
 		4FF9B85E23AC0C3E00A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
 		4FF9B85F23AC0CE000A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
+		607BB63C23F3078C002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE19922008124002B5F5F /* ANNativeAdRequest+ANTest.m */; };
+		607BB64123F31B4A002A0F57 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */; };
+		607BB64223F31B58002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E2B4BAC23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json */; };
 		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
 		60F8A80023280C2A0030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
@@ -1704,7 +1707,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					0EB24C0E22CBD242008E927F = {
@@ -1793,6 +1796,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607BB64223F31B58002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */,
+				607BB64123F31B4A002A0F57 /* appnexus_standard_response.json in Resources */,
 				0EB24C5122CBD568008E927F /* appnexus_mock_mediation_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1882,11 +1887,8 @@
 				0E6612C122CA736300DDC5CD /* ANGADUnifiedNativeAdView.xib in Resources */,
 				60F8A82423294D590030D53D /* ANJAMDeviceIdResponse.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
-				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
 				0E15D60E23D1CF5300BD57DB /* testMARCombinationSingleBanner.json in Resources */,
 				60F8A82623294D600030D53D /* ANJAMExternalBrowserResponse.json in Resources */,
-				60F8A82623294D600030D53D /* ANJAMExternalBrowserResponse.json in Resources */,
-				60F8A82723294D640030D53D /* ANJAMInternalBrowserResponse.json in Resources */,
 				60F8A82723294D640030D53D /* ANJAMInternalBrowserResponse.json in Resources */,
 				60F8A82823294D670030D53D /* ANJAMMayDeepLinkResponse.json in Resources */,
 				60F8A82923294D6A0030D53D /* ANJAMMayDeepLinkResponseNo.json in Resources */,
@@ -1897,10 +1899,8 @@
 				0E3F32F123CE68E300CA830D /* appnexus_multiple_trackers.json in Resources */,
 				0E3F32EF23CE68E300CA830D /* appnexus_standard_response.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
-				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0E3F32F323CE68E300CA830D /* bannerNative_basic_banner.json in Resources */,
 				0E3F32F223CE68E300CA830D /* bannerNative_native_mediation.json in Resources */,
-				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0E3F32F523CE68E300CA830D /* custom_adapter_fb_mediated_response.json in Resources */,
 				0E3F32ED23CE68E300CA830D /* custom_adapter_invalid_type.json in Resources */,
@@ -2001,6 +2001,7 @@
 				0EB24C4F22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m in Sources */,
 				0E14222122F99B9A006C597A /* ANResourceValidationTestCase.m in Sources */,
 				0EB24C5822CBD770008E927F /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				607BB63C23F3078C002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */,
 				0EB24C5622CBD770008E927F /* ANURLConnectionStub.m in Sources */,
 				0EB24C5322CBD5CB008E927F /* NativeSDKTestAppTests.m in Sources */,
 				0EB24C5922CBD77B008E927F /* NSObject+Swizzling.m in Sources */,
