@@ -92,9 +92,7 @@
 
         return;
     }
-
-    [self markLatencyStart];
-
+    
 
     //
     NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
@@ -190,7 +188,7 @@
             ANLogWarn(@"UT Response contains MORE THAN ONE TAG (%@).  Using FIRST TAG ONLY and ignoring the rest...", @(arrayOfTags.count));
         }
 
-        [self prepareForWaterfallWithAdServerResponseTag:[arrayOfTags firstObject] andTotalLatencyStartTime:-1];
+        [self prepareForWaterfallWithAdServerResponseTag:[arrayOfTags firstObject]];
 
         return;
 
@@ -201,11 +199,10 @@
 
 
 /**
- * Accept a single tag from an UT Response and the totalLatencyStart time of the UT Request.
+ * Accept a single tag from an UT Response.
  * Divide the tag into ad objects and begin to process them via the waterfall.
  */
 - (void)prepareForWaterfallWithAdServerResponseTag: (NSDictionary<NSString *, id> *)tag
-                          andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
 {
     if (!tag) {
         ANLogError(@"tag is nil.");
@@ -239,13 +236,7 @@
         self.noAdUrl = noAdURLString;
     }
 
-    // If this fetcher is run by Multi-Ad Request Mode, then the start time for the request must be passed
-    //   from the MAR Manager to each adunit.
     //
-    if (self.fetcherMARManager) {
-        self.totalLatencyStart = totalLatencyStartTime;
-    }
-
     [self beginWaterfallWithAdObjects:ads];
 }
 
@@ -284,30 +275,6 @@
 
         [self continueWaterfall];
     }
-}
-
-
-/**
- * Mark the beginning of an ad request for latency recording
- */
-- (void)markLatencyStart {
-    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-}
-
-/**
- * RETURN: success  time difference since ad request start
- *         error    -1
- */
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime
-{
-    NSTimeInterval  totalLatency  = -1;
-    
-    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
-        totalLatency = (stopTime - self.totalLatencyStart);
-    }
-    
-    //
-    return  totalLatency;
 }
 
 

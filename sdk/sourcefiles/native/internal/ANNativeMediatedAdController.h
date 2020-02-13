@@ -32,13 +32,3 @@
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 @end
 
-
-
-
-@protocol ANNativeMediationAdControllerDelegate <NSObject>
-
-@required
-
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
-
-@end

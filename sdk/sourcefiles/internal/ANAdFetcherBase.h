@@ -38,8 +38,6 @@
 @property (nonatomic, readwrite, weak, nullable)    ANMultiAdRequest   *fetcherMARManager;
 @property (nonatomic, readwrite, weak, nullable)    ANMultiAdRequest   *adunitMARManager;
 
-@property (nonatomic, readwrite, assign)  NSTimeInterval  totalLatencyStart;
-
 
 //
 - (nonnull instancetype)init;
@@ -51,12 +49,9 @@
                adObject:(nonnull id)adObject;
 
 
-- (void)prepareForWaterfallWithAdServerResponseTag: (nullable NSDictionary<NSString *, id> *)ads
-                          andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
+- (void)prepareForWaterfallWithAdServerResponseTag: (nullable NSDictionary<NSString *, id> *)ads;
 
 - (void) beginWaterfallWithAdObjects:(nonnull NSMutableArray<id> *)ads;
 
-
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
 @end
