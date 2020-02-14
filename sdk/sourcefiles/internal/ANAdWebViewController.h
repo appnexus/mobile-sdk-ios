@@ -161,7 +161,7 @@
 @protocol ANAdWebViewControllerVideoDelegate <NSObject>
 
 -(void) videoAdReady;
--(void) videoAdLoadFailed:(NSError *)error;
+-(void) videoAdLoadFailed:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 - (void) videoAdError:(NSError *)error;
 
 - (void) videoAdPlayerFullScreenEntered: (ANAdWebViewController *)videoAd;

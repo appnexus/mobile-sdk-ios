@@ -49,6 +49,7 @@
 // ANNativeAdRequestProtocol properties.
 //
 @synthesize  placementId     = __placementId;
+@synthesize  publisherId     = __publisherId;
 @synthesize  memberId        = __memberId;
 @synthesize  inventoryCode   = __invCode;
 @synthesize  location        = __location;
@@ -144,8 +145,8 @@
     }
 
     if (error) {
-        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:)]) {
-            [self.delegate adRequest:self didFailToLoadWithError:error];
+        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:withAdResponseInfo:)]) {
+            [self.delegate adRequest:self didFailToLoadWithError:error withAdResponseInfo:response.adResponseInfo];
         }
 
         return;
@@ -157,10 +158,10 @@
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
     
     // In case of Mediation
-    if (nativeResponse.adResponse == nil) {
-        ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
-        if (adResponse) {
-            [self setAdResponse:adResponse onObject:nativeResponse forKeyPath:kANAdResponse];
+    if (nativeResponse.adResponseInfo == nil) {
+        ANAdResponseInfo *adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:response.adObjectHandler];
+        if (adResponseInfo) {
+            [self setAdResponseInfo:adResponseInfo onObject:nativeResponse forKeyPath:kANAdResponseInfo];
         }
     }
     //
@@ -259,10 +260,10 @@
     [object setValue:creativeId forKeyPath:keyPath];
 }
 
-- (void)setAdResponse:(ANAdResponse *)adResponse
+- (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
              onObject:(id)object forKeyPath:(NSString *)keyPath
 {
-    [object setValue:adResponse forKeyPath:keyPath];
+    [object setValue:adResponseInfo forKeyPath:keyPath];
 }
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.
@@ -343,12 +344,26 @@
     }
 }
 
+- (void)setPublisherId:(NSInteger)newPublisherId
+{
+    if ((newPublisherId > 0) && self.marManager)
+    {
+        if (self.marManager.publisherId != newPublisherId) {
+            ANLogError(@"Arguments ignored because newPublisherID (%@) is not equal to publisherID used in Multi-Ad Request.", @(newPublisherId));
+            return;
+        }
+    }
+
+    ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+    __publisherId = newPublisherId;
+}
+
 - (void)setInventoryCode:(nullable NSString *)newInvCode memberId:(NSInteger)newMemberId
 {
     if ((newMemberId > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberId) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberId));
             return;
         }
     }

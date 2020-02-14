@@ -62,6 +62,7 @@
 // ANAdProtocol properties.
 //
 @synthesize  placementId                            = __placementId;
+@synthesize  publisherId                            = __publisherId;
 @synthesize  memberId                               = __memberId;
 @synthesize  inventoryCode                          = __invCode;
 
@@ -80,7 +81,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponse                          = __adResponse;
+@synthesize  adResponseInfo                     = __adResponseInfo;
 
 
 #pragma mark - Initialization
@@ -163,7 +164,7 @@
     //
     if (error) {
         ANLogError(@"%@", errorString);
-        [self adRequestFailedWithError:error];
+        [self adRequestFailedWithError:error andAdResponseInfo:nil];
 
         return  NO;
     }
@@ -242,14 +243,14 @@
     }
 }
 
-- (void)setAdResponse:(ANAdResponse *)adResponse {
-    if (!adResponse) {
-        ANLogError(@"Could not set adResponse");
+- (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo {
+    if (!adResponseInfo) {
+        ANLogError(@"Could not set adResponseInfo");
         return;
     }
-    if (adResponse != __adResponse) {
-        ANLogDebug(@"Setting adResponse to %@", adResponse);
-        __adResponse = adResponse;
+    if (adResponseInfo != __adResponseInfo) {
+        ANLogDebug(@"Setting adResponseInfo to %@", adResponseInfo);
+        __adResponseInfo = adResponseInfo;
     }
 }
 
@@ -266,6 +267,19 @@
     }
 }
 
+- (void)setPublisherId:(NSInteger)newPublisherId
+{
+    if ((newPublisherId > 0) && self.marManager)
+    {
+        if (self.marManager.publisherId != newPublisherId) {
+            ANLogError(@"Arguments ignored because newPublisherID (%@) is not equal to publisherID used in Multi-Ad Request.", @(newPublisherId));
+            return;
+        }
+    }
+
+    ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+    __publisherId = newPublisherId;
+}
 
 
 /**
@@ -279,7 +293,7 @@
     if ((newMemberId > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberId) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberId));
             return;
         }
     }
@@ -379,9 +393,9 @@
 
 #pragma mark - ANAdProtocol: Getter methods
 
-- (nullable ANAdResponse *)adResponse {
-    ANLogDebug(@"ANAdResponse returned %@", __adResponse);
-    return __adResponse;
+- (nullable ANAdResponseInfo *)adResponseInfo {
+    ANLogDebug(@"ANAdResponse returned %@", __adResponseInfo);
+    return __adResponseInfo;
 }
 
 - (nullable NSString *)placementId {
@@ -576,12 +590,15 @@
 {
     if ([self.delegate respondsToSelector:@selector(ad:didReceiveNativeAd:)]) {
         [self.delegate ad:loadInstance didReceiveNativeAd:responseInstance];
-    }
+    }   
 }
 
-- (void)adRequestFailedWithError:(NSError *)error
+- (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
-    if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
+ANLogMark();
+    [self setAdResponseInfo:adResponseInfo];
+    
+    if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }
 }
@@ -597,7 +614,7 @@
 {
     ANLogDebug(@"");
 
-    if (ANAdTypeVideo != __adResponse.adType) {
+    if (ANAdTypeVideo != __adResponseInfo.adType) {
         [self.universalAdFetcher restartAutoRefreshTimer];
         [self.universalAdFetcher startAutoRefreshTimer];
     }

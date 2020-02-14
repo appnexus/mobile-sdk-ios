@@ -28,6 +28,8 @@
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
+#import "ANUniversalTagAdServerResponse.h"
+#import "ANAdView+PrivateMethods.h"
 
 
 
@@ -206,7 +208,7 @@
 {
     if (!tag) {
         ANLogError(@"tag is nil.");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
         return;
     }
 
@@ -216,7 +218,19 @@
 
         if (noBid) {
             ANLogWarn(@"response_no_ads");
-            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+
+            //
+            ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
+
+            NSString *placementId  = @"";
+            if(tag[kANUniversalTagAdServerResponseKeyAdsTagId] != nil)
+            {
+                placementId = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsTagId]];
+            }
+
+            adResponseInfo.placementId = placementId;
+
+            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:adResponseInfo];
             return;
         }
     }
@@ -228,7 +242,7 @@
     if (ads.count <= 0)
     {
         ANLogWarn(@"response_no_ads");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
         return;
     }
     

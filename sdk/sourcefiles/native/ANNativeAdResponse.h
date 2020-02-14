@@ -128,7 +128,7 @@ extern NSString * __nonnull const  kANNativeElementObject;
 /**
  An AppNexus Single Unified object that will contain all the common fields of all the ads types
  */
-@property (nonatomic, readonly, strong, nullable) ANAdResponse *adResponse;
+@property (nonatomic, readonly, strong, nullable) ANAdResponseInfo *adResponseInfo;
 
 
 /*!

@@ -27,7 +27,7 @@
 @interface ANOMIDNativeTestCase : XCTestCase<ANNativeAdRequestDelegate, SDKValidationURLProtocolDelegate>
 
 @property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
-@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponse;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseInfo;
 @property (nonatomic, readwrite, strong)  XCTestExpectation  *delegateCallbackExpectation;
 @property (nonatomic, readwrite, strong)  NSMutableString     *requestData;
 
@@ -67,7 +67,7 @@
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:nil];
-    XCTAssertNotNil(self.adResponse.omidAdSession);
+    XCTAssertNotNil(self.adResponseInfo.omidAdSession);
 }
 
 - (void)testOMIDSDKValidation{
@@ -96,7 +96,7 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    [self.adResponse unregisterViewFromTracking];
+    [self.adResponseInfo unregisterViewFromTracking];
     [XCTestCase delayForTimeInterval:5];
     XCTAssertTrue([self.requestData containsString:@"sessionFinish"]);
 }
@@ -106,10 +106,10 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
-    self.adResponse = response;
+    self.adResponseInfo = response;
     NSError *registerError;
     UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [self.adResponse registerViewForTracking:rvc.view withRootViewController:rvc clickableViews:nil error:&registerError];
+    [self.adResponseInfo registerViewForTracking:rvc.view withRootViewController:rvc clickableViews:nil error:&registerError];
     [self.delegateCallbackExpectation fulfill];
 }
 

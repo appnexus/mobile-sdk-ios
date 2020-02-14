@@ -953,10 +953,10 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     [self didCompleteFirstLoadFromWebViewController:self.webViewController];
 }
 
-- (void)videoAdLoadFailed:(NSError *)error
+- (void)videoAdLoadFailed:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
-    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:)]) {
-        [self.adViewDelegate adRequestFailedWithError:error];
+    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:andAdResponseInfo:)]) {
+        [self.adViewDelegate adRequestFailedWithError:error andAdResponseInfo:adResponseInfo];
     }
 }
 

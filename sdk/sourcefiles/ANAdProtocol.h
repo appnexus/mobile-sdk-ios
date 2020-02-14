@@ -19,7 +19,7 @@
 
 #import "ANAdConstants.h"
 #import "ANLocation.h"
-#import "ANAdResponse.h"
+#import "ANAdResponseInfo.h"
 
 @class ANLocation;
 
@@ -42,6 +42,11 @@
  with the member that this app belongs to.
  */
 @property (nonatomic, readonly, assign) NSInteger memberId;
+
+/**
+ * A publisher ID associates this member with a publisher.
+ */
+@property (nonatomic, readwrite, assign) NSInteger publisherId;
 
 /**
  The user's location.  See ANLocation.h in this directory for
@@ -227,10 +232,12 @@
 
 
 /**
- An AppNexus Single Unified object that will contain all the common fields of all the ads types
+ * An AppNexus Single Unified object that will contain all the common fields of all the ads types
+ *
+ * adResponseInfo should be accessible from response Object only -- ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd and ANNativeAdResponse).
+ * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseInfo being accessed through ANNativeAdRequest.
  */
-// ANAdResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponse being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong, nullable) ANAdResponse *adResponse;
+@property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
 
 
 @end
