@@ -56,7 +56,6 @@
 @property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
 
-- (void)ingestAdResponseTag: (nonnull id)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
+- (void)ingestAdResponseTag: (nonnull id)tag;
 
 @end

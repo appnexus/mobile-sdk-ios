@@ -89,7 +89,7 @@
         case kGADErrorTimeout:
             code = ANAdResponseNetworkError;
             break;
-        case kGADErrorInterstitialAlreadyUsed:
+        case kGADErrorAdAlreadyUsed:
             code = ANAdResponseInternalError;
             break;
         case kGADErrorMediationDataError:

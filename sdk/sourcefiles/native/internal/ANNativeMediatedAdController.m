@@ -234,7 +234,8 @@
     } ];
 }
 
-- (NSString *)createResponseURLRequest:(NSString *)baseString reason:(int)reasonCode {
+- (NSString *)createResponseURLRequest:(NSString *)baseString reason:(int)reasonCode
+{
     if ([baseString length] < 1) {
         return @"";
     }
@@ -245,15 +246,10 @@
     
     // append latency measurements
     NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
-    NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
-    
+
     if (latency > 0) {
         responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"latency"
                                                                           value: [NSString stringWithFormat:@"%.0f", latency]];
-    }
-    if (totalLatency > 0) {
-        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"total_latency"
-                                                                          value: [NSString stringWithFormat:@"%.0f", totalLatency]];
     }
 
 ANLogDebug(@"responseURLString=%@", responseURLString);
@@ -309,16 +305,6 @@ ANLogDebug(@"responseURLString=%@", responseURLString);
     return -1;
 }
 
-/**
- * The running total latency of the ad call.
- */
-- (NSTimeInterval)getTotalLatency {
-    if (self.adFetcher && (self.latencyStop > 0)) {
-        return [self.adFetcher getTotalLatency:self.latencyStop];
-    }
-    // return -1 if invalid.
-    return -1;
-}
 
 #pragma mark - ANNativeCustomAdapterRequestDelegate
 

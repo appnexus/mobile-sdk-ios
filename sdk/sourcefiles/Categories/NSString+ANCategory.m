@@ -81,9 +81,7 @@
 
 - (NSString *)an_responseTrackerReasonCode:(int)reasonCode
                                    latency:(NSTimeInterval)latency
-                              totalLatency:(NSTimeInterval) totalLatency{
-    
-    
+{
     // append reason code
     NSString *urlString = [self an_stringByAppendingUrlParameter: @"reason"
                                                            value: [NSString stringWithFormat:@"%d",reasonCode]];
@@ -91,10 +89,6 @@
     if (latency > 0) {
         urlString = [urlString an_stringByAppendingUrlParameter: @"latency"
                                                           value: [NSString stringWithFormat:@"%.0f", latency]];
-    }
-    if (totalLatency > 0) {
-        urlString = [urlString an_stringByAppendingUrlParameter: @"total_latency"
-                                                         value :[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
     
     ANLogInfo(@"responseURLString=%@", urlString);

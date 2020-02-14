@@ -41,7 +41,7 @@
 
 
 
-@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate, ANNativeRenderingViewControllerLoadingDelegate>
+@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeRenderingViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
 @property (nonatomic, readwrite, strong)  ANNativeRenderingViewController   *nativeAdView;
@@ -219,12 +219,12 @@ ANLogMark();
         } else if ([adunit isKindOfClass:[ANAdView class]])
         {
             ANAdView  *adView  = (ANAdView *)adunit;
-            [adView ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+            [adView ingestAdResponseTag:tag];
 
         } else if ([adunit isKindOfClass:[ANNativeAdRequest class]])
         {
             ANNativeAdRequest  *nativeAd  = (ANNativeAdRequest *)adunit;
-            [nativeAd ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+            [nativeAd ingestAdResponseTag:tag];
 
         } else {
             ANLogError(@"UNRECOGNIZED adunit type.  (%@)", [adunit class]);

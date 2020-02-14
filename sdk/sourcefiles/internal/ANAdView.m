@@ -213,10 +213,8 @@
  *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
  */
 - (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
 {
-    [self.universalAdFetcher prepareForWaterfallWithAdServerResponseTag: tag
-                                               andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime ];
+    [self.universalAdFetcher prepareForWaterfallWithAdServerResponseTag:tag];
 }
 
 
