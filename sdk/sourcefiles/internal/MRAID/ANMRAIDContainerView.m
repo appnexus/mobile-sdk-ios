@@ -178,13 +178,17 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 -(void) willMoveToSuperview:(UIView *)newSuperview {
     
-    if(self.webViewController.omidAdSession && !newSuperview){
-        [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-            [super willMoveToSuperview:newSuperview];
-        });
-    }else{
+    if(!newSuperview){
+        if(self.webViewController.omidAdSession){
+            [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                [super willMoveToSuperview:newSuperview];
+            });
+        }
+        self.webViewController  = nil;
+    }
+    else{
         [super willMoveToSuperview:newSuperview];
     }
 }
