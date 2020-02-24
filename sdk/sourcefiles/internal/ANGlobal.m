@@ -18,7 +18,7 @@
 #import <AdSupport/AdSupport.h>
 
 #import "ANGlobal.h"
-
+#import "ANGDPRSettings.h"
 #import "ANLogging.h"
 
 #import "ANSDKSettings.h"
@@ -83,8 +83,11 @@ NSString *__nonnull ANAdvertisingIdentifier() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {
-        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-        
+        NSString *advertisingIdentifier;
+        //based on TCF 2.0 Purpose1 statement
+        if ([ANGDPRSettings getDeviceAccessConsent]){
+            advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+        }
         if (advertisingIdentifier) {
             udidComponent = advertisingIdentifier;
             ANLogInfo(@"IDFA = %@", advertisingIdentifier);

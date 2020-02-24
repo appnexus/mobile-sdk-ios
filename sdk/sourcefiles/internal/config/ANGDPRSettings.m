@@ -18,8 +18,16 @@
 
 NSString * const  ANGDPR_ConsentString = @"ANGDPR_ConsentString";
 NSString * const  ANGDPR_ConsentRequired = @"ANGDPR_ConsentRequired";
+
+//TCF 2.0 variables
+NSString * const  ANIABTCF_ConsentString = @"IABTCF_TCString";
+NSString * const  ANIABTCF_SubjectToGDPR = @"IABTCF_gdprApplies";
+
+//TCF 1.1 variables
 NSString * const  ANIABConsent_ConsentString = @"IABConsent_ConsentString";
 NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
+
+NSString * const  ANGDPR_DeviceAccessConsent = @"ANGDPR_DeviceAccessConsent";
 
 @interface ANGDPRSettings()
 
@@ -28,7 +36,10 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 
 @implementation ANGDPRSettings
 
-
++ (void) setDeviceAccessConsent:(BOOL)deviceConsent {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",deviceConsent] forKey:ANGDPR_DeviceAccessConsent];
+}
 
 
 /**
@@ -73,7 +84,7 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     
     NSString* consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentString];
     if(consentString == nil){
-        consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_ConsentString];
+        consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_ConsentString]?[[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_ConsentString]:[[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_ConsentString];
     }
     return consentString? consentString: @"";
 }
@@ -86,12 +97,13 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     
     NSString* subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentRequired];
     if(subjectToGdprValue == nil){
-        subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_SubjectToGDPR];
+        subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_SubjectToGDPR]?[[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_SubjectToGDPR]:[[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_SubjectToGDPR];
     }
-    if([subjectToGdprValue isEqualToString:@"1"] || [subjectToGdprValue isEqualToString:@"0"]){
-        return subjectToGdprValue;
-    }
-    return nil;
+    return subjectToGdprValue;
+}
+
++ (BOOL) getDeviceAccessConsent {
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_DeviceAccessConsent] boolValue];
 }
 
 
