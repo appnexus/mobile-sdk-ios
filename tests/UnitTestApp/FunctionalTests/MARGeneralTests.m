@@ -805,6 +805,15 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 }
 
 
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo{
+    TERROR(@"%@ -- %@", [MARHelper adunitDescription:request], error.userInfo);
+    self.AdUnit_countOfReceiveFailures += 1;
+    if(self.countOfRequestedAdUnits == self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures){
+        [self.expectationAdUnitLoadResponseOrFailure fulfill];
+        self.expectationAdUnitLoadResponseOrFailure = nil;
+    }
+}
+
 - (void)ad:(nonnull id)ad requestFailedWithError:(NSError *)error
 {
     TERROR(@"%@ -- %@", [MARHelper adunitDescription:ad], error.userInfo);
@@ -863,17 +872,6 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 {
     TINFO(@"%@", [MARHelper adunitDescription:request]);
     self.AdUnit_countOfReceiveSuccesses += 1;
-    if(self.countOfRequestedAdUnits == self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures){
-        [self.expectationAdUnitLoadResponseOrFailure fulfill];
-        self.expectationAdUnitLoadResponseOrFailure = nil;
-    }
-}
-
-- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error
-{
-    
-    TERROR(@"%@ -- %@", [MARHelper adunitDescription:request], error.userInfo);
-    self.AdUnit_countOfReceiveFailures += 1;
     if(self.countOfRequestedAdUnits == self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures){
         [self.expectationAdUnitLoadResponseOrFailure fulfill];
         self.expectationAdUnitLoadResponseOrFailure = nil;
