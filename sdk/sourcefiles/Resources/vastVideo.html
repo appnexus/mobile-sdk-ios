@@ -34,6 +34,8 @@
         <div id="video-content" style="background-color:#000000"></div>
         <script>
             var  ua                   = getMobileOperatingSystem();
+            var  targetId             = "video-content";
+            var  targetElement        = document.getElementById(targetId);
             
         function createVastPlayerWithContent(vastContent, videoOptions)
         {
@@ -44,14 +46,10 @@
                 //  atob is used to decode vastContent from Base64String to VastXML
                 var videoVastContent = atob(vastContent);
                 
-                var targetId = "video-content";
-                
                 var options = constructVideoPlayerOptions(videoOptions)
-                
-                var targetElement        = document.getElementById(targetId);
                 options.targetElementId  = targetId;
                 
-                setInitialLayoutParams(targetElement);
+                setInitialLayoutParams();
                 
                 APNVideo_MobileVastPlayer.playVast( targetElement,
                                                    options,
@@ -107,7 +105,7 @@
         
         // This method is intented to be private and should be called only from within this file.
         // Native code should never call this method directly but instead call playAd();
-        function playVideoAd(targetId) {
+        function playVideoAd() {
             resizePlayer();
             APNVideo_MobileVastPlayer.sendPlay(targetId);
         }
@@ -115,11 +113,10 @@
         function playAd() {
             console.log(":: sendPlay");
             
-            var targetId = "video-content";
-            playVideoAd(targetId);
+            playVideoAd();
             var playInterval = window.setInterval(function () {
-                if (!getIsVideoPlaying(targetId)) {
-                    playVideoAd(targetId);
+                if (!getIsVideoPlaying()) {
+                    playVideoAd();
                 } else {
                     window.clearInterval(playInterval);
                 }
@@ -129,11 +126,10 @@
         function pauseAd() {
             console.log(":: sendPause");
             
-            var targetId = "video-content";
-            pauseVideoAd(targetId);
+            pauseVideoAd();
             var pauseInterval = window.setInterval(function () {
-                if (getIsVideoPlaying(targetId)) {
-                    pauseVideoAd(targetId);
+                if (getIsVideoPlaying()) {
+                    pauseVideoAd();
                 } else {
                     window.clearInterval(pauseInterval);
                 }
@@ -142,17 +138,16 @@
 
         // This method is intented to be private and should be called only from within this file.
         // Native code should never call this method directly but instead call pauseAd();
-        function pauseVideoAd(targetId) {
+        function pauseVideoAd() {
             resizePlayer();
             APNVideo_MobileVastPlayer.sendPause(targetId);
         }
 
-        function getIsVideoPlaying(targetId) {
+        function getIsVideoPlaying() {
             return APNVideo_MobileVastPlayer.getIsVideoPlaying(targetId);
         }
         
         function getCurrentPlayHeadTime() {
-            var targetId = "video-content";
             var playHeadTime = APNVideo_MobileVastPlayer.getCurrentPlayHeadTime(targetId);
             return playHeadTime;
         }
@@ -166,51 +161,48 @@
         // This makes it possible to create the Div in the largest size possible
         // And a better video will be selected.
         //
-        function setInitialLayoutParams(targetDiv)
+        function setInitialLayoutParams()
         {
-            if (targetDiv !== undefined)
+            if (targetElement !== undefined)
             {
-                targetDiv.style.position  = "absolute";
-                targetDiv.style.left      = 0;
-                targetDiv.style.top       = 0;
-                targetDiv.style.width     = screen.width  * window.devicePixelRatio;
-                targetDiv.style.height    = screen.height * window.devicePixelRatio;
+                targetElement.style.position  = "absolute";
+                targetElement.style.left      = 0;
+                targetElement.style.top       = 0;
+                targetElement.style.width     = getDimensionAsPixels(screen.width  * window.devicePixelRatio);
+                targetElement.style.height    = getDimensionAsPixels(screen.height * window.devicePixelRatio);
             }
         }
         
         // Use this when calling playAd or any other time after the initial call
         // This will make sure that the Container div doesnot have scroll to the right or down
         //
-        function setPlayerLayout(targetDiv)
+        function setPlayerLayout()
         {
-            if (targetDiv !== undefined)
+            if (targetElement !== undefined)
             {
-                targetDiv.style.position  = "absolute";
-                targetDiv.style.left      = 0;
-                targetDiv.style.width     = window.innerWidth+"px";
-                targetDiv.style.height    = window.innerHeight+"px";
+                targetElement.style.position  = "absolute";
+                targetElement.style.left      = 0;
+                targetElement.style.width     = getDimensionAsPixels(window.innerWidth);
+                targetElement.style.height    = getDimensionAsPixels(window.innerHeight);
                 
-                if (targetDiv.style.width == "0px" || targetDiv.style.height == "0px")
+                if (targetElement.style.width == "0px" || targetElement.style.height == "0px")
                 {
                     var maxScreenSize       = Math.max(screen.width, screen.height);
-                    targetDiv.style.width   = maxScreenSize;
-                    targetDiv.style.height  = maxScreenSize;
+                    targetElement.style.width   = getDimensionAsPixels(maxScreenSize);
+                    targetElement.style.height  = getDimensionAsPixels(maxScreenSize);
                 }
                 
-                targetDiv.style.top = 0;
+                targetElement.style.top = 0;
             }
         }
         
         function resizePlayer() {
-            var  targetId       = "video-content";
-            var  targetElement  = document.getElementById(targetId);
             
             if (targetElement !== undefined)
             {
-                setPlayerLayout(targetElement);
+                setPlayerLayout();
             }
         }
-        
         
         
         //
@@ -282,6 +274,10 @@
             }
             
             return "unknown";
+        }
+        
+        function getDimensionAsPixels(value) {
+            return value+"px";
         }
         
             </script>

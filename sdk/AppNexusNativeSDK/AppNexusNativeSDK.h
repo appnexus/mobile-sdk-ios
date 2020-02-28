@@ -25,11 +25,12 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 
 #import <AppNexusNativeSDK/ANAdConstants.h>
 #import <AppNexusNativeSDK/ANAdProtocol.h>
-#import <AppNexusNativeSDK/ANLocation.h>
+#import <AppNexusNativeSDK/ANSDKSettings.h>
 #import <AppNexusNativeSDK/ANLogManager.h>
 #import <AppNexusNativeSDK/ANLogging.h>
+
+#import <AppNexusNativeSDK/ANLocation.h>
 #import <AppNexusNativeSDK/ANTargetingParameters.h>
-#import <AppNexusNativeSDK/ANSDKSettings.h>
 
 #import <AppNexusNativeSDK/ANNativeAdDelegate.h>
 #import <AppNexusNativeSDK/ANNativeAdRequest.h>
@@ -37,6 +38,9 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 #import <AppNexusNativeSDK/ANNativeAdStarRating.h>
 #import <AppNexusNativeSDK/ANNativeCustomAdapter.h>
 #import <AppNexusNativeSDK/ANNativeMediatedAdResponse.h>
+
+#import <AppNexusNativeSDK/ANAdResponseInfo.h>
+
 #import <AppNexusNativeSDK/ANGDPRSettings.h>
 #import <AppNexusNativeSDK/ANUSPrivacySettings.h>
 

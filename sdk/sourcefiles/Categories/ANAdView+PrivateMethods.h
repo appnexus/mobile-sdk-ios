@@ -38,6 +38,7 @@
 - (void)loadAdFromVast: (nonnull NSString *)xml width: (int)width
                 height: (int)height;
 
+- (void)setAdResponseInfo:(nonnull ANAdResponseInfo *)adResponseInfo;
 - (void)setCreativeId:(nonnull NSString *)creativeId;
 
 
@@ -55,7 +56,6 @@
 @property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
 
-- (void)ingestAdResponseTag: (nonnull id)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
+- (void)ingestAdResponseTag: (nonnull id)tag;
 
 @end

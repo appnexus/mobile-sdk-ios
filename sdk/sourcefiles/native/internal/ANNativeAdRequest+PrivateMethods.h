@@ -39,8 +39,7 @@
 /*!
  * Used only in MultiAdRequest to pass ad object returned by impbus directly to the adunit though it was requested by MAR UT Request.
  */
-- (void)ingestAdResponseTag: (nonnull id)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime;
+- (void)ingestAdResponseTag: (nonnull id)tag;
 
 @end
 

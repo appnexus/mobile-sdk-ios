@@ -44,10 +44,6 @@
 
 @end
 
-@interface ANUniversalAdFetcher ()
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
-@end
-
 
 
 @implementation ANSSMMediationAdViewController
@@ -218,9 +214,7 @@
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.ssmMediatedAd.responseURL an_responseTrackerReasonCode: (int)errorCode
-                                                                                     latency: [self getLatency] * 1000
-                                                                                totalLatency: [self getTotalLatency] * 1000
-                                 ];
+                                                                                     latency: [self getLatency] * 1000 ];
         
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
@@ -289,17 +283,6 @@
 - (NSTimeInterval)getLatency {
     if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
         return (self.latencyStop - self.latencyStart);
-    }
-    // return -1 if invalid.
-    return -1;
-}
-
-/**
- * The running total latency of the ad call.
- */
-- (NSTimeInterval)getTotalLatency {
-    if (self.adFetcher && (self.latencyStop > 0)) {
-        return [self.adFetcher getTotalLatency:self.latencyStop];
     }
     // return -1 if invalid.
     return -1;

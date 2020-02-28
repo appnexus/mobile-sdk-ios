@@ -167,8 +167,9 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     
 }
 
-- (void)adRequestFailedWithError:(NSError *)error {
-    
+- (void)adRequestFailedWithError:(NSError *)error
+{
+
 }
 
 - (NSString *)adTypeForMRAID {

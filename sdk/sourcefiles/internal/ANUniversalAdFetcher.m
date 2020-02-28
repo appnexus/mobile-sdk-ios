@@ -41,7 +41,7 @@
 
 
 
-@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate, ANNativeRenderingViewControllerLoadingDelegate>
+@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeRenderingViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
 @property (nonatomic, readwrite, strong)  ANNativeRenderingViewController   *nativeAdView;
@@ -134,7 +134,7 @@
 
 #pragma mark - Ad Response
 
-- (void)finishRequestWithError:(NSError *)error
+- (void)finishRequestWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
     self.isFetcherLoading = NO;
     
@@ -146,11 +146,13 @@
     }
     
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
+    response.adResponseInfo = adResponseInfo;
     [self processFinalResponse:response];
 }
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
+ANLogMark();
     self.ads = nil;
     self.isFetcherLoading = NO;
 
@@ -217,12 +219,12 @@
         } else if ([adunit isKindOfClass:[ANAdView class]])
         {
             ANAdView  *adView  = (ANAdView *)adunit;
-            [adView ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+            [adView ingestAdResponseTag:tag];
 
         } else if ([adunit isKindOfClass:[ANNativeAdRequest class]])
         {
             ANNativeAdRequest  *nativeAd  = (ANNativeAdRequest *)adunit;
-            [nativeAd ingestAdResponseTag:tag totalLatencyStartTime:self.totalLatencyStart ];
+            [nativeAd ingestAdResponseTag:tag];
 
         } else {
             ANLogError(@"UNRECOGNIZED adunit type.  (%@)", [adunit class]);
@@ -250,7 +252,7 @@
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
             [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
         return;
     }
     

@@ -226,13 +226,15 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
--(void) videoAdLoadFailed:(nonnull NSError *)error
+-(void) videoAdLoadFailed:(nonnull NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
     self.didVideoTagFail = YES;
     
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
     
+    [self setAdResponseInfo:adResponseInfo];
+
     ANLogError(@"Delegate indicates FAILURE.");
     [self removeAd];
     
@@ -406,16 +408,21 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
         self.adPlayer.delegate = self;
         
+        ANAdResponseInfo *adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:response.adObjectHandler];
+        if (adResponseInfo) {
+            [self setAdResponseInfo:adResponseInfo];
+        }
+        
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
         if(creativeId){
-               [self setCreativeId:creativeId];
+            [self setCreativeId:creativeId];
         }
 
         [self videoAdReady];
 
         
     }else if(!response.isSuccessful && (response.adObject == nil)){
-        [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat)];
+        [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat) withAdResponseInfo:response.adResponseInfo];
         return;
     }
 }
@@ -482,7 +489,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     if ((newMemberID > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberID) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberID));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberID));
             return;
         }
     }
