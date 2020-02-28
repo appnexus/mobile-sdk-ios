@@ -14,13 +14,18 @@
  */
 
 #import <XCTest/XCTest.h>
+
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
+
+#import "ANCustomAdapter.h"
+#import "ANAdResponseInfo.h"
+
 #import "ANTestResponses.h"
 #import "ANGlobal.h"
 #import "ANTestGlobal.h"
+
 #import "ANSDKSettings+PrivateMethods.h"
-#import "ANCustomAdapter.h"
 
 
 

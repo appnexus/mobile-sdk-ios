@@ -291,7 +291,11 @@ TMARK();
 - (void)setup
 {
 TMARK();
-    self.memberIDGood               = 10094;
+    self.memberIDDefault            = 958;
+    self.memberIDMobileEngineering  = 10094;
+
+    self.memberIDGood               = self.memberIDMobileEngineering;
+
 
     self.inventoryCodeNotredame     = @"notredame";
     self.inventoryCodeRutabega      = @"rutabega";

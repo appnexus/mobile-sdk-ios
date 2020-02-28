@@ -102,6 +102,6 @@
  * Called when a native ad request was unsuccessful.
  * @see ANAdResponseCode in ANAdConstants.h for possible error code values.
  */
-- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error;
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo;
 
 @end

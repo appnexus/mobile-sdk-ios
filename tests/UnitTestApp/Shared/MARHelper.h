@@ -123,6 +123,9 @@ typedef NS_ENUM(NSInteger, MultiTagType)
 
 
 @property (nonatomic, readwrite)  NSInteger  memberIDGood;
+@property (nonatomic, readwrite)  NSInteger  memberIDDefault;
+@property (nonatomic, readwrite)  NSInteger  memberIDMobileEngineering;
+
 
 @property (strong, nonatomic, readwrite, nonnull)  NSString  *inventoryCodeNotredame;
 @property (strong, nonatomic, readwrite, nonnull)  NSString  *inventoryCodeRutabega;

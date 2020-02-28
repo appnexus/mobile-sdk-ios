@@ -1,4 +1,3 @@
-
 /*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,19 +12,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-#import "ANAdFetcherBase.h"
 
-@interface ANAdFetcherBase (PrivateMethods)
+#import "ANAdResponseInfo.h"
 
-- (void)processFinalResponse:(ANAdFetcherResponse *)response;
+@implementation ANAdResponseInfo
 
-- (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags;
+@synthesize  creativeId, adType, memberId, placementId, contentSource, networkName;
 
-- (void)clearMediationController;
-
-- (void)continueWaterfall;
-
-- (void)finishRequestWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
-
-- (void)restartAutoRefreshTimer;
 @end

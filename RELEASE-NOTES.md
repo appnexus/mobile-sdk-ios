@@ -1,3 +1,17 @@
+## 7.1
+### New Feature
++ MS-3956  Added ANAdResponseInfo to return associated data with Ad response 
+
+### Mediation partner upgrade
++ Google AdMob SDK v7.55.0
+
+### Improvements/Bug Fixes
++ MS-3882 Added option to include "publisher_id" in Ad request
++ MS-3896 Fixed bug on Interstitial Video Ad close feature
++ MS-4166 Fixed VideoAd OMID session tracker firing bug
+
+
+
 ## 7.0
 
 ### New Feature

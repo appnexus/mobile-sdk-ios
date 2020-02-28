@@ -14,6 +14,7 @@
  */
 
 #import "ANInterstitialAd.h"
+#import "ANAdView+PrivateMethods.h"
 
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
@@ -313,8 +314,12 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     if (!response.isSuccessful) {
-        [self adRequestFailedWithError:response.error];
+        [self adRequestFailedWithError:response.error andAdResponseInfo:response.adResponseInfo];
         return;
+    }
+    ANAdResponseInfo *adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:response.adObjectHandler];
+    if (adResponseInfo) {
+        [self setAdResponseInfo:adResponseInfo];
     }
     NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
     if(creativeId){

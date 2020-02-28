@@ -27,7 +27,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.0"
+#define AN_SDK_VERSION                  @"7.1"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -78,10 +78,10 @@ extern NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey;
 extern NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification;
 extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;                 
 
-static NSString * __nonnull const kANCreativeId= @"creativeId";
-static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
-static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
-
+static NSString * __nonnull const kANCreativeId             = @"creativeId";
+static NSString * __nonnull const kANImpressionUrls         = @"impressionUrls";
+static NSString * __nonnull const kANAspectRatio            = @"aspectRatio";
+static NSString * __nonnull const kANAdResponseInfo     = @"adResponseInfo";
 
 
 #pragma mark - Banner AutoRefresh
@@ -131,7 +131,6 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
-
 
 
 #pragma mark - Global class.
