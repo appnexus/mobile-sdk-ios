@@ -523,6 +523,7 @@ ANLogMark();
     ANAdFetcherResponse  *fetcherResponse  = nil;
 
     if (self.adView.webViewController == controller)
+                //FIX -- same or different webviewcontroller as in anmraidcontainerview?
     {
         if (controller.videoAdOrientation) {
             if ([self.delegate respondsToSelector:@selector(setVideoAdOrientation:)]) {

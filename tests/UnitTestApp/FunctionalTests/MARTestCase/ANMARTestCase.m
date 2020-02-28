@@ -798,6 +798,7 @@
                                                                   adSize:size];
     bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:bannerAdView];
+                //FIX -- update expression
     return bannerAdView;
 }
 

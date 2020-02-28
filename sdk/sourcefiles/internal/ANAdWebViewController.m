@@ -178,8 +178,12 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
     
     [self loadWebViewWithUserScripts];
-    
+
+    // Attaching WKWebView to screen for an instant to allow it to fully load in the background
+    //   before the call to [ANAdDelegate adDidReceiveAd:self].
+    //
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
+            //FIX -- interrupt presentation; correct exresssion
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
     

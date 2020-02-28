@@ -235,6 +235,7 @@ CGRect ANPortraitScreenBounds() {
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                    //FIX -- update expression
     if (@available(iOS 11.0, *)) {
         CGFloat topPadding = window.safeAreaInsets.top;
         CGFloat bottomPadding = window.safeAreaInsets.bottom;
@@ -399,6 +400,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
             ^{
                 WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
                 UIWindow   *currentWindow        = [UIApplication sharedApplication].keyWindow;
+                            //FIX -- update expression
 
                 [webViewForUserAgent setHidden:YES];
                 [currentWindow addSubview:webViewForUserAgent];

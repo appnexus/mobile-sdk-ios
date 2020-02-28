@@ -184,6 +184,54 @@ static NSString *const kANInline        = @"inline";
     [super loadAd];
 }
 
+// Attaching WKWebView to screen for an instant to allow it to fully load in the background.
+//      FIX comment
+//
+-(void)activateWebview
+            //FIX -- can it be generalized to anadview?
+{
+ANLogMark();
+
+//    // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
+//    //
+//    if (! self.isBannerVideo)
+//    {
+//        self.webViewController.contentView.hidden = YES;
+//        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+//                                                           atIndex:0];
+//                    //FIX -- update expression
+//    }
+            //FIX -- handle video case later
+
+
+    //
+    self.contentView.hidden = YES;
+    [[UIApplication sharedApplication].keyWindow insertSubview:self.contentView atIndex:0];
+                //FIX -- update experssion
+
+
+    __weak ANBannerAdView  *weakSelf  = self;
+
+    dispatch_async(dispatch_get_main_queue(),
+    ^{
+        __strong ANBannerAdView  *strongSelf  = weakSelf;
+        if (!strongSelf)  {
+            ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+            return;
+        }
+
+        strongSelf.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+
+        [strongSelf addSubview:strongSelf.contentView];
+        strongSelf.contentView.hidden = NO;
+                //FIX -- interrupt load
+
+        [strongSelf.contentView an_constrainToSizeOfSuperview];
+        [strongSelf.contentView an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
+                                                       yAttribute: NSLayoutAttributeTop];
+    });
+}
+
 
 
 

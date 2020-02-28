@@ -55,12 +55,30 @@
     banner.rootViewController = self;
     banner.delegate = self;
     banner.clickThroughAction = ANClickThroughActionReturnURL;
+//    [self.view addSubview:banner];
+    
+//    // Since this example is for testing, we'll turn on PSAs and verbose logging.
+//    banner.shouldServePublicServiceAnnouncements = true;
+//    [ANLogManager setANLogLevel:ANLogLevelDebug];
+
+
+    //-------------------------- DEBUG -------------------------------------
+    [ANLogManager setANLogLevel:ANLogLevelAll];
+
+    banner.autoRefreshInterval = 0;
+
+    banner.shouldAllowVideoDemand = NO;                     //FIX -- allow this when lazy webview is also applied to video...
+    banner.shouldServePublicServiceAnnouncements = YES;     //FIX -- test with working placements...
+
+    banner.enableLazyWebviewActivation = YES;
     [self.view addSubview:banner];
-    
-    // Since this example is for testing, we'll turn on PSAs and verbose logging.
-    banner.shouldServePublicServiceAnnouncements = true;
-    [ANLogManager setANLogLevel:ANLogLevelDebug];
-    
+        //FIX -- find a solution where it is still okay to be proactive about early invocation of addSubview: (for banner)
+        //          -- may require detecting or remembering the parent
+
+
+    //-------------------------- DEBUG -------------------------------------
+
+
     // Load an ad.
     [banner loadAd];
     
@@ -87,6 +105,8 @@
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+
+    [self.banner activateWebview];
 }
 
 

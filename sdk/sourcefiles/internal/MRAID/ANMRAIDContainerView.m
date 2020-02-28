@@ -479,43 +479,62 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-    if (controller == self.webViewController)
+    if (controller != self.webViewController)
+                //FIX -- why this test?  should we call out this conditional as an error?  are there other controller values within the class heirarchy?
     {
-        // Attaching WKWebView to screen for an instant to allow it to fully load in the background
-        //   before the call to [ANAdDelegate adDidReceiveAd:self].
-        //
-        // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
-        //
-        if (! self.isBannerVideo) {
-            self.webViewController.contentView.hidden = YES;
-            [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
-                                                               atIndex:0];
+        ANLogWarn(@"controller DOES NOT EQUAL self.webViewController.");
+        return;
+    }
+
+
+    if (YES)
+            //FIX -- how to get banner.enableLazyWebviewActivation?  delegate through delegate to fetcher?
+            //      -- where are mraidcontainerview and webviewcontroller defined in heirarchy?
+            //      -- visibility to parents or pass through property value to children?
+    {
+        [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+                //FIX -- be wure no other consequences of returning through to adunit without activation...
+        return;
+    }
+
+
+    // Attaching WKWebView to screen for an instant to allow it to fully load in the background
+    //   before the call to [ANAdDelegate adDidReceiveAd:self].
+    //
+    // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
+    //
+    if (! self.isBannerVideo)
+    {
+        self.webViewController.contentView.hidden = YES;
+        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+                                                           atIndex:0];
+                    //FIX -- update expression
+    }
+
+    __weak ANMRAIDContainerView  *weakSelf  = self;
+
+    dispatch_async(dispatch_get_main_queue(),
+    ^{
+        __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
+        if (!strongSelf)  {
+            ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+            return;
         }
 
-        __weak ANMRAIDContainerView  *weakSelf  = self;
+        UIView  *contentView  = strongSelf.webViewController.contentView;
 
-        dispatch_async(dispatch_get_main_queue(),
-        ^{
-            __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
-            if (!strongSelf)  {
-                ANLogError(@"COULD NOT ACQUIRE strongSelf.");
-                return;
-            }
+        contentView.translatesAutoresizingMaskIntoConstraints = NO;
 
-            UIView  *contentView  = strongSelf.webViewController.contentView;
+        [strongSelf addSubview:contentView];
+        strongSelf.webViewController.contentView.hidden = NO;
+                //FIX -- interrupt load
 
-            contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        [contentView an_constrainToSizeOfSuperview];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                            yAttribute:NSLayoutAttributeTop];
 
-            [strongSelf addSubview:contentView];
-            strongSelf.webViewController.contentView.hidden = NO;
-
-            [contentView an_constrainToSizeOfSuperview];
-            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                                yAttribute:NSLayoutAttributeTop];
-
-            [strongSelf.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-        });
-    }
+        [strongSelf.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+    });
 }
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller

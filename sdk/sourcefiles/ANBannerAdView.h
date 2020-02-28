@@ -292,12 +292,19 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 #pragma mark - Loading an ad
 
+@property (nonatomic, readwrite)  BOOL  enableLazyWebviewActivation;
+    //FIX -- moveupstairs
+
+
 /**
  Loads a single ad into this ad view.  If autorefresh is not set to
  0, this will also start a timer to refresh the banner
  automatically.
  */
 - (void) loadAd;
+
+- (void) activateWebview;
+    //FIX -- rename activateAd?  ie: don't talk about webview in public api...
 
 
 @end
