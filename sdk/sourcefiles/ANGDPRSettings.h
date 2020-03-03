@@ -29,7 +29,7 @@
 
 + (void) setPurposeConsents :(nonnull NSString *) purposeConsents;
 
-+ (BOOL) getDeviceAccessConsent;
++ (nullable NSString *) getDeviceAccessConsent;
 
 + (void) reset;
 @end

@@ -106,16 +106,16 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     return subjectToGdprValue;
 }
 
-+ (BOOL) getDeviceAccessConsent {
++ (NSString *) getDeviceAccessConsent {
     
     NSString* purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_PurposeConsents];
     if([purposeConsents an_isEmpty]){
         purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_PurposeConsents];
     }
     if(![purposeConsents an_isEmpty]){
-        return [[purposeConsents substringToIndex:1] boolValue];
+        return [purposeConsents substringToIndex:1];
     }
-    return FALSE;
+    return nil;
     
 }
 

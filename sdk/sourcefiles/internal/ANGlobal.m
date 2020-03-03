@@ -85,7 +85,19 @@ NSString *__nonnull ANAdvertisingIdentifier() {
     if ([udidComponent isEqualToString:@""]) {
         NSString *advertisingIdentifier;
         //based on TCF 2.0 Purpose1 statement
-        if ([ANGDPRSettings getDeviceAccessConsent] == true && [[ANGDPRSettings getConsentRequired] boolValue] == true){
+        //based on the truth table
+        /*
+                                deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
+         consentRequired=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+         consentRequired=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
+         consentRequired=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+         */
+          
+        if([ANGDPRSettings getDeviceAccessConsent] == nil){
+            if([[ANGDPRSettings getConsentRequired] boolValue] == FALSE){
+                advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+            }
+        } else if ([[ANGDPRSettings getDeviceAccessConsent] boolValue] == TRUE){
             advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
         }
         if (advertisingIdentifier) {
