@@ -80,12 +80,9 @@ NSString * __nonnull ANUUID()
 }
 
 NSString *__nonnull ANAdvertisingIdentifier() {
-    static NSString *udidComponent = @"";
-    
-    if ([udidComponent isEqualToString:@""]) {
         NSString *advertisingIdentifier;
-        //based on TCF 2.0 Purpose1 statement
-        //based on the truth table
+        //fetch advertising identifier based TCF 2.0 Purpose1 value
+        //truth table
         /*
                                 deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
          consentRequired=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
@@ -101,14 +98,14 @@ NSString *__nonnull ANAdvertisingIdentifier() {
             advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
         }
         if (advertisingIdentifier) {
-            udidComponent = advertisingIdentifier;
+            return advertisingIdentifier;
             ANLogInfo(@"IDFA = %@", advertisingIdentifier);
         } else {
-            ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
+            ANLogWarn(@"No advertisingIdentifier retrieved.");
         }
-	}
 	
-    return udidComponent;
+	
+    return @"";
 }
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {
