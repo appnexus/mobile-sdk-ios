@@ -48,6 +48,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)tearDown {
     [super tearDown];
+    [ANGDPRSettings reset];
 }
 
 
@@ -175,15 +176,67 @@ static NSString  *videoPlacementID  = @"9924001";
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 
-- (void)testUTRequestWithoutPurpose1Consent
+- (void)testUTRequestWithPurpose1AndConsentSetTrue
 {
     NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
     XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    
-    [ANGDPRSettings setDeviceAccessConsent:FALSE];
+    [ANGDPRSettings setConsentRequired:TRUE];
+    [ANGDPRSettings setPurposeConsents:@"1010"];
+
+    //
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+
+        NSArray *tags = jsonDict[@"tags"];
+        NSDictionary *user = jsonDict[@"user"];
+        NSDictionary *device = jsonDict[@"device"];
+        NSArray *keywords = jsonDict[@"keywords"];
+
+        XCTAssertNotNil(tags);
+        XCTAssertNotNil(user);
+        XCTAssertNotNil(device);
+        XCTAssertNil(keywords); // no keywords passed unless set in the targeting
+
+
+        // Device Id Start
+        NSDictionary *deviceId = device[@"device_id"];
+        XCTAssertNotNil(deviceId);
+        NSString *idfa = deviceId[@"idfa"];
+        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+
+        //
+        [expectation fulfill];
+    });
+
+    //
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestWithPurpose1SetTrueAndConsentSetFalse
+{
+    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [ANGDPRSettings setConsentRequired:FALSE];
+    [ANGDPRSettings setPurposeConsents:@"1010"];
 
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
@@ -227,7 +280,7 @@ static NSString  *videoPlacementID  = @"9924001";
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 
-- (void)testUTRequestWithPurpose1Consent
+- (void)testUTRequestWithPurpose1SetFalse
 {
     NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
@@ -235,7 +288,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
     XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     
-    [ANGDPRSettings setDeviceAccessConsent:TRUE];
+    [ANGDPRSettings setPurposeConsents:@"00"];
 
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
@@ -270,7 +323,60 @@ static NSString  *videoPlacementID  = @"9924001";
         XCTAssertNotNil(deviceId);
         NSString *idfa = deviceId[@"idfa"];
         XCTAssertNotNil(idfa);
-        XCTAssertNotEqualObjects(idfa, @"");
+        XCTAssertEqualObjects(idfa, @"");
+
+        //
+        [expectation fulfill];
+    });
+
+    //
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestWithoutPurpose1
+{
+    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [ANGDPRSettings setConsentRequired:TRUE];
+
+    //
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+
+        NSArray *tags = jsonDict[@"tags"];
+        NSDictionary *user = jsonDict[@"user"];
+        NSDictionary *device = jsonDict[@"device"];
+        NSArray *keywords = jsonDict[@"keywords"];
+
+        XCTAssertNotNil(tags);
+        XCTAssertNotNil(user);
+        XCTAssertNotNil(device);
+        XCTAssertNil(keywords); // no keywords passed unless set in the targeting
+
+
+        // Device Id Start
+        NSDictionary *deviceId = device[@"device_id"];
+        XCTAssertNotNil(deviceId);
+        NSString *idfa = deviceId[@"idfa"];
+        XCTAssertNotNil(idfa);
+        XCTAssertEqualObjects(idfa, @"");
 
         //
         [expectation fulfill];

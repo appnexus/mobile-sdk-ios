@@ -19,8 +19,6 @@
 
 @interface ANGDPRSettings : NSObject
 
-+(void) setDeviceAccessConsent:(BOOL) deviceConsent;
-
 + (void) setConsentString:(nonnull NSString *)consentString;
 
 + (void) setConsentRequired:(BOOL)consentRequired;
@@ -28,6 +26,8 @@
 + (nonnull NSString *) getConsentString;
 
 + (nullable NSString *) getConsentRequired;
+
++ (void) setPurposeConsents :(nonnull NSString *) purposeConsents;
 
 + (BOOL) getDeviceAccessConsent;
 

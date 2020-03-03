@@ -85,7 +85,7 @@ NSString *__nonnull ANAdvertisingIdentifier() {
     if ([udidComponent isEqualToString:@""]) {
         NSString *advertisingIdentifier;
         //based on TCF 2.0 Purpose1 statement
-        if ([ANGDPRSettings getDeviceAccessConsent]){
+        if ([ANGDPRSettings getDeviceAccessConsent] == true && [[ANGDPRSettings getConsentRequired] boolValue] == true){
             advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
         }
         if (advertisingIdentifier) {
