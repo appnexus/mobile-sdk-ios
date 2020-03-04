@@ -128,11 +128,12 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestForSetGDPRDefaultConsent
 {
-
-
     [ANGDPRSettings reset];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_TCString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_gdprApplies"];
     
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
@@ -164,8 +165,8 @@ static NSString  *videoPlacementID  = @"9924001";
 {
     [ANGDPRSettings reset];
     
-    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IABTCF_SubjectToGDPR"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABConsent_ConsentString"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABTCF_TCString"];
   
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
