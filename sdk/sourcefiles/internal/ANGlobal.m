@@ -18,7 +18,7 @@
 #import <AdSupport/AdSupport.h>
 
 #import "ANGlobal.h"
-#import "ANGDPRSettings.h"
+
 #import "ANLogging.h"
 
 #import "ANSDKSettings.h"
@@ -80,32 +80,20 @@ NSString * __nonnull ANUUID()
 }
 
 NSString *__nonnull ANAdvertisingIdentifier() {
-        NSString *advertisingIdentifier;
-        //fetch advertising identifier based TCF 2.0 Purpose1 value
-        //truth table
-        /*
-                                deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
-         consentRequired=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
-         consentRequired=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
-         consentRequired=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
-         */
-          
-        if([ANGDPRSettings getDeviceAccessConsent] == nil){
-            if([[ANGDPRSettings getConsentRequired] boolValue] == FALSE){
-                advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-            }
-        } else if ([[ANGDPRSettings getDeviceAccessConsent] boolValue] == TRUE){
-            advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-        }
+    static NSString *udidComponent = @"";
+    
+    if ([udidComponent isEqualToString:@""]) {
+        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+        
         if (advertisingIdentifier) {
-            return advertisingIdentifier;
+            udidComponent = advertisingIdentifier;
             ANLogInfo(@"IDFA = %@", advertisingIdentifier);
         } else {
-            ANLogWarn(@"No advertisingIdentifier retrieved.");
+            ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
         }
+	}
 	
-	
-    return @"";
+    return udidComponent;
 }
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {

@@ -166,8 +166,9 @@ static NSString  *videoPlacementID  = @"9924001";
         NSDictionary *deviceId = device[@"device_id"];
         XCTAssertNotNil(deviceId);
         NSString *idfa = deviceId[@"idfa"];
-        XCTAssertEqualObjects(idfa, ANAdvertisingIdentifier());
-
+        XCTAssertNotNil(idfa);
+        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+        
         //
         [expectation fulfill];
     });
@@ -320,10 +321,8 @@ static NSString  *videoPlacementID  = @"9924001";
 
         // Device Id Start
         NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertNotNil(idfa);
-        XCTAssertEqualObjects(idfa, @"");
+        XCTAssertNil(deviceId);
+        
 
         //
         [expectation fulfill];
@@ -377,7 +376,6 @@ static NSString  *videoPlacementID  = @"9924001";
         NSString *idfa = deviceId[@"idfa"];
         XCTAssertNotNil(idfa);
         XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
-
         //
         [expectation fulfill];
     });
