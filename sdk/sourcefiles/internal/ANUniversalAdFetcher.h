@@ -25,6 +25,7 @@
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
 #import "ANAdFetcherBase+PrivateMethods.h"
+#import "ANMRAIDContainerView.h"
 
 
 
@@ -34,6 +35,8 @@
 @protocol ANUniversalAdFetcherDelegate;
 
 @interface ANUniversalAdFetcher : ANAdFetcherBase
+
+@property (nonatomic, readonly, strong)  ANMRAIDContainerView  *adView;
 
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;

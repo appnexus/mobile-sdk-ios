@@ -373,6 +373,7 @@ ANLogMark();
 
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebView
                                                         videoXML: videoAd.content ];
+                    //FIX -- noting origin
 
         self.adView.loadingDelegate = self;
         // Allow ANJAM events to always be passed to the ANAdView
@@ -411,6 +412,8 @@ ANLogMark();
     self.adView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                         HTML:standardAd.content
                                               webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+                //FIX -- noting origin
+    
     self.adView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView
     self.adView.webViewController.adViewANJAMDelegate = self.delegate;

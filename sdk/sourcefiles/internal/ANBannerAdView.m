@@ -37,6 +37,9 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANNativeRenderingViewController.h"
 
+#import "ANMRAIDContainerView.h"
+#import "ANWebView.h"
+
 
 
 
@@ -203,10 +206,14 @@ ANLogMark();
 //    }
             //FIX -- handle video case later
 
+    //
+    //    ANMRAIDContainerView  *mraidContainerView  = self.universalAdFetcher.adView;
+    __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
+    __block ANWebView              *webview             = mraidContainerView.webViewController.contentView;
 
     //
-    self.contentView.hidden = YES;
-    [[UIApplication sharedApplication].keyWindow insertSubview:self.contentView atIndex:0];
+    webview.hidden = YES;
+    [[UIApplication sharedApplication].keyWindow insertSubview:webview atIndex:0];
                 //FIX -- update experssion
 
 
@@ -220,15 +227,15 @@ ANLogMark();
             return;
         }
 
-        strongSelf.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        webview.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [strongSelf addSubview:strongSelf.contentView];
-        strongSelf.contentView.hidden = NO;
+        [mraidContainerView addSubview:webview];
+        webview.hidden = NO;
                 //FIX -- interrupt load
 
-        [strongSelf.contentView an_constrainToSizeOfSuperview];
-        [strongSelf.contentView an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
-                                                       yAttribute: NSLayoutAttributeTop];
+        [webview an_constrainToSizeOfSuperview];
+        [webview an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
+                                        yAttribute: NSLayoutAttributeTop];
     });
 }
 

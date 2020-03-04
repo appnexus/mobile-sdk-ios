@@ -51,6 +51,8 @@
     
     // Make a banner ad view.
     ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    self.banner = banner;
+
     banner.externalUid = @"123e4567e89b12da456426655440000";
     banner.rootViewController = self;
     banner.delegate = self;
@@ -81,9 +83,10 @@
 
     // Load an ad.
     [banner loadAd];
-    
+//    [self.view addSubview:banner];
+
     [self locationSetup]; // If you want to pass location...
-    self.banner = banner;
+//    self.banner = banner;
 }
 
 - (void)locationSetup {
@@ -106,7 +109,15 @@
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
 
+//    [self.view addSubview:self.banner];
+//
     [self.banner activateWebview];
+//
+//    [self.banner setNeedsDisplay];
+//
+//    [self loadViewIfNeeded];
+
+
 }
 
 

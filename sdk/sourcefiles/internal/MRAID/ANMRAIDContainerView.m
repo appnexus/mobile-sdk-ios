@@ -483,11 +483,13 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                 //FIX -- why this test?  should we call out this conditional as an error?  are there other controller values within the class heirarchy?
     {
         ANLogWarn(@"controller DOES NOT EQUAL self.webViewController.");
+        assert(NO);
         return;
     }
 
 
     if (YES)
+//    if (NO)
             //FIX -- how to get banner.enableLazyWebviewActivation?  delegate through delegate to fetcher?
             //      -- where are mraidcontainerview and webviewcontroller defined in heirarchy?
             //      -- visibility to parents or pass through property value to children?
