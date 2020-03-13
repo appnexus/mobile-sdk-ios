@@ -635,8 +635,8 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
      consentRequired=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
      consentRequired=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
      */
-      
-    if((([ANGDPRSettings getDeviceAccessConsent] == nil) && ([[ANGDPRSettings getConsentRequired] boolValue] == FALSE)) || ([[ANGDPRSettings getDeviceAccessConsent] boolValue] == TRUE)){
+        
+    if((([ANGDPRSettings getDeviceAccessConsent] == nil) && ([ANGDPRSettings getConsentRequired] == nil || [[ANGDPRSettings getConsentRequired] boolValue] == NO)) || ([ANGDPRSettings getDeviceAccessConsent] != nil && [[ANGDPRSettings getDeviceAccessConsent] isEqualToString:@"1"])){
         return [self fetchAdvertisingIdentifier];
     }
     
