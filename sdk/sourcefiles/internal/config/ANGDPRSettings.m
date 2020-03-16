@@ -69,6 +69,9 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     if([[[defaults dictionaryRepresentation] allKeys] containsObject:ANGDPR_ConsentRequired]){
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANGDPR_ConsentRequired];
     }
+    if([[[defaults dictionaryRepresentation] allKeys] containsObject:ANGDPR_PurposeConsents]){
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANGDPR_PurposeConsents];
+    }
 }
 
 /**
