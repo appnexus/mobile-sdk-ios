@@ -30,6 +30,7 @@
 #import "NSTimer+ANCategory.h"
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANAdView+PrivateMethods.h"
+#import "ANGDPRSettings.h"
 
 
 
@@ -62,7 +63,11 @@
 
 - (void)setup
 {
-    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    if([ANGDPRSettings canIAccessDeviceData]){
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    } else {
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
+    }
 }
 
 - (void)requestAd

@@ -31,5 +31,7 @@
 
 + (nullable NSString *) getDeviceAccessConsent;
 
++ (BOOL) canIAccessDeviceData;
+
 + (void) reset;
 @end

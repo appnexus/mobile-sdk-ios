@@ -627,16 +627,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary<NSString *, id> *)deviceId
 {
-    //fetch advertising identifier based TCF 2.0 Purpose1 value
-    //truth table
-    /*
-                            deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
-     consentRequired=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
-     consentRequired=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
-     consentRequired=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
-     */
-        
-    if((([ANGDPRSettings getDeviceAccessConsent] == nil) && ([ANGDPRSettings getConsentRequired] == nil || [[ANGDPRSettings getConsentRequired] boolValue] == NO)) || ([ANGDPRSettings getDeviceAccessConsent] != nil && [[ANGDPRSettings getDeviceAccessConsent] isEqualToString:@"1"])){
+    if([ANGDPRSettings canIAccessDeviceData]){
         return [self fetchAdvertisingIdentifier];
     }
     
@@ -725,7 +716,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
-
 
 
 
