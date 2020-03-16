@@ -178,7 +178,8 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
 }
 
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+{
     NSLog(@"ad:requestFailedWithError callback called");
     _adFailedToLoadCalled = YES;
     _testComplete = YES;

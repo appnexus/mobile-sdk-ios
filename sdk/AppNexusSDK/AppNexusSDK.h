@@ -43,6 +43,7 @@ FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 #import <AppNexusSDK/ANNativeMediatedAdResponse.h>
 
 #import <AppNexusSDK/ANMultiAdRequest.h>
+#import <AppNexusSDK/ANAdResponseInfo.h>
 
 #import <AppNexusSDK/ANGDPRSettings.h>
 #import <AppNexusSDK/ANUSPrivacySettings.h>

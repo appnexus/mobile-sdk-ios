@@ -90,7 +90,7 @@
         case kGADErrorTimeout:
             code = ANAdResponseNetworkError;
             break;
-        case kGADErrorInterstitialAlreadyUsed:
+        case kGADErrorAdAlreadyUsed:
             code = ANAdResponseInternalError;
             break;
         case kGADErrorMediationDataError:
@@ -118,6 +118,10 @@
 
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
     [self.delegate willPresentAd];
+}
+
+- (void)interstitialDidFailToPresentScreen:(nonnull GADInterstitial *)ad{
+    [self.delegate failedToDisplayAd];
 }
 
 - (void)interstitialWillDismissScreen:(GADInterstitial *)ad {

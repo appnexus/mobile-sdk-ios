@@ -362,9 +362,9 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
         //we need to remove the webview to makesure we dont get any other response from the loaded index.html page
         [self removePlayer];
         ANLogInfo(@"video player error");
-        if([self.delegate respondsToSelector:@selector(videoAdLoadFailed:)]){
+        if([self.delegate respondsToSelector:@selector(videoAdLoadFailed:withAdResponseInfo:)]){
             NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseInternalError);
-            [self.delegate videoAdLoadFailed:error];
+            [self.delegate videoAdLoadFailed:error withAdResponseInfo:nil];
         }
     }
     else if([eventName isEqualToString:@"audio-mute"]){

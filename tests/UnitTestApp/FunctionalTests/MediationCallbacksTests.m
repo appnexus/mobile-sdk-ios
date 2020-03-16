@@ -16,6 +16,7 @@
 #import "ANBaseTestCase.h"
 #import "ANMockMediationAdapterTimeout.h"
 #import "ANHTTPStubbingManager.h"
+#import "ANAdResponseInfo.h"
 
 
 float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
@@ -169,7 +170,8 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
     [super adDidReceiveAd:ad];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+{
     if (self.adFailedToLoadCalled) {
         self.adFailedMultiple = YES;
     }

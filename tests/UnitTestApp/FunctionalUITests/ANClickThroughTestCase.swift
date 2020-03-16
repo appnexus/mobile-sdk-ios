@@ -49,9 +49,11 @@ class ANClickThroughTestCase: XCTestCase {
         webViewsQuery.links["Native Renderer Campaign Native Renderer Campaign"].children(matching: .link).matching(identifier: "Native Renderer Campaign").element(boundBy: 0).staticTexts["Native Renderer Campaign"].tap()
         wait(for: app.toolbars["Toolbar"], timeout: 20)
         app.toolbars["Toolbar"].buttons["OK"].tap()
+        wait(1)
+
         XCTAssertEqual(webViewsQuery.frame.size.height, 480)
         XCTAssertEqual(webViewsQuery.frame.size.width, 320)
-        wait(2)
+        wait(1)
         
     }
     
@@ -102,6 +104,7 @@ class ANClickThroughTestCase: XCTestCase {
         XCUIScreen.main.screenshot()
         webViewsQuery.links["Native Renderer Campaign Native Renderer Campaign"].children(matching: .link).matching(identifier: "Native Renderer Campaign").element(boundBy: 0).staticTexts["Native Renderer Campaign"].tap()
         XCTAssertTrue(app.alerts["UITest"].exists)
+        wait(2)
         app.alerts["UITest"].buttons["OK"].tap()
         XCGlobal.screenshotWithTitle(title: FunctionalTestConstants.BannerAdClickthru.testClickThruSettingsWithReturnURLUITest)
         wait(2)

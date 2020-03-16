@@ -48,6 +48,7 @@
 // ANNativeAdRequestProtocol properties.
 //
 @synthesize  placementId     = __placementId;
+@synthesize  publisherId     = __publisherId;
 @synthesize  memberId        = __memberId;
 @synthesize  inventoryCode   = __invCode;
 @synthesize  location        = __location;
@@ -104,7 +105,6 @@
  *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
  */
 - (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
 {
     if (!self.delegate) {
         ANLogError(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to be ingested.");
@@ -114,8 +114,7 @@
     //
     [self createAdFetcher];
 
-    [self.adFetcher prepareForWaterfallWithAdServerResponseTag: tag
-                                      andTotalLatencyStartTime: totalLatencyStartTime ];
+    [self.adFetcher prepareForWaterfallWithAdServerResponseTag:tag];
 }
 
 
@@ -145,8 +144,8 @@
     }
 
     if (error) {
-        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:)]) {
-            [self.delegate adRequest:self didFailToLoadWithError:error];
+        if ([self.delegate respondsToSelector:@selector(adRequest:didFailToLoadWithError:withAdResponseInfo:)]) {
+            [self.delegate adRequest:self didFailToLoadWithError:error withAdResponseInfo:response.adResponseInfo];
         }
 
         return;
@@ -156,12 +155,19 @@
     //
     __weak ANNativeAdRequest  *weakSelf        = self;
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
-
-    //
-    if (nativeResponse.creativeId == nil) {
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-        [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
+    
+    // In case of Mediation
+    if (nativeResponse.adResponseInfo == nil) {
+        ANAdResponseInfo *adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:response.adObjectHandler];
+        if (adResponseInfo) {
+            [self setAdResponseInfo:adResponseInfo onObject:nativeResponse forKeyPath:kANAdResponseInfo];
+        }
     }
+    //
+     if (nativeResponse.creativeId == nil) {
+         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
+         [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
+     }
 
     //
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
@@ -253,6 +259,11 @@
     [object setValue:creativeId forKeyPath:keyPath];
 }
 
+- (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
+             onObject:(id)object forKeyPath:(NSString *)keyPath
+{
+    [object setValue:adResponseInfo forKeyPath:keyPath];
+}
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.
 //          nil                     When image is cached  -OR-  if imageURL is undefined.
@@ -332,12 +343,26 @@
     }
 }
 
+- (void)setPublisherId:(NSInteger)newPublisherId
+{
+    if ((newPublisherId > 0) && self.marManager)
+    {
+        if (self.marManager.publisherId != newPublisherId) {
+            ANLogError(@"Arguments ignored because newPublisherID (%@) is not equal to publisherID used in Multi-Ad Request.", @(newPublisherId));
+            return;
+        }
+    }
+
+    ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+    __publisherId = newPublisherId;
+}
+
 - (void)setInventoryCode:(nullable NSString *)newInvCode memberId:(NSInteger)newMemberId
 {
     if ((newMemberId > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberId) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberId));
             return;
         }
     }

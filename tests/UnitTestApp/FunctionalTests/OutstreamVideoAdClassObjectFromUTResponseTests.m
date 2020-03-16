@@ -44,6 +44,7 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 @implementation OutstreamVideoAdClassObjectFromUTResponseTests
 
 @synthesize  externalUid;
+@synthesize  publisherId;
 
 
 
@@ -127,7 +128,8 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 
 #pragma mark - ANVideoAdPlayerDelegate.
 
-- (void)videoAdLoadFailed:(NSError *)error {
+- (void)videoAdLoadFailed:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
+{
     TESTTRACE();
 }
 
@@ -212,7 +214,8 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     //EMPTY
 }
 
-- (void)adRequestFailedWithError:(NSError *)error {
+- (void)adRequestFailedWithError:(NSError *)error
+{
     //EMPTY
 }
 

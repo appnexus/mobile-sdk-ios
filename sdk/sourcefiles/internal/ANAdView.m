@@ -62,6 +62,7 @@
 // ANAdProtocol properties.
 //
 @synthesize  placementId                            = __placementId;
+@synthesize  publisherId                            = __publisherId;
 @synthesize  memberId                               = __memberId;
 @synthesize  inventoryCode                          = __invCode;
 
@@ -80,6 +81,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
+@synthesize  adResponseInfo                     = __adResponseInfo;
 
 
 #pragma mark - Initialization
@@ -162,7 +164,7 @@
     //
     if (error) {
         ANLogError(@"%@", errorString);
-        [self adRequestFailedWithError:error];
+        [self adRequestFailedWithError:error andAdResponseInfo:nil];
 
         return  NO;
     }
@@ -211,10 +213,8 @@
  *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
  */
 - (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
-      totalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime
 {
-    [self.universalAdFetcher prepareForWaterfallWithAdServerResponseTag: tag
-                                               andTotalLatencyStartTime: (NSTimeInterval)totalLatencyStartTime ];
+    [self.universalAdFetcher prepareForWaterfallWithAdServerResponseTag:tag];
 }
 
 
@@ -243,6 +243,17 @@
     }
 }
 
+- (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo {
+    if (!adResponseInfo) {
+        ANLogError(@"Could not set adResponseInfo");
+        return;
+    }
+    if (adResponseInfo != __adResponseInfo) {
+        ANLogDebug(@"Setting adResponseInfo to %@", adResponseInfo);
+        __adResponseInfo = adResponseInfo;
+    }
+}
+
 
 - (void)setPlacementId:(nullable NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -256,6 +267,19 @@
     }
 }
 
+- (void)setPublisherId:(NSInteger)newPublisherId
+{
+    if ((newPublisherId > 0) && self.marManager)
+    {
+        if (self.marManager.publisherId != newPublisherId) {
+            ANLogError(@"Arguments ignored because newPublisherID (%@) is not equal to publisherID used in Multi-Ad Request.", @(newPublisherId));
+            return;
+        }
+    }
+
+    ANLogDebug(@"Setting publisher ID to %d", (int) newPublisherId);
+    __publisherId = newPublisherId;
+}
 
 
 /**
@@ -269,7 +293,7 @@
     if ((newMemberId > 0) && self.marManager)
     {
         if (self.marManager.memberId != newMemberId) {
-            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in MultiAdReqeust.", @(newMemberId));
+            ANLogError(@"Arguments ignored because newMemberId (%@) is not equal to memberID used in Multi-Ad Request.", @(newMemberId));
             return;
         }
     }
@@ -349,10 +373,30 @@
     __clickThroughAction = clickThroughAction;
 }
 
+/**
+ * universalAdFetcher getter returns fetcher conditional upon whether marManager is set.
+ * Therefore, universalAdFetcher must be cleared anytime marManager is set to a different value.
+ * universalAdFetcher will be lazily recreated next time it is needed.
+ */
+- (void)setMarManager:(ANMultiAdRequest *)marManager
+{
+    if (self.universalAdFetcher  &&  (marManager != _marManager)) {
+        [self.universalAdFetcher stopAdLoad];
+        self.universalAdFetcher = nil;
+    }
+
+    _marManager = marManager;
+}
+
 
 
 
 #pragma mark - ANAdProtocol: Getter methods
+
+- (nullable ANAdResponseInfo *)adResponseInfo {
+    ANLogDebug(@"ANAdResponse returned %@", __adResponseInfo);
+    return __adResponseInfo;
+}
 
 - (nullable NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
@@ -546,12 +590,15 @@
 {
     if ([self.delegate respondsToSelector:@selector(ad:didReceiveNativeAd:)]) {
         [self.delegate ad:loadInstance didReceiveNativeAd:responseInstance];
-    }
+    }   
 }
 
-- (void)adRequestFailedWithError:(NSError *)error
+- (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
-    if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
+ANLogMark();
+    [self setAdResponseInfo:adResponseInfo];
+    
+    if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }
 }
@@ -567,7 +614,7 @@
 {
     ANLogDebug(@"");
 
-    if (ANAdTypeVideo != self.adType) {
+    if (ANAdTypeVideo != __adResponseInfo.adType) {
         [self.universalAdFetcher restartAutoRefreshTimer];
         [self.universalAdFetcher startAutoRefreshTimer];
     }

@@ -228,9 +228,13 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     //
     if (self.fetcherMARManager)
     {
-        requestDict[@"member_id"] = @(self.fetcherMARManager.memberId);
+        if (self.fetcherMARManager.memberId > 0) {
+            requestDict[@"member_id"] = @(self.fetcherMARManager.memberId);
+        }
 
-        //TBD -- set publisherID if it exists
+        if (self.fetcherMARManager.publisherId > 0) {
+            requestDict[@"publisher_id"]  = @(self.fetcherMARManager.publisherId);
+        }
     }
 
 
@@ -284,7 +288,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 
 - (NSDictionary *)tag:(NSMutableDictionary *)requestDict
-                        //TBD -- move placementID vs memberID/inventoryCode logic out of tag: method...
 {
     NSMutableDictionary<NSString *, id>  *tagDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
 
@@ -298,6 +301,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     //   Compare to similar case in [self requestbody].
     //
     NSInteger   placementId  = [[self.adFetcherDelegate placementId] integerValue];
+    NSInteger   publisherId  = [self.adFetcherDelegate publisherId];
     NSInteger   memberId     = [self.adFetcherDelegate memberId];
     NSString   *invCode      = [self.adFetcherDelegate inventoryCode];
 
@@ -307,9 +311,13 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
         if (!self.fetcherMARManager)
         {
-            requestDict[@"member_id"] = @(memberId);
+            if (memberId > 0) {
+                requestDict[@"member_id"]     = @(memberId);
+            }
 
-            //TBD -- set publisherID if it exists
+            if (publisherId > 0) {
+                requestDict[@"publisher_id"]  = @(publisherId);
+            }
         }
 
     } else {

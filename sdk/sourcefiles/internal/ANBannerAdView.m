@@ -14,6 +14,7 @@
  */
 
 #import "ANBannerAdView.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANMRAIDContainerView.h"
 
 #import "ANUniversalAdFetcher.h"
@@ -83,10 +84,13 @@ static NSString *const kANInline        = @"inline";
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
+@synthesize  adResponseInfo           = _adResponseInfo;
 @synthesize  minDuration             = __minDuration;
 @synthesize  maxDuration             = __maxDuration;
 
-#pragma mark Lifecycle.
+
+
+#pragma mark - Lifecycle.
 
 - (void)initialize {
     [super initialize];
@@ -364,6 +368,11 @@ static NSString *const kANInline        = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
+        _adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
+        if (_adResponseInfo) {
+            [self setAdResponseInfo:_adResponseInfo];
+        }
+        
         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
         if (creativeId) {
              [self setCreativeId:creativeId];
@@ -397,7 +406,7 @@ static NSString *const kANInline        = @"inline";
             }
             [self adDidReceiveAd:self];
 
-            if ([self adType] == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
                 
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
@@ -418,7 +427,7 @@ static NSString *const kANInline        = @"inline";
 
         } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
-
+            
             self.creativeId  = nativeAdResponse.creativeId;
             self.adType      = ANAdTypeNative;
 
@@ -449,7 +458,8 @@ static NSString *const kANInline        = @"inline";
 
     if (error) {
         self.contentView = nil;
-        [self adRequestFailedWithError:error];
+        [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
+
     }
 }
 
@@ -541,7 +551,7 @@ static NSString *const kANInline        = @"inline";
 
 - (void)didMoveToWindow
 {
-    if (self.contentView  && ( [self adType] == ANAdTypeBanner)) {
+    if (self.contentView  && ( _adResponseInfo.adType == ANAdTypeBanner)) {
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
         self.impressionURLs = nil;
         

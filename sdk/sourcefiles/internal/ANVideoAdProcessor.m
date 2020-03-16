@@ -91,8 +91,8 @@
     
     
 }
--(void) videoAdLoadFailed:(nonnull NSError *)error{
-    
+-(void) videoAdLoadFailed:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo
+{
     [self.adPlayer setDelegate:nil];
     
     if([self.delegate respondsToSelector:@selector(videoAdProcessor:didFailVideoProcessing:)]){

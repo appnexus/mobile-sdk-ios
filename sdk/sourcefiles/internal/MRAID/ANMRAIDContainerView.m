@@ -178,13 +178,17 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 -(void) willMoveToSuperview:(UIView *)newSuperview {
     
-    if(self.webViewController.omidAdSession && !newSuperview){
-        [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-            [super willMoveToSuperview:newSuperview];
-        });
-    }else{
+    if(!newSuperview){
+        if(self.webViewController.omidAdSession){
+            [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                [super willMoveToSuperview:newSuperview];
+            });
+        }
+        self.webViewController  = nil;
+    }
+    else{
         [super willMoveToSuperview:newSuperview];
     }
 }
@@ -953,10 +957,10 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     [self didCompleteFirstLoadFromWebViewController:self.webViewController];
 }
 
-- (void)videoAdLoadFailed:(NSError *)error
+- (void)videoAdLoadFailed:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
-    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:)]) {
-        [self.adViewDelegate adRequestFailedWithError:error];
+    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:andAdResponseInfo:)]) {
+        [self.adViewDelegate adRequestFailedWithError:error andAdResponseInfo:adResponseInfo];
     }
 }
 

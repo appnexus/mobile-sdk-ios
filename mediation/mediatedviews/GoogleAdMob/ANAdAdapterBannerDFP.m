@@ -189,7 +189,7 @@ static CGFloat const kANTotalRetries = 10;
         case kGADErrorTimeout:
             code = ANAdResponseNetworkError;
             break;
-        case kGADErrorInterstitialAlreadyUsed:
+        case kGADErrorAdAlreadyUsed:
             code = ANAdResponseInternalError;
             break;
         case kGADErrorMediationDataError:
