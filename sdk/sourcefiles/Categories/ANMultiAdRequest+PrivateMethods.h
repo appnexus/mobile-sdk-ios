@@ -20,7 +20,7 @@ limitations under the License.
 @interface  ANMultiAdRequest(PrivateMethods)
 
 - (nonnull NSPointerArray *)internalGetAdUnits;
-- (nullable id<ANAdProtocolFoundationCore>)internalGetAdUnitByUUID:(nonnull NSString *)uuidKey;
+- (nullable id<ANMultiAdProtocol, ANAdProtocolFoundationCore>)internalGetAdUnitByUUID:(nonnull NSString *)uuidKey;
 
 
 - (void)internalMultiAdRequestDidComplete;

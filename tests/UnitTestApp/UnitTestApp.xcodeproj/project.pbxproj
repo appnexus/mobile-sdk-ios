@@ -228,6 +228,9 @@
 		0EC17C6021F72EC500F0F6AF /* FunctionalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17C5F21F72EC500F0F6AF /* FunctionalTests.m */; };
 		0EC25FF323C88CEB00C67DF1 /* testMARCombinationTwoBannerCSMAndSSM.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EC25FF123C88CEB00C67DF1 /* testMARCombinationTwoBannerCSMAndSSM.json */; };
 		0EC7961522D863FA009C8B47 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */; };
+		0ECDA6292406DC7F000E134D /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */; };
+		0ECDA62B2406DD0C000E134D /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E1D14B222784C9500343050 /* appnexus_bannerNative_rendering.json */; };
+		0ECDA62C2406DD10000E134D /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E1D14B322784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json */; };
 		0ECF336D22D79AB4007DB185 /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0ED02EB8234B32460090A241 /* ANSDKSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED02EB7234B32460090A241 /* ANSDKSettingsTestCase.m */; };
 		0ED159DB2236B52800D56022 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED159DA2236B52800D56022 /* EventKit.framework */; };
@@ -334,9 +337,14 @@
 		4F9CED4A23CCAAEF00BE3443 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE16F22007317002B5F5F /* SuccessfulInstreamVideoAdResponse.json */; };
 		4FF9B85E23AC0C3E00A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
 		4FF9B85F23AC0CE000A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
+
 		607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
 		607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
 		607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
+		607BB64523F32852002A0F57 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */; };
+		607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E2B4BAC23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json */; };
+		607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE19922008124002B5F5F /* ANNativeAdRequest+ANTest.m */; };
+
 		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
 		60F8A80023280C2A0030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
@@ -1814,6 +1822,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */,
+				607BB64523F32852002A0F57 /* appnexus_standard_response.json in Resources */,
 				0EB24C5122CBD568008E927F /* appnexus_mock_mediation_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1941,6 +1951,7 @@
 				0E3F32EA23CE68E300CA830D /* nativeResponse2.json in Resources */,
 				0E3F32F423CE68E300CA830D /* nativeResponseWithoutImpTrackers.json in Resources */,
 				0E3F32F023CE68E300CA830D /* no_ads_ok_response.json in Resources */,
+				0ECDA6292406DC7F000E134D /* appnexus_standard_response.json in Resources */,
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
 				979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */,
 				0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */,
@@ -2000,6 +2011,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ECDA62B2406DD0C000E134D /* appnexus_bannerNative_rendering.json in Resources */,
+				0ECDA62C2406DD10000E134D /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2020,6 +2033,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */,
 				0EB24C5522CBD770008E927F /* ANHTTPStubbingManager.m in Sources */,
 				0EB24C5722CBD770008E927F /* ANHTTPStubURLProtocol.m in Sources */,
 				0EB24C4F22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m in Sources */,

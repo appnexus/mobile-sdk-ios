@@ -450,13 +450,12 @@ TESTTRACE();
     self.successfulAdCall = YES;
     [self.delegateCallbackExpectation fulfill];
 }
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo{
 
-- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
-{
-TESTTRACE();
-    self.adRequestError = error;
-    self.successfulAdCall = NO;
-    [self.delegateCallbackExpectation fulfill];
+    TESTTRACE();
+        self.adRequestError = error;
+        self.successfulAdCall = NO;
+        [self.delegateCallbackExpectation fulfill];
 }
 
 

@@ -33,7 +33,6 @@
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
 #import "ANUniversalAdFetcher+ANTest.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 
 
 #define kAppNexusRequestTimeoutInterval 20.0
