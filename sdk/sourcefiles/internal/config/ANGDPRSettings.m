@@ -121,6 +121,9 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     
 }
 
+/**
+* set the GDPR device consent required in the SDK to pass IDFA & cookies
+*/
 + (void) setPurposeConsents :(nonnull NSString *) purposeConsents {
     if (purposeConsents.length > 0) {
         [[NSUserDefaults standardUserDefaults] setObject:purposeConsents forKey:ANGDPR_PurposeConsents];
