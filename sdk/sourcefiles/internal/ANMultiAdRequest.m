@@ -432,7 +432,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     }
 
     
-    [self.adFetcher stopAdLoad]; // Fix it later
+    [self.adFetcher stopAdLoad]; 
     [self.adFetcher requestAd];
     return  YES;
 }
