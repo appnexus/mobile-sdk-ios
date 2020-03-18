@@ -63,7 +63,7 @@
 
 - (void)setup
 {
-    if([ANGDPRSettings canIAccessDeviceData]){
+    if([ANGDPRSettings canAccessDeviceData]){
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     } else {
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;

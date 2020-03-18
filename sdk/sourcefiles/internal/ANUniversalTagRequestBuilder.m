@@ -627,7 +627,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary<NSString *, id> *)deviceId
 {
-    if([ANGDPRSettings canIAccessDeviceData]){
+    if([ANGDPRSettings canAccessDeviceData]){
         return [self fetchAdvertisingIdentifier];
     }
     
@@ -701,14 +701,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 - (NSDictionary *)getGDPRConsentObject
 {
     NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
-    NSString  *gdprRequired  = [ANGDPRSettings getConsentRequired];
+    NSNumber  *gdprRequired  = [ANGDPRSettings getConsentRequired];
     
     if (gdprRequired != nil)
     {
-        NSNumber *gdprRequiredBool = ([gdprRequired isEqualToString:@"1"])?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
-
         return  @{
-                     @"consent_required"  : gdprRequiredBool,
+                     @"consent_required"  : gdprRequired,
                      @"consent_string"    : gdprConsent
                  };
 

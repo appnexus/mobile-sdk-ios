@@ -53,7 +53,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestForSetGDPRConsentTrue
 {
-    [ANGDPRSettings setConsentRequired:true];
+    [ANGDPRSettings setConsentRequired:[NSNumber numberWithInt:1]];
     [ANGDPRSettings setConsentString:@"a390129402948384453"];
     
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
@@ -90,7 +90,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestForSetGDPRConsentFalse
 {
-    [ANGDPRSettings setConsentRequired:false];
+    [ANGDPRSettings setConsentRequired:[NSNumber numberWithInt:0]];
     [ANGDPRSettings setConsentString:@"a390129402948384453"];
     
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
@@ -165,7 +165,7 @@ static NSString  *videoPlacementID  = @"9924001";
 {
     [ANGDPRSettings reset];
     
-    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInt:1] forKey:@"IABTCF_gdprApplies"];
     [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABTCF_TCString"];
   
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
@@ -204,7 +204,7 @@ static NSString  *videoPlacementID  = @"9924001";
 {
     [ANGDPRSettings reset];
     
-    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"IABTCF_gdprApplies"];
     [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABTCF_TCString"];
   
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
@@ -270,7 +270,7 @@ static NSString  *videoPlacementID  = @"9924001";
                        XCTAssertNotNil(gdpr_consent);
                        XCTAssertEqual(gdpr_consent.count, 2);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
-                       XCTAssertFalse([gdpr_consent[@"consent_required"] boolValue]);
+                       XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
                        [expectation fulfill];
                    });
@@ -282,7 +282,7 @@ static NSString  *videoPlacementID  = @"9924001";
 {
      [ANGDPRSettings  reset];
     [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABTCF_TCString"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] setValue:0 forKey:@"IABTCF_gdprApplies"];
     
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];

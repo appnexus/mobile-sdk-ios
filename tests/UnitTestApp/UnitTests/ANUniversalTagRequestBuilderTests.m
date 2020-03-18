@@ -184,7 +184,7 @@ static NSString  *videoPlacementID  = @"9924001";
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
     XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    [ANGDPRSettings setConsentRequired:TRUE];
+    [ANGDPRSettings setConsentRequired:[NSNumber numberWithInt:1]];
     [ANGDPRSettings setPurposeConsents:@"1010"];
 
     //
@@ -340,7 +340,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
     XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     
-    [ANGDPRSettings setConsentRequired:TRUE];
+    [ANGDPRSettings setConsentRequired:[NSNumber numberWithInt:1]];
 
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
