@@ -104,6 +104,10 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     return hasConsent;
 }
 
+/**
+* Get the GDPR device consent required in the SDK to pass IDFA & cookies
+* Check for ANGDPR_PurposeConsents And ANIABTCF_PurposeConsents  and return if present else return nil
+*/
 + (NSString *) getDeviceAccessConsent {
     
     NSString* purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_PurposeConsents];
@@ -123,6 +127,9 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     }
 }
 
+/**
+* Get the GDPR device consent as a combination of purpose 1 & consent required
+*/
 + (BOOL) canAccessDeviceData {
     //fetch advertising identifier based TCF 2.0 Purpose1 value
     //truth table
