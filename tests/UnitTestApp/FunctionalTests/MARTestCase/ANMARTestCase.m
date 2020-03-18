@@ -29,7 +29,6 @@
 #import "ANInterstitialAd+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 #import "ANAdView+ANTest.h"
 
 

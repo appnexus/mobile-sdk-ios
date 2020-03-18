@@ -14,24 +14,40 @@
  */
 
 #import <XCTest/XCTest.h>
-#import <AppNexusNativeSDK/AppNexusNativeSDK.h>
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
+#import "ANNativeAdRequest+ANTest.h"
 
 #define kAppNexusRequestTimeoutInterval 30.0
 
 
 
-@interface NativeSDKTestAppTests : XCTestCase <ANNativeAdRequestDelegate>
+@interface NativeSDKTestAppTests : XCTestCase <ANMultiAdRequestDelegate, ANNativeAdRequestDelegate>
+
+@property (nonatomic, readwrite, strong)            ANMultiAdRequest    *mar;
 
 @property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
 @property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseInfo;
 
+@property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest2;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponse;
+
+@property (nonatomic, readwrite)  NSUInteger  countOfRequestedAdUnits;
+
 @property (nonatomic)                     NSURLRequest  *request;
 @property (nonatomic, readwrite, strong)  NSError       *adRequestError;
 
-@property (nonatomic, readwrite, strong)  XCTestExpectation  *delegateCallbackExpectation;
+@property (nonatomic, readwrite)  NSUInteger  MAR_countOfCompletionSuccesses;
+@property (nonatomic, readwrite)  NSUInteger  MAR_countOfCompletionFailures;
+@property (nonatomic, readwrite)  NSUInteger  AdUnit_countOfReceiveSuccesses;
+@property (nonatomic, readwrite)  NSUInteger  AdUnit_countOfReceiveFailures;
+
+
+@property (nonatomic, strong, readwrite, nullable)  XCTestExpectation  *expectationMARLoadCompletionOrFailure;
+
+@property (nonatomic, readwrite, strong)  XCTestExpectation  *expectationAdUnitLoadResponseOrFailure;
+
 
 @end
 
@@ -46,18 +62,35 @@
 - (void)setUp {
     [super setUp];
     
-    [ANLogManager setANLogLevel:ANLogLevelAll];
+    self.mar = nil;
+    
+    self.MAR_countOfCompletionSuccesses  = 0;
+    self.MAR_countOfCompletionFailures   = 0;
+    self.AdUnit_countOfReceiveSuccesses = 0;
+    self.AdUnit_countOfReceiveFailures = 0;
+    
+    self.countOfRequestedAdUnits = 0;
+    
+    //[ANLogManager setANLogLevel:ANLogLevelAll];
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
+    
+    self.adRequest2 = [[ANNativeAdRequest alloc] init];
+    self.adRequest2.delegate = self;
+
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    
+    [ANNativeAdRequest setDoNotResetAdUnitUUID:YES];
 }
 
 - (void)tearDown {
     [super tearDown];
     
     self.adRequest = nil;
-    self.delegateCallbackExpectation = nil;
+    self.expectationAdUnitLoadResponseOrFailure = nil;
+    self.adRequest2 = nil;
+    self.adResponse = nil;
     self.adResponseInfo = nil;
     self.adRequestError = nil;
     
@@ -72,9 +105,10 @@
 
 - (void)testNativeSDKRTBAd {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
+    self.countOfRequestedAdUnits  = 1;
     [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
-    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:nil];
     [self validateGenericNativeAdObject];
@@ -87,8 +121,9 @@
 
 - (void)testNativeSDKCSMAd {
     [self stubRequestWithResponse:@"appnexus_mock_mediation_response"];
+    self.countOfRequestedAdUnits  = 1;
     [self.adRequest loadAd];
-    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:nil];
     
@@ -98,11 +133,56 @@
 
 }
 
+- (void)testMARNativeSDK {
+    [self stubRequestWithResponse:@"testMARCombinationTwoRTBNative"];
+
+    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: 10094
+                                     delegate: self
+                                      adUnits: self.adRequest,self.adRequest2, nil ];
+
+    self.adRequest.utRequestUUIDString = @"1";
+    self.adRequest2.utRequestUUIDString = @"2";
+
+    self.countOfRequestedAdUnits  = 2;
+
+    XCTAssertNotNil(self.mar);
+
+    [self.mar load];
+    
+    self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
+       
+       [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+
+    XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
+    
+    XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, self.countOfRequestedAdUnits);
+
+}
+
+#pragma mark - MultiAdRequest delegate
+
+- (void)multiAdRequestDidComplete:(ANMultiAdRequest *)mar
+{
+    [self.expectationMARLoadCompletionOrFailure fulfill];
+    self.expectationMARLoadCompletionOrFailure = nil;
+    self.MAR_countOfCompletionSuccesses += 1;
+}
+
+- (void)multiAdRequest:(nonnull ANMultiAdRequest *)mar  didFailWithError:(NSError *)error
+{
+    [self.expectationMARLoadCompletionOrFailure fulfill];
+    self.expectationMARLoadCompletionOrFailure = nil;
+    self.MAR_countOfCompletionFailures += 1;
+}
+
 
 #pragma mark - Helper methods.
 
 - (void)validateGenericNativeAdObject {
-    //    XCTAssertNotNil(self.adResponseInfo);
+        XCTAssertNotNil(self.adResponse);
+    if (self.adResponse.title) {
+        XCTAssert([self.adResponse.title isKindOfClass:[NSString class]]);
+    }
     if (self.adResponseInfo.title) {
         XCTAssert([self.adResponseInfo.title isKindOfClass:[NSString class]]);
     }else{
@@ -150,20 +230,31 @@
 
 #pragma mark - ANNativeAdRequestDelegate
 
-- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didReceiveResponse:(nonnull ANNativeAdResponse *)response
 {
+    if(self.adRequest == request){
+        self.adResponse = response;
+    } else if (self.adRequest2 == request){
+        self.adResponse = response;
+    }
+    
+    self.AdUnit_countOfReceiveSuccesses += 1;
+    if(self.countOfRequestedAdUnits == self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures){
+        [self.expectationAdUnitLoadResponseOrFailure fulfill];
+        self.expectationAdUnitLoadResponseOrFailure = nil;
+    }
+    
     self.adResponseInfo = response;
-    [self.delegateCallbackExpectation fulfill];
+    [self.expectationMARLoadCompletionOrFailure fulfill];
 }
 
-- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error
 {
     self.adRequestError = error;
-    [self.delegateCallbackExpectation fulfill];
+    self.AdUnit_countOfReceiveFailures += 1;
+    [self.expectationAdUnitLoadResponseOrFailure fulfill];
+    
 }
-
-
-
 
 # pragma mark - Ad Server Response Stubbing
 

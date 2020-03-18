@@ -14,7 +14,6 @@
  */
 
 #import "ANNativeAdRequest.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 #import "ANNativeMediatedAdResponse.h"
 #import "ANNativeAdFetcher.h"
 #import "ANNativeAdImageCache.h"
@@ -122,7 +121,7 @@
 - (void)createAdFetcher
 {
     if (self.marManager) {
-        self.adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self andAdunitMultiAdRequestManager:self.marManager];
+        self.adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self andAdUnitMultiAdRequestManager:self.marManager];
     } else {
         self.adFetcher  = [[ANNativeAdFetcher alloc] initWithDelegate:self];
     }
