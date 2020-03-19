@@ -154,6 +154,18 @@
  */
 - (void)setInventoryCode:(nullable NSString *)inventoryCode memberId:(NSInteger)memberID;
 
+
+@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionView;
+
+/**
+ Add Friendl yObstruction for OMID.
+ */
+- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)obstructionView;
+
+- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
+- (void)removeAllFriendlyObstructions;
+
+
 @end   //ANAdProtocolFoundation
 
 

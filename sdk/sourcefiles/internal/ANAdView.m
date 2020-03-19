@@ -82,7 +82,7 @@
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
 @synthesize  adResponseInfo                     = __adResponseInfo;
-
+@synthesize  obstructionView                    = __obstructionView;
 
 #pragma mark - Initialization
 
@@ -308,6 +308,28 @@
         ANLogDebug(@"Setting member id to %d", (int) newMemberId);
         __memberId = newMemberId;
     }
+}
+
+- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
+    if(__obstructionView.count > 0){
+        [__obstructionView removeObject:obstructionView];
+    }
+}
+- (void)removeAllFriendlyObstructions{
+    [__obstructionView removeAllObjects];
+    __obstructionView = nil;
+}
+
+
+- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)view{
+    if(__obstructionView == nil){
+        __obstructionView = [[NSMutableArray alloc] init];
+    }
+    
+    for (UIView *frView in view) {
+        [__obstructionView addObject:frView];
+    }
+    
 }
 
 

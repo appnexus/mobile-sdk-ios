@@ -318,6 +318,15 @@ static NSString *const kANInline        = @"inline";
     }
 }
 
+
+- (void)setFriendlyObstruction
+{
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:adView.webViewController.omidAdSession];
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -360,6 +369,7 @@ static NSString *const kANInline        = @"inline";
     
     if ([response isSuccessful]) 
     {
+        
         self.loadAdHasBeenInvoked = YES;
 
         id  adObject         = response.adObject;
@@ -419,6 +429,7 @@ static NSString *const kANInline        = @"inline";
                     {
                         ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
                         if(standardAdView.webViewController.omidAdSession != nil){
+                            [self setFriendlyObstruction];
                             [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
                         }
                     }
