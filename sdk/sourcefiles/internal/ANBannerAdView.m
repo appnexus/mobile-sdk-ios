@@ -209,7 +209,6 @@ ANLogMark();
             //FIX -- handle video case later
 
     //
-    //    ANMRAIDContainerView  *mraidContainerView  = self.universalAdFetcher.adView;
     __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
     __block ANWebView              *webview             = mraidContainerView.webViewController.contentView;
 
@@ -244,11 +243,6 @@ ANLogMark();
 - (void)loadWebview
 {
 ANLogMark();
-//    ANAdWebViewController  *webviewController  = ((ANMRAIDContainerView *)self.contentView).webViewController;
-////    ANWebView  *webview  = (ANWebView *)webviewController.contentView;
-//
-//    [webviewController loadWebview];
-
     ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.unloadedContentView;
     [mraidContainerView loadWebview];
 

@@ -22,14 +22,14 @@
                          baseURL:(NSURL *)baseURL ;
     
     -(instancetype) initWithSize:(CGSize)size
-                             content:(NSString *)htmlContent
+                         content:(NSString *)htmlContent
                          baseURL:(NSURL *)baseURL;
     
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
     
     - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
 
-    - (void)loadWebview;
+//    - (void)loadWebview;
     
     
 @end

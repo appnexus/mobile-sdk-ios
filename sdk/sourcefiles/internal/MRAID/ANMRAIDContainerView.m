@@ -46,7 +46,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 
 @interface ANMRAIDContainerView() <   ANBrowserViewControllerDelegate,
-
                                       ANAdWebViewControllerANJAMDelegate,
                                       ANAdWebViewControllerBrowserDelegate, 
                                       ANAdWebViewControllerLoadingDelegate,
@@ -187,7 +186,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
  * Initialize webViewController.
  */
 - (void)loadWebview
-        //FIX -- moe to right place
+        //x FIX -- moe to right place
 {
 ANLogMark();
     self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: self.size  //FIX -- use:_lastKnownCurrentPosition.size

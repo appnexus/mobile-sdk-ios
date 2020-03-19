@@ -234,20 +234,20 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     return  self;
 }
 
-- (void)loadWebview
-{
-ANLogMark();
-    if (self.htmlToLoad)
-                //FIX better way to have this eval only once, if called more than once?
-    {
-        _webView = [[ANWebView alloc] initWithSize:self.size content:self.htmlToLoad baseURL:self.base];
-        [self loadWebViewWithUserScripts];
-
-        self.size           = CGSizeZero;
-        self.htmlToLoad     = nil;
-        self.base           = nil;
-    }
-}
+//- (void)loadWebview
+//{
+//ANLogMark();
+//    if (self.htmlToLoad)
+//                //FIX better way to have this eval only once, if called more than once?
+//    {
+//        _webView = [[ANWebView alloc] initWithSize:self.size content:self.htmlToLoad baseURL:self.base];
+//        [self loadWebViewWithUserScripts];
+//
+//        self.size           = CGSizeZero;
+//        self.htmlToLoad     = nil;
+//        self.base           = nil;
+//    }
+//}
 
 
 - (void)stopOMIDAdSession {

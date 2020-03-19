@@ -22,15 +22,15 @@
 
 
 
-#pragma mark -
-
-@interface  ANWebView()
-
-@property (nonatomic, readwrite, strong)  NSString  *htmlContent;
-@property (nonatomic, readwrite, strong)  NSURL     *baseURL;
-            //FIX -- keep or toss...
-
-@end
+//#pragma mark -
+//
+//@interface  ANWebView()
+//
+//@property (nonatomic, readwrite, strong)  NSString  *htmlContent;
+//@property (nonatomic, readwrite, strong)  NSURL     *baseURL;
+//            //FIX -- keep or toss...
+//
+//@end
 
 
 
@@ -93,16 +93,16 @@
     {
         self = [self initWithSize:size];
 
-//        if (YES)    //FIX -- enableLazyWebviewActivation == YES
-        if (NO)
-                    //FIX -- this spot too low level...
-        {
-            self.htmlContent  = htmlContent;
-            self.baseURL      = baseURL;
-
-        } else {
+////        if (YES)    //FIX -- enableLazyWebviewActivation == YES
+//        if (NO)
+//                    //FIX -- this spot too low level...
+//        {
+//            self.htmlContent  = htmlContent;
+//            self.baseURL      = baseURL;
+//
+//        } else {
             [self loadHTMLString:htmlContent baseURL:baseURL];
-        }
+//        }
 
         return self;
     }
@@ -115,18 +115,18 @@
         return self;
     }
 
-    - (void)loadWebview
-        //FIX -- means to prevent loading from happening twice...
-    {
-    ANLogMark();
-
-        if (self.htmlContent) {
-            [self loadHTMLString:self.htmlContent baseURL:self.baseURL];
-
-            self.htmlContent = nil;
-            self.baseURL = nil;
-        }
-    }
+//    - (void)loadWebview
+//        //FIX -- means to prevent loading from happening twice...
+//    {
+//    ANLogMark();
+//
+//        if (self.htmlContent) {
+//            [self loadHTMLString:self.htmlContent baseURL:self.baseURL];
+//
+//            self.htmlContent = nil;
+//            self.baseURL = nil;
+//        }
+//    }
 
 
 

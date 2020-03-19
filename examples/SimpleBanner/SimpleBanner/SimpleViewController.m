@@ -73,7 +73,7 @@
 
     banner.enableLazyWebviewActivation = YES;
     [self.view addSubview:banner];
-        //FIX -- find a solution where it is still okay to be proactive about early invocation of addSubview: (for banner)
+        //x FIX -- find a solution where it is still okay to be proactive about early invocation of addSubview: (for banner)
         //          -- may require detecting or remembering the parent
 
 
@@ -82,10 +82,8 @@
 
     // Load an ad.
     [banner loadAd];
-//    [self.view addSubview:banner];
 
     [self locationSetup]; // If you want to pass location...
-//    self.banner = banner;
 }
 
 - (void)locationSetup {
