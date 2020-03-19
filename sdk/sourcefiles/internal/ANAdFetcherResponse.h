@@ -23,6 +23,9 @@
 @interface ANAdFetcherResponse : NSObject
 
 @property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
+@property (nonatomic, readwrite)  BOOL  didNotLoadCreative;
+        //FIX -- make readonly?
+
 @property (nonatomic, readonly, strong, nonnull) id  adObject;
 @property (nonatomic, readonly, strong, nullable) id  adObjectHandler;
 @property (nonatomic, readonly, strong, nullable) NSError *error;
@@ -34,13 +37,19 @@
 + (nonnull ANAdFetcherResponse *)responseWithError:(nonnull NSError *)error;
 
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
-                           andAdObjectHandler: (nullable id)adObjectHandler;
+                                   andAdObjectHandler: (nullable id)adObjectHandler;
+
++ (nonnull ANAdFetcherResponse *)responseWithUnloadedAdObject: (nonnull id)adObject
+                                           andAdObjectHandler: (nullable id)adObjectHandler;
+
 
 //
 - (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error;
 
 - (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
-                               andAdObjectHandler: (nullable id)adObjectHandler;
+                                       andAdObjectHandler: (nullable id)adObjectHandler;
 
+- (nonnull instancetype)initAdResponseUnloadedWithAdObject: (nonnull id)adObject
+                                                andAdObjectHandler: (nullable id)adObjectHandler;
 
 @end

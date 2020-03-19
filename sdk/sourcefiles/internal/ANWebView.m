@@ -20,8 +20,26 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
+
+
+#pragma mark -
+
+@interface  ANWebView()
+
+@property (nonatomic, readwrite, strong)  NSString  *htmlContent;
+@property (nonatomic, readwrite, strong)  NSURL     *baseURL;
+            //FIX -- keep or toss...
+
+@end
+
+
+
+#pragma mark -
+
 @implementation ANWebView
-    
+
+#pragma mark Lifecycle.
+
     -(instancetype) initWithSize:(CGSize)size {
         
         WKWebViewConfiguration *configuration = [[self class] setDefaultWebViewConfiguration];
@@ -69,10 +87,23 @@
         
     }
     
-    -(instancetype) initWithSize:(CGSize)size content:(NSString *)htmlContent baseURL:(NSURL *)baseURL{
+    - (instancetype)initWithSize: (CGSize)size
+                         content: (NSString *)htmlContent
+                         baseURL: (NSURL *)baseURL
+    {
         self = [self initWithSize:size];
-        
-        [self loadHTMLString:htmlContent baseURL:baseURL];
+
+//        if (YES)    //FIX -- enableLazyWebviewActivation == YES
+        if (NO)
+                    //FIX -- this spot too low level...
+        {
+            self.htmlContent  = htmlContent;
+            self.baseURL      = baseURL;
+
+        } else {
+            [self loadHTMLString:htmlContent baseURL:baseURL];
+        }
+
         return self;
     }
     
@@ -83,7 +114,24 @@
         
         return self;
     }
-    
+
+    - (void)loadWebview
+        //FIX -- means to prevent loading from happening twice...
+    {
+    ANLogMark();
+
+        if (self.htmlContent) {
+            [self loadHTMLString:self.htmlContent baseURL:self.baseURL];
+
+            self.htmlContent = nil;
+            self.baseURL = nil;
+        }
+    }
+
+
+
+
+#pragma mark - Class helper methods.
     
     + (WKWebViewConfiguration *)setDefaultWebViewConfiguration
     {
@@ -155,7 +203,12 @@
         }
         return configuration;
     }
-    
+
+
+
+
+#pragma mark - Instance helper methods.
+
     - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script {
         __block NSString *resultString = nil;
         __block BOOL finished = NO;

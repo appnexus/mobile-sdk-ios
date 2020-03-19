@@ -49,8 +49,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 @interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
 
-@property (nonatomic, readwrite, strong)    UIView      *contentView;
-@property (nonatomic, readwrite, strong)    ANWebView      *webView;
+@property (nonatomic, readwrite, strong)    UIView          *contentView;
+@property (nonatomic, readwrite, strong)    ANWebView       *webView;
+@property (nonatomic, readwrite)            BOOL             isLazyActivation;
+
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
 
@@ -132,13 +134,41 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     return self;
 }
 
-- (instancetype)initWithSize:(CGSize)size
-                        HTML:(NSString *)html
-              webViewBaseURL:(NSURL *)baseURL
-               configuration:(ANAdWebViewControllerConfiguration *)configuration
+- (instancetype)initLazyWithSize: (CGSize)size
+                            HTML: (NSString *)html
+                  webViewBaseURL: (NSURL *)baseURL
+{
+
+    self = [self initWithSize: size
+                         HTML: html
+               webViewBaseURL: baseURL
+           withLazyEvaluation: YES
+                configuration: nil ];
+    return self;
+}
+
+- (instancetype)initWithSize: (CGSize)size
+                        HTML: (NSString *)html
+              webViewBaseURL: (NSURL *)baseURL
+               configuration: (ANAdWebViewControllerConfiguration *)configuration
+{
+    return  [self initWithSize: (CGSize)size
+                          HTML: (NSString *)html
+                webViewBaseURL: (NSURL *)baseURL
+            withLazyEvaluation: NO
+                 configuration: (ANAdWebViewControllerConfiguration *)configuration ];
+}
+
+- (instancetype)initWithSize: (CGSize)size
+                        HTML: (NSString *)html
+              webViewBaseURL: (NSURL *)baseURL
+          withLazyEvaluation: (BOOL)withLazyEvaluation
+               configuration: (ANAdWebViewControllerConfiguration *)configuration
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
+
+    self.isLazyActivation = withLazyEvaluation;
     
     //
     NSRange      mraidJSRange   = [html rangeOfString:kANWebViewControllerMraidJSFilename];
@@ -155,9 +185,22 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (!_configuration.scrollingEnabled) {
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
-    _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
-    //[self createWebView:size HTML:htmlToLoad baseURL:base];
-    [self loadWebViewWithUserScripts];
+
+    if (!self.isLazyActivation && YES) {   //FIX -- enableLazyWebviewActivation == YES
+                        //FIX -- only the first time!
+//    if (NO) {
+        self.size           = size;
+        self.htmlToLoad     = htmlToLoad;
+        self.base           = base;
+
+        [self.loadingDelegate didAcquireUnloadedWebview:self];
+
+    } else {
+        _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
+        //[self createWebView:size HTML:htmlToLoad baseURL:base];
+        [self loadWebViewWithUserScripts];
+    }
+
     return self;
 }
 
@@ -190,7 +233,21 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     //
     return  self;
 }
-    
+
+- (void)loadWebview
+{
+ANLogMark();
+    if (self.htmlToLoad)
+                //FIX better way to have this eval only once, if called more than once?
+    {
+        _webView = [[ANWebView alloc] initWithSize:self.size content:self.htmlToLoad baseURL:self.base];
+        [self loadWebViewWithUserScripts];
+
+        self.size           = CGSizeZero;
+        self.htmlToLoad     = nil;
+        self.base           = nil;
+    }
+}
 
 
 - (void)stopOMIDAdSession {

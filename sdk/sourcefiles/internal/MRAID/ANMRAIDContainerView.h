@@ -29,8 +29,14 @@
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL;
 
+- (instancetype)initLazyWithSize: (CGSize)size
+                            HTML: (NSString *)html
+               andWebViewBaseURL: (NSURL *)baseURL;
+
 - (instancetype) initWithSize: (CGSize)size
                      videoXML: (NSString *)videoXML;
+
+- (void)loadWebview;
 
 
 @property (nonatomic, readonly, assign)                         CGSize  size;

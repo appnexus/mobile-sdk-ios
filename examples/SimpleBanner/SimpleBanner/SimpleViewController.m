@@ -68,7 +68,6 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];
 
     banner.autoRefreshInterval = 0;
-
     banner.shouldAllowVideoDemand = NO;                     //FIX -- allow this when lazy webview is also applied to video...
     banner.shouldServePublicServiceAnnouncements = YES;     //FIX -- test with working placements...
 
@@ -106,12 +105,22 @@
                                             horizontalAccuracy:location.horizontalAccuracy];
 }
 
-- (void)adDidReceiveAd:(id)ad {
+- (void)adDidReceiveAd:(id)ad
+{
     NSLog(@"Ad did receive ad");
+
+
+    [self.banner loadWebview];
+
+        //FIX -- need to check wiether it is succesfful, unloaded or error.
+        //       -- can there be errors in generating "unloaded" ad?
+        //FIX -- what errors to handle upon loadWebview?
+
 
 //    [self.view addSubview:self.banner];
 //
-    [self.banner activateWebview];
+//    [self.banner loadWebview];
+//    [self.banner activateWebview];
 //
 //    [self.banner setNeedsDisplay];
 //

@@ -57,8 +57,9 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                       ANMRAIDResizeViewManagerDelegate
                                   >
 
-@property (nonatomic, readwrite, assign) CGSize size;
-@property (nonatomic, readwrite, strong) NSURL *baseURL;
+@property (nonatomic, readwrite, assign)  CGSize     size;
+@property (nonatomic, readwrite, strong)  NSURL     *baseURL;
+@property (nonatomic, readwrite, strong)  NSString  *htmlCreative;
 
 @property (nonatomic, readwrite, strong) ANAdWebViewController          *webViewController;
 @property (nonatomic, readwrite, strong) ANBrowserViewController        *browserViewController;
@@ -152,6 +153,50 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
 
     return self;
+}
+
+/**
+ * Capture argument values, but do not initialize webViewController.
+ */
+- (instancetype)initLazyWithSize: (CGSize)size
+                            HTML: (NSString *)html
+               andWebViewBaseURL: (NSURL *)baseURL
+{
+    self = [self initWithSize:size];
+
+    if (self) {
+        _size           = size;
+        _htmlCreative   = html;
+        _baseURL        = baseURL;
+                //FIX -- worry about overloading size and baseURL?
+
+//        self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
+//                                                                        HTML: html
+//                                                              webViewBaseURL: baseURL ];
+
+        self.webViewController.anjamDelegate    = self;
+        self.webViewController.browserDelegate  = self;
+        self.webViewController.loadingDelegate  = self;
+        self.webViewController.mraidDelegate    = self;
+    }
+
+    return self;
+}
+
+/**
+ * Initialize webViewController.
+ */
+- (void)loadWebview
+        //FIX -- moe to right place
+{
+ANLogMark();
+    self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: self.size  //FIX -- use:_lastKnownCurrentPosition.size
+                                                                        HTML: self.htmlCreative
+                                                              webViewBaseURL: self.baseURL ];
+            //FIX -- call it initActivate*...?
+            //FIX -- does it run on the correct thread?
+            //   -- need to attend to its delegate structure
+            //  -- need to attend to error conditions?
 }
 
 - (instancetype)initWithSize: (CGSize)size
@@ -488,8 +533,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
 
 
-    if (YES)
-//    if (NO)
+//    if (YES)
+    if (NO)
             //FIX -- how to get banner.enableLazyWebviewActivation?  delegate through delegate to fetcher?
             //      -- where are mraidcontainerview and webviewcontroller defined in heirarchy?
             //      -- visibility to parents or pass through property value to children?
@@ -537,6 +582,12 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
         [strongSelf.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
     });
+}
+
+- (void)didAcquireUnloadedWebview:(ANAdWebViewController *)controller
+{
+    [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+            //FIX -- is it misleading to use this delegate method for a controller carrying an unloaded webview?
 }
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller

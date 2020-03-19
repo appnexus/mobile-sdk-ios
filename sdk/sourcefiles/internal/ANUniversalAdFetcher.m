@@ -408,16 +408,29 @@ ANLogMark();
     if (self.adView) {
         self.adView.loadingDelegate = nil;
     }
-    
-    self.adView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
-                                                        HTML:standardAd.content
-                                              webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+
+    if (YES)  //FIX -- enableLazyWebviewActivation == YES
+    {
+        self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
+                                                                HTML: standardAd.content
+                                                   andWebViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+    } else {
+        self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeofWebView
+                                                            HTML: standardAd.content
+                                                  webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
                 //FIX -- noting origin
-    
+    }
+
     self.adView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView
     self.adView.webViewController.adViewANJAMDelegate = self.delegate;
-    
+
+    // Callback immediately to fetcher!
+    //
+    if (YES)  //FIX -- enableLazyWebviewActivation == YES
+    {
+        [self didAcquireUnloadedWebview:self.adView];
+    }
 }
 
 
@@ -523,6 +536,7 @@ ANLogMark();
 
 - (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
+ANLogMark();
     ANAdFetcherResponse  *fetcherResponse  = nil;
 
     if (self.adView.webViewController == controller)
@@ -541,6 +555,14 @@ ANLogMark();
     }
 
     [self processFinalResponse:fetcherResponse];
+}
+
+- (void)didAcquireUnloadedWebview:(ANAdWebViewController *)controller
+{
+ANLogMark();
+    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithUnloadedAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
+    [self processFinalResponse:fetcherResponse];
+                //FIX -- be sure we carry ANAdREsponseInfo
 }
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller

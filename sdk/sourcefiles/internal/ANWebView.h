@@ -28,6 +28,8 @@
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
     
     - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
+
+    - (void)loadWebview;
     
     
 @end

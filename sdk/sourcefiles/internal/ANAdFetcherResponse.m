@@ -54,6 +54,19 @@
     return self;
 }
 
+- (nonnull instancetype)initAdResponseUnloadedWithAdObject: (nonnull id)adObject
+                                        andAdObjectHandler: (nullable id)adObjectHandler
+        //FIX -- really?
+{
+    self = [super init];
+    if (self) {
+        _didNotLoadCreative = YES;
+        _adObject = adObject;
+        _adObjectHandler = adObjectHandler;
+    }
+    return self;
+}
+
 
 
 #pragma mark - Class methods.
@@ -63,10 +76,18 @@
 }
 
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
-                           andAdObjectHandler: (nullable id)adObjectHandler
+                                   andAdObjectHandler: (nullable id)adObjectHandler
 {
     return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
                                                        andAdObjectHandler: adObjectHandler];
+}
+
++ (nonnull ANAdFetcherResponse *)responseWithUnloadedAdObject: (nonnull id)adObject
+                                           andAdObjectHandler: (nullable id)adObjectHandler
+        //FIX -- really?
+{
+    return [[ANAdFetcherResponse alloc] initAdResponseUnloadedWithAdObject: adObject
+                                                        andAdObjectHandler: adObjectHandler];
 }
 
 

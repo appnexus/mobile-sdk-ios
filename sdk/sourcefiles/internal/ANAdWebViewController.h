@@ -52,6 +52,11 @@
 @property (nonatomic, readwrite, assign)  NSTimeInterval  checkViewableTimeInterval;
 @property (nonatomic, readonly, assign)  ANVideoOrientation  videoAdOrientation;
 
+@property (nonatomic, readwrite)          CGSize     size;
+@property (nonatomic, readwrite, strong)  NSString  *htmlToLoad;
+@property (nonatomic, readwrite, strong)  NSURL     *base;
+        //FIX okay to keep these names?
+
 
 - (instancetype)initWithSize:(CGSize)size
                          URL:(NSURL *)URL
@@ -66,13 +71,25 @@
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL;
 
+- (instancetype)initLazyWithSize:(CGSize)size
+                            HTML:(NSString *)html
+                  webViewBaseURL:(NSURL *)baseURL;
+
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration;
+
+- (instancetype)initWithSize: (CGSize)size
+                        HTML: (NSString *)html
+              webViewBaseURL: (NSURL *)baseURL
+          withLazyEvaluation: (BOOL)withLazyEvaluation
+               configuration: (ANAdWebViewControllerConfiguration *)configuration;
 
 - (instancetype) initWithSize: (CGSize)size
                      videoXML: (NSString *)videoXML;
+
+- (void)loadWebview;
 
 
 - (void)adDidFinishExpand;
@@ -129,6 +146,8 @@
 
 @required
 - (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller;
+- (void) didAcquireUnloadedWebview:(ANAdWebViewController *)controller;
+        //FIX -- remove polaces where it is not used!
 
 @optional
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;

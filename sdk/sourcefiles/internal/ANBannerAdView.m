@@ -58,6 +58,8 @@ static NSString *const kANInline        = @"inline";
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong)  UIView  *contentView;
+@property (nonatomic, readwrite, strong)  UIView  *unloadedContentView;
+        //FIX -- refactor?
 
 @property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
 
@@ -239,6 +241,23 @@ ANLogMark();
     });
 }
 
+- (void)loadWebview
+{
+ANLogMark();
+//    ANAdWebViewController  *webviewController  = ((ANMRAIDContainerView *)self.contentView).webViewController;
+////    ANWebView  *webview  = (ANWebView *)webviewController.contentView;
+//
+//    [webviewController loadWebview];
+
+    ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.unloadedContentView;
+    [mraidContainerView loadWebview];
+
+    self.contentView = self.unloadedContentView;
+            //FIX -- how will it be assigned to contentView?  does it need to be ?  assign it now?
+
+    [self activateWebview];
+}
+
 
 
 
@@ -410,12 +429,23 @@ ANLogMark();
 #pragma mark - ANUniversalAdFetcherDelegate
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+            //FIX -- might this be called once by unloaded webview then again from webviewcontroller?
 {
     NSError *error;
-    
-    if ([response isSuccessful]) 
+
+//    if ([response didNotLoadCreative])
+//    {
+//        [self adDidReceiveAd:self];
+//        return;
+//    }
+//
+    if ([response isSuccessful] || [response didNotLoadCreative])
+                //FIX -- refactor this conditional distinction
     {
-        self.loadAdHasBeenInvoked = YES;
+        if ([response isSuccessful]) {
+            self.loadAdHasBeenInvoked = YES;
+                        //FIX -- be sure for didnotlaodcreateive
+        }
 
         id  adObject         = response.adObject;
         id  adObjectHandler  = response.adObjectHandler;
@@ -439,42 +469,62 @@ ANLogMark();
         }
 
         if ([adObject isKindOfClass:[UIView class]])
+                    //FIX -- true? that only uiView case is important for lazy loading?
+                    //FIX -- does lazy loading cat h the error case here?  [OR ANY CASE?
         {
-          
-            self.contentView = adObject;
-            NSString *width = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth forObject:adObjectHandler];
-            NSString *height = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
+            NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
+            NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
 
-            if(width && height){
+            if (width && height)
+            {
                 CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
                 _loadedAdSize = receivedSize;
-            }else {
+            } else {
                 _loadedAdSize = self.adSize;
-                }
-            if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]){
-                NSError             *registerError;
-                self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
-                [self.nativeAdResponse registerViewForTracking: self.contentView
-                                        withRootViewController: self.displayController
-                                                clickableViews: @[]
-                                                         error: &registerError];
             }
+
+            if ([response didNotLoadCreative])
+            {
+                self.unloadedContentView = adObject;
+
+            } else {
+                self.contentView = adObject;
+
+                if ([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]])
+                {
+                    NSError  *registerError  = nil;
+
+                    self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
+
+                    [self.nativeAdResponse registerViewForTracking: self.contentView
+                                            withRootViewController: self.displayController
+                                                    clickableViews: @[]
+                                                             error: &registerError];
+                }
+            }
+
             [self adDidReceiveAd:self];
 
-            if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            if ([response didNotLoadCreative])
+                    //FIX -- lazy loading requires firing imression trcker and OMID when the creatie is loaded.
+                    //      -- encasulate this section (share dby other uadunits?)
             {
-                
-                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
-                if (self.window)  {
-                    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-                    self.impressionURLs = nil;
-                    
-                    // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
-                    if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+                if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+                {
+                    self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+
+                    if (self.window)
                     {
-                        ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-                        if(standardAdView.webViewController.omidAdSession != nil){
-                            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+                        self.impressionURLs = nil;
+
+                        // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+                        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+                        {
+                            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
+                            if(standardAdView.webViewController.omidAdSession != nil){
+                                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                            }
                         }
                     }
                 }
@@ -513,6 +563,7 @@ ANLogMark();
 
     if (error) {
         self.contentView = nil;
+        self.unloadedContentView = nil;
         [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
 
     }
