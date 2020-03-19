@@ -412,6 +412,7 @@ static NSString *const kANInline        = @"inline";
                 [self.nativeAdResponse registerViewForTracking: self.contentView
                                         withRootViewController: self.displayController
                                                 clickableViews: @[]
+                                                addFriendlyObstruction:@[]
                                                          error: &registerError];
             }
             [self adDidReceiveAd:self];

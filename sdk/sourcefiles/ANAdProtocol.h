@@ -112,15 +112,6 @@
 - (void)clearCustomKeywords;
 
 
-/**
- Add Friendl yObstruction for OMID.
- */
-- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)obstructionView;
-- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
-- (void)removeAllFriendlyObstructions;
-
-@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionView;
-
 @end   //ANAdProtocolFoundationCore
 
 
@@ -249,6 +240,15 @@
  */
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
 
+
+/**
+ Add Friendl yObstruction for OMID.
+ */
+- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)obstructionView;
+- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
+- (void)removeAllFriendlyObstructions;
+
+@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionView;
 
 
 @end

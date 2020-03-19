@@ -181,6 +181,7 @@ extern NSString * __nonnull const  kANNativeElementObject;
 - (BOOL)registerViewForTracking:(nonnull UIView *)view
          withRootViewController:(nonnull UIViewController *)rvc
                  clickableViews:(nullable NSArray *)views
+                 addFriendlyObstruction:(nullable NSArray *)obstructionView
                           error:(NSError *__nullable*__nullable)error;
 
 @end

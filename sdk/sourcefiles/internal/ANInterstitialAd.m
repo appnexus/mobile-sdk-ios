@@ -213,6 +213,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
         mraidContainerView.adViewDelegate = nil;
+        [self setFriendlyObstruction:mraidContainerView];
     }
     
     
@@ -306,6 +307,14 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void)displayAdFromViewController:(nonnull UIViewController *)controller{
     [self displayAdFromViewController:controller autoDismissDelay:-1];
+}
+
+- (void)setFriendlyObstruction:(ANMRAIDContainerView *)adView
+{
+//    if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+//        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:adView.webViewController.omidAdSession];
+//    }
 }
 
 

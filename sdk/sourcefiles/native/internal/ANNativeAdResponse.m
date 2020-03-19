@@ -53,6 +53,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 @property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 @property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionView;
 
 @end
 
@@ -90,6 +91,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 - (BOOL)registerViewForTracking:(nonnull UIView *)view
          withRootViewController:(nonnull UIViewController *)controller
                  clickableViews:(nullable NSArray *)clickableViews
+                    addFriendlyObstruction:(nullable NSArray *)obstructionView
                           error:(NSError *__nullable*__nullable)error {
     if (!view) {
         ANLogError(@"native_invalid_view");
@@ -123,6 +125,10 @@ NSString * const  kANNativeElementObject                                   = @"E
                                                                     rootViewController:controller
                                                                         clickableViews:clickableViews
                                                                                  error:error];
+    
+    if(obstructionView.count > 0 ){
+        self.obstructionView = [obstructionView copy];
+    }
     if (successfulResponseRegistration) {
         self.viewForTracking = view;
         [view setAnNativeAdResponse:self];
@@ -160,7 +166,7 @@ NSString * const  kANNativeElementObject                                   = @"E
     NSString *params = self.verificationScriptResource.params;
     [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
     self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
-//    [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.ob toOMIDAdSession:self.omidAdSession];
+    [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:self.omidAdSession];
 }
 
 
