@@ -109,24 +109,13 @@
 {
     NSLog(@"Ad did receive ad");
 
-
-    [self.banner loadWebview];
-
+    if (self.banner.enableLazyWebviewActivation) {
+        [self.banner loadWebview];
+    }
         //FIX -- need to check wiether it is succesfful, unloaded or error.
         //       -- can there be errors in generating "unloaded" ad?
+
         //FIX -- what errors to handle upon loadWebview?
-
-
-//    [self.view addSubview:self.banner];
-//
-//    [self.banner loadWebview];
-//    [self.banner activateWebview];
-//
-//    [self.banner setNeedsDisplay];
-//
-//    [self loadViewIfNeeded];
-
-
 }
 
 

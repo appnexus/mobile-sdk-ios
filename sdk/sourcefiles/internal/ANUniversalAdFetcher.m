@@ -410,6 +410,7 @@ ANLogMark();
     }
 
     if (YES)  //FIX -- enableLazyWebviewActivation == YES
+//    if (NO)
     {
         self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
                                                                 HTML: standardAd.content

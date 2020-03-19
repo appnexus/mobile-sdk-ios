@@ -187,7 +187,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     }
 
     if (!self.isLazyActivation && YES) {   //FIX -- enableLazyWebviewActivation == YES
-                        //FIX -- only the first time!
+                        //x FIX -- only the first time!
 //    if (NO) {
         self.size           = size;
         self.htmlToLoad     = htmlToLoad;
