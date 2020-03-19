@@ -111,6 +111,16 @@
  */
 - (void)clearCustomKeywords;
 
+
+/**
+ Add Friendl yObstruction for OMID.
+ */
+- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)obstructionView;
+- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
+- (void)removeAllFriendlyObstructions;
+
+@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionView;
+
 @end   //ANAdProtocolFoundationCore
 
 
@@ -153,18 +163,6 @@
  Set the inventory code and member id for the place that ads will be shown.
  */
 - (void)setInventoryCode:(nullable NSString *)inventoryCode memberId:(NSInteger)memberID;
-
-
-@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionView;
-
-/**
- Add Friendl yObstruction for OMID.
- */
-- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)obstructionView;
-
-- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
-- (void)removeAllFriendlyObstructions;
-
 
 @end   //ANAdProtocolFoundation
 
@@ -250,6 +248,7 @@
  * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseInfo being accessed through ANNativeAdRequest.
  */
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
+
 
 
 @end

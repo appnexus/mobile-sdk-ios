@@ -160,6 +160,7 @@ NSString * const  kANNativeElementObject                                   = @"E
     NSString *params = self.verificationScriptResource.params;
     [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
     self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
+//    [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.ob toOMIDAdSession:self.omidAdSession];
 }
 
 

@@ -396,6 +396,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 
+- (void)setFriendlyObstruction
+{
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:self.adPlayer.omidAdSession];
+}
+
 
 
 //---------------------------------------------------------- -o--
@@ -413,6 +418,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
             [self setAdResponseInfo:adResponseInfo];
         }
         
+        [self setFriendlyObstruction];
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
         if(creativeId){
             [self setCreativeId:creativeId];
