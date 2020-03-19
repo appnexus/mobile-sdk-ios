@@ -63,7 +63,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     
     ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
-    ANSDKSettings.sharedInstance.HTTPSEnabled = NO;
     self.banner.delegate = nil;
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
@@ -180,7 +179,6 @@
 
 -(void)testBannerAdLocationPopupBlocked{
     
-    ANSDKSettings.sharedInstance.HTTPSEnabled = YES;
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
@@ -220,7 +218,6 @@
 }
 
 -(void)testBannerAdLocationPopupUnblocked{
-    ANSDKSettings.sharedInstance.HTTPSEnabled = YES;
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self stubRequestWithResponse:@"SuccessfulLocationCreativeForBannerAdResponse"];
