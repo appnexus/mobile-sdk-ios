@@ -34,6 +34,7 @@
 #import "NSTimer+ANCategory.h"
 #import "ANNativeRenderingViewController.h"
 #import "ANRTBNativeAdResponse.h"
+#import "ANAdWebViewController.h"
 
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANAdView+PrivateMethods.h"
@@ -41,7 +42,10 @@
 
 
 
-@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeRenderingViewControllerLoadingDelegate>
+@interface ANUniversalAdFetcher() <     ANVideoAdProcessorDelegate,
+                                        ANAdWebViewControllerLoadingDelegate,
+                                        ANNativeRenderingViewControllerLoadingDelegate
+                                    >
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
 @property (nonatomic, readwrite, strong)  ANNativeRenderingViewController   *nativeAdView;
@@ -409,8 +413,7 @@ ANLogMark();
         self.adView.loadingDelegate = nil;
     }
 
-    if (YES)  //FIX -- enableLazyWebviewActivation == YES
-//    if (NO)
+    if ([self.delegate valueOfEnableLazyWebviewActivation])
     {
         self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
                                                                 HTML: standardAd.content
@@ -426,9 +429,9 @@ ANLogMark();
     // Allow ANJAM events to always be passed to the ANAdView
     self.adView.webViewController.adViewANJAMDelegate = self.delegate;
 
-    // Callback immediately to fetcher!
+    // Callback immediately to fetcher if lazy webview activation is enabled.
     //
-    if (YES)  //FIX -- enableLazyWebviewActivation == YES
+    if ([self.delegate valueOfEnableLazyWebviewActivation])
     {
         [self didAcquireUnloadedWebview:self.adView];
     }
@@ -563,7 +566,7 @@ ANLogMark();
 ANLogMark();
     ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithUnloadedAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
     [self processFinalResponse:fetcherResponse];
-                //FIX -- be sure we carry ANAdREsponseInfo
+                //x FIX -- be sure we carry ANAdREsponseInfo
 }
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller

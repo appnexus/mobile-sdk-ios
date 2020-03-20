@@ -52,6 +52,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)    UIView          *contentView;
 @property (nonatomic, readwrite, strong)    ANWebView       *webView;
 @property (nonatomic, readwrite)            BOOL             isLazyActivation;
+@property (nonatomic, readwrite)            BOOL             lazyWebviewActivationIsEnabled;
 
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
@@ -169,6 +170,11 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (!self)  { return nil; }
 
     self.isLazyActivation = withLazyEvaluation;
+
+    if ([self.adViewDelegate respondsToSelector:@selector(valueOfEnableLazyWebviewActivation)])
+    {
+        self.lazyWebviewActivationIsEnabled = [self.adViewDelegate valueOfEnableLazyWebviewActivation];
+    }
     
     //
     NSRange      mraidJSRange   = [html rangeOfString:kANWebViewControllerMraidJSFilename];
@@ -186,12 +192,12 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
 
-    if (!self.isLazyActivation && YES) {   //FIX -- enableLazyWebviewActivation == YES
-                        //x FIX -- only the first time!
-//    if (NO) {
-        self.size           = size;
-        self.htmlToLoad     = htmlToLoad;
-        self.base           = base;
+    if (!self.isLazyActivation && self.lazyWebviewActivationIsEnabled)
+                //FIX -- why si this also captured in mraidcontainer?
+    {
+//        self.size           = size;
+//        self.htmlToLoad     = htmlToLoad;
+//        self.base           = base;
 
         [self.loadingDelegate didAcquireUnloadedWebview:self];
 

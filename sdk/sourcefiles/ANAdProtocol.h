@@ -240,15 +240,19 @@
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
 
 
+@property (nonatomic, readwrite)  BOOL  enableLazyWebviewActivation;
+        //FIX -- set positie once, cannot change.
+
+
 @end
 
 
 @protocol ANNativeAdRequestProtocol <ANAdProtocolFoundation>
-//EMPTY
+    //EMPTY
 @end
 
 @protocol ANNativeAdResponseProtocol <ANAdProtocolBrowser>
-//EMPTY
+    //EMPTY
 @end
 
 

@@ -632,6 +632,12 @@ ANLogMark();
     return nil;
 }
 
+- (BOOL)valueOfEnableLazyWebviewActivation
+{
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
+    return NO;
+}
+
 
 @end
 

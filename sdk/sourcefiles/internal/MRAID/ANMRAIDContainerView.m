@@ -28,6 +28,7 @@
 #import "ANANJAMImplementation.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANOMIDImplementation.h"
+#import "ANAdWebViewController.h"
 
 
 static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
@@ -49,7 +50,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                       ANAdWebViewControllerANJAMDelegate,
                                       ANAdWebViewControllerBrowserDelegate, 
                                       ANAdWebViewControllerLoadingDelegate,
-                                      ANAdWebViewControllerMRAIDDelegate, 
+                                      ANAdWebViewControllerMRAIDDelegate,
                                       ANAdWebViewControllerVideoDelegate,
                                       ANMRAIDCalendarManagerDelegate, 
                                       ANMRAIDExpandViewControllerDelegate,
@@ -141,9 +142,19 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     if (self) {
         _baseURL = baseURL;
 
-        self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
-                                                                        HTML: html
-                                                              webViewBaseURL: baseURL];
+
+        // Optionally capture argument values, without initializing self.webViewController.
+        //
+        if ([self.adViewDelegate valueOfEnableLazyWebviewActivation])
+        {
+            _size           = size;
+            _htmlCreative   = html;
+
+        } else {
+            self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
+                                                                            HTML: html
+                                                                  webViewBaseURL: baseURL];
+        }
 
         self.webViewController.anjamDelegate    = self;
         self.webViewController.browserDelegate  = self;
@@ -160,6 +171,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 - (instancetype)initLazyWithSize: (CGSize)size
                             HTML: (NSString *)html
                andWebViewBaseURL: (NSURL *)baseURL
+            //FIX -- make head to collapsed primaryinitialixer
 {
     self = [self initWithSize:size];
 
@@ -532,16 +544,16 @@ ANLogMark();
     }
 
 
-//    if (YES)
-    if (NO)
-            //FIX -- how to get banner.enableLazyWebviewActivation?  delegate through delegate to fetcher?
-            //      -- where are mraidcontainerview and webviewcontroller defined in heirarchy?
-            //      -- visibility to parents or pass through property value to children?
-    {
-        [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-                //FIX -- be wure no other consequences of returning through to adunit without activation...
-        return;
-    }
+////    if (YES)
+//    if (NO)
+//            //FIX -- how to get banner.enableLazyWebviewActivation?  delegate through delegate to fetcher?
+//            //      -- where are mraidcontainerview and webviewcontroller defined in heirarchy?
+//            //      -- visibility to parents or pass through property value to children?
+//    {
+//        [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+//                //FIX -- be wure no other consequences of returning through to adunit without activation...
+//        return;
+//    }
 
 
     // Attaching WKWebView to screen for an instant to allow it to fully load in the background

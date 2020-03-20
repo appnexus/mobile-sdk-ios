@@ -33,6 +33,8 @@
 - (void)adDidReceiveAd:(id)adObject;
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
 
+- (BOOL)valueOfEnableLazyWebviewActivation;
+
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 

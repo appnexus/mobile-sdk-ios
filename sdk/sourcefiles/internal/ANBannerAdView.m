@@ -55,7 +55,7 @@ static NSString *const kANInline        = @"inline";
 
 #pragma mark -
 
-@interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
+@interface ANBannerAdView() <ANBannerAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong)  UIView  *contentView;
 @property (nonatomic, readwrite, strong)  UIView  *unloadedContentView;
@@ -81,18 +81,18 @@ static NSString *const kANInline        = @"inline";
 
 @implementation ANBannerAdView
 
-@synthesize  autoRefreshInterval  = __autoRefreshInterval;
-@synthesize  contentView          = _contentView;
-@synthesize  adSize               = _adSize;
-@synthesize  loadedAdSize         = _loadedAdSize;
-@synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
-@synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
-@synthesize  nativeAdRendererId           = _nativeAdRendererId;
-@synthesize  enableNativeRendering           = _enableNativeRendering;
-@synthesize  adResponseInfo           = _adResponseInfo;
-@synthesize  minDuration             = __minDuration;
-@synthesize  maxDuration             = __maxDuration;
-
+@synthesize  autoRefreshInterval            = __autoRefreshInterval;
+@synthesize  contentView                    = _contentView;
+@synthesize  adSize                         = _adSize;
+@synthesize  loadedAdSize                   = _loadedAdSize;
+@synthesize  shouldAllowVideoDemand         = _shouldAllowVideoDemand;
+@synthesize  shouldAllowNativeDemand        = _shouldAllowNativeDemand;
+@synthesize  nativeAdRendererId             = _nativeAdRendererId;
+@synthesize  enableNativeRendering          = _enableNativeRendering;
+@synthesize  adResponseInfo                 = _adResponseInfo;
+@synthesize  minDuration                    = __minDuration;
+@synthesize  maxDuration                    = __maxDuration;
+@synthesize  enableLazyWebviewActivation    = __enableLazyWebviewActivation;
 
 
 #pragma mark - Lifecycle.
@@ -642,6 +642,11 @@ ANLogMark();
     }
 
     return displayController;
+}
+
+- (BOOL)valueOfEnableLazyWebviewActivation
+{
+    return  self.enableLazyWebviewActivation;
 }
 
 
