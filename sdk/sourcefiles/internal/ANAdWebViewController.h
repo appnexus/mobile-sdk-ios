@@ -55,24 +55,29 @@
 
 - (instancetype)initWithSize:(CGSize)size
                          URL:(NSURL *)URL
-              webViewBaseURL:(NSURL *)baseURL;
+              webViewBaseURL:(NSURL *)baseURL
+            customJavaScript:(NSString *)javaScript;
 
 - (instancetype)initWithSize:(CGSize)size
                          URL:(NSURL *)URL
               webViewBaseURL:(NSURL *)baseURL
-               configuration:(ANAdWebViewControllerConfiguration *)configuration;
-
-- (instancetype)initWithSize:(CGSize)size
-                        HTML:(NSString *)html
-              webViewBaseURL:(NSURL *)baseURL;
+               configuration:(ANAdWebViewControllerConfiguration *)configuration
+            customJavaScript:(NSString *)javaScript;
 
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
-               configuration:(ANAdWebViewControllerConfiguration *)configuration;
+            customJavaScript:(NSString *)javaScript;
+
+- (instancetype)initWithSize:(CGSize)size
+                        HTML:(NSString *)html
+              webViewBaseURL:(NSURL *)baseURL
+               configuration:(ANAdWebViewControllerConfiguration *)configuration
+            customJavaScript:(NSString *)javaScript;
 
 - (instancetype) initWithSize: (CGSize)size
-                     videoXML: (NSString *)videoXML;
+                     videoXML: (NSString *)videoXML
+             customJavaScript:(NSString *)javaScript;
 
 
 - (void)adDidFinishExpand;

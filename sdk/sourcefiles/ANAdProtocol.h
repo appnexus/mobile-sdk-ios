@@ -70,6 +70,11 @@
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
 
+/**
+ Custom JavaScript to be executed on document start
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *customJavaScript;
+
 
 /**
  Set the user's current location.  This allows ad buyers to do location

@@ -62,6 +62,7 @@
 // ANAdProtocol properties.
 //
 @synthesize  placementId                            = __placementId;
+@synthesize  customJavaScript                       = __customJavaScript;
 @synthesize  publisherId                            = __publisherId;
 @synthesize  memberId                               = __memberId;
 @synthesize  inventoryCode                          = __invCode;
@@ -254,6 +255,12 @@
     }
 }
 
+- (void)setCustomJavaScript:(nullable NSString *)customJavaScript {
+    if (customJavaScript != __customJavaScript) {
+        ANLogDebug(@"Setting customJavaScript to %@", customJavaScript);
+        __customJavaScript = customJavaScript;
+    }
+}
 
 - (void)setPlacementId:(nullable NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -403,6 +410,11 @@
     return __placementId;
 }
 
+- (nullable NSString *)customJavaScript {
+    ANLogDebug(@"customJavaScript returned %@", __customJavaScript);
+    return __customJavaScript;
+}
+
 - (NSInteger )memberId {
     ANLogDebug(@"memberId returned %d", (int)__memberId);
     return __memberId;
@@ -463,11 +475,11 @@
     if (_universalAdFetcher) {
         return  _universalAdFetcher;
     }
-
+    
     if (self.marManager) {
-        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self andAdUnitMultiAdRequestManager:self.marManager];
+        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self andAdUnitMultiAdRequestManager:self.marManager andCustomJavaScript:self.customJavaScript];
     } else {
-        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self andCustomJavaScript:self.customJavaScript];
     }
 
     return  _universalAdFetcher;
