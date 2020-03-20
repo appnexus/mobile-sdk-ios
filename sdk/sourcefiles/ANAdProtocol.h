@@ -244,7 +244,7 @@
 /**
  Add Friendl yObstruction for OMID.
  */
-- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)obstructionView;
+- (void)addFriendlyObstruction:(nullable UIView *)obstructionView;
 - (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
 - (void)removeAllFriendlyObstructions;
 

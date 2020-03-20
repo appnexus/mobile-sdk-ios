@@ -91,7 +91,6 @@ NSString * const  kANNativeElementObject                                   = @"E
 - (BOOL)registerViewForTracking:(nonnull UIView *)view
          withRootViewController:(nonnull UIViewController *)controller
                  clickableViews:(nullable NSArray *)clickableViews
-                    addFriendlyObstruction:(nullable NSArray *)obstructionView
                           error:(NSError *__nullable*__nullable)error {
     if (!view) {
         ANLogError(@"native_invalid_view");
@@ -126,9 +125,6 @@ NSString * const  kANNativeElementObject                                   = @"E
                                                                         clickableViews:clickableViews
                                                                                  error:error];
     
-    if(obstructionView.count > 0 ){
-        self.obstructionView = [obstructionView copy];
-    }
     if (successfulResponseRegistration) {
         self.viewForTracking = view;
         [view setAnNativeAdResponse:self];
@@ -291,5 +287,58 @@ NSString * const  kANNativeElementObject                                   = @"E
         [self.delegate adWillLeaveApplication:self];
     }
 }
+
+
+
+- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
+    if([self.obstructionView containsObject:obstructionView]){
+        [self removeView:obstructionView];
+    }
+}
+- (void)removeAllFriendlyObstructions{
+    [self.obstructionView removeAllObjects];
+    self.obstructionView = nil;
+}
+
+
+-(void)removeView:(UIView *)view{
+    NSLog(@"Ab - %@",view);
+    [self.obstructionView removeObject:view];
+    
+    for (UIView *obsView in view.subviews){
+        if([obsView isKindOfClass:[UIView class]]){
+            [self removeView:obsView];
+        }
+    }
+    
+}
+
+
+
+-(void)addView:(UIView *)view{
+    if(view.alpha == 0.0 && view.opaque){
+        NSLog(@"Ab - %@",view);
+        [self.obstructionView addObject:view];
+    }
+    
+    for (UIView *obsView in view.subviews){
+        if([obsView isKindOfClass:[UIView class]]){
+            [self addView:obsView];
+        }
+    }
+    
+}
+
+
+
+- (void)addFriendlyObstruction:(nullable UIView *)obstructionView{
+    if(self.obstructionView == nil){
+        self.obstructionView = [[NSMutableArray alloc] init];
+    }
+    [self addView:obstructionView];
+    
+}
+
+
 
 @end

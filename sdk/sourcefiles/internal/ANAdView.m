@@ -311,8 +311,8 @@
 }
 
 - (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
-    if(__obstructionView.count > 0){
-        [__obstructionView removeObject:obstructionView];
+    if([__obstructionView containsObject:obstructionView]){
+        [self removeView:obstructionView];
     }
 }
 - (void)removeAllFriendlyObstructions{
@@ -321,14 +321,42 @@
 }
 
 
-- (void)addFriendlyObstruction:(nullable NSArray<UIView *>*)view{
+-(void)removeView:(UIView *)view{
+    NSLog(@"Ab - %@",view);
+    [__obstructionView removeObject:view];
+    
+    for (UIView *obsView in view.subviews){
+        if([obsView isKindOfClass:[UIView class]]){
+            [self removeView:obsView];
+        }
+    }
+    
+}
+
+
+
+-(void)addView:(UIView *)view{
+    if(view.alpha == 0.0 && view.opaque){
+        NSLog(@"Ab - %@",view);
+        [__obstructionView addObject:view];
+    }
+    
+    for (UIView *obsView in view.subviews){
+        if([obsView isKindOfClass:[UIView class]]){
+            [self addView:obsView];
+        }
+    }
+    
+}
+
+
+
+- (void)addFriendlyObstruction:(nullable UIView *)obstructionView{
     if(__obstructionView == nil){
         __obstructionView = [[NSMutableArray alloc] init];
     }
     
-    for (UIView *frView in view) {
-        [__obstructionView addObject:frView];
-    }
+    [self addView:obstructionView];
     
 }
 
