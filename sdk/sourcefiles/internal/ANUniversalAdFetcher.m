@@ -48,6 +48,7 @@
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
+@property (nonatomic, readwrite, strong, nullable)  NSString                *customJavaScript;
 
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 
@@ -62,18 +63,19 @@
 
 #pragma mark Lifecycle.
 
-- (nonnull instancetype)initWithDelegate:(nonnull id)delegate
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andCustomJavaScript:(NSString *)javaScript
 {
     self = [self init];
     if (!self)  { return nil; }
 
     //
     self.delegate = delegate;
+    self.customJavaScript = javaScript;
 
     return  self;
 }
 
-- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager andCustomJavaScript:(nonnull NSString *)javaScript
 {
     self = [self init];
     if (!self)  { return nil; }
@@ -81,16 +83,18 @@
     //
     self.delegate = delegate;
     self.adunitMARManager = adunitMARManager;
+    self.customJavaScript = javaScript;
 
     return  self;
 }
-- (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
+- (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager andCustomJavaScript:(nullable NSString *)javaScript
 {
     self = [self init];
     if (!self)  { return nil; }
 
     //
     self.fetcherMARManager = marManager;
+    self.customJavaScript = javaScript;
 
     return  self;
 }
@@ -372,7 +376,8 @@ ANLogMark();
         CGSize  sizeOfWebView  = [self getWebViewSizeForCreativeWidth:videoAd.width andHeight:videoAd.height];
 
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebView
-                                                        videoXML: videoAd.content ];
+                                                        videoXML: videoAd.content
+                                                customJavaScript: self.customJavaScript];
 
         self.adView.loadingDelegate = self;
         // Allow ANJAM events to always be passed to the ANAdView
@@ -410,7 +415,8 @@ ANLogMark();
     
     self.adView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                         HTML:standardAd.content
-                                              webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+                                              webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]
+                                            customJavaScript:self.customJavaScript];
     self.adView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView
     self.adView.webViewController.adViewANJAMDelegate = self.delegate;

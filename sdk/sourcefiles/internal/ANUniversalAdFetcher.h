@@ -35,9 +35,9 @@
 
 @interface ANUniversalAdFetcher : ANAdFetcherBase
 
-- (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
-- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;
-- (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andCustomJavaScript:(nonnull NSString *)javaScript;
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager andCustomJavaScript:(nonnull NSString *)javaScript;
+- (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager andCustomJavaScript:(nullable NSString *)javaScript;
 
 - (void)stopAdLoad;
 - (void)startAutoRefreshTimer;

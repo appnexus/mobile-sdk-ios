@@ -96,11 +96,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 - (instancetype)initWithSize:(CGSize)size
                          URL:(NSURL *)URL
               webViewBaseURL:(NSURL *)baseURL
+            customJavaScript:(NSString *)javaScript
 {
     self = [self initWithSize:size
                           URL:URL
                webViewBaseURL:baseURL
-                configuration:nil];
+                configuration:nil
+            customJavaScript:javaScript];
     return self;
     
 }
@@ -109,6 +111,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
                          URL:(NSURL *)URL
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration
+            customJavaScript:(NSString *)javaScript
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
@@ -116,7 +119,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     _webView = [[ANWebView alloc]initWithSize:(CGSize)size
                                    URL:(NSURL *)URL
                                baseURL:(NSURL *)baseURL];
-    [self loadWebViewWithUserScripts];
+    [self loadWebViewWithUserScripts:javaScript];
     
     return self;
 }
@@ -124,11 +127,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
+            customJavaScript:(NSString *)javaScript
 {
     self = [self initWithSize:size
                          HTML:html
                webViewBaseURL:baseURL
-                configuration:nil];
+                configuration:nil
+            customJavaScript:javaScript];
     return self;
 }
 
@@ -136,6 +141,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration
+            customJavaScript:(NSString *)javaScript
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
@@ -157,12 +163,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     }
     _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
     //[self createWebView:size HTML:htmlToLoad baseURL:base];
-    [self loadWebViewWithUserScripts];
+    [self loadWebViewWithUserScripts:javaScript];
     return self;
 }
 
 - (instancetype) initWithSize: (CGSize)size
-                     videoXML: (NSString *)videoXML;
+                     videoXML: (NSString *)videoXML
+             customJavaScript:(NSString *)javaScript
 {
     self = [self initWithConfiguration:nil];
     if (!self)  { return nil; }
@@ -177,7 +184,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
     
-    [self loadWebViewWithUserScripts];
+    [self loadWebViewWithUserScripts:javaScript];
     
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:self.webView];
@@ -261,7 +268,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 #pragma mark - configure WKWebView
  
--(void) loadWebViewWithUserScripts {
+-(void) loadWebViewWithUserScripts:(NSString *)javaScript {
     
     WKUserContentController  *controller  = self.webView.configuration.userContentController;
     
@@ -272,6 +279,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
                                                        injectionTime: WKUserScriptInjectionTimeAtDocumentStart
                                                     forMainFrameOnly: YES];
+    
+    if (javaScript != NULL) {
+        WKUserScript *customScript = [[WKUserScript alloc] initWithSource: javaScript
+           injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+        forMainFrameOnly: YES];
+        [controller addUserScript:customScript];
+    }
     
     [controller addUserScript:anjamScript];
     [controller addUserScript:mraidScript];

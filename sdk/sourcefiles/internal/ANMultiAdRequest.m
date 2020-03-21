@@ -280,7 +280,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 
     _adUnits             = [NSPointerArray weakObjectsPointerArray];
 
-    _universalAdFetcher  = [[ANUniversalAdFetcher alloc] initWithMultiAdRequestManager: self];
+    _universalAdFetcher  = [[ANUniversalAdFetcher alloc] initWithMultiAdRequestManager: self andCustomJavaScript:self.customJavaScript];
 
     //
     __memberId          = memberId;

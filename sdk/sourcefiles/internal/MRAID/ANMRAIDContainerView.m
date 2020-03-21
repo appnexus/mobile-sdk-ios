@@ -59,6 +59,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, strong) NSURL *baseURL;
+@property (nonatomic, readwrite, strong) NSString *customJavaScript;
 
 @property (nonatomic, readwrite, strong) ANAdWebViewController          *webViewController;
 @property (nonatomic, readwrite, strong) ANBrowserViewController        *browserViewController;
@@ -135,15 +136,18 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
+            customJavaScript:(NSString *)javaScript
 {
     self = [self initWithSize:size];
 
     if (self) {
         _baseURL = baseURL;
-
+        _customJavaScript = javaScript;
+        
         self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: html
-                                                              webViewBaseURL: baseURL];
+                                                              webViewBaseURL: baseURL
+                                                            customJavaScript:javaScript];
 
         self.webViewController.anjamDelegate    = self;
         self.webViewController.browserDelegate  = self;
@@ -156,13 +160,15 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 - (instancetype)initWithSize: (CGSize)size
                     videoXML: (NSString *)videoXML
+            customJavaScript:(NSString *)javaScript
 {
     self = [self initWithSize:size];
 
     if (!self)  { return nil; }
-
+    
     self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
-                                                                videoXML: videoXML ];
+                                                                videoXML: videoXML
+                                                        customJavaScript:javaScript];
 
     self.webViewController.anjamDelegate    = self;
     self.webViewController.browserDelegate  = self;
@@ -629,7 +635,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         self.expandWebViewController = [[ANAdWebViewController alloc] initWithSize: [ANMRAIDUtil screenSize]
                                                                                URL: expandProperties.URL
                                                                     webViewBaseURL: self.baseURL
-                                                                     configuration: customConfig];
+                                                                     configuration: customConfig
+                                                                  customJavaScript:self.customJavaScript];
         self.expandWebViewController.mraidDelegate = self;
         self.expandWebViewController.browserDelegate = self;
         self.expandWebViewController.anjamDelegate = self;

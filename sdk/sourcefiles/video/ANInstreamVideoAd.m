@@ -83,7 +83,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
     self.landingPageLoadsInBackground = YES;
     
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self andCustomJavaScript:nil];
     
     [self setupSizeParametersAs1x1];
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
