@@ -337,14 +337,12 @@
 -(void)addView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
         [__obstructionViews addObject:view];
-    }
-    
-    for (UIView *obstructionView in view.subviews){
-        if([obstructionView isKindOfClass:[UIView class]]){
-            [self addView:obstructionView];
+        for (UIView *obstructionView in view.subviews){
+            if([obstructionView isKindOfClass:[UIView class]]){
+                [self addView:obstructionView];
+            }
         }
     }
-    
 }
 
 
