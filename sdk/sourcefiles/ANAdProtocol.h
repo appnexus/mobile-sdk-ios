@@ -257,7 +257,9 @@
  */
 - (void)removeAllFriendlyObstructions;
 
-
+/**
+ List of views added as Friendly Obstructions
+ */
 @property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 
 

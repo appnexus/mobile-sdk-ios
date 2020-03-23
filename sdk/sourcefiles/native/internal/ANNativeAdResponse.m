@@ -53,7 +53,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 @property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 @property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
-@property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionView;
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 
 @end
 
@@ -162,7 +162,7 @@ NSString * const  kANNativeElementObject                                   = @"E
     NSString *params = self.verificationScriptResource.params;
     [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
     self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
-    for (UIView *obstruction in self.obstructionView){
+    for (UIView *obstruction in self.obstructionViews){
         [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:self.omidAdSession];
     }
 }
@@ -293,18 +293,18 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 - (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
-    if([self.obstructionView containsObject:obstructionView]){
+    if([self.obstructionViews containsObject:obstructionView]){
         [self removeView:obstructionView];
     }
 }
 - (void)removeAllFriendlyObstructions{
-    [self.obstructionView removeAllObjects];
-    self.obstructionView = nil;
+    [self.obstructionViews removeAllObjects];
+    self.obstructionViews = nil;
 }
 
 
 -(void)removeView:(UIView *)view{
-    [self.obstructionView removeObject:view];
+    [self.obstructionViews removeObject:view];
     
     for (UIView *obsView in view.subviews){
         if([obsView isKindOfClass:[UIView class]]){
@@ -318,7 +318,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 -(void)addView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
-        [self.obstructionView addObject:view];
+        [self.obstructionViews addObject:view];
     }
     
     for (UIView *obsView in view.subviews){
@@ -332,8 +332,8 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 - (void)addFriendlyObstruction:(nullable UIView *)obstructionView{
-    if(self.obstructionView == nil){
-        self.obstructionView = [[NSMutableArray alloc] init];
+    if(self.obstructionViews == nil){
+        self.obstructionViews = [[NSMutableArray alloc] init];
     }
     [self addView:obstructionView];
     
