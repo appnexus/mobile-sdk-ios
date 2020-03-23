@@ -162,7 +162,9 @@ NSString * const  kANNativeElementObject                                   = @"E
     NSString *params = self.verificationScriptResource.params;
     [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
     self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
-    [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:self.omidAdSession];
+    for (UIView *obstruction in self.obstructionView){
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:self.omidAdSession];
+    }
 }
 
 
@@ -302,7 +304,6 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 -(void)removeView:(UIView *)view{
-    NSLog(@"Ab - %@",view);
     [self.obstructionView removeObject:view];
     
     for (UIView *obsView in view.subviews){
@@ -317,7 +318,6 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 -(void)addView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
-        NSLog(@"Ab - %@",view);
         [self.obstructionView addObject:view];
     }
     

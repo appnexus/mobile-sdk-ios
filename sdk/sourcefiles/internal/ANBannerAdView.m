@@ -323,8 +323,10 @@ static NSString *const kANInline        = @"inline";
 {
     if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
-        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:adView.webViewController.omidAdSession];
-    }
+        for (UIView *obstruction in self.obstructionView){
+               [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:adView.webViewController.omidAdSession];
+           }
+        }
 }
 
 - (void)layoutSubviews

@@ -322,7 +322,6 @@
 
 
 -(void)removeView:(UIView *)view{
-    NSLog(@"Ab - %@",view);
     [__obstructionView removeObject:view];
     
     for (UIView *obsView in view.subviews){
@@ -337,7 +336,6 @@
 
 -(void)addView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
-        NSLog(@"Ab - %@",view);
         [__obstructionView addObject:view];
     }
     

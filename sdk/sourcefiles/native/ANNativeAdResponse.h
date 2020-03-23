@@ -183,9 +183,20 @@ extern NSString * __nonnull const  kANNativeElementObject;
                  clickableViews:(nullable NSArray *)views
                           error:(NSError *__nullable*__nullable)error;
 
-
+/*!
+ UI elements which would consider to be part of the ad can be added as friendly obstruction
+ (all sub-views of the adView will be automatically treated as part of the ad)
+ */
 - (void)addFriendlyObstruction:(nullable UIView *)obstructionView;
+
+/*!
+ Remove friendly Obstruction from the list of FriendlyObstruction
+ */
 - (void)removeFriendlyObstruction:(nullable UIView*)obstructionView;
+
+/*!
+ Remove all friendly Obstruction
+ */
 - (void)removeAllFriendlyObstructions;
 
 @end

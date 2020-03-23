@@ -395,13 +395,12 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return  self.clickThroughAction;
 }
 
-
 - (void)setFriendlyObstruction
 {
-        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:self.obstructionView.firstObject toOMIDAdSession:self.adPlayer.omidAdSession];
+    for (UIView *obstruction in self.obstructionView){
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:self.adPlayer.omidAdSession];
+    }
 }
-
-
 
 //---------------------------------------------------------- -o--
 #pragma mark - ANUniversalAdFetcherDelegate.
