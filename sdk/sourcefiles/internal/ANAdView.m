@@ -310,23 +310,23 @@
     }
 }
 
-- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
+- (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
     if([__obstructionViews containsObject:obstructionView]){
-        [self removeView:obstructionView];
+        [self removeFriendlyObstructionView:obstructionView];
     }
 }
-- (void)removeAllFriendlyObstructions{
+- (void)removeAllOpenMeasurementFriendlyObstructions{
     [__obstructionViews removeAllObjects];
     __obstructionViews = nil;
 }
 
 
--(void)removeView:(UIView *)view{
+-(void)removeFriendlyObstructionView:(UIView *)view{
     [__obstructionViews removeObject:view];
     
     for (UIView *obstructionView in view.subviews){
         if([obstructionView isKindOfClass:[UIView class]]){
-            [self removeView:obstructionView];
+            [self removeFriendlyObstructionView:obstructionView];
         }
     }
     
@@ -334,12 +334,12 @@
 
 
 
--(void)addView:(UIView *)view{
+-(void)addFriendlyObstructionView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
         [__obstructionViews addObject:view];
         for (UIView *obstructionView in view.subviews){
             if([obstructionView isKindOfClass:[UIView class]]){
-                [self addView:obstructionView];
+                [self addFriendlyObstructionView:obstructionView];
             }
         }
     }
@@ -347,12 +347,12 @@
 
 
 
-- (void)addFriendlyObstruction:(nullable UIView *)obstructionView{
+- (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView{
     if(__obstructionViews == nil){
         __obstructionViews = [[NSMutableArray alloc] init];
     }
     
-    [self addView:obstructionView];
+    [self addFriendlyObstructionView:obstructionView];
     
 }
 

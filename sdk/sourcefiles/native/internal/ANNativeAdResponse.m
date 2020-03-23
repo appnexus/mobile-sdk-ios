@@ -292,23 +292,23 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 
-- (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
+- (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
     if([self.obstructionViews containsObject:obstructionView]){
-        [self removeView:obstructionView];
+        [self removeFriendlyObstructionView:obstructionView];
     }
 }
-- (void)removeAllFriendlyObstructions{
+- (void)removeAllOpenMeasurementFriendlyObstructions{
     [self.obstructionViews removeAllObjects];
     self.obstructionViews = nil;
 }
 
 
--(void)removeView:(UIView *)view{
+-(void)removeFriendlyObstructionView:(UIView *)view{
     [self.obstructionViews removeObject:view];
     
     for (UIView *obsView in view.subviews){
         if([obsView isKindOfClass:[UIView class]]){
-            [self removeView:obsView];
+            [self removeFriendlyObstructionView:obsView];
         }
     }
     
@@ -316,14 +316,14 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 
--(void)addView:(UIView *)view{
+-(void)addFriendlyObstructionView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
         [self.obstructionViews addObject:view];
     }
     
     for (UIView *obsView in view.subviews){
         if([obsView isKindOfClass:[UIView class]]){
-            [self addView:obsView];
+            [self addFriendlyObstructionView:obsView];
         }
     }
     
@@ -331,11 +331,11 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 
-- (void)addFriendlyObstruction:(nullable UIView *)obstructionView{
+- (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView{
     if(self.obstructionViews == nil){
         self.obstructionViews = [[NSMutableArray alloc] init];
     }
-    [self addView:obstructionView];
+    [self addFriendlyObstructionView:obstructionView];
     
 }
 
