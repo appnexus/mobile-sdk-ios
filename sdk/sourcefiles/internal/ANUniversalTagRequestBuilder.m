@@ -353,25 +353,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         }
     }
 
-    
-    // Video
-//     if([[self.adFetcherDelegate adAllowedMediaTypes] containsObject:@(4)]){
-//     tagDict[@"force_creative_id"] = @(162035356);
-//      }
-//      // Banner
-//      else if([[self.adFetcherDelegate adAllowedMediaTypes] containsObject:@(1)]){
-//       tagDict[@"force_creative_id"] = @(166843311);
-//      }
-//      // Intertital
-//      else if([[self.adFetcherDelegate adAllowedMediaTypes] containsObject:@(3)]){
-//       tagDict[@"force_creative_id"] = @(166843825);
-//      }
-//      // Native
-//      else if([[self.adFetcherDelegate adAllowedMediaTypes] containsObject:@(12)]){
-//       tagDict[@"force_creative_id"] = @(196441069);
-//      }
-    
-    
     tagDict[@"sizes"] = sizesArray;
     
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
