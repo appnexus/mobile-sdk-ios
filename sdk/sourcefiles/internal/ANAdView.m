@@ -82,7 +82,7 @@
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
 @synthesize  adResponseInfo                     = __adResponseInfo;
-@synthesize  obstructionView                    = __obstructionView;
+@synthesize  obstructionViews                    = __obstructionViews;
 
 #pragma mark - Initialization
 
@@ -311,22 +311,22 @@
 }
 
 - (void)removeFriendlyObstruction:(nullable UIView*)obstructionView{
-    if([__obstructionView containsObject:obstructionView]){
+    if([__obstructionViews containsObject:obstructionView]){
         [self removeView:obstructionView];
     }
 }
 - (void)removeAllFriendlyObstructions{
-    [__obstructionView removeAllObjects];
-    __obstructionView = nil;
+    [__obstructionViews removeAllObjects];
+    __obstructionViews = nil;
 }
 
 
 -(void)removeView:(UIView *)view{
-    [__obstructionView removeObject:view];
+    [__obstructionViews removeObject:view];
     
-    for (UIView *obsView in view.subviews){
-        if([obsView isKindOfClass:[UIView class]]){
-            [self removeView:obsView];
+    for (UIView *obstructionView in view.subviews){
+        if([obstructionView isKindOfClass:[UIView class]]){
+            [self removeView:obstructionView];
         }
     }
     
@@ -336,12 +336,12 @@
 
 -(void)addView:(UIView *)view{
     if(view.alpha == 0.0 && view.opaque){
-        [__obstructionView addObject:view];
+        [__obstructionViews addObject:view];
     }
     
-    for (UIView *obsView in view.subviews){
-        if([obsView isKindOfClass:[UIView class]]){
-            [self addView:obsView];
+    for (UIView *obstructionView in view.subviews){
+        if([obstructionView isKindOfClass:[UIView class]]){
+            [self addView:obstructionView];
         }
     }
     
@@ -350,8 +350,8 @@
 
 
 - (void)addFriendlyObstruction:(nullable UIView *)obstructionView{
-    if(__obstructionView == nil){
-        __obstructionView = [[NSMutableArray alloc] init];
+    if(__obstructionViews == nil){
+        __obstructionViews = [[NSMutableArray alloc] init];
     }
     
     [self addView:obstructionView];

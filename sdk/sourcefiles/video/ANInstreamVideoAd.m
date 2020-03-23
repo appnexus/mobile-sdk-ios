@@ -397,8 +397,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 - (void)setFriendlyObstruction
 {
-    for (UIView *obstruction in self.obstructionView){
-        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:self.adPlayer.omidAdSession];
+    for (UIView *obstructionView in self.obstructionViews){
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:self.adPlayer.omidAdSession];
     }
 }
 

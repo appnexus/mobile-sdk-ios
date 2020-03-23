@@ -311,8 +311,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void)setFriendlyObstruction:(ANMRAIDContainerView *)adView
 {
-    for (UIView *obstruction in self.obstructionView){
-        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:adView.webViewController.omidAdSession];
+    for (UIView *obstructionView in self.obstructionViews){
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
     }
 }
 
