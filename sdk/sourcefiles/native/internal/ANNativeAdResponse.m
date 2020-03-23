@@ -291,10 +291,12 @@ NSString * const  kANNativeElementObject                                   = @"E
 }
 
 
-
 - (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
-    if([self.obstructionViews containsObject:obstructionView]){
+    if(obstructionView != nil && [self.obstructionViews containsObject:obstructionView] ){
         [self removeFriendlyObstructionView:obstructionView];
+        if(self.obstructionViews.count == 0 ){
+            self.obstructionViews = nil;
+        }
     }
 }
 - (void)removeAllOpenMeasurementFriendlyObstructions{

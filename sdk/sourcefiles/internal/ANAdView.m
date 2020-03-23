@@ -311,8 +311,11 @@
 }
 
 - (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
-    if([__obstructionViews containsObject:obstructionView]){
+    if(obstructionView != nil && [__obstructionViews containsObject:obstructionView] ){
         [self removeFriendlyObstructionView:obstructionView];
+        if(__obstructionViews.count == 0 ){
+            __obstructionViews = nil;
+        }
     }
 }
 - (void)removeAllOpenMeasurementFriendlyObstructions{
@@ -335,7 +338,7 @@
 
 
 -(void)addFriendlyObstructionView:(UIView *)view{
-    if(view.alpha == 0.0 && view.opaque){
+    if(view != nil && view.alpha == 0.0 && view.opaque){
         [__obstructionViews addObject:view];
         for (UIView *obstructionView in view.subviews){
             if([obstructionView isKindOfClass:[UIView class]]){
