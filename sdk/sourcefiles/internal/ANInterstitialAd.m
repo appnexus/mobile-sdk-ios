@@ -213,7 +213,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
         mraidContainerView.adViewDelegate = nil;
-        [self setFriendlyObstruction:mraidContainerView];
+        [self setFriendlyObstruction];
     }
     
     
@@ -309,13 +309,50 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     [self displayAdFromViewController:controller autoDismissDelay:-1];
 }
 
-- (void)setFriendlyObstruction:(ANMRAIDContainerView *)adView
+- (void)setFriendlyObstruction
 {
-    for (UIView *obstructionView in self.obstructionViews){
-        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+    if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
+        for (UIView *obstructionView in self.obstructionViews){
+            [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:mraidContainerView.webViewController.omidAdSession];
+        }
     }
 }
 
+
+- (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
+    if( [self.obstructionViews containsObject:obstructionView]){
+        [super removeOpenMeasurementFriendlyObstruction:obstructionView];
+        if([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]] && obstructionView != nil){
+            ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
+            [self removeFriendlyObstruction:obstructionView andOmidSession:adView.webViewController.omidAdSession];
+            
+        }
+    }
+}
+
+-(void)removeFriendlyObstruction:(UIView *)view andOmidSession:(OMIDAppnexusAdSession *)omidAdSession{
+    if(omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:omidAdSession];
+        for (UIView *obstructionView in view.subviews){
+            if([obstructionView isKindOfClass:[UIView class]]){
+                [self removeFriendlyObstruction:obstructionView andOmidSession:omidAdSession];
+            }
+        }
+    }
+}
+
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+    if(self.obstructionViews.count != 0){
+        [super removeAllOpenMeasurementFriendlyObstructions];
+        if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+            ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
+            if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+                [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
+            }
+        }
+    }
+}
 
 #pragma mark - ANUniversalAdFetcherDelegate
 

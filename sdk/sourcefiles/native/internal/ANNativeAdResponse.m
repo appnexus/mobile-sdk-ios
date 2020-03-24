@@ -292,36 +292,41 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 - (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
-    if(obstructionView != nil && [self.obstructionViews containsObject:obstructionView] ){
+    if([self.obstructionViews containsObject:obstructionView] && self.omidAdSession != nil){
         [self removeFriendlyObstructionView:obstructionView];
         if(self.obstructionViews.count == 0 ){
             self.obstructionViews = nil;
         }
     }
 }
+
 - (void)removeAllOpenMeasurementFriendlyObstructions{
-    [self.obstructionViews removeAllObjects];
-    self.obstructionViews = nil;
+    if(self.obstructionViews.count != 0 && self.omidAdSession != nil){
+        [self.obstructionViews removeAllObjects];
+        self.obstructionViews = nil;
+        [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:self.omidAdSession];
+    }
 }
 
 
 -(void)removeFriendlyObstructionView:(UIView *)view{
     [self.obstructionViews removeObject:view];
-    
-    for (UIView *obsView in view.subviews){
-        if([obsView isKindOfClass:[UIView class]]){
-            [self removeFriendlyObstructionView:obsView];
+    if(self.omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:self.omidAdSession];
+        for (UIView *obstructionView in view.subviews){
+            if([obstructionView isKindOfClass:[UIView class]] && self.omidAdSession != nil){
+                [self removeFriendlyObstructionView:obstructionView];
+            }
         }
     }
-    
 }
 
 
 
 -(void)addFriendlyObstructionView:(UIView *)view{
-    if(view.alpha == 0.0 && view.opaque){
+//    if(view.alpha == 0.0 && view.opaque){
         [self.obstructionViews addObject:view];
-    }
+//    }
     
     for (UIView *obsView in view.subviews){
         if([obsView isKindOfClass:[UIView class]]){

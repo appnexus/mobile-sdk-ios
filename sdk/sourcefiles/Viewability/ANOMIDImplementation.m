@@ -169,6 +169,25 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
+- (void)removeFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession{
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
+    
+    if(omidAdSession != nil){
+        [omidAdSession removeFriendlyObstruction:view];
+    }
+}
+
+
+- (void)removeAllFriendlyObstructions:(OMIDAppnexusAdSession*) omidAdSession{
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
+    
+    if(omidAdSession != nil){
+        [omidAdSession removeAllFriendlyObstructions];
+    }
+}
+
 
 
 - (void) fetchOMIDJS

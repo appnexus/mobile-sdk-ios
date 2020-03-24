@@ -324,9 +324,43 @@ static NSString *const kANInline        = @"inline";
     if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
         for (UIView *obstructionView in self.obstructionViews){
-               [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
-           }
+            [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
         }
+    }
+}
+
+- (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
+    if( [self.obstructionViews containsObject:obstructionView]){
+        [super removeOpenMeasurementFriendlyObstruction:obstructionView];
+        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]] && obstructionView != nil){
+            ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+            [self removeFriendlyObstruction:obstructionView andOmidSession:adView.webViewController.omidAdSession];
+            
+        }
+    }
+}
+
+-(void)removeFriendlyObstruction:(UIView *)view andOmidSession:(OMIDAppnexusAdSession *)omidAdSession{
+    if(omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:omidAdSession];
+        for (UIView *obstructionView in view.subviews){
+            if([obstructionView isKindOfClass:[UIView class]]){
+                [self removeFriendlyObstruction:obstructionView andOmidSession:omidAdSession];
+            }
+        }
+    }
+}
+
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+    if(self.obstructionViews.count != 0){
+        [super removeAllOpenMeasurementFriendlyObstructions];
+        if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+            ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+            if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+                [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
+            }
+        }
+    }
 }
 
 - (void)layoutSubviews
