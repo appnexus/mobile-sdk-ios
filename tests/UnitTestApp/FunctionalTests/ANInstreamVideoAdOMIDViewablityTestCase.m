@@ -1,4 +1,4 @@
-/*   Copyright 2019 APPNEXUS INC
+/*   Copyright 2020 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
 
 static NSString   *placementID      = @"12534678";
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
-@interface ANInstreamVideoAdOMIDTestCase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
+@interface ANInstreamVideoAdOMIDViewablityTestCase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
 
@@ -50,7 +50,7 @@ static NSString   *placementID      = @"12534678";
 
 @end
 
-@implementation ANInstreamVideoAdOMIDTestCase
+@implementation ANInstreamVideoAdOMIDViewablityTestCase
 
 - (void)setUp {
     [super setUp];
@@ -265,14 +265,7 @@ static NSString   *placementID      = @"12534678";
         [self.OMID100PercentViewableExpectation fulfill];
         
     }
-    
-    
-//    if ([response containsString:@"percentageInView"] && [response containsString:@"0"] && !self.removeFriendlyObstruction && !self.percentViewableFulfilled) {
-//        self.removeFriendlyObstruction = YES;
-//        [self.OMID0PercentViewableExpectation fulfill];
-//    }
-    
-    
+
     if ([response containsString:@"percentageInView"] && [response containsString:@"0"] && self.removeFriendlyObstruction) {
         self.removeFriendlyObstruction = NO;
         [self.OMID0PercentViewableExpectation fulfill];
@@ -301,7 +294,6 @@ static NSString   *placementID      = @"12534678";
         
     }];
     
-//    self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = YES;
     [self.banner removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     

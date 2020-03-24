@@ -24,7 +24,7 @@
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
 #define kAppNexusRequestTimeoutInterval 10.0
 
-@interface ANBannerAdOMIDTestCase : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
+@interface ANBannerAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
 
 
@@ -40,7 +40,7 @@
 
 @end
 
-@implementation ANBannerAdOMIDTestCase
+@implementation ANBannerAdOMIDViewablityTestCase
 
 - (void)setUp {
     [super setUp];
