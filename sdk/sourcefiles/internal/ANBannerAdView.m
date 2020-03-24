@@ -249,6 +249,8 @@ ANLogMark();
     self.contentView = self.unloadedContentView;
             //FIX -- how will it be assigned to contentView?  does it need to be ?  assign it now?
 
+    [self fireTrackerAndOMID];
+
     [self activateWebview];
 }
 
@@ -349,6 +351,29 @@ ANLogMark();
     return __autoRefreshInterval;
 }
 
+
+
+
+#pragma mark - Helper methods.
+
+- (void)fireTrackerAndOMID
+{
+    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+    self.impressionURLs = nil;
+
+    // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+    //
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+    {
+        ANMRAIDContainerView  *standardAdView  = (ANMRAIDContainerView *)self.contentView;
+
+        if (standardAdView.webViewController.omidAdSession != nil)
+        {
+            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+        }
+    }
+
+}
 
 
 
@@ -499,7 +524,7 @@ ANLogMark();
 
             [self adDidReceiveAd:self];
 
-            if ([response didNotLoadCreative])
+            if (! [response didNotLoadCreative])
                     //FIX -- lazy loading requires firing imression trcker and OMID when the creatie is loaded.
                     //      -- encasulate this section (share dby other uadunits?)
             {
@@ -507,19 +532,8 @@ ANLogMark();
                 {
                     self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
 
-                    if (self.window)
-                    {
-                        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-                        self.impressionURLs = nil;
-
-                        // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
-                        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
-                        {
-                            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-                            if(standardAdView.webViewController.omidAdSession != nil){
-                                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
-                            }
-                        }
+                    if (self.window) {
+                        [self fireTrackerAndOMID];
                     }
                 }
             }
@@ -656,18 +670,10 @@ ANLogMark();
 
 - (void)didMoveToWindow
 {
-    if (self.contentView  && ( _adResponseInfo.adType == ANAdTypeBanner)) {
-        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-        self.impressionURLs = nil;
-        
-        // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
-        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
-        {
-            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-            if(standardAdView.webViewController.omidAdSession != nil){
-                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
-            }
-        }
+    if (self.contentView && ( _adResponseInfo.adType == ANAdTypeBanner))
+                //FIX -- need check for whether creative is loaded...  aready builyinto unloadedContentView?
+    {
+        [self fireTrackerAndOMID];
     }
 }
 

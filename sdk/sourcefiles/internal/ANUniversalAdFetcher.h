@@ -36,7 +36,7 @@
 
 @interface ANUniversalAdFetcher : ANAdFetcherBase
 
-@property (nonatomic, readonly, strong)  ANMRAIDContainerView  *adView;
+@property (nonatomic, readonly, strong, nullable)  ANMRAIDContainerView  *adView;
 
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;

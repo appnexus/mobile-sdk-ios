@@ -108,7 +108,7 @@
     NSLog(@"Ad did receive ad");
 
     if (self.banner.enableLazyWebviewActivation) {
-//        [NSThread sleepForTimeInterval:5.0];
+        [NSThread sleepForTimeInterval:5.0];
         [self.banner loadWebview];
     }
         //FIX -- need to check wiether it is succesfful, unloaded or error.
