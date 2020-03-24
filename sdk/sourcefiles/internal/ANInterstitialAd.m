@@ -323,7 +323,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
     if( [self.obstructionViews containsObject:obstructionView]){
         [super removeOpenMeasurementFriendlyObstruction:obstructionView];
-        if([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]] && obstructionView != nil){
+        if([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]){
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
             [self removeFriendlyObstruction:obstructionView andOmidSession:adView.webViewController.omidAdSession];
             

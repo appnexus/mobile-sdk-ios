@@ -332,7 +332,7 @@ static NSString *const kANInline        = @"inline";
 - (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
     if( [self.obstructionViews containsObject:obstructionView]){
         [super removeOpenMeasurementFriendlyObstruction:obstructionView];
-        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]] && obstructionView != nil){
+        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]]){
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
             [self removeFriendlyObstruction:obstructionView andOmidSession:adView.webViewController.omidAdSession];
             
@@ -450,6 +450,10 @@ static NSString *const kANInline        = @"inline";
                                                 clickableViews: @[]
                                                          error: &registerError];
             }
+            if(_adResponseInfo.adType == ANAdTypeBanner || _adResponseInfo.adType == ANAdTypeVideo){
+                [self setFriendlyObstruction];
+            }
+            
             [self adDidReceiveAd:self];
 
             if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
@@ -465,7 +469,6 @@ static NSString *const kANInline        = @"inline";
                     {
                         ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
                         if(standardAdView.webViewController.omidAdSession != nil){
-                            [self setFriendlyObstruction];
                             [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
                         }
                     }
