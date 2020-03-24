@@ -324,7 +324,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 -(void)addFriendlyObstructionView:(UIView *)view{
-    if(view.alpha == 0.0 && view.opaque){
+    if(view.alpha == 0.0){
         [self.obstructionViews addObject:view];
     }
     

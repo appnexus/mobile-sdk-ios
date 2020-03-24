@@ -338,7 +338,7 @@
 
 
 -(void)addFriendlyObstructionView:(UIView *)view{
-    if(view != nil && view.alpha == 0.0 && view.opaque){
+    if(view != nil && view.alpha == 0.0){
         [__obstructionViews addObject:view];
         for (UIView *obstructionView in view.subviews){
             if([obstructionView isKindOfClass:[UIView class]]){
