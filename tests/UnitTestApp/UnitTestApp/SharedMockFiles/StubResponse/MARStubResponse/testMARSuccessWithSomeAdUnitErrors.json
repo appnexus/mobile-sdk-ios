@@ -6,7 +6,7 @@
             "tag_id": 17982237,
             "auction_id": "978440285881197067",
             "nobid": false,
-            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKLA6CLAQAAAwDWAAUBCNW-0vAFEIvEhc-YyIfKDRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfD9MJ3GyQg47k5A7k5IAFAAWABgAGgAeACAAQGKAQCSAQNVU0SYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAS6qAGyBAwIABABGAAgADAAOAK4BADABADIBADaBAIIAOAEAfAEAIIFF2NvbS54YW5kci5TaW1wbGVNdWx0aUFkiAUBmAUAoAUAwAUAyQUAAAAAAADwP9IFCQkAAAAAAAAAANgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBgAlBhjwv9oGFgoQBQwdAVAQABgA4AYA8gYCCACABwGIBwCgBwA.&s=09d6fa4febaa5efea2aaff2026ee83158dee7496",
+            "no_ad_url": "https://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKLA6CLAQAAAwDWAAUBCNW-0vAFEIvEhc-YyIfKDRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfD9MJ3GyQg47k5A7k5IAFAAWABgAGgAeACAAQGKAQCSAQNVU0SYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAS6qAGyBAwIABABGAAgADAAOAK4BADABADIBADaBAIIAOAEAfAEAIIFF2NvbS54YW5kci5TaW1wbGVNdWx0aUFkiAUBmAUAoAUAwAUAyQUAAAAAAADwP9IFCQkAAAAAAAAAANgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBgAlBhjwv9oGFgoQBQwdAVAQABgA4AYA8gYCCACABwGIBwCgBwA.&s=09d6fa4febaa5efea2aaff2026ee83158dee7496",
             "timeout_ms": 0,
             "ad_profile_id": 0,
             "rtb_video_fallback": false,
@@ -19,11 +19,11 @@
                     "media_type_id": 12,
                     "media_subtype_id": 65,
                     "brand_category_id": 0,
-                    "renderer_url": "http://dcdn.adnxs.com/renderer-content/eb42327a-cb21-45bb-8410-7ec80ee8becd",
+                    "renderer_url": "https://dcdn.adnxs.com/renderer-content/eb42327a-cb21-45bb-8410-7ec80ee8becd",
                     "renderer_id": 502,
                     "client_initiated_ad_counting": true,
                     "viewability": {
-                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=17982237;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKPA6CPAQAAAwDWAAUBCNW-0vAFEIvEhc-YyIfKDRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFDt59VdWABgAGgAeACAAQGKAQCSAQNVU0SYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCAHgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAAAAAA8D_SBQkJAA3naNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBg0iFADaBhYKEBENEQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA%26s%3D2af05debc366a69209f3a92152a343fa690d76c9;ts=1578409813;cet=0;cecb=\"></script>"
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"https://cdn.adnxs.com/v/app/182/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=17982237;cb=https%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKPA6CPAQAAAwDWAAUBCNW-0vAFEIvEhc-YyIfKDRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFDt59VdWABgAGgAeACAAQGKAQCSAQNVU0SYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCAHgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAAAAAA8D_SBQkJAA3naNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBg0iFADaBhYKEBENEQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA%26s%3D2af05debc366a69209f3a92152a343fa690d76c9;ts=1578409813;cet=0;cecb=\"></script>"
                     },
                     "rtb": {
                         "native": {
@@ -32,13 +32,13 @@
                             "sponsored": "Soy española creativa",
                             "ctatext": "Pégame",
                             "icon": {
-                                "url": "http://crcdn01.adnxs.com/creative/p/10094/2019/12/5/15542819/f0053780-362d-4126-99e1-34761bee75e1.png",
+                                "url": "https://crcdn01.adnxs.com/creative/p/10094/2019/12/5/15542819/f0053780-362d-4126-99e1-34761bee75e1.png",
                                 "width": 764,
                                 "height": 860,
                                 "prevent_crop": false
                             },
                             "main_img": {
-                                "url": "http://crcdn01.adnxs.com/creative/p/10094/2019/12/5/15542818/c7503df2-147d-4752-8ba9-63e01e42d334.png",
+                                "url": "https://crcdn01.adnxs.com/creative/p/10094/2019/12/5/15542818/c7503df2-147d-4752-8ba9-63e01e42d334.png",
                                 "width": 700,
                                 "height": 986,
                                 "prevent_crop": false
@@ -46,11 +46,11 @@
                             "link": {
                                 "url": "https://appnexus.com",
                                 "click_trackers": [
-                                    "http://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAti4YlBHpQNHrEH3fs3LXhVnxReAAAAAB1jEgFuJwAAbicAAAAAAADtc7ULAAAAAAAAAAAAAAAAVVNEAAAAAAAAAAAAAAABAQMAAAAAAAEAlwwdSwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
+                                    "https://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAti4YlBHpQNHrEH3fs3LXhVnxReAAAAAB1jEgFuJwAAbicAAAAAAADtc7ULAAAAAAAAAAAAAAAAVVNEAAAAAAAAAAAAAAABAQMAAAAAAAEAlwwdSwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
                                 ]
                             },
                             "impression_trackers": [
-                                "http://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKPA6CPAQAAAwDWAAUBCNW-0vAFEIvEhc-YyIfKDRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFDt59VdWABgAGgAeACAAQGKAQCSAQNVU0SYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCAHgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAAAAAA8D_SBQkJAA3naNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBg0iFADaBhYKEBENEQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=2af05debc366a69209f3a92152a343fa690d76c9"
+                                "https://nym1-mobile.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKPA6CPAQAAAwDWAAUBCNW-0vAFEIvEhc-YyIfKDRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDeMJ3GyQg47k5A7k5IAFDt59VdWABgAGgAeACAAQGKAQCSAQNVU0SYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEuqgBsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCAHgBAHwBACCBRdjb20ueGFuZHIuU2ltcGxlTXVsdGlBZIgFAZgFAKAFAMAFAMkFAAAAAAAA8D_SBQkJAA3naNgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBg0iFADaBhYKEBENEQFQEAAYAOAGAPIGAggAgAcBiAcAoAcA&s=2af05debc366a69209f3a92152a343fa690d76c9"
                             ],
                             "id": 196441069
                         }
