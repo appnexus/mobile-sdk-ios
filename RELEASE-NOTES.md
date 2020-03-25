@@ -1,6 +1,6 @@
 ## 7.2
 ### Improvements/Bug Fixes
-+ MS-4200 : Updated IAB Europe Transparency & Consent Framework v2.0
++ MS-4200 : Support IAB Europe Transparency & Consent Framework v2.0
 + MS-4267 : All network calls will be made only using secure endpoint
 
 
