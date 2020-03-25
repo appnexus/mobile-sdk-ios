@@ -1443,7 +1443,7 @@
                     usingStubBody:[ANMRAIDTestResponses mainFrameAboutBannerWithSelectorName:NSStringFromSelector(_cmd)]];
     [self addBannerAsSubview];
     NSString *result = [self evaluateJavascript:@"document.documentURI"];
-    XCTAssertEqualObjects(result, @"http://mediation.adnxs.com/", @"Did not expect redirect to about:blank");
+    XCTAssertEqualObjects(result, @"https://mediation.adnxs.com/", @"Did not expect redirect to about:blank");
     [self clearTest];
 }
 

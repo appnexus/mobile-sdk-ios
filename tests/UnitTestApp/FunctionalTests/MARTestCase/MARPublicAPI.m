@@ -240,7 +240,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     
     ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
-    ANSDKSettings.sharedInstance.HTTPSEnabled = NO;
     self.loadAdResponseReceivedExpectation = nil;
     self.loadAdResponseFailedExpectation = nil;
     

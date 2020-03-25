@@ -265,7 +265,7 @@
                                                        encoding:NSUTF8StringEncoding
                                                           error:nil];
     ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-    requestStub.requestURL      = @"http://mediation.adnxs.com/ut/v3";
+    requestStub.requestURL      = @"https://mediation.adnxs.com/ut/v3";
     requestStub.responseCode    = 200;
     requestStub.responseBody    = baseResponse;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
