@@ -14,84 +14,25 @@
  */
 
 #import "ANSDKSettings.h"
-#import "ANSDKSettings+PrivateMethods.h"
 #import "ANGlobal.h"
 #import "ANLogManager.h"
 #import "ANCarrierObserver.h"
 #import "ANReachability.h"
+#import "ANBaseUrlConfig.h"
 
 
-@interface ANProdHTTPBaseUrlConfig : NSObject <ANBaseUrlConfig>
+@interface ANBaseUrlConfig : NSObject
     //EMPTY
 @end
 
 
-
-@implementation ANProdHTTPBaseUrlConfig
-
-+ (nonnull instancetype)sharedInstance {
-    static dispatch_once_t onceToken;
-    static ANProdHTTPBaseUrlConfig *config;
-    dispatch_once(&onceToken, ^{
-        config = [[ANProdHTTPBaseUrlConfig alloc] init];
-    });
-    return config;
-}
-
-- (NSString *)webViewBaseUrl {
-    return @"http://mediation.adnxs.com/";
-}
-
--(NSString *) utAdRequestBaseUrl {
-    return @"http://mediation.adnxs.com/ut/v3";
-}
-
-- (NSURL *) videoWebViewUrl
-{
-    return  [self urlForResourceWithBasename:@"vastVideo" andExtension:@"html"];
-}
-
-- (NSURL *) nativeRenderingUrl
-{
-    return  [self urlForResourceWithBasename:@"nativeRenderer" andExtension:@"html"];
-}
-
-#pragma mark - Helper methods.
-
-- (NSURL *) urlForResourceWithBasename:(NSString *)basename andExtension:(NSString *)extension
-{
-    if (ANLogManager.getANLogLevel > ANLogLevelDebug)
-    {
-        return [ANResourcesBundle() URLForResource:basename withExtension:extension];
-        
-    } else {
-        NSURL       *url                        = [ANResourcesBundle() URLForResource:basename withExtension:extension];
-        NSString    *URLString                  = [url absoluteString];
-        NSString    *debugQueryString           = @"?ast_debug=true";
-        NSString    *URLwithDebugQueryString    = [URLString stringByAppendingString: debugQueryString];
-        NSURL       *debugURL                   = [NSURL URLWithString:URLwithDebugQueryString];
-        
-        return debugURL;
-    }
-}
-
-@end
-
-
-
-
-@interface ANProdHTTPSBaseUrlConfig : NSObject <ANBaseUrlConfig>
-    //EMPTY
-@end
-
-
-@implementation ANProdHTTPSBaseUrlConfig
+@implementation ANBaseUrlConfig
 
 + (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
-    static ANProdHTTPSBaseUrlConfig *config;
+    static ANBaseUrlConfig *config;
     dispatch_once(&onceToken, ^{
-        config = [[ANProdHTTPSBaseUrlConfig alloc] init];
+        config = [[ANBaseUrlConfig alloc] init];
     });
     return config;
 }
@@ -140,7 +81,7 @@
 
 @interface ANSDKSettings()
 
-@property (nonatomic) id<ANBaseUrlConfig> baseUrlConfig;
+@property (nonatomic) ANBaseUrlConfig *baseUrlConfig;
 @property (nonatomic, readwrite, strong, nonnull) NSString *sdkVersion;
 @end
 
@@ -162,13 +103,10 @@
     return AN_SDK_VERSION;
 }
 
-- (id<ANBaseUrlConfig>)baseUrlConfig {
+- (ANBaseUrlConfig *)baseUrlConfig {
     if (!_baseUrlConfig) {
-        if (self.HTTPSEnabled) {
-            return [ANProdHTTPSBaseUrlConfig sharedInstance];
-        } else {
-            return [ANProdHTTPBaseUrlConfig sharedInstance];
-        }
+        return [ANBaseUrlConfig sharedInstance];
+        
     } else {
         return _baseUrlConfig;
     }

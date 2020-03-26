@@ -85,6 +85,7 @@ class ANBannerNativeRenderingUITestCase: XCTestCase {
         webViewsQuery.links["Native Renderer Campaign Native Renderer Campaign"].children(matching: .link).matching(identifier: "Native Renderer Campaign").element(boundBy: 0).staticTexts["Native Renderer Campaign"].tap()
         wait(for: app.toolbars["Toolbar"], timeout: 20)
         app.toolbars["Toolbar"].buttons["OK"].tap()
+        wait(1)
         XCTAssertEqual(webViewsQuery.frame.size.height, 480)
         XCTAssertEqual(webViewsQuery.frame.size.width, 320)
         XCGlobal.screenshotWithTitle(title: FunctionalTestConstants.BannerNativeAd.testBannerNativeRenderingClickThrough)

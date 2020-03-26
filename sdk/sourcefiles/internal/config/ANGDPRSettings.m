@@ -15,11 +15,20 @@
 
 #import "ANGDPRSettings.h"
 
-
 NSString * const  ANGDPR_ConsentString = @"ANGDPR_ConsentString";
 NSString * const  ANGDPR_ConsentRequired = @"ANGDPR_ConsentRequired";
+NSString * const  ANGDPR_PurposeConsents = @"ANGDPR_PurposeConsents";
+
+//TCF 2.0 variables
+NSString * const  ANIABTCF_ConsentString = @"IABTCF_TCString";
+NSString * const  ANIABTCF_SubjectToGDPR = @"IABTCF_gdprApplies";
+NSString * const  ANIABTCF_PurposeConsents = @"IABTCF_PurposeConsents";
+
+//TCF 1.1 variables
 NSString * const  ANIABConsent_ConsentString = @"IABConsent_ConsentString";
 NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
+
+
 
 @interface ANGDPRSettings()
 
@@ -27,9 +36,6 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 
 
 @implementation ANGDPRSettings
-
-
-
 
 /**
  * Set the GDPR consent string in the SDK
@@ -41,14 +47,9 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 /**
  * Set the GDPR consent required in the SDK
  */
-+ (void) setConsentRequired:(BOOL)consentRequired{
++ (void) setConsentRequired:(NSNumber *)consentRequired{
     
-    NSString *consentString = @"0";
-    if (consentRequired) {
-        consentString = @"1";
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:consentString forKey:ANGDPR_ConsentRequired];
+    [[NSUserDefaults standardUserDefaults] setValue:consentRequired forKey:ANGDPR_ConsentRequired];
     
 }
 
@@ -63,17 +64,23 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     if([[[defaults dictionaryRepresentation] allKeys] containsObject:ANGDPR_ConsentRequired]){
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANGDPR_ConsentRequired];
     }
+    if([[[defaults dictionaryRepresentation] allKeys] containsObject:ANGDPR_PurposeConsents]){
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANGDPR_PurposeConsents];
+    }
 }
 
 /**
  * Get the GDPR consent string in the SDK.
  * Check for ANGDPR_ConsentString And IABConsent_ConsentString and return if present else return @""
  */
-+ (nonnull NSString *) getConsentString{
++ (nullable NSString *) getConsentString{
     
-    NSString* consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentString];
-    if(consentString == nil){
-        consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_ConsentString];
+    NSString* consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANGDPR_ConsentString];
+    if(consentString.length <= 0){
+        consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABTCF_ConsentString];
+        if(consentString.length <= 0){
+            consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABConsent_ConsentString];
+        }
     }
     return consentString? consentString: @"";
 }
@@ -82,17 +89,65 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
  * Get the GDPR consent required in the SDK
  * Check for ANGDPR_ConsentRequired And IABConsent_SubjectToGDPR  and return if present else return nil
  */
-+ (nullable NSString *) getConsentRequired{
++ (nullable NSNumber *) getConsentRequired{
     
-    NSString* subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentRequired];
-    if(subjectToGdprValue == nil){
-        subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_SubjectToGDPR];
+    NSNumber *hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANGDPR_ConsentRequired];
+    if(hasConsent == nil){
+        hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANIABTCF_SubjectToGDPR];
+        if(hasConsent == nil){
+            NSString *hasConsentStringValue = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABConsent_SubjectToGDPR];
+            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+            hasConsent = [numberFormatter numberFromString:hasConsentStringValue];
+        }
+        
     }
-    if([subjectToGdprValue isEqualToString:@"1"] || [subjectToGdprValue isEqualToString:@"0"]){
-        return subjectToGdprValue;
-    }
-    return nil;
+    return hasConsent;
 }
 
+/**
+* Get the GDPR device consent required in the SDK to pass IDFA & cookies
+* Check for ANGDPR_PurposeConsents And ANIABTCF_PurposeConsents  and return if present else return nil
+*/
++ (NSString *) getDeviceAccessConsent {
+    
+    NSString* purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_PurposeConsents];
+    if(purposeConsents.length <= 0){
+        purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_PurposeConsents];
+    }
+    if(purposeConsents > 0){
+        return [purposeConsents substringToIndex:1];
+    }
+    return nil;
+    
+}
+
+/**
+* set the GDPR device consent required in the SDK to pass IDFA & cookies
+*/
++ (void) setPurposeConsents :(nonnull NSString *) purposeConsents {
+    if (purposeConsents.length > 0) {
+        [[NSUserDefaults standardUserDefaults] setObject:purposeConsents forKey:ANGDPR_PurposeConsents];
+    }
+}
+
+/**
+* Get the GDPR device consent as a combination of purpose 1 & consent required
+*/
++ (BOOL) canAccessDeviceData {
+    //fetch advertising identifier based TCF 2.0 Purpose1 value
+    //truth table
+    /*
+                            deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
+     consentRequired=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+     consentRequired=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
+     consentRequired=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+     */
+        
+    if((([ANGDPRSettings getDeviceAccessConsent] == nil) && ([ANGDPRSettings getConsentRequired] == nil || [[ANGDPRSettings getConsentRequired] boolValue] == NO)) || ([ANGDPRSettings getDeviceAccessConsent] != nil && [[ANGDPRSettings getDeviceAccessConsent] isEqualToString:@"1"])){
+        return true;
+    }
+    
+    return false;
+}
 
 @end

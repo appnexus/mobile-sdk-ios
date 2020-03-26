@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADAdReward.h>
+#import <GoogleMobileAds/GADAdValue.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADRequestError.h>
 #import <GoogleMobileAds/GADResponseInfo.h>
@@ -19,7 +20,8 @@
 /// object is non-null and provides failure information. On success, |error| is nil.
 typedef void (^GADRewardedAdLoadCompletionHandler)(GADRequestError *_Nullable error);
 
-/// The GADRewardedAd class is used for requesting and presenting a rewarded ad.
+/// A rewarded ad. Rewarded ads are ads that users have the option of interacting with in exchange
+/// for in-app rewards. See https://developers.google.com/admob/ios/rewarded-ads to get started.
 @interface GADRewardedAd : NSObject
 
 /// Initializes a rewarded ad with the provided ad unit ID. Create ad unit IDs using the AdMob
@@ -39,15 +41,15 @@ typedef void (^GADRewardedAdLoadCompletionHandler)(GADRequestError *_Nullable er
 /// Indicates whether the rewarded ad is ready to be presented.
 @property(nonatomic, readonly, getter=isReady) BOOL ready;
 
-/// Information about the ad response that returned the current ad. Nil while an ad
-/// request is in progress or if the latest ad request failed.
+/// Information about the ad response that returned the current ad. Nil while an ad request is in
+/// progress or if the latest ad request failed.
 @property(nonatomic, readonly, nullable) GADResponseInfo *responseInfo;
 
 /// The reward earned by the user for interacting with a rewarded ad. Is nil until the ad has
 /// successfully loaded.
 @property(nonatomic, readonly, nullable) GADAdReward *reward;
 
-/// Options specified for server-to-server user reward verification.
+/// Options specified for server-side user reward verification.
 @property(nonatomic, copy, nullable)
     GADServerSideVerificationOptions *serverSideVerificationOptions;
 
@@ -58,6 +60,15 @@ typedef void (^GADRewardedAdLoadCompletionHandler)(GADRequestError *_Nullable er
 
 /// Delegate for ad metadata changes.
 @property(nonatomic, weak, nullable) id<GADRewardedAdMetadataDelegate> adMetadataDelegate;
+
+/// Called when the ad is estimated to have earned money. Available for whitelisted accounts only.
+@property(nonatomic, nullable, copy) GADPaidEventHandler paidEventHandler;
+
+/// Returns whether the rewarded ad can be presented from the provided root view controller. Sets
+/// the error out parameter if the rewarded ad can't be presented. Must be called on the main
+/// thread.
+- (BOOL)canPresentFromRootViewController:(nonnull UIViewController *)rootViewController
+                                   error:(NSError *_Nullable __autoreleasing *_Nullable)error;
 
 /// Presents the rewarded ad with the provided view controller and rewarded delegate to call back on
 /// various intermission events. The delegate is strongly retained by the receiver until a terminal

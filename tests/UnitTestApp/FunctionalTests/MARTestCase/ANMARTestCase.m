@@ -29,7 +29,6 @@
 #import "ANInterstitialAd+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 #import "ANAdView+ANTest.h"
 
 
@@ -654,7 +653,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     
     ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
-    ANSDKSettings.sharedInstance.HTTPSEnabled = NO;
     self.loadAdResponseReceivedExpectation = nil;
     self.loadAdResponseFailedExpectation = nil;
     

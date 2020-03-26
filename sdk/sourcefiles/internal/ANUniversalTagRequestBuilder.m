@@ -23,10 +23,6 @@
 #import "ANUSPrivacySettings.h"
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
-
-
-
 
 #pragma mark -
 
@@ -627,6 +623,14 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary<NSString *, id> *)deviceId
 {
+    if([ANGDPRSettings canAccessDeviceData]){
+        return [self fetchAdvertisingIdentifier];
+    }
+    
+    return nil;
+}
+
+-(NSDictionary<NSString *, id> *) fetchAdvertisingIdentifier {
     NSString *idfa = ANAdvertisingIdentifier();
 
     if (idfa) {
@@ -693,14 +697,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 - (NSDictionary *)getGDPRConsentObject
 {
     NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
-    NSString  *gdprRequired  = [ANGDPRSettings getConsentRequired];
+    NSNumber  *gdprRequired  = [ANGDPRSettings getConsentRequired];
     
     if (gdprRequired != nil)
     {
-        NSNumber *gdprRequiredBool = ([gdprRequired isEqualToString:@"1"])?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
-
         return  @{
-                     @"consent_required"  : gdprRequiredBool,
+                     @"consent_required"  : gdprRequired,
                      @"consent_string"    : gdprConsent
                  };
 
@@ -708,7 +710,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
-
 
 
 
