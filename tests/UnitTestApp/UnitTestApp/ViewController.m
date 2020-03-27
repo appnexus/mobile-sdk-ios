@@ -443,7 +443,7 @@
                                             options:NSLiteralSearch
                                               range:NSMakeRange(0, [mutableBaseResponse length])];
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURL = @"http://mediation.adnxs.com/ut/v3";
+    stub.requestURL = @"https://mediation.adnxs.com/ut/v3";
     stub.responseCode = 200;
     stub.responseBody = [mutableBaseResponse copy];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];

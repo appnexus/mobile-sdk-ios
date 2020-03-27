@@ -65,7 +65,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     self.receiveAdSuccess = NO;
     self.shouldResizeAdToFitContainer = NO;
-    ANSDKSettings.sharedInstance.HTTPSEnabled = NO;
     self.banner.delegate = nil;
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];

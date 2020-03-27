@@ -42,8 +42,6 @@ class BannerAdFunctionalViewController: UIViewController , ANBannerAdViewDelegat
         ANHTTPStubbingManager.shared().disable()
         ANHTTPStubbingManager.shared().removeAllStubs()
         ANHTTPStubbingManager.shared().broadcastRequests = false
-        ANSDKSettings.sharedInstance().httpsEnabled = false
-        
     }
     func initialiseBannerNativeRendering()  {
         
