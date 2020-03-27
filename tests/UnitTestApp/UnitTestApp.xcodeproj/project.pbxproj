@@ -206,6 +206,7 @@
 		0E9B358323C73943002BE178 /* ANVideoAdProcessor+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B357D23C73943002BE178 /* ANVideoAdProcessor+ANTest.m */; };
 		0EA29A5F23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EA29A5D23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json */; };
 		0EAA0BAC242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAA0BAA242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m */; };
+		0EAFC639242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAFC637242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m */; };
 		0EB24C1322CBD242008E927F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1222CBD242008E927F /* AppDelegate.m */; };
 		0EB24C1622CBD242008E927F /* NativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1522CBD242008E927F /* NativeViewController.m */; };
 		0EB24C1922CBD242008E927F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1722CBD242008E927F /* Main.storyboard */; };
@@ -674,6 +675,7 @@
 		0E9B357E23C73943002BE178 /* ANAdAdapterNativeMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeMock.h; sourceTree = "<group>"; };
 		0EA29A5D23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationTwoRTBInterstitial.json; sourceTree = "<group>"; };
 		0EAA0BAA242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdOMIDViewablityTestCase.m; sourceTree = "<group>"; };
+		0EAFC637242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerNativeRenderAdOMIDViewablityTestCase.m; sourceTree = "<group>"; };
 		0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeSDKTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB24C1122CBD242008E927F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0EB24C1222CBD242008E927F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1371,6 +1373,7 @@
 				0EEFE1AC220089F2002B5F5F /* ANAdViewMRAIDCreativeTestCase.m */,
 				0EEFE196220080FB002B5F5F /* ANBannerAdTestCase.m */,
 				0EAA0BAA242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m */,
+				0EAFC637242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m */,
 				0EEFE192220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m */,
 				0E1D14AF22784C0900343050 /* ANBannerNativeRenderingTestCase.m */,
 				0EEFE1B222008A11002B5F5F /* ANBannerNativeTestCase.m */,
@@ -2177,6 +2180,7 @@
 				0E1D14B022784C0900343050 /* ANBannerNativeRenderingTestCase.m in Sources */,
 				0EEFE1B322008A11002B5F5F /* ANBannerNativeTestCase.m in Sources */,
 				0EEFE18F220080D6002B5F5F /* ANBannerVideoAutoRefreshAdViewTestCase.m in Sources */,
+				0EAFC639242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m in Sources */,
 				0EEFE1882200762B002B5F5F /* ANBaseTestCase.m in Sources */,
 				0E8C979A21FF32EC005D1F0E /* ANHTTPStubbingManager.m in Sources */,
 				0E8C97A021FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,
