@@ -94,7 +94,7 @@
 }
 
 
-- (void)testOMIDViewablePercentZero
+- (void)testOMIDViewablePercent0
 {
     [self stubRequestWithResponse:@"OMID_TestResponse"];
 
