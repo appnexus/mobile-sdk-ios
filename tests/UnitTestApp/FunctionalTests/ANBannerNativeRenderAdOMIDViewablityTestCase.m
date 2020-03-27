@@ -26,11 +26,12 @@
 #import "ANNativeRenderingViewController.h"
 #import "SDKValidationURLProtocol.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
+#import "ANNativeAdResponse.h"
 
-@interface ANBannerNativeRenderAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate , SDKValidationURLProtocolDelegate >
+@interface ANBannerNativeRenderAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate , SDKValidationURLProtocolDelegate , ANNativeAdResponseProtocol >
 
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
-
+@property (nonatomic, readwrite, strong)   ANNativeAdResponse     *nativeResponse;
 
 //Expectations for OMID
 @property (nonatomic, strong) XCTestExpectation *OMID100PercentViewableExpectation;
@@ -42,6 +43,7 @@
 @property (nonatomic) BOOL removeFriendlyObstruction;
 @property (nonatomic) UIView *friendlyObstruction;
 
+@property (nonatomic) UIView *nativeView;
 
 @end
 
@@ -68,20 +70,16 @@
     self.bannerAdView.enableNativeRendering = YES;
     
     self.bannerAdView.autoRefreshInterval = 0;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
-    
-    
-    
-    self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 100, 300, 250)];
-    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
-    
+  
     self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = NO;
-    
+    self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 100, 300, 250)];
+    self.nativeView=[[UIView alloc]initWithFrame:CGRectMake(0, 100, 300, 250)];
+
     
     [SDKValidationURLProtocol setDelegate:self];
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
+    
     
     
 }
@@ -110,8 +108,15 @@
 }
 
 
-- (void)testOMIDViewablePercentZero
+- (void)testBannerNativeRendererOMIDViewablePercent0
 {
+    
+    self.bannerAdView.autoRefreshInterval = 0;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
     self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
@@ -128,8 +133,16 @@
 
 
 
-- (void)testOMIDViewablePercent100
+- (void)testBannerNativeRendererOMIDViewablePercent100
 {
+    
+    self.bannerAdView.autoRefreshInterval = 0;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
     self.friendlyObstruction.alpha = 0;
@@ -149,8 +162,15 @@
 
 
 
-- (void)testOMIDViewableRemoveFriendlyObstruction
+- (void)testBannerNativeRendererOMIDViewableRemoveFriendlyObstruction
 {
+    
+    self.bannerAdView.autoRefreshInterval = 0;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
     [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self.bannerAdView removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     
@@ -170,8 +190,15 @@
 }
 
 
-- (void)testOMIDViewableRemoveAllFriendlyObstruction
+- (void)testBannerNativeRendererOMIDViewableRemoveAllFriendlyObstruction
 {
+    
+    self.bannerAdView.autoRefreshInterval = 0;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
     [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self.bannerAdView removeAllOpenMeasurementFriendlyObstructions];
     
@@ -188,6 +215,115 @@
 }
 
 
+// Banner Native
+
+
+
+- (void)testBannerNativeOMIDViewablePercent0
+{
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
+    self.bannerAdView.enableNativeRendering = NO;
+    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
+    
+    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
+    self.percentViewableFulfilled = NO;
+    
+    [self.bannerAdView loadAd];
+    
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+
+
+- (void)testBannerNativeOMIDViewablePercent100
+{
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
+    
+    self.bannerAdView.enableNativeRendering = NO;
+    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
+    
+    self.friendlyObstruction.alpha = 0;
+    [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
+    self.percentViewableFulfilled = NO;
+    
+    [self.bannerAdView loadAd];
+    
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+
+
+
+- (void)testBannerNativeOMIDViewableRemoveFriendlyObstruction
+{
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
+    
+    self.bannerAdView.enableNativeRendering = NO;
+    [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [self.bannerAdView removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    
+    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
+    
+    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
+    self.percentViewableFulfilled = NO;
+    
+    [self.bannerAdView loadAd];
+    
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+    XCTAssertEqual(self.nativeResponse.obstructionViews.count, 0);
+}
+
+
+- (void)testBannerNativeOMIDViewableRemoveAllFriendlyObstruction
+{
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    
+    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    
+    
+    self.bannerAdView.enableNativeRendering = NO;
+    [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [self.bannerAdView removeAllOpenMeasurementFriendlyObstructions];
+    
+    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
+    
+    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
+    self.percentViewableFulfilled = NO;
+    [self.bannerAdView loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    XCTAssertEqual(self.nativeResponse.obstructionViews.count, 0);
+}
+
+
 #pragma mark - ANAdDelegate
 
 - (void)adDidReceiveAd:(id)ad {
@@ -199,6 +335,10 @@
     
 }
 
+-(void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance{
+    self.nativeResponse = (ANNativeAdResponse *)responseInstance;
+    [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] error:nil];
+}
 
 
 # pragma mark - Ad Server Response Stubbing
@@ -243,8 +383,6 @@
         [self.OMIDRemoveFriendlyObstructionExpectation fulfill];
         
     }
-    
-    
 }
 
 
