@@ -336,18 +336,8 @@ static NSString *const kANInline        = @"inline";
             [self.nativeAdResponse removeOpenMeasurementFriendlyObstruction:obstructionView];
         }else if([self.contentView isKindOfClass:[ANMRAIDContainerView class]]){
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
-            [self removeFriendlyObstruction:obstructionView andOmidSession:adView.webViewController.omidAdSession];
-            
-        }
-    }
-}
-
--(void)removeFriendlyObstruction:(UIView *)view andOmidSession:(OMIDAppnexusAdSession *)omidAdSession{
-    if(omidAdSession != nil){
-        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:omidAdSession];
-        for (UIView *obstructionView in view.subviews){
-            if([obstructionView isKindOfClass:[UIView class]]){
-                [self removeFriendlyObstruction:obstructionView andOmidSession:omidAdSession];
+            if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+                [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
             }
         }
     }

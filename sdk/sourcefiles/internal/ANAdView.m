@@ -312,51 +312,29 @@
 
 - (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
     if(obstructionView != nil && [__obstructionViews containsObject:obstructionView] ){
-        [self removeFriendlyObstructionView:obstructionView];
+        [__obstructionViews removeObject:obstructionView];
         if(__obstructionViews.count == 0 ){
             __obstructionViews = nil;
         }
     }
 }
 - (void)removeAllOpenMeasurementFriendlyObstructions{
-    [__obstructionViews removeAllObjects];
-    __obstructionViews = nil;
-}
-
-
--(void)removeFriendlyObstructionView:(UIView *)view{
-    [__obstructionViews removeObject:view];
-    
-    for (UIView *obstructionView in view.subviews){
-        if([obstructionView isKindOfClass:[UIView class]]){
-            [self removeFriendlyObstructionView:obstructionView];
-        }
-    }
-    
-}
-
-
-
--(void)addFriendlyObstructionView:(UIView *)view{
-    if(view != nil && view.alpha == 0.0){
-        [__obstructionViews addObject:view];
-        for (UIView *obstructionView in view.subviews){
-            if([obstructionView isKindOfClass:[UIView class]]){
-                [self addFriendlyObstructionView:obstructionView];
-            }
-        }
+    if(__obstructionViews != nil && __obstructionViews.count > 0){
+        [__obstructionViews removeAllObjects];
+        __obstructionViews = nil;
     }
 }
-
-
 
 - (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView{
     if(__obstructionViews == nil){
         __obstructionViews = [[NSMutableArray alloc] init];
+    }else if([__obstructionViews containsObject:obstructionView]){
+        ANLogDebug(@"View is already added as Friendly Obstruction");
+        return;
     }
-    
-    [self addFriendlyObstructionView:obstructionView];
-    
+    if(obstructionView != nil && obstructionView.alpha == 0.0){
+        [__obstructionViews addObject:obstructionView];
+    }
 }
 
 

@@ -405,19 +405,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 - (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
     if( [self.obstructionViews containsObject:obstructionView]){
         [super removeOpenMeasurementFriendlyObstruction:obstructionView];
-        if(self.adPlayer != nil){
-            [self removeFriendlyObstruction:obstructionView andOmidSession:self.adPlayer.omidAdSession];
-        }
-    }
-}
-
--(void)removeFriendlyObstruction:(UIView *)view andOmidSession:(OMIDAppnexusAdSession *)omidAdSession{
-    if(omidAdSession != nil){
-        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:omidAdSession];
-        for (UIView *obstructionView in view.subviews){
-            if([obstructionView isKindOfClass:[UIView class]]){
-                [self removeFriendlyObstruction:obstructionView andOmidSession:omidAdSession];
-            }
+        if(self.adPlayer != nil && self.adPlayer.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:self.adPlayer.omidAdSession];
         }
     }
 }

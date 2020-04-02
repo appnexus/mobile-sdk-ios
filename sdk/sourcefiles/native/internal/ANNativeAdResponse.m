@@ -292,60 +292,29 @@ NSString * const  kANNativeElementObject                                   = @"E
 
 
 - (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
-    if([self.obstructionViews containsObject:obstructionView] && self.omidAdSession != nil){
-        [self removeFriendlyObstructionView:obstructionView];
+    if(obstructionView != nil && [self.obstructionViews containsObject:obstructionView] ){
+        [self.obstructionViews removeObject:obstructionView];
         if(self.obstructionViews.count == 0 ){
             self.obstructionViews = nil;
         }
     }
 }
-
 - (void)removeAllOpenMeasurementFriendlyObstructions{
-    if(self.obstructionViews.count != 0 && self.omidAdSession != nil){
+    if(self.obstructionViews != nil && self.obstructionViews.count > 0){
         [self.obstructionViews removeAllObjects];
         self.obstructionViews = nil;
-        [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:self.omidAdSession];
     }
 }
-
-
--(void)removeFriendlyObstructionView:(UIView *)view{
-    [self.obstructionViews removeObject:view];
-    if(self.omidAdSession != nil){
-        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:self.omidAdSession];
-        for (UIView *obstructionView in view.subviews){
-            if([obstructionView isKindOfClass:[UIView class]] && self.omidAdSession != nil){
-                [self removeFriendlyObstructionView:obstructionView];
-            }
-        }
-    }
-}
-
-
-
--(void)addFriendlyObstructionView:(UIView *)view{
-    if(view.alpha == 0.0){
-        [self.obstructionViews addObject:view];
-    }
-    
-    for (UIView *obsView in view.subviews){
-        if([obsView isKindOfClass:[UIView class]]){
-            [self addFriendlyObstructionView:obsView];
-        }
-    }
-    
-}
-
-
 
 - (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView{
     if(self.obstructionViews == nil){
         self.obstructionViews = [[NSMutableArray alloc] init];
+    }else if([self.obstructionViews containsObject:obstructionView]){
+        ANLogDebug(@"View is already added as Friendly Obstruction");
+        return;
     }
-    [self addFriendlyObstructionView:obstructionView];
-    
+    if(obstructionView != nil && obstructionView.alpha == 0.0){
+        [self.obstructionViews addObject:obstructionView];
+    }
 }
-
-
-
 @end

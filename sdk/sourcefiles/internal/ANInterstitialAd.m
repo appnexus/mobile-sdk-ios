@@ -325,19 +325,9 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [super removeOpenMeasurementFriendlyObstruction:obstructionView];
         if([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]){
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
-            [self removeFriendlyObstruction:obstructionView andOmidSession:adView.webViewController.omidAdSession];
-            
-        }
-    }
-}
-
--(void)removeFriendlyObstruction:(UIView *)view andOmidSession:(OMIDAppnexusAdSession *)omidAdSession{
-    if(omidAdSession != nil){
-        [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:view toOMIDAdSession:omidAdSession];
-        for (UIView *obstructionView in view.subviews){
-            if([obstructionView isKindOfClass:[UIView class]]){
-                [self removeFriendlyObstruction:obstructionView andOmidSession:omidAdSession];
-            }
+            if(adView.webViewController.omidAdSession != nil){
+                   [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+               }
         }
     }
 }
