@@ -315,7 +315,7 @@ NSString * const  kANNativeElementObject                                   = @"E
     if(self.obstructionViews == nil){
         self.obstructionViews = [[NSMutableArray alloc] init];
     }else if([self.obstructionViews containsObject:obstructionView]){
-        ANLogDebug(@"View is already added as Friendly Obstruction");
+        ANLogError(@"View is already added as Friendly Obstruction");
         return;
     }
     [self.obstructionViews addObject:obstructionView];
