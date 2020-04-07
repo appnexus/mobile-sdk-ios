@@ -121,7 +121,7 @@
 
 #pragma mark - Test methods.
 
-- (void)testFriendlyObstructionRTBBannerAd {
+- (void)testFriendlyObstructionBannerAd {
     
     [self setupBannerAd];
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
@@ -141,6 +141,23 @@
     [self.banner removeAllOpenMeasurementFriendlyObstructions];
     XCTAssertEqual(self.banner.obstructionViews.count, 0);
     
+}
+
+
+- (void)testFriendlyObstructionBannerAdNullCheck {
+    
+    [self setupBannerAd];
+    
+    self.friendlyObstruction.alpha = 0;
+    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [self.banner addOpenMeasurementFriendlyObstruction:nil];
+
+    XCTAssertEqual(self.banner.obstructionViews.count, 1);
+    [self.banner removeOpenMeasurementFriendlyObstruction:nil];
+    XCTAssertEqual(self.banner.obstructionViews.count, 1);
+
+    [self.banner removeAllOpenMeasurementFriendlyObstructions];
+    XCTAssertEqual(self.banner.obstructionViews.count, 0);
 }
 
 - (void) testAdFriendlyObstructionBannerNativeRendererAd
@@ -216,6 +233,26 @@
     XCTAssertEqual(self.interstitial.obstructionViews.count, 0);
 }
 
+
+
+- (void)testFriendlyObstructionInterstitialAdNullCheck {
+    
+    [self setupInterstitialAd];
+    
+    self.friendlyObstruction.alpha = 0;
+    [self.interstitial addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [self.interstitial addOpenMeasurementFriendlyObstruction:nil];
+
+    XCTAssertEqual(self.interstitial.obstructionViews.count, 1);
+    [self.interstitial removeOpenMeasurementFriendlyObstruction:nil];
+    XCTAssertEqual(self.interstitial.obstructionViews.count, 1);
+
+    [self.interstitial removeAllOpenMeasurementFriendlyObstructions];
+    XCTAssertEqual(self.interstitial.obstructionViews.count, 0);
+}
+
+
+
 - (void)testFriendlyObstructionNativeAd {
     [self setupNativeAd];
     [self stubRequestWithResponse:@"ANAdResponseRTB_Native"];
@@ -247,6 +284,23 @@
     [self.instreamVideoAd removeAllOpenMeasurementFriendlyObstructions];
     XCTAssertEqual(self.instreamVideoAd.obstructionViews.count, 0);
 }
+
+- (void)testFriendlyObstructionInstreamAdNullCheck {
+    
+    [self setupInstreamAd];
+
+    self.friendlyObstruction.alpha = 0;
+    [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:nil];
+
+    XCTAssertEqual(self.instreamVideoAd.obstructionViews.count, 1);
+    [self.instreamVideoAd removeOpenMeasurementFriendlyObstruction:nil];
+    XCTAssertEqual(self.instreamVideoAd.obstructionViews.count, 1);
+
+    [self.instreamVideoAd removeAllOpenMeasurementFriendlyObstructions];
+    XCTAssertEqual(self.instreamVideoAd.obstructionViews.count, 0);
+}
+
 
 #pragma mark - Stubbing
 
@@ -339,13 +393,21 @@
     
     [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(response.obstructionViews.count, 0);
-    
+
     self.friendlyObstruction.alpha = 0;
     [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [response addOpenMeasurementFriendlyObstruction:nil];
+    
     XCTAssertEqual(response.obstructionViews.count, 1);
+    
+    [response addOpenMeasurementFriendlyObstruction:nil];
+    XCTAssertEqual(response.obstructionViews.count, 1);
+
     
     [response removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(response.obstructionViews.count, 0);
+    
+
     
     [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(response.obstructionViews.count, 1);

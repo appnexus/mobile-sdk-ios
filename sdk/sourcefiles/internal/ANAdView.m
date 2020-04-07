@@ -310,8 +310,8 @@
     }
 }
 
-- (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
-    if(obstructionView != nil && [__obstructionViews containsObject:obstructionView] ){
+- (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView{
+    if( [__obstructionViews containsObject:obstructionView] ){
         [__obstructionViews removeObject:obstructionView];
         if(__obstructionViews.count == 0 ){
             __obstructionViews = nil;
@@ -325,16 +325,18 @@
     }
 }
 
-- (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView{
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    if(obstructionView == nil || obstructionView.alpha != 0.0){
+        ANLogError(@"Invalid Friendly Obstruction View. Friendly obstruction view can neither be null nor transparent.");
+        return;
+    }
     if(__obstructionViews == nil){
         __obstructionViews = [[NSMutableArray alloc] init];
     }else if([__obstructionViews containsObject:obstructionView]){
-        ANLogDebug(@"View is already added as Friendly Obstruction");
+        ANLogError(@"View is already added as Friendly Obstruction");
         return;
     }
-    if(obstructionView != nil && obstructionView.alpha == 0.0){
-        [__obstructionViews addObject:obstructionView];
-    }
+    [__obstructionViews addObject:obstructionView];
 }
 
 

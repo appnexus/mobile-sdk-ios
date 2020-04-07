@@ -291,8 +291,8 @@ NSString * const  kANNativeElementObject                                   = @"E
 }
 
 
-- (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView{
-    if(obstructionView != nil && [self.obstructionViews containsObject:obstructionView] ){
+- (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView{
+    if( [self.obstructionViews containsObject:obstructionView] ){
         [self.obstructionViews removeObject:obstructionView];
         if(self.obstructionViews.count == 0 ){
             self.obstructionViews = nil;
@@ -306,15 +306,18 @@ NSString * const  kANNativeElementObject                                   = @"E
     }
 }
 
-- (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView{
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    if(obstructionView == nil || obstructionView.alpha != 0.0){
+        ANLogError(@"Invalid Friendly Obstruction View. The friendly obstruction view can neither be null nor transparent.");
+        return;
+    }
+    
     if(self.obstructionViews == nil){
         self.obstructionViews = [[NSMutableArray alloc] init];
     }else if([self.obstructionViews containsObject:obstructionView]){
         ANLogDebug(@"View is already added as Friendly Obstruction");
         return;
     }
-    if(obstructionView != nil && obstructionView.alpha == 0.0){
-        [self.obstructionViews addObject:obstructionView];
-    }
+    [self.obstructionViews addObject:obstructionView];
 }
 @end

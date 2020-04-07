@@ -192,12 +192,12 @@ extern NSString * __nonnull const  kANNativeElementObject;
  UI elements which would consider to be part of the ad can be added as friendly obstruction
  (all sub-views of the adView will be automatically treated as part of the ad)
  */
-- (void)addOpenMeasurementFriendlyObstruction:(nullable UIView *)obstructionView;
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView;
 
 /*!
  Remove friendly Obstruction from the list of FriendlyObstruction
  */
-- (void)removeOpenMeasurementFriendlyObstruction:(nullable UIView*)obstructionView;
+- (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView;
 
 /*!
  Remove all friendly Obstruction
