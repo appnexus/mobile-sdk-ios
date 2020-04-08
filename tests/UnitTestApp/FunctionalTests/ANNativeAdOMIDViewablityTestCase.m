@@ -26,7 +26,7 @@
 #import "ANNativeRenderingViewController.h"
 #import "SDKValidationURLProtocol.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
-#import "ANNativeAdResponse.h"
+#import "ANNativeAdResponse+ANTest.h"
 
 @interface ANNativeAdOMIDViewablityTestCase : XCTestCase < SDKValidationURLProtocolDelegate , ANNativeAdResponseProtocol , ANNativeAdRequestDelegate >
 
@@ -124,7 +124,8 @@
                                  handler:^(NSError *error) {
         
     }];
-    
+    XCTAssertEqual(self.nativeResponse.obstructionViews.count, 0);
+
 }
 
 
@@ -135,9 +136,9 @@
     
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
     
-    //    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    //    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
-    //
+//        [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
@@ -181,31 +182,6 @@
     XCTAssertEqual(self.nativeResponse.obstructionViews.count, 0);
 }
 
-
-- (void)testBannerNativeOMIDViewableRemoveAllFriendlyObstruction
-{
-    self.testcase = @"testBannerNativeOMIDViewableRemoveAllFriendlyObstruction";
-    
-    
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
-    
-    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
-    
-    
-    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
-    
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    self.percentViewableFulfilled = NO;
-    [self.adRequest loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    XCTAssertEqual(self.nativeResponse.obstructionViews.count, 0);
-}
-
-
 #pragma mark - ANAdDelegate
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
@@ -213,23 +189,19 @@
     self.nativeResponse = (ANNativeAdResponse *)response;
     
     if([self.testcase isEqualToString:@"testBannerNativeOMIDViewablePercent100"]){
-        [self.nativeResponse addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+        self.friendlyObstruction.alpha = 1;
+        [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
+        
         
     }else if([self.testcase isEqualToString:@"testBannerNativeOMIDViewableRemoveFriendlyObstruction"]){
         
-        [self.nativeResponse addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-        [self.nativeResponse removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+         [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[] error:nil];
         
+    }else if([self.testcase isEqualToString:@"testBannerNativeOMIDViewablePercent0"]){
         
-    }else if([self.testcase isEqualToString:@"testBannerNativeOMIDViewableRemoveAllFriendlyObstruction"]){
-        
-        [self.nativeResponse addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-        [self.nativeResponse removeAllOpenMeasurementFriendlyObstructions];
-        
+         [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
         
     }
-    
-    [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] error:nil];
     
 }
 

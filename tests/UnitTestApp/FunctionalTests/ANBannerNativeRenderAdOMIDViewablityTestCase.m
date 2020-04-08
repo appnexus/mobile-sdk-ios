@@ -26,7 +26,7 @@
 #import "ANNativeRenderingViewController.h"
 #import "SDKValidationURLProtocol.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
-#import "ANNativeAdResponse.h"
+#import "ANNativeAdResponse+ANTest.h"
 
 @interface ANBannerNativeRenderAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate , SDKValidationURLProtocolDelegate , ANNativeAdResponseProtocol >
 

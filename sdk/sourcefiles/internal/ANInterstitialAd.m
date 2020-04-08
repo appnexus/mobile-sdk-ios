@@ -309,6 +309,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     [self displayAdFromViewController:controller autoDismissDelay:-1];
 }
 
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    [super addOpenMeasurementFriendlyObstruction:obstructionView];
+    [self setFriendlyObstruction];
+}
+
 - (void)setFriendlyObstruction
 {
     if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {

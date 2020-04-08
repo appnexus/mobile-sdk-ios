@@ -22,7 +22,7 @@
 #import "ANTestGlobal.h"
 #import "ANInterstitialAd.h"
 #import "ANInterstitialAd+ANTest.h"
-#import "ANNativeAdResponse.h"
+#import "ANNativeAdResponse+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd.h"
 #import "ANInstreamVideoAd+Test.h"
@@ -357,24 +357,19 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response{
     
-    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] error:nil];
+    self.friendlyObstruction.alpha = 1;
+    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
     
-    [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(response.obstructionViews.count, 0);
     
     self.friendlyObstruction.alpha = 0;
-    [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
     XCTAssertEqual(response.obstructionViews.count, 1);
     
-    [response removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[] error:nil];
     XCTAssertEqual(response.obstructionViews.count, 0);
     
-    [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    XCTAssertEqual(response.obstructionViews.count, 1);
     
-    
-    [response removeAllOpenMeasurementFriendlyObstructions];
-    XCTAssertEqual(response.obstructionViews.count, 0);
     
     [self.loadAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;
@@ -387,34 +382,20 @@
     [self.loadAdResponseFailedExpectation fulfill];
     self.receiveAdFailure = YES;
 }
+
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance{
     ANNativeAdResponse *response = (ANNativeAdResponse *)responseInstance;
-    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] error:nil];
+    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
     
-    [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(response.obstructionViews.count, 0);
-
+    
     self.friendlyObstruction.alpha = 0;
-    [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [response addOpenMeasurementFriendlyObstruction:nil];
-    
+    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
     XCTAssertEqual(response.obstructionViews.count, 1);
     
-    [response addOpenMeasurementFriendlyObstruction:nil];
-    XCTAssertEqual(response.obstructionViews.count, 1);
-
-    
-    [response removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[] error:nil];
     XCTAssertEqual(response.obstructionViews.count, 0);
     
-
-    
-    [response addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    XCTAssertEqual(response.obstructionViews.count, 1);
-    
-    
-    [response removeAllOpenMeasurementFriendlyObstructions];
-    XCTAssertEqual(response.obstructionViews.count, 0);
     
     [self.loadAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;

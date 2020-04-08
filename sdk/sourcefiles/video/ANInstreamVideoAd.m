@@ -395,6 +395,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return  self.clickThroughAction;
 }
 
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    [super addOpenMeasurementFriendlyObstruction:obstructionView];
+    [self setFriendlyObstruction];
+}
+
 - (void)setFriendlyObstruction
 {
     for (UIView *obstructionView in self.obstructionViews){

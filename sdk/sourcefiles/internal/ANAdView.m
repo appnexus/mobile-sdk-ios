@@ -115,6 +115,8 @@
 
     __clickThroughAction                     = ANClickThroughActionOpenSDKBrowser;
     __landingPageLoadsInBackground           = YES;
+    __obstructionViews = [[NSMutableArray alloc] init];
+
 }
 
 - (void)dealloc
@@ -313,15 +315,11 @@
 - (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView{
     if( [__obstructionViews containsObject:obstructionView] ){
         [__obstructionViews removeObject:obstructionView];
-        if(__obstructionViews.count == 0 ){
-            __obstructionViews = nil;
-        }
     }
 }
 - (void)removeAllOpenMeasurementFriendlyObstructions{
     if(__obstructionViews != nil && __obstructionViews.count > 0){
         [__obstructionViews removeAllObjects];
-        __obstructionViews = nil;
     }
 }
 
@@ -330,9 +328,7 @@
         ANLogError(@"Invalid Friendly Obstruction View. Friendly obstruction view can neither be null nor transparent.");
         return;
     }
-    if(__obstructionViews == nil){
-        __obstructionViews = [[NSMutableArray alloc] init];
-    }else if([__obstructionViews containsObject:obstructionView]){
+    if([__obstructionViews containsObject:obstructionView]){
         ANLogError(@"View is already added as Friendly Obstruction");
         return;
     }

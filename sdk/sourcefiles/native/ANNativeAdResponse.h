@@ -175,6 +175,7 @@ extern NSString * __nonnull const  kANNativeElementObject;
  * @param view The view which is populated with the native ad elements. Must not be nil.
  * @param rvc The root view controller which contains the view. Must not be nil.
  * @param views Specifies view subviews which should be clickable, instead of the whole view (the default). May be nil.
+ * @param obstructionViews Specifies views  which should be FriendlyObstructions for OpenMeasurement.
  * @note The response holds a strong reference to the registered view.
  * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
  */
@@ -183,26 +184,12 @@ extern NSString * __nonnull const  kANNativeElementObject;
                  clickableViews:(nullable NSArray *)views
                           error:(NSError *__nullable*__nullable)error;
 
-/**
- List of views added as Friendly Obstructions
- */
-@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
+- (BOOL)registerViewForTracking:(nonnull UIView *)view
+         withRootViewController:(nonnull UIViewController *)rvc
+                 clickableViews:(nullable NSArray<UIView *> *)views
+                 openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionViews
+                          error:(NSError *__nullable*__nullable)error;
 
-/*!
- UI elements which would consider to be part of the ad can be added as friendly obstruction
- (all sub-views of the adView will be automatically treated as part of the ad)
- */
-- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView;
-
-/*!
- Remove friendly Obstruction from the list of FriendlyObstruction
- */
-- (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView;
-
-/*!
- Remove all friendly Obstruction
- */
-- (void)removeAllOpenMeasurementFriendlyObstructions;
 
 @end
 

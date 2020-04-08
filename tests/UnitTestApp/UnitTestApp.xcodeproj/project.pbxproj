@@ -88,6 +88,8 @@
 		0E4701C22237B443005CFFAC /* ViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4701AB2237B443005CFFAC /* ViewController+ANTest.m */; };
 		0E4701C42237CDC9005CFFAC /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971321FF32EB005D1F0E /* ANTrackerManager+ANTest.m */; };
 		0E4B79212282E9510085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B791E2282E9140085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
+		0E516FE8243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */; };
+		0E516FE9243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */; };
 		0E54523223336BC300C7EC93 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972B21FF32EB005D1F0E /* ANReachability+ANTest.m */; };
 		0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */; };
 		0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */; };
@@ -555,6 +557,8 @@
 		0E4701962237B441005CFFAC /* ANInstreamVideoAd+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInstreamVideoAd+Test.h"; sourceTree = "<group>"; };
 		0E4701AB2237B443005CFFAC /* ViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+ANTest.m"; sourceTree = "<group>"; };
 		0E4B791E2282E9140085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAsssemblyRendererOMID_Native_RTBResponse.json; sourceTree = "<group>"; };
+		0E516FE5243E6F1500B5E744 /* ANNativeAdResponse+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+ANTest.h"; sourceTree = "<group>"; };
+		0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdResponse+ANTest.m"; sourceTree = "<group>"; };
 		0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0E56C6F221F8AF0300ADE6E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1190,6 +1194,8 @@
 		0E8C971121FF32EB005D1F0E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0E516FE5243E6F1500B5E744 /* ANNativeAdResponse+ANTest.h */,
+				0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */,
 				0E8C971621FF32EB005D1F0E /* ANAdView+ANTest.h */,
 				0E8C972521FF32EB005D1F0E /* ANAdView+ANTest.m */,
 				0E8C971D21FF32EB005D1F0E /* ANAdWebViewController+ANTest.h */,
@@ -2076,6 +2082,7 @@
 				0E8C97BC21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0E8C97CB21FF32EC005D1F0E /* ANAdWebViewController+ANTest.m in Sources */,
 				0E47017F2237B35B005CFFAC /* ANBannerAdView+ANTest.m in Sources */,
+				0E516FE8243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */,
 				0E6612BC22CA736300DDC5CD /* ANGADUnifiedNativeAdView.m in Sources */,
 				0EEFE175220073F0002B5F5F /* ANHTTPStubbingManager.m in Sources */,
 				0EEFE177220073F0002B5F5F /* ANHTTPStubURLProtocol.m in Sources */,
@@ -2201,6 +2208,7 @@
 				0E1C24BA242AA2FC00A70AC4 /* ANAdOMIDViewablityTestCase.m in Sources */,
 				0E3D3F4D23C600B900BCBE14 /* ANMARScalingTestCase.m in Sources */,
 				0E86339623C3456800C804E9 /* ANMARTestCase.m in Sources */,
+				0E516FE9243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */,
 				0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */,
 				0EEFE1F522009898002B5F5F /* ANMockMediationAdapterLoadedMultiple.m in Sources */,
 				0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */,
