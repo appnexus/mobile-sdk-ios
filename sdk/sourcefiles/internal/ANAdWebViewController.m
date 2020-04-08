@@ -171,8 +171,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
     self.isLazyActivation = withLazyEvaluation;
 
-    if ([self.adViewDelegate respondsToSelector:@selector(valueOfEnableLazyWebviewActivation)])
-    {
+    if ([self.adViewDelegate respondsToSelector:@selector(valueOfEnableLazyWebviewActivation)]) {
         self.lazyWebviewActivationIsEnabled = [self.adViewDelegate valueOfEnableLazyWebviewActivation];
     }
     
@@ -193,17 +192,11 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     }
 
     if (!self.isLazyActivation && self.lazyWebviewActivationIsEnabled)
-                //FIX -- why si this also captured in mraidcontainer?
     {
-//        self.size           = size;
-//        self.htmlToLoad     = htmlToLoad;
-//        self.base           = base;
-
-        [self.loadingDelegate didAcquireUnloadedWebview:self];
+        [self.loadingDelegate didAcquireLazyWebview:self];
 
     } else {
         _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
-        //[self createWebView:size HTML:htmlToLoad baseURL:base];
         [self loadWebViewWithUserScripts];
     }
 
@@ -232,28 +225,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     //   before the call to [ANAdDelegate adDidReceiveAd:self].
     //
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
-            //FIX -- interrupt presentation; correct exresssion
+
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
     
     //
     return  self;
 }
-
-//- (void)loadWebview
-//{
-//ANLogMark();
-//    if (self.htmlToLoad)
-//                //FIX better way to have this eval only once, if called more than once?
-//    {
-//        _webView = [[ANWebView alloc] initWithSize:self.size content:self.htmlToLoad baseURL:self.base];
-//        [self loadWebViewWithUserScripts];
-//
-//        self.size           = CGSizeZero;
-//        self.htmlToLoad     = nil;
-//        self.base           = nil;
-//    }
-//}
 
 
 - (void)stopOMIDAdSession {

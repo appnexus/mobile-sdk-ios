@@ -236,7 +236,6 @@ static NSString *const kANativeRenderingValidURL = @"validRenderingURL";
                            
                            [strongSelf addSubview:contentView];
                            strongSelf.contentView.hidden = NO;
-                                //FIX -- INTERRUPT LOAD
                            
                            [contentView an_constrainToSizeOfSuperview];
                            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft

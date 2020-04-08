@@ -241,8 +241,6 @@
 
 
 @property (nonatomic, readwrite)  BOOL  enableLazyWebviewActivation;
-        //FIX -- set positie once, cannot change.
-
 
 @end
 
@@ -285,6 +283,7 @@
    ad:didReceivNativeAd:    used to receive ANNativeAdReponse when that is returned from an ANBannerAdView request.
  */
 - (void)adDidReceiveAd:(nonnull id)ad;
+- (void)lazyAdDidReceiveAd:(nonnull id)ad;
 
 - (void)ad:(nonnull id)loadInstance didReceiveNativeAd:(nonnull id)responseInstance;
 

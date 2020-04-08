@@ -33,7 +33,7 @@
         return [self.adView an_parentViewController];
     } else {
         UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-                    //FIX -- update expression
+
         while (topController.presentedViewController) {
             topController = topController.presentedViewController;
         }

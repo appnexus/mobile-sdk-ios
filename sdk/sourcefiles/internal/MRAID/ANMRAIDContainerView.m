@@ -171,7 +171,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 - (instancetype)initLazyWithSize: (CGSize)size
                             HTML: (NSString *)html
                andWebViewBaseURL: (NSURL *)baseURL
-            //FIX -- make head to collapsed primaryinitialixer
 {
     self = [self initWithSize:size];
 
@@ -179,11 +178,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         _size           = size;
         _htmlCreative   = html;
         _baseURL        = baseURL;
-                //FIX -- worry about overloading size and baseURL?
-
-//        self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
-//                                                                        HTML: html
-//                                                              webViewBaseURL: baseURL ];
 
         self.webViewController.anjamDelegate    = self;
         self.webViewController.browserDelegate  = self;
@@ -198,16 +192,11 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
  * Initialize webViewController.
  */
 - (void)loadWebview
-        //x FIX -- moe to right place
 {
 ANLogMark();
-    self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: self.size  //FIX -- use:_lastKnownCurrentPosition.size
+    self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: self.htmlCreative
                                                               webViewBaseURL: self.baseURL ];
-            //FIX -- call it initActivate*...?
-            //FIX -- does it run on the correct thread?
-            //   -- need to attend to its delegate structure
-            //  -- need to attend to error conditions?
 }
 
 - (instancetype)initWithSize: (CGSize)size
@@ -535,25 +524,10 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-    if (controller != self.webViewController)
-                //FIX -- why this test?  should we call out this conditional as an error?  are there other controller values within the class heirarchy?
-    {
+    if (controller != self.webViewController) {
         ANLogWarn(@"controller DOES NOT EQUAL self.webViewController.");
-        assert(NO);
         return;
     }
-
-
-////    if (YES)
-//    if (NO)
-//            //FIX -- how to get banner.enableLazyWebviewActivation?  delegate through delegate to fetcher?
-//            //      -- where are mraidcontainerview and webviewcontroller defined in heirarchy?
-//            //      -- visibility to parents or pass through property value to children?
-//    {
-//        [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-//                //FIX -- be wure no other consequences of returning through to adunit without activation...
-//        return;
-//    }
 
 
     // Attaching WKWebView to screen for an instant to allow it to fully load in the background
@@ -566,7 +540,6 @@ ANLogMark();
         self.webViewController.contentView.hidden = YES;
         [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
                                                            atIndex:0];
-                    //FIX -- update expression
     }
 
     __weak ANMRAIDContainerView  *weakSelf  = self;
@@ -585,7 +558,6 @@ ANLogMark();
 
         [strongSelf addSubview:contentView];
         strongSelf.webViewController.contentView.hidden = NO;
-                //FIX -- interrupt load
 
         [contentView an_constrainToSizeOfSuperview];
         [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
@@ -595,10 +567,9 @@ ANLogMark();
     });
 }
 
-- (void)didAcquireUnloadedWebview:(ANAdWebViewController *)controller
+- (void)didAcquireLazyWebview:(ANAdWebViewController *)controller
 {
     [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-            //FIX -- is it misleading to use this delegate method for a controller carrying an unloaded webview?
 }
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller

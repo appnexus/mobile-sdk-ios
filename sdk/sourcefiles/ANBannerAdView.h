@@ -299,11 +299,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 - (void) loadAd;
 
-- (void) activateWebview;
-    //FIX -- rename activateAd?  ie: don't talk about webview in public api...
-
 - (void) loadWebview;
-    //FIX -- combine with adtiveateWebview.
 
 
 @end

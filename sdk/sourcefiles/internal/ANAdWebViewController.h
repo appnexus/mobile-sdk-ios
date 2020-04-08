@@ -52,11 +52,6 @@
 @property (nonatomic, readwrite, assign)  NSTimeInterval  checkViewableTimeInterval;
 @property (nonatomic, readonly, assign)  ANVideoOrientation  videoAdOrientation;
 
-//@property (nonatomic, readwrite)          CGSize     size;
-//@property (nonatomic, readwrite, strong)  NSString  *htmlToLoad;
-//@property (nonatomic, readwrite, strong)  NSURL     *base;
-////        FIX okay to keep these names?
-
 
 - (instancetype)initWithSize:(CGSize)size
                          URL:(NSURL *)URL
@@ -148,7 +143,7 @@
 @optional
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
 - (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
-- (void) didAcquireUnloadedWebview:(ANAdWebViewController *)controller;
+- (void) didAcquireLazyWebview:(ANAdWebViewController *)controller;
 
 @end
 

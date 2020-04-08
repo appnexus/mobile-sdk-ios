@@ -58,8 +58,7 @@ static NSString *const kANInline        = @"inline";
 @interface ANBannerAdView() <ANBannerAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong)  UIView  *contentView;
-@property (nonatomic, readwrite, strong)  UIView  *unloadedContentView;
-        //FIX -- refactor?
+@property (nonatomic, readwrite, strong)  UIView  *lazyContentView;
 
 @property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
 
@@ -92,7 +91,6 @@ static NSString *const kANInline        = @"inline";
 @synthesize  adResponseInfo                 = _adResponseInfo;
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
-@synthesize  enableLazyWebviewActivation    = __enableLazyWebviewActivation;
 
 
 #pragma mark - Lifecycle.
@@ -189,33 +187,25 @@ static NSString *const kANInline        = @"inline";
     [super loadAd];
 }
 
-// Attaching WKWebView to screen for an instant to allow it to fully load in the background.
-//      FIX comment
+// Attaching WKWebView to screen for an instant to allow it to complete loading.
 //
 -(void)activateWebview
-            //FIX -- can it be generalized to anadview?
 {
 ANLogMark();
-
-//    // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
-//    //
-//    if (! self.isBannerVideo)
-//    {
-//        self.webViewController.contentView.hidden = YES;
-//        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
-//                                                           atIndex:0];
-//                    //FIX -- update expression
-//    }
-            //FIX -- handle video case later
-
-    //
     __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
     __block ANWebView              *webview             = mraidContainerView.webViewController.contentView;
+
+
+    // Multi-format banner carrying video will be loaded normally, even if enableLazyWebviewActivation is set.
+    //
+    if (mraidContainerView.isBannerVideo) {
+        return;
+    }
+
 
     //
     webview.hidden = YES;
     [[UIApplication sharedApplication].keyWindow insertSubview:webview atIndex:0];
-                //FIX -- update experssion
 
 
     __weak ANBannerAdView  *weakSelf  = self;
@@ -232,7 +222,6 @@ ANLogMark();
 
         [mraidContainerView addSubview:webview];
         webview.hidden = NO;
-                //FIX -- interrupt load
 
         [webview an_constrainToSizeOfSuperview];
         [webview an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
@@ -243,11 +232,10 @@ ANLogMark();
 - (void)loadWebview
 {
 ANLogMark();
-    ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.unloadedContentView;
+    ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
     [mraidContainerView loadWebview];
 
-    self.contentView = self.unloadedContentView;
-            //FIX -- how will it be assigned to contentView?  does it need to be ?  assign it now?
+    self.contentView = self.lazyContentView;
 
     [self fireTrackerAndOMID];
 
@@ -448,23 +436,12 @@ ANLogMark();
 #pragma mark - ANUniversalAdFetcherDelegate
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
-            //FIX -- might this be called once by unloaded webview then again from webviewcontroller?
 {
     NSError *error;
 
-//    if ([response didNotLoadCreative])
-//    {
-//        [self adDidReceiveAd:self];
-//        return;
-//    }
-//
     if ([response isSuccessful] || [response didNotLoadCreative])
-                //FIX -- refactor this conditional distinction
     {
-        if ([response isSuccessful]) {
-            self.loadAdHasBeenInvoked = YES;
-                        //FIX -- be sure for didnotlaodcreateive
-        }
+        self.loadAdHasBeenInvoked = YES;
 
         id  adObject         = response.adObject;
         id  adObjectHandler  = response.adObjectHandler;
@@ -488,8 +465,6 @@ ANLogMark();
         }
 
         if ([adObject isKindOfClass:[UIView class]])
-                    //FIX -- true? that only uiView case is important for lazy loading?
-                    //FIX -- does lazy loading cat h the error case here?  [OR ANY CASE?
         {
             NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
             NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
@@ -504,7 +479,8 @@ ANLogMark();
 
             if ([response didNotLoadCreative])
             {
-                self.unloadedContentView = adObject;
+                self.lazyContentView = adObject;
+                [self lazyAdDidReceiveAd:self];
 
             } else {
                 self.contentView = adObject;
@@ -520,13 +496,12 @@ ANLogMark();
                                                     clickableViews: @[]
                                                              error: &registerError];
                 }
+
+                [self adDidReceiveAd:self];
             }
 
-            [self adDidReceiveAd:self];
 
             if (! [response didNotLoadCreative])
-                    //FIX -- lazy loading requires firing imression trcker and OMID when the creatie is loaded.
-                    //      -- encasulate this section (share dby other uadunits?)
             {
                 if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
                 {
@@ -571,7 +546,7 @@ ANLogMark();
 
     if (error) {
         self.contentView = nil;
-        self.unloadedContentView = nil;
+        self.lazyContentView = nil;
         [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
 
     }
@@ -671,7 +646,6 @@ ANLogMark();
 - (void)didMoveToWindow
 {
     if (self.contentView && ( _adResponseInfo.adType == ANAdTypeBanner))
-                //FIX -- need check for whether creative is loaded...  aready builyinto unloadedContentView?
     {
         [self fireTrackerAndOMID];
     }

@@ -164,6 +164,7 @@ ANLogMark();
     // MAR case.
     //
     if (self.fetcherMARManager)
+                //FIX -- handle case: response.didNotLoadCreative
     {
         if (!response.isSuccessful) {
             [self.fetcherMARManager internalMultiAdRequestDidFailWithError:response.error];
@@ -377,7 +378,6 @@ ANLogMark();
 
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebView
                                                         videoXML: videoAd.content ];
-                    //FIX -- noting origin
 
         self.adView.loadingDelegate = self;
         // Allow ANJAM events to always be passed to the ANAdView
@@ -422,7 +422,6 @@ ANLogMark();
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeofWebView
                                                             HTML: standardAd.content
                                                   webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
-                //FIX -- noting origin
     }
 
     self.adView.loadingDelegate = self;
@@ -433,7 +432,7 @@ ANLogMark();
     //
     if ([self.delegate valueOfEnableLazyWebviewActivation])
     {
-        [self didAcquireUnloadedWebview:self.adView];
+        [self didAcquireLazyWebview:self.adView];
     }
 }
 
@@ -544,7 +543,6 @@ ANLogMark();
     ANAdFetcherResponse  *fetcherResponse  = nil;
 
     if (self.adView.webViewController == controller)
-                //FIX -- same or different webviewcontroller as in anmraidcontainerview?
     {
         if (controller.videoAdOrientation) {
             if ([self.delegate respondsToSelector:@selector(setVideoAdOrientation:)]) {
@@ -561,12 +559,11 @@ ANLogMark();
     [self processFinalResponse:fetcherResponse];
 }
 
-- (void)didAcquireUnloadedWebview:(ANAdWebViewController *)controller
+- (void)didAcquireLazyWebview:(ANAdWebViewController *)controller
 {
 ANLogMark();
-    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithUnloadedAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
+    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
     [self processFinalResponse:fetcherResponse];
-                //x FIX -- be sure we carry ANAdREsponseInfo
 }
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller

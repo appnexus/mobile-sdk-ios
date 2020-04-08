@@ -22,6 +22,8 @@
 @interface ANAdFetcherResponse ()
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
+@property (nonatomic, readwrite)  BOOL  didNotLoadCreative;
+
 @property (nonatomic, readwrite, strong, nonnull) id adObject;
 @property (nonatomic, readwrite, strong, nullable) id adObjectHandler;
 @property (nonatomic, readwrite, strong, nullable) NSError *error;
@@ -54,9 +56,8 @@
     return self;
 }
 
-- (nonnull instancetype)initAdResponseUnloadedWithAdObject: (nonnull id)adObject
-                                        andAdObjectHandler: (nullable id)adObjectHandler
-        //FIX -- really?
+- (nonnull instancetype)initLazyAdResponseWithAdObject: (nonnull id)adObject
+                                    andAdObjectHandler: (nullable id)adObjectHandler
 {
     self = [super init];
     if (self) {
@@ -82,12 +83,11 @@
                                                        andAdObjectHandler: adObjectHandler];
 }
 
-+ (nonnull ANAdFetcherResponse *)responseWithUnloadedAdObject: (nonnull id)adObject
-                                           andAdObjectHandler: (nullable id)adObjectHandler
-        //FIX -- really?
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
+                                       andAdObjectHandler: (nullable id)adObjectHandler
 {
-    return [[ANAdFetcherResponse alloc] initAdResponseUnloadedWithAdObject: adObject
-                                                        andAdObjectHandler: adObjectHandler];
+    return [[ANAdFetcherResponse alloc] initLazyAdResponseWithAdObject: adObject
+                                                    andAdObjectHandler: adObjectHandler];
 }
 
 

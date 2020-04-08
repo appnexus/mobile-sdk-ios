@@ -81,7 +81,9 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponseInfo                     = __adResponseInfo;
+@synthesize  adResponseInfo                         = __adResponseInfo;
+@synthesize  enableLazyWebviewActivation            = __enableLazyWebviewActivation;
+
 
 
 #pragma mark - Initialization
@@ -388,6 +390,18 @@
     _marManager = marManager;
 }
 
+- (void)setEnableLazyWebviewActivation:(BOOL)propertyValue
+        //FIX -- test me
+{
+    if (YES == __enableLazyWebviewActivation) {
+        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewActivation once it is enabled.");
+        return;
+    }
+
+    //
+    __enableLazyWebviewActivation = propertyValue;
+}
+
 
 
 
@@ -583,6 +597,13 @@
 {
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:adObject];
+    }
+}
+
+- (void)lazyAdDidReceiveAd:(id)adObject
+{
+    if ([self.delegate respondsToSelector:@selector(lazyAdDidReceiveAd:)]) {
+        [self.delegate lazyAdDidReceiveAd:adObject];
     }
 }
 

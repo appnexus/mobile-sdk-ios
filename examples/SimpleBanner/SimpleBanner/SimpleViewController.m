@@ -73,8 +73,6 @@
 
     banner.enableLazyWebviewActivation = YES;
     [self.view addSubview:banner];
-        //x FIX -- find a solution where it is still okay to be proactive about early invocation of addSubview: (for banner)
-        //          -- may require detecting or remembering the parent
 
 
     //-------------------------- DEBUG -------------------------------------
@@ -103,18 +101,21 @@
                                             horizontalAccuracy:location.horizontalAccuracy];
 }
 
-- (void)adDidReceiveAd:(id)ad
-{
+- (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+}
+
+
+- (void)lazyAdDidReceiveAd:(id)ad
+{
+    NSLog(@"Lazy ad did receive ad");
 
     if (self.banner.enableLazyWebviewActivation) {
-        [NSThread sleepForTimeInterval:5.0];
+//        [NSThread sleepForTimeInterval:5.0];
+//        self.banner.enableLazyWebviewActivation = NO;
+
         [self.banner loadWebview];
     }
-        //FIX -- need to check wiether it is succesfful, unloaded or error.
-        //       -- can there be errors in generating "unloaded" ad?
-
-        //FIX -- what errors to handle upon loadWebview?
 }
 
 
@@ -135,6 +136,7 @@
 - (void)ad:(id)ad requestFailedWithError:(NSError *)error {
     NSLog(@"Ad failed to load: %@", error);
 }
+
 
 - (void)didReceiveMemoryWarning
 {

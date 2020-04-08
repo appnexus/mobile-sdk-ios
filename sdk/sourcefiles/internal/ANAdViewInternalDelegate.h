@@ -31,6 +31,7 @@
 
 - (void)adWasClickedWithURL:(NSString *)urlString;
 - (void)adDidReceiveAd:(id)adObject;
+- (void)lazyAdDidReceiveAd:(id)adObject;
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
 
 - (BOOL)valueOfEnableLazyWebviewActivation;
