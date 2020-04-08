@@ -22,7 +22,9 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
-
+#import "ANMRAIDContainerView.h"
+#import "ANLogging+Make.h"
+#import "ANLog.h"
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
 #define kAppNexusRequestTimeoutInterval 30.0
 
@@ -40,6 +42,7 @@
 @property (nonatomic, strong) XCTestExpectation *OMIDGeomentryChangeExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMID100PercentViewableExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDImpressionEventExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMIDSessionFinishEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDAdSessionIDUpdateExpectaion;
 //"adSessionId":"BC05657C-9D2F-419C-B776-2AFDF79AF70B"
 //"adSessionId":"29B4BAC9-3237-4406-9FC1-5E3A2DF6A7E5" This should be different from first one.
@@ -49,12 +52,19 @@
 @property (nonatomic) NSString *adSessionIdForFirstAd;
 @property (nonatomic) NSString *adSessionIdForSecondAd;
 
+@property (nonatomic) BOOL isOMIDSessionFinish;
+@property (nonatomic) BOOL isOMIDSessionFinishRemoveFromSuperview;
+
+
 @end
 
 @implementation ANOMIDBannerHTMLTest
 
 - (void)setUp {
     [super setUp];
+    [ANLogManager setANLogLevel:ANLogLevelAll];
+    ANSetNotificationsEnabled(YES);
+
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
@@ -96,6 +106,9 @@
     self.adSessionIdForFirstAd = @"";
     self.adSessionIdForSecondAd = @"";
     self.interstitial = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 
@@ -157,6 +170,43 @@
 }
 
 
+- (void)testOMIDSessionFinish
+{
+    [self stubRequestWithResponse:@"OMID_TestResponse"];
+    
+    self.OMIDSessionFinishEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Session Finish event"];
+    
+    self.isOMIDSessionFinish = YES;
+    self.isOMIDSessionFinishRemoveFromSuperview = NO;
+
+    [self.bannerAdView loadAd];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+    }];
+}
+
+
+- (void)testOMIDSessionFinishRemoveAd
+{
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(receiveTestNotification:)
+        name:@"kANLoggingNotification"
+        object:nil];
+    
+    [self stubRequestWithResponse:@"OMID_TestResponse"];
+    
+    self.OMIDSessionFinishEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Session Finish event"];
+    
+    self.isOMIDSessionFinish = NO;
+    self.isOMIDSessionFinishRemoveFromSuperview = YES;
+    self.bannerAdView.autoRefreshInterval = 0;
+    [self.bannerAdView loadAd];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+    }];
+}
+
 
 - (void)testOMIDImpressionInterstitial
 {
@@ -181,7 +231,6 @@
     self.adSessionIdForSecondAd = @"";
 
     [self stubRequestWithResponse:@"OMID_TestResponse"];
-    [self stubRequestWithResponse:@"OMID_TestResponse"]; //Stubbing two responses for AutoRefresh
 
 
     self.OMIDAdSessionIDUpdateExpectaion = [self expectationWithDescription:@"AdSessionID is same for TwoBanners its worng Fix it"];
@@ -242,7 +291,6 @@
          UIViewController *controller = ROOT_VIEW_CONTROLLER;
         [self.interstitial displayAdFromViewController:controller];
     }
-
 }
 
 
@@ -255,6 +303,10 @@
     didReceiveAppEvent: (NSString *)name
               withData: (NSString *)data
 {
+    
+    if(self.isOMIDSessionFinish || self.isOMIDSessionFinishRemoveFromSuperview){
+        sleep(1);
+    }
     if ([name isEqualToString:@"OMIDEvent"]) {
         // Decode and confim various OMID EVENT Datas here.
         // the cases are made as if block so that all expectations are fulfilled. This block will be called more that once during test exection once atleast for each expectation case.
@@ -287,7 +339,25 @@
             // Only assert if it has been setup to assert.
             [self.OMIDImpressionEventExpectation fulfill];
         }
+        if ( self.OMIDSessionFinishEventExpectation && [data containsString:@"\"type\":\"impression\""]) {
+            if(self.isOMIDSessionFinish) {
+                NSArray<UIView *> * subview = [self.bannerAdView subviews];
+                for (UIView *view in subview){
+                    if([view isKindOfClass:[ANMRAIDContainerView class]]){
+                        [view removeFromSuperview];
+                    }
+                }
+            }else if(self.isOMIDSessionFinishRemoveFromSuperview) {
+                [self.bannerAdView removeFromSuperview];
+                self.bannerAdView = nil;
+            }
+        }
 
+        
+        if ( self.OMIDSessionFinishEventExpectation && [data containsString:@"\"type\":\"sessionFinish\""]) {
+            // Only assert if it has been setup to assert.
+            [self.OMIDSessionFinishEventExpectation fulfill];
+        }
 
         // We will test for AdSessionId change only for Impression Event
         if ( self.OMIDAdSessionIDUpdateExpectaion && [data containsString:@"\"type\":\"impression\""]) {
@@ -312,5 +382,19 @@
 }
 
 
+- (void) receiveTestNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"kANLoggingNotification"]) {
+        NSDictionary *userInfo = [notification userInfo];
+        NSString * message  = userInfo[@"kANLogMessageKey"] ;
+        
+        if ( self.OMIDSessionFinishEventExpectation && [message containsString:@"\"type\":\"sessionFinish\""]) {
+            [self.OMIDSessionFinishEventExpectation fulfill];
+        }
+
+        
+    }
+        NSLog (@"Successfully received the test notification!");
+}
 @end
 

@@ -70,6 +70,14 @@
 		0E3F330723CE694300CA830D /* custom_adapter_fb_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32E323CE68E300CA830D /* custom_adapter_fb_mediated_response.json */; };
 		0E3F331923D077D700CA830D /* MARPublicAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F331823D077D700CA830D /* MARPublicAPI.m */; };
 		0E3F331A23D080D600CA830D /* MARHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE4DB05237B40F8005B5BCF /* MARHelper.m */; };
+		0E43003A243D057C0070BB1E /* ANLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430036243D057C0070BB1E /* ANLog.m */; };
+		0E43003B243D057C0070BB1E /* ANLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430036243D057C0070BB1E /* ANLog.m */; };
+		0E43003C243D057C0070BB1E /* ANLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430036243D057C0070BB1E /* ANLog.m */; };
+		0E430040243D057C0070BB1E /* ANLogging+Make.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430038243D057C0070BB1E /* ANLogging+Make.m */; };
+		0E430041243D057C0070BB1E /* ANLogging+Make.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430038243D057C0070BB1E /* ANLogging+Make.m */; };
+		0E430042243D057C0070BB1E /* ANLogging+Make.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430038243D057C0070BB1E /* ANLogging+Make.m */; };
+		0E430045243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */; };
+		0E430046243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */; };
 		0E44C3D622D7371100DF68D0 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E44C3A722D7371100DF68D0 /* ANAdAdapterInterstitialDFP.m */; };
 		0E44C3D722D7371100DF68D0 /* ANAdAdapterNativeAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E44C3A922D7371100DF68D0 /* ANAdAdapterNativeAdMob.m */; };
 		0E44C3D822D7371100DF68D0 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E44C3AA22D7371100DF68D0 /* ANAdAdapterBannerDFP.m */; };
@@ -337,14 +345,12 @@
 		4F9CED4A23CCAAEF00BE3443 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE16F22007317002B5F5F /* SuccessfulInstreamVideoAdResponse.json */; };
 		4FF9B85E23AC0C3E00A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
 		4FF9B85F23AC0CE000A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
-
-		607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
-		607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
-		607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
 		607BB64523F32852002A0F57 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */; };
 		607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E2B4BAC23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json */; };
 		607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE19922008124002B5F5F /* ANNativeAdRequest+ANTest.m */; };
-
+		607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
+		607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
+		607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
 		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
 		60F8A80023280C2A0030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
@@ -527,6 +533,12 @@
 		0E3F32E223CE68E300CA830D /* nativeResponseWithoutImpTrackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponseWithoutImpTrackers.json; sourceTree = "<group>"; };
 		0E3F32E323CE68E300CA830D /* custom_adapter_fb_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_fb_mediated_response.json; sourceTree = "<group>"; };
 		0E3F331823D077D700CA830D /* MARPublicAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARPublicAPI.m; sourceTree = "<group>"; };
+		0E430033243D057C0070BB1E /* ANLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLog.h; sourceTree = "<group>"; };
+		0E430035243D057C0070BB1E /* ANLogging+Make.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANLogging+Make.h"; sourceTree = "<group>"; };
+		0E430036243D057C0070BB1E /* ANLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLog.m; sourceTree = "<group>"; };
+		0E430038243D057C0070BB1E /* ANLogging+Make.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANLogging+Make.m"; sourceTree = "<group>"; };
+		0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANMRAIDContainerView+ANTest.h"; sourceTree = "<group>"; };
+		0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANMRAIDContainerView+ANTest.m"; sourceTree = "<group>"; };
 		0E44C3A622D7371100DF68D0 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
 		0E44C3A722D7371100DF68D0 /* ANAdAdapterInterstitialDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialDFP.m; sourceTree = "<group>"; };
 		0E44C3A822D7371100DF68D0 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
@@ -981,6 +993,17 @@
 			path = UnitTestApp/SharedMockFiles/StubResponse/NativeResponses;
 			sourceTree = SOURCE_ROOT;
 		};
+		0E430032243D057C0070BB1E /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				0E430033243D057C0070BB1E /* ANLog.h */,
+				0E430035243D057C0070BB1E /* ANLogging+Make.h */,
+				0E430036243D057C0070BB1E /* ANLog.m */,
+				0E430038243D057C0070BB1E /* ANLogging+Make.m */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
 		0E44C37922D7371100DF68D0 /* mediatedviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,6 +1203,8 @@
 		0E8C971121FF32EB005D1F0E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */,
+				0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */,
 				0E8C971621FF32EB005D1F0E /* ANAdView+ANTest.h */,
 				0E8C972521FF32EB005D1F0E /* ANAdView+ANTest.m */,
 				0E8C971D21FF32EB005D1F0E /* ANAdWebViewController+ANTest.h */,
@@ -1576,6 +1601,7 @@
 		0EEFE1732200737D002B5F5F /* SharedMockFiles */ = {
 			isa = PBXGroup;
 			children = (
+				0E430032243D057C0070BB1E /* Logs */,
 				0E8C971121FF32EB005D1F0E /* Categories */,
 				0EEFE111220055B9002B5F5F /* MockMediationAdapters */,
 				0E8C96E321FF32EB005D1F0E /* Resources */,
@@ -2052,6 +2078,7 @@
 				0EEAF638229BCB840008CAC9 /* AdObjectModel.swift in Sources */,
 				0E44C3DA22D7371100DF68D0 /* ANAdAdapterBannerAdMob.m in Sources */,
 				0E44C3D822D7371100DF68D0 /* ANAdAdapterBannerDFP.m in Sources */,
+				0E43003A243D057C0070BB1E /* ANLog.m in Sources */,
 				0E44C3D922D7371100DF68D0 /* ANAdAdapterBaseDFP.m in Sources */,
 				0E44C3DB22D7371100DF68D0 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 				0E44C3D622D7371100DF68D0 /* ANAdAdapterInterstitialDFP.m in Sources */,
@@ -2059,7 +2086,9 @@
 				0E8C97BC21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0E8C97CB21FF32EC005D1F0E /* ANAdWebViewController+ANTest.m in Sources */,
 				0E47017F2237B35B005CFFAC /* ANBannerAdView+ANTest.m in Sources */,
+				0E430045243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 				0E6612BC22CA736300DDC5CD /* ANGADUnifiedNativeAdView.m in Sources */,
+				0E430040243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0EEFE175220073F0002B5F5F /* ANHTTPStubbingManager.m in Sources */,
 				0EEFE177220073F0002B5F5F /* ANHTTPStubURLProtocol.m in Sources */,
 				0E4701B42237B443005CFFAC /* ANInstreamVideoAd+Test.m in Sources */,
@@ -2109,6 +2138,7 @@
 				0E8C982121FF4025005D1F0E /* ANContainerViewTestCase.m in Sources */,
 				0EEFE14A22005951002B5F5F /* ANFailedMultiple.m in Sources */,
 				0E8C979921FF32EC005D1F0E /* ANHTTPStubbingManager.m in Sources */,
+				0E430041243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0E8C979F21FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,
 				0E8C97BA21FF32EC005D1F0E /* ANInterstitialAd+ANTest.m in Sources */,
 				0EEFE14622005951002B5F5F /* ANLoadAndHitOtherCallbacks.m in Sources */,
@@ -2146,6 +2176,7 @@
 				0EC17C5221F72EA300F0F6AF /* UnitTests.m in Sources */,
 				0E8C97B121FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
 				0E8C97AB21FF32EC005D1F0E /* XCTestCase+ANBannerAdView.m in Sources */,
+				0E43003B243D057C0070BB1E /* ANLog.m in Sources */,
 				0E8C97B721FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */,
 				0E8C983821FF42B2005D1F0E /* XCTestCase+ANMediatedAd.m in Sources */,
 			);
@@ -2205,6 +2236,7 @@
 				0EEFE15E2200706A002B5F5F /* ANUniversalTagRequestBuilderFunctionalTests.m in Sources */,
 				0E8C97A321FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */,
+				0E430042243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				973A67AA239908E60008126D /* ANVideoAdPlayer+Test.m in Sources */,
 				0E9B358323C73943002BE178 /* ANVideoAdProcessor+ANTest.m in Sources */,
 				0E4701602237A30B005CFFAC /* BannerAdResizeTestCase.m in Sources */,
@@ -2214,6 +2246,7 @@
 				4F3D9E93238747D200B02AC6 /* MARGeneralTests.m in Sources */,
 				4F11628B238749A200101DC1 /* MARHelper.m in Sources */,
 				0E3F331923D077D700CA830D /* MARPublicAPI.m in Sources */,
+				0E43003C243D057C0070BB1E /* ANLog.m in Sources */,
 				0E2C248A2236AE4D006038E1 /* MediationBannerAdResizeTestCase.m in Sources */,
 				0EEFE1AF220089FB002B5F5F /* MediationCallbacksTests.m in Sources */,
 				0EEFE1B522008A1B002B5F5F /* MRAIDTests.m in Sources */,
@@ -2228,6 +2261,7 @@
 				0E8C97B221FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
 				0E44C40122D7388100DF68D0 /* XCTestCase+ANBannerAdView.m in Sources */,
 				0E8C97B821FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */,
+				0E430046243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
