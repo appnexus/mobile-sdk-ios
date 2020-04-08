@@ -88,29 +88,17 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 
 - (void)setUp
 {
-    
+    [self clearCountsAndExpectations];
+
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
     TMARK();
+    
+    
+    
+    
     self.adUnitsForTest = [[MARAdUnits alloc] initWithDelegate:self];
-    
-    
-    //
-    self.mar = nil;
-    
-    self.MAR_countOfCompletionSuccesses  = 0;
-    self.MAR_countOfCompletionFailures   = 0;
-    self.AdUnit_countOfReceiveSuccesses  = 0;
-    self.AdUnit_countOfReceiveFailures   = 0;
-    
-    self.expectationMARLoadCompletionOrFailure = nil;
-    self.expectationAdUnitLoadResponseOrFailure = nil;
-    
-    [self clearCountsAndExpectations];
-    
-    
-    //
     self.httpStubManager = [ANHTTPStubbingManager sharedStubbingManager];
     self.httpStubManager.ignoreUnstubbedRequests = NO;
     
@@ -134,15 +122,16 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     self.expectationMARLoadCompletionOrFailure = nil;
     self.expectationAdUnitLoadResponseOrFailure = nil;
+    
+    [self.httpStubManager disable];
+    [self.httpStubManager removeAllStubs];
+    self.mar = nil;
+
 }
 
 - (void)tearDown
 {
     [self clearCountsAndExpectations];
-    [self.httpStubManager disable];
-    [self.httpStubManager removeAllStubs];
-    [ANBannerAdView setDoNotResetAdUnitUUID:NO];
-    [ANInterstitialAd setDoNotResetAdUnitUUID:NO];
 }
 
 
