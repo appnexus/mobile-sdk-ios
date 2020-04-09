@@ -160,61 +160,6 @@
 }
 
 
-
-
-- (void)testBannerNativeRendererOMIDViewableRemoveFriendlyObstruction
-{
-    
-    self.bannerAdView.autoRefreshInterval = 0;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
-    
-    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
-    [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self.bannerAdView removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    
-    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
-    
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    self.percentViewableFulfilled = NO;
-    
-    [self.bannerAdView loadAd];
-    
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    XCTAssertEqual(self.bannerAdView.obstructionViews.count, 0);
-}
-
-
-- (void)testBannerNativeRendererOMIDViewableRemoveAllFriendlyObstruction
-{
-    
-    self.bannerAdView.autoRefreshInterval = 0;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
-    
-    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
-    
-    [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self.bannerAdView removeAllOpenMeasurementFriendlyObstructions];
-    
-    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
-    
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    self.percentViewableFulfilled = NO;
-    [self.bannerAdView loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    XCTAssertEqual(self.bannerAdView.obstructionViews.count, 0);
-}
-
-
 // Banner Native
 
 
