@@ -143,10 +143,16 @@ NSString * const  kANNativeElementObject                                   = @"E
 openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionViews
                           error:(NSError *__nullable*__nullable)error{
     self.obstructionViews = [[NSMutableArray alloc] init];
+    BOOL unObstructionSupportedViews = NO;
     for(UIView *obstructionView in obstructionViews){
         if(obstructionView != nil && obstructionView.alpha == 0.0){
             [self.obstructionViews addObject:obstructionView];
+        }else{
+            unObstructionSupportedViews = YES;
         }
+    }
+    if(unObstructionSupportedViews){
+        ANLogError(@"Some of the views are Invalid Friendly Obstruction View. Friendly obstruction view can neither be null nor transparent.");
     }
     return [self registerViewForTracking:view withRootViewController:rvc clickableViews:views error:error];
 }

@@ -327,8 +327,10 @@ static NSString *const kANInline        = @"inline";
 {
     if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
-        for (UIView *obstructionView in self.obstructionViews){
-            [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            for (UIView *obstructionView in self.obstructionViews){
+                [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+            }
         }
     }
 }
@@ -437,7 +439,7 @@ static NSString *const kANInline        = @"inline";
                 self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
               
            
-                if(self.obstructionViews.count > 0){
+                if(self.obstructionViews != nil && self.obstructionViews.count > 0){
                     [self.nativeAdResponse registerViewForTracking: self.contentView
                                             withRootViewController: self.displayController
                                                     clickableViews: @[]

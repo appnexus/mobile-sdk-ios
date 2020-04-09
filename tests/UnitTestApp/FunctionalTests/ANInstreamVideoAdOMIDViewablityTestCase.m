@@ -102,6 +102,7 @@ static NSString   *placementID      = @"12534678";
 {
     [self setupBannerVideoAd];
     self.friendlyObstruction.alpha = 0.0;
+    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
     
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
@@ -131,7 +132,7 @@ static NSString   *placementID      = @"12534678";
     
     [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
-        
+        [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     }];
     [self clearInstreamVideoAd];
     
@@ -142,7 +143,8 @@ static NSString   *placementID      = @"12534678";
 {
     [self setupBannerVideoAd];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
+    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+
     self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
     self.removeFriendlyObstruction = YES;
     self.percentViewableFulfilled = NO;

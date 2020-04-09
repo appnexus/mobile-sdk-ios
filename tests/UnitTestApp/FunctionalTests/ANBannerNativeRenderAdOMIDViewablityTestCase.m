@@ -216,6 +216,7 @@
 
 
 
+
 - (void)testBannerNativeOMIDViewableRemoveFriendlyObstruction
 {
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];

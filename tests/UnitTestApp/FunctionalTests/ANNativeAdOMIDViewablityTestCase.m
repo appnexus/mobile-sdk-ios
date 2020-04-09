@@ -157,6 +157,39 @@
 
 
 
+- (void)testBannerNativeOMIDViewablePercent100AddLater
+{
+    self.testcase = @"testBannerNativeOMIDViewablePercent100";
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+
+    
+    [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
+    
+    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
+    self.percentViewableFulfilled = NO;
+    
+    [self.adRequest loadAd];
+    
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (4.0 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+              self.friendlyObstruction.alpha = 0;
+
+        
+        });
+      
+    
+    
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+
+
 
 - (void)testBannerNativeOMIDViewableRemoveFriendlyObstruction
 {
