@@ -402,8 +402,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 - (void)setFriendlyObstruction
 {
-    for (UIView *obstructionView in self.obstructionViews){
-        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:self.adPlayer.omidAdSession];
+    if(self.adPlayer != nil && self.adPlayer.omidAdSession != nil){
+        for (UIView *obstructionView in self.obstructionViews){
+            [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:self.adPlayer.omidAdSession];
+        }
     }
 }
 
@@ -417,12 +419,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 - (void)removeAllOpenMeasurementFriendlyObstructions{
-    if(self.obstructionViews.count != 0){
         [super removeAllOpenMeasurementFriendlyObstructions];
-        if(self.adPlayer != nil){
+        if(self.adPlayer != nil && self.adPlayer.omidAdSession != nil){
             [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:self.adPlayer.omidAdSession];
         }
-    }
 }
 
 

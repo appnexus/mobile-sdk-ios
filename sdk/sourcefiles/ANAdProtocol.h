@@ -242,25 +242,21 @@
 
 
 /*!
- UI elements which would consider to be part of the ad can be added as friendly obstruction
- (all sub-views of the adView will be automatically treated as part of the ad)
+ * UI View which would consider to be part of the ad can be added as friendly obstruction
+ * (all sub-views of the adView will be automatically treated as part of the ad)
  */
 - (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView;
 
 /*!
- Remove friendly Obstruction from the list of FriendlyObstruction
+ * Remove friendly Obstruction from the list of FriendlyObstruction
  */
 - (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView;
 
 /*!
- Remove all friendly Obstruction
+ * Remove all friendly Obstruction
  */
 - (void)removeAllOpenMeasurementFriendlyObstructions;
 
-/**
- List of views added as Friendly Obstructions
- */
-@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 
 
 @end

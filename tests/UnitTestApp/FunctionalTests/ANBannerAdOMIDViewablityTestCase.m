@@ -20,7 +20,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
-
+#import "ANAdView+PrivateMethods.h"
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
 #define kAppNexusRequestTimeoutInterval 10.0
 
@@ -133,39 +133,43 @@
 
 
 
+
+
 - (void)testOMIDViewableRemoveFriendlyObstruction
 {
     [self stubRequestWithResponse:@"OMID_TestResponse"];
     self.removeFriendlyObstruction = NO;
-
+    
     self.friendlyObstruction.alpha = 0;
     [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
-
+    
     [self.bannerAdView loadAd];
-
+    
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
-
-                                 }];
+        
+    }];
     self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = YES;
-    
-    [self.bannerAdView removeAllOpenMeasurementFriendlyObstructions];
-    
-    
-    
-    sleep(2);
-    self.bannerAdView.frame = CGRectMake(self.bannerAdView.frame.origin.x, self.bannerAdView.frame.origin.y, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
-    
-    self.friendlyObstruction.frame = CGRectMake(self.bannerAdView.frame.origin.x , self.bannerAdView.frame.origin.y , self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
-    
+    [self.bannerAdView removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+
     self.OMIDRemoveFriendlyObstructionExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
 
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-    handler:^(NSError *error) {
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (4.0 * NSEC_PER_SEC));
+      dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+          self.friendlyObstruction.frame = CGRectMake(self.bannerAdView.frame.origin.x+10 , self.bannerAdView.frame.origin.y , self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
 
+         self.bannerAdView.frame = CGRectMake(self.bannerAdView.frame.origin.x+10, self.bannerAdView.frame.origin.y, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+         
+      
+      });
+    
+    
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
     }];
 }
 
@@ -188,16 +192,19 @@
     }];
     self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = YES;
-    [self.bannerAdView removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    
-    sleep(2);
-    self.bannerAdView.frame = CGRectMake(self.bannerAdView.frame.origin.x, self.bannerAdView.frame.origin.y, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
-    
-    self.friendlyObstruction.frame = CGRectMake(self.bannerAdView.frame.origin.x , self.bannerAdView.frame.origin.y , self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
-    
-    
-    
+    [self.bannerAdView removeAllOpenMeasurementFriendlyObstructions];
+
     self.OMIDRemoveFriendlyObstructionExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (4.0 * NSEC_PER_SEC));
+      dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+          self.friendlyObstruction.frame = CGRectMake(self.bannerAdView.frame.origin.x+10 , self.bannerAdView.frame.origin.y , self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+
+         self.bannerAdView.frame = CGRectMake(self.bannerAdView.frame.origin.x+10, self.bannerAdView.frame.origin.y, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+         
+      
+      });
+    
     
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {

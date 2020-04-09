@@ -317,9 +317,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)setFriendlyObstruction
 {
     if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
-        ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
-        for (UIView *obstructionView in self.obstructionViews){
-            [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:mraidContainerView.webViewController.omidAdSession];
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            for (UIView *obstructionView in self.obstructionViews){
+                [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+            }
         }
     }
 }
@@ -330,7 +332,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [super removeOpenMeasurementFriendlyObstruction:obstructionView];
         if([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]){
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
-            if(adView.webViewController.omidAdSession != nil){
+            if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
                    [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
                }
         }
@@ -338,7 +340,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 }
 
 - (void)removeAllOpenMeasurementFriendlyObstructions{
-    if(self.obstructionViews.count != 0){
         [super removeAllOpenMeasurementFriendlyObstructions];
         if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.controller.contentView;
@@ -346,7 +347,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
                 [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
             }
         }
-    }
 }
 
 #pragma mark - ANUniversalAdFetcherDelegate

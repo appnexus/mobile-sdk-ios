@@ -27,6 +27,7 @@
 #import "ANInstreamVideoAd.h"
 #import "ANInstreamVideoAd+Test.h"
 #import "ANVideoAdPlayer.h"
+#import "ANAdView+PrivateMethods.h"
 
 @interface ANAdOMIDViewablityTestCase : XCTestCase<ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate , ANInstreamVideoAdLoadDelegate>
 

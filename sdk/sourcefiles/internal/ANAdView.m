@@ -53,6 +53,8 @@
 
 @property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
+
 @end
 
 
