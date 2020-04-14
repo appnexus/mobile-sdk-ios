@@ -127,10 +127,10 @@ static NSString   *placementID      = @"12534678";
     self.percentViewableFulfilled = NO;
     [self.instreamVideoAd loadAdWithDelegate:self];
 
-    
+    [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+
     [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
-        [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     }];
     [self clearInstreamVideoAd];
     
