@@ -116,7 +116,6 @@
 {
     [self stubRequestWithResponse:@"OMID_TestResponse"];
 
-    self.friendlyObstruction.alpha = 0;
     [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
@@ -145,7 +144,6 @@
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (4.0 * NSEC_PER_SEC));
       dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-            self.friendlyObstruction.alpha = 0;
             [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
 
       
@@ -167,7 +165,6 @@
     [self stubRequestWithResponse:@"OMID_TestResponse"];
     self.removeFriendlyObstruction = NO;
     
-    self.friendlyObstruction.alpha = 0;
     [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
@@ -207,7 +204,6 @@
     [self stubRequestWithResponse:@"OMID_TestResponse"];
     self.removeFriendlyObstruction = NO;
     
-    self.friendlyObstruction.alpha = 0;
     [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;

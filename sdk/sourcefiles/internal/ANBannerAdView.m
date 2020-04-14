@@ -67,6 +67,9 @@ static NSString *const kANInline        = @"inline";
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+
+
+
 @end
 
 

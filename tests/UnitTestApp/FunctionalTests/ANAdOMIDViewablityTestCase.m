@@ -125,10 +125,7 @@
 - (void)testFriendlyObstructionBannerAd {
     
     [self setupBannerAd];
-    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    XCTAssertEqual(self.banner.obstructionViews.count, 0);
-    
-    self.friendlyObstruction.alpha = 0;
+  
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(self.banner.obstructionViews.count, 1);
     
@@ -149,7 +146,6 @@
     
     [self setupBannerAd];
     
-    self.friendlyObstruction.alpha = 0;
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self.banner addOpenMeasurementFriendlyObstruction:nil];
 
@@ -174,11 +170,7 @@
                                  handler:^(NSError *error) {
         
     }];
-    
-    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    XCTAssertEqual(self.banner.obstructionViews.count, 0);
-    
-    self.friendlyObstruction.alpha = 0;
+
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(self.banner.obstructionViews.count, 1);
     
@@ -215,11 +207,7 @@
 - (void)testFriendlyObstructionInterstitialAd {
     
     [self setupInterstitialAd];
-    
-    [self.interstitial addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    XCTAssertEqual(self.interstitial.obstructionViews.count, 0);
-    
-    self.friendlyObstruction.alpha = 0;
+
     [self.interstitial addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(self.interstitial.obstructionViews.count, 1);
     
@@ -240,7 +228,6 @@
     
     [self setupInterstitialAd];
     
-    self.friendlyObstruction.alpha = 0;
     [self.interstitial addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self.interstitial addOpenMeasurementFriendlyObstruction:nil];
 
@@ -268,10 +255,7 @@
 - (void) testFriendlyObstructionInstreamAd
 {
     [self setupInstreamAd];
-    [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    XCTAssertEqual(self.instreamVideoAd.obstructionViews.count, 0);
-    
-    self.friendlyObstruction.alpha = 0;
+
     [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     XCTAssertEqual(self.instreamVideoAd.obstructionViews.count, 1);
     
@@ -290,7 +274,6 @@
     
     [self setupInstreamAd];
 
-    self.friendlyObstruction.alpha = 0;
     [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:nil];
 
@@ -358,12 +341,7 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response{
     
-    self.friendlyObstruction.alpha = 1;
-    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
-    
-    XCTAssertEqual(response.obstructionViews.count, 0);
-    
-    self.friendlyObstruction.alpha = 0;
+
     [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
     XCTAssertEqual(response.obstructionViews.count, 1);
     
@@ -386,11 +364,8 @@
 
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance{
     ANNativeAdResponse *response = (ANNativeAdResponse *)responseInstance;
-    [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
+
     
-    XCTAssertEqual(response.obstructionViews.count, 0);
-    
-    self.friendlyObstruction.alpha = 0;
     [response registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
     XCTAssertEqual(response.obstructionViews.count, 1);
     

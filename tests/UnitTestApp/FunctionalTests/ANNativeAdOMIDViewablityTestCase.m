@@ -142,7 +142,6 @@
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
-    self.friendlyObstruction.alpha = 0;
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
     
@@ -174,7 +173,6 @@
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (4.0 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-              self.friendlyObstruction.alpha = 0;
 
         
         });
@@ -222,7 +220,6 @@
     self.nativeResponse = (ANNativeAdResponse *)response;
     
     if([self.testcase isEqualToString:@"testBannerNativeOMIDViewablePercent100"]){
-        self.friendlyObstruction.alpha = 1;
         [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
         
         
@@ -232,7 +229,7 @@
         
     }else if([self.testcase isEqualToString:@"testBannerNativeOMIDViewablePercent0"]){
         
-         [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[] openMeasurementFriendlyObstructions:@[self.friendlyObstruction] error:nil];
+         [self.nativeResponse registerViewForTracking:self.nativeView withRootViewController:self clickableViews:@[]  error:nil];
         
     }
     

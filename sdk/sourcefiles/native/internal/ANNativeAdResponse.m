@@ -145,7 +145,7 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
     self.obstructionViews = [[NSMutableArray alloc] init];
     BOOL unObstructionSupportedViews = NO;
     for(UIView *obstructionView in obstructionViews){
-        if(obstructionView != nil && obstructionView.alpha == 0.0){
+        if(obstructionView != nil){
             [self.obstructionViews addObject:obstructionView];
         }else{
             unObstructionSupportedViews = YES;

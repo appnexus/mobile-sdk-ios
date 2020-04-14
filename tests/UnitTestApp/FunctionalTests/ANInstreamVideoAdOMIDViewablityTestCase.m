@@ -101,7 +101,6 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDBannerVideoViewablePercent100
 {
     [self setupBannerVideoAd];
-    self.friendlyObstruction.alpha = 0.0;
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
     
@@ -122,7 +121,6 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDInstreamVideoViewablePercent100
 {
     [self setupInstreamVideoAd];
-    self.friendlyObstruction.alpha = 0.0;
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
     
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
@@ -282,7 +280,6 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDBannerVideoViewableRemoveFriendlyObstruction
 {
     [self setupBannerVideoAd];
-    self.friendlyObstruction.alpha = 0.0;
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
     
@@ -323,7 +320,6 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDInstreamVideoViewableRemoveFriendlyObstruction
 {
     [self setupInstreamVideoAd];
-    self.friendlyObstruction.alpha = 0.0;
     
     [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
@@ -370,7 +366,6 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDInstreamVideoViewableRemoveAllFriendlyObstruction
 {
     [self setupInstreamVideoAd];
-    self.friendlyObstruction.alpha = 0.0;
     
     [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
@@ -417,7 +412,6 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDBannerVideoViewableRemoveAllFriendlyObstruction
 {
     [self setupBannerVideoAd];
-    self.friendlyObstruction.alpha = 0.0;
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
     
