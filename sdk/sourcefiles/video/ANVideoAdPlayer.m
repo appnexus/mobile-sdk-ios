@@ -234,7 +234,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     
  
     UIWindow *currentWindow = [UIApplication sharedApplication].keyWindow;
-
     //provide the width & height of the webview else the video wont be displayed ********
     self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,325,275) configuration:configuration];
     self.webView.scrollView.scrollEnabled = false;

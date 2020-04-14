@@ -137,56 +137,56 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
 {
-    self = [self initWithSize:size];
-
-    if (self) {
-        _baseURL = baseURL;
-
-
-        // Optionally capture argument values, without initializing self.webViewController.
-        //
-        if ([self.adViewDelegate valueOfEnableLazyWebviewActivation])
-        {
-            _size           = size;
-            _htmlCreative   = html;
-
-        } else {
-            self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
-                                                                            HTML: html
-                                                                  webViewBaseURL: baseURL];
-        }
-
-        self.webViewController.anjamDelegate    = self;
-        self.webViewController.browserDelegate  = self;
-        self.webViewController.loadingDelegate  = self;
-        self.webViewController.mraidDelegate    = self;
-    }
-
-    return self;
+    return  [self initWithSize: size
+                          HTML: html
+                webViewBaseURL: baseURL
+                    isLazyLoad: NO];
 }
 
-/**
- * Capture argument values, but do not initialize webViewController.
- */
-- (instancetype)initLazyWithSize: (CGSize)size
-                            HTML: (NSString *)html
-               andWebViewBaseURL: (NSURL *)baseURL
+- (instancetype)initLazyWithSize:(CGSize)size
+                            HTML:(NSString *)html
+                  webViewBaseURL:(NSURL *)baseURL
+{
+    return  [self initWithSize: size
+                          HTML: html
+                webViewBaseURL: baseURL
+                    isLazyLoad: YES];
+}
+
+- (instancetype)initWithSize: (CGSize)size
+                        HTML: (NSString *)html
+              webViewBaseURL: (NSURL *)baseURL
+                  isLazyLoad: (BOOL)isLazyLoad
 {
     self = [self initWithSize:size];
 
-    if (self) {
+    if (!self)  { return nil; }
+
+
+    //
+    _baseURL = baseURL;
+
+    // Optionally capture argument values, without initializing self.webViewController.
+    //
+    if (isLazyLoad)
+    {
         _size           = size;
         _htmlCreative   = html;
-        _baseURL        = baseURL;
 
-        self.webViewController.anjamDelegate    = self;
-        self.webViewController.browserDelegate  = self;
-        self.webViewController.loadingDelegate  = self;
-        self.webViewController.mraidDelegate    = self;
+    } else {
+        self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
+                                                                        HTML: html
+                                                              webViewBaseURL: baseURL];
     }
+
+    self.webViewController.anjamDelegate    = self;
+    self.webViewController.browserDelegate  = self;
+    self.webViewController.loadingDelegate  = self;
+    self.webViewController.mraidDelegate    = self;
 
     return self;
 }
+
 
 /**
  * Initialize webViewController.

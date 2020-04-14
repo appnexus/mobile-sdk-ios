@@ -31,7 +31,7 @@
 
 - (instancetype)initLazyWithSize: (CGSize)size
                             HTML: (NSString *)html
-               andWebViewBaseURL: (NSURL *)baseURL;
+                  webViewBaseURL: (NSURL *)baseURL;
 
 - (instancetype) initWithSize: (CGSize)size
                      videoXML: (NSString *)videoXML;

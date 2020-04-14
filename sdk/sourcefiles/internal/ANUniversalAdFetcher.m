@@ -417,7 +417,7 @@ ANLogMark();
     {
         self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
                                                                 HTML: standardAd.content
-                                                   andWebViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+                                                      webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
     } else {
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeofWebView
                                                             HTML: standardAd.content

@@ -21,8 +21,8 @@
 
 @interface ANAdFetcherResponse ()
 
-@property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readwrite)  BOOL  didNotLoadCreative;
+@property (nonatomic, readwrite, assign, getter=isSuccessful)  BOOL  successful;
+@property (nonatomic, readwrite)                               BOOL  didNotLoadCreative;
 
 @property (nonatomic, readwrite, strong, nonnull) id adObject;
 @property (nonatomic, readwrite, strong, nullable) id adObjectHandler;
@@ -44,29 +44,27 @@
     return self;
 }
 
-- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
-                                       andAdObjectHandler: (nullable id)adObjectHandler
+
+- (nonnull instancetype)initAdResponseWithAdObject: (nonnull id)adObject
+                                andAdObjectHandler: (nullable id)adObjectHandler
+                                        successful: (BOOL)successful
+                                didNotLoadCreative: (BOOL)didNotLoadCreative
 {
     self = [super init];
-    if (self) {
-        _successful = YES;
-        _adObject = adObject;
-        _adObjectHandler = adObjectHandler;
-    }
+
+    if (!self)  { return nil; }
+
+
+    //
+    _successful             = successful;
+    _didNotLoadCreative     = didNotLoadCreative;
+
+    _adObject               = adObject;
+    _adObjectHandler        = adObjectHandler;
+
     return self;
 }
 
-- (nonnull instancetype)initLazyAdResponseWithAdObject: (nonnull id)adObject
-                                    andAdObjectHandler: (nullable id)adObjectHandler
-{
-    self = [super init];
-    if (self) {
-        _didNotLoadCreative = YES;
-        _adObject = adObject;
-        _adObjectHandler = adObjectHandler;
-    }
-    return self;
-}
 
 
 
@@ -76,18 +74,23 @@
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
+
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
                                    andAdObjectHandler: (nullable id)adObjectHandler
 {
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
-                                                       andAdObjectHandler: adObjectHandler];
+    return [[ANAdFetcherResponse alloc] initAdResponseWithAdObject: adObject
+                                                andAdObjectHandler: adObjectHandler
+                                                        successful: YES
+                                                didNotLoadCreative: NO ];
 }
 
 + (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
                                        andAdObjectHandler: (nullable id)adObjectHandler
 {
-    return [[ANAdFetcherResponse alloc] initLazyAdResponseWithAdObject: adObject
-                                                    andAdObjectHandler: adObjectHandler];
+    return [[ANAdFetcherResponse alloc] initAdResponseWithAdObject: adObject
+                                                andAdObjectHandler: adObjectHandler
+                                                        successful: NO
+                                                didNotLoadCreative: YES ];
 }
 
 

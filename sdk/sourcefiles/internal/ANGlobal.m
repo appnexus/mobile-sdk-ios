@@ -235,7 +235,6 @@ CGRect ANPortraitScreenBounds() {
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     UIWindow *window = UIApplication.sharedApplication.keyWindow;
-
     if (@available(iOS 11.0, *)) {
         CGFloat topPadding = window.safeAreaInsets.top;
         CGFloat bottomPadding = window.safeAreaInsets.bottom;

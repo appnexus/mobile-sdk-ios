@@ -135,6 +135,18 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     return self;
 }
 
+- (instancetype)initWithSize: (CGSize)size
+                        HTML: (NSString *)html
+              webViewBaseURL: (NSURL *)baseURL
+               configuration: (ANAdWebViewControllerConfiguration *)configuration
+{
+    return  [self initWithSize: (CGSize)size
+                          HTML: (NSString *)html
+                webViewBaseURL: (NSURL *)baseURL
+            withLazyEvaluation: NO
+                 configuration: (ANAdWebViewControllerConfiguration *)configuration ];
+}
+
 - (instancetype)initLazyWithSize: (CGSize)size
                             HTML: (NSString *)html
                   webViewBaseURL: (NSURL *)baseURL
@@ -146,18 +158,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
            withLazyEvaluation: YES
                 configuration: nil ];
     return self;
-}
-
-- (instancetype)initWithSize: (CGSize)size
-                        HTML: (NSString *)html
-              webViewBaseURL: (NSURL *)baseURL
-               configuration: (ANAdWebViewControllerConfiguration *)configuration
-{
-    return  [self initWithSize: (CGSize)size
-                          HTML: (NSString *)html
-                webViewBaseURL: (NSURL *)baseURL
-            withLazyEvaluation: NO
-                 configuration: (ANAdWebViewControllerConfiguration *)configuration ];
 }
 
 - (instancetype)initWithSize: (CGSize)size

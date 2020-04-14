@@ -39,16 +39,6 @@
                                    andAdObjectHandler: (nullable id)adObjectHandler;
 
 + (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
-                                           andAdObjectHandler: (nullable id)adObjectHandler;
-
-
-//
-- (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error;
-
-- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
                                        andAdObjectHandler: (nullable id)adObjectHandler;
-
-- (nonnull instancetype)initLazyAdResponseWithAdObject: (nonnull id)adObject
-                                    andAdObjectHandler: (nullable id)adObjectHandler;
 
 @end
