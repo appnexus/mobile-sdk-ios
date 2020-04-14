@@ -28,7 +28,6 @@
 #import "ANANJAMImplementation.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANOMIDImplementation.h"
-#import "ANAdWebViewController.h"
 
 
 static CGFloat const kANOMIDSessionFinishDelay = 0.08f;

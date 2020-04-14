@@ -220,6 +220,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
+
 /**
  * Sets whether or not Video Ads(AppNexus Media Type:4) can serve on this Ad object.
  */
@@ -237,6 +238,20 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  *  Rendering NativeAd to behave as BannerAd
  */
 @property (nonatomic, readwrite) BOOL enableNativeRendering;
+
+
+/**
+*  If enableNativeRendering is not set, the default is NO.
+*  Generate AdUnit without loading webview automatically.
+*  Host app must complete load with [self loadWebview].
+*/
+@property (nonatomic, readwrite)  BOOL  enableLazyWebviewActivation;
+
+/**
+*  Return YES if adObject has not yet been loaded.
+*  NB  Only valid after [self loadAd] has been invoked.
+*/
+@property (nonatomic, readonly)   BOOL  isLazyLoaded;
 
 
 /**

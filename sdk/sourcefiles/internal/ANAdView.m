@@ -82,7 +82,6 @@
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
 @synthesize  adResponseInfo                         = __adResponseInfo;
-@synthesize  enableLazyWebviewActivation            = __enableLazyWebviewActivation;
 
 
 
@@ -390,18 +389,6 @@
     _marManager = marManager;
 }
 
-- (void)setEnableLazyWebviewActivation:(BOOL)propertyValue
-        //FIX -- test me
-{
-    if (YES == __enableLazyWebviewActivation) {
-        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewActivation once it is enabled.");
-        return;
-    }
-
-    //
-    __enableLazyWebviewActivation = propertyValue;
-}
-
 
 
 
@@ -652,13 +639,6 @@ ANLogMark();
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return nil;
 }
-
-- (BOOL)valueOfEnableLazyWebviewActivation
-{
-    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
-    return NO;
-}
-
 
 @end
 

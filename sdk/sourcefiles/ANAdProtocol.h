@@ -239,9 +239,6 @@
  */
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
 
-
-@property (nonatomic, readwrite)  BOOL  enableLazyWebviewActivation;
-
 @end
 
 

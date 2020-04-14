@@ -91,6 +91,9 @@ static NSString *const kANInline        = @"inline";
 @synthesize  adResponseInfo                 = _adResponseInfo;
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
+@synthesize  enableLazyWebviewActivation    = __enableLazyWebviewActivation;
+@synthesize  isLazyLoaded                   = __isLazyLoaded;
+
 
 
 #pragma mark - Lifecycle.
@@ -230,8 +233,21 @@ ANLogMark();
 }
 
 - (void)loadWebview
+            //FIX -- test me -- test guards with non-RTB/SSM banner ads.
 {
 ANLogMark();
+    if (!self.isLazyLoaded) {
+        ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
+        return;
+    }
+
+    if (self.contentView) {
+        ANLogWarn(@"AdUnit LAZY LOAD IS ALREADY COMPLETED.");
+        return;
+    }
+
+
+    //
     ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
     [mraidContainerView loadWebview];
 
@@ -337,6 +353,24 @@ ANLogMark();
 - (NSTimeInterval)autoRefreshInterval {
     ANLogDebug(@"autoRefreshInterval returned %f seconds", __autoRefreshInterval);
     return __autoRefreshInterval;
+}
+
+- (void)setEnableLazyWebviewActivation:(BOOL)propertyValue
+        //FIX -- test me
+{
+    if (YES == __enableLazyWebviewActivation) {
+        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewActivation once it is enabled.");
+        return;
+    }
+
+    //
+    __enableLazyWebviewActivation = propertyValue;
+}
+
+- (BOOL)isLazyLoaded
+            //FIX -- test me
+{
+    return  (nil != self.lazyContentView);
 }
 
 
@@ -645,7 +679,7 @@ ANLogMark();
 
 - (void)didMoveToWindow
 {
-    if (self.contentView && ( _adResponseInfo.adType == ANAdTypeBanner))
+    if (self.contentView && (_adResponseInfo.adType == ANAdTypeBanner))
     {
         [self fireTrackerAndOMID];
     }
