@@ -327,7 +327,7 @@
 
 - (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
     if(obstructionView == nil){
-        ANLogError(@"Invalid Friendly Obstruction View. Friendly obstruction view can neither be null nor transparent.");
+        ANLogError(@"Invalid Friendly Obstruction View. Friendly obstruction view can not be nil.");
         return;
     }
     if([__obstructionViews containsObject:obstructionView]){
