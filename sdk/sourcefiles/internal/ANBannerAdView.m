@@ -67,6 +67,9 @@ static NSString *const kANInline        = @"inline";
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+
+
+
 @end
 
 
@@ -318,6 +321,43 @@ static NSString *const kANInline        = @"inline";
     }
 }
 
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    [super addOpenMeasurementFriendlyObstruction:obstructionView];
+    [self setFriendlyObstruction];
+}
+
+- (void)setFriendlyObstruction
+{
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            for (UIView *obstructionView in self.obstructionViews){
+                [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+            }
+        }
+    }
+}
+
+- (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
+    [super removeOpenMeasurementFriendlyObstruction:obstructionView];
+    if([self.contentView isKindOfClass:[ANMRAIDContainerView class]]){
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+        }
+    }
+}
+
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+    [super removeAllOpenMeasurementFriendlyObstructions];
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
+        }
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -360,6 +400,7 @@ static NSString *const kANInline        = @"inline";
     
     if ([response isSuccessful]) 
     {
+        
         self.loadAdHasBeenInvoked = YES;
 
         id  adObject         = response.adObject;
@@ -399,11 +440,26 @@ static NSString *const kANInline        = @"inline";
             if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]){
                 NSError             *registerError;
                 self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
-                [self.nativeAdResponse registerViewForTracking: self.contentView
-                                        withRootViewController: self.displayController
-                                                clickableViews: @[]
-                                                         error: &registerError];
+              
+           
+                if(self.obstructionViews != nil && self.obstructionViews.count > 0){
+                    [self.nativeAdResponse registerViewForTracking: self.contentView
+                                            withRootViewController: self.displayController
+                                                    clickableViews: @[]
+                               openMeasurementFriendlyObstructions:self.obstructionViews
+                                                             error: &registerError];
+                }else{
+                    [self.nativeAdResponse registerViewForTracking: self.contentView
+                                            withRootViewController: self.displayController
+                                                    clickableViews: @[]
+                                                             error: &registerError];
+                }
+               
             }
+            if(_adResponseInfo.adType == ANAdTypeBanner || _adResponseInfo.adType == ANAdTypeVideo){
+              [self setFriendlyObstruction];
+            }
+            
             [self adDidReceiveAd:self];
 
             if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))

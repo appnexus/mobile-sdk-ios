@@ -395,7 +395,35 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return  self.clickThroughAction;
 }
 
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    [super addOpenMeasurementFriendlyObstruction:obstructionView];
+    [self setFriendlyObstruction];
+}
 
+- (void)setFriendlyObstruction
+{
+    if(self.adPlayer != nil && self.adPlayer.omidAdSession != nil){
+        for (UIView *obstructionView in self.obstructionViews){
+            [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:self.adPlayer.omidAdSession];
+        }
+    }
+}
+
+- (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
+    if( [self.obstructionViews containsObject:obstructionView]){
+        [super removeOpenMeasurementFriendlyObstruction:obstructionView];
+        if(self.adPlayer != nil && self.adPlayer.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:self.adPlayer.omidAdSession];
+        }
+    }
+}
+
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+        [super removeAllOpenMeasurementFriendlyObstructions];
+        if(self.adPlayer != nil && self.adPlayer.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:self.adPlayer.omidAdSession];
+        }
+}
 
 
 //---------------------------------------------------------- -o--
@@ -413,6 +441,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
             [self setAdResponseInfo:adResponseInfo];
         }
         
+        [self setFriendlyObstruction];
         NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
         if(creativeId){
             [self setCreativeId:creativeId];

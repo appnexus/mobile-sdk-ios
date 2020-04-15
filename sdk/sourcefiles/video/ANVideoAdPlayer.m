@@ -28,7 +28,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>
 
-@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession * omidAdSession;
 @property (strong,nonatomic)              WKWebView                *webView;
 @property (nonatomic, readwrite, strong)  ANBrowserViewController  *browserViewController;
 @property (nonatomic, strong)             NSString                 *vastContent;
