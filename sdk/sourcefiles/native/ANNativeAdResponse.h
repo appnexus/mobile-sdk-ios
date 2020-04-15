@@ -175,7 +175,6 @@ extern NSString * __nonnull const  kANNativeElementObject;
  * @param view The view which is populated with the native ad elements. Must not be nil.
  * @param rvc The root view controller which contains the view. Must not be nil.
  * @param views Specifies view subviews which should be clickable, instead of the whole view (the default). May be nil.
- * @param obstructionViews Specifies views  which should be FriendlyObstructions for OpenMeasurement.
  * @note The response holds a strong reference to the registered view.
  * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
  */
@@ -184,6 +183,19 @@ extern NSString * __nonnull const  kANNativeElementObject;
                  clickableViews:(nullable NSArray *)views
                           error:(NSError *__nullable*__nullable)error;
 
+
+/*!
+ * Should be called when the native view has been populated with the ad elements and will be displayed.
+ * Clicks will be handled automatically. If the view is already registered with another ANNativeAdResponse,
+ * it will be automatically detached from that response before being attached to this response.
+ *
+ * @param view The view which is populated with the native ad elements. Must not be nil.
+ * @param rvc The root view controller which contains the view. Must not be nil.
+ * @param views Specifies view subviews which should be clickable, instead of the whole view (the default). May be nil.
+ * @param obstructionViews Specifies views  which should be FriendlyObstructions for OpenMeasurement.
+ * @note The response holds a strong reference to the registered view.
+ * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
+ */
 - (BOOL)registerViewForTracking:(nonnull UIView *)view
          withRootViewController:(nonnull UIViewController *)rvc
                  clickableViews:(nullable NSArray<UIView *> *)views
