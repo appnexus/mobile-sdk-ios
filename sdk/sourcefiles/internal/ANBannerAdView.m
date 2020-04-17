@@ -233,7 +233,7 @@ ANLogMark();
 }
 
 - (void)loadWebview
-            //FIX -- test me -- test guards with non-RTB/SSM banner ads.
+            //FIX -- test me
 {
 ANLogMark();
     if (!self.isLazyLoaded) {
@@ -250,6 +250,8 @@ ANLogMark();
     //
     ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
     [mraidContainerView loadWebview];
+            //FIX -- need error check
+            //FIX -- also second acknowledgement
 
     self.contentView = self.lazyContentView;
 
@@ -360,6 +362,11 @@ ANLogMark();
 {
     if (YES == __enableLazyWebviewActivation) {
         ANLogWarn(@"CANNOT CHANGE enableLazyWebviewActivation once it is enabled.");
+        return;
+    }
+
+    if (YES == self.universalAdFetcher.isFetcherLoading) {
+        ANLogWarn(@"CANNOT ENABLE enableLazyWebviewActivation while fetcher is loading.");
         return;
     }
 
