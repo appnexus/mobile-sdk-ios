@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */; };
 		0E061F1E23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E061F1C23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json */; };
 		0E14222122F99B9A006C597A /* ANResourceValidationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E14221F22F99B9A006C597A /* ANResourceValidationTestCase.m */; };
 		0E14222322F99BA8006C597A /* ANResourceValidationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */; };
@@ -512,6 +513,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewHTMLImpressionTestCase.m; sourceTree = "<group>"; };
 		0E061F1C23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testLoadTwoMARInstancesSimultaneously.json; sourceTree = "<group>"; };
 		0E14221F22F99B9A006C597A /* ANResourceValidationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANResourceValidationTestCase.m; sourceTree = "<group>"; };
 		0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANResourceValidationTestCase.m; sourceTree = "<group>"; };
@@ -933,7 +935,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E8C981A21FF36F6005D1F0E /* Accounts.framework in Frameworks */,
 				0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */,
 				0E6B7E4822D8DE49005D069E /* AppNexusSDK.framework in Frameworks */,
@@ -955,6 +956,7 @@
 				0E56C6FF21F8AF2200ADE6E1 /* Foundation.framework in Frameworks */,
 				0E56C70321F8AF2D00ADE6E1 /* GameKit.framework in Frameworks */,
 				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
+				607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
 				0ED159E92236B55B00D56022 /* libsqlite3.tbd in Frameworks */,
@@ -992,6 +994,7 @@
 				0E5529BA2419228C00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
 				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */,
+				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1000,8 +1003,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E6B7E4622D8DE06005D069E /* AppNexusSDK.framework in Frameworks */,
+				607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1045,8 +1048,8 @@
 			isa = PBXGroup;
 			children = (
 				0E430033243D057C0070BB1E /* ANLog.h */,
-				0E430035243D057C0070BB1E /* ANLogging+Make.h */,
 				0E430036243D057C0070BB1E /* ANLog.m */,
+				0E430035243D057C0070BB1E /* ANLogging+Make.h */,
 				0E430038243D057C0070BB1E /* ANLogging+Make.m */,
 			);
 			path = Logs;
@@ -1291,6 +1294,8 @@
 				0E8C971B21FF32EB005D1F0E /* ANBannerAdView+ANTest.m */,
 				0E8C971721FF32EB005D1F0E /* ANInterstitialAd+ANTest.h */,
 				0E8C972421FF32EB005D1F0E /* ANInterstitialAd+ANTest.m */,
+				0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */,
+				0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */,
 				0E8C971A21FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.h */,
 				0E8C972721FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m */,
 				0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */,
@@ -1472,6 +1477,7 @@
 				97FFD0492372D49400412B20 /* ANAdResponseTestCase.m */,
 				0EEFE1AC220089F2002B5F5F /* ANAdViewMRAIDCreativeTestCase.m */,
 				0EEFE196220080FB002B5F5F /* ANBannerAdTestCase.m */,
+				003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */,
 				0EAA0BAA242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m */,
 				0EAFC637242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m */,
 				0EEFE192220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m */,
@@ -1508,8 +1514,8 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
+				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1711,8 +1717,8 @@
 		0EEFE1732200737D002B5F5F /* SharedMockFiles */ = {
 			isa = PBXGroup;
 			children = (
-				0E430032243D057C0070BB1E /* Logs */,
 				0E8C971121FF32EB005D1F0E /* Categories */,
+				0E430032243D057C0070BB1E /* Logs */,
 				0EEFE111220055B9002B5F5F /* MockMediationAdapters */,
 				0E8C96E321FF32EB005D1F0E /* Resources */,
 				9792385E22413481007433C0 /* SDKValidationURL */,
@@ -1958,9 +1964,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */,
-				607BB64523F32852002A0F57 /* appnexus_standard_response.json in Resources */,
 				0EB24C5122CBD568008E927F /* appnexus_mock_mediation_response.json in Resources */,
+				607BB64523F32852002A0F57 /* appnexus_standard_response.json in Resources */,
+				607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2066,6 +2072,7 @@
 				0E1D14B422784C9500343050 /* appnexus_bannerNative_rendering.json in Resources */,
 				0E1D14B522784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
 				0E3F32F123CE68E300CA830D /* appnexus_multiple_trackers.json in Resources */,
+				0ECDA6292406DC7F000E134D /* appnexus_standard_response.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0E3F32F323CE68E300CA830D /* bannerNative_basic_banner.json in Resources */,
@@ -2088,7 +2095,6 @@
 				0E3F32EA23CE68E300CA830D /* nativeResponse2.json in Resources */,
 				0E3F32F423CE68E300CA830D /* nativeResponseWithoutImpTrackers.json in Resources */,
 				0E3F32F023CE68E300CA830D /* no_ads_ok_response.json in Resources */,
-				0ECDA6292406DC7F000E134D /* appnexus_standard_response.json in Resources */,
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
 				979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */,
 				0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */,
@@ -2171,10 +2177,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */,
 				0EB24C5522CBD770008E927F /* ANHTTPStubbingManager.m in Sources */,
 				0EB24C5722CBD770008E927F /* ANHTTPStubURLProtocol.m in Sources */,
 				0EB24C4F22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m in Sources */,
+				607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */,
 				0E14222122F99B9A006C597A /* ANResourceValidationTestCase.m in Sources */,
 				0EB24C5822CBD770008E927F /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				0EB24C5622CBD770008E927F /* ANURLConnectionStub.m in Sources */,
@@ -2204,11 +2210,13 @@
 				0E516FE8243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */,
 				0E430045243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 				0E6612BC22CA736300DDC5CD /* ANGADUnifiedNativeAdView.m in Sources */,
-				0E430040243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0EEFE175220073F0002B5F5F /* ANHTTPStubbingManager.m in Sources */,
 				0EEFE177220073F0002B5F5F /* ANHTTPStubURLProtocol.m in Sources */,
 				0E4701B42237B443005CFFAC /* ANInstreamVideoAd+Test.m in Sources */,
+				0E43003A243D057C0070BB1E /* ANLog.m in Sources */,
+				0E430040243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0EEFE15322005AC9002B5F5F /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
+				0E430045243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 				0E8C97C221FF32EC005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				0E6612C222CA736300DDC5CD /* ANNativeAdView.m in Sources */,
 				60F8A80023280C2A0030D53D /* ANReachability+ANTest.h in Sources */,
@@ -2254,11 +2262,12 @@
 				0E8C982121FF4025005D1F0E /* ANContainerViewTestCase.m in Sources */,
 				0EEFE14A22005951002B5F5F /* ANFailedMultiple.m in Sources */,
 				0E8C979921FF32EC005D1F0E /* ANHTTPStubbingManager.m in Sources */,
-				0E430041243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0E8C979F21FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,
 				0E8C97BA21FF32EC005D1F0E /* ANInterstitialAd+ANTest.m in Sources */,
 				0EEFE14622005951002B5F5F /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				0E8C93F721FF2DEC005D1F0E /* ANLocationTestCase.m in Sources */,
+				0E43003B243D057C0070BB1E /* ANLog.m in Sources */,
+				0E430041243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0E8C983321FF41B2005D1F0E /* ANMediationAdViewControllerTestCase.m in Sources */,
 				0E8C984121FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
 				0EEFE114220055C4002B5F5F /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
@@ -2294,7 +2303,6 @@
 				0EC17C5221F72EA300F0F6AF /* UnitTests.m in Sources */,
 				0E8C97B121FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
 				0E8C97AB21FF32EC005D1F0E /* XCTestCase+ANBannerAdView.m in Sources */,
-				0E43003B243D057C0070BB1E /* ANLog.m in Sources */,
 				0E8C97B721FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */,
 				0E516FF5243FA01200B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
 				0E8C983821FF42B2005D1F0E /* XCTestCase+ANMediatedAd.m in Sources */,
@@ -2313,6 +2321,7 @@
 				0E8C97BE21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0EEFE1AD220089F2002B5F5F /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
 				0EEFE197220080FB002B5F5F /* ANBannerAdTestCase.m in Sources */,
+				003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */,
 				0EEFE193220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m in Sources */,
 				0E1D14B022784C0900343050 /* ANBannerNativeRenderingTestCase.m in Sources */,
 				0EEFE1B322008A11002B5F5F /* ANBannerNativeTestCase.m in Sources */,
@@ -2332,6 +2341,8 @@
 				60F8A82223294C060030D53D /* ANJAMMayDeepLinkResponseNo.json in Sources */,
 				60F8A82323294C0A0030D53D /* ANJAMRecordEventResponse.json in Sources */,
 				60F8A81D23293A900030D53D /* ANJAMTestCase.m in Sources */,
+				0E43003C243D057C0070BB1E /* ANLog.m in Sources */,
+				0E430042243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0E1C24BA242AA2FC00A70AC4 /* ANAdOMIDViewablityTestCase.m in Sources */,
 				0E3D3F4D23C600B900BCBE14 /* ANMARScalingTestCase.m in Sources */,
 				0E86339623C3456800C804E9 /* ANMARTestCase.m in Sources */,
@@ -2341,6 +2352,7 @@
 				0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */,
 				0EEFE18D220079EE002B5F5F /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
 				0EEFE1B822008C14002B5F5F /* ANMockMediationAdapterTimeout.m in Sources */,
+				0E430046243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 				0EEFE1BB22008C29002B5F5F /* ANMRAIDTestResponses.m in Sources */,
 				0EEFE19A22008124002B5F5F /* ANNativeAdRequest+ANTest.m in Sources */,
 				0E9EBD6B24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */,
@@ -2365,7 +2377,6 @@
 				0EAA0BAC242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m in Sources */,
 				0E8C97A321FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */,
-				0E430042243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				973A67AA239908E60008126D /* ANVideoAdPlayer+Test.m in Sources */,
 				0E9B358323C73943002BE178 /* ANVideoAdProcessor+ANTest.m in Sources */,
 				0E4701602237A30B005CFFAC /* BannerAdResizeTestCase.m in Sources */,
@@ -2376,7 +2387,6 @@
 				4F3D9E93238747D200B02AC6 /* MARGeneralTests.m in Sources */,
 				4F11628B238749A200101DC1 /* MARHelper.m in Sources */,
 				0E3F331923D077D700CA830D /* MARPublicAPI.m in Sources */,
-				0E43003C243D057C0070BB1E /* ANLog.m in Sources */,
 				0E2C248A2236AE4D006038E1 /* MediationBannerAdResizeTestCase.m in Sources */,
 				0EEFE1AF220089FB002B5F5F /* MediationCallbacksTests.m in Sources */,
 				0EEFE1B522008A1B002B5F5F /* MRAIDTests.m in Sources */,
@@ -2391,7 +2401,6 @@
 				0E8C97B221FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
 				0E44C40122D7388100DF68D0 /* XCTestCase+ANBannerAdView.m in Sources */,
 				0E8C97B821FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */,
-				0E430046243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

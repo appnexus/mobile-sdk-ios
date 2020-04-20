@@ -83,6 +83,7 @@ static NSString *const kANInline        = @"inline";
 @synthesize  contentView          = _contentView;
 @synthesize  adSize               = _adSize;
 @synthesize  loadedAdSize         = _loadedAdSize;
+@synthesize  countImpressionOnAdReceived   = _countImpressionOnAdReceived;
 @synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
@@ -107,6 +108,7 @@ static NSString *const kANInline        = @"inline";
     _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
+    _countImpressionOnAdReceived = NO;
     _shouldAllowNativeDemand      = NO;
     _shouldAllowVideoDemand       = NO;
     _nativeAdRendererId          = 0;
@@ -466,7 +468,7 @@ static NSString *const kANInline        = @"inline";
             {
                 
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
-                if (self.window)  {
+                if (self.window || self.countImpressionOnAdReceived)  {
                     [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
                     self.impressionURLs = nil;
                     
