@@ -96,9 +96,19 @@
 		0E4701C22237B443005CFFAC /* ViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4701AB2237B443005CFFAC /* ViewController+ANTest.m */; };
 		0E4701C42237CDC9005CFFAC /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971321FF32EB005D1F0E /* ANTrackerManager+ANTest.m */; };
 		0E4B79212282E9510085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B791E2282E9140085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
+		0E516FEF243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FED243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m */; };
+		0E516FF0243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FED243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m */; };
+		0E516FF4243F9EDD00B5E744 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5529B92419228C00D50C51 /* FBAudienceNetwork.framework */; };
+		0E516FF5243FA01200B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FED243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m */; };
+		0E516FF6243FA05E00B5E744 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
 		0E516FE8243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */; };
 		0E516FE9243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */; };
 		0E54523223336BC300C7EC93 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972B21FF32EB005D1F0E /* ANReachability+ANTest.m */; };
+		0E5529AD2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5529AC2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */; };
+		0E5529B12419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */; };
+		0E5529BA2419228C00D50C51 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5529B92419228C00D50C51 /* FBAudienceNetwork.framework */; };
+		0E5529BD241925DB00D50C51 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5529B92419228C00D50C51 /* FBAudienceNetwork.framework */; };
+		0E5529BE241925DB00D50C51 /* FBAudienceNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5529B92419228C00D50C51 /* FBAudienceNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */; };
 		0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */; };
 		0E56C6F321F8AF0300ADE6E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F221F8AF0300ADE6E1 /* AudioToolbox.framework */; };
@@ -202,6 +212,9 @@
 		0E8C983B21FF42C9005D1F0E /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983A21FF42C9005D1F0E /* ANBaseTestCase.m */; };
 		0E8C983E21FF42E0005D1F0E /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983D21FF42E0005D1F0E /* ANTestResponses.m */; };
 		0E8C984121FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983F21FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m */; };
+		0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */; };
+		0E9441EF24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */; };
+		0E9441F22447718C00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */; };
 		0E9B356C23C72C82002BE178 /* testMARCombinationNativeRTBWithOtherCSM.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B356323C72C81002BE178 /* testMARCombinationNativeRTBWithOtherCSM.json */; };
 		0E9B356D23C72C82002BE178 /* testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B356523C72C82002BE178 /* testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json */; };
 		0E9B356E23C72C82002BE178 /* testMARCombinationBannerRTBWithOtherCSM.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B356623C72C82002BE178 /* testMARCombinationBannerRTBWithOtherCSM.json */; };
@@ -214,6 +227,8 @@
 		0E9B358023C73943002BE178 /* ANAdAdapterNativeMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B357923C73943002BE178 /* ANAdAdapterNativeMock.m */; };
 		0E9B358123C73943002BE178 /* ANAdAdapterBannerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B357A23C73943002BE178 /* ANAdAdapterBannerMock.m */; };
 		0E9B358323C73943002BE178 /* ANVideoAdProcessor+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B357D23C73943002BE178 /* ANVideoAdProcessor+ANTest.m */; };
+		0E9EBD6A24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
+		0E9EBD6B24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
 		0EA29A5F23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EA29A5D23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json */; };
 		0EAA0BAC242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAA0BAA242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m */; };
 		0EAFC639242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAFC637242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m */; };
@@ -265,6 +280,7 @@
 		0ED15A1A2236BEA200D56022 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A192236BEA200D56022 /* CoreAudioKit.framework */; };
 		0ED15A1C2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED15A1B2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json */; };
 		0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED15A1B2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json */; };
+		0ED6435524323402006B2A2E /* ANFBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6434F243233F9006B2A2E /* ANFBSettings.m */; };
 		0EEAF624229BC8BD0008CAC9 /* FunctionalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEAF623229BC8BD0008CAC9 /* FunctionalUITests.swift */; };
 		0EEAF637229BCB840008CAC9 /* UITestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEAF631229BCB840008CAC9 /* UITestViewController.swift */; };
 		0EEAF638229BCB840008CAC9 /* AdObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEAF633229BCB840008CAC9 /* AdObjectModel.swift */; };
@@ -477,6 +493,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				0E6B7E4922D8DE49005D069E /* AppNexusSDK.framework in Embed Frameworks */,
+				0E5529BE241925DB00D50C51 /* FBAudienceNetwork.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,6 +588,11 @@
 		0E4701962237B441005CFFAC /* ANInstreamVideoAd+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInstreamVideoAd+Test.h"; sourceTree = "<group>"; };
 		0E4701AB2237B443005CFFAC /* ViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+ANTest.m"; sourceTree = "<group>"; };
 		0E4B791E2282E9140085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAsssemblyRendererOMID_Native_RTBResponse.json; sourceTree = "<group>"; };
+		0E516FED243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterCSRNativeBannerFacebook.m; sourceTree = "<group>"; };
+		0E516FEE243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterCSRNativeBannerFacebook.h; sourceTree = "<group>"; };
+		0E5529AC2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCSRUniversalTagRequestBuilderTests.m; sourceTree = "<group>"; };
+		0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCSRUniversalTagRequestBuilderTests.m; sourceTree = "<group>"; };
+		0E5529B92419228C00D50C51 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		0E516FE5243E6F1500B5E744 /* ANNativeAdResponse+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+ANTest.h"; sourceTree = "<group>"; };
 		0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdResponse+ANTest.m"; sourceTree = "<group>"; };
 		0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -676,6 +698,9 @@
 		0E8C983D21FF42E0005D1F0E /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
 		0E8C983F21FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNeverCalled.m; sourceTree = "<group>"; };
 		0E8C984021FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
+		0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native.json; sourceTree = "<group>"; };
+		0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterCSRNativeBannerFacebook+ANTest.h"; sourceTree = "<group>"; };
+		0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterCSRNativeBannerFacebook+ANTest.m"; sourceTree = "<group>"; };
 		0E9B356323C72C81002BE178 /* testMARCombinationNativeRTBWithOtherCSM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationNativeRTBWithOtherCSM.json; sourceTree = "<group>"; };
 		0E9B356523C72C82002BE178 /* testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json; sourceTree = "<group>"; };
 		0E9B356623C72C82002BE178 /* testMARCombinationBannerRTBWithOtherCSM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationBannerRTBWithOtherCSM.json; sourceTree = "<group>"; };
@@ -692,6 +717,8 @@
 		0E9B357C23C73943002BE178 /* ANAdAdapterInterstitialMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialMock.h; sourceTree = "<group>"; };
 		0E9B357D23C73943002BE178 /* ANVideoAdProcessor+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVideoAdProcessor+ANTest.m"; sourceTree = "<group>"; };
 		0E9B357E23C73943002BE178 /* ANAdAdapterNativeMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeMock.h; sourceTree = "<group>"; };
+		0E9EBD6724336111001A30D8 /* TestANCSRUniversalFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestANCSRUniversalFetcher.h; sourceTree = "<group>"; };
+		0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestANCSRUniversalFetcher.m; sourceTree = "<group>"; };
 		0EA29A5D23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationTwoRTBInterstitial.json; sourceTree = "<group>"; };
 		0EAA0BAA242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdOMIDViewablityTestCase.m; sourceTree = "<group>"; };
 		0EAFC637242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerNativeRenderAdOMIDViewablityTestCase.m; sourceTree = "<group>"; };
@@ -754,6 +781,8 @@
 		0ED15A702236C60B00D56022 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MMAdSDK.framework; sourceTree = "<group>"; };
 		0ED15A742236C62200D56022 /* SCSCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SCSCoreKit.framework; path = ../../mediation/mediatedviews/SmartAd/SmartAdSDK/SCSCoreKit.framework; sourceTree = "<group>"; };
 		0ED15A752236C62200D56022 /* SASDisplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SASDisplayKit.framework; path = ../../mediation/mediatedviews/SmartAd/SmartAdSDK/SASDisplayKit.framework; sourceTree = "<group>"; };
+		0ED6434F243233F9006B2A2E /* ANFBSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFBSettings.m; sourceTree = "<group>"; };
+		0ED64351243233F9006B2A2E /* ANFBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFBSettings.h; sourceTree = "<group>"; };
 		0EEAF621229BC8BD0008CAC9 /* FunctionalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EEAF623229BC8BD0008CAC9 /* FunctionalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalUITests.swift; sourceTree = "<group>"; };
 		0EEAF625229BC8BD0008CAC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -917,6 +946,7 @@
 				0ED159F72236B82200D56022 /* CoreBluetooth.framework in Frameworks */,
 				0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
+				0E5529BD241925DB00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
 				0ED159E12236B53B00D56022 /* CoreMedia.framework in Frameworks */,
 				0ED159E32236B54100D56022 /* CoreMotion.framework in Frameworks */,
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
@@ -949,6 +979,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E516FF4243F9EDD00B5E744 /* FBAudienceNetwork.framework in Frameworks */,
 				0E6B7E4722D8DE0B005D069E /* AppNexusSDK.framework in Frameworks */,
 				0E8C97D121FF3342005D1F0E /* XCTest.framework in Frameworks */,
 			);
@@ -958,6 +989,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E5529BA2419228C00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
 				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */,
 				0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */,
@@ -1074,6 +1106,32 @@
 			);
 			path = GoogleAdMobSDK;
 			sourceTree = "<group>";
+		};
+		0E5529AF2419202900D50C51 /* CSR */ = {
+			isa = PBXGroup;
+			children = (
+				0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */,
+			);
+			path = CSR;
+			sourceTree = "<group>";
+		};
+		0E5529B22419203A00D50C51 /* CSR */ = {
+			isa = PBXGroup;
+			children = (
+				0E5529AC2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */,
+			);
+			path = CSR;
+			sourceTree = "<group>";
+		};
+		0E5529B82419228C00D50C51 /* FacebookSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0ED6434C243233F9006B2A2E /* csr */,
+				0E5529B92419228C00D50C51 /* FBAudienceNetwork.framework */,
+			);
+			name = FacebookSDK;
+			path = mediationsdk/FacebookSDK;
+			sourceTree = SOURCE_ROOT;
 		};
 		0E56C6ED21F8AEF200ADE6E1 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -1219,6 +1277,8 @@
 		0E8C971121FF32EB005D1F0E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */,
+				0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */,
 				0E516FE5243E6F1500B5E744 /* ANNativeAdResponse+ANTest.h */,
 				0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */,
 				0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */,
@@ -1270,6 +1330,8 @@
 				0E8C983D21FF42E0005D1F0E /* ANTestResponses.m */,
 				0E8C982521FF4098005D1F0E /* TestANUniversalFetcher.h */,
 				0E8C982621FF4098005D1F0E /* TestANUniversalFetcher.m */,
+				0E9EBD6724336111001A30D8 /* TestANCSRUniversalFetcher.h */,
+				0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */,
 				0E8C983621FF42B2005D1F0E /* XCTestCase+ANMediatedAd.h */,
 				0E8C983721FF42B2005D1F0E /* XCTestCase+ANMediatedAd.m */,
 			);
@@ -1396,6 +1458,7 @@
 				4F9CED4723CC9E7700BE3443 /* PrivateAPI.m */,
 				0E8C982C21FF4191005D1F0E /* UIViewConstraintsTestCase.m */,
 				0EC17C5121F72EA300F0F6AF /* UnitTests.m */,
+				0E5529B22419203A00D50C51 /* CSR */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1403,6 +1466,7 @@
 		0EC17C5E21F72EC500F0F6AF /* FunctionalTests */ = {
 			isa = PBXGroup;
 			children = (
+				0E5529AF2419202900D50C51 /* CSR */,
 				0EAFC63A242E3A9A00500DC1 /* ANNativeAdOMIDViewablityTestCase.m */,
 				0E86339323C3453400C804E9 /* MARTestCase */,
 				97FFD0492372D49400412B20 /* ANAdResponseTestCase.m */,
@@ -1450,6 +1514,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0ED6434C243233F9006B2A2E /* csr */ = {
+			isa = PBXGroup;
+			children = (
+				0ED6434D243233F9006B2A2E /* Facebook */,
+			);
+			name = csr;
+			path = ../../../../csr;
+			sourceTree = "<group>";
+		};
+		0ED6434D243233F9006B2A2E /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				0E516FEE243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.h */,
+				0E516FED243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m */,
+				0ED6434F243233F9006B2A2E /* ANFBSettings.m */,
+				0ED64351243233F9006B2A2E /* ANFBSettings.h */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
 		0EEAF622229BC8BD0008CAC9 /* FunctionalUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1495,6 +1579,7 @@
 		0EEFE10822005532002B5F5F /* StubResponse */ = {
 			isa = PBXGroup;
 			children = (
+				0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */,
 				0E1C24B7242A86C300A70AC4 /* OMID_Video_TestResponse.json */,
 				0E8794F323C34D23008DA1D6 /* MARStubResponse */,
 				97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */,
@@ -1611,6 +1696,7 @@
 		0EEFE1722200736D002B5F5F /* FunctionalMockFiles */ = {
 			isa = PBXGroup;
 			children = (
+				0E5529B82419228C00D50C51 /* FacebookSDK */,
 				0E4701922237B441005CFFAC /* Video */,
 				0ED159D52236B35A00D56022 /* ANAdAdapterBannerAdMob+ANTest.h */,
 				0ED159D42236B35A00D56022 /* ANAdAdapterBannerAdMob+ANTest.m */,
@@ -2043,6 +2129,7 @@
 				0E3D3F4723C5F7F800BCBE14 /* testMARCombinationTwoInterstitialRTBAndCSM.json in Resources */,
 				0E3D3F4B23C5F8C600BCBE14 /* testMARCombinationTwoNativeRTBAndCSM.json in Resources */,
 				0E8794F623C34D2E008DA1D6 /* testMARCombinationTwoRTBBanner.json in Resources */,
+				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
 				0EA29A5F23C4947200D78555 /* testMARCombinationTwoRTBInterstitial.json in Resources */,
 				0E2B4BAE23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json in Resources */,
 				0E88396F23C4B40E006BA93E /* testMARCombinationTwoRTBVideo.json in Resources */,
@@ -2103,11 +2190,14 @@
 				0EEAF638229BCB840008CAC9 /* AdObjectModel.swift in Sources */,
 				0E44C3DA22D7371100DF68D0 /* ANAdAdapterBannerAdMob.m in Sources */,
 				0E44C3D822D7371100DF68D0 /* ANAdAdapterBannerDFP.m in Sources */,
+				0E516FEF243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
+				0E9EBD6A24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */,
 				0E43003A243D057C0070BB1E /* ANLog.m in Sources */,
 				0E44C3D922D7371100DF68D0 /* ANAdAdapterBaseDFP.m in Sources */,
 				0E44C3DB22D7371100DF68D0 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 				0E44C3D622D7371100DF68D0 /* ANAdAdapterInterstitialDFP.m in Sources */,
 				0E44C3D722D7371100DF68D0 /* ANAdAdapterNativeAdMob.m in Sources */,
+				0E9441F22447718C00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m in Sources */,
 				0E8C97BC21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0E8C97CB21FF32EC005D1F0E /* ANAdWebViewController+ANTest.m in Sources */,
 				0E47017F2237B35B005CFFAC /* ANBannerAdView+ANTest.m in Sources */,
@@ -2193,17 +2283,20 @@
 				0E15D60C23D1AE2D00BD57DB /* MARGeneralUnitTests.m in Sources */,
 				0E3F331A23D080D600CA830D /* MARHelper.m in Sources */,
 				0E8C983521FF41C4005D1F0E /* MediationTests.m in Sources */,
+				0E5529AD2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */,
 				0E8C97C921FF32EC005D1F0E /* NSObject+Swizzling.m in Sources */,
 				0E8C97A821FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				4F9CED4823CC9E7700BE3443 /* PrivateAPI.m in Sources */,
 				4FF9B85F23AC0CE000A9EB56 /* TestGlobal.m in Sources */,
 				0E8C97C021FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */,
+				0E516FF6243FA05E00B5E744 /* TestANCSRUniversalFetcher.m in Sources */,
 				0E8C982D21FF4192005D1F0E /* UIViewConstraintsTestCase.m in Sources */,
 				0EC17C5221F72EA300F0F6AF /* UnitTests.m in Sources */,
 				0E8C97B121FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
 				0E8C97AB21FF32EC005D1F0E /* XCTestCase+ANBannerAdView.m in Sources */,
 				0E43003B243D057C0070BB1E /* ANLog.m in Sources */,
 				0E8C97B721FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */,
+				0E516FF5243FA01200B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
 				0E8C983821FF42B2005D1F0E /* XCTestCase+ANMediatedAd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2215,6 +2308,7 @@
 				0E9B358123C73943002BE178 /* ANAdAdapterBannerMock.m in Sources */,
 				0E9B357F23C73943002BE178 /* ANAdAdapterInterstitialMock.m in Sources */,
 				0E9B358023C73943002BE178 /* ANAdAdapterNativeMock.m in Sources */,
+				0E516FF0243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
 				97FFD04A2372D49400412B20 /* ANAdResponseTestCase.m in Sources */,
 				0E8C97BE21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0EEFE1AD220089F2002B5F5F /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
@@ -2249,12 +2343,14 @@
 				0EEFE1B822008C14002B5F5F /* ANMockMediationAdapterTimeout.m in Sources */,
 				0EEFE1BB22008C29002B5F5F /* ANMRAIDTestResponses.m in Sources */,
 				0EEFE19A22008124002B5F5F /* ANNativeAdRequest+ANTest.m in Sources */,
+				0E9EBD6B24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */,
 				0EEFE195220080F0002B5F5F /* ANNativeAdRequestTestCase.m in Sources */,
 				0E6612C422CA736300DDC5CD /* ANNativeAdView.m in Sources */,
 				0EEFE1AB220089AF002B5F5F /* ANOMIDBannerHTMLTest.m in Sources */,
 				979EA171223BC364009B79B7 /* ANOMIDNativeTestCase.m in Sources */,
 				9736FAAC235492F7008F6687 /* ANOMIDVideoTestCase.m in Sources */,
 				0EEFE1642200717E002B5F5F /* ANPublicAPITestCase.m in Sources */,
+				0E9441EF24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m in Sources */,
 				0E8C97C721FF32EC005D1F0E /* ANReachability+ANTest.m in Sources */,
 				0EEFE1B122008A0A002B5F5F /* ANSecondPriceDFPTestCase.m in Sources */,
 				0E81279C23C88D810045D788 /* ANSSMMediationAdViewController+ANTest.m in Sources */,
@@ -2264,6 +2360,8 @@
 				0E1C24B6242A855B00A70AC4 /* ANInstreamVideoAdOMIDViewablityTestCase.m in Sources */,
 				0EEFE1DD22008E6D002B5F5F /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0EEFE15E2200706A002B5F5F /* ANUniversalTagRequestBuilderFunctionalTests.m in Sources */,
+				0ED6435524323402006B2A2E /* ANFBSettings.m in Sources */,
+				0E5529B12419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */,
 				0EAA0BAC242A401900597B23 /* ANBannerAdOMIDViewablityTestCase.m in Sources */,
 				0E8C97A321FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */,
@@ -2519,6 +2617,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -2582,6 +2681,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -2613,9 +2713,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"\"$(SRCROOT)/mediationsdk/GoogleAdMobSDK\"",
+					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -2652,8 +2754,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -2691,6 +2795,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2723,6 +2828,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2755,6 +2861,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+					"\"$(SRCROOT)/mediationsdk/FacebookSDK\"",
 					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -2785,6 +2892,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+					"\"$(SRCROOT)/mediationsdk/FacebookSDK\"",
 					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (

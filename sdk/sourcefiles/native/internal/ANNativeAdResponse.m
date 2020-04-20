@@ -22,6 +22,7 @@
 #import "ANVerificationScriptResource.h"
 
 NSString * const  kANNativeElementObject                                   = @"ELEMENT";
+NSString * const  kANNativeCSRObject                                   = @"CSRAdObject";
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord

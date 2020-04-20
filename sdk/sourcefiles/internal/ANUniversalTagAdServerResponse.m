@@ -27,7 +27,7 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANAdResponseInfo.h"
 #import "ANGlobal.h"
-
+#import "ANCSRAd.h"
 
 
 #pragma mark - Public constants.
@@ -88,6 +88,11 @@ static NSString *const kANUniversalTagAdServerResponseKeyResponseURL = @"respons
 static NSString *const kANUniversalTagAdServerResponseKeyType = @"type";
 static NSString *const kANUniversalTagAdServerResponseKeyWidth = @"width";
 static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
+
+//CSR
+static NSString *const kANUniversalTagAdServerResponseKeyAdsCSRObject = @"csr";
+static NSString *const kANUniversalTagAdServerResponseKeyPayload = @"payload";
+static NSString *const kANUniversalTagAdServerResponseKeyTrackersClick_urls = @"click_urls";
 
 static NSString *const kANUniversalTagAdServerResponseKeySecondPrice = @"second_price";
 static NSString *const kANUniversalTagAdServerResponseKeyOptimized = @"optimized";
@@ -263,7 +268,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          adResponseInfo.contentSource = contentSource;
          adResponseInfo.memberId = memberId;
 
-
+        ANVerificationScriptResource *omidVerificationScriptResource  = [[self class] anVerificationScriptFromAdObject:adObject];
+        
         // RTB
         if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
         {
@@ -304,9 +310,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         }
 
                         // Parsing viewability object to create measurement resources for OMID Native integration
-                        ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
-                        if (verificationScriptResource) {
-                            nativeAd.verificationScriptResource = verificationScriptResource;
+                        if(omidVerificationScriptResource != nil){
+                            nativeAd.verificationScriptResource = omidVerificationScriptResource;
                         }
                         [arrayOfAdUnits addObject:nativeAd];
                     }
@@ -327,9 +332,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             mediatedAd.isAdTypeNative = YES;
                             // Parsing viewability object to create measurement resources for OMID Native integration
-                            ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
-                            if (verificationScriptResource) {
-                                mediatedAd.verificationScriptResource = verificationScriptResource;
+                            if(omidVerificationScriptResource != nil){
+                                mediatedAd.verificationScriptResource = omidVerificationScriptResource;
                             }
                         }
                         mediatedAd.creativeId = creativeId;
@@ -347,8 +351,25 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             }else{
                 ANLogError(@"UNRECOGNIZED AD_TYPE in CSM.  (adObject=%@)", adObject);
             }
-
-
+        // CSR - Only for Facebook Native Banner is supported by CSR
+        }else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSRObject]){
+            if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
+                NSDictionary *csrObject = [[self class] csrObjectFromAdObject:adObject];
+                if (csrObject) {
+                    ANCSRAd *csrAd = [[self class] mediatedAdFromCSRObject:csrObject];
+                    if (csrAd) {
+                        // Parsing viewability object to create measurement resources for OMID Native integration
+                        if(omidVerificationScriptResource != nil){
+                            csrAd.verificationScriptResource = omidVerificationScriptResource;
+                        }
+                        csrAd.creativeId = creativeId;
+                        adResponseInfo.networkName = csrAd.className;
+                        [arrayOfAdUnits addObject:csrAd];
+                    }
+                }
+            }else{
+                ANLogError(@"UNRECOGNIZED AD_TYPE in CSR.  (adObject=%@)", adObject);
+            }
         // SSM - Only Banner and Interstitial are supported in SSM
         } else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsSSMObject]){
             if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]){
@@ -429,6 +450,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         return adObject[kANUniversalTagAdServerResponseKeyAdsSSMObject];
     }else{
         ANLogError(@"Response from ad server in an unexpected format. Expected SSM in rtbObject: %@", adObject);
+        return nil;
+    }
+}
+
+
++ (NSDictionary *)csrObjectFromAdObject:(NSDictionary *)adObject {
+    if ([adObject[kANUniversalTagAdServerResponseKeyAdsCSRObject] isKindOfClass:[NSDictionary class]]) {
+        return adObject[kANUniversalTagAdServerResponseKeyAdsCSRObject];
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected CSR in adObject: %@", adObject);
         return nil;
     }
 }
@@ -590,6 +621,51 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         }
     }
     ANLogError(@"Response from ad server in an unexpected format. Unable to find SSM Banner in ssmObject: %@", ssmObject);
+    return nil;
+}
+
++ (ANCSRAd *)mediatedAdFromCSRObject:(NSDictionary *)csrObject
+{
+    if ([csrObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]])
+    {
+        ANCSRAd  *csrAd    = nil;
+        NSArray       *handlerArray  = (NSArray *)csrObject[kANUniversalTagAdServerResponseKeyHandler];
+
+        for (id handlerObject in handlerArray)
+        {
+            if ([handlerObject isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary  *handlerDict  = (NSDictionary *)handlerObject;
+                NSString      *type         = [handlerDict[kANUniversalTagAdServerResponseKeyType] description];
+
+                if ([type.lowercaseString isEqualToString:kANUniversalTagAdServerResponseValueIOS])
+                {
+                    NSString *className = [handlerDict[kANUniversalTagAdServerResponseKeyClass] description];
+                    if ([className length] == 0) {
+                        return nil;
+                    }
+                    csrAd = [[ANCSRAd alloc] init];
+                    csrAd.className  = className;
+                    csrAd.payload      = [handlerDict[kANUniversalTagAdServerResponseKeyPayload] description];
+                    csrAd.width      = [handlerDict[kANUniversalTagAdServerResponseKeyWidth] description];
+                    csrAd.height     = [handlerDict[kANUniversalTagAdServerResponseKeyHeight] description];
+                    break;
+
+                } else {
+                    ANLogError(@"UNRECOGNIZED CSR type.  (%@)", type);
+                }
+            }
+        } //endfor -- handlerObject
+
+        if (csrAd)
+        {
+            csrAd.responseURL     = [csrObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
+            csrAd.impressionUrls  = [[self class] impressionUrlsFromContentSourceObject:csrObject];
+            csrAd.clickUrls  = [[self class] getClickUrlsFromContentSourceObject:csrObject];
+            return  csrAd;
+        }
+    }
+    ANLogError(@"Response from ad server in an unexpected format. Expected CSM in csmObject: %@", csrObject);
     return nil;
 }
 
@@ -756,6 +832,13 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     return nil;
 }
 
++ (NSArray *)getClickUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    if ([trackerDict[kANUniversalTagAdServerResponseKeyTrackersClick_urls] isKindOfClass:[NSArray class]]) {
+        return trackerDict[kANUniversalTagAdServerResponseKeyTrackersClick_urls];
+    }
+    return nil;
+}
 
 
 

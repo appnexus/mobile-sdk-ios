@@ -21,6 +21,7 @@
 #import "ANAdProtocol.h"
 
 extern NSString * __nonnull const  kANNativeElementObject;
+extern NSString * __nonnull const  kANNativeCSRObject;
 
 
 /*!

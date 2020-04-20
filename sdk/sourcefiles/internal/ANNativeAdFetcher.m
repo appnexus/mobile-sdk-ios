@@ -28,10 +28,14 @@
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
+#import "ANCSRAd.h"
+#import "ANCSRNativeAdController.h"
 
 @interface ANNativeAdFetcher()
 
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
+@property (nonatomic, readwrite, strong)  ANCSRNativeAdController      *nativeBannerMediatedAdController;
+
 @end
 
 @implementation ANNativeAdFetcher
@@ -52,7 +56,7 @@
      * displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
     self.nativeMediationController = nil;
-
+    
 }
 
 
@@ -109,9 +113,12 @@
     self.adObjectHandler = nextAd;
     
     
-    if ( [nextAd isKindOfClass:[ANMediatedAd class]] ) {
+    // CSR need to be checked first as It's inheriting ANMediatedAd
+    if ([nextAd isKindOfClass:[ANCSRAd class]] ){
+        [self handleCSRNativeAd:nextAd];
+    }else if ( [nextAd isKindOfClass:[ANMediatedAd class]] ) {
         [self handleCSMSDKMediatedAd:nextAd];
-    } else if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
+    }else if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
         [self handleNativeStandardAd:nextAd];
     }else {
         ANLogError(@"Implementation error: Unspported ad in native ads waterfall.  (class=%@)", [nextAd class]);
@@ -129,6 +136,13 @@
 }
 
 #pragma mark - Ad handlers.
+
+- (void)handleCSRNativeAd:(ANCSRAd *)csrAd
+{
+    self.nativeBannerMediatedAdController = [ANCSRNativeAdController initCSRAd: csrAd
+                                                                                withFetcher: self
+                                                                          adRequestDelegate: self.delegate];
+}
 
 - (void)handleCSMSDKMediatedAd:(ANMediatedAd *)mediatedAd
 {
