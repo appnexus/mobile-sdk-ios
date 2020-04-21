@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "7.2"
+  s.version      = "7.3"
   s.platform     = :ios, "9.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
