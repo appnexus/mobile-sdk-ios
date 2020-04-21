@@ -79,6 +79,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 @interface ANVideoAdPlayer : UIView<WKScriptMessageHandler,WKNavigationDelegate, WKUIDelegate>
 
 @property (strong, nonatomic, nullable) id <ANVideoAdPlayerDelegate> delegate;
+@property (nonatomic, readwrite, strong, nullable) OMIDAppnexusAdSession * omidAdSession;
 
 -(void) loadAdWithVastContent:(nonnull NSString *) vastContent;
 -(void) loadAdWithVastUrl:(nonnull NSString *) vastUrl;

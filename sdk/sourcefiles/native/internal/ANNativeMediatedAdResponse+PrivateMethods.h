@@ -18,5 +18,6 @@
 @interface ANNativeMediatedAdResponse(PrivateMethods)
 
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;
+@property (nonatomic, readwrite, strong) NSArray<NSString *> *clickUrls;
 
 @end

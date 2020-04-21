@@ -22,6 +22,7 @@
 #import "ANVerificationScriptResource.h"
 
 NSString * const  kANNativeElementObject                                   = @"ELEMENT";
+NSString * const  kANNativeCSRObject                                   = @"CSRAdObject";
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
@@ -53,6 +54,7 @@ NSString * const  kANNativeElementObject                                   = @"E
 @property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 @property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 
 @end
 
@@ -123,6 +125,7 @@ NSString * const  kANNativeElementObject                                   = @"E
                                                                     rootViewController:controller
                                                                         clickableViews:clickableViews
                                                                                  error:error];
+    
     if (successfulResponseRegistration) {
         self.viewForTracking = view;
         [view setAnNativeAdResponse:self];
@@ -133,6 +136,26 @@ NSString * const  kANNativeElementObject                                   = @"E
     }
     
     return NO;
+}
+
+- (BOOL)registerViewForTracking:(nonnull UIView *)view
+         withRootViewController:(nonnull UIViewController *)rvc
+                 clickableViews:(nullable NSArray<UIView *> *)views
+openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionViews
+                          error:(NSError *__nullable*__nullable)error{
+    self.obstructionViews = [[NSMutableArray alloc] init];
+    BOOL invalidObstructionViews = NO;
+    for(UIView *obstructionView in obstructionViews){
+        if(obstructionView != nil){
+            [self.obstructionViews addObject:obstructionView];
+        }else{
+            invalidObstructionViews = YES;
+        }
+    }
+    if(invalidObstructionViews){
+        ANLogError(@"Some of the views are Invalid Friendly Obstruction View. Friendly obstruction view can not be nil.");
+    }
+    return [self registerViewForTracking:view withRootViewController:rvc clickableViews:views error:error];
 }
 
 - (BOOL)registerResponseInstanceWithNativeView:(UIView *)view
@@ -160,6 +183,9 @@ NSString * const  kANNativeElementObject                                   = @"E
     NSString *params = self.verificationScriptResource.params;
     [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
     self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
+    for (UIView *obstruction in self.obstructionViews){
+        [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:self.omidAdSession];
+    }
 }
 
 

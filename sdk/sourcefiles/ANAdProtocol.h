@@ -111,6 +111,7 @@
  */
 - (void)clearCustomKeywords;
 
+
 @end   //ANAdProtocolFoundationCore
 
 
@@ -238,6 +239,24 @@
  * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseInfo being accessed through ANNativeAdRequest.
  */
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
+
+
+/*!
+ * UI View which would consider to be part of the ad can be added as friendly obstruction
+ * (all sub-views of the adView will be automatically treated as part of the ad)
+ */
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView;
+
+/*!
+ * Remove friendly Obstruction from the list of FriendlyObstruction
+ */
+- (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView;
+
+/*!
+ * Remove all friendly Obstruction
+ */
+- (void)removeAllOpenMeasurementFriendlyObstructions;
+
 
 
 @end

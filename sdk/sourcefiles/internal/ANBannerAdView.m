@@ -67,6 +67,9 @@ static NSString *const kANInline        = @"inline";
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+
+
+
 @end
 
 
@@ -80,6 +83,7 @@ static NSString *const kANInline        = @"inline";
 @synthesize  contentView          = _contentView;
 @synthesize  adSize               = _adSize;
 @synthesize  loadedAdSize         = _loadedAdSize;
+@synthesize  countImpressionOnAdReceived   = _countImpressionOnAdReceived;
 @synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
@@ -104,6 +108,7 @@ static NSString *const kANInline        = @"inline";
     _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
+    _countImpressionOnAdReceived = NO;
     _shouldAllowNativeDemand      = NO;
     _shouldAllowVideoDemand       = NO;
     _nativeAdRendererId          = 0;
@@ -318,6 +323,43 @@ static NSString *const kANInline        = @"inline";
     }
 }
 
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    [super addOpenMeasurementFriendlyObstruction:obstructionView];
+    [self setFriendlyObstruction];
+}
+
+- (void)setFriendlyObstruction
+{
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            for (UIView *obstructionView in self.obstructionViews){
+                [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+            }
+        }
+    }
+}
+
+- (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
+    [super removeOpenMeasurementFriendlyObstruction:obstructionView];
+    if([self.contentView isKindOfClass:[ANMRAIDContainerView class]]){
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+        }
+    }
+}
+
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+    [super removeAllOpenMeasurementFriendlyObstructions];
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
+        }
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -360,6 +402,7 @@ static NSString *const kANInline        = @"inline";
     
     if ([response isSuccessful]) 
     {
+        
         self.loadAdHasBeenInvoked = YES;
 
         id  adObject         = response.adObject;
@@ -399,18 +442,33 @@ static NSString *const kANInline        = @"inline";
             if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]){
                 NSError             *registerError;
                 self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
-                [self.nativeAdResponse registerViewForTracking: self.contentView
-                                        withRootViewController: self.displayController
-                                                clickableViews: @[]
-                                                         error: &registerError];
+              
+           
+                if(self.obstructionViews != nil && self.obstructionViews.count > 0){
+                    [self.nativeAdResponse registerViewForTracking: self.contentView
+                                            withRootViewController: self.displayController
+                                                    clickableViews: @[]
+                               openMeasurementFriendlyObstructions:self.obstructionViews
+                                                             error: &registerError];
+                }else{
+                    [self.nativeAdResponse registerViewForTracking: self.contentView
+                                            withRootViewController: self.displayController
+                                                    clickableViews: @[]
+                                                             error: &registerError];
+                }
+               
             }
+            if(_adResponseInfo.adType == ANAdTypeBanner || _adResponseInfo.adType == ANAdTypeVideo){
+              [self setFriendlyObstruction];
+            }
+            
             [self adDidReceiveAd:self];
 
             if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
                 
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
-                if (self.window)  {
+                if (self.window || self.countImpressionOnAdReceived)  {
                     [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
                     self.impressionURLs = nil;
                     

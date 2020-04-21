@@ -74,31 +74,43 @@
 
 - (void)setUp {
     [super setUp];
+    [self clearCountsAndExpectations];
+
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
-    
-    
-    self.mar = nil;
-    self.bannerAd1 = nil;
-    self.bannerAd2 = nil;
-    self.interstitialAd1 = nil;
-    self.interstitialAd2 = nil;
-    self.nativeAdRequest1 = nil;
-    self.nativeAdRequest2 = nil;
-    self.videoAd1 = nil;
-    self.videoAd2 = nil;
-    self.receiveAdSuccess = NO;
-    self.receiveAdFailure = NO;
     [ANBannerAdView setDoNotResetAdUnitUUID:YES];
     [ANInterstitialAd setDoNotResetAdUnitUUID:YES];
     [ANNativeAdRequest setDoNotResetAdUnitUUID:YES];
     [ANInstreamVideoAd setDoNotResetAdUnitUUID:YES];
-
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 
 
+- (void)clearCountsAndExpectations
+{
+       [[ANHTTPStubbingManager sharedStubbingManager] disable];
+       [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+       
+       ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
+       self.loadAdResponseReceivedExpectation = nil;
+       self.loadAdResponseFailedExpectation = nil;
+       
+       self.bannerAd1 = nil;
+       self.bannerAd2 = nil;
+       self.interstitialAd1 = nil;
+       self.interstitialAd2 = nil;
+       self.videoAd1 = nil;
+       self.videoAd2 = nil;
+       self.nativeAdRequest1 = nil;
+       self.nativeAdRequest2 = nil;
+       self.mar = nil;
+
+       [ANBannerAdView setDoNotResetAdUnitUUID:NO];
+       [ANInterstitialAd setDoNotResetAdUnitUUID:NO];
+       [ANNativeAdRequest setDoNotResetAdUnitUUID:NO];
+       [ANInstreamVideoAd setDoNotResetAdUnitUUID:NO];
+}
 
 
 #pragma mark - Test methods.
@@ -648,30 +660,7 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-    
-    [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    
-    ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
-    self.loadAdResponseReceivedExpectation = nil;
-    self.loadAdResponseFailedExpectation = nil;
-    
-    self.bannerAd1 = nil;
-    self.bannerAd2 = nil;
-    self.interstitialAd1 = nil;
-    self.interstitialAd2 = nil;
-    self.videoAd1 = nil;
-    self.videoAd2 = nil;
-    self.nativeAdRequest1 = nil;
-    self.nativeAdRequest2 = nil;
-    self.mar = nil;
-
-    [ANBannerAdView setDoNotResetAdUnitUUID:NO];
-    [ANInterstitialAd setDoNotResetAdUnitUUID:NO];
-    [ANNativeAdRequest setDoNotResetAdUnitUUID:NO];
-    [ANInstreamVideoAd setDoNotResetAdUnitUUID:NO];
-    
-
+    [self clearCountsAndExpectations];
 }
 
 

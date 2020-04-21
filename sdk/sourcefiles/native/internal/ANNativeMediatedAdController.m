@@ -27,16 +27,6 @@
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 
 @property (nonatomic, readwrite, strong) id<ANNativeCustomAdapter> currentAdapter;
-@property (nonatomic, readwrite, assign) BOOL hasSucceeded;
-@property (nonatomic, readwrite, assign) BOOL hasFailed;
-@property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-
-// variables for measuring latency.
-@property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
-@property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
-
-@property (nonatomic, readwrite, weak)  ANNativeAdFetcher  *adFetcher;
-@property (nonatomic, readwrite, weak)  id<ANNativeAdFetcherDelegate>     adRequestDelegate;
 
 @end
 
@@ -190,7 +180,7 @@
 
 #pragma mark - helper methods
 
-- (BOOL)checkIfHasResponded {
+- (BOOL)checkIfMediationHasResponded {
     // we received a callback from mediation adaptor, cancel timeout
     [self cancelTimeout];
     // don't succeed or fail more than once per mediated ad
@@ -198,7 +188,7 @@
 }
 
 - (void)didReceiveAd:(id)adObject {
-    if ([self checkIfHasResponded]) return;
+    if ([self checkIfMediationHasResponded]) return;
     if (!adObject) {
         [self didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
         return;
@@ -212,7 +202,7 @@
 }
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
-    if ([self checkIfHasResponded]) return;
+    if ([self checkIfMediationHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil];

@@ -53,6 +53,8 @@
 
 @property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
+
 @end
 
 
@@ -82,7 +84,7 @@
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
 @synthesize  adResponseInfo                     = __adResponseInfo;
-
+@synthesize  obstructionViews                    = __obstructionViews;
 
 #pragma mark - Initialization
 
@@ -115,6 +117,8 @@
 
     __clickThroughAction                     = ANClickThroughActionOpenSDKBrowser;
     __landingPageLoadsInBackground           = YES;
+    __obstructionViews = [[NSMutableArray alloc] init];
+
 }
 
 - (void)dealloc
@@ -308,6 +312,29 @@
         ANLogDebug(@"Setting member id to %d", (int) newMemberId);
         __memberId = newMemberId;
     }
+}
+
+- (void)removeOpenMeasurementFriendlyObstruction:(nonnull UIView*)obstructionView{
+    if( [__obstructionViews containsObject:obstructionView] ){
+        [__obstructionViews removeObject:obstructionView];
+    }
+}
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+    if(__obstructionViews != nil && __obstructionViews.count > 0){
+        [__obstructionViews removeAllObjects];
+    }
+}
+
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    if(obstructionView == nil){
+        ANLogError(@"Invalid Friendly Obstruction View. Friendly obstruction view can not be nil.");
+        return;
+    }
+    if([__obstructionViews containsObject:obstructionView]){
+        ANLogError(@"View is already added as Friendly Obstruction");
+        return;
+    }
+    [__obstructionViews addObject:obstructionView];
 }
 
 

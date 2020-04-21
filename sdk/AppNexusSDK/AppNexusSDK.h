@@ -41,7 +41,7 @@ FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 #import <AppNexusSDK/ANNativeAdStarRating.h>
 #import <AppNexusSDK/ANNativeCustomAdapter.h>
 #import <AppNexusSDK/ANNativeMediatedAdResponse.h>
-
+#import <AppNexusSDK/ANCSRNativeAdResponse.h>
 #import <AppNexusSDK/ANMultiAdRequest.h>
 #import <AppNexusSDK/ANAdResponseInfo.h>
 

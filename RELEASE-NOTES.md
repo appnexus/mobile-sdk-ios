@@ -1,3 +1,11 @@
+## 7.3
+### New Feature
++ MS-4266 Added API to support Friendly Obstruction for Open Measurement
++ MS-4223 Added Client Side Rendering for FB mediated Ads.
+
+### Improvements/Bug Fixes
++ MS-4275 Fixed BannerAd OMID session tracker firing
+
 ## 7.2
 ### Improvements/Bug Fixes
 + MS-4200 : Support IAB Europe Transparency & Consent Framework v2.0

@@ -25,6 +25,11 @@
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
+/**
+ List of views added as Friendly Obstructions
+ */
+@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
+
 
 //
 - (void)initialize;
