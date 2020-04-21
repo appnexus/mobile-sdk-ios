@@ -56,7 +56,7 @@
     banner.externalUid = @"123e4567e89b12da456426655440000";
     banner.rootViewController = self;
     banner.delegate = self;
-    banner.clickThroughAction = ANClickThroughActionReturnURL;
+//    banner.clickThroughAction = ANClickThroughActionReturnURL;
 //    [self.view addSubview:banner];
     
 //    // Since this example is for testing, we'll turn on PSAs and verbose logging.

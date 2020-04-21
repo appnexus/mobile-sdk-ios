@@ -143,7 +143,6 @@
 @optional
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
 - (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
-- (void) didAcquireLazyWebview:(ANAdWebViewController *)controller;
 
 @end
 

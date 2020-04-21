@@ -176,12 +176,11 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: html
                                                               webViewBaseURL: baseURL];
+        self.webViewController.anjamDelegate    = self;
+        self.webViewController.browserDelegate  = self;
+        self.webViewController.loadingDelegate  = self;
+        self.webViewController.mraidDelegate    = self;
     }
-
-    self.webViewController.anjamDelegate    = self;
-    self.webViewController.browserDelegate  = self;
-    self.webViewController.loadingDelegate  = self;
-    self.webViewController.mraidDelegate    = self;
 
     return self;
 }
@@ -196,6 +195,10 @@ ANLogMark();
     self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: self.htmlCreative
                                                               webViewBaseURL: self.baseURL ];
+    self.webViewController.anjamDelegate    = self;
+    self.webViewController.browserDelegate  = self;
+    self.webViewController.loadingDelegate  = self;
+    self.webViewController.mraidDelegate    = self;
 }
 
 - (instancetype)initWithSize: (CGSize)size
@@ -523,6 +526,7 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
+ANLogMark();
     if (controller != self.webViewController) {
         ANLogWarn(@"controller DOES NOT EQUAL self.webViewController.");
         return;
@@ -566,10 +570,6 @@ ANLogMark();
     });
 }
 
-- (void)didAcquireLazyWebview:(ANAdWebViewController *)controller
-{
-    [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-}
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {

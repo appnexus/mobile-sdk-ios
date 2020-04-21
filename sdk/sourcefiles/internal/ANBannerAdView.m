@@ -251,7 +251,7 @@ ANLogMark();
     ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
     [mraidContainerView loadWebview];
             //FIX -- need error check
-            //FIX -- also second acknowledgement
+                //FIX -- test for nil
 
     self.contentView = self.lazyContentView;
 
@@ -387,6 +387,7 @@ ANLogMark();
 
 - (void)fireTrackerAndOMID
 {
+ANLogMark();
     [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
     self.impressionURLs = nil;
 
@@ -478,6 +479,7 @@ ANLogMark();
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
+ANLogMark();
     NSError *error;
 
     if ([response isSuccessful] || [response didNotLoadCreative])
@@ -518,6 +520,15 @@ ANLogMark();
                 _loadedAdSize = self.adSize;
             }
 
+            if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            {
+                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+
+                if (! [response didNotLoadCreative] && self.window) {
+                    [self fireTrackerAndOMID];
+                }
+            }
+
             if ([response didNotLoadCreative])
             {
                 self.lazyContentView = adObject;
@@ -539,19 +550,6 @@ ANLogMark();
                 }
 
                 [self adDidReceiveAd:self];
-            }
-
-
-            if (! [response didNotLoadCreative])
-            {
-                if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
-                {
-                    self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
-
-                    if (self.window) {
-                        [self fireTrackerAndOMID];
-                    }
-                }
             }
 
         } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {

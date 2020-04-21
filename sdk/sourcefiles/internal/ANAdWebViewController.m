@@ -151,7 +151,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
                             HTML: (NSString *)html
                   webViewBaseURL: (NSURL *)baseURL
 {
-
+ANLogMark();
     self = [self initWithSize: size
                          HTML: html
                webViewBaseURL: baseURL
@@ -166,6 +166,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
           withLazyEvaluation: (BOOL)withLazyEvaluation
                configuration: (ANAdWebViewControllerConfiguration *)configuration
 {
+ANLogMark();
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
 
@@ -191,11 +192,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
 
-    if (!self.isLazyActivation && self.lazyWebviewActivationIsEnabled)
+    if (self.isLazyActivation || !self.lazyWebviewActivationIsEnabled)
     {
-        [self.loadingDelegate didAcquireLazyWebview:self];
-
-    } else {
         _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
         [self loadWebViewWithUserScripts];
     }
@@ -593,21 +591,28 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)processWebViewDidFinishLoad
 {
+ANLogMark();
     if (!self.completedFirstLoad)
     {
         self.completedFirstLoad = YES;
-        // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController videoAdReady will call it later.
-        if ([self.videoXML length] > 0)
+
+        if (!self.isLazyActivation)
         {
-            @synchronized(self) {
-                [self processVideoViewDidFinishLoad];
+            // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController
+            //   videoAdReady will call it later.
+            //
+            if ([self.videoXML length] > 0)
+            {
+                @synchronized(self) {
+                    [self processVideoViewDidFinishLoad];
+                }
+            } else if ([self.loadingDelegate respondsToSelector:@selector(didCompleteFirstLoadFromWebViewController:)])
+            {
+                @synchronized(self) {
+                    [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
+                }
             }
-        }else if ([self.loadingDelegate respondsToSelector:@selector(didCompleteFirstLoadFromWebViewController:)])
-        {
-            @synchronized(self) {
-                [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
-            }
-        }
+        }  //END -- !self.isLazyActivation
         
         //
         if (self.isMRAID) {
