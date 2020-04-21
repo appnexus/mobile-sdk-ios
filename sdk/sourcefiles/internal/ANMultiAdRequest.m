@@ -298,6 +298,16 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
  */
 - (BOOL)addAdUnit:(nonnull id<ANMultiAdProtocol,ANAdProtocolFoundationCore>)newAdUnit
 {
+    if (!newAdUnit) {
+        ANLogError(@"FAILED to Add newAdUnit, newAdUnit can not be nil");
+        return NO;
+    }
+    
+    if(![newAdUnit conformsToProtocol:@protocol(ANAdProtocolFoundationCore)]){
+        ANLogError(@"FAILED to Add newAdUnit, newAdUnit is not supported by MultiAdRequest object");
+        return NO;
+    }
+    
     NSInteger   newMemberID     = -1;
     NSInteger   newPublisherId  = -1;
     NSString   *newUUIDKey      = @"";
@@ -371,6 +381,16 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
  */
 - (BOOL)removeAdUnit:(nonnull id<ANMultiAdProtocol,ANAdProtocolFoundationCore>)adUnit
 {
+    if (!adUnit) {
+        ANLogError(@"FAILED to remove adUnit, adUnit can not be nil");
+        return NO;
+    }
+    
+    if(![adUnit conformsToProtocol:@protocol(ANAdProtocolFoundationCore)]){
+        ANLogError(@"FAILED to remove adUnit, adUnit is not supported by MultiAdRequest object");
+        return NO;
+    }
+    
     NSString    *auUUIDKey  = nil;
     NSInteger    auIndex    = -1;
 
@@ -512,6 +532,7 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 - (nullable NSArray<id> *)adUnit: (nonnull id<ANMultiAdProtocol,ANAdProtocolFoundationCore>)adUnit
                    getProperties: (nonnull NSArray<NSNumber *> *)getTypes
 {
+    
     NSMutableArray<id>  *returnValuesArray  = [[NSMutableArray<id> alloc] init];
     NSNull              *nullObj            = [NSNull null];
 

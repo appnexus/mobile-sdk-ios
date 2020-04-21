@@ -47,3 +47,4 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 #import <AppNexusNativeSDK/ANMultiAdRequest.h>
 
 
+#import <AppNexusNativeSDK/ANCSRNativeAdResponse.h>

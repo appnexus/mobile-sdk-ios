@@ -24,6 +24,9 @@
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 
+#pragma mark - Private constants.
+
+
 #pragma mark -
 
 // This protocol definition meant for local use only, to simplify typecasting of MAR Manager objects.
@@ -277,6 +280,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"gdpr_consent"] = gdprConsent;
     }
     
+    // add Facebook bidder token if available
+    NSArray *tpuids = [self appendFBToken];
+    if(tpuids != nil){
+        requestDict[@"tpuids"] = tpuids;
+    }
+    
     // add USPrivacy String
     NSString *privacyString = [ANUSPrivacySettings getUSPrivacyString];
     if (privacyString.length != 0) {
@@ -286,6 +295,34 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     return [requestDict copy];
 }
 
+-(NSString *)getFacebookBidderToken{
+    // check to see if an instance of this class exists
+    Class csrClass = NSClassFromString(@"ANFBSettings");
+    if (!csrClass) {
+        ANLogDebug(@"ANFBSettings Class not found");
+        return nil;
+    }
+    SEL  getterMethod  = NSSelectorFromString(@"getBidderToken");
+    if ([csrClass respondsToSelector:getterMethod]) {
+        IMP methodIMP = [csrClass methodForSelector:getterMethod];
+        NSString* (*func)(id,SEL) = (NSString* (*)(id,SEL))methodIMP;
+        ANLogDebug(@"FacebookBidderToken : %@",(func)(csrClass, getterMethod));
+        return (func)(csrClass, getterMethod);
+    }
+    return nil;
+}
+
+-(NSArray *)appendFBToken{
+    NSString *token = [self getFacebookBidderToken];
+    if(token != nil){
+        NSDictionary *fan = @{
+            @"provider"  : @"audienceNetwork",
+            @"user_id"   : token
+        };
+        return @[fan];
+    }
+    return nil;
+}
 
 - (NSDictionary *)tag:(NSMutableDictionary *)requestDict
 {

@@ -33,5 +33,8 @@
 - (OMIDAppnexusAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts;
 - (void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
 - (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession;
+- (void)addFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
+- (void)removeFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
+- (void)removeAllFriendlyObstructions:(OMIDAppnexusAdSession*) omidAdSession;
 
 @end

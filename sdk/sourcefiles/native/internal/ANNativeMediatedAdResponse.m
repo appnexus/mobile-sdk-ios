@@ -24,7 +24,6 @@
 
 @interface ANNativeMediatedAdResponse () <ANNativeCustomAdapterAdDelegate>
 
-@property (nonatomic, readwrite, strong, nullable) id<ANNativeCustomAdapter> adapter;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;
 @property (nonatomic, readwrite) BOOL impressionsHaveBeenTracked;
@@ -44,6 +43,7 @@
 @synthesize customElements = _customElements;
 @synthesize expired = _expired;
 @synthesize networkCode = _networkCode;
+@synthesize adapter = _adapter;
 
 - (BOOL)hasExpired {
     if (_expired == YES) {
@@ -85,7 +85,7 @@
                    rootViewController:(UIViewController *)controller
                        clickableViews:(NSArray *)clickableViews
                                 error:(NSError **)error {
-    if ([self.adapter respondsToSelector:@selector(nativeAdDelegate)]) {
+    if ([self.adapter respondsToSelector:@selector(requestDelegate)]) {
         self.adapter.nativeAdDelegate = self;
     } else {
         ANLogDebug(@"native_adapter_native_ad_delegate_missing");
