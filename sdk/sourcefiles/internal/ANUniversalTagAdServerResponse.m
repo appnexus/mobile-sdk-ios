@@ -268,8 +268,11 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          adResponseInfo.contentSource = contentSource;
          adResponseInfo.memberId = memberId;
 
-        ANVerificationScriptResource *omidVerificationScriptResource  = [[self class] anVerificationScriptFromAdObject:adObject];
-        
+        ANVerificationScriptResource *omidVerificationScriptResource;
+        if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
+            // Parsing viewability object to create measurement resources for OMID Native integration
+            omidVerificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
+        }
         // RTB
         if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
         {
