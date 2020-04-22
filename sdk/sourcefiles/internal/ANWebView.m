@@ -22,11 +22,12 @@
 
 @implementation ANWebView
     
-    -(instancetype) initWithSize:(CGSize)size {
-        
+    -(instancetype) initWithSize:(CGSize)size
+    {
         WKWebViewConfiguration *configuration = [[self class] setDefaultWebViewConfiguration];
         
         self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height) configuration:configuration];
+        if (!self)  { return nil; }
         
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
@@ -36,14 +37,14 @@
         }
         
         return self;
-        
-        
     }
     
-    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL baseURL:(NSURL *)baseURL  {
-        
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL baseURL:(NSURL *)baseURL
+    {
         self = [self initWithSize:size];
-        
+        if (!self)  { return nil; }
+
+        //
         __weak WKWebView  *weakWebView  = self;
         
         [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
@@ -64,20 +65,25 @@
               });
           }
           ] resume];
-        
+
+        //
         return self;
-        
     }
     
-    -(instancetype) initWithSize:(CGSize)size content:(NSString *)htmlContent baseURL:(NSURL *)baseURL{
+    -(instancetype) initWithSize:(CGSize)size content:(NSString *)htmlContent baseURL:(NSURL *)baseURL
+    {
         self = [self initWithSize:size];
-        
+        if (!self)  { return nil; }
+
         [self loadHTMLString:htmlContent baseURL:baseURL];
         return self;
     }
     
-    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL{
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL
+    {
         self = [self initWithSize:size];
+        if (!self)  { return nil; }
+
         NSURLRequest    *request  = [NSURLRequest requestWithURL:URL];
         [self loadRequest:request];
         

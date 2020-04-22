@@ -195,6 +195,8 @@ ANLogMark();
     if (self.isLazyActivation || !self.lazyWebviewActivationIsEnabled)
     {
         _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
+        if (!_webView)  { return nil; }
+        
         [self loadWebViewWithUserScripts];
     }
 

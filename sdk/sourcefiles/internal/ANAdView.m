@@ -587,12 +587,31 @@
     }
 }
 
-- (void)lazyAdDidReceiveAd:(id)adObject
+- (void)lazyAdDidReceiveAd:(nonnull id)adObject
 {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(lazyAdDidReceiveAd:)]) {
         [self.delegate lazyAdDidReceiveAd:adObject];
     }
 }
+
+- (void)lazyAdDidLoad:(nonnull id)adObject
+{
+ANLogMark();
+    if ([self.delegate respondsToSelector:@selector(lazyAdDidLoad:)]) {
+        [self.delegate lazyAdDidLoad:adObject];
+    }
+}
+
+- (void)lazyAd:(nonnull id)adObject loadFailedWithError:(nonnull NSError *)error
+{
+ANLogMark();
+    if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)]) {
+        [self.delegate lazyAd:adObject loadFailedWithError:error];
+    }
+}
+
+
 
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance
 {

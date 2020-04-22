@@ -120,6 +120,15 @@
     }
 }
 
+- (void)lazyAdDidLoad:(id)ad
+{
+    NSLog(@"Lazy ad did load");
+}
+
+- (void)lazyAd:(id)ad loadFailedWithError:(NSError *)error {
+    NSLog(@"Lazy ad failed to load: %@", error);
+}
+
 
 - (void)adDidClose:(id)ad {
     NSLog(@"Ad did close");

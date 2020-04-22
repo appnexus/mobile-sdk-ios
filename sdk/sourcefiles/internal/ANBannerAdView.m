@@ -193,6 +193,7 @@ static NSString *const kANInline        = @"inline";
 // Attaching WKWebView to screen for an instant to allow it to complete loading.
 //
 -(void)activateWebview
+        //FIX rename this method to... what?  showAd, loadLazyAd?
 {
 ANLogMark();
     __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
@@ -216,8 +217,17 @@ ANLogMark();
     dispatch_async(dispatch_get_main_queue(),
     ^{
         __strong ANBannerAdView  *strongSelf  = weakSelf;
+
         if (!strongSelf)  {
-            ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+                    //FIX -- test me
+            NSError  *error  = ANError(@"COULD NOT ACQUIRE strongSelf.", ANAdResponseInternalError);
+            ANLogError(@"%@", error);
+
+            if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)]) {
+                [self.delegate lazyAd:self loadFailedWithError:error];
+            }
+
+            [webview removeFromSuperview];
             return;
         }
 
@@ -229,6 +239,11 @@ ANLogMark();
         [webview an_constrainToSizeOfSuperview];
         [webview an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
                                         yAttribute: NSLayoutAttributeTop];
+
+        if ([self.delegate respondsToSelector:@selector(lazyAdDidLoad:)]) {
+                    //FIX -- test me
+            [self.delegate lazyAdDidLoad:self];
+        }
     });
 }
 
@@ -250,13 +265,27 @@ ANLogMark();
     //
     ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
     [mraidContainerView loadWebview];
-            //FIX -- need error check
-                //FIX -- test for nil
+
+    if (!mraidContainerView)
+            //FIX -- test me
+    {
+        if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)])
+        {
+            NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
+            ANLogError(@"%@", error);
+
+            [self.delegate lazyAd:self loadFailedWithError:error];
+            return;
+        }
+    }
 
     self.contentView = self.lazyContentView;
 
     [self fireTrackerAndOMID];
 
+    // NB -- Dispatch thread within activateWebview returns lazy ad load success to host app.
+    //
+            //FIX -- do this.
     [self activateWebview];
 }
 

@@ -281,6 +281,7 @@
  */
 - (void)adDidReceiveAd:(nonnull id)ad;
 - (void)lazyAdDidReceiveAd:(nonnull id)ad;
+- (void)lazyAdDidLoad:(nonnull id)ad;
 
 - (void)ad:(nonnull id)loadInstance didReceiveNativeAd:(nonnull id)responseInstance;
 
@@ -289,6 +290,7 @@
  Sent when the ad request to the server has failed.
  */
 - (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error;
+- (void)lazyAd:(nonnull id)ad loadFailedWithError:(nonnull NSError *)error;
 
 
 /**
