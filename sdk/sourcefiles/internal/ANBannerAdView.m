@@ -193,6 +193,49 @@ static NSString *const kANInline        = @"inline";
     [super loadAd];
 }
 
+
+- (void)loadWebview
+            //FIX -- test me
+{
+ANLogMark();
+    if (!self.isEligibleForLazyLoad) {
+        ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
+        return;
+    }
+
+    if (self.contentView) {
+        ANLogWarn(@"AdUnit LAZY LOAD IS ALREADY COMPLETED.");
+        return;
+    }
+
+
+    //
+    ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
+    [mraidContainerView loadWebview];
+
+    if (!mraidContainerView)
+            //FIX -- test me
+    {
+        if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)])
+        {
+            NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
+            ANLogError(@"%@", error);
+
+            [self.delegate lazyAd:self loadFailedWithError:error];
+            return;
+        }
+    }
+
+    self.contentView = self.lazyContentView;
+
+    // NB  The dispatch thread within activateWebview completes the lazy webview load by...
+    //      * Returning lazy ad load success to host app.
+    //      * Firing MobileSDK trackers, including impressionURLs and OMID
+    //      * Starting the auto-refresh timer, as required.
+    //
+    [self activateWebview];
+}
+
 // Attaching WKWebView to screen for an instant to allow it to complete loading.
 //
 -(void)activateWebview
@@ -242,56 +285,14 @@ ANLogMark();
         [webview an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
                                         yAttribute: NSLayoutAttributeTop];
 
-        if ([self.delegate respondsToSelector:@selector(lazyAdDidLoad:)]) {
+        if ([strongSelf.delegate respondsToSelector:@selector(lazyAdDidLoad:)]) {
                     //FIX -- test me
-            [self.delegate lazyAdDidLoad:self];
+            [strongSelf.delegate lazyAdDidLoad:self];
         }
+
+        [strongSelf fireTrackerAndOMID];
+        [strongSelf.universalAdFetcher startAutoRefreshTimer];
     });
-}
-
-- (void)loadWebview
-            //FIX -- test me
-            //FIX -- is it a candidate?  eg banner video
-{
-ANLogMark();
-    if (!self.isEligibleForLazyLoad) {
-        ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
-        return;
-    }
-
-    if (self.contentView) {
-        ANLogWarn(@"AdUnit LAZY LOAD IS ALREADY COMPLETED.");
-        return;
-    }
-
-
-    //
-    ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
-    [mraidContainerView loadWebview];
-
-    if (!mraidContainerView)
-            //FIX -- test me
-    {
-        if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)])
-        {
-            NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
-            ANLogError(@"%@", error);
-
-            [self.delegate lazyAd:self loadFailedWithError:error];
-            return;
-        }
-    }
-
-    self.contentView = self.lazyContentView;
-
-    [self fireTrackerAndOMID];
-
-    // NB -- Dispatch thread within activateWebview returns lazy ad load success to host app.
-    //
-            //FIX -- do this.
-    [self activateWebview];
-
-    [self.universalAdFetcher startAutoRefreshTimer];
 }
 
 
