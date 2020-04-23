@@ -192,7 +192,6 @@
     self.ssmAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                            HTML:self.ssmMediatedAd.content
                                                  webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
-
     self.ssmAdView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView
     self.ssmAdView.webViewController.adViewANJAMDelegate = self.adViewDelegate;
