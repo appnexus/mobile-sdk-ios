@@ -37,7 +37,7 @@
 - (void)lazyAdDidLoad:(id)ad;
 - (void)lazyAd:(id)ad loadFailedWithError:(NSError *)error;
 
-- (BOOL)valueOfEnableLazyWebviewActivation;
+- (BOOL)valueOfEnableLazyWebviewLoad;
 
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;

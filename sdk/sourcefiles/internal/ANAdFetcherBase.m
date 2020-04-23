@@ -120,6 +120,7 @@
 
                                       if (!self.fetcherMARManager) {
                                           [strongSelf restartAutoRefreshTimer];
+                                                //FIX -- postpone for lazy, start up later upon load...
                                       }
 
                                       if ([response isKindOfClass:[NSHTTPURLResponse class]]) {

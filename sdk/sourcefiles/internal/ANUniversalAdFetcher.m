@@ -190,6 +190,7 @@ ANLogMark();
     }
 
     [self startAutoRefreshTimer];
+        //FIX -- postpone for lazy, start up later upon load...
 }
 
 - (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags
@@ -298,6 +299,12 @@ ANLogMark();
 #pragma mark - Auto refresh timer.
 
 - (void) startAutoRefreshTimer
+    //FIX -- lazy logic to prevent or start, as necessary...
+            /* STATE
+                    enableLazywebviewload
+                    isEligibleForLazyLoad
+                    isLazyLoadInProgress
+             */
 {
     if (!self.autoRefreshTimer) {
         ANLogDebug(@"fetcher_stopped");
@@ -311,6 +318,7 @@ ANLogMark();
 // NB  Invocation of this method MUST ALWAYS be followed by invocation of startAutoRefreshTimer.
 //
 - (void)restartAutoRefreshTimer
+        //FIX -- lazy logic to prevent or start, as necessary...
 {
     // stop old autoRefreshTimer
     [self stopAutoRefreshTimer];
@@ -413,7 +421,7 @@ ANLogMark();
         self.adView.loadingDelegate = nil;
     }
 
-    if ([self.delegate valueOfEnableLazyWebviewActivation])
+    if ([self.delegate valueOfEnableLazyWebviewLoad])
     {
         self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
                                                                 HTML: standardAd.content
@@ -428,9 +436,9 @@ ANLogMark();
     // Allow ANJAM events to always be passed to the ANAdView
     self.adView.webViewController.adViewANJAMDelegate = self.delegate;
 
-    // Callback immediately to fetcher if lazy webview activation is enabled.
+    // Callback immediately to fetcher if lazy webview load is enabled.
     //
-    if ([self.delegate valueOfEnableLazyWebviewActivation])
+    if ([self.delegate valueOfEnableLazyWebviewLoad])
     {
         [self didAcquireLazyWebview:self.adView];
     }
@@ -574,6 +582,7 @@ ANLogMark();
 
 - (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {
+ANLogMark();
     [self stopAutoRefreshTimer];
 }
 

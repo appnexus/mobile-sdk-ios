@@ -91,8 +91,8 @@ static NSString *const kANInline        = @"inline";
 @synthesize  adResponseInfo                 = _adResponseInfo;
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
-@synthesize  enableLazyWebviewActivation    = __enableLazyWebviewActivation;
-@synthesize  isLazyLoaded                   = __isLazyLoaded;
+@synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
+@synthesize  isEligibleForLazyLoad          = __isEligibleForLazyLoad;
 
 
 
@@ -105,18 +105,19 @@ static NSString *const kANInline        = @"inline";
     
     // Defaults.
     //
-    __autoRefreshInterval   = kANBannerDefaultAutoRefreshInterval;
-    _transitionDuration     = kAppNexusBannerAdTransitionDefaultDuration;
-    _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
-    _adSize                 = APPNEXUS_SIZE_UNDEFINED;
-    _adSizes                = nil;
-    _shouldAllowNativeDemand      = NO;
-    _shouldAllowVideoDemand       = NO;
-    _nativeAdRendererId          = 0;
-    _videoAdOrientation     = ANUnknown;    
-    self.allowSmallerSizes  = NO;
-    self.loadAdHasBeenInvoked = NO;
-    self.enableNativeRendering = NO;
+    __autoRefreshInterval       = kANBannerDefaultAutoRefreshInterval;
+    _transitionDuration         = kAppNexusBannerAdTransitionDefaultDuration;
+    _loadedAdSize               = APPNEXUS_SIZE_UNDEFINED;
+    _adSize                     = APPNEXUS_SIZE_UNDEFINED;
+    _adSizes                    = nil;
+    _shouldAllowNativeDemand    = NO;
+    _shouldAllowVideoDemand     = NO;
+    _nativeAdRendererId         = 0;
+    _videoAdOrientation         = ANUnknown;
+
+    self.allowSmallerSizes      = NO;
+    self.loadAdHasBeenInvoked   = NO;
+    self.enableNativeRendering  = NO;
 
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
@@ -200,7 +201,7 @@ ANLogMark();
     __block ANWebView              *webview             = mraidContainerView.webViewController.contentView;
 
 
-    // Multi-format banner carrying video will be loaded normally, even if enableLazyWebviewActivation is set.
+    // Multi-format banner carrying video will be loaded normally, even if enableLazyWebviewLoad is set.
     //
     if (mraidContainerView.isBannerVideo) {
         return;
@@ -249,9 +250,10 @@ ANLogMark();
 
 - (void)loadWebview
             //FIX -- test me
+            //FIX -- is it a candidate?  eg banner video
 {
 ANLogMark();
-    if (!self.isLazyLoaded) {
+    if (!self.isEligibleForLazyLoad) {
         ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
         return;
     }
@@ -386,24 +388,24 @@ ANLogMark();
     return __autoRefreshInterval;
 }
 
-- (void)setEnableLazyWebviewActivation:(BOOL)propertyValue
+- (void)setEnableLazyWebviewLoad:(BOOL)propertyValue
         //FIX -- test me
 {
-    if (YES == __enableLazyWebviewActivation) {
-        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewActivation once it is enabled.");
+    if (YES == __enableLazyWebviewLoad) {
+        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewLoad once it is enabled.");
         return;
     }
 
     if (YES == self.universalAdFetcher.isFetcherLoading) {
-        ANLogWarn(@"CANNOT ENABLE enableLazyWebviewActivation while fetcher is loading.");
+        ANLogWarn(@"CANNOT ENABLE enableLazyWebviewLoad while fetcher is loading.");
         return;
     }
 
     //
-    __enableLazyWebviewActivation = propertyValue;
+    __enableLazyWebviewLoad = propertyValue;
 }
 
-- (BOOL)isLazyLoaded
+- (BOOL)isEligibleForLazyLoad
             //FIX -- test me
 {
     return  (nil != self.lazyContentView);
@@ -701,9 +703,9 @@ ANLogMark();
     return displayController;
 }
 
-- (BOOL)valueOfEnableLazyWebviewActivation
+- (BOOL)valueOfEnableLazyWebviewLoad
 {
-    return  self.enableLazyWebviewActivation;
+    return  self.enableLazyWebviewLoad;
 }
 
 

@@ -245,13 +245,13 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 *  Generate AdUnit without loading webview automatically.
 *  Host app must complete load with [self loadWebview].
 */
-@property (nonatomic, readwrite)  BOOL  enableLazyWebviewActivation;
+@property (nonatomic, readwrite)  BOOL  enableLazyWebviewLoad;
 
 /**
 *  Return YES if adObject has not yet been loaded.
 *  NB  Only valid after [self loadAd] has been invoked.
 */
-@property (nonatomic, readonly)   BOOL  isLazyLoaded;
+@property (nonatomic, readonly)   BOOL  isEligibleForLazyLoad;
 
 
 /**

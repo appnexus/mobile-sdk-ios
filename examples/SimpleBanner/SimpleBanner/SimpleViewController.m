@@ -71,7 +71,7 @@
     banner.shouldAllowVideoDemand = NO;                     //FIX -- allow this when lazy webview is also applied to video...
     banner.shouldServePublicServiceAnnouncements = YES;     //FIX -- test with working placements...
 
-    banner.enableLazyWebviewActivation = YES;
+    banner.enableLazyWebviewLoad = YES;
     [self.view addSubview:banner];
 
 
@@ -103,18 +103,18 @@
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
-    NSLog(@"APP DEBUG  %s -- banner.isLazyLoaded=%@", __PRETTY_FUNCTION__, @(self.banner.isLazyLoaded));
+    NSLog(@"APP DEBUG  %s -- banner.isEligibleForLazyLoad=%@", __PRETTY_FUNCTION__, @(self.banner.isEligibleForLazyLoad));
 }
 
 
 - (void)lazyAdDidReceiveAd:(id)ad
 {
     NSLog(@"Lazy ad did receive ad");
-    NSLog(@"APP DEBUG  %s -- banner.isLazyLoaded=%@", __PRETTY_FUNCTION__, @(self.banner.isLazyLoaded));
+    NSLog(@"APP DEBUG  %s -- banner.isEligibleForLazyLoad=%@", __PRETTY_FUNCTION__, @(self.banner.isEligibleForLazyLoad));
 
-    if (self.banner.enableLazyWebviewActivation) {
+    if (self.banner.enableLazyWebviewLoad) {
 //        [NSThread sleepForTimeInterval:5.0];
-//        self.banner.enableLazyWebviewActivation = NO;
+//        self.banner.enableLazyWebviewLoad = NO;
 
         [self.banner loadWebview];
     }
