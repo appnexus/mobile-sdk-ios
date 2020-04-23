@@ -107,7 +107,7 @@
                         @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
 
     requestAdTask = [[NSURLSession sharedSession] dataTaskWithRequest: request
-                                                         completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
+                                                    completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
                                     {
                                       ANAdFetcherBase * __strong  strongSelf  = weakSelf;
 
@@ -120,7 +120,6 @@
 
                                       if (!self.fetcherMARManager) {
                                           [strongSelf restartAutoRefreshTimer];
-                                                //FIX -- postpone for lazy, start up later upon load...
                                       }
 
                                       if ([response isKindOfClass:[NSHTTPURLResponse class]]) {

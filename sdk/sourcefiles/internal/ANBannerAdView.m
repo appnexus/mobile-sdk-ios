@@ -187,14 +187,15 @@ static NSString *const kANInline        = @"inline";
 
 - (void) loadAd
 {
-    self.loadAdHasBeenInvoked = YES;
+    self.loadAdHasBeenInvoked   = YES;
+    self.lazyContentView        = nil;
+
     [super loadAd];
 }
 
 // Attaching WKWebView to screen for an instant to allow it to complete loading.
 //
 -(void)activateWebview
-        //FIX rename this method to... what?  showAd, loadLazyAd?
 {
 ANLogMark();
     __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
@@ -289,6 +290,8 @@ ANLogMark();
     //
             //FIX -- do this.
     [self activateWebview];
+
+    [self.universalAdFetcher startAutoRefreshTimer];
 }
 
 

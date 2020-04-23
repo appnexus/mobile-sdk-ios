@@ -189,8 +189,12 @@ ANLogMark();
         }
     }
 
-    [self startAutoRefreshTimer];
-        //FIX -- postpone for lazy, start up later upon load...
+    // For lazy load, delay start of auto refresh timer (if it is active) until host app calls loadWebview.
+    //
+    if (!response.didNotLoadCreative) {
+                //FIX -- test me
+        [self startAutoRefreshTimer];
+    }
 }
 
 - (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags
@@ -299,12 +303,6 @@ ANLogMark();
 #pragma mark - Auto refresh timer.
 
 - (void) startAutoRefreshTimer
-    //FIX -- lazy logic to prevent or start, as necessary...
-            /* STATE
-                    enableLazywebviewload
-                    isEligibleForLazyLoad
-                    isLazyLoadInProgress
-             */
 {
     if (!self.autoRefreshTimer) {
         ANLogDebug(@"fetcher_stopped");
@@ -318,7 +316,6 @@ ANLogMark();
 // NB  Invocation of this method MUST ALWAYS be followed by invocation of startAutoRefreshTimer.
 //
 - (void)restartAutoRefreshTimer
-        //FIX -- lazy logic to prevent or start, as necessary...
 {
     // stop old autoRefreshTimer
     [self stopAutoRefreshTimer];
