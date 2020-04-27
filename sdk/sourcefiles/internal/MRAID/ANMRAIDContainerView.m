@@ -190,6 +190,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
  * Initialize webViewController.
  */
 - (void)loadWebview
+        //FIX -- encapsulate and use with init method
 {
 ANLogMark();
     self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: _lastKnownCurrentPosition.size

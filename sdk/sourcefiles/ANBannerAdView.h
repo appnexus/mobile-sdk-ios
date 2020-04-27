@@ -252,6 +252,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 *  NB  Only valid after [self loadAd] has been invoked.
 */
 @property (nonatomic, readonly)   BOOL  isEligibleForLazyLoad;
+        //FIX -- SHOULD BE Pirvate
 
 
 /**
