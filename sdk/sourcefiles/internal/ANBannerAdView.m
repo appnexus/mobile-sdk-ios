@@ -216,12 +216,12 @@ ANLogMark();
     if (!mraidContainerView)
             //FIX -- test me
     {
-        if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)])
+        if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)])
         {
             NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
             ANLogError(@"%@", error);
 
-            [self.delegate lazyAd:self loadFailedWithError:error];
+            [self.delegate ad:self requestFailedWithError:error];
             return;
         }
     }
@@ -268,8 +268,8 @@ ANLogMark();
             NSError  *error  = ANError(@"COULD NOT ACQUIRE strongSelf.", ANAdResponseInternalError);
             ANLogError(@"%@", error);
 
-            if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)]) {
-                [self.delegate lazyAd:self loadFailedWithError:error];
+            if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
+                [self.delegate ad:self requestFailedWithError:error];
             }
 
             [webview removeFromSuperview];
@@ -285,9 +285,9 @@ ANLogMark();
         [webview an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
                                         yAttribute: NSLayoutAttributeTop];
 
-        if ([strongSelf.delegate respondsToSelector:@selector(lazyAdDidLoad:)]) {
+        if ([strongSelf.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
                     //FIX -- test me
-            [strongSelf.delegate lazyAdDidLoad:self];
+            [strongSelf.delegate adDidReceiveAd:self];
         }
 
         [strongSelf fireTrackerAndOMID];

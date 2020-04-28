@@ -582,6 +582,7 @@
 
 - (void)adDidReceiveAd:(id)adObject
 {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:adObject];
     }
@@ -594,23 +595,6 @@ ANLogMark();
         [self.delegate lazyAdDidReceiveAd:adObject];
     }
 }
-
-- (void)lazyAdDidLoad:(nonnull id)adObject
-{
-ANLogMark();
-    if ([self.delegate respondsToSelector:@selector(lazyAdDidLoad:)]) {
-        [self.delegate lazyAdDidLoad:adObject];
-    }
-}
-
-- (void)lazyAd:(nonnull id)adObject loadFailedWithError:(nonnull NSError *)error
-{
-ANLogMark();
-    if ([self.delegate respondsToSelector:@selector(lazyAd:loadFailedWithError:)]) {
-        [self.delegate lazyAd:adObject loadFailedWithError:error];
-    }
-}
-
 
 
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance
