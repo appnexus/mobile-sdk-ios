@@ -13,109 +13,220 @@
  limitations under the License.
  */
 
-#import "SimpleViewController.h"
-#import "ANBannerAdView.h"
-#import "ANLogManager.h"
 #import <CoreLocation/CoreLocation.h>
+
+#import "SimpleViewController.h"
+
+#import "ANBannerAdView.h"
+#import "ANMultiAdRequest.h"
+
+#import "ANLogManager.h"
 #import "ANLocation.h"
 
 
 
-@interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate>
+/*
+    BETA -- Lazy Webview
 
-@property (nonatomic, readwrite, strong) CLLocationManager *locationManager;
-@property (nonatomic, readwrite, strong) ANBannerAdView *banner;
-@property (nonatomic, readwrite, strong) NSString *clickThroughURL;
+    To use this informal test environment...
 
+        1. See initial lines of viewDidLoad
+            a. Choose one of the tests: testAdUnit, testMultiAdRequest
+            b. Set the Placement ID and Member ID
+        2. Run the app -- watch the console log and the Simulator
+ */
+
+
+
+#pragma mark -
+
+@interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate, ANMultiAdRequestDelegate>
+
+@property (nonatomic, readwrite, strong)  ANBannerAdView  *banner1;
+@property (nonatomic, readwrite, strong)  ANBannerAdView  *banner2;
+
+@property (nonatomic, readwrite, strong)    NSString    *placementID1;
+
+@property (nonatomic, readwrite)            NSInteger    memberID;
+
+
+@property (nonatomic, readwrite, strong)  CLLocationManager  *locationManager;
+@property (nonatomic, readwrite, strong)  NSString           *clickThroughURL;
 
 @end
 
+
+
+#pragma mark -
+
 @implementation SimpleViewController
+
+#pragma mark Lifecycle.
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    int adWidth  = 300;
-    int adHeight = 250;
-    NSString *adID = @"1281482";
-    
-    // We want to center our ad on the screen.
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat originX = (screenRect.size.width / 2) - (adWidth / 2);
-    CGFloat originY = (screenRect.size.height / 2) - (adHeight / 2);
-    
-    // Needed for when we create our ad view.
-    CGRect rect = CGRectMake(originX, originY, adWidth, adHeight);
-    CGSize size = CGSizeMake(adWidth, adHeight);
-    
-    // Make a banner ad view.
-    ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
-    self.banner = banner;
 
-    banner.externalUid = @"123e4567e89b12da456426655440000";
-    banner.rootViewController = self;
-    banner.delegate = self;
-//    banner.clickThroughAction = ANClickThroughActionReturnURL;
-//    [self.view addSubview:banner];
-    
-//    // Since this example is for testing, we'll turn on PSAs and verbose logging.
-//    banner.shouldServePublicServiceAnnouncements = true;
-//    [ANLogManager setANLogLevel:ANLogLevelDebug];
+    [ANLogManager setANLogLevel:ANLogLevelAll];   //DEBUG
+
+    //
+//    BOOL  testAdUnit          = YES;
+    BOOL  testAdUnit          = NO;
+
+    BOOL  testMultiAdRequest  = YES;
+//    BOOL  testMultiAdRequest  = NO;
+
+    //
+    self.placementID1   = @"19065996";
+    self.memberID       = 10094;
 
 
-    //-------------------------- DEBUG -------------------------------------
-    [ANLogManager setANLogLevel:ANLogLevelAll];
-
-    banner.autoRefreshInterval = 0;
-    banner.shouldAllowVideoDemand = NO;                     //FIX -- allow this when lazy webview is also applied to video...
-    banner.shouldServePublicServiceAnnouncements = YES;     //FIX -- test with working placements...
-
-    banner.enableLazyWebviewLoad = YES;
-    [self.view addSubview:banner];
+    //
+    [self createAdUnits];
 
 
-    //-------------------------- DEBUG -------------------------------------
+    // Informal test of AdUnit or MAR instance.
+    //
+    if (testAdUnit) {
+        [self runTestAdUnit];
 
+    } else if (testMultiAdRequest) {
+        [self runTestMAR];
 
-    // Load an ad.
-    [banner loadAd];
-
-    [self locationSetup]; // If you want to pass location...
+    } else {
+        NSLog(@"APP ERROR  %s -- No tests selected.", __PRETTY_FUNCTION__);
+    }
 }
 
-- (void)locationSetup {
+
+
+
+#pragma mark - Test methods.
+
+- (void)runTestAdUnit
+{
+    NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
+
+    [self.view addSubview:self.banner1];
+
+    [self.banner1 loadAd];
+
+    [self locationSetup];  // If you want to pass location...
+}
+
+- (void)runTestMAR
+{
+    NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
+
+
+    ANMultiAdRequest  *mar  = [[ANMultiAdRequest alloc] initWithMemberId:self.memberID andDelegate:self];
+
+    [mar addAdUnit:self.banner1];
+    [mar addAdUnit:self.banner2];
+
+    [mar load];
+
+
+
+
+}
+
+
+
+
+#pragma mark - Helper methods.
+
+- (void)createAdUnits
+{
+    int  adWidth   = 300;
+    int  adHeight  = 250;
+
+    // We want to center our ad on the screen.
+    CGRect   screenRect  = [[UIScreen mainScreen] bounds];
+    CGFloat  originX     = (screenRect.size.width / 2) - (adWidth / 2);
+    CGFloat  originY     = (screenRect.size.height / 2) - (adHeight / 2);
+
+    // Needed for when we create our ad view.
+    CGRect  rect  = CGRectMake(originX, originY, adWidth, adHeight);
+    CGSize  size  = CGSizeMake(adWidth, adHeight);
+
+
+    // Make some banner ad views.
+    //
+    self.banner1 = [ANBannerAdView adViewWithFrame:rect placementId:self.placementID1 adSize:size];
+
+    self.banner1.delegate                 = self;
+    self.banner1.rootViewController       = self;
+    self.banner1.autoRefreshInterval      = 0;
+    self.banner1.shouldAllowVideoDemand   = NO;      // self.banner1 is always Banner-banner.
+    self.banner1.shouldAllowNativeDemand  = NO;
+
+    self.banner1.externalUid              = @"banner-banner";
+
+    self.banner1.enableLazyWebviewLoad    = YES;
+
+
+    //
+    self.banner2 = [ANBannerAdView adViewWithFrame:rect placementId:self.placementID1 adSize:size];
+
+    self.banner2.delegate                 = self;
+    self.banner2.rootViewController       = self;
+    self.banner2.autoRefreshInterval      = 0;
+    self.banner2.shouldAllowVideoDemand   = YES;
+    self.banner2.shouldAllowNativeDemand  = YES;
+
+    self.banner2.externalUid              = @"banner-multiformat";
+
+    self.banner2.enableLazyWebviewLoad    = NO;
+}
+
+
+- (void)locationSetup
+{
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
+
     [self.locationManager startUpdatingLocation];
 }
 
 // We implement the delegate method from the `CLLocationManagerDelegate` protocol.  This allows
 // us to update the banner's location whenever the device's location is updated.
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
+//
+- (void)locationManager: (CLLocationManager *)manager
+     didUpdateLocations: (NSArray *)locations
+{
     CLLocation* location = [locations lastObject];
-    self.banner.location = [ANLocation getLocationWithLatitude:location.coordinate.latitude
-                                                     longitude:location.coordinate.longitude
-                                                     timestamp:location.timestamp
-                                            horizontalAccuracy:location.horizontalAccuracy];
+
+    self.banner1.location = [ANLocation getLocationWithLatitude: location.coordinate.latitude
+                                                      longitude: location.coordinate.longitude
+                                                      timestamp: location.timestamp
+                                             horizontalAccuracy: location.horizontalAccuracy];
 }
+
+
+
+
+#pragma mark - ANAdProtocol
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
 }
 
-
 - (void)lazyAdDidReceiveAd:(id)ad
 {
     NSLog(@"Lazy ad did receive ad");
 
-    if (self.banner.enableLazyWebviewLoad) {
-//        [NSThread sleepForTimeInterval:5.0];
-//        self.banner.enableLazyWebviewLoad = NO;
-
-        [self.banner loadWebview];
+    if (self.banner1.enableLazyWebviewLoad)
+                //FIX  dowse class type and etset for lazy
+    {
+//        [NSThread sleepForTimeInterval:5.0];   //DEBUG
+        [self.banner1 loadWebview];
     }
+}
+
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error {
+            //FIX -- note if lazy
+    NSLog(@"Ad failed to load: %@", error);
 }
 
 
@@ -133,15 +244,19 @@
 }
 
 
-- (void)ad:(id)ad requestFailedWithError:(NSError *)error {
-    NSLog(@"Ad failed to load: %@", error);
-}
 
 
-- (void)didReceiveMemoryWarning
+#pragma mark - ANMultiAdRequestDelegate
+
+- (void)multiAdRequestDidComplete:(ANMultiAdRequest *)mar
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
 }
+
+- (void)multiAdRequest:(ANMultiAdRequest *)mar didFailWithError:(NSError *)error
+{
+    NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
+}
+
 
 @end
