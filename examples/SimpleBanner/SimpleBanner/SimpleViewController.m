@@ -103,14 +103,12 @@
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
-    NSLog(@"APP DEBUG  %s -- banner.isEligibleForLazyLoad=%@", __PRETTY_FUNCTION__, @(self.banner.isEligibleForLazyLoad));
 }
 
 
 - (void)lazyAdDidReceiveAd:(id)ad
 {
     NSLog(@"Lazy ad did receive ad");
-    NSLog(@"APP DEBUG  %s -- banner.isEligibleForLazyLoad=%@", __PRETTY_FUNCTION__, @(self.banner.isEligibleForLazyLoad));
 
     if (self.banner.enableLazyWebviewLoad) {
 //        [NSThread sleepForTimeInterval:5.0];

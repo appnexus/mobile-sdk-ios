@@ -92,7 +92,6 @@ static NSString *const kANInline        = @"inline";
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
 @synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
-@synthesize  isEligibleForLazyLoad          = __isEligibleForLazyLoad;
 
 
 
