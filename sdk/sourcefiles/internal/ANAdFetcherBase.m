@@ -357,5 +357,15 @@
     }
 }
 
+- (void)processFinalResponse:(ANAdFetcherResponse *)response
+{
+    self.ads = nil;
+    self.isFetcherLoading = NO;
+    
+    if ([self.delegate respondsToSelector:@selector(didFinishRequestWithResponse:)]) {
+        [self.delegate didFinishRequestWithResponse:response];
+    }
+}
+
 
 @end
