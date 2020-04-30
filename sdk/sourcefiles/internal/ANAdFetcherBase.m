@@ -359,13 +359,25 @@
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
+    ANLogMark();
     self.ads = nil;
     self.isFetcherLoading = NO;
-    
-    if ([self.delegate respondsToSelector:@selector(didFinishRequestWithResponse:)]) {
-        [self.delegate didFinishRequestWithResponse:response];
+
+
+    // MAR case.
+    //
+    if (self.fetcherMARManager)
+    {
+        if (!response.isSuccessful) {
+            [self.fetcherMARManager internalMultiAdRequestDidFailWithError:response.error];
+        } else {
+            ANLogError(@"MultiAdRequest manager SHOULD NEVER CALL processFinalResponse, except on error.");
+        }
+
+        return;
     }
 }
+
 
 
 @end
