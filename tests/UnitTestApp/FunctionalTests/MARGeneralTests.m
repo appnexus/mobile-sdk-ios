@@ -28,6 +28,9 @@
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANNativeAdRequest+PrivateMethods.h"
 
+#import "ANAdViewInternalDelegate.h"
+
+
 
 #pragma mark - Global private constants.
 

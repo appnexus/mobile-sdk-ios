@@ -70,11 +70,11 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];   //DEBUG
 
     //
-//    BOOL  testAdUnit          = YES;
-    BOOL  testAdUnit          = NO;
+    BOOL  testAdUnit          = YES;
+//    BOOL  testAdUnit          = NO;
 
-    BOOL  testMultiAdRequest  = YES;
-//    BOOL  testMultiAdRequest  = NO;
+//    BOOL  testMultiAdRequest  = YES;
+    BOOL  testMultiAdRequest  = NO;
 
     //
     self.placementID1   = @"19065996";

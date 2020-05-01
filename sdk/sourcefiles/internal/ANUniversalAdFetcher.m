@@ -88,6 +88,7 @@
 
     return  self;
 }
+
 - (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
 {
     self = [self init];
@@ -167,6 +168,8 @@ ANLogMark();
                 //FIX -- handle case: response.didNotLoadCreative
     {
         if (!response.isSuccessful) {
+                        //FIX -- also check for didNotLoadCreative  [ps: rename that to webvview?
+                        //FIX is this method called in lzzy chain?
             [self.fetcherMARManager internalMultiAdRequestDidFailWithError:response.error];
         } else {
             ANLogError(@"MultiAdRequest manager SHOULD NEVER CALL processFinalResponse, except on error.");
@@ -411,14 +414,20 @@ ANLogMark();
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
-    CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
-                                                      andHeight:standardAd.height];
-    
+    CGSize  sizeofWebView      =  [self getWebViewSizeForCreativeWidth:standardAd.width
+                                                             andHeight:standardAd.height];
+    BOOL    isLazyWebviewLoad  = NO;
+
+
     if (self.adView) {
         self.adView.loadingDelegate = nil;
     }
 
-    if ([self.delegate valueOfEnableLazyWebviewLoad])
+    if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyWebviewLoad)]) {
+        isLazyWebviewLoad = [self.delegate valueOfEnableLazyWebviewLoad];
+    }
+
+    if (isLazyWebviewLoad)
     {
         self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
                                                                 HTML: standardAd.content
@@ -435,7 +444,7 @@ ANLogMark();
 
     // Callback immediately to fetcher if lazy webview load is enabled.
     //
-    if ([self.delegate valueOfEnableLazyWebviewLoad])
+    if (isLazyWebviewLoad)
     {
         [self didAcquireLazyWebview:self.adView];
     }

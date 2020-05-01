@@ -107,7 +107,7 @@
                         @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
 
     requestAdTask = [[NSURLSession sharedSession] dataTaskWithRequest: request
-                                                         completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
+                                                    completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
                                     {
                                       ANAdFetcherBase * __strong  strongSelf  = weakSelf;
 
@@ -154,6 +154,7 @@
                                               if (! strongSelf.fetcherMARManager) {
                                                   ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
                                               }
+                                                    //FIX proboem1
 
                                               ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
                                                                   @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
@@ -183,6 +184,7 @@
     NSArray<NSDictionary *>  *arrayOfTags  = [ANUniversalTagAdServerResponse generateTagsFromResponseData:data];
 
     if (!self.fetcherMARManager)
+                //FIX -- problem2
     {
         // If the UT Response is for a single adunit only, there should only be one ad object.
         //
