@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate, ANMultiAdRequestDelegate>
+@interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate, ANMultiAdRequestDelegate, ANNativeAdRequestDelegate>
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView  *banner1;
 @property (nonatomic, readwrite, strong)  ANBannerAdView  *banner2;
@@ -70,11 +70,11 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];   //DEBUG
 
     //
-    BOOL  testAdUnit          = YES;
-//    BOOL  testAdUnit          = NO;
+//    BOOL  testAdUnit          = YES;
+    BOOL  testAdUnit          = NO;
 
-//    BOOL  testMultiAdRequest  = YES;
-    BOOL  testMultiAdRequest  = NO;
+    BOOL  testMultiAdRequest  = YES;
+//    BOOL  testMultiAdRequest  = NO;
 
     //
     self.placementID1   = @"19065996";
@@ -206,7 +206,7 @@
 
 
 
-#pragma mark - ANAdProtocol
+#pragma mark - ANAdProtocol.
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
@@ -216,16 +216,34 @@
 {
     NSLog(@"Lazy ad did receive ad");
 
-    if (self.banner1.enableLazyWebviewLoad)
-                //FIX  dowse class type and etset for lazy
+    if ([ad isKindOfClass:[ANBannerAdView class]])
     {
-//        [NSThread sleepForTimeInterval:5.0];   //DEBUG
-        [self.banner1 loadWebview];
+        ANBannerAdView  *banner  = (ANBannerAdView *)ad;
+
+        if (banner.enableLazyWebviewLoad) {
+            NSLog(@"APP INFO  %s -- FOUND AND LOADING lazy webview...", __PRETTY_FUNCTION__);
+            [banner loadWebview];
+        }
     }
 }
 
-- (void)ad:(id)ad requestFailedWithError:(NSError *)error {
-            //FIX -- note if lazy
+- (void)ad:(nonnull id)loadInstance didReceiveNativeAd:(nonnull id)responseInstance
+{
+    NSLog(@"Ad did receive NATIVE ad.");
+}
+
+
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error
+{
+    if ([ad isKindOfClass:[ANBannerAdView class]])
+    {
+        ANBannerAdView  *banner  = (ANBannerAdView *)ad;
+
+        if (banner.enableLazyWebviewLoad) {
+            NSLog(@"APP ERROR  %s -- Lazy webview load FAILED.", __PRETTY_FUNCTION__);
+        }
+    }
+
     NSLog(@"Ad failed to load: %@", error);
 }
 
@@ -246,7 +264,7 @@
 
 
 
-#pragma mark - ANMultiAdRequestDelegate
+#pragma mark - ANMultiAdRequestDelegate.
 
 - (void)multiAdRequestDidComplete:(ANMultiAdRequest *)mar
 {
@@ -254,6 +272,21 @@
 }
 
 - (void)multiAdRequest:(ANMultiAdRequest *)mar didFailWithError:(NSError *)error
+{
+    NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
+}
+
+
+
+
+#pragma mark - ANNativeRequestDelegate.
+
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didReceiveResponse:(nonnull ANNativeAdResponse *)response
+{
+    NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
+}
+
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo
 {
     NSLog(@"APP MARK  %s", __PRETTY_FUNCTION__);
 }

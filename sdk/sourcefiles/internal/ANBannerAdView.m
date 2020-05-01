@@ -94,7 +94,6 @@ static NSString *const kANInline        = @"inline";
 @synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
 
 
-
 #pragma mark - Lifecycle.
 
 - (void)initialize {
@@ -399,7 +398,9 @@ ANLogMark();
         return;
     }
 
-    if (YES == self.universalAdFetcher.isFetcherLoading) {
+    // NB  Best effort to set critical section around fetcher for enableLazyWebviewLoad property.
+    //
+    if (self.loadAdHasBeenInvoked && (YES == self.universalAdFetcher.isFetcherLoading)) {
         ANLogWarn(@"CANNOT ENABLE enableLazyWebviewLoad while fetcher is loading.");
         return;
     }
@@ -518,7 +519,7 @@ ANLogMark();
 
     if ([response isSuccessful] || [response didNotLoadCreative])
     {
-        self.loadAdHasBeenInvoked = YES;
+        self.loadAdHasBeenInvoked = NO;
 
         id  adObject         = response.adObject;
         id  adObjectHandler  = response.adObjectHandler;

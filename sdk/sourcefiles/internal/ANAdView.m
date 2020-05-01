@@ -381,9 +381,9 @@
  */
 - (void)setMarManager:(ANMultiAdRequest *)marManager
 {
-    if (self.universalAdFetcher  &&  (marManager != _marManager)) {
-        [self.universalAdFetcher stopAdLoad];
-        self.universalAdFetcher = nil;
+    if (_universalAdFetcher  &&  (marManager != _marManager)) {
+        [_universalAdFetcher stopAdLoad];
+        _universalAdFetcher = nil;
     }
 
     _marManager = marManager;

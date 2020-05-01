@@ -165,11 +165,8 @@ ANLogMark();
     // MAR case.
     //
     if (self.fetcherMARManager)
-                //FIX -- handle case: response.didNotLoadCreative
     {
         if (!response.isSuccessful) {
-                        //FIX -- also check for didNotLoadCreative  [ps: rename that to webvview?
-                        //FIX is this method called in lzzy chain?
             [self.fetcherMARManager internalMultiAdRequestDidFailWithError:response.error];
         } else {
             ANLogError(@"MultiAdRequest manager SHOULD NEVER CALL processFinalResponse, except on error.");
