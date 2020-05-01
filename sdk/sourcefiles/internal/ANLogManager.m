@@ -15,7 +15,8 @@
 
 #import "ANLogManager.h"
 
-static ANLogLevel  ANLOG_LEVEL  = ANLogLevelWarn;   //ANLogLevelAll
+//static ANLogLevel  ANLOG_LEVEL  = ANLogLevelWarn;   //ANLogLevelAll
+static ANLogLevel  ANLOG_LEVEL  = ANLogLevelAll;
 
 
 
