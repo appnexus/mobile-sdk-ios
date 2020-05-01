@@ -38,4 +38,5 @@
 + (NSString *)setCurrentAppOrientation:(NSString *)orientation
                              lockedOrientation:(BOOL)locked;
 
++ (NSString *)audioVolumeChangeWithVolumePercentage:(NSNumber *)volumePercentage;
 @end

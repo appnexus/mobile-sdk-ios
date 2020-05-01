@@ -32,6 +32,7 @@
 #import "ANOMIDImplementation.h"
 #import "ANWebView.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
+#import "ANAudioVolumeChangeListener.h"
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
@@ -47,7 +48,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 
 
-@interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
+@interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, ANAudioVolumeChangeListenerDelegate>
 
 @property (nonatomic, readwrite, strong)    UIView      *contentView;
 @property (nonatomic, readwrite, strong)    ANWebView      *webView;
@@ -71,6 +72,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)  NSString  *videoXML;
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+@property (nonatomic, readwrite, strong) ANAudioVolumeChangeListener* audioVolumeChange;
 @end
 
 @implementation ANAdWebViewController
@@ -182,7 +184,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
-    
+    //Initialize Audio Volume Change Listener for Outstream Video
+    self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
     //
     return  self;
 }
@@ -205,6 +208,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     [self stopOMIDAdSession];
     [self stopWebViewLoadForDealloc];
     [self.viewabilityTimer invalidate];
+    self.audioVolumeChange = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -594,6 +598,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     [self updateWebViewOnPositionAndViewabilityStatus];
     
+    if (self.audioVolumeChange) {
+        [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
+    }    
+    
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
     {
         [self setupRapidTimerForCheckingPositionAndViewability];
@@ -745,7 +753,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     [self fireJavaScript:[ANMRAIDJavascriptUtil maxSize:[ANMRAIDUtil maxSizeSafeArea]]];
 }
 
-
+- (void)updateWebViewOnAudioVolumeChange:(NSNumber *)volumePercentage {
+    
+    [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:volumePercentage]];
+}
 
 - (void)updateCurrentAppOrientation {
     
@@ -977,6 +988,12 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 }
 
 
+#pragma mark - ANAudioVolumeChangeDelegate
+
+- (void)didUpdateAudioLevel:(NSNumber *)volumePercentage {
+    NSLog(@"volumePercentage == %@",volumePercentage);
+    [self updateWebViewOnAudioVolumeChange:volumePercentage];
+}
 
 @end   //ANAdWebViewController
 

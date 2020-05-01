@@ -88,6 +88,8 @@
 		0ECF336622D79A62007DB185 /* AppNexusSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ECF336022D79A62007DB185 /* AppNexusSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0EF636D322D7726000D3320F /* ANProxyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */; };
+		381A0184245B17850093EBB2 /* ANAudioVolumeChangeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */; };
 		4F06400823A2E7D700E7920A /* ANAdFetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANAdFetcherBase.m */; };
 		4F06400923A2E7DC00E7920A /* ANAdFetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */; };
 		4F5758B12303A8CB00AFF4B6 /* ANMultiAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5758B02303A8CB00AFF4B6 /* ANMultiAdRequest.m */; };
@@ -384,6 +386,8 @@
 		0ECF336022D79A62007DB185 /* AppNexusSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDK.h; sourceTree = "<group>"; };
 		0ECF336122D79A62007DB185 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EEE97DA21764ACD007DADE6 /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
+		381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAudioVolumeChangeListener.h; sourceTree = "<group>"; };
+		381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAudioVolumeChangeListener.m; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -873,6 +877,8 @@
 				60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */,
 				60183FD222933E9500CFDE33 /* ANWebView.h */,
 				60183FD322933E9500CFDE33 /* ANWebView.m */,
+				381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */,
+				381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -1057,6 +1063,7 @@
 				0E9F613620FFDCD7009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h in Headers */,
 				8A9AEDC01A1BE8CE00C58BDA /* ANNativeMediatedAdResponse.h in Headers */,
 				8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */,
+				381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */,
 				00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */,
 				8A2F48241A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h in Headers */,
 				0EF636D322D7726000D3320F /* ANProxyViewController.h in Headers */,
@@ -1351,6 +1358,7 @@
 				8A9AEE061A1BF99D00C58BDA /* ANNativeAdImageCache.m in Sources */,
 				8A9AEE071A1BF99D00C58BDA /* ANNativeAdRequest.m in Sources */,
 				8A9AEE0A1A1BF99D00C58BDA /* ANNativeAdResponse.m in Sources */,
+				381A0184245B17850093EBB2 /* ANAudioVolumeChangeListener.m in Sources */,
 				8A9AEE0B1A1BF99D00C58BDA /* ANNativeAdStarRating.m in Sources */,
 				8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */,
 				8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */,
