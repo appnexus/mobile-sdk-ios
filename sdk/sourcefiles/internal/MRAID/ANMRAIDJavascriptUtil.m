@@ -117,8 +117,8 @@
 }
 
 + (NSString *)audioVolumeChangeWithVolumePercentage:(NSNumber *)volumePercentage {
+    NSLog(@"AudioVolumeChange Percentage : %@", volumePercentage);
     if(volumePercentage == nil ){
-        // If volume percentage is less than 0 then send volumePercentage as null.
         NSString *exposureVal = [NSString stringWithFormat:@"{\"volumePercentage\":null}"];
         return [NSString stringWithFormat:@"window.mraid.util.audioVolumeChangeEvent(%@);",exposureVal];
     }else{

@@ -81,15 +81,14 @@
     switch (interruptionType) {
         case AVAudioSessionInterruptionTypeBegan:
         {
-            // Deactivate Audio Session
-            [self subscribeToAudioChangeListening:NO];
+            // Interruption began,system deactivates audio session.In that case audio focus is not active so pass nil to AudioVolumeChange event
             [self.delegate didUpdateAudioLevel:nil];
         }
             break;
             
         case AVAudioSessionInterruptionTypeEnded:
         {
-            // Activate Audio Session
+            // Interruption end, reactivate the audio session
             [self subscribeToAudioChangeListening:YES];
             [self.delegate didUpdateAudioLevel:[self getAudioVolumePercentage]];
         }
@@ -103,7 +102,6 @@
     [self subscribeToAudioChangeListening:NO];
     [[AVAudioSession sharedInstance] removeObserver:self forKeyPath:@"outputVolume"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
 }
 
 @end
