@@ -167,13 +167,17 @@
 
                                               if (strongSelf.fetcherMARManager) {
                                                   sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
+                                                  [strongSelf.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
+                                                  
+                                                  
                                               } else {
                                                   sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
+                                                  ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+                                                  [strongSelf processFinalResponse:response];
                                               }
                                               ANLogError(@"%@", sessionError);
 
-                                              ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-                                              [strongSelf processFinalResponse:response];
+                                             
                                           });
 
                                       } else {
@@ -356,28 +360,5 @@
         [self continueWaterfall];
     }
 }
-
-- (void)processFinalResponse:(ANAdFetcherResponse *)response
-{
-    ANLogMark();
-    self.ads = nil;
-    self.isFetcherLoading = NO;
-
-
-    // MAR case.
-    //
-    if (self.fetcherMARManager)
-    {
-        if (!response.isSuccessful) {
-            [self.fetcherMARManager internalMultiAdRequestDidFailWithError:response.error];
-        } else {
-            ANLogError(@"MultiAdRequest manager SHOULD NEVER CALL processFinalResponse, except on error.");
-        }
-
-        return;
-    }
-}
-
-
 
 @end
