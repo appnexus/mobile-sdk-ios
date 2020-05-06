@@ -184,8 +184,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
-    //Initialize Audio Volume Change Listener for Outstream Video
-    self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
     //
     return  self;
 }
