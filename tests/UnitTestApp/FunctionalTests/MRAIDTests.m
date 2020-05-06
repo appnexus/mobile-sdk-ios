@@ -1372,7 +1372,17 @@
     [self clearTest];
 }
 
-
+- (void)testAudioVolumeChangeEventInitialValue {
+    [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
+                                          atOrigin:CGPointZero
+                                          withSize:CGSizeMake(320.0f, 50.0f)];
+   
+    [self addBannerAsSubview];
+    NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
+    XCTAssertTrue([actualVolumePer isEqualToString:@"<null>"], @"expected volume percentage::null but actual::%@",actualVolumePer);
+    
+    [self clearTest];
+}
 
 #pragma mark - mraid.supports()
 

@@ -73,7 +73,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 @property (nonatomic, readwrite, strong) ANAudioVolumeChangeListener* audioVolumeChange;
-@property (nonatomic, readwrite)          BOOL       isOutStreamVideoAdUnMuted;
 @end
 
 @implementation ANAdWebViewController
@@ -543,16 +542,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
                )
     {
         //EMPTY -- Silently ignore spurious VAST playback errors that might scare a client-dev into thinking something is wrong...
-        if (self.audioVolumeChange) {
-            if ([eventName isEqualToString:@"audio-mute"]) {
-                self.isOutStreamVideoAdUnMuted = NO;
-                [self updateWebViewOnAudioVolumeChange:nil];
-                
-            }else if ([eventName isEqualToString:@"audio-unmute"]) {
-                self.isOutStreamVideoAdUnMuted = YES;
-                [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
-            }
-        }
         
     } else {
         ANLogError(@"UNRECOGNIZED video event.  (%@)", eventName);
@@ -609,9 +598,11 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     [self updateWebViewOnPositionAndViewabilityStatus];
     
-    if (self.audioVolumeChange) {
-        [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
-    }    
+    if (self.audioVolumeChange == nil) {
+        //Initialize Audio Volume Change Listener for Outstream Video
+        self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
+    }
+    [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
     
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
     {
@@ -746,10 +737,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         } else {
             [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:self.isViewable]];
         }
-        
-        if (self.audioVolumeChange) {
-            [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
-        }
+        [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
     }
     
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
@@ -769,7 +757,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 }
 
 - (void)updateWebViewOnAudioVolumeChange:(NSNumber *)volumePercentage {
-    if (self.isOutStreamVideoAdUnMuted && self.viewable && volumePercentage != nil) {
+    if (self.viewable) {
         [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:volumePercentage]];
     }else{
         [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:nil]];
