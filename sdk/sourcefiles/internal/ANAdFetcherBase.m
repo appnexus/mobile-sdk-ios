@@ -37,6 +37,10 @@
 #pragma mark -
 
 @interface ANAdFetcherBase()
+
+@property (nonatomic, readwrite, strong) NSDate *processStart;
+@property (nonatomic, readwrite, strong) NSDate *processEnd;
+
     //EMPTY
 @end
 
@@ -100,17 +104,16 @@
 {
     if (self.isFetcherLoading)  { return; }
 
+    self.processStart = [NSDate date];
 
-    //
-    NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = nil;
 
     if (self.fetcherMARManager) {
-        request = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:self.fetcherMARManager baseUrlString:urlString];
+        request = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:self.fetcherMARManager];
     } else if (self.adunitMARManager) {
-        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate adunitMultiAdRequestManager:self.adunitMARManager baseUrlString:urlString];
+        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate adunitMultiAdRequestManager:self.adunitMARManager];
     } else {
-        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
+        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate];
     }
 
     if (!request)
@@ -128,7 +131,7 @@
     
 
     //
-    NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
+    NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", [request URL],[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
 
     NSURLSessionDataTask       *requestAdTask   = nil;
     ANAdFetcherBase *__weak     weakSelf        = self;
@@ -194,6 +197,10 @@
                                                                   @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
 
                                               [strongSelf handleAdServerResponse:data];
+                                              
+                                              strongSelf.processEnd = [NSDate date];
+                                                NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+                                              NSLog(@"Network latency: %f", executionTime*1000);
                                           });
                                       }   // ENDIF -- statusCode
                                   } ];
