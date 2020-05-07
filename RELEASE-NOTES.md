@@ -1,3 +1,8 @@
+## 7.3.1
+### Improvements/Bug Fixes
++ MS-4326: Fix for ANMultiAdRequest crashes when UT Response is not received due to Internet connectivity issues/device being offline
+
+
 ## 7.3
 ### New Feature
 + MS-4266 Added API to support Friendly Obstruction for Open Measurement
