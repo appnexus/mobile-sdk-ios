@@ -104,11 +104,11 @@
 		0E491560240657CC003B7CC2 /* supporting file */ = {
 			isa = PBXGroup;
 			children = (
-				0E877AC023FEA40900DC962F /* LaunchScreen.storyboard */,
-				0E877AC323FEA40900DC962F /* Info.plist */,
-				0E877AC423FEA40900DC962F /* main.m */,
 				0E877AB223FEA40700DC962F /* AppDelegate.h */,
 				0E877AB323FEA40700DC962F /* AppDelegate.m */,
+				0E877AC323FEA40900DC962F /* Info.plist */,
+				0E877AC023FEA40900DC962F /* LaunchScreen.storyboard */,
+				0E877AC423FEA40900DC962F /* main.m */,
 			);
 			name = "supporting file";
 			sourceTree = "<group>";
@@ -116,8 +116,8 @@
 		0E49156524065911003B7CC2 /* MultiAdRequest */ = {
 			isa = PBXGroup;
 			children = (
-				0E49156624065911003B7CC2 /* MultiAdViewController.h */,
 				0E49156724065911003B7CC2 /* MultiAdRequest.storyboard */,
+				0E49156624065911003B7CC2 /* MultiAdViewController.h */,
 				0E49156824065911003B7CC2 /* MultiAdViewController.m */,
 			);
 			path = MultiAdRequest;
@@ -126,9 +126,9 @@
 		0E49157F24065963003B7CC2 /* VideoAd */ = {
 			isa = PBXGroup;
 			children = (
-				0E49158024065963003B7CC2 /* VideoAdViewController.m */,
-				0E49158124065963003B7CC2 /* VideoAdViewController.h */,
 				0E49158224065963003B7CC2 /* VideoAd.storyboard */,
+				0E49158124065963003B7CC2 /* VideoAdViewController.h */,
+				0E49158024065963003B7CC2 /* VideoAdViewController.m */,
 			);
 			path = VideoAd;
 			sourceTree = "<group>";
@@ -137,8 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				0E49158424065963003B7CC2 /* BannerAd.storyboard */,
-				0E49158524065963003B7CC2 /* BannerAdViewController.m */,
 				0E49158624065963003B7CC2 /* BannerAdViewController.h */,
+				0E49158524065963003B7CC2 /* BannerAdViewController.m */,
 			);
 			path = BannerAd;
 			sourceTree = "<group>";
@@ -146,12 +146,12 @@
 		0E49158724065963003B7CC2 /* NativeAd */ = {
 			isa = PBXGroup;
 			children = (
-				0E49158824065963003B7CC2 /* NativeAdViewController.m */,
 				0E49159424065ABF003B7CC2 /* ANNativeAdView.h */,
 				0E49159324065ABF003B7CC2 /* ANNativeAdView.m */,
 				0E49158924065963003B7CC2 /* ANNativeAdView.xib */,
-				0E49158A24065963003B7CC2 /* NativeAdViewController.h */,
 				0E49158B24065963003B7CC2 /* NativeAd.storyboard */,
+				0E49158A24065963003B7CC2 /* NativeAdViewController.h */,
+				0E49158824065963003B7CC2 /* NativeAdViewController.m */,
 			);
 			path = NativeAd;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 		0E49159724065E84003B7CC2 /* InterstitialAd */ = {
 			isa = PBXGroup;
 			children = (
-				0E49159824065E84003B7CC2 /* InterstitialAdViewController.m */,
 				0E49159924065E84003B7CC2 /* InterstitialAd.storyboard */,
 				0E49159A24065E84003B7CC2 /* InterstitialAdViewController.h */,
+				0E49159824065E84003B7CC2 /* InterstitialAdViewController.m */,
 			);
 			path = InterstitialAd;
 			sourceTree = "<group>";
@@ -169,10 +169,10 @@
 		0E877AA623FEA40700DC962F = {
 			isa = PBXGroup;
 			children = (
-				0EE0577123FECA9300D61405 /* AppNexusSDK.xcodeproj */,
-				0E877AB123FEA40700DC962F /* SimpleIntegrationObjC */,
-				0E877AB023FEA40700DC962F /* Products */,
 				0EE0577F23FED62F00D61405 /* Frameworks */,
+				0E877AB023FEA40700DC962F /* Products */,
+				0E877AB123FEA40700DC962F /* SimpleIntegrationObjC */,
+				0EE0577123FECA9300D61405 /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,14 +187,14 @@
 		0E877AB123FEA40700DC962F /* SimpleIntegrationObjC */ = {
 			isa = PBXGroup;
 			children = (
-				0E49155A24065546003B7CC2 /* AdType.storyboard */,
-				0E49159724065E84003B7CC2 /* InterstitialAd */,
 				0E49158324065963003B7CC2 /* BannerAd */,
-				0E49158724065963003B7CC2 /* NativeAd */,
-				0E49157F24065963003B7CC2 /* VideoAd */,
+				0E49159724065E84003B7CC2 /* InterstitialAd */,
 				0E49156524065911003B7CC2 /* MultiAdRequest */,
-				0E877ABE23FEA40900DC962F /* Assets.xcassets */,
+				0E49158724065963003B7CC2 /* NativeAd */,
 				0E491560240657CC003B7CC2 /* supporting file */,
+				0E49157F24065963003B7CC2 /* VideoAd */,
+				0E49155A24065546003B7CC2 /* AdType.storyboard */,
+				0E877ABE23FEA40900DC962F /* Assets.xcassets */,
 			);
 			path = SimpleIntegrationObjC;
 			sourceTree = "<group>";
@@ -202,8 +202,8 @@
 		0EE0577223FECA9300D61405 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0577723FECA9300D61405 /* AppNexusSDK.framework */,
 				0EE0577923FECA9300D61405 /* AppNexusNativeSDK.framework */,
+				0EE0577723FECA9300D61405 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -296,15 +296,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E49155C24065546003B7CC2 /* AdType.storyboard in Resources */,
 				0E49159124065963003B7CC2 /* ANNativeAdView.xib in Resources */,
-				0E877AC223FEA40900DC962F /* LaunchScreen.storyboard in Resources */,
-				0E49159C24065E84003B7CC2 /* InterstitialAd.storyboard in Resources */,
-				0E49157624065911003B7CC2 /* MultiAdRequest.storyboard in Resources */,
 				0E877ABF23FEA40900DC962F /* Assets.xcassets in Resources */,
 				0E49158E24065963003B7CC2 /* BannerAd.storyboard in Resources */,
-				0E49158D24065963003B7CC2 /* VideoAd.storyboard in Resources */,
+				0E49159C24065E84003B7CC2 /* InterstitialAd.storyboard in Resources */,
+				0E877AC223FEA40900DC962F /* LaunchScreen.storyboard in Resources */,
+				0E49157624065911003B7CC2 /* MultiAdRequest.storyboard in Resources */,
 				0E49159224065963003B7CC2 /* NativeAd.storyboard in Resources */,
-				0E49155C24065546003B7CC2 /* AdType.storyboard in Resources */,
+				0E49158D24065963003B7CC2 /* VideoAd.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,14 +315,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E49158C24065963003B7CC2 /* VideoAdViewController.m in Sources */,
 				0E49159524065ABF003B7CC2 /* ANNativeAdView.m in Sources */,
-				0E49158F24065963003B7CC2 /* BannerAdViewController.m in Sources */,
 				0E877AB423FEA40700DC962F /* AppDelegate.m in Sources */,
+				0E49158F24065963003B7CC2 /* BannerAdViewController.m in Sources */,
+				0E49159B24065E84003B7CC2 /* InterstitialAdViewController.m in Sources */,
+				0E877AC523FEA40900DC962F /* main.m in Sources */,
 				0E49157724065911003B7CC2 /* MultiAdViewController.m in Sources */,
 				0E49159024065963003B7CC2 /* NativeAdViewController.m in Sources */,
-				0E877AC523FEA40900DC962F /* main.m in Sources */,
-				0E49159B24065E84003B7CC2 /* InterstitialAdViewController.m in Sources */,
+				0E49158C24065963003B7CC2 /* VideoAdViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
