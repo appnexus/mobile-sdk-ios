@@ -35,7 +35,7 @@
     int adWidth  = 320;
     int adHeight = 50;
     NSString *adID = @"19065996";
-    NSString *inventoryCode = @"";
+    NSString *inventoryCode = @"finanzen.net-app_ios_phone-home_index-banner";
     NSInteger memberID = 7823;
     
     // We want to center our ad on the screen.
