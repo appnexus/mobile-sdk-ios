@@ -95,8 +95,8 @@
 		0E4915A424066B9C003B7CC2 /* supporting file */ = {
 			isa = PBXGroup;
 			children = (
-				0E9FB94624571E420011E0F9 /* LaunchScreen.storyboard */,
 				0E877A5F23FE763000DC962F /* AppDelegate.swift */,
+				0E9FB94624571E420011E0F9 /* LaunchScreen.storyboard */,
 			);
 			path = "supporting file";
 			sourceTree = "<group>";
@@ -122,8 +122,8 @@
 		0E4915B224066CE1003B7CC2 /* VideoAd */ = {
 			isa = PBXGroup;
 			children = (
-				0EEFDB9524066E060062560E /* VideoAdViewController.swift */,
 				0E4915B324066CE1003B7CC2 /* VideoAd.storyboard */,
+				0EEFDB9524066E060062560E /* VideoAdViewController.swift */,
 			);
 			path = VideoAd;
 			sourceTree = "<group>";
@@ -140,10 +140,10 @@
 		0E4915B624066CE1003B7CC2 /* NativeAd */ = {
 			isa = PBXGroup;
 			children = (
-				0E4915B724066CE1003B7CC2 /* NativeAd.storyboard */,
-				0EEFDB9724066E6E0062560E /* NativeAdViewController.swift */,
 				0EEFDB9D24066F030062560E /* ANNativeAdView.swift */,
 				0EEFDB9E24066F030062560E /* ANNativeAdView.xib */,
+				0E4915B724066CE1003B7CC2 /* NativeAd.storyboard */,
+				0EEFDB9724066E6E0062560E /* NativeAdViewController.swift */,
 			);
 			path = NativeAd;
 			sourceTree = "<group>";
@@ -151,10 +151,10 @@
 		0E877A5323FE763000DC962F = {
 			isa = PBXGroup;
 			children = (
-				0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */,
-				0E877A5E23FE763000DC962F /* SimpleIntegrationSwift */,
-				0E877A5D23FE763000DC962F /* Products */,
 				0E877A7C23FE78B200DC962F /* Frameworks */,
+				0E877A5D23FE763000DC962F /* Products */,
+				0E877A5E23FE763000DC962F /* SimpleIntegrationSwift */,
+				0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,15 +169,15 @@
 		0E877A5E23FE763000DC962F /* SimpleIntegrationSwift */ = {
 			isa = PBXGroup;
 			children = (
-				0E4915AD24066C78003B7CC2 /* AdType.storyboard */,
 				0E4915B024066CE1003B7CC2 /* BannerAd */,
 				0E4915B424066CE1003B7CC2 /* InterstitialAd */,
-				0E4915B624066CE1003B7CC2 /* NativeAd */,
-				0E4915B224066CE1003B7CC2 /* VideoAd */,
 				0E4915A824066C6C003B7CC2 /* MultiAdRequest */,
-				0E877A6D23FE763100DC962F /* Info.plist */,
+				0E4915B624066CE1003B7CC2 /* NativeAd */,
 				0E4915A424066B9C003B7CC2 /* supporting file */,
+				0E4915B224066CE1003B7CC2 /* VideoAd */,
+				0E4915AD24066C78003B7CC2 /* AdType.storyboard */,
 				0E877A6823FE763100DC962F /* Assets.xcassets */,
+				0E877A6D23FE763100DC962F /* Info.plist */,
 			);
 			path = SimpleIntegrationSwift;
 			sourceTree = "<group>";
@@ -185,8 +185,8 @@
 		0E877A7423FE766100DC962F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E877A7923FE766100DC962F /* AppNexusSDK.framework */,
 				0E877A7B23FE766100DC962F /* AppNexusNativeSDK.framework */,
+				0E877A7923FE766100DC962F /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,15 +280,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E9FB94824571E420011E0F9 /* LaunchScreen.storyboard in Resources */,
-				0E877A6923FE763100DC962F /* Assets.xcassets in Resources */,
-				0E4915B924066CE1003B7CC2 /* VideoAd.storyboard in Resources */,
-				0E4915B824066CE1003B7CC2 /* BannerAd.storyboard in Resources */,
-				0E4915AB24066C6C003B7CC2 /* MultiAdRequest.storyboard in Resources */,
 				0E4915AF24066C78003B7CC2 /* AdType.storyboard in Resources */,
-				0E4915BB24066CE1003B7CC2 /* NativeAd.storyboard in Resources */,
-				0E4915BA24066CE1003B7CC2 /* InterstitialAd.storyboard in Resources */,
 				0EEFDBA024066F030062560E /* ANNativeAdView.xib in Resources */,
+				0E877A6923FE763100DC962F /* Assets.xcassets in Resources */,
+				0E4915B824066CE1003B7CC2 /* BannerAd.storyboard in Resources */,
+				0E4915BA24066CE1003B7CC2 /* InterstitialAd.storyboard in Resources */,
+				0E9FB94824571E420011E0F9 /* LaunchScreen.storyboard in Resources */,
+				0E4915AB24066C6C003B7CC2 /* MultiAdRequest.storyboard in Resources */,
+				0E4915BB24066CE1003B7CC2 /* NativeAd.storyboard in Resources */,
+				0E4915B924066CE1003B7CC2 /* VideoAd.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,13 +299,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EEFDB9C24066E9F0062560E /* BannerAdViewController.swift in Sources */,
-				0EEFDB9824066E6E0062560E /* NativeAdViewController.swift in Sources */,
-				0EEFDB9A24066E880062560E /* InterstitialAdViewController.swift in Sources */,
-				0E877A6023FE763000DC962F /* AppDelegate.swift in Sources */,
-				0EEFDB9624066E060062560E /* VideoAdViewController.swift in Sources */,
 				0EEFDB9F24066F030062560E /* ANNativeAdView.swift in Sources */,
+				0E877A6023FE763000DC962F /* AppDelegate.swift in Sources */,
+				0EEFDB9C24066E9F0062560E /* BannerAdViewController.swift in Sources */,
+				0EEFDB9A24066E880062560E /* InterstitialAdViewController.swift in Sources */,
 				0E4915AC24066C6C003B7CC2 /* MultiAdViewController.swift in Sources */,
+				0EEFDB9824066E6E0062560E /* NativeAdViewController.swift in Sources */,
+				0EEFDB9624066E060062560E /* VideoAdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
