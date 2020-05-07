@@ -227,7 +227,7 @@ ANLogMark();
     self.contentView = self.lazyContentView;
 
     // NB  The dispatch thread within activateWebview completes the lazy webview load by...
-    //      * Returning lazy ad load success to host app.
+    //      * Returning success to host app.
     //      * Firing MobileSDK trackers, including impressionURLs and OMID
     //      * Starting the auto-refresh timer, as required.
     //
@@ -263,13 +263,6 @@ ANLogMark();
 
         if (!strongSelf)  {
                     //FIX -- test me
-            NSError  *error  = ANError(@"COULD NOT ACQUIRE strongSelf.", ANAdResponseInternalError);
-            ANLogError(@"%@", error);
-
-            if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
-                [self.delegate ad:self requestFailedWithError:error];
-            }
-
             [webview removeFromSuperview];
             return;
         }

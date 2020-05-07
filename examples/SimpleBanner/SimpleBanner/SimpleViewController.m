@@ -25,19 +25,6 @@
 
 
 
-/*
-    BETA -- Lazy Webview
-
-    To use this informal test environment...
-
-        1. See initial lines of viewDidLoad
-            a. Choose one of the tests: testAdUnit, testMultiAdRequest
-            b. Set the Placement ID and Member ID
-        2. Run the app -- watch the console log and the Simulator
- */
-
-
-
 #pragma mark -
 
 @interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate, ANMultiAdRequestDelegate, ANNativeAdRequestDelegate>
@@ -70,11 +57,11 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];   //DEBUG
 
     //
-//    BOOL  testAdUnit          = YES;
-    BOOL  testAdUnit          = NO;
+    BOOL  testAdUnit          = YES;
+//    BOOL  testAdUnit          = NO;
 
-    BOOL  testMultiAdRequest  = YES;
-//    BOOL  testMultiAdRequest  = NO;
+//    BOOL  testMultiAdRequest  = YES;
+    BOOL  testMultiAdRequest  = NO;
 
     //
     self.placementID1   = @"19065996";
@@ -161,6 +148,8 @@
     self.banner1.shouldAllowVideoDemand   = NO;      // self.banner1 is always Banner-banner.
     self.banner1.shouldAllowNativeDemand  = NO;
 
+    self.banner1.shouldServePublicServiceAnnouncements = NO;
+
     self.banner1.externalUid              = @"banner-banner";
 
     self.banner1.enableLazyWebviewLoad    = YES;
@@ -174,6 +163,8 @@
     self.banner2.autoRefreshInterval      = 0;
     self.banner2.shouldAllowVideoDemand   = YES;
     self.banner2.shouldAllowNativeDemand  = YES;
+
+    self.banner1.shouldServePublicServiceAnnouncements = NO;
 
     self.banner2.externalUid              = @"banner-multiformat";
 

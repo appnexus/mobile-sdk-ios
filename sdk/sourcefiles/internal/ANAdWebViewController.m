@@ -51,7 +51,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 @property (nonatomic, readwrite, strong)    UIView          *contentView;
 @property (nonatomic, readwrite, strong)    ANWebView       *webView;
-@property (nonatomic, readwrite)            BOOL             isLazyLoadInProgress;
+@property (nonatomic, readwrite)            BOOL             isLazyCompletionByLoadingWebview;
 @property (nonatomic, readwrite)            BOOL             isLazyWebviewLoadEnabled;
 
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
@@ -170,7 +170,7 @@ ANLogMark();
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
 
-    self.isLazyLoadInProgress = withLazyEvaluation;
+    self.isLazyCompletionByLoadingWebview = withLazyEvaluation;
 
     if ([self.adViewDelegate respondsToSelector:@selector(valueOfEnableLazyWebviewLoad)]) {
         self.isLazyWebviewLoadEnabled = [self.adViewDelegate valueOfEnableLazyWebviewLoad];
@@ -192,7 +192,7 @@ ANLogMark();
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
 
-    if (self.isLazyLoadInProgress || !self.isLazyWebviewLoadEnabled)
+    if (self.isLazyCompletionByLoadingWebview || !self.isLazyWebviewLoadEnabled)
     {
         _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
         if (!_webView)  { return nil; }
@@ -589,41 +589,47 @@ ANLogMark();
     }
 }
 
-# pragma mark - MRAID
+
+
+
+#pragma mark - MRAID
 
 - (void)processWebViewDidFinishLoad
 {
 ANLogMark();
-    if (!self.completedFirstLoad)
-    {
-        self.completedFirstLoad = YES;
+    if (self.completedFirstLoad)  { return; }
 
-        if (!self.isLazyLoadInProgress)
-        {
-            // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController
-            //   videoAdReady will call it later.
-            //
-            if ([self.videoXML length] > 0)
-            {
-                @synchronized(self) {
-                    [self processVideoViewDidFinishLoad];
-                }
-            } else if ([self.loadingDelegate respondsToSelector:@selector(didCompleteFirstLoadFromWebViewController:)])
-            {
-                @synchronized(self) {
-                    [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
-                }
-            }
-        }  //END -- !self.isLazyLoadInProgress
-        
+    //
+    self.completedFirstLoad = YES;
+
+    if (!self.isLazyCompletionByLoadingWebview)
+    {
+        // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController
+        //   videoAdReady will call it later.
         //
-        if (self.isMRAID) {
-            [self finishMRAIDLoad];
+        if ([self.videoXML length] > 0)
+        {
+            @synchronized(self) {
+                [self processVideoViewDidFinishLoad];
+            }
+
+        } else if ([self.loadingDelegate respondsToSelector:@selector(didCompleteFirstLoadFromWebViewController:)])
+        {
+            @synchronized(self) {
+                [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
+            }
         }
-        if(!([self.videoXML length] > 0)){
-             self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:false];
-        }
-       
+    }
+
+    //
+    if (self.isMRAID)
+    {
+        [self finishMRAIDLoad];
+    }
+
+    if ([self.videoXML length] <= 0)
+    {
+         self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:false];
     }
 }
 
