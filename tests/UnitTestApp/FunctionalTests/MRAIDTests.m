@@ -1372,12 +1372,26 @@
     [self clearTest];
 }
 
-- (void)testAudioVolumeChangeEventInitialValue {
+- (void)testAudioVolumeChangeEventOnScreen {
     [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
                                           atOrigin:CGPointZero
                                           withSize:CGSizeMake(320.0f, 50.0f)];
    
     [self addBannerAsSubview];
+    NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
+    XCTAssertTrue([actualVolumePer isEqualToString:@"60.00000238418579"], @"expected volume percentage::60.00000238418579 but actual::%@",actualVolumePer);
+    
+    [self clearTest];
+   
+}
+
+- (void)testAudioVolumeChangeEventOffScreen {
+    [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
+                                          atOrigin:CGPointZero
+                                          withSize:CGSizeMake(320.0f, 50.0f)];
+   
+    [self addBannerAsSubview];
+    [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
     NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
     XCTAssertTrue([actualVolumePer isEqualToString:@"<null>"], @"expected volume percentage::null but actual::%@",actualVolumePer);
     
