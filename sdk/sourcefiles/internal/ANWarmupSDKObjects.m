@@ -9,9 +9,8 @@
 #import "ANWarmupSDKObjects.h"
 #import <WebKit/WebKit.h>
 #import "ANGlobal.h"
+#import "ANHTTPNetworkSession.h"
 #import "ANSDKSettings+PrivateMethods.h"
-
-NSURLSession *sharedSession = nil;
 
 NSMutableURLRequest  *utMutableRequest = nil;
 
@@ -22,7 +21,10 @@ NSMutableURLRequest  *utMutableRequest = nil;
     // No need for "dispatch once" since `load` is called only once during app launch.
     [self constructAdServerRequestURL];
     
-    sharedSession = [NSURLSession sharedSession];
+//    [[NSURLSession sharedSession] dataTaskWithRequest:ANBasicRequestWithURL([NSURL URLWithString:@"https://mediation.adnxs.com/ut/v3"])];
+    
+    [ANHTTPNetworkSession startTaskWithHttpRequest:ANBasicRequestWithURL([NSURL URLWithString:@"https://mediation.adnxs.com/ut/v3"])];
+    
 }
 
 +(NSMutableURLRequest *) adServerRequestURL {
