@@ -1372,14 +1372,15 @@
     [self clearTest];
 }
 
+#pragma mark - mraid.addEventListener AudioVolumeChange
+
 - (void)testAudioVolumeChangeEventOnScreen {
     [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
                                           atOrigin:CGPointZero
                                           withSize:CGSizeMake(320.0f, 50.0f)];
-   
-    [self addBannerAsSubview];
+    [self addBannerAsSubview];   
     NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
-    XCTAssertTrue([actualVolumePer isEqualToString:@"60.00000238418579"], @"expected volume percentage::60.00000238418579 but actual::%@",actualVolumePer);
+    XCTAssertTrue([self isVolumePercentageNumeric:actualVolumePer], @"expected volume percentage::numeric but actual::%@",actualVolumePer);
     
     [self clearTest];
    
@@ -1699,6 +1700,16 @@
    CGRect frame = self.banner.frame;
    frame.origin = CGPointMake(originX, originY);
    self.banner.frame = frame;
+}
+
+-(bool) isVolumePercentageNumeric:(NSString*) volumePercentage{
+   NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+   [numberFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+   NSNumber* number = [numberFormatter numberFromString:volumePercentage];
+   if (number != nil) {
+      return true;
+   }
+   return false;
 }
 
 # pragma mark - MRAID Accessor Functions
