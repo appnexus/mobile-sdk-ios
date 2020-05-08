@@ -95,6 +95,18 @@
     self.ads = nil;
     
 }
+-(void)requestFailedWithError:(NSString *)error{
+    NSError  *sessionError  = nil;
+    if (self.fetcherMARManager) {
+        sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError,  error);
+        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
+    }else{
+        sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error);
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+        [self processFinalResponse:response];
+    }
+    ANLogError(@"%@", sessionError);
+}
 
 - (void)requestAd
 {
@@ -113,16 +125,8 @@
         request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     }
 
-    if (!request)
-    {
-        if (self.fetcherMARManager) {
-            NSError  *sessionError  = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, @"request is nil.");
-            ANLogError(@"%@", sessionError);
-
-            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-            [self processFinalResponse:response];
-        }
-
+    if (!request){
+        [self requestFailedWithError:@"request is nil."];
         return;
     }
     
@@ -161,19 +165,8 @@
                                       if (statusCode >= 400 || statusCode == -1)
                                       {
                                           strongSelf.isFetcherLoading = NO;
-
                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                              NSError  *sessionError  = nil;
-
-                                              if (strongSelf.fetcherMARManager) {
-                                                  sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-                                              } else {
-                                                  sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-                                              }
-                                              ANLogError(@"%@", sessionError);
-
-                                              ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-                                              [strongSelf processFinalResponse:response];
+                                              [strongSelf requestFailedWithError:error.localizedDescription];
                                           });
 
                                       } else {
@@ -356,6 +349,5 @@
         [self continueWaterfall];
     }
 }
-
 
 @end
