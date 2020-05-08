@@ -19,11 +19,16 @@
 
 
 
-@interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate>
+@interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate, ANMultiAdProtocol>
 
 @property (nonatomic, readwrite, strong, nonnull)  ANUniversalAdFetcher  *universalAdFetcher;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+
+/**
+ List of views added as Friendly Obstructions
+ */
+@property (nonatomic, readonly, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 
 
 //
@@ -40,22 +45,5 @@
 
 - (void)setAdResponseInfo:(nonnull ANAdResponseInfo *)adResponseInfo;
 - (void)setCreativeId:(nonnull NSString *)creativeId;
-
-
-
-// Multi-Ad Request support.
-//
-@property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest  *marManager;
-
-/**
- * utRequestUUIDString associates a unique identifier with each adunit per request, allowing ad objects
- *   in the UT Response to be matched with adunit elements of the UT Request.
- *
- * NB  This value is updated for each UT Request.  It does not persist across the lifecycle of the instance.
- */
-@property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
-
-
-- (void)ingestAdResponseTag: (nonnull id)tag;
 
 @end

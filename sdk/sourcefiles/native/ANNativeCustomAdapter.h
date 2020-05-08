@@ -35,6 +35,8 @@
  */
 @property (nonatomic, readwrite, weak, nullable) id<ANNativeCustomAdapterAdDelegate> nativeAdDelegate;
 
+
+@optional
 /*!
  * @return YES if the response is no longer valid, for example, if too much time has elapsed
  * since receiving it. NO if the response is still valid.
@@ -47,6 +49,11 @@
 - (void)requestNativeAdWithServerParameter:(nullable NSString *)parameterString
                                   adUnitId:(nullable NSString *)adUnitId
                        targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
+
+/*!
+* Will be called by the AppNexus SDK when a CSR native ad request should be initiated.
+*/
+- (void) requestAdwithPayload:(nonnull NSString *) payload targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
 
 @optional
 /*!
@@ -82,7 +89,7 @@
  */
 @protocol ANNativeCustomAdapterRequestDelegate <NSObject>
 
-@required
+@optional
 - (void)didLoadNativeAd:(nonnull ANNativeMediatedAdResponse *)response;
 - (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode;
 
@@ -96,7 +103,6 @@
 @optional
 -(void)didInteractWithParams;
 
-@required
 - (void)adWasClicked;
 - (void)willPresentAd;
 - (void)didPresentAd;

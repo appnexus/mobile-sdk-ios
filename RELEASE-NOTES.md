@@ -1,3 +1,36 @@
+## 7.3.1
+### Improvements/Bug Fixes
++ MS-4326: Fix for ANMultiAdRequest crashes when UT Response is not received due to Internet connectivity issues/device being offline
+
+
+## 7.3
+### New Feature
++ MS-4266 Added API to support Friendly Obstruction for Open Measurement
++ MS-4223 Added Client Side Rendering for FB mediated Ads.
+
+### Improvements/Bug Fixes
++ MS-4275 Fixed BannerAd OMID session tracker firing
+
+## 7.2
+### Improvements/Bug Fixes
++ MS-4200 : Support IAB Europe Transparency & Consent Framework v2.0
++ MS-4267 : All network calls will be made only using secure endpoint
+
+
+## 7.1
+### New Feature
++ MS-3956  Added ANAdResponseInfo to return associated data with Ad response 
+
+### Mediation partner upgrade
++ Google AdMob SDK v7.55.0
+
+### Improvements/Bug Fixes
++ MS-3882 Added option to include "publisher_id" in Ad request
++ MS-3896 Fixed bug on Interstitial Video Ad close feature
++ MS-4166 Fixed VideoAd OMID session tracker firing bug
+
+
+
 ## 7.0
 
 ### New Feature

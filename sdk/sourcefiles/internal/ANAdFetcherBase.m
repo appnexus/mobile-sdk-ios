@@ -30,9 +30,9 @@
 #import "NSTimer+ANCategory.h"
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANAdView+PrivateMethods.h"
+#import "ANGDPRSettings.h"
 
-
-
+#import "ANMultiAdRequest+PrivateMethods.h"
 
 #pragma mark -
 
@@ -60,9 +60,52 @@
     return  self;
 }
 
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager
+{
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.delegate = delegate;
+    self.adunitMARManager = adunitMARManager;
+    return  self;
+}
+- (nonnull instancetype)initWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
+{
+    self = [self init];
+    if (!self)  { return nil; }
+
+    //
+    self.fetcherMARManager = marManager;
+
+    return  self;
+}
+
 - (void)setup
 {
-    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    if([ANGDPRSettings canAccessDeviceData]){
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    } else {
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
+    }
+}
+
+-(void) stopAdLoad{
+    self.isFetcherLoading = NO;
+    self.ads = nil;
+    
+}
+-(void)requestFailedWithError:(NSString *)error{
+    NSError  *sessionError  = nil;
+    if (self.fetcherMARManager) {
+        sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError,  error);
+        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
+    }else{
+        sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error);
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+        [self processFinalResponse:response];
+    }
+    ANLogError(@"%@", sessionError);
 }
 
 - (void)requestAd
@@ -82,16 +125,8 @@
         request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     }
 
-    if (!request)
-    {
-        if (self.fetcherMARManager) {
-            NSError  *sessionError  = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, @"request is nil.");
-            ANLogError(@"%@", sessionError);
-
-            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-            [self processFinalResponse:response];
-        }
-
+    if (!request){
+        [self requestFailedWithError:@"request is nil."];
         return;
     }
     
@@ -130,19 +165,8 @@
                                       if (statusCode >= 400 || statusCode == -1)
                                       {
                                           strongSelf.isFetcherLoading = NO;
-
                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                              NSError  *sessionError  = nil;
-
-                                              if (strongSelf.fetcherMARManager) {
-                                                  sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-                                              } else {
-                                                  sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-                                              }
-                                              ANLogError(@"%@", sessionError);
-
-                                              ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-                                              [strongSelf processFinalResponse:response];
+                                              [strongSelf requestFailedWithError:error.localizedDescription];
                                           });
 
                                       } else {
@@ -196,6 +220,41 @@
 
     } else {
         [self handleAdServerResponseForMultiAdRequest:arrayOfTags];
+    }
+}
+
+- (void)handleAdServerResponseForMultiAdRequest:(NSArray<NSDictionary *> *)arrayOfTags
+{
+    // Multi-Ad Request Mode.
+    //
+    if (arrayOfTags.count <= 0)
+    {
+        NSError  *responseError  = ANError(@"multi_ad_request_failed %@", ANAdResponseUnableToFill, @"UT Response FAILED to return any ad objects.");
+
+        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:responseError];
+        return;
+    }
+
+    [self.fetcherMARManager internalMultiAdRequestDidComplete];
+
+    // Process each ad object in turn, matching with adunit via UUID.
+    //
+    if (self.fetcherMARManager.countOfAdUnits != [arrayOfTags count]) {
+        ANLogWarn(@"Number of tags in UT Response (%@) DOES NOT MATCH number of ad units in MAR instance (%@).",
+                         @([arrayOfTags count]), @(self.fetcherMARManager.countOfAdUnits));
+    }
+
+    for (NSDictionary<NSString *, id> *tag in arrayOfTags)
+    {
+        NSString  *uuid     = tag[kANUniversalTagAdServerResponseKeyTagUUID];
+        id<ANMultiAdProtocol> adunit   = [self.fetcherMARManager internalGetAdUnitByUUID:uuid];
+        
+        if (!adunit) {
+            ANLogWarn(@"UT Response tag UUID DOES NOT MATCH any ad unit in MAR instance.  Ignoring this tag...  (%@)", uuid);
+
+        } else {
+            [adunit ingestAdResponseTag:tag];
+        }
     }
 }
 
@@ -290,6 +349,5 @@
         [self continueWaterfall];
     }
 }
-
 
 @end

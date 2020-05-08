@@ -27,9 +27,6 @@
 #import "ANAdFetcherBase+PrivateMethods.h"
 #import "ANMRAIDContainerView.h"
 
-
-
-
 #pragma mark -
 
 @protocol ANUniversalAdFetcherDelegate;
@@ -39,10 +36,7 @@
 @property (nonatomic, readonly, strong, nullable)  ANMRAIDContainerView  *adView;
 
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
-- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;
-- (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
 
-- (void)stopAdLoad;
 - (void)startAutoRefreshTimer;
 - (void)restartAutoRefreshTimer;
 - (void)stopAutoRefreshTimer;
@@ -52,26 +46,9 @@
 
 @end
 
-
-
-
 #pragma mark - Ad Fetcher Delegates.
 
-@protocol  ANUniversalRequestTagBuilderCore
-
-// customKeywords is shared between the adunits and the fetcher.
-//
-// NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
-//       which is shared between fetcher and the mediation adapters.
-//     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
-//
-@property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
-
-@end
-
-
-
-@protocol  ANUniversalRequestTagBuilderDelegate <ANUniversalRequestTagBuilderCore>
+@protocol  ANUniversalRequestTagBuilderDelegate <ANRequestTagBuilderCore>
 
 @required
 
@@ -107,9 +84,6 @@
 @protocol  ANUniversalAdFetcherFoundationDelegate <ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation>
     //EMPTY
 @end
-
-
-
 
 #pragma mark -
 

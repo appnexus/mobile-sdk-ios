@@ -222,6 +222,12 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 
 /**
+ Set whether impression should be counted when the creative is loaded.
+ This feature is disabled by default.
+ */
+@property (nonatomic, readwrite, assign) BOOL countImpressionOnAdReceived;
+
+/**
  * Sets whether or not Video Ads(AppNexus Media Type:4) can serve on this Ad object.
  */
 @property (nonatomic, readwrite) BOOL shouldAllowVideoDemand;

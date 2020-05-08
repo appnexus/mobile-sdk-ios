@@ -23,7 +23,7 @@
 /**
  If YES, the SDK will make all requests in HTTPS. Default is NO.
  */
-@property (nonatomic) BOOL HTTPSEnabled;
+@property (nonatomic) BOOL HTTPSEnabled DEPRECATED_MSG_ATTRIBUTE("All network calls are secure. HTTPSEnabled property is deprecated.");
 
 /**
  If YES, the SDK will allow to support Open-Measurement for viewability and verification measurement for ads served. Default is YES.

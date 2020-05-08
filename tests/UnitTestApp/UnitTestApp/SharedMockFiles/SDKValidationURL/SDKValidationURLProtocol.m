@@ -48,7 +48,7 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
 
 + (BOOL) supportedPBSHost:(NSString *) hostURL {
     if (hostURL != nil) {
-        if ([hostURL containsString:@"iabtechlab.com"]) {
+        if ([hostURL containsString:@"iabtechlab.com"] || [hostURL containsString:@"appnexustracker.com"] ) {
             return YES;
         }
     }

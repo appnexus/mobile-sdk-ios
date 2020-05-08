@@ -23,9 +23,8 @@
 #import "ANUSPrivacySettings.h"
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 
-
+#pragma mark - Private constants.
 
 
 #pragma mark -
@@ -281,6 +280,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"gdpr_consent"] = gdprConsent;
     }
     
+    // add Facebook bidder token if available
+    NSArray *tpuids = [self appendFBToken];
+    if(tpuids != nil){
+        requestDict[@"tpuids"] = tpuids;
+    }
+    
     // add USPrivacy String
     NSString *privacyString = [ANUSPrivacySettings getUSPrivacyString];
     if (privacyString.length != 0) {
@@ -290,6 +295,34 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     return [requestDict copy];
 }
 
+-(NSString *)getFacebookBidderToken{
+    // check to see if an instance of this class exists
+    Class csrClass = NSClassFromString(@"ANFBSettings");
+    if (!csrClass) {
+        ANLogDebug(@"ANFBSettings Class not found");
+        return nil;
+    }
+    SEL  getterMethod  = NSSelectorFromString(@"getBidderToken");
+    if ([csrClass respondsToSelector:getterMethod]) {
+        IMP methodIMP = [csrClass methodForSelector:getterMethod];
+        NSString* (*func)(id,SEL) = (NSString* (*)(id,SEL))methodIMP;
+        ANLogDebug(@"FacebookBidderToken : %@",(func)(csrClass, getterMethod));
+        return (func)(csrClass, getterMethod);
+    }
+    return nil;
+}
+
+-(NSArray *)appendFBToken{
+    NSString *token = [self getFacebookBidderToken];
+    if(token != nil){
+        NSDictionary *fan = @{
+            @"provider"  : @"audienceNetwork",
+            @"user_id"   : token
+        };
+        return @[fan];
+    }
+    return nil;
+}
 
 - (NSDictionary *)tag:(NSMutableDictionary *)requestDict
 {
@@ -627,6 +660,14 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary<NSString *, id> *)deviceId
 {
+    if([ANGDPRSettings canAccessDeviceData]){
+        return [self fetchAdvertisingIdentifier];
+    }
+    
+    return nil;
+}
+
+-(NSDictionary<NSString *, id> *) fetchAdvertisingIdentifier {
     NSString *idfa = ANAdvertisingIdentifier();
 
     if (idfa) {
@@ -693,14 +734,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 - (NSDictionary *)getGDPRConsentObject
 {
     NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
-    NSString  *gdprRequired  = [ANGDPRSettings getConsentRequired];
+    NSNumber  *gdprRequired  = [ANGDPRSettings getConsentRequired];
     
     if (gdprRequired != nil)
     {
-        NSNumber *gdprRequiredBool = ([gdprRequired isEqualToString:@"1"])?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
-
         return  @{
-                     @"consent_required"  : gdprRequiredBool,
+                     @"consent_required"  : gdprRequired,
                      @"consent_string"    : gdprConsent
                  };
 
@@ -708,7 +747,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
-
 
 
 

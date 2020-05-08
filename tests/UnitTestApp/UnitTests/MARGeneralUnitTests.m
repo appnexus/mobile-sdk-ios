@@ -59,21 +59,14 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 - (void)setUp
 {
 TMARK();
+    [self clearCountsAndExpectations];
     self.adUnitsForTest = [[MARAdUnits alloc] initWithDelegate:self];
 
-
-    //
-    self.mar = nil;
-
-    self.MAR_countOfCompletionSuccesses  = 0;
-    self.MAR_countOfCompletionFailures   = 0;
-    self.AdUnit_countOfReceiveSuccesses  = 0;
-    self.AdUnit_countOfReceiveFailures   = 0;
-    [self clearCountsAndExpectations];
 }
 
 - (void)clearCountsAndExpectations
 {
+    self.mar = nil;
     self.MAR_countOfCompletionSuccesses     = 0;
     self.MAR_countOfCompletionFailures      = 0;
     self.AdUnit_countOfReceiveSuccesses     = 0;
@@ -82,6 +75,7 @@ TMARK();
 
 - (void)tearDown
 {
+    [self clearCountsAndExpectations];
 }
 
 
@@ -132,7 +126,7 @@ TMARK();
 - (void)testDropAdUnitThatIsOutOfScopeBeforeMARLoad
 {
 TMARK();
-    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+   ANMultiAdRequest *marObject = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
                                                  delegate: self
                                                   adUnits: self.adUnitsForTest.bannerBanner,
                                                            self.adUnitsForTest.bannerPlusNative,
@@ -140,21 +134,21 @@ TMARK();
                                                            nil ];
     NSUInteger  countOfRequestedAdUnits  = 3;
 
-    [self addAdUnitWhileInInnerScope:countOfRequestedAdUnits];
+    marObject = [self addAdUnitWhileInInnerScope:countOfRequestedAdUnits andMAR:marObject];
 
 
     // Demonstrate that newly added AdUnit is cleared from MAR instance after a brief delay.
     //
+
     [TestGlobal waitForSeconds: kWaitOneSecond
               thenExecuteBlock: ^{
-                    NSDictionary  *jsonBody                     = [MARHelper getJSONBodyFromMultiAdRequestInstance:self.mar];
-                    NSInteger      countOfTagsInOutsideScope    = [jsonBody[@"tags"] count];
-
-                    XCTAssertEqual(countOfTagsInOutsideScope, countOfRequestedAdUnits);
+                NSDictionary  *jsonBody                     = [MARHelper getJSONBodyFromMultiAdRequestInstance:marObject];
+                NSInteger      countOfTagsInOutsideScope    = [jsonBody[@"tags"] count];
+                XCTAssertEqual(countOfTagsInOutsideScope, countOfRequestedAdUnits);
                 } ];
 }
 
-- (void)addAdUnitWhileInInnerScope:(NSUInteger)currentNumberOfTags
+- (ANMultiAdRequest *)addAdUnitWhileInInnerScope:(NSUInteger)currentNumberOfTags andMAR:(ANMultiAdRequest *)marObject
 {
     ANBannerAdView  *anotherBanner  = [MARHelper createBannerInstanceWithType: MultiTagTypeBannerBannerOnly
                                                                   placementID: self.adUnitsForTest.pBannerBanner.placementID
@@ -167,13 +161,14 @@ TMARK();
                                                                  labelDetails: nil
                                                           dictionaryKeySuffix: self.adUnitsForTest.pBannerBanner.detailSuffix ];
 
-    [self.mar addAdUnit:anotherBanner];
+    [marObject addAdUnit:anotherBanner];
 
-    NSDictionary  *jsonBody  = [MARHelper getJSONBodyFromMultiAdRequestInstance:self.mar];
+    NSDictionary  *jsonBody  = [MARHelper getJSONBodyFromMultiAdRequestInstance:marObject];
 
     NSInteger  countOfTagsInInnerScope  = [jsonBody[@"tags"] count];
 
     XCTAssertEqual(countOfTagsInInnerScope, currentNumberOfTags + 1);
+    return marObject;
 }
 
 - (void)testDropMultiAdRequestThatIsOutOfScopeDuringAdUnitLoad
@@ -186,6 +181,7 @@ TMARK();
 
     // Demonstrate that AdUnit is independent of ephemeral MAR instance after a brief delay.
     //
+    
     [TestGlobal waitForSeconds: kWaitOneSecond
               thenExecuteBlock: ^{
                     NSDictionary  *jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.bannerBanner];
@@ -220,7 +216,7 @@ TMARK();
 
 - (void)testSetLastAdUnitStrongPropertyToNil
 {
-    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+    ANMultiAdRequest *marObject  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
                                                  delegate: self
                                                   adUnits: self.adUnitsForTest.bannerBanner,
                                                            self.adUnitsForTest.bannerPlusNative,
@@ -231,13 +227,14 @@ TMARK();
 
 
     // Demonstrate that newly added AdUnit is cleared from MAR instance after a brief delay.
-    //
+    
     [TestGlobal waitForSeconds: kWaitOneSecond
               thenExecuteBlock: ^{
-                    NSDictionary  *jsonBody                     = [MARHelper getJSONBodyFromMultiAdRequestInstance:self.mar];
+                    NSDictionary  *jsonBody                     = [MARHelper getJSONBodyFromMultiAdRequestInstance:marObject];
                     NSInteger      countOfTagsInOutsideScope    = [jsonBody[@"tags"] count];
 
                     XCTAssertEqual(countOfTagsInOutsideScope, countOfEncapsulatedAdUnits - 1);
+
                 }];
 }
 

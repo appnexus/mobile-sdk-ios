@@ -30,6 +30,7 @@ static NSString * _Nonnull const kANAdViewAdFailedToDisplayNotification         
 
 
 @interface ANAdView (ANTest) <ANAdViewInternalDelegate>
+@property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>   appEventDelegate;
 
 
 @end

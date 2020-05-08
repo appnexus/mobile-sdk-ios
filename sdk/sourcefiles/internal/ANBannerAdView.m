@@ -71,6 +71,9 @@ static NSString *const kANInline        = @"inline";
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+
+
+
 @end
 
 
@@ -91,7 +94,11 @@ static NSString *const kANInline        = @"inline";
 @synthesize  adResponseInfo                 = _adResponseInfo;
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
+
+@synthesize  countImpressionOnAdReceived    = _countImpressionOnAdReceived;
 @synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
+
+
 
 
 #pragma mark - Lifecycle.
@@ -103,15 +110,16 @@ static NSString *const kANInline        = @"inline";
     
     // Defaults.
     //
-    __autoRefreshInterval       = kANBannerDefaultAutoRefreshInterval;
-    _transitionDuration         = kAppNexusBannerAdTransitionDefaultDuration;
-    _loadedAdSize               = APPNEXUS_SIZE_UNDEFINED;
-    _adSize                     = APPNEXUS_SIZE_UNDEFINED;
-    _adSizes                    = nil;
-    _shouldAllowNativeDemand    = NO;
-    _shouldAllowVideoDemand     = NO;
-    _nativeAdRendererId         = 0;
-    _videoAdOrientation         = ANUnknown;
+    __autoRefreshInterval         = kANBannerDefaultAutoRefreshInterval;
+    _transitionDuration           = kAppNexusBannerAdTransitionDefaultDuration;
+    _loadedAdSize                 = APPNEXUS_SIZE_UNDEFINED;
+    _adSize                       = APPNEXUS_SIZE_UNDEFINED;
+    _adSizes                      = nil;
+    _shouldAllowNativeDemand      = NO;
+    _shouldAllowVideoDemand       = NO;
+    _nativeAdRendererId           = 0;
+    _videoAdOrientation           = ANUnknown;
+    _countImpressionOnAdReceived  = NO;
 
     self.allowSmallerSizes      = NO;
     self.loadAdHasBeenInvoked   = NO;
@@ -469,6 +477,43 @@ ANLogMark();
     }
 }
 
+- (void)addOpenMeasurementFriendlyObstruction:(nonnull UIView *)obstructionView{
+    [super addOpenMeasurementFriendlyObstruction:obstructionView];
+    [self setFriendlyObstruction];
+}
+
+- (void)setFriendlyObstruction
+{
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            for (UIView *obstructionView in self.obstructionViews){
+                [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+            }
+        }
+    }
+}
+
+- (void)removeOpenMeasurementFriendlyObstruction:(UIView *)obstructionView{
+    [super removeOpenMeasurementFriendlyObstruction:obstructionView];
+    if([self.contentView isKindOfClass:[ANMRAIDContainerView class]]){
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeFriendlyObstruction:obstructionView toOMIDAdSession:adView.webViewController.omidAdSession];
+        }
+    }
+}
+
+- (void)removeAllOpenMeasurementFriendlyObstructions{
+    [super removeAllOpenMeasurementFriendlyObstructions];
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+        if(adView.webViewController != nil && adView.webViewController.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] removeAllFriendlyObstructions:adView.webViewController.omidAdSession];
+        }
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -512,7 +557,7 @@ ANLogMark();
 
     if ([response isSuccessful] || [response didNotLoadCreative])
     {
-        self.loadAdHasBeenInvoked = NO;
+        self.loadAdHasBeenInvoked = YES;
 
         id  adObject         = response.adObject;
         id  adObjectHandler  = response.adObjectHandler;
@@ -540,6 +585,7 @@ ANLogMark();
             NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
             NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
 
+
             if (width && height)
             {
                 CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
@@ -552,10 +598,19 @@ ANLogMark();
             {
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
 
-                if (! [response didNotLoadCreative] && self.window) {
+                // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
+                //   but only when the AdUnit is not lazy.
+                //
+                if (![response didNotLoadCreative]  &&  (self.window || self.countImpressionOnAdReceived)) {
                     [self fireTrackerAndOMID];
                 }
             }
+
+            if ((_adResponseInfo.adType == ANAdTypeBanner) || (_adResponseInfo.adType == ANAdTypeVideo))
+            {
+              [self setFriendlyObstruction];
+            }
+            
 
             if ([response didNotLoadCreative])
             {
@@ -571,10 +626,19 @@ ANLogMark();
 
                     self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
 
-                    [self.nativeAdResponse registerViewForTracking: self.contentView
-                                            withRootViewController: self.displayController
-                                                    clickableViews: @[]
-                                                             error: &registerError];
+                    if ((self.obstructionViews != nil) && (self.obstructionViews.count > 0))
+                    {
+                        [self.nativeAdResponse registerViewForTracking: self.contentView
+                                                withRootViewController: self.displayController
+                                                        clickableViews: @[]
+                                   openMeasurementFriendlyObstructions: self.obstructionViews
+                                                                 error: &registerError];
+                    } else {
+                        [self.nativeAdResponse registerViewForTracking: self.contentView
+                                                withRootViewController: self.displayController
+                                                        clickableViews: @[]
+                                                                 error: &registerError];
+                    }
                 }
 
                 [self adDidReceiveAd:self];

@@ -44,8 +44,6 @@ class BannerAdClickThruViewController: UIViewController , ANBannerAdViewDelegate
         ANHTTPStubbingManager.shared().disable()
         ANHTTPStubbingManager.shared().removeAllStubs()
         ANHTTPStubbingManager.shared().broadcastRequests = false
-        ANSDKSettings.sharedInstance().httpsEnabled = false
-        
     }
     func initialiseBannerAd(clickThru : ANClickThroughAction)  {
         

@@ -33,7 +33,6 @@
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
 #import "ANUniversalAdFetcher+ANTest.h"
-#import "ANNativeAdRequest+PrivateMethods.h"
 
 
 #define kAppNexusRequestTimeoutInterval 20.0
@@ -241,7 +240,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     
     ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
-    ANSDKSettings.sharedInstance.HTTPSEnabled = NO;
     self.loadAdResponseReceivedExpectation = nil;
     self.loadAdResponseFailedExpectation = nil;
     

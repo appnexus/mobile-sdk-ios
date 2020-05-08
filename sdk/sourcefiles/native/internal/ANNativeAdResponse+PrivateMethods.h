@@ -35,16 +35,17 @@
                                 clickableViews:(NSArray *)clickableViews
                                          error:(NSError *__autoreleasing*)error;
 
+
 #pragma mark - Unregistration
 
 - (void)unregisterViewFromTracking;
-
 #pragma mark - Click handling
 
 - (void)attachGestureRecognizersToNativeView:(UIView *)nativeView
                           withClickableViews:(NSArray *)clickableViews;
 - (void)handleClick;
 
+-(void)registerOMID;
 #pragma mark - ANNativeAdDelegate / ANNativeCustomAdapterAdDelegate
 
 - (void)adWasClicked;

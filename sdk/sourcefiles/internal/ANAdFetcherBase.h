@@ -19,11 +19,41 @@
 #import "ANAdProtocol.h"
 #import "ANUniversalTagAdServerResponse.h"
 
-//#import "ANAdView.h"
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
 
+@protocol  ANRequestTagBuilderCore
 
+// customKeywords is shared between the adunits and the fetcher.
+//
+// NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
+//       which is shared between fetcher and the mediation adapters.
+//     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
+//
+@property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
+@end
+
+
+@protocol  ANMultiAdProtocol
+
+@property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest                                    *marManager;
+
+
+/**
+ This property is only used with ANMultiAdRequest.
+ It associates a unique identifier with each adunit per request, allowing ad objects in the UT Response to be
+   matched with adunit elements of the UT Request.
+ NB  This value is updated for each UT Request.  It does not persist across the lifecycle of the instance.
+ */
+@property (nonatomic, readwrite, strong, nonnull)  NSString  *utRequestUUIDString;
+
+/*!
+ * Used only in MultiAdRequest to pass ad object returned by impbus directly to the adunit though it was requested by MAR UT Request.
+ */
+- (void)ingestAdResponseTag: (nonnull id)tag;
+
+@end
 
 
 @interface ANAdFetcherBase : NSObject
@@ -42,9 +72,11 @@
 
 //
 - (nonnull instancetype)init;
+- (nonnull instancetype)initWithDelegate:(nonnull id)delegate andAdUnitMultiAdRequestManager:(nonnull ANMultiAdRequest *)adunitMARManager;
+- (nonnull instancetype)initWithMultiAdRequestManager:(nonnull ANMultiAdRequest *)marManager;
 - (void)setup;
 - (void)requestAd;
-
+- (void)stopAdLoad;
 - (void)fireResponseURL:(nullable NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
                adObject:(nonnull id)adObject;
@@ -56,3 +88,5 @@
 
 
 @end
+
+

@@ -62,7 +62,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
-    ANSDKSettings.sharedInstance.HTTPSEnabled = NO;
     self.mar = nil;
     
     [ANBannerAdView setDoNotResetAdUnitUUID:NO];
