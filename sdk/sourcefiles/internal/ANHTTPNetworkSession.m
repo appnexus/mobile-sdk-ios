@@ -219,24 +219,22 @@ didCompleteWithError:(nullable NSError *)error {
     // Validate response is a HTTP response.
     NSHTTPURLResponse * httpResponse = [task.response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)task.response : nil;
     if (httpResponse == nil) {
-//        NSError * notHttpResponseError = [NSError ini];
-//        safe_block(taskData.errorHandler, notHttpResponseError);
+        NSError *responseError = ANError(@"Network response is not of type NSHTTPURLResponse", ANAdResponseNetworkError);
+        safe_block(taskData.errorHandler, responseError);
         return;
     }
 
     // Validate response code is not an error (>= 400)
-    // See https://en.wikipedia.org/wiki/List_of_HTTP_status_codes for all valid status codes.
     if (httpResponse.statusCode >= 400) {
-//        NSError * not200ResponseError = [NSError networkErrorWithHTTPStatusCode:httpResponse.statusCode];
-//        MPLogEvent([MPLogEvent error:not200ResponseError message:nil]);
-//        safe_block(taskData.errorHandler, not200ResponseError);
+        NSError * responseError = ANError(@"connection_failed", ANAdResponseNetworkError);
+        safe_block(taskData.errorHandler, responseError);
         return;
     }
 
     // Validate that there is data
     if (taskData.responseData == nil) {
-        //NSError * noDataError = [NSError networkResponseContainedNoData];
-        //safe_block(taskData.errorHandler, noDataError);
+        NSError * noDataError = ANError(@"The ad response does not contain data", ANAdResponseNetworkError);
+        safe_block(taskData.errorHandler, noDataError);
         return;
     }
 

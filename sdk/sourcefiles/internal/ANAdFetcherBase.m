@@ -103,6 +103,18 @@
     self.ads = nil;
     
 }
+-(void)requestFailedWithError:(NSString *)error{
+    NSError  *sessionError  = nil;
+    if (self.fetcherMARManager) {
+        sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError,  error);
+        [self.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
+    }else{
+        sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error);
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+        [self processFinalResponse:response];
+    }
+    ANLogError(@"%@", sessionError);
+}
 
 - (void)requestAd
 {
@@ -120,16 +132,8 @@
         request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate];
     }
 
-    if (!request)
-    {
-        if (self.fetcherMARManager) {
-            NSError  *sessionError  = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, @"request is nil.");
-            ANLogError(@"%@", sessionError);
-
-            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-            [self processFinalResponse:response];
-        }
-
+    if (!request){
+        [self requestFailedWithError:@"request is nil."];
         return;
     }
     
@@ -142,119 +146,37 @@
    self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
          __typeof__(self) strongSelf = weakSelf;
 
-       NSInteger statusCode = -1;
-
        if (!self.fetcherMARManager) {
            [strongSelf restartAutoRefreshTimer];
        }
 
-       if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-           statusCode = [httpResponse statusCode];
+       
+       strongSelf.isFetcherLoading = YES;
+
+       NSString *responseString = [[NSString alloc] initWithData:data
+                                                        encoding:NSUTF8StringEncoding];
+       if (! strongSelf.fetcherMARManager) {
+           ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
        }
 
+       ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
+                   @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
 
-           strongSelf.isFetcherLoading = YES;
+       [strongSelf handleAdServerResponse:data];
 
-           NSString *responseString = [[NSString alloc] initWithData:data
-                                                                encoding:NSUTF8StringEncoding];
-               if (! strongSelf.fetcherMARManager) {
-                   ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
-               }
-
-               ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
-                                   @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-
-               [strongSelf handleAdServerResponse:data];
-
-               strongSelf.processEnd = [NSDate date];
-                 NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
-               NSLog(@"Network latency: %f", executionTime*1000);
+       strongSelf.processEnd = [NSDate date];
+       NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+       NSLog(@"Network latency: %f", executionTime*1000);
+        
            
     } errorHandler:^(NSError * _Nonnull error) {
         NSError  *sessionError  = nil;
          __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf.fetcherMARManager) {
-            sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-            [strongSelf.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
-
-
-        } else {
-            sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-            [strongSelf processFinalResponse:response];
-        }
+        [strongSelf requestFailedWithError:error.localizedDescription];
         ANLogError(@"%@", sessionError);
 
     }];
     [self.task resume];
-
-//    self.requestAdTask = [[NSURLSession sharedSession] dataTaskWithRequest: request
-//                                                         completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
-//                                    {
-//                                      ANAdFetcherBase * __strong  strongSelf  = weakSelf;
-//
-//                                      if (!strongSelf) {
-//                                          ANLogError(@"FAILED to establish strongSelf.");
-//                                          return;
-//                                      }
-//
-//                                      NSInteger statusCode = -1;
-//
-//                                      if (!self.fetcherMARManager) {
-//                                          [strongSelf restartAutoRefreshTimer];
-//                                      }
-//
-//                                      if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-//                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-//                                          statusCode = [httpResponse statusCode];
-//                                      }
-//
-//                                      if (statusCode >= 400 || statusCode == -1)
-//                                      {
-//                                          strongSelf.isFetcherLoading = NO;
-//
-//                                          dispatch_async(dispatch_get_main_queue(), ^{
-//                                              NSError  *sessionError  = nil;
-//
-//                                              if (strongSelf.fetcherMARManager) {
-//                                                  sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-//                                                  [strongSelf.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
-//
-//
-//                                              } else {
-//                                                  sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-//                                                  ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-//                                                  [strongSelf processFinalResponse:response];
-//                                              }
-//                                              ANLogError(@"%@", sessionError);
-//
-//
-//                                          });
-//
-//                                      } else {
-//                                          strongSelf.isFetcherLoading = YES;
-//
-//                                          dispatch_async(dispatch_get_main_queue(), ^{
-//                                              NSString *responseString = [[NSString alloc] initWithData:data
-//                                                                                               encoding:NSUTF8StringEncoding];
-//                                              if (! strongSelf.fetcherMARManager) {
-//                                                  ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
-//                                              }
-//
-//                                              ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
-//                                                                  @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-//
-//                                              [strongSelf handleAdServerResponse:data];
-//
-//                                              strongSelf.processEnd = [NSDate date];
-//                                                NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
-//                                              NSLog(@"Network latency: %f", executionTime*1000);
-//                                          });
-//                                      }   // ENDIF -- statusCode
-//                                  } ];
-//
-//    [self.requestAdTask resume];
 }
 
 
