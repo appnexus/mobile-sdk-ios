@@ -7,15 +7,41 @@
 //
 
 #import "ANHTTPNetworkSession.h"
-#import "ANHTTPNetworkTaskData.h"
+#import "ANGlobal.h"
 
-// Macros for dispatching asynchronously to the main queue
-#define safe_block(block, ...) block ? block(__VA_ARGS__) : nil
-#define async_queue_block(queue, block, ...) dispatch_async(queue, ^ \
-{ \
-safe_block(block, __VA_ARGS__); \
-})
-#define main_queue_block(block, ...) async_queue_block(dispatch_get_main_queue(), block, __VA_ARGS__);
+
+@interface ANHTTPNetworkTaskData : NSObject
+
+@property (nonatomic, strong, nullable) NSMutableData * responseData;
+@property (nonatomic, copy, nullable) void (^responseHandler)(NSData * data, NSHTTPURLResponse * response);
+@property (nonatomic, copy, nullable) void (^errorHandler)(NSError * error);
+
+- (instancetype)initWithResponseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
+                           errorHandler:(void (^ _Nullable)(NSError * error))errorHandler NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@implementation ANHTTPNetworkTaskData
+
+- (instancetype)init {
+    return [self initWithResponseHandler:nil errorHandler:nil];
+}
+
+- (instancetype)initWithResponseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
+                           errorHandler:(void (^ _Nullable)(NSError * error))errorHandler {
+    if (self = [super init]) {
+        _responseData = nil;
+        _responseHandler = responseHandler;
+        _errorHandler = errorHandler;
+    }
+
+    return self;
+}
+
+
+@end
+
+
 
 @interface ANHTTPNetworkSession () <NSURLSessionDataDelegate>
 
@@ -106,7 +132,7 @@ safe_block(block, __VA_ARGS__); \
 
 #pragma mark - Manual Start Tasks
 
-+ (NSURLSessionTask *)taskWithHttpRequest:(NSURLRequest *)request
++ (NSURLSessionTask *)startTaskWithHttpRequest:(NSURLRequest *)request
                           responseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
                              errorHandler:(void (^ _Nullable)(NSError * error))errorHandler {
     // Networking task
@@ -123,12 +149,12 @@ safe_block(block, __VA_ARGS__); \
 
 #pragma mark - Automatic Start Tasks
 
-+ (NSURLSessionTask *)startTaskWithHttpRequest:(NSURLRequest *)request {
-    return [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:nil errorHandler:nil];
++ (NSURLSessionTask *)taskWithHttpRequest:(NSURLRequest *)request {
+    return [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:nil errorHandler:nil];
 }
 
 
-+ (NSURLSessionTask *)startTaskWithHttpRequest:(NSURLRequest *)request
++ (NSURLSessionTask *)taskWithHttpRequest:(NSURLRequest *)request
                                responseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
                                   errorHandler:(void (^ _Nullable)(NSError * error))errorHandler {
     
@@ -142,7 +168,7 @@ safe_block(block, __VA_ARGS__); \
 //    [ANHTTPNetworkSession.sharedInstance setSessionData:taskData forTask:task];
     
     // Generate a manual start task.
-    NSURLSessionTask * task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+    NSURLSessionTask * task = [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
         main_queue_block(responseHandler, data, response);
     } errorHandler:^(NSError * _Nonnull error) {
         main_queue_block(errorHandler, error);
@@ -171,29 +197,6 @@ didReceiveResponse:(NSURLResponse *)response
     // Append the new data to the task.
     [self appendData:data toSessionDataForTask:dataTask];
 }
-
-//- (void)URLSession:(NSURLSession *)session
-//              task:(NSURLSessionTask *)task
-//willPerformHTTPRedirection:(NSHTTPURLResponse *)response
-//        newRequest:(NSURLRequest *)request
-// completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler {
-//    // Retrieve the task data.
-//    ANHTTPNetworkTaskData * taskData = [self sessionDataForTask:task];
-//    if (taskData == nil) {
-//        completionHandler(request);
-//        return;
-//    }
-//
-//    // If there is a redirection handler block registered with the HTTP task, we should
-//    // query for it's response. By default, we will allow the redirection.
-//    NSURLRequest * newRequest = request;
-////    if (taskData.shouldRedirectWithNewRequest != nil && !taskData.shouldRedirectWithNewRequest(task, request)) {
-////        // Reject the redirection.
-////        newRequest = nil;
-////    }
-//
-//    completionHandler(newRequest);
-//}
 
 - (void)URLSession:(NSURLSession *)session
               task:(NSURLSessionTask *)task

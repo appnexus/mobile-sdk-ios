@@ -21,10 +21,6 @@ NSMutableURLRequest  *utMutableRequest = nil;
     // No need for "dispatch once" since `load` is called only once during app launch.
     [self constructAdServerRequestURL];
     
-//    [[NSURLSession sharedSession] dataTaskWithRequest:ANBasicRequestWithURL([NSURL URLWithString:@"https://mediation.adnxs.com/ut/v3"])];
-    
-    [ANHTTPNetworkSession startTaskWithHttpRequest:ANBasicRequestWithURL([NSURL URLWithString:@"https://mediation.adnxs.com/ut/v3"])];
-    
 }
 
 +(NSMutableURLRequest *) adServerRequestURL {
@@ -45,6 +41,8 @@ NSMutableURLRequest  *utMutableRequest = nil;
     [utMutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
     [utMutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [utMutableRequest setHTTPMethod:@"POST"];
+    
+    [ANHTTPNetworkSession taskWithHttpRequest:utMutableRequest];
 }
 
 @end

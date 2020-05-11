@@ -50,6 +50,14 @@
 
 #define kANAdSize1x1 CGSizeMake(1,1)
 
+// Macros for dispatching asynchronously to the main queue
+#define safe_block(block, ...) block ? block(__VA_ARGS__) : nil
+#define async_queue_block(queue, block, ...) dispatch_async(queue, ^ \
+{ \
+safe_block(block, __VA_ARGS__); \
+})
+#define main_queue_block(block, ...) async_queue_block(dispatch_get_main_queue(), block, __VA_ARGS__);
+
 
 typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,

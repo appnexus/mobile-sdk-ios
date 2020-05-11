@@ -139,7 +139,7 @@
                         @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
     
     __weak __typeof__(self) weakSelf = self;
-   self.task = [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+   self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
          __typeof__(self) strongSelf = weakSelf;
 
        NSInteger statusCode = -1;
@@ -156,8 +156,7 @@
 
            strongSelf.isFetcherLoading = YES;
 
-           dispatch_async(dispatch_get_main_queue(), ^{
-               NSString *responseString = [[NSString alloc] initWithData:data
+           NSString *responseString = [[NSString alloc] initWithData:data
                                                                 encoding:NSUTF8StringEncoding];
                if (! strongSelf.fetcherMARManager) {
                    ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
@@ -171,9 +170,7 @@
                strongSelf.processEnd = [NSDate date];
                  NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
                NSLog(@"Network latency: %f", executionTime*1000);
-           });
-
-
+           
     } errorHandler:^(NSError * _Nonnull error) {
         NSError  *sessionError  = nil;
          __typeof__(self) strongSelf = weakSelf;

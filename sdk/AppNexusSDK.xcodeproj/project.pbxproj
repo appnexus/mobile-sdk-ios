@@ -101,10 +101,6 @@
 		60165D1A246323CA00E8E07C /* ANWarmupSDKObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D17246323CA00E8E07C /* ANWarmupSDKObjects.h */; };
 		60165D1B246323CA00E8E07C /* ANWarmupSDKObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */; };
 		60165D1C246323CA00E8E07C /* ANWarmupSDKObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */; };
-		60165D2024647FD300E8E07C /* ANHTTPNetworkTaskData.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D1E24647FD200E8E07C /* ANHTTPNetworkTaskData.h */; };
-		60165D2124647FD300E8E07C /* ANHTTPNetworkTaskData.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D1E24647FD200E8E07C /* ANHTTPNetworkTaskData.h */; };
-		60165D2224647FD300E8E07C /* ANHTTPNetworkTaskData.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D1F24647FD300E8E07C /* ANHTTPNetworkTaskData.m */; };
-		60165D2324647FD300E8E07C /* ANHTTPNetworkTaskData.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D1F24647FD300E8E07C /* ANHTTPNetworkTaskData.m */; };
 		60165D262464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */; };
 		60165D272464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */; };
 		60165D282464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */; };
@@ -410,8 +406,6 @@
 		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
 		60165D17246323CA00E8E07C /* ANWarmupSDKObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWarmupSDKObjects.h; sourceTree = "<group>"; };
 		60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWarmupSDKObjects.m; sourceTree = "<group>"; };
-		60165D1E24647FD200E8E07C /* ANHTTPNetworkTaskData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPNetworkTaskData.h; sourceTree = "<group>"; };
-		60165D1F24647FD300E8E07C /* ANHTTPNetworkTaskData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPNetworkTaskData.m; sourceTree = "<group>"; };
 		60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPNetworkSession.m; sourceTree = "<group>"; };
 		60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPNetworkSession.h; sourceTree = "<group>"; };
 		60183FD222933E9500CFDE33 /* ANWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
@@ -843,8 +837,6 @@
 			children = (
 				60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */,
 				60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */,
-				60165D1E24647FD200E8E07C /* ANHTTPNetworkTaskData.h */,
-				60165D1F24647FD300E8E07C /* ANHTTPNetworkTaskData.m */,
 				4FE7CE791F2FD70C00A5044A /* adHandlers */,
 				8A02D6F81D6CE946006831A3 /* config */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
@@ -1086,7 +1078,6 @@
 				8A2F48241A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h in Headers */,
 				0EF636D322D7726000D3320F /* ANProxyViewController.h in Headers */,
 				8A9AEDDE1A1BF88300C58BDA /* ANReachability.h in Headers */,
-				60165D2024647FD300E8E07C /* ANHTTPNetworkTaskData.h in Headers */,
 				0E290E4522844DEC00468327 /* ANRTBNativeAdResponse.h in Headers */,
 				609732DA1E42E9860061EC0A /* ANRTBVideoAd.h in Headers */,
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
@@ -1126,7 +1117,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5731BB7228C99350012B134 /* ANAdConstants.h in Headers */,
-				60165D2124647FD300E8E07C /* ANHTTPNetworkTaskData.h in Headers */,
 				4F06400923A2E7DC00E7920A /* ANAdFetcherBase.h in Headers */,
 				F5731B7A228C94720012B134 /* ANAdFetcherResponse.h in Headers */,
 				F5731BBE228C99BC0012B134 /* ANAdProtocol.h in Headers */,
@@ -1349,7 +1339,6 @@
 				8A9AEDE81A1BF99D00C58BDA /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				8A9AEDF31A1BF99D00C58BDA /* ANBannerAdView.m in Sources */,
 				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
-				60165D2224647FD300E8E07C /* ANHTTPNetworkTaskData.m in Sources */,
 				8A9AEDF41A1BF99D00C58BDA /* ANBrowserViewController.m in Sources */,
 				9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				8A9AEDF51A1BF99D00C58BDA /* ANClickOverlayView.m in Sources */,
@@ -1430,7 +1419,6 @@
 				4F06400823A2E7D700E7920A /* ANAdFetcherBase.m in Sources */,
 				F5731B79228C94700012B134 /* ANAdFetcherResponse.m in Sources */,
 				97065552232B93A200D484D4 /* ANAdResponseInfo.m in Sources */,
-				60165D2324647FD300E8E07C /* ANHTTPNetworkTaskData.m in Sources */,
 				F5731B5E228C8DFA0012B134 /* ANBaseAdObject.m in Sources */,
 				F5731B82228C94CC0012B134 /* ANBrowserViewController.m in Sources */,
 				F5731B56228C8DD50012B134 /* ANCarrierObserver.m in Sources */,
