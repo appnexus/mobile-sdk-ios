@@ -43,8 +43,6 @@
 
 @property (nonatomic, strong) NSURLSessionTask * task;
 
-@property (nonatomic, strong) NSURLSessionDataTask       *requestAdTask;
-
     //EMPTY
 @end
 
