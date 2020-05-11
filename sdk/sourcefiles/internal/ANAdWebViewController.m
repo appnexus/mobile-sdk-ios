@@ -72,7 +72,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)  NSString  *videoXML;
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
-@property (nonatomic, readwrite, strong) ANAudioVolumeChangeListener* audioVolumeChange;
+@property (nonatomic, readwrite, strong)  ANAudioVolumeChangeListener* audioVolumeChange;
 @end
 
 @implementation ANAdWebViewController
@@ -184,6 +184,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
+    
     //
     return  self;
 }
@@ -600,7 +601,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         //Initialize Audio Volume Change Listener for Outstream Video
         self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
     }
-    [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
     
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
     {
@@ -756,8 +756,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)updateWebViewOnAudioVolumeChange:(NSNumber *)volumePercentage {
     if (self.viewable) {
+        ANLogDebug(@"AudioVolume change percentage : %@", volumePercentage);
         [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:volumePercentage]];
     }else{
+        ANLogDebug(@"AudioVolume change percentage : null");
         [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:nil]];
     }
 }
