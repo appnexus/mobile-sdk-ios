@@ -118,11 +118,11 @@
 
 + (NSString *)audioVolumeChangeWithVolumePercentage:(NSNumber *)volumePercentage {
     if(volumePercentage == nil ){
-        NSString *exposureVal = [NSString stringWithFormat:@"{\"volumePercentage\":null}"];
-        return [NSString stringWithFormat:@"window.mraid.util.audioVolumeChangeEvent(%@);",exposureVal];
+        NSString *audioVolume = [NSString stringWithFormat:@"{\"volumePercentage\":null}"];
+        return [NSString stringWithFormat:@"window.mraid.util.audioVolumeChangeEvent(%@);",audioVolume];
     }else{
-        NSString *exposureVal = [NSString stringWithFormat:@"{\"volumePercentage\":%@}",volumePercentage];
-        return [NSString stringWithFormat:@"window.mraid.util.audioVolumeChangeEvent(%@);",exposureVal];
+        NSString *audioVolume = [NSString stringWithFormat:@"{\"volumePercentage\":%@}",volumePercentage];
+        return [NSString stringWithFormat:@"window.mraid.util.audioVolumeChangeEvent(%@);",audioVolume];
     }
 }
 @end
