@@ -151,6 +151,7 @@ ANLogMark();
     //
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
+                    //FIX -- didfinsihRequestwithlazyresponse?
     }
 
     if ([response.adObject isKindOfClass:[ANMRAIDContainerView class]]) {
