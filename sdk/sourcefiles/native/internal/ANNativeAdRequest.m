@@ -21,6 +21,7 @@
 #import "ANLogging.h"
 #import "ANOMIDImplementation.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANHTTPNetworkSession.h"
 
 
 
@@ -35,6 +36,8 @@
 @property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest  *marManager;
 
 @property (nonatomic, readwrite, strong, nonnull)  NSString  *utRequestUUIDString;
+
+@property (nonatomic, strong) NSURLSessionTask * task;
 
 @end
 
@@ -291,37 +294,22 @@
     NSURLRequest  *request  = [NSURLRequest requestWithURL: imageURL
                                                cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                            timeoutInterval: kAppNexusNativeAdImageDownloadTimeoutInterval];
+    
+    
+    self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        UIImage  *image  = [UIImage imageWithData:data];
 
-    NSURLSessionDataTask  *task  =
-        [[NSURLSession sharedSession] dataTaskWithRequest: request
-                                        completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
-                                        {
-                                              ANLogDebug(@"BEGIN NSURL session...");
-
-                                              NSInteger  statusCode  = -1;
-
-                                              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                                  NSHTTPURLResponse  *httpResponse  = (NSHTTPURLResponse *)response;
-                                                  statusCode = [httpResponse statusCode];
-                                              }
-
-                                              if ((statusCode >= 400) || (statusCode == -1))  {
-                                                  ANLogError(@"Error downloading image: %@", error);
-
-                                              } else {
-                                                  UIImage  *image  = [UIImage imageWithData:data];
-
-                                                  if (image) {
-                                                      [ANNativeAdImageCache setImage:image forKey:imageURL];
-                                                      [object setValue:image forKeyPath:keyPath];
-                                                  }
-                                              }
-
-                                              dispatch_semaphore_signal(semaphore);
-                                          }
-         ];
-    [task resume];
-
+        if (image) {
+            [ANNativeAdImageCache setImage:image forKey:imageURL];
+            [object setValue:image forKeyPath:keyPath];
+        }
+        
+        dispatch_semaphore_signal(semaphore);
+        
+    } errorHandler:^(NSError * _Nonnull error) {
+        ANLogError(@"Error downloading image: %@", error);
+        
+    }];
     //
     return  semaphore;
 }

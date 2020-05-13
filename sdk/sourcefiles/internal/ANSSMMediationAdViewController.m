@@ -24,6 +24,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "NSObject+ANCategory.h"
+#import "ANHTTPNetworkSession.h"
 
 
 @interface ANSSMMediationAdViewController () <ANAdWebViewControllerLoadingDelegate>
@@ -41,6 +42,8 @@
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStop;
+
+@property (nonatomic, strong) NSURLSessionTask * task;
 
 @end
 
@@ -87,43 +90,22 @@
         
         NSURLRequest *request     = ANBasicRequestWithURL(self.ssmHandlerURL);
         
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession]
-                                      dataTaskWithRequest:request
-                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSInteger statusCode = -1;
-                                          
-                                          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                              statusCode = [httpResponse statusCode];
-                                              ANLogDebug(@"SSM httpResponse.allHeaderFields=%@", httpResponse.allHeaderFields);
-                                              ANLogDebug(@"SSM response.expectedContentLength=%@", @(response.expectedContentLength)  );
-                                          }
-                                          
-                                          
-                                          // Failure case
-                                          if (statusCode >= 400 || statusCode == -1)  {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self handleFailure:ANAdResponseNetworkError errorInfo:@"connection_failed"];
-                                              });
-                                              
-                                          }
-                                          //Success case
-                                          else{
-                                              NSString *responseString = [[NSString alloc] initWithData:data
-                                                                                               encoding:NSUTF8StringEncoding];
-                                              ANLogDebug(@"Response JSON %@", responseString);
-                                              ANLogDebug(@"SSM Received response: %@", response);
-                                              
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self didReceiveAd:responseString];
-                                              });
-                                              
-                                          }
-                                          
-                                          
-                                      }];
+        __weak __typeof__(self) weakSelf = self;
+        self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+            __typeof__(self) strongSelf = weakSelf;
+            NSString *responseString = [[NSString alloc] initWithData:data
+                                                             encoding:NSUTF8StringEncoding];
+            ANLogDebug(@"Response JSON %@", responseString);
+            ANLogDebug(@"SSM Received response: %@", response);
+            
+            [strongSelf didReceiveAd:responseString];
+            
+        } errorHandler:^(NSError * _Nonnull error) {
+            __typeof__(self) strongSelf = weakSelf;
+            [strongSelf handleFailure:ANAdResponseNetworkError errorInfo:@"connection_failed"];
+            
+        }];
         
-        [task resume];
         return YES;
     }
     

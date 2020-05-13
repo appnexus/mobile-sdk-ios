@@ -43,7 +43,6 @@
 
 @property (nonatomic, strong) NSURLSessionTask * task;
 
-    //EMPTY
 @end
 
 

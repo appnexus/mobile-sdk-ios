@@ -80,7 +80,7 @@ limitations under the License.
 
         // Dictionary of all sessions currently in flight.
         _sessions = [NSMutableDictionary dictionary];
-        _sessionsQueue = dispatch_queue_create("com.mopub.mopub-ios-sdk.mphttpnetworksession.queue", DISPATCH_QUEUE_CONCURRENT);
+        _sessionsQueue = dispatch_queue_create("com.appnexus.mobile-ios-sdk.anhttpnetworksession.queue", DISPATCH_QUEUE_CONCURRENT);
     }
 
     return self;
