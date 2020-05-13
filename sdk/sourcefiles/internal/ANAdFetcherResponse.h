@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "ANAdResponseInfo.h"
 
@@ -22,14 +22,20 @@
 
 @interface ANAdFetcherResponse : NSObject
 
-@property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readonly)  BOOL  didNotLoadCreative;
+@property (nonatomic, readonly, assign, getter=isSuccessful)  BOOL  successful;
+@property (nonatomic, readonly)                               BOOL  isLazy;
 
-@property (nonatomic, readonly, strong, nonnull) id  adObject;
-@property (nonatomic, readonly, strong, nullable) id  adObjectHandler;
-@property (nonatomic, readonly, strong, nullable) NSError *error;
+@property (nonatomic, readonly, strong, nullable)   id  adObject;
+@property (nonatomic, readonly, strong, nullable)   id  adObjectHandler;
 
 @property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo  *adResponseInfo;
+
+@property (nonatomic, readonly, strong, nullable)  NSString  *adContent;
+@property (nonatomic, readonly)                    CGSize     sizeOfWebview;
+@property (nonatomic, readonly, strong, nullable)  NSURL     *baseURL;
+@property (nonatomic, readonly, strong, nullable)  id         anjamDelegate;
+
+@property (nonatomic, readonly, strong, nullable) NSError *error;
 
 
 //
@@ -38,7 +44,10 @@
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
                                    andAdObjectHandler: (nullable id)adObjectHandler;
 
-+ (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
-                                       andAdObjectHandler: (nullable id)adObjectHandler;
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdContent: (nonnull NSString *)adContent
+                                                    adSize: (CGSize)sizeOfWebview
+                                                   baseURL: (nonnull NSURL *)baseURL
+                                             anjamDelegate: (nonnull id)anjamDelegate
+                                        andAdObjectHandler: (nonnull id)adObjectHandler;
 
 @end

@@ -108,6 +108,9 @@
     
 }
 
+
+
+
 #pragma mark - Ad Response
 
 - (void)finishRequestWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
@@ -151,7 +154,6 @@ ANLogMark();
     //
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
-                    //FIX -- didfinsihRequestwithlazyresponse?
     }
 
     if ([response.adObject isKindOfClass:[ANMRAIDContainerView class]]) {
@@ -163,7 +165,7 @@ ANLogMark();
 
     // For lazy load, delay start of auto refresh timer (if it is active) until host app calls loadWebview.
     //
-    if (!response.didNotLoadCreative) {
+    if (!response.isLazy) {
                 //FIX -- test me
         [self startAutoRefreshTimer];
     }
@@ -338,40 +340,37 @@ ANLogMark();
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
-    CGSize  sizeofWebView      =  [self getWebViewSizeForCreativeWidth:standardAd.width
-                                                             andHeight:standardAd.height];
-    BOOL    isLazyWebviewLoad  = NO;
+    CGSize  sizeOfWebview  = [self getWebViewSizeForCreativeWidth: standardAd.width
+                                                        andHeight: standardAd.height];
+
+    //
+    if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyWebviewLoad)] && [self.delegate valueOfEnableLazyWebviewLoad])
+    {
+        ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdContent: standardAd.content
+                                                                                         adSize: sizeOfWebview
+                                                                                        baseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]
+                                                                                  anjamDelegate: self.delegate
+                                                                             andAdObjectHandler: self.adObjectHandler ];
+        [self processFinalResponse:fetcherResponse];
+
+        return;
+    }
 
 
+    //
     if (self.adView) {
         self.adView.loadingDelegate = nil;
     }
 
-    if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyWebviewLoad)]) {
-        isLazyWebviewLoad = [self.delegate valueOfEnableLazyWebviewLoad];
-    }
-
-    if (isLazyWebviewLoad)
-    {
-        self.adView = [[ANMRAIDContainerView alloc] initLazyWithSize: sizeofWebView
-                                                                HTML: standardAd.content
-                                                      webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
-    } else {
-        self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeofWebView
-                                                            HTML: standardAd.content
-                                                  webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
-    }
+    self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebview
+                                                        HTML: standardAd.content
+                                              webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
 
     self.adView.loadingDelegate = self;
+            //FIX -- why is this assigned twice?  same or different velues?  ignore the version in mradicnonterianerview?
     // Allow ANJAM events to always be passed to the ANAdView
     self.adView.webViewController.adViewANJAMDelegate = self.delegate;
-
-    // Callback immediately to fetcher if lazy webview load is enabled.
-    //
-    if (isLazyWebviewLoad)
-    {
-        [self didAcquireLazyWebview:self.adView];
-    }
+                //FIX -- anjam delegate is not being set.  for lazy.
 }
 
 
@@ -497,12 +496,6 @@ ANLogMark();
     [self processFinalResponse:fetcherResponse];
 }
 
-- (void)didAcquireLazyWebview:(ANAdWebViewController *)controller
-{
-ANLogMark();
-    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
-    [self processFinalResponse:fetcherResponse];
-}
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {

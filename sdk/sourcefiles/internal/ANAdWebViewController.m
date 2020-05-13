@@ -49,11 +49,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 @interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
 
-@property (nonatomic, readwrite, strong)    UIView          *contentView;
-@property (nonatomic, readwrite, strong)    ANWebView       *webView;
-@property (nonatomic, readwrite)            BOOL             isLazyCompletionByLoadingWebview;
-@property (nonatomic, readwrite)            BOOL             isLazyWebviewLoadEnabled;
-
+@property (nonatomic, readwrite, strong)    UIView      *contentView;
+@property (nonatomic, readwrite, strong)    ANWebView      *webView;
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
 
@@ -135,46 +132,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     return self;
 }
 
-- (instancetype)initWithSize: (CGSize)size
-                        HTML: (NSString *)html
-              webViewBaseURL: (NSURL *)baseURL
-               configuration: (ANAdWebViewControllerConfiguration *)configuration
+- (instancetype)initWithSize:(CGSize)size
+                        HTML:(NSString *)html
+              webViewBaseURL:(NSURL *)baseURL
+               configuration:(ANAdWebViewControllerConfiguration *)configuration
 {
-    return  [self initWithSize: (CGSize)size
-                          HTML: (NSString *)html
-                webViewBaseURL: (NSURL *)baseURL
-            withLazyEvaluation: NO
-                 configuration: (ANAdWebViewControllerConfiguration *)configuration ];
-}
-
-- (instancetype)initLazyWithSize: (CGSize)size
-                            HTML: (NSString *)html
-                  webViewBaseURL: (NSURL *)baseURL
-{
-ANLogMark();
-    self = [self initWithSize: size
-                         HTML: html
-               webViewBaseURL: baseURL
-           withLazyEvaluation: YES
-                configuration: nil ];
-    return self;
-}
-
-- (instancetype)initWithSize: (CGSize)size
-                        HTML: (NSString *)html
-              webViewBaseURL: (NSURL *)baseURL
-          withLazyEvaluation: (BOOL)withLazyEvaluation
-               configuration: (ANAdWebViewControllerConfiguration *)configuration
-{
-ANLogMark();
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
-
-    self.isLazyCompletionByLoadingWebview = withLazyEvaluation;
-
-    if ([self.adViewDelegate respondsToSelector:@selector(valueOfEnableLazyWebviewLoad)]) {
-        self.isLazyWebviewLoadEnabled = [self.adViewDelegate valueOfEnableLazyWebviewLoad];
-    }
     
     //
     NSRange      mraidJSRange   = [html rangeOfString:kANWebViewControllerMraidJSFilename];
@@ -191,15 +155,9 @@ ANLogMark();
     if (!_configuration.scrollingEnabled) {
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
-
-    if (self.isLazyCompletionByLoadingWebview || !self.isLazyWebviewLoadEnabled)
-    {
-        _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
-        if (!_webView)  { return nil; }
-        
-        [self loadWebViewWithUserScripts];
-    }
-
+    _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
+    //[self createWebView:size HTML:htmlToLoad baseURL:base];
+    [self loadWebViewWithUserScripts];
     return self;
 }
 
@@ -220,18 +178,15 @@ ANLogMark();
     _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
     
     [self loadWebViewWithUserScripts];
-
-    // Attaching WKWebView to screen for an instant to allow it to fully load in the background
-    //   before the call to [ANAdDelegate adDidReceiveAd:self].
-    //
+    
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
-
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
     
     //
     return  self;
 }
+    
 
 
 - (void)stopOMIDAdSession {
@@ -589,47 +544,34 @@ ANLogMark();
     }
 }
 
-
-
-
-#pragma mark - MRAID
+# pragma mark - MRAID
 
 - (void)processWebViewDidFinishLoad
 {
-ANLogMark();
-    if (self.completedFirstLoad)  { return; }
-
-    //
-    self.completedFirstLoad = YES;
-
-    if (!self.isLazyCompletionByLoadingWebview)
+    if (!self.completedFirstLoad)
     {
-        // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController
-        //   videoAdReady will call it later.
-        //
+        self.completedFirstLoad = YES;
+        // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController videoAdReady will call it later.
         if ([self.videoXML length] > 0)
         {
             @synchronized(self) {
                 [self processVideoViewDidFinishLoad];
             }
-
-        } else if ([self.loadingDelegate respondsToSelector:@selector(didCompleteFirstLoadFromWebViewController:)])
+        }else if ([self.loadingDelegate respondsToSelector:@selector(didCompleteFirstLoadFromWebViewController:)])
         {
             @synchronized(self) {
                 [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
             }
         }
-    }
-
-    //
-    if (self.isMRAID)
-    {
-        [self finishMRAIDLoad];
-    }
-
-    if ([self.videoXML length] <= 0)
-    {
-         self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:false];
+        
+        //
+        if (self.isMRAID) {
+            [self finishMRAIDLoad];
+        }
+        if(!([self.videoXML length] > 0)){
+             self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:false];
+        }
+       
     }
 }
 

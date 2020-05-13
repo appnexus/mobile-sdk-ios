@@ -46,19 +46,19 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 
 @interface ANMRAIDContainerView() <   ANBrowserViewControllerDelegate,
+
                                       ANAdWebViewControllerANJAMDelegate,
                                       ANAdWebViewControllerBrowserDelegate, 
                                       ANAdWebViewControllerLoadingDelegate,
-                                      ANAdWebViewControllerMRAIDDelegate,
+                                      ANAdWebViewControllerMRAIDDelegate, 
                                       ANAdWebViewControllerVideoDelegate,
                                       ANMRAIDCalendarManagerDelegate, 
                                       ANMRAIDExpandViewControllerDelegate,
                                       ANMRAIDResizeViewManagerDelegate
                                   >
 
-@property (nonatomic, readwrite, assign)  CGSize     size;
-@property (nonatomic, readwrite, strong)  NSURL     *baseURL;
-@property (nonatomic, readwrite, strong)  NSString  *htmlCreative;
+@property (nonatomic, readwrite, assign) CGSize size;
+@property (nonatomic, readwrite, strong) NSURL *baseURL;
 
 @property (nonatomic, readwrite, strong) ANAdWebViewController          *webViewController;
 @property (nonatomic, readwrite, strong) ANBrowserViewController        *browserViewController;
@@ -136,46 +136,15 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
 {
-    return  [self initWithSize: size
-                          HTML: html
-                webViewBaseURL: baseURL
-                    isLazyLoad: NO];
-}
-
-- (instancetype)initLazyWithSize:(CGSize)size
-                            HTML:(NSString *)html
-                  webViewBaseURL:(NSURL *)baseURL
-{
-    return  [self initWithSize: size
-                          HTML: html
-                webViewBaseURL: baseURL
-                    isLazyLoad: YES];
-}
-
-- (instancetype)initWithSize: (CGSize)size
-                        HTML: (NSString *)html
-              webViewBaseURL: (NSURL *)baseURL
-                  isLazyLoad: (BOOL)isLazyLoad
-{
     self = [self initWithSize:size];
 
-    if (!self)  { return nil; }
+    if (self) {
+        _baseURL = baseURL;
 
-
-    //
-    _baseURL = baseURL;
-
-    // Optionally capture argument values, without initializing self.webViewController.
-    //
-    if (isLazyLoad)
-    {
-        _size           = size;
-        _htmlCreative   = html;
-
-    } else {
         self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: html
                                                               webViewBaseURL: baseURL];
+
         self.webViewController.anjamDelegate    = self;
         self.webViewController.browserDelegate  = self;
         self.webViewController.loadingDelegate  = self;
@@ -183,23 +152,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
 
     return self;
-}
-
-
-/**
- * Initialize webViewController.
- */
-- (void)loadWebview
-        //FIX -- encapsulate and use with init method
-{
-ANLogMark();
-    self.webViewController = [[ANAdWebViewController alloc] initLazyWithSize: _lastKnownCurrentPosition.size
-                                                                        HTML: self.htmlCreative
-                                                              webViewBaseURL: self.baseURL ];
-    self.webViewController.anjamDelegate    = self;
-    self.webViewController.browserDelegate  = self;
-    self.webViewController.loadingDelegate  = self;
-    self.webViewController.mraidDelegate    = self;
 }
 
 - (instancetype)initWithSize: (CGSize)size
@@ -529,50 +481,44 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-ANLogMark();
-    if (controller != self.webViewController) {
-        ANLogWarn(@"controller DOES NOT EQUAL self.webViewController.");
-        return;
-    }
-
-
-    // Attaching WKWebView to screen for an instant to allow it to fully load in the background
-    //   before the call to [ANAdDelegate adDidReceiveAd:self].
-    //
-    // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
-    //
-    if (! self.isBannerVideo)
+    if (controller == self.webViewController)
     {
-        self.webViewController.contentView.hidden = YES;
-        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
-                                                           atIndex:0];
-    }
-
-    __weak ANMRAIDContainerView  *weakSelf  = self;
-
-    dispatch_async(dispatch_get_main_queue(),
-    ^{
-        __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
-        if (!strongSelf)  {
-            ANLogError(@"COULD NOT ACQUIRE strongSelf.");
-            return;
+        // Attaching WKWebView to screen for an instant to allow it to fully load in the background
+        //   before the call to [ANAdDelegate adDidReceiveAd:self].
+        //
+        // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
+        //
+        if (! self.isBannerVideo) {
+            self.webViewController.contentView.hidden = YES;
+            [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+                                                               atIndex:0];
         }
 
-        UIView  *contentView  = strongSelf.webViewController.contentView;
+        __weak ANMRAIDContainerView  *weakSelf  = self;
 
-        contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        dispatch_async(dispatch_get_main_queue(),
+        ^{
+            __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
+            if (!strongSelf)  {
+                ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+                return;
+            }
 
-        [strongSelf addSubview:contentView];
-        strongSelf.webViewController.contentView.hidden = NO;
+            UIView  *contentView  = strongSelf.webViewController.contentView;
 
-        [contentView an_constrainToSizeOfSuperview];
-        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                            yAttribute:NSLayoutAttributeTop];
+            contentView.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [strongSelf.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-    });
+            [strongSelf addSubview:contentView];
+            strongSelf.webViewController.contentView.hidden = NO;
+
+            [contentView an_constrainToSizeOfSuperview];
+            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                yAttribute:NSLayoutAttributeTop];
+
+            [strongSelf.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+        });
+    }
 }
-
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {

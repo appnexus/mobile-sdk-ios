@@ -13,28 +13,41 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "ANAdFetcherResponse.h"
 
 #import "ANLogging.h"
 
 
 
+
+#pragma mark -
+
 @interface ANAdFetcherResponse ()
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful)  BOOL  successful;
-@property (nonatomic, readwrite)                               BOOL  didNotLoadCreative;
+@property (nonatomic, readwrite)                               BOOL  isLazy;
 
 @property (nonatomic, readwrite, strong, nonnull) id adObject;
 @property (nonatomic, readwrite, strong, nullable) id adObjectHandler;
+
+@property (nonatomic, readwrite, strong, nullable)  NSString  *adContent;
+@property (nonatomic, readwrite)                    CGSize     sizeOfWebview;
+@property (nonatomic, readwrite, strong, nullable)  NSURL     *baseURL;
+@property (nonatomic, readwrite, strong, nullable)  id         anjamDelegate;
+
 @property (nonatomic, readwrite, strong, nullable) NSError *error;
 
 @end
 
 
 
+#pragma mark -
+
 @implementation ANAdFetcherResponse
 
-#pragma mark - Lifecycle.
+#pragma mark Lifecycle.
 
 - (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error {
     self = [super init];
@@ -47,8 +60,8 @@
 
 - (nonnull instancetype)initAdResponseWithAdObject: (nonnull id)adObject
                                 andAdObjectHandler: (nullable id)adObjectHandler
-                                        successful: (BOOL)successful
-                                didNotLoadCreative: (BOOL)didNotLoadCreative
+//                                        successful: (BOOL)successful
+//                                didNotLoadCreative: (BOOL)didNotLoadCreative
 {
     self = [super init];
 
@@ -56,8 +69,7 @@
 
 
     //
-    _successful             = successful;
-    _didNotLoadCreative     = didNotLoadCreative;
+    _successful             = YES;
 
     _adObject               = adObject;
     _adObjectHandler        = adObjectHandler;
@@ -65,7 +77,31 @@
     return self;
 }
 
+- (nonnull instancetype)initLazyResponseWithAdContent: (nonnull NSString *)adContent
+                                               adSize: (CGSize)sizeOfWebview
+                                              baseURL: (nonnull NSURL *)baseURL
+                                        anjamDelegate: (nonnull id)anjamDelegate
+                                   andAdObjectHandler: (nonnull id)adObjectHandler
+{
+    self = [super init];
 
+    if (!self)  { return nil; }
+
+
+    //
+    _successful             = YES;
+    _isLazy                 = YES;
+
+    _adContent              = adContent;
+    _sizeOfWebview          = sizeOfWebview;
+    _baseURL                = baseURL;
+    _anjamDelegate          = anjamDelegate;
+
+    _adObjectHandler        = adObjectHandler;
+
+    return self;
+
+}
 
 
 #pragma mark - Class methods.
@@ -79,19 +115,20 @@
                                    andAdObjectHandler: (nullable id)adObjectHandler
 {
     return [[ANAdFetcherResponse alloc] initAdResponseWithAdObject: adObject
-                                                andAdObjectHandler: adObjectHandler
-                                                        successful: YES
-                                                didNotLoadCreative: NO ];
+                                                andAdObjectHandler: adObjectHandler ];
 }
 
-+ (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
-                                       andAdObjectHandler: (nullable id)adObjectHandler
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdContent: (nonnull NSString *)adContent
+                                                    adSize: (CGSize)sizeOfWebview
+                                                   baseURL: (nonnull NSURL *)baseURL
+                                             anjamDelegate: (nonnull id)anjamDelegate
+                                        andAdObjectHandler: (nonnull id)adObjectHandler
 {
-    return [[ANAdFetcherResponse alloc] initAdResponseWithAdObject: adObject
-                                                andAdObjectHandler: adObjectHandler
-                                                        successful: NO
-                                                didNotLoadCreative: YES ];
+    return [[ANAdFetcherResponse alloc] initLazyResponseWithAdContent: adContent
+                                                               adSize: sizeOfWebview
+                                                              baseURL: baseURL
+                                                        anjamDelegate: anjamDelegate
+                                                   andAdObjectHandler: adObjectHandler ];
 }
-
 
 @end

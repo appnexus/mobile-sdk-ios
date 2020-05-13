@@ -58,7 +58,6 @@ static NSString *const kANInline        = @"inline";
 @interface ANBannerAdView() <ANBannerAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong)  UIView  *contentView;
-@property (nonatomic, readwrite, strong)  UIView  *lazyContentView;
 
 @property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
 
@@ -72,7 +71,7 @@ static NSString *const kANInline        = @"inline";
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
-
+@property (nonatomic, readwrite, strong)  ANAdFetcherResponse  *lazyFetcherResponse;
 
 @end
 
@@ -194,7 +193,7 @@ static NSString *const kANInline        = @"inline";
 - (void) loadAd
 {
     self.loadAdHasBeenInvoked   = YES;
-    self.lazyContentView        = nil;
+    self.lazyFetcherResponse    = nil;
 
     [super loadAd];
 }
@@ -202,7 +201,7 @@ static NSString *const kANInline        = @"inline";
 
 - (void)loadWebview
             //FIX -- test me
-            //FIX -- add objextruction views
+            //x FIX -- add objextruction views
 {
 ANLogMark();
     if (!self.isEligibleForLazyLoad) {
@@ -217,9 +216,13 @@ ANLogMark();
 
 
     //
-    ANMRAIDContainerView  *mraidContainerView  = (ANMRAIDContainerView *)self.lazyContentView;
-    [mraidContainerView loadWebview];
-            //FIX -- does this capture webview failure?
+    ANMRAIDContainerView  *mraidContainerView  = [[ANMRAIDContainerView alloc] initWithSize: self.lazyFetcherResponse.sizeOfWebview
+                                                                                       HTML: self.lazyFetcherResponse.adContent
+                                                                             webViewBaseURL: self.lazyFetcherResponse.baseURL ];
+    //FIX -- set mraidContainerView.delegate?
+    mraidContainerView.webViewController.anjamDelegate = self.lazyFetcherResponse.anjamDelegate;
+            //FIX -- yes?
+            //FIX -- need everything in lazyfetcherresponse?  get from this enviroinment?  why?
 
     if (!mraidContainerView)
             //FIX -- test me
@@ -234,7 +237,7 @@ ANLogMark();
         }
     }
 
-    self.contentView = self.lazyContentView;
+    self.contentView = mraidContainerView;
 
     // NB  The dispatch thread within activateWebview completes the lazy webview load by...
     //      * Returning success to host app.
@@ -250,7 +253,7 @@ ANLogMark();
 {
 ANLogMark();
     __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
-    __block ANWebView              *webview             = mraidContainerView.webViewController.contentView;
+    __block ANWebView              *webview             = (ANWebView *)mraidContainerView.webViewController.contentView;
 
 
     // Multi-format banner carrying video will be loaded normally, even if enableLazyWebviewLoad is set.
@@ -417,7 +420,7 @@ ANLogMark();
 - (BOOL)isEligibleForLazyLoad
             //FIX -- test me
 {
-    return  (nil != self.lazyContentView);
+    return  (nil != self.lazyFetcherResponse);
 }
 
 
@@ -560,7 +563,7 @@ ANLogMark();
 ANLogMark();
     NSError  *error  = nil;
 
-    if (![response isSuccessful] && ![response didNotLoadCreative])
+    if (!response.isSuccessful)
     {
         [self finishRequest:response withReponseError:response.error];
         return;
@@ -595,7 +598,7 @@ ANLogMark();
 
     // Process AdUnit according to class type of UIView.
     //
-    if ([adObject isKindOfClass:[UIView class]])
+    if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
     {
         NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
         NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
@@ -616,7 +619,7 @@ ANLogMark();
             // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
             //   but only when the AdUnit is not lazy.
             //
-            if (![response didNotLoadCreative]  &&  (self.window || self.countImpressionOnAdReceived)) {
+            if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
                 [self fireTrackerAndOMID];
             }
         }
@@ -624,9 +627,9 @@ ANLogMark();
 
         // Return early if AdUnit is lazy loaded.
         //
-        if ([response didNotLoadCreative])
+        if (response.isLazy)
         {
-            self.lazyContentView = adObject;
+            self.lazyFetcherResponse = response;
             [self lazyAdDidReceiveAd:self];
             return;
         }
@@ -702,7 +705,7 @@ ANLogMark();
 - (void)finishRequest:(ANAdFetcherResponse *)response withReponseError:(NSError *)error
 {
     self.contentView = nil;
-    self.lazyContentView = nil;
+    self.lazyFetcherResponse = nil;
     [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
 }
 

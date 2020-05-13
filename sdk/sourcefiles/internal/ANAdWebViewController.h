@@ -66,20 +66,10 @@
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL;
 
-- (instancetype)initLazyWithSize:(CGSize)size
-                            HTML:(NSString *)html
-                  webViewBaseURL:(NSURL *)baseURL;
-
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration;
-
-- (instancetype)initWithSize: (CGSize)size
-                        HTML: (NSString *)html
-              webViewBaseURL: (NSURL *)baseURL
-          withLazyEvaluation: (BOOL)withLazyEvaluation
-               configuration: (ANAdWebViewControllerConfiguration *)configuration;
 
 - (instancetype) initWithSize: (CGSize)size
                      videoXML: (NSString *)videoXML;
@@ -145,8 +135,6 @@
 - (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
 
 @end
-
-
 
 
 @protocol ANAdWebViewControllerMRAIDDelegate <NSObject>
