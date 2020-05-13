@@ -34,7 +34,6 @@
 #import "NSTimer+ANCategory.h"
 #import "ANNativeRenderingViewController.h"
 #import "ANRTBNativeAdResponse.h"
-#import "ANAdWebViewController.h"
 
 #import "ANAdView+PrivateMethods.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
