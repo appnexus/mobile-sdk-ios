@@ -22,6 +22,8 @@
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 
+@property (nonatomic, readwrite, strong) NSDate *processStart;
+@property (nonatomic, readwrite, strong) NSDate *processEnd;
 
 @end
 
@@ -59,15 +61,22 @@
     self.banner.autoRefreshInterval = 30;
     
     // Load an ad.
+    self.processStart = [NSDate date];
     [self.banner loadAd];
 }
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+    self.processEnd = [NSDate date];
+    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+    NSLog(@"Updated Ad rendered at: %f", executionTime*1000);
 }
 
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{
     NSLog(@"Ad request Failed With Error");
+    self.processEnd = [NSDate date];
+    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+    NSLog(@"Updated Ad delivery failed at: %f", executionTime*1000);
 }
 
 - (void)didReceiveMemoryWarning

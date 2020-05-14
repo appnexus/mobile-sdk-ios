@@ -159,4 +159,6 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
 
++ (nullable NSMutableURLRequest *) adServerRequestURL;
+
 @end

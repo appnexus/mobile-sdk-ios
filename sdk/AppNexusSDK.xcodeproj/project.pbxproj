@@ -97,10 +97,6 @@
 		4F8EBCD4235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
 		4F8EBCD5235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
 		4F99240E2357BEC1008E31B6 /* ANMultiAdRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C690231F0C0C00678DB8 /* ANMultiAdRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		60165D19246323CA00E8E07C /* ANWarmupSDKObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D17246323CA00E8E07C /* ANWarmupSDKObjects.h */; };
-		60165D1A246323CA00E8E07C /* ANWarmupSDKObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D17246323CA00E8E07C /* ANWarmupSDKObjects.h */; };
-		60165D1B246323CA00E8E07C /* ANWarmupSDKObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */; };
-		60165D1C246323CA00E8E07C /* ANWarmupSDKObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */; };
 		60165D262464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */; };
 		60165D272464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */; };
 		60165D282464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */; };
@@ -404,8 +400,6 @@
 		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
 		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
 		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
-		60165D17246323CA00E8E07C /* ANWarmupSDKObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWarmupSDKObjects.h; sourceTree = "<group>"; };
-		60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWarmupSDKObjects.m; sourceTree = "<group>"; };
 		60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPNetworkSession.m; sourceTree = "<group>"; };
 		60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPNetworkSession.h; sourceTree = "<group>"; };
 		60183FD222933E9500CFDE33 /* ANWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
@@ -887,8 +881,6 @@
 				60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */,
 				60183FD222933E9500CFDE33 /* ANWebView.h */,
 				60183FD322933E9500CFDE33 /* ANWebView.m */,
-				60165D17246323CA00E8E07C /* ANWarmupSDKObjects.h */,
-				60165D18246323CA00E8E07C /* ANWarmupSDKObjects.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -1066,7 +1058,6 @@
 				8A9AEDBA1A1BE8CE00C58BDA /* ANNativeAdDelegate.h in Headers */,
 				F5731BCE228F07F30012B134 /* ANNativeAdFetcher.h in Headers */,
 				8A9AEDE11A1BF88300C58BDA /* ANNativeAdImageCache.h in Headers */,
-				60165D19246323CA00E8E07C /* ANWarmupSDKObjects.h in Headers */,
 				8A9AEDBB1A1BE8CE00C58BDA /* ANNativeAdRequest.h in Headers */,
 				8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				8A9AEDBC1A1BE8CE00C58BDA /* ANNativeAdResponse.h in Headers */,
@@ -1171,7 +1162,6 @@
 				F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */,
 				0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */,
 				0099B483228CA0EB004E80AB /* UIView+ANCategory.h in Headers */,
-				60165D1A246323CA00E8E07C /* ANWarmupSDKObjects.h in Headers */,
 				F5731B4B228C8D050012B134 /* UIView+ANNativeAdCategory.h in Headers */,
 				60165D292464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
 			);
@@ -1381,7 +1371,6 @@
 				00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */,
 				8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */,
-				60165D1B246323CA00E8E07C /* ANWarmupSDKObjects.m in Sources */,
 				8A9AEE021A1BF99D00C58BDA /* ANReachability.m in Sources */,
 				0E290E4422844DEC00468327 /* ANRTBNativeAdResponse.m in Sources */,
 				609732DC1E42E9860061EC0A /* ANRTBVideoAd.m in Sources */,
@@ -1455,7 +1444,6 @@
 				F5731B7E228C94990012B134 /* ANTrackerManager.m in Sources */,
 				F5731B5A228C8DE90012B134 /* ANUniversalTagAdServerResponse.m in Sources */,
 				F5731B5C228C8DEF0012B134 /* ANUniversalTagRequestBuilder.m in Sources */,
-				60165D1C246323CA00E8E07C /* ANWarmupSDKObjects.m in Sources */,
 				973B23AE238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				F5731B4E228C8D170012B134 /* ANVerificationScriptResource.m in Sources */,
 				006F6BA12295FFD0003D2DF0 /* ANWebView.m in Sources */,

@@ -163,7 +163,7 @@
 
        strongSelf.processEnd = [NSDate date];
        NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
-       NSLog(@"Network latency: %f", executionTime*1000);
+       NSLog(@"Updated Network latency: %f", executionTime*1000);
         
            
     } errorHandler:^(NSError * _Nonnull error) {

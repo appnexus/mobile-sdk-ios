@@ -16,13 +16,10 @@
 
 #import <sys/utsname.h>
 #import <AdSupport/AdSupport.h>
-
 #import "ANGlobal.h"
-
 #import "ANLogging.h"
-
-#import "ANSDKSettings.h"
-
+#import "ANSDKSettings+PrivateMethods.h"
+#import "ANHTTPNetworkSession.h"
 
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
@@ -37,7 +34,7 @@ NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey               
 NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
 NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                             = @"kANUniversalAdFetcherAdResponseKey";
 
-
+NSMutableURLRequest  *utMutableRequest = nil;
 
 
 NSString *__nonnull ANDeviceModel()
@@ -295,6 +292,29 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 
 @implementation ANGlobal
+
++ (void)load {
+    
+    // No need for "dispatch once" since `load` is called only once during app launch.
+    [[ANSDKSettings sharedInstance] optionalSDKInitialization];
+    [self constructAdServerRequestURL];
+    
+}
+
++(nullable NSMutableURLRequest *) adServerRequestURL {
+    return utMutableRequest;
+}
+
++ (void) constructAdServerRequestURL {
+    NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    NSURL                *URL             = [NSURL URLWithString:urlString];
+    
+    utMutableRequest = (NSMutableURLRequest *)ANBasicRequestWithURL(URL);
+    [utMutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [utMutableRequest setHTTPMethod:@"POST"];
+    
+    [ANHTTPNetworkSession taskWithHttpRequest:utMutableRequest];
+}
 
 + (void) openURL: (nonnull NSString *)urlString
 {

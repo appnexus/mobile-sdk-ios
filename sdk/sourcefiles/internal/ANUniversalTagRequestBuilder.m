@@ -23,8 +23,6 @@
 #import "ANUSPrivacySettings.h"
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
-#import "ANWarmupSDKObjects.h"
-
 
 #pragma mark - Private constants.
 
@@ -115,9 +113,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSURLRequest *)request
 {
-    
-    
-    NSMutableURLRequest  *mutableRequest  = [ANWarmupSDKObjects adServerRequestURL];
+    NSMutableURLRequest  *mutableRequest  = [ANGlobal adServerRequestURL];
     
     NSError       *error       = nil;
     NSData        *postData    = nil;

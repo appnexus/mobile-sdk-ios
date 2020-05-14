@@ -52,7 +52,7 @@ limitations under the License.
 
 @interface ANHTTPNetworkSession () <NSURLSessionDataDelegate>
 
-@property (nonatomic, strong) NSURLSession * sharedSession;
+@property (nonatomic, strong) NSURLSession * adServerSession;
 
 // Access to `NSMutableDictionary` is not thread-safe by default, so we will gate access
 // to it using GCD to allow concurrent reads, but synchronous writes.
@@ -76,7 +76,7 @@ limitations under the License.
     if (self = [super init]) {
         // Shared `NSURLSession` to be used for all `MPHTTPNetworkTask` objects. All tasks should use this single
         // session so that the DNS lookup and SSL handshakes do not need to be redone.
-        _sharedSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+        _adServerSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
 
         // Dictionary of all sessions currently in flight.
         _sessions = [NSMutableDictionary dictionary];
@@ -143,7 +143,7 @@ limitations under the License.
                           responseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
                              errorHandler:(void (^ _Nullable)(NSError * error))errorHandler {
     // Networking task
-    NSURLSessionDataTask * task = [ANHTTPNetworkSession.sharedInstance.sharedSession dataTaskWithRequest:request];
+    NSURLSessionDataTask * task = [ANHTTPNetworkSession.sharedInstance.adServerSession dataTaskWithRequest:request];
 
     // Initialize the task data
     ANHTTPNetworkTaskData * taskData = [[ANHTTPNetworkTaskData alloc] initWithResponseHandler:responseHandler errorHandler:errorHandler];
