@@ -600,6 +600,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (self.audioVolumeChange == nil) {
         //Initialize Audio Volume Change Listener for Outstream Video
         self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
+        [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
     }
     
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
@@ -757,10 +758,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 - (void)updateWebViewOnAudioVolumeChange:(NSNumber *)volumePercentage {
     if (self.viewable) {
         ANLogDebug(@"AudioVolume change percentage : %@", volumePercentage);
-        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:volumePercentage]];
+        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChange:volumePercentage]];
     }else{
         ANLogDebug(@"AudioVolume change percentage : null");
-        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChangeWithVolumePercentage:nil]];
+        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChange:nil]];
     }
 }
 

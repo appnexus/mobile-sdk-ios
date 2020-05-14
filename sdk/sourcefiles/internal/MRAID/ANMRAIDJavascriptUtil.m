@@ -116,7 +116,7 @@
         return [NSString stringWithFormat:@"window.mraid.util.setCurrentAppOrientation(%@);",orientationVal];
 }
 
-+ (NSString *)audioVolumeChangeWithVolumePercentage:(NSNumber *)volumePercentage {
++ (NSString *)audioVolumeChange:(NSNumber *)volumePercentage {
     if(volumePercentage == nil ){
         NSString *audioVolume = [NSString stringWithFormat:@"{\"volumePercentage\":null}"];
         return [NSString stringWithFormat:@"window.mraid.util.audioVolumeChangeEvent(%@);",audioVolume];

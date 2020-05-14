@@ -15,7 +15,14 @@
 
 
 #import "ANAudioVolumeChangeListener.h"
+#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+
+@interface ANAudioVolumeChangeListener ()
+
+@property (nonatomic, readwrite, assign)  BOOL isAudioSessionActive;
+
+@end
 
 @implementation ANAudioVolumeChangeListener
 
@@ -25,7 +32,8 @@
     self = [super init];
     if ( self ) {
         self.delegate = delegate;
-        [self subscribeToAudioChangeListening:YES];
+        self.isAudioSessionActive = NO;
+        [self subscribeToAudioChangeListening];
         [self registerObserverAndNotification];
     }
     
@@ -35,9 +43,19 @@
 
 #pragma mark - Subscribe/Unsubscribe
 
-- (void)subscribeToAudioChangeListening:(BOOL) value {
-    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:value error:nil];
+- (void)subscribeToAudioChangeListening
+{
+    NSError *error;
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    [sessionInstance setActive:YES error:&error];
+    if (error)
+    {
+        self.isAudioSessionActive = NO;
+    }
+    else
+    {
+        self.isAudioSessionActive = YES;
+    }
 }
 
 - (void)registerObserverAndNotification{
@@ -46,11 +64,16 @@
                    forKeyPath:@"outputVolume"
                       options:0
                       context:nil];
-    //To notify if interruption comes for active audio session
+    //To notify if interruption comes for active audio session due to an incoming call, alarm clock, etc
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(interruption:)
                                                  name:AVAudioSessionInterruptionNotification
                                                object:nil];
+    //InterruptionTypeEnded sometimes is not called, so this is handled in handleApplicationBecameActive.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(handleApplicationBecameActive:)
+                                                name:UIApplicationDidBecomeActiveNotification
+                                              object:nil];
 }
 
 
@@ -66,6 +89,9 @@
 #pragma mark - Responding to Volume level change
 
 -(NSNumber *) getAudioVolumePercentage {
+    if (!self.isAudioSessionActive) {
+        return nil;
+    }
     return @(100.0 * [AVAudioSession sharedInstance].outputVolume);
 }
 
@@ -82,6 +108,7 @@
         case AVAudioSessionInterruptionTypeBegan:
         {
             // Interruption began,system deactivates audio session.In that case audio focus is not active so pass nil to AudioVolumeChange event
+            self.isAudioSessionActive = NO;
             [self.delegate didUpdateAudioLevel:nil];
         }
             break;
@@ -89,19 +116,26 @@
         case AVAudioSessionInterruptionTypeEnded:
         {
             // Interruption end, reactivate the audio session
-            [self subscribeToAudioChangeListening:YES];
+            [self subscribeToAudioChangeListening];
             [self.delegate didUpdateAudioLevel:[self getAudioVolumePercentage]];
         }
             break;
     }
 }
 
+- (void)handleApplicationBecameActive:(NSNotification *)notification{
+    if (!self.isAudioSessionActive) {
+        [self subscribeToAudioChangeListening];
+    }
+}
+
+
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [self subscribeToAudioChangeListening:NO];
     [[AVAudioSession sharedInstance] removeObserver:self forKeyPath:@"outputVolume"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 @end
