@@ -15,6 +15,7 @@ limitations under the License.
 
 #import "ANHTTPNetworkSession.h"
 #import "ANGlobal.h"
+#import "ANLogging.h"
 
 
 @interface ANHTTPNetworkTaskData : NSObject
@@ -74,8 +75,6 @@ limitations under the License.
 
 - (instancetype)init {
     if (self = [super init]) {
-        // Shared `NSURLSession` to be used for all `MPHTTPNetworkTask` objects. All tasks should use this single
-        // session so that the DNS lookup and SSL handshakes do not need to be redone.
         _adServerSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
 
         // Dictionary of all sessions currently in flight.
@@ -88,7 +87,7 @@ limitations under the License.
 
 #pragma mark - Session Access
 
-- (void)setSessionData:(ANHTTPNetworkTaskData *)data forTask:(NSURLSessionTask *)task {
+- (void)appendSessionData:(ANHTTPNetworkTaskData *)data forTask:(NSURLSessionTask *)task {
     dispatch_barrier_sync(self.sessionsQueue, ^{
         self.sessions[task] = data;
     });
@@ -139,7 +138,7 @@ limitations under the License.
 
 #pragma mark - Manual Start Tasks
 
-+ (NSURLSessionTask *)startTaskWithHttpRequest:(NSURLRequest *)request
++ (NSURLSessionTask *)taskWithHttpRequest:(NSURLRequest *)request
                           responseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
                              errorHandler:(void (^ _Nullable)(NSError * error))errorHandler {
     // Networking task
@@ -149,33 +148,25 @@ limitations under the License.
     ANHTTPNetworkTaskData * taskData = [[ANHTTPNetworkTaskData alloc] initWithResponseHandler:responseHandler errorHandler:errorHandler];
 
     // Update the sessions.
-    [ANHTTPNetworkSession.sharedInstance setSessionData:taskData forTask:task];
+    [ANHTTPNetworkSession.sharedInstance appendSessionData:taskData forTask:task];
 
     return task;
 }
 
 #pragma mark - Automatic Start Tasks
 
-+ (NSURLSessionTask *)taskWithHttpRequest:(NSURLRequest *)request {
-    return [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:nil errorHandler:nil];
++ (void)startTaskWithHttpRequest:(NSURLRequest *)request {
+    [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:nil errorHandler:nil];
 }
 
 
-+ (NSURLSessionTask *)taskWithHttpRequest:(NSURLRequest *)request
++ (void)startTaskWithHttpRequest:(NSURLRequest *)request
                                responseHandler:(void (^ _Nullable)(NSData * data, NSHTTPURLResponse * response))responseHandler
                                   errorHandler:(void (^ _Nullable)(NSError * error))errorHandler {
     
-//    // Networking task
-//    NSURLSessionDataTask * task = [ANHTTPNetworkSession.sharedInstance.sharedSession dataTaskWithRequest:request];
-//
-//    // Initialize the task data
-//    ANHTTPNetworkTaskData * taskData = [[ANHTTPNetworkTaskData alloc] initWithResponseHandler:responseHandler errorHandler:errorHandler];
-//
-//    // Update the sessions.
-//    [ANHTTPNetworkSession.sharedInstance setSessionData:taskData forTask:task];
     
     // Generate a manual start task.
-    NSURLSessionTask * task = [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+    NSURLSessionTask * task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
         main_queue_block(responseHandler, data, response);
     } errorHandler:^(NSError * _Nonnull error) {
         main_queue_block(errorHandler, error);
@@ -183,8 +174,6 @@ limitations under the License.
 
     // Immediately start the task.
     [task resume];
-
-    return task;
 }
 
 #pragma mark - NSURLSessionDataDelegate
@@ -215,7 +204,7 @@ didCompleteWithError:(nullable NSError *)error {
     }
 
     // Remove the task data from the currently in flight sessions.
-    [self setSessionData:nil forTask:task];
+    [self appendSessionData:nil forTask:task];
 
     // Validate that response is not an error.
     if (error != nil) {
@@ -227,6 +216,7 @@ didCompleteWithError:(nullable NSError *)error {
     NSHTTPURLResponse * httpResponse = [task.response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)task.response : nil;
     if (httpResponse == nil) {
         NSError *responseError = ANError(@"Network response is not of type NSHTTPURLResponse", ANAdResponseNetworkError);
+        ANLogError(@"%@", responseError);
         safe_block(taskData.errorHandler, responseError);
         return;
     }
@@ -234,6 +224,7 @@ didCompleteWithError:(nullable NSError *)error {
     // Validate response code is not an error (>= 400)
     if (httpResponse.statusCode >= 400) {
         NSError * responseError = ANError(@"connection_failed", ANAdResponseNetworkError);
+        ANLogError(@"%@", responseError);
         safe_block(taskData.errorHandler, responseError);
         return;
     }
@@ -241,6 +232,7 @@ didCompleteWithError:(nullable NSError *)error {
     // Validate that there is data
     if (taskData.responseData == nil) {
         NSError * noDataError = ANError(@"The ad response does not contain data", ANAdResponseNetworkError);
+        ANLogError(@"%@", noDataError);
         safe_block(taskData.errorHandler, noDataError);
         return;
     }

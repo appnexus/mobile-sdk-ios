@@ -43,8 +43,6 @@
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStop;
 
-@property (nonatomic, strong) NSURLSessionTask * task;
-
 @end
 
 
@@ -91,7 +89,7 @@
         NSURLRequest *request     = ANBasicRequestWithURL(self.ssmHandlerURL);
         
         __weak __typeof__(self) weakSelf = self;
-        self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
             __typeof__(self) strongSelf = weakSelf;
             NSString *responseString = [[NSString alloc] initWithData:data
                                                              encoding:NSUTF8StringEncoding];

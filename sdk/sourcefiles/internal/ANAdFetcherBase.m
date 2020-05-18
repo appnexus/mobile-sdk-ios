@@ -41,8 +41,6 @@
 @property (nonatomic, readwrite, strong) NSDate *processStart;
 @property (nonatomic, readwrite, strong) NSDate *processEnd;
 
-@property (nonatomic, strong) NSURLSessionTask * task;
-
 @end
 
 
@@ -140,14 +138,12 @@
                         @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
     
     __weak __typeof__(self) weakSelf = self;
-   self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+   [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
          __typeof__(self) strongSelf = weakSelf;
 
-       if (!self.fetcherMARManager) {
+       if (!strongSelf.fetcherMARManager) {
            [strongSelf restartAutoRefreshTimer];
        }
-
-       
        strongSelf.isFetcherLoading = YES;
 
        NSString *responseString = [[NSString alloc] initWithData:data
@@ -169,11 +165,11 @@
     } errorHandler:^(NSError * _Nonnull error) {
         NSError  *sessionError  = nil;
          __typeof__(self) strongSelf = weakSelf;
+        strongSelf.isFetcherLoading = NO;
         [strongSelf requestFailedWithError:error.localizedDescription];
         ANLogError(@"%@", sessionError);
 
     }];
-    [self.task resume];
 }
 
 

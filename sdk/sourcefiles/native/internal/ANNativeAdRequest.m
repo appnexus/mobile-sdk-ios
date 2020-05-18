@@ -37,8 +37,6 @@
 
 @property (nonatomic, readwrite, strong, nonnull)  NSString  *utRequestUUIDString;
 
-@property (nonatomic, strong) NSURLSessionTask * task;
-
 @end
 
 
@@ -296,7 +294,7 @@
                                            timeoutInterval: kAppNexusNativeAdImageDownloadTimeoutInterval];
     
     
-    self.task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+    [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
         UIImage  *image  = [UIImage imageWithData:data];
 
         if (image) {

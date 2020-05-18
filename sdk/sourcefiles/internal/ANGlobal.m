@@ -313,7 +313,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     [utMutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [utMutableRequest setHTTPMethod:@"POST"];
     
-    [ANHTTPNetworkSession taskWithHttpRequest:utMutableRequest];
+    [ANHTTPNetworkSession startTaskWithHttpRequest:utMutableRequest];
 }
 
 + (void) openURL: (nonnull NSString *)urlString
