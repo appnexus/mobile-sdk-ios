@@ -140,6 +140,11 @@
     __weak __typeof__(self) weakSelf = self;
    [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
          __typeof__(self) strongSelf = weakSelf;
+       
+       if (!strongSelf)  {
+           ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+           return;
+       }
 
        if (!strongSelf.fetcherMARManager) {
            [strongSelf restartAutoRefreshTimer];
@@ -165,6 +170,12 @@
     } errorHandler:^(NSError * _Nonnull error) {
         NSError  *sessionError  = nil;
          __typeof__(self) strongSelf = weakSelf;
+        
+        if (!strongSelf)  {
+            ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+            return;
+        }
+        
         strongSelf.isFetcherLoading = NO;
         [strongSelf requestFailedWithError:error.localizedDescription];
         ANLogError(@"%@", sessionError);
