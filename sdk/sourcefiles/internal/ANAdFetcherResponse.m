@@ -60,8 +60,6 @@
 
 - (nonnull instancetype)initAdResponseWithAdObject: (nonnull id)adObject
                                 andAdObjectHandler: (nullable id)adObjectHandler
-//                                        successful: (BOOL)successful
-//                                didNotLoadCreative: (BOOL)didNotLoadCreative
 {
     self = [super init];
 
@@ -80,7 +78,6 @@
 - (nonnull instancetype)initLazyResponseWithAdContent: (nonnull NSString *)adContent
                                                adSize: (CGSize)sizeOfWebview
                                               baseURL: (nonnull NSURL *)baseURL
-                                        anjamDelegate: (nonnull id)anjamDelegate
                                    andAdObjectHandler: (nonnull id)adObjectHandler
 {
     self = [super init];
@@ -95,13 +92,13 @@
     _adContent              = adContent;
     _sizeOfWebview          = sizeOfWebview;
     _baseURL                = baseURL;
-    _anjamDelegate          = anjamDelegate;
 
     _adObjectHandler        = adObjectHandler;
 
     return self;
-
 }
+
+
 
 
 #pragma mark - Class methods.
@@ -121,13 +118,11 @@
 + (nonnull ANAdFetcherResponse *)lazyResponseWithAdContent: (nonnull NSString *)adContent
                                                     adSize: (CGSize)sizeOfWebview
                                                    baseURL: (nonnull NSURL *)baseURL
-                                             anjamDelegate: (nonnull id)anjamDelegate
                                         andAdObjectHandler: (nonnull id)adObjectHandler
 {
     return [[ANAdFetcherResponse alloc] initLazyResponseWithAdContent: adContent
                                                                adSize: sizeOfWebview
                                                               baseURL: baseURL
-                                                        anjamDelegate: anjamDelegate
                                                    andAdObjectHandler: adObjectHandler ];
 }
 

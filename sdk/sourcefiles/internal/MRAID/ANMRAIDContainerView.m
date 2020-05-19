@@ -201,9 +201,9 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 {
     _adViewDelegate                                     = adViewDelegate;
     self.webViewController.adViewDelegate               = adViewDelegate;
-    self.webViewController.adViewANJAMDelegate          = adViewDelegate;
+    self.webViewController.adViewANJAMInternalDelegate          = adViewDelegate;
     self.expandWebViewController.adViewDelegate         = adViewDelegate;
-    self.expandWebViewController.adViewANJAMDelegate    = adViewDelegate;
+    self.expandWebViewController.adViewANJAMInternalDelegate    = adViewDelegate;
 
     if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)])
     {

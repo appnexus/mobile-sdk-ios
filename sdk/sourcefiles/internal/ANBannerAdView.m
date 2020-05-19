@@ -219,11 +219,6 @@ ANLogMark();
     ANMRAIDContainerView  *mraidContainerView  = [[ANMRAIDContainerView alloc] initWithSize: self.lazyFetcherResponse.sizeOfWebview
                                                                                        HTML: self.lazyFetcherResponse.adContent
                                                                              webViewBaseURL: self.lazyFetcherResponse.baseURL ];
-    //FIX -- set mraidContainerView.delegate?
-    mraidContainerView.webViewController.anjamDelegate = self.lazyFetcherResponse.anjamDelegate;
-            //FIX -- yes?
-            //FIX -- need everything in lazyfetcherresponse?  get from this enviroinment?  why?
-
     if (!mraidContainerView)
             //FIX -- test me
     {
@@ -236,6 +231,9 @@ ANLogMark();
             return;
         }
     }
+
+    //
+    mraidContainerView.webViewController.anjamDelegate = (id<ANAdWebViewControllerANJAMDelegate>)mraidContainerView;
 
     self.contentView = mraidContainerView;
 

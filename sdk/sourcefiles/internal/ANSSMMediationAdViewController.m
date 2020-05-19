@@ -194,7 +194,7 @@
                                                  webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
     self.ssmAdView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView
-    self.ssmAdView.webViewController.adViewANJAMDelegate = self.adViewDelegate;
+    self.ssmAdView.webViewController.adViewANJAMInternalDelegate = self.adViewDelegate;
     
 }
 

@@ -33,7 +33,6 @@
 @property (nonatomic, readonly, strong, nullable)  NSString  *adContent;
 @property (nonatomic, readonly)                    CGSize     sizeOfWebview;
 @property (nonatomic, readonly, strong, nullable)  NSURL     *baseURL;
-@property (nonatomic, readonly, strong, nullable)  id         anjamDelegate;
 
 @property (nonatomic, readonly, strong, nullable) NSError *error;
 
@@ -47,7 +46,5 @@
 + (nonnull ANAdFetcherResponse *)lazyResponseWithAdContent: (nonnull NSString *)adContent
                                                     adSize: (CGSize)sizeOfWebview
                                                    baseURL: (nonnull NSURL *)baseURL
-                                             anjamDelegate: (nonnull id)anjamDelegate
                                         andAdObjectHandler: (nonnull id)adObjectHandler;
-
 @end

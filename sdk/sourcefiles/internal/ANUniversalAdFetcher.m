@@ -314,7 +314,7 @@ ANLogMark();
 
         self.adView.loadingDelegate = self;
         // Allow ANJAM events to always be passed to the ANAdView
-        self.adView.webViewController.adViewANJAMDelegate = self.delegate;
+        self.adView.webViewController.adViewANJAMInternalDelegate = self.delegate;
 
     } else {
         if (! [[ANVideoAdProcessor alloc] initWithDelegate: self
@@ -348,7 +348,6 @@ ANLogMark();
         ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdContent: standardAd.content
                                                                                          adSize: sizeOfWebview
                                                                                         baseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]
-                                                                                  anjamDelegate: self.delegate
                                                                              andAdObjectHandler: self.adObjectHandler ];
         [self processFinalResponse:fetcherResponse];
 
@@ -366,10 +365,8 @@ ANLogMark();
                                               webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
 
     self.adView.loadingDelegate = self;
-            //FIX -- why is this assigned twice?  same or different velues?  ignore the version in mradicnonterianerview?
     // Allow ANJAM events to always be passed to the ANAdView
-    self.adView.webViewController.adViewANJAMDelegate = self.delegate;
-                //FIX -- anjam delegate is not being set.  for lazy.
+    self.adView.webViewController.adViewANJAMInternalDelegate = self.delegate;
 }
 
 
