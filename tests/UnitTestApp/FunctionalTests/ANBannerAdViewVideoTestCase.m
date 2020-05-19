@@ -209,7 +209,7 @@
                                      
                                  }];
     XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
-    XCTAssertEqual(self.banner.getVideoOrientation, ANPortraint);
+    XCTAssertEqual(self.banner.getVideoOrientation, ANPortrait);
 }
 
 
