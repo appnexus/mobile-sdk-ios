@@ -205,7 +205,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 - (ANVideoOrientation) getVideoOrientation {
-    return [self.adPlayer getVideoAdOrientation];
+    return [self.adPlayer getVideoOrientation];
 }
 
 - (NSUInteger) getAdPlayElapsedTime {
