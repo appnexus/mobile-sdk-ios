@@ -130,7 +130,6 @@
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     self.ads = nil;
     self.isFetcherLoading = NO;
 
@@ -472,7 +471,6 @@ ANLogMark();
 
 - (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-ANLogMark();
     ANAdFetcherResponse  *fetcherResponse  = nil;
 
     if (self.adView.webViewController == controller)
@@ -501,7 +499,6 @@ ANLogMark();
 
 - (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {
-ANLogMark();
     [self stopAutoRefreshTimer];
 }
 

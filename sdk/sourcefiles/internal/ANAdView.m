@@ -611,7 +611,6 @@
 
 - (void)adDidReceiveAd:(id)adObject
 {
-ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:adObject];
     }
@@ -619,7 +618,6 @@ ANLogMark();
 
 - (void)lazyAdDidReceiveAd:(nonnull id)adObject
 {
-ANLogMark();
     if ([self.delegate respondsToSelector:@selector(lazyAdDidReceiveAd:)]) {
         [self.delegate lazyAdDidReceiveAd:adObject];
     }
@@ -635,7 +633,6 @@ ANLogMark();
 
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
-ANLogMark();
     [self setAdResponseInfo:adResponseInfo];
     
     if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {

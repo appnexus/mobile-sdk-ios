@@ -201,9 +201,7 @@ static NSString *const kANInline        = @"inline";
 
 - (void)loadWebview
             //FIX -- test me
-            //x FIX -- add objextruction views
 {
-ANLogMark();
     if (!self.isEligibleForLazyLoad) {
         ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
         return;
@@ -249,7 +247,6 @@ ANLogMark();
 //
 -(void)activateWebview
 {
-ANLogMark();
     __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
     __block ANWebView              *webview             = (ANWebView *)mraidContainerView.webViewController.contentView;
 
@@ -292,10 +289,12 @@ ANLogMark();
             [strongSelf.delegate adDidReceiveAd:self];
         }
 
-        [strongSelf fireTrackerAndOMID];
-        [strongSelf setFriendlyObstruction];
-        [strongSelf.universalAdFetcher startAutoRefreshTimer];
-                    //FIX -- need to happen on main thread?
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
+        ^{
+            [strongSelf setFriendlyObstruction];
+            [strongSelf fireTrackerAndOMID];
+            [strongSelf.universalAdFetcher startAutoRefreshTimer];
+        });
     });
 }
 
@@ -428,7 +427,6 @@ ANLogMark();
 
 - (void)fireTrackerAndOMID
 {
-ANLogMark();
     [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
     self.impressionURLs = nil;
 
@@ -488,7 +486,6 @@ ANLogMark();
 }
 
 - (void)setFriendlyObstruction
-        //FIX -- will fail for lazy load
 {
     if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
@@ -558,7 +555,6 @@ ANLogMark();
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     NSError  *error  = nil;
 
     if (!response.isSuccessful)
