@@ -136,6 +136,8 @@
 		609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FC1E42EAFF0061EC0A /* ANInstreamVideoAd.m */; };
 		609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732FD1E42EAFF0061EC0A /* ANVideoAdPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
+		609E91DF2474E9C20035F6A2 /* ANWarmupWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 609E91DD2474E9C10035F6A2 /* ANWarmupWebView.h */; };
+		609E91E02474E9C20035F6A2 /* ANWarmupWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 609E91DE2474E9C10035F6A2 /* ANWarmupWebView.m */; };
 		60D39E1522570FE20029F741 /* ANVideoPlayerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */; };
 		60D39E2922679E480029F741 /* ANVideoPlayerSettings+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */; };
@@ -432,6 +434,8 @@
 		609732FD1E42EAFF0061EC0A /* ANVideoAdPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANVideoAdPlayer.h; sourceTree = "<group>"; };
 		609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoAdPlayer.m; sourceTree = "<group>"; };
 		609733001E42EAFF0061EC0A /* ASTMediationManager.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ASTMediationManager.js; sourceTree = "<group>"; };
+		609E91DD2474E9C10035F6A2 /* ANWarmupWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWarmupWebView.h; sourceTree = "<group>"; };
+		609E91DE2474E9C10035F6A2 /* ANWarmupWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWarmupWebView.m; sourceTree = "<group>"; };
 		60AB32891E521FE500429ED7 /* MobileVastPlayer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MobileVastPlayer.js; sourceTree = "<group>"; };
 		60D39E0F2256EE420029F741 /* optionsparser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = optionsparser.js; sourceTree = "<group>"; };
 		60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANVideoPlayerSettings.h; sourceTree = "<group>"; };
@@ -881,6 +885,8 @@
 				60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */,
 				60183FD222933E9500CFDE33 /* ANWebView.h */,
 				60183FD322933E9500CFDE33 /* ANWebView.m */,
+				609E91DD2474E9C10035F6A2 /* ANWarmupWebView.h */,
+				609E91DE2474E9C10035F6A2 /* ANWarmupWebView.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -1022,6 +1028,7 @@
 				8A9AEDD01A1BF88200C58BDA /* ANANJAMImplementation.h in Headers */,
 				8A9AEDC61A1BF88200C58BDA /* ANBannerAdView+ANContentViewTransitions.h in Headers */,
 				8A9AEDB41A1BE8C200C58BDA /* ANBannerAdView.h in Headers */,
+				609E91DF2474E9C20035F6A2 /* ANWarmupWebView.h in Headers */,
 				FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */,
 				8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */,
 				8A9AEDD21A1BF88200C58BDA /* ANBrowserViewController.h in Headers */,
@@ -1388,6 +1395,7 @@
 				973B23AD238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				97EC51EF2229782B00B740DF /* ANVerificationScriptResource.m in Sources */,
 				609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */,
+				609E91E02474E9C20035F6A2 /* ANWarmupWebView.m in Sources */,
 				609732D91E42E9860061EC0A /* ANVideoAdProcessor.m in Sources */,
 				60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */,
 				60183FD622934AB500CFDE33 /* ANWebView.m in Sources */,

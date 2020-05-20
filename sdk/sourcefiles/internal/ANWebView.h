@@ -16,6 +16,8 @@
 #import <WebKit/WebKit.h>
 
 @interface ANWebView : WKWebView
+
+ -(instancetype) initWithSize:(CGSize)size;
     
     -(instancetype) initWithSize:(CGSize)size
                              URL:(NSURL *)URL
@@ -26,8 +28,5 @@
                          baseURL:(NSURL *)baseURL;
     
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
-    
-    - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
-    
     
 @end

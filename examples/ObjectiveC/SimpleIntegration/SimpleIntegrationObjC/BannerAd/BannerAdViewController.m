@@ -24,7 +24,7 @@
 
 @property (nonatomic, readwrite, strong) NSDate *processStart;
 @property (nonatomic, readwrite, strong) NSDate *processEnd;
-
+@property (nonatomic, readwrite, strong) NSDate *previousDifference;
 @end
 
 @implementation BannerAdViewController
@@ -58,7 +58,7 @@
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
     self.banner.shouldServePublicServiceAnnouncements = NO;
-    self.banner.autoRefreshInterval = 30;
+    self.banner.autoRefreshInterval = 10;
     
     // Load an ad.
     self.processStart = [NSDate date];
