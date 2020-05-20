@@ -142,7 +142,7 @@
                         @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
 
     requestAdTask = [[NSURLSession sharedSession] dataTaskWithRequest: request
-                                                    completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
+                                                         completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
                                     {
                                       ANAdFetcherBase * __strong  strongSelf  = weakSelf;
 

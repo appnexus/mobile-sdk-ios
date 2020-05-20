@@ -25,15 +25,12 @@
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
 #import "ANAdFetcherBase+PrivateMethods.h"
-#import "ANMRAIDContainerView.h"
 
 #pragma mark -
 
 @protocol ANUniversalAdFetcherDelegate;
 
 @interface ANUniversalAdFetcher : ANAdFetcherBase
-
-@property (nonatomic, readonly, strong, nullable)  ANMRAIDContainerView  *adView;
 
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
 
