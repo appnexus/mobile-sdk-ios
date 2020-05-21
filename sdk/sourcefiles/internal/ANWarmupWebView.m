@@ -45,21 +45,11 @@
 }
 
 - (ANWebView *) fetchWarmedUpWebView {
-    ANWebView *removedWebView = [self.webViewQueue firstObject];
-    __weak ANWarmupWebView  *weakSelf  = self;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            __strong ANWarmupWebView  *strongSelf  = weakSelf;
-            if (!strongSelf)  {
-                return;
-            }
-            
-            [self prepareWebView];
-        });
-    });
+    ANWebView *removedWebView = [self.webViewQueue lastObject];
+    [self.webViewQueue removeLastObject];
     
+    [self prepareWebView];
+
     return removedWebView;
     
 }

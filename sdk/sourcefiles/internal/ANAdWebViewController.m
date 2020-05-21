@@ -162,11 +162,18 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //self->_webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
-        self->_webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
-        [self->_webView loadHTMLString:htmlToLoad baseURL:base];
-        [self loadWebViewWithUserScripts];
+    self.webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
+    [self loadWebViewWithUserScripts];
+    
+    __weak ANAdWebViewController  *weakSelf  = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong ANAdWebViewController  *strongSelf  = weakSelf;
+            if (!strongSelf)  {
+                return;
+            }
+            [strongSelf.webView loadHTMLString:htmlToLoad baseURL:base];
+        });
     });
     
     return self;
