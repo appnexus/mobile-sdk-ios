@@ -33,6 +33,7 @@
     if ( self ) {
         self.delegate = delegate;
         self.isAudioSessionActive = NO;
+        [self setCategoryForAudioSession];
         [self subscribeToAudioChangeListening];
         [self registerObserverAndNotification];
     }
@@ -43,11 +44,16 @@
 
 #pragma mark - Subscribe/Unsubscribe
 
+- (void)setCategoryForAudioSession
+{
+    //To allow mixing with other music
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+}
+
 - (void)subscribeToAudioChangeListening
 {
     NSError *error;
-    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
-    [sessionInstance setActive:YES error:&error];
+    [[AVAudioSession sharedInstance] setActive:YES error:&error];
     if (error)
     {
         self.isAudioSessionActive = NO;
