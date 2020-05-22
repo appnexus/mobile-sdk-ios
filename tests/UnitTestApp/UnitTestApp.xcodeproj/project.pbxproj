@@ -217,6 +217,7 @@
 		0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */; };
 		0E9441EF24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */; };
 		0E9441F22447718C00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */; };
+		0E99B51D246B3F6F0024A8DC /* SuccessfulDisabledBannerEnableNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E99B51C246B3F6F0024A8DC /* SuccessfulDisabledBannerEnableNative.json */; };
 		0E9B356C23C72C82002BE178 /* testMARCombinationNativeRTBWithOtherCSM.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B356323C72C81002BE178 /* testMARCombinationNativeRTBWithOtherCSM.json */; };
 		0E9B356D23C72C82002BE178 /* testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B356523C72C82002BE178 /* testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json */; };
 		0E9B356E23C72C82002BE178 /* testMARCombinationBannerRTBWithOtherCSM.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B356623C72C82002BE178 /* testMARCombinationBannerRTBWithOtherCSM.json */; };
@@ -705,6 +706,7 @@
 		0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native.json; sourceTree = "<group>"; };
 		0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterCSRNativeBannerFacebook+ANTest.h"; sourceTree = "<group>"; };
 		0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterCSRNativeBannerFacebook+ANTest.m"; sourceTree = "<group>"; };
+		0E99B51C246B3F6F0024A8DC /* SuccessfulDisabledBannerEnableNative.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SuccessfulDisabledBannerEnableNative.json; sourceTree = "<group>"; };
 		0E9B356323C72C81002BE178 /* testMARCombinationNativeRTBWithOtherCSM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationNativeRTBWithOtherCSM.json; sourceTree = "<group>"; };
 		0E9B356523C72C82002BE178 /* testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationInterstitialAndNativeCSMWithOtherRTB.json; sourceTree = "<group>"; };
 		0E9B356623C72C82002BE178 /* testMARCombinationBannerRTBWithOtherCSM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationBannerRTBWithOtherCSM.json; sourceTree = "<group>"; };
@@ -1284,8 +1286,6 @@
 			children = (
 				0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */,
 				0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */,
-				0E516FE5243E6F1500B5E744 /* ANNativeAdResponse+ANTest.h */,
-				0E516FE7243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m */,
 				0E8C971621FF32EB005D1F0E /* ANAdView+ANTest.h */,
 				0E8C972521FF32EB005D1F0E /* ANAdView+ANTest.m */,
 				0E8C971D21FF32EB005D1F0E /* ANAdWebViewController+ANTest.h */,
@@ -1295,8 +1295,6 @@
 				0E8C971721FF32EB005D1F0E /* ANInterstitialAd+ANTest.h */,
 				0E8C972421FF32EB005D1F0E /* ANInterstitialAd+ANTest.m */,
 				0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */,
-				0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */,
-				0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */,
 				0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */,
 				0E8C971A21FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.h */,
 				0E8C972721FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m */,
@@ -1636,6 +1634,7 @@
 				0E7BC1BB229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json */,
 				0EEFE17F220074D1002B5F5F /* SuccessfulStandardAdFromRTBObjectResponse.json */,
 				0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */,
+				0E99B51C246B3F6F0024A8DC /* SuccessfulDisabledBannerEnableNative.json */,
 			);
 			name = StubResponse;
 			path = UnitTestApp/SharedMockFiles/StubResponse;
@@ -2122,6 +2121,7 @@
 				0E7BC1BA229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */,
 				0E061F1E23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json in Resources */,
 				0E3D3F2923C5C5CD00BCBE14 /* testMARCombinationAllCSM.json in Resources */,
+				0E99B51D246B3F6F0024A8DC /* SuccessfulDisabledBannerEnableNative.json in Resources */,
 				0E3D3F2723C4D2CD00BCBE14 /* testMARCombinationAllRTB.json in Resources */,
 				0E3D3F3D23C5F45500BCBE14 /* testMARCombinationBannerAndInterstitialCSMWithOtherRTB.json in Resources */,
 				0E3D3F4323C5F54500BCBE14 /* testMARCombinationBannerAndNativeCSMWithOtherRTB.json in Resources */,
