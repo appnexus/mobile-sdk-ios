@@ -200,7 +200,6 @@ static NSString *const kANInline        = @"inline";
 
 
 - (void)loadWebview
-            //FIX -- test me
 {
     if (!self.isEligibleForLazyLoad) {
         ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
@@ -218,7 +217,6 @@ static NSString *const kANInline        = @"inline";
                                                                                        HTML: self.lazyFetcherResponse.adContent
                                                                              webViewBaseURL: self.lazyFetcherResponse.baseURL ];
     if (!mraidContainerView)
-            //FIX -- test me
     {
         if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)])
         {
@@ -270,7 +268,6 @@ static NSString *const kANInline        = @"inline";
         __strong ANBannerAdView  *strongSelf  = weakSelf;
 
         if (!strongSelf)  {
-                    //FIX -- test me
             [webview removeFromSuperview];
             return;
         }
@@ -285,7 +282,6 @@ static NSString *const kANInline        = @"inline";
                                         yAttribute: NSLayoutAttributeTop];
 
         if ([strongSelf.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
-                    //FIX -- test me
             [strongSelf.delegate adDidReceiveAd:self];
         }
 
@@ -396,7 +392,6 @@ static NSString *const kANInline        = @"inline";
 }
 
 - (void)setEnableLazyWebviewLoad:(BOOL)propertyValue
-        //FIX -- test me
 {
     if (YES == __enableLazyWebviewLoad) {
         ANLogWarn(@"CANNOT CHANGE enableLazyWebviewLoad once it is enabled.");
@@ -415,7 +410,6 @@ static NSString *const kANInline        = @"inline";
 }
 
 - (BOOL)isEligibleForLazyLoad
-            //FIX -- test me
 {
     return  (nil != self.lazyFetcherResponse);
 }

@@ -164,7 +164,6 @@
     // For lazy load, delay start of auto refresh timer (if it is active) until host app calls loadWebview.
     //
     if (!response.isLazy) {
-                //FIX -- test me
         [self startAutoRefreshTimer];
     }
 }

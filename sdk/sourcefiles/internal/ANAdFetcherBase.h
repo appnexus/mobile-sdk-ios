@@ -66,8 +66,8 @@
 
 @property (nonatomic, readwrite, weak, nullable)    id                  delegate;
 
-@property (nonatomic, readwrite, strong, nullable)    ANMultiAdRequest   *fetcherMARManager;
-@property (nonatomic, readwrite, strong, nullable)    ANMultiAdRequest   *adunitMARManager;
+@property (nonatomic, readwrite, weak, nullable)    ANMultiAdRequest   *fetcherMARManager;
+@property (nonatomic, readwrite, weak, nullable)    ANMultiAdRequest   *adunitMARManager;
 
 
 //
