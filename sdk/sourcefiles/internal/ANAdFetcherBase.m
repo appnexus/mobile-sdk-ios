@@ -84,15 +84,6 @@
     return  self;
 }
 
-- (void)setup
-{
-    if([ANGDPRSettings canAccessDeviceData]){
-        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
-    } else {
-        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
-    }
-}
-
 -(void) stopAdLoad{
     self.isFetcherLoading = NO;
     self.ads = nil;
