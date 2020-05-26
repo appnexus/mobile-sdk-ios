@@ -53,7 +53,9 @@
 {
     self = [super init];
     if (!self)  { return nil; }
-
+    //
+    [self setup];
+    
     return  self;
 }
 
@@ -76,6 +78,13 @@
     self.fetcherMARManager = marManager;
 
     return  self;
+}
+
+- (void)setup
+{
+    if([ANGDPRSettings canAccessDeviceData]){
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    } 
 }
 
 -(void) stopAdLoad{
