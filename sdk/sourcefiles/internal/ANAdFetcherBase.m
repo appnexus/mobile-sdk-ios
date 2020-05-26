@@ -53,10 +53,9 @@
 {
     self = [super init];
     if (!self)  { return nil; }
-
     //
     [self setup];
-
+    
     return  self;
 }
 
@@ -85,9 +84,7 @@
 {
     if([ANGDPRSettings canAccessDeviceData]){
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
-    } else {
-        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
-    }
+    } 
 }
 
 -(void) stopAdLoad{
