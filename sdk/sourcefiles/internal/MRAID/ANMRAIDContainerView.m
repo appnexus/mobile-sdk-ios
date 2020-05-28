@@ -499,6 +499,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         dispatch_async(dispatch_get_main_queue(),
         ^{
             __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
+
             if (!strongSelf)  {
                 ANLogError(@"COULD NOT ACQUIRE strongSelf.");
                 return;

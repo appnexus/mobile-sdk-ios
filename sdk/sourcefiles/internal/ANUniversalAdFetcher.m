@@ -161,9 +161,9 @@
         }
     }
 
-    // For lazy load, delay start of auto refresh timer (if it is active) until host app calls loadWebview.
+    // Start of auto refresh timer (if it is active), unless this is the first pass by lazy AdUnit.
     //
-    if (!response.isLazy) {
+    if (!response.isLazyFirstPassThroughAdUnit) {
         [self startAutoRefreshTimer];
     }
 }
@@ -304,15 +304,15 @@
     }
 
     if (ANVideoAdSubtypeBannerVideo == videoAdType)
+                    //FIX -- test me
     {
         CGSize  sizeOfWebView  = [self getWebViewSizeForCreativeWidth:videoAd.width andHeight:videoAd.height];
 
-        self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebView
-                                                        videoXML: videoAd.content ];
+        BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebView content:videoAd.content isXMLForVideo:YES];
 
-        self.adView.loadingDelegate = self;
-        // Allow ANJAM events to always be passed to the ANAdView
-        self.adView.webViewController.adViewANJAMInternalDelegate = self.delegate;
+        if (!returnValue) {
+            ANLogError(@"FAILED to allocate self.adView.");
+        }
 
     } else {
         if (! [[ANVideoAdProcessor alloc] initWithDelegate: self
@@ -336,6 +336,7 @@
 
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
+            //FIX -- test me
 {
     CGSize  sizeOfWebview  = [self getWebViewSizeForCreativeWidth: standardAd.width
                                                         andHeight: standardAd.height];
@@ -354,17 +355,12 @@
 
 
     //
-    if (self.adView) {
-        self.adView.loadingDelegate = nil;
+    BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebview content:standardAd.content isXMLForVideo:NO];
+
+    if (!returnValue) {
+                //FIX -- test me
+        ANLogError(@"FAILED to allocate self.adView.");
     }
-
-    self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebview
-                                                        HTML: standardAd.content
-                                              webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
-
-    self.adView.loadingDelegate = self;
-    // Allow ANJAM events to always be passed to the ANAdView
-    self.adView.webViewController.adViewANJAMInternalDelegate = self.delegate;
 }
 
 
@@ -486,6 +482,10 @@
         fetcherResponse = [ANAdFetcherResponse responseWithError:error];
     }
 
+    if (fetcherResponse.isLazyFirstPassThroughAdUnit) {
+        fetcherResponse.isLazyFirstPassThroughAdUnit = NO;
+    }
+
     [self processFinalResponse:fetcherResponse];
 }
 
@@ -547,4 +547,46 @@
     return sizeOfCreative;
 }
 
+/**
+ *  Return: YES on success; otherwise NO.
+ */
+- (BOOL)allocateAndSetWebviewWithSize: (CGSize)webviewSize
+                              content: (nonnull NSString *)webviewContent
+                        isXMLForVideo: (BOOL)isContentXMLForVideo
+{
+    if (self.adView) {
+        self.adView.loadingDelegate = nil;
+    }
+
+    //
+    if (isContentXMLForVideo)
+    {
+        self.adView = [[ANMRAIDContainerView alloc] initWithSize: webviewSize
+                                                        videoXML: webviewContent ];
+
+    } else {
+        self.adView = [[ANMRAIDContainerView alloc] initWithSize: webviewSize
+                                                            HTML: webviewContent
+                                                  webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]] ];
+    }
+
+    if (!self.adView)
+            //FIX -- test me
+    {
+        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
+        ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithError:error];
+        [self processFinalResponse:fetcherResponse];
+                //FIX -- when does this return?  does it overwrite response value when lazy webview has alreayd returned a response?
+
+        return  NO;
+    }
+
+    //
+    self.adView.loadingDelegate = self;
+
+    // Allow ANJAM events to always be passed to the ANAdView
+    self.adView.webViewController.adViewANJAMInternalDelegate = self.delegate;
+
+    return  YES;
+}
 @end

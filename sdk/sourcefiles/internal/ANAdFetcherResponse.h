@@ -22,8 +22,23 @@
 
 @interface ANAdFetcherResponse : NSObject
 
+/**
+ * There are two successful cases: 1) AdUnit loaded normally; 2) AdUnit loaded lazily.
+ * All other cases are error cases.
+ */
 @property (nonatomic, readonly, assign, getter=isSuccessful)  BOOL  successful;
+
+/**
+ * Distinguish whether an AdView adObject is being lazy loaded.
+ */
 @property (nonatomic, readonly)                               BOOL  isLazy;
+
+/**
+ * Distinguish whether a lazy adObject is passing back to the AdUnit calling environment for the FIRST time, or the SECOND time.
+ * ANAdFetcherResponse is initialized as the FIRST time.
+ * The SECOND time is detected in [ANUniversalAdFetcher didCompleteFirstLoadFromWebViewController:], where isLazyFirstPassThroughAdUnit is set to NO.
+ */
+@property (nonatomic, readwrite)                              BOOL  isLazyFirstPassThroughAdUnit;
 
 @property (nonatomic, readonly, strong, nullable)   id  adObject;
 @property (nonatomic, readonly, strong, nullable)   id  adObjectHandler;

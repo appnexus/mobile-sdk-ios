@@ -86,8 +86,9 @@
 
 
     //
-    _successful             = YES;
-    _isLazy                 = YES;
+    _successful                     = YES;
+    _isLazy                         = YES;
+    _isLazyFirstPassThroughAdUnit   = YES;
 
     _adContent              = adContent;
     _sizeOfWebview          = sizeOfWebview;

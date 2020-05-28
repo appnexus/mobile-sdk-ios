@@ -213,85 +213,15 @@ static NSString *const kANInline        = @"inline";
 
 
     //
-    ANMRAIDContainerView  *mraidContainerView  = [[ANMRAIDContainerView alloc] initWithSize: self.lazyFetcherResponse.sizeOfWebview
-                                                                                       HTML: self.lazyFetcherResponse.adContent
-                                                                             webViewBaseURL: self.lazyFetcherResponse.baseURL ];
-    if (!mraidContainerView)
+    BOOL  returnValue  = [self.universalAdFetcher allocateAndSetWebviewWithSize: self.lazyFetcherResponse.sizeOfWebview
+                                                                        content: self.lazyFetcherResponse.adContent
+                                                                  isXMLForVideo: NO ];
+    if (!returnValue)
+            // FIX -- test me
     {
-        if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)])
-        {
-            NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
-            ANLogError(@"%@", error);
-
-            [self.delegate ad:self requestFailedWithError:error];
-            return;
-        }
+        NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
+        ANLogError(@"%@", error);
     }
-
-    //
-    mraidContainerView.webViewController.anjamDelegate = (id<ANAdWebViewControllerANJAMDelegate>)mraidContainerView;
-
-    self.contentView = mraidContainerView;
-
-    // NB  The dispatch thread within activateWebview completes the lazy webview load by...
-    //      * Returning success to host app.
-    //      * Firing MobileSDK trackers, including impressionURLs and OMID
-    //      * Starting the auto-refresh timer, as required.
-    //
-    [self activateWebview];
-}
-
-// Attaching WKWebView to screen for an instant to allow it to complete loading.
-//
--(void)activateWebview
-{
-    __block ANMRAIDContainerView   *mraidContainerView  = (ANMRAIDContainerView *)self.contentView;
-    __block ANWebView              *webview             = (ANWebView *)mraidContainerView.webViewController.contentView;
-
-
-    // Multi-format banner carrying video will be loaded normally, even if enableLazyWebviewLoad is set.
-    //
-    if (mraidContainerView.isBannerVideo) {
-        return;
-    }
-
-
-    //
-    webview.hidden = YES;
-    [[UIApplication sharedApplication].keyWindow insertSubview:webview atIndex:0];
-
-
-    __weak ANBannerAdView  *weakSelf  = self;
-
-    dispatch_async(dispatch_get_main_queue(),
-    ^{
-        __strong ANBannerAdView  *strongSelf  = weakSelf;
-
-        if (!strongSelf)  {
-            [webview removeFromSuperview];
-            return;
-        }
-
-        webview.translatesAutoresizingMaskIntoConstraints = NO;
-
-        [mraidContainerView addSubview:webview];
-        webview.hidden = NO;
-
-        [webview an_constrainToSizeOfSuperview];
-        [webview an_alignToSuperviewWithXAttribute: NSLayoutAttributeLeft
-                                        yAttribute: NSLayoutAttributeTop];
-
-        if ([strongSelf.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
-            [strongSelf.delegate adDidReceiveAd:self];
-        }
-
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
-        ^{
-            [strongSelf setFriendlyObstruction];
-            [strongSelf fireTrackerAndOMID];
-            [strongSelf.universalAdFetcher startAutoRefreshTimer];
-        });
-    });
 }
 
 
@@ -549,6 +479,10 @@ static NSString *const kANInline        = @"inline";
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
+ANLogMarkMessage(@"------------------------------------------");
+    id  adObject         = nil;
+    id  adObjectHandler  = nil;
+
     NSError  *error  = nil;
 
     if (!response.isSuccessful)
@@ -558,68 +492,76 @@ static NSString *const kANInline        = @"inline";
     }
 
 
-    // Capture state for all AdUnits.
+    // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
-    self.loadAdHasBeenInvoked = YES;
+    if (!response.isLazyFirstPassThroughAdUnit)
+    {
+        self.loadAdHasBeenInvoked = YES;
 
-    id  adObject         = response.adObject;
-    id  adObjectHandler  = response.adObjectHandler;
+        adObject         = response.adObject;
+        adObjectHandler  = response.adObjectHandler;
 
-    self.contentView = nil;
-    self.impressionURLs = nil;
+        self.contentView = nil;
+        self.impressionURLs = nil;
 
-    _adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
-    if (_adResponseInfo) {
-        [self setAdResponseInfo:_adResponseInfo];
+        _adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
+        if (_adResponseInfo) {
+            [self setAdResponseInfo:_adResponseInfo];
+        }
+
+        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
+        if (creativeId) {
+             [self setCreativeId:creativeId];
+        }
+
+        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
+        if (adTypeString) {
+            [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
+        }
     }
-
-    NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
-    if (creativeId) {
-         [self setCreativeId:creativeId];
-    }
-
-    NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
-    if (adTypeString) {
-        [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
-    }
-
 
     // Process AdUnit according to class type of UIView.
     //
     if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
     {
-        NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
-        NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
-
-
-        if (width && height)
+        if (!response.isLazyFirstPassThroughAdUnit)
         {
-            CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
-            _loadedAdSize = receivedSize;
-        } else {
-            _loadedAdSize = self.adSize;
-        }
+            NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
+            NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
 
-        if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
-        {
-            self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
 
-            // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
-            //   but only when the AdUnit is not lazy.
-            //
-            if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
-                [self fireTrackerAndOMID];
+            if (width && height)
+            {
+                CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
+                _loadedAdSize = receivedSize;
+            } else {
+                _loadedAdSize = self.adSize;
+            }
+
+            if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            {
+                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+
+                // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
+                //   but only when the AdUnit is not lazy.
+                //
+                if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
+                    [self fireTrackerAndOMID];
+                }
             }
         }
 
 
         // Return early if AdUnit is lazy loaded.
         //
-        if (response.isLazy)
+        if (response.isLazyFirstPassThroughAdUnit)
         {
             self.lazyFetcherResponse = response;
             [self lazyAdDidReceiveAd:self];
             return;
+
+        } else {
+            [self fireTrackerAndOMID];
         }
 
 

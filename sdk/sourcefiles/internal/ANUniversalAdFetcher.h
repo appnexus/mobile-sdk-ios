@@ -26,6 +26,9 @@
 #import "ANGlobal.h"
 #import "ANAdFetcherBase+PrivateMethods.h"
 
+
+
+
 #pragma mark -
 
 @protocol ANUniversalAdFetcherDelegate;
@@ -41,7 +44,14 @@
 - (CGSize)getWebViewSizeForCreativeWidth:(nonnull NSString *)width
                                andHeight:(nonnull NSString *)height;
 
+- (BOOL)allocateAndSetWebviewWithSize: (CGSize)webviewSize
+                              content: (nonnull NSString *)webviewContent
+                        isXMLForVideo: (BOOL)isContentXMLForVideo;
+
 @end
+
+
+
 
 #pragma mark - Ad Fetcher Delegates.
 
@@ -78,9 +88,15 @@
 
 
 
+
+#pragma mark -
+
 @protocol  ANUniversalAdFetcherFoundationDelegate <ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation>
     //EMPTY
 @end
+
+
+
 
 #pragma mark -
 
