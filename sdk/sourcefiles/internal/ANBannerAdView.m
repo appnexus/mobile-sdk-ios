@@ -86,6 +86,7 @@ static NSString *const kANInline        = @"inline";
 @synthesize  contentView                    = _contentView;
 @synthesize  adSize                         = _adSize;
 @synthesize  loadedAdSize                   = _loadedAdSize;
+@synthesize  shouldAllowBannerDemand        = _shouldAllowBannerDemand;
 @synthesize  shouldAllowVideoDemand         = _shouldAllowVideoDemand;
 @synthesize  shouldAllowNativeDemand        = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId             = _nativeAdRendererId;
@@ -96,7 +97,6 @@ static NSString *const kANInline        = @"inline";
 
 @synthesize  countImpressionOnAdReceived    = _countImpressionOnAdReceived;
 @synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
-
 
 
 
@@ -114,15 +114,20 @@ static NSString *const kANInline        = @"inline";
     _loadedAdSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSize                       = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                      = nil;
-    _shouldAllowNativeDemand      = NO;
+
+    _shouldAllowBannerDemand      = YES;
     _shouldAllowVideoDemand       = NO;
+    _shouldAllowNativeDemand      = NO;
+
     _nativeAdRendererId           = 0;
     _videoAdOrientation           = ANUnknown;
-    _countImpressionOnAdReceived  = NO;
 
-    self.allowSmallerSizes      = NO;
-    self.loadAdHasBeenInvoked   = NO;
-    self.enableNativeRendering  = NO;
+    self.allowSmallerSizes        = NO;
+    self.loadAdHasBeenInvoked     = NO;
+    self.enableNativeRendering    = NO;
+
+    _countImpressionOnAdReceived  = NO;
+    __enableLazyWebviewLoad       = NO;
 
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
@@ -691,7 +696,9 @@ ANLogMarkMessage(@"------------------------------------------");
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
     NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
-    [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    if(_shouldAllowBannerDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    }
     if(_shouldAllowNativeDemand){
         [mediaTypes addObject:@(ANAllowedMediaTypeNative)];
     }
