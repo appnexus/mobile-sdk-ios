@@ -484,7 +484,6 @@ static NSString *const kANInline        = @"inline";
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-ANLogMarkMessage(@"------------------------------------------");
     id  adObject         = nil;
     id  adObjectHandler  = nil;
 

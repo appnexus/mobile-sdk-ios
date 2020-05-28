@@ -576,7 +576,7 @@
         NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
         ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithError:error];
         [self processFinalResponse:fetcherResponse];
-                //FIX -- when does this return?  does it overwrite response value when lazy webview has alreayd returned a response?
+                //FIX -- test me.  does it overwrite response value when lazy webview has alreayd returned a response?
 
         return  NO;
     }

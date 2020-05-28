@@ -339,7 +339,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-ANLogMarkMessage(@"-------------------------------------------------");
     [self processWebViewDidFinishLoad];
 }
 
@@ -549,7 +548,6 @@ ANLogMarkMessage(@"-------------------------------------------------");
 
 - (void)processWebViewDidFinishLoad
 {
-ANLogMarkMessage(@"-------------------------------------------------");
     if (!self.completedFirstLoad)
     {
         self.completedFirstLoad = YES;
