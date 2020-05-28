@@ -239,6 +239,14 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 
 /**
+ * Sets whether or not banner Ads(AppNexus Media Type:1) can serve on this Ad object.
+ *  If shouldAllowBannerDemand is not set, the default is true.
+*/
+@property (nonatomic, readwrite) BOOL shouldAllowBannerDemand;
+
+
+
+/**
  *  If enableNativeRendering is not set, the default is false.
  *  Rendering NativeAd to behave as BannerAd
  */

@@ -1,3 +1,7 @@
+## 7.3.2
+### Improvements/Bug Fixes
++ MS-4352: Fixed NSHTTPCookieStorage setting
+
 ## 7.3.1
 ### Improvements/Bug Fixes
 + MS-4326: Fix for ANMultiAdRequest crashes when UT Response is not received due to Internet connectivity issues/device being offline

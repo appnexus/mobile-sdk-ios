@@ -86,6 +86,7 @@ static NSString *const kANInline        = @"inline";
 @synthesize  countImpressionOnAdReceived   = _countImpressionOnAdReceived;
 @synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
+@synthesize  shouldAllowBannerDemand  = _shouldAllowBannerDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
 @synthesize  adResponseInfo           = _adResponseInfo;
@@ -111,6 +112,7 @@ static NSString *const kANInline        = @"inline";
     _countImpressionOnAdReceived = NO;
     _shouldAllowNativeDemand      = NO;
     _shouldAllowVideoDemand       = NO;
+    _shouldAllowBannerDemand      = YES;
     _nativeAdRendererId          = 0;
     _videoAdOrientation     = ANUnknown;    
     self.allowSmallerSizes  = NO;
@@ -573,7 +575,9 @@ static NSString *const kANInline        = @"inline";
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
     NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
-    [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    if(_shouldAllowBannerDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    }
     if(_shouldAllowNativeDemand){
         [mediaTypes addObject:@(ANAllowedMediaTypeNative)];
     }
