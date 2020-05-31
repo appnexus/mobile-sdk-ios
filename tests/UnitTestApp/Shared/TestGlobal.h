@@ -28,6 +28,7 @@ limitations under the License.
 
 #pragma mark - Global public constants.
 
+extern  NSTimeInterval  kWaitQuarterSecond;
 extern  NSTimeInterval  kWaitOneSecond;
 extern  NSTimeInterval  kWaitTwoSeconds;
 extern  NSTimeInterval  kWaitShort;

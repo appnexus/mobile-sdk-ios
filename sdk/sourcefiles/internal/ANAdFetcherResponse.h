@@ -40,8 +40,8 @@
  */
 @property (nonatomic, readwrite)                              BOOL  isLazyFirstPassThroughAdUnit;
 
-@property (nonatomic, readonly, strong, nullable)   id  adObject;
-@property (nonatomic, readonly, strong, nullable)   id  adObjectHandler;
+@property (nonatomic, readwrite, strong, nullable)   id  adObject;
+@property (nonatomic, readonly, strong, nullable)    id  adObjectHandler;
 
 @property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo  *adResponseInfo;
 

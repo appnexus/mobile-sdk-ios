@@ -304,7 +304,6 @@
     }
 
     if (ANVideoAdSubtypeBannerVideo == videoAdType)
-                    //FIX -- test me
     {
         CGSize  sizeOfWebView  = [self getWebViewSizeForCreativeWidth:videoAd.width andHeight:videoAd.height];
 
@@ -336,7 +335,6 @@
 
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
-            //FIX -- test me
 {
     CGSize  sizeOfWebview  = [self getWebViewSizeForCreativeWidth: standardAd.width
                                                         andHeight: standardAd.height];
@@ -358,7 +356,6 @@
     BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebview content:standardAd.content isXMLForVideo:NO];
 
     if (!returnValue) {
-                //FIX -- test me
         ANLogError(@"FAILED to allocate self.adView.");
     }
 }
@@ -474,18 +471,28 @@
             if ([self.delegate respondsToSelector:@selector(setVideoAdOrientation:)]) {
                 [self.delegate setVideoAdOrientation:controller.videoAdOrientation];
             }
-        }      
-        fetcherResponse = [ANAdFetcherResponse responseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
+        }
+
+        if ([self.delegate respondsToSelector:@selector(getLazyFetcherResponse)])
+        {
+            fetcherResponse = [self.delegate getLazyFetcherResponse];
+
+            if (fetcherResponse) {
+                fetcherResponse.adObject                        = self.adView;
+                fetcherResponse.isLazyFirstPassThroughAdUnit    = NO;
+            }
+        }
+
+        if (!fetcherResponse) {
+            fetcherResponse = [ANAdFetcherResponse responseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
+        }
 
     } else {
         NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
         fetcherResponse = [ANAdFetcherResponse responseWithError:error];
     }
 
-    if (fetcherResponse.isLazyFirstPassThroughAdUnit) {
-        fetcherResponse.isLazyFirstPassThroughAdUnit = NO;
-    }
-
+    //
     [self processFinalResponse:fetcherResponse];
 }
 
@@ -571,12 +578,10 @@
     }
 
     if (!self.adView)
-            //FIX -- test me
     {
         NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
         ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithError:error];
         [self processFinalResponse:fetcherResponse];
-                //FIX -- test me.  does it overwrite response value when lazy webview has alreayd returned a response?
 
         return  NO;
     }

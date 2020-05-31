@@ -222,7 +222,6 @@ static NSString *const kANInline        = @"inline";
                                                                         content: self.lazyFetcherResponse.adContent
                                                                   isXMLForVideo: NO ];
     if (!returnValue)
-            // FIX -- test me
     {
         NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
         ANLogError(@"%@", error);
@@ -484,8 +483,8 @@ static NSString *const kANInline        = @"inline";
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-    id  adObject         = nil;
-    id  adObjectHandler  = nil;
+    id  adObject         = response.adObject;
+    id  adObjectHandler  = response.adObjectHandler;
 
     NSError  *error  = nil;
 
@@ -498,12 +497,9 @@ static NSString *const kANInline        = @"inline";
 
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
-    if (!response.isLazyFirstPassThroughAdUnit)
+    if (!response.isLazy || response.isLazyFirstPassThroughAdUnit)
     {
         self.loadAdHasBeenInvoked = YES;
-
-        adObject         = response.adObject;
-        adObjectHandler  = response.adObjectHandler;
 
         self.contentView = nil;
         self.impressionURLs = nil;
@@ -528,7 +524,7 @@ static NSString *const kANInline        = @"inline";
     //
     if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
     {
-        if (!response.isLazyFirstPassThroughAdUnit)
+        if (!response.isLazy || response.isLazyFirstPassThroughAdUnit)
         {
             NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
             NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
@@ -731,6 +727,10 @@ static NSString *const kANInline        = @"inline";
     return  self.enableLazyWebviewLoad;
 }
 
+- (ANAdFetcherResponse *)getLazyFetcherResponse
+{
+    return  self.lazyFetcherResponse;
+}
 
 
 

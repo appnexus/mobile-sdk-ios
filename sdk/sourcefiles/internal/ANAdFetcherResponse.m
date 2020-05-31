@@ -29,7 +29,6 @@
 @property (nonatomic, readwrite, assign, getter=isSuccessful)  BOOL  successful;
 @property (nonatomic, readwrite)                               BOOL  isLazy;
 
-@property (nonatomic, readwrite, strong, nonnull) id adObject;
 @property (nonatomic, readwrite, strong, nullable) id adObjectHandler;
 
 @property (nonatomic, readwrite, strong, nullable)  NSString  *adContent;
