@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
  *
  * @return Default VideoOrientation value ANUnknown, which indicates that aspectRatio can't be retrieved for the video.
  */
-- (ANVideoOrientation) getVideoAdOrientation;
+- (ANVideoOrientation) getVideoOrientation;
 
 @end
 

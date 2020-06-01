@@ -72,7 +72,7 @@ typedef NS_ENUM(NSUInteger, ANClickThroughAction) {
  * */
 typedef NS_ENUM(NSUInteger, ANVideoOrientation) {
     ANUnknown,
-    ANPortraint,
+    ANPortrait,
     ANLandscape,
     ANSquare    
 };
