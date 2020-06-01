@@ -38,9 +38,6 @@
 
 @interface ANAdFetcherBase()
 
-@property (nonatomic, readwrite, strong) NSDate *processStart;
-@property (nonatomic, readwrite, strong) NSDate *processEnd;
-
 @end
 
 
@@ -112,8 +109,6 @@
 {
     if (self.isFetcherLoading)  { return; }
 
-    self.processStart = [NSDate date];
-
     NSURLRequest  *request    = nil;
 
     if (self.fetcherMARManager) {
@@ -159,11 +154,6 @@
 
        [strongSelf handleAdServerResponse:data];
 
-       strongSelf.processEnd = [NSDate date];
-       NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
-       NSLog(@"Updated Network latency: %f", executionTime*1000);
-        
-           
     } errorHandler:^(NSError * _Nonnull error) {
         NSError  *sessionError  = nil;
          __typeof__(self) strongSelf = weakSelf;
