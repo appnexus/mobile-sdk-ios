@@ -15,7 +15,7 @@
                     "width": 320,
                     "height": 50
                 },
-                "timeout_ms": 1500,
+                "timeout_ms": 0,
                 "handler": [{
                     "param": "#{PARAM}",
                     "class": "ANAdAdapterBannerDFP",
@@ -51,7 +51,7 @@
                     "width": 320,
                     "height": 50
                 },
-                "timeout_ms": 1500,
+                "timeout_ms": 500,
                 "handler": [{
                     "param": "#{PARAM}",
                     "class": "ANAdAdapterBannerMillennialMedia",
@@ -87,7 +87,7 @@
                     "width": 320,
                     "height": 50
                 },
-                "timeout_ms": 1500,
+                "timeout_ms": 0,
                 "handler": [{
                     "param": "#{PARAM}",
                     "class": "ANAdAdapterBannerAdMob",
@@ -123,7 +123,7 @@
                     "width": 320,
                     "height": 50
                 },
-                "timeout_ms": 1500,
+                "timeout_ms": 500,
                 "handler": [{
                     "param": "#{PARAM}",
                     "class": "ANAdAdapterBanneriAd",
