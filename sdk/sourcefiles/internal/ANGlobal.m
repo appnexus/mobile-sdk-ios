@@ -449,7 +449,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (ANVideoOrientation) parseVideoOrientation:(NSString *)aspectRatio {
     double aspectRatioValue = [aspectRatio doubleValue];
-    return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortraint;
+    return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortrait;
 }
 
 @end

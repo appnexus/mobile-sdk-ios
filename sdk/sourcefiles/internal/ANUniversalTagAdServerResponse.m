@@ -80,6 +80,7 @@ static NSString *const kANUniversalTagAdServerResponseKeySSMHandlerUrl = @"url";
 
 // CSM
 static NSString *const kANUniversalTagAdServerResponseValueIOS = @"ios";
+static NSString *const kANUniversalTagAdServerResponseKeyTimeout= @"timeout_ms";
 static NSString *const kANUniversalTagAdServerResponseKeyHandler = @"handler";
 static NSString *const kANUniversalTagAdServerResponseKeyClass = @"class";
 static NSString *const kANUniversalTagAdServerResponseKeyId = @"id";
@@ -581,7 +582,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         {
             mediatedAd.responseURL     = [csmObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
             mediatedAd.impressionUrls  = [[self class] impressionUrlsFromContentSourceObject:csmObject];
-            
+            int timeout = [csmObject[kANUniversalTagAdServerResponseKeyTimeout] intValue];
+            mediatedAd.networkTimeout = (timeout > 0 && timeout != 500) ? timeout :kAppNexusMediationNetworkTimeoutInterval * 1000;
             return  mediatedAd;
         }
     }
@@ -619,6 +621,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
                 standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
                 standardAd.content = nil;
+                int timeout = [ssmObject[kANUniversalTagAdServerResponseKeyTimeout] intValue];
+                standardAd.networkTimeout = (timeout > 0 && timeout != 500) ? timeout :kAppNexusMediationNetworkTimeoutInterval * 1000;
                 return standardAd;
             }
         }

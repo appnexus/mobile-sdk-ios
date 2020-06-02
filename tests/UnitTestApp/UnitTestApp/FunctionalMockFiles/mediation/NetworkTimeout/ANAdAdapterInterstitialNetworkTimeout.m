@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2020 Xandr INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,14 +13,23 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANBaseAdObject.h"
 
-@interface ANSSMStandardAd : ANBaseAdObject
 
-@property (nonatomic, readwrite, strong) NSString *urlString;
-@property (nonatomic, readwrite, strong) NSString *responseURL;
-@property (nonatomic, readwrite)          int     networkTimeout;
+#import "ANAdAdapterInterstitialNetworkTimeout.h"
 
+@interface ANAdAdapterInterstitialNetworkTimeout ()
+
+
+@end
+
+@implementation ANAdAdapterInterstitialNetworkTimeout
+
+@synthesize delegate;
+
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
+// Do nothing wait for timeout
+}
 
 @end

@@ -138,7 +138,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     return  returnVal;
 }
 
-- (ANVideoOrientation) getVideoAdOrientation {
+- (ANVideoOrientation) getVideoOrientation {
     return _videoAdOrientation;
 }
 

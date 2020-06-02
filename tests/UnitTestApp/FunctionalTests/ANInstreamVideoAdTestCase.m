@@ -228,7 +228,7 @@ static NSString   *inventoryCode    = @"trucksmash";
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     //
-    XCTAssertEqual(instreamVideoAd.getVideoOrientation, ANPortraint);
+    XCTAssertEqual(instreamVideoAd.getVideoOrientation, ANPortrait);
     
 }
 
