@@ -998,7 +998,6 @@
 				0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */,
 				0E5529BA2419228C00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
 				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
-				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1879,7 +1878,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					0EB24C0E22CBD242008E927F = {
@@ -2063,10 +2062,7 @@
 				0E6612C122CA736300DDC5CD /* ANGADUnifiedNativeAdView.xib in Resources */,
 				60F8A82423294D590030D53D /* ANJAMDeviceIdResponse.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
-				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
 				60F8A82623294D600030D53D /* ANJAMExternalBrowserResponse.json in Resources */,
-				60F8A82623294D600030D53D /* ANJAMExternalBrowserResponse.json in Resources */,
-				60F8A82723294D640030D53D /* ANJAMInternalBrowserResponse.json in Resources */,
 				60F8A82723294D640030D53D /* ANJAMInternalBrowserResponse.json in Resources */,
 				60F8A82823294D670030D53D /* ANJAMMayDeepLinkResponse.json in Resources */,
 				60F8A82923294D6A0030D53D /* ANJAMMayDeepLinkResponseNo.json in Resources */,
@@ -2077,10 +2073,8 @@
 				0E3F32F123CE68E300CA830D /* appnexus_multiple_trackers.json in Resources */,
 				0ECDA6292406DC7F000E134D /* appnexus_standard_response.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
-				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0E3F32F323CE68E300CA830D /* bannerNative_basic_banner.json in Resources */,
 				0E3F32F223CE68E300CA830D /* bannerNative_native_mediation.json in Resources */,
-				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
 				0E3F32F523CE68E300CA830D /* custom_adapter_fb_mediated_response.json in Resources */,
@@ -2215,10 +2209,8 @@
 				0EEFE177220073F0002B5F5F /* ANHTTPStubURLProtocol.m in Sources */,
 				0E4701B42237B443005CFFAC /* ANInstreamVideoAd+Test.m in Sources */,
 				0E43003A243D057C0070BB1E /* ANLog.m in Sources */,
-				0E43003A243D057C0070BB1E /* ANLog.m in Sources */,
 				0E430040243D057C0070BB1E /* ANLogging+Make.m in Sources */,
 				0EEFE15322005AC9002B5F5F /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
-				0E430045243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 				0E430045243D08400070BB1E /* ANMRAIDContainerView+ANTest.m in Sources */,
 				0E8C97C221FF32EC005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				0E516FE8243E6F1500B5E744 /* ANNativeAdResponse+ANTest.m in Sources */,

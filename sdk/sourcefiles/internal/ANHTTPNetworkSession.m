@@ -167,9 +167,21 @@ limitations under the License.
     
     // Generate a manual start task.
     NSURLSessionTask * task = [ANHTTPNetworkSession taskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
-        main_queue_block(responseHandler, data, response);
+        if(responseHandler == nil){
+            return;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+                responseHandler(data,response);
+
+        });
     } errorHandler:^(NSError * _Nonnull error) {
-        main_queue_block(errorHandler, error);
+        if(errorHandler == nil){
+            return;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            errorHandler(error);
+        });
     }];
 
     // Immediately start the task.
@@ -208,7 +220,7 @@ didCompleteWithError:(nullable NSError *)error {
 
     // Validate that response is not an error.
     if (error != nil) {
-        safe_block(taskData.errorHandler, error);
+        taskData.errorHandler(error);
         return;
     }
 
@@ -217,7 +229,7 @@ didCompleteWithError:(nullable NSError *)error {
     if (httpResponse == nil) {
         NSError *responseError = ANError(@"Network response is not of type NSHTTPURLResponse", ANAdResponseNetworkError);
         ANLogError(@"%@", responseError);
-        safe_block(taskData.errorHandler, responseError);
+        taskData.errorHandler(responseError);
         return;
     }
 
@@ -225,7 +237,7 @@ didCompleteWithError:(nullable NSError *)error {
     if (httpResponse.statusCode >= 400) {
         NSError * responseError = ANError(@"connection_failed", ANAdResponseNetworkError);
         ANLogError(@"%@", responseError);
-        safe_block(taskData.errorHandler, responseError);
+        taskData.errorHandler(responseError);
         return;
     }
 
@@ -233,12 +245,12 @@ didCompleteWithError:(nullable NSError *)error {
     if (taskData.responseData == nil) {
         NSError * noDataError = ANError(@"The ad response does not contain data", ANAdResponseNetworkError);
         ANLogError(@"%@", noDataError);
-        safe_block(taskData.errorHandler, noDataError);
+        taskData.errorHandler(noDataError);
         return;
     }
 
     // By this point all of the fields have been validated.
-    safe_block(taskData.responseHandler, taskData.responseData, httpResponse);
+    taskData.responseHandler(taskData.responseData, httpResponse);
 }
 @end
 
