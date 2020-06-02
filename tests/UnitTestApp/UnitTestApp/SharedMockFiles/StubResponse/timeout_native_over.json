@@ -1,0 +1,56 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 18144598,
+            "auction_id": "8195076460992493534",
+            "nobid": false,
+            "no_ad_url": "http://nym1-mobile.adnxs.com/it?an_audit=0&referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QKNCKANBAAAAwDWAAUBCJney_AFEN7v_aTz07DdcRie4p7ovf_NlngqNgkAAAkCABEJBwgAABkJCQjgPyEJCQgAACkRCQAxCQnwfeA_MNa60wg47k5A7k5IAFAAWM6zbGAAaKSThgF4AIABAYoBAJIBA1VTRJgBAaABAagBBrABALgBAMABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MDc1MywgMTU3ODI5OTE2MSk7dWYoJ3InLCAyMDE3MjI0MzUsIC4fAPD1kgK1AiFtajZNT1FqVTFkMFJFTU9VbUdBWUFDRE9zMnd3QURnQVFBUkk3azVRMXJyVENGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFUU9PVE5KN1NNUDhFQkVEamt6U2UwakRfSkFicVZnR0MtYlBZXzJRRUFBQUFBQUFEd1AtQUJBUFVCTjZGbFBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRDFOWGRFYm9EQ1U1WlRUSTZOREl3T2VBRC1SaUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNPEFBQUQ0QkFDSUJmRWdxUVUBEQEUQHdQdy4umgKJASF1eExrR2dqMjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTWpBNVFQa1lTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQOAWVBQS7YAgDgAsqoTeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwL2FwcG5leHVzLXNkay1hcHAvaWQ3MzY4Njk4MzOAAwCIAwGQAwCYAxegAwGqAwDAA-CoAcgDAdgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqASGmgGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDIwOdoEAggA4AQA8ATDlJhg-gQSCQAAAECW5EJAEQAAAMACml7AggUJNzM2ODY5ODMziAUBmAUAoAX___________8BwAUAyQUAAAAAAADwP9IFCQkAAABlYXDYBQHgBQHwBY2XBvoFBAgAEACQBgGYBgC4BgDBBgUiLADwv9AG1jPaBhYKEAkRGQFQEAAYAOAGDPIGAggAgAcBiAcAoAdB&s=b5d32852ea3b1bbcaa5a189bdf91a73f10c9b90c",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "native",
+                    "buyer_member_id": 10094,
+                    "creative_id": 201722435,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 53,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/182/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=18144598;cb=http%3A%2F%2Fnym1-mobile.adnxs.com%2Fvevent%3Fan_audit%3D0%26referrer%3Ditunes.apple.com%252Fus%252Fapp%252Fappnexus-sdk-app%252Fid736869833%26e%3DwqT_3QKVCOgVBAAAAwDWAAUBCJney_AFEN7v_aTz07DdcRie4p7ovf_NlngqNgktW-uLhLaMPxEtW-uLhLaMPxkAAAECCOA_IREbACkRCQAxARm4AADgPzDWutMIOO5OQO5OSAJQw5SYYFjOs2xgAGikk4YBeN6RBYABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4Mjk5MTYxKTt1ZigncicsIDIwMTcyMjQzNSwgMTUZH_D1kgK1AiFtajZNT1FqVTFkMFJFTU9VbUdBWUFDRE9zMnd3QURnQVFBUkk3azVRMXJyVENGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFUU9PVE5KN1NNUDhFQkVEamt6U2UwakRfSkFicVZnR0MtYlBZXzJRRUFBQUFBQUFEd1AtQUJBUFVCTjZGbFBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRDFOWGRFYm9EQ1U1WlRUSTZOREl3T2VBRC1SaUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNPEFBQUQ0QkFDSUJmRWdxUVUBEQEUQHdQdy4umgKJASF1eExrR2dqMjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTWpBNVFQa1lTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQOAWVBQS7YAgDgAsqoTeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwL2FwcG5leHVzLXNkay1hcHAvaWQ3MzY4Njk4MzOAAwCIAwGQAwCYAxegAwGqAwDAA-CoAcgDAdgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqASGmgGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDIwOdoEAggB4AQA8ATDlJhg-gQSCQAAAECW5EJAEQAAAMACml7AggUJNzM2ODY5ODMziAUBmAUAoAX___________8BwAUAyQUAAAAAAADwP9IFCQkAAABlaXDYBQHgBQHwBY2XBvoFBAgAEACQBgGYBgC4BgDBBgUiLADwP9AG1jPaBhYKEAkRGQFQEAAYAOAGDPIGAggAgAcBiAcAoAdB%26s%3D0570e781603fc61a0a13795369e56d18b174b362;ts=1578299161;cet=0;cecb=\"></script>"
+                    },
+                    "csm": {
+                        "timeout_ms": 10000,
+                        "handler": [
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterNativeNetworkTimeout",
+                                "param": "",
+                                "id": "ca-app-pub-3940256099942544/3986624511"
+                            },
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.mediatednativead.NetworkTimeoutNativeAd",
+                                "param": "",
+                                "id": "ca-app-pub-3940256099942544/2247696110"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://nym1-mobile.adnxs.com/it?an_audit=0&referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QKVCOgVBAAAAwDWAAUBCJney_AFEN7v_aTz07DdcRie4p7ovf_NlngqNgktW-uLhLaMPxEtW-uLhLaMPxkAAAECCOA_IREbACkRCQAxARm4AADgPzDWutMIOO5OQO5OSAJQw5SYYFjOs2xgAGikk4YBeN6RBYABAYoBA1VTRJIFBvBVmAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI8dWYoJ2EnLCAzMzkwNzUzLCAxNTc4Mjk5MTYxKTt1ZigncicsIDIwMTcyMjQzNSwgMTUZH_D1kgK1AiFtajZNT1FqVTFkMFJFTU9VbUdBWUFDRE9zMnd3QURnQVFBUkk3azVRMXJyVENGZ0FZSVlGYUFCd0FIZ0FnQUVBaUFFQWtBRUFtQUVBb0FFQnFBRURzQUVBdVFFUU9PVE5KN1NNUDhFQkVEamt6U2UwakRfSkFicVZnR0MtYlBZXzJRRUFBQUFBQUFEd1AtQUJBUFVCTjZGbFBKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRDFOWGRFYm9EQ1U1WlRUSTZOREl3T2VBRC1SaUlCQUNRQkFDWUJBSEJCBUUJAQh5UVEJCQEBFE5nRUFQRRGNPEFBQUQ0QkFDSUJmRWdxUVUBEQEUQHdQdy4umgKJASF1eExrR2dqMjkBoHpyTnNJQVFvQURGN0ZLNUg0WHFFUHpvSlRsbE5Nam8wTWpBNVFQa1lTEXgMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDPQOAWVBQS7YAgDgAsqoTeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwL2FwcG5leHVzLXNkay1hcHAvaWQ3MzY4Njk4MzOAAwCIAwGQAwCYAxegAwGqAwDAA-CoAcgDAdgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQMMTAuNzUuMTAuMTQxqASGmgGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEDzEwMDk0I05ZTTI6NDIwOdoEAggB4AQA8ATDlJhg-gQSCQAAAECW5EJAEQAAAMACml7AggUJNzM2ODY5ODMziAUBmAUAoAX___________8BwAUAyQUAAAAAAADwP9IFCQkAAABlaXDYBQHgBQHwBY2XBvoFBAgAEACQBgGYBgC4BgDBBgUiLADwP9AG1jPaBhYKEAkRGQFQEAAYAOAGDPIGAggAgAcBiAcAoAdB&s=0570e781603fc61a0a13795369e56d18b174b362"
+                                ],
+                                "video_events": {}
+                            }
+                        ],
+                        "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQiZ3svwBRDe7_2k89Ow3XEY7k4hLVvri4S2jD8ow5SYYDBaOAA.&s=0ef93d82d284a01bfe1b6f1a2f144fa1e38ff2f0",
+                        "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQiZ3svwBRDe7_2k89Ow3XEY7k4hLVvri4S2jD8ow5SYYDBaOAA.&s=0ef93d82d284a01bfe1b6f1a2f144fa1e38ff2f0"
+                    }
+                }
+            ]
+        }
+    ]
+}

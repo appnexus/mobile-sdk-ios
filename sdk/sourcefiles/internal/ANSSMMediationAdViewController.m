@@ -80,8 +80,8 @@
         return NO;
     }else{
         [self markLatencyStart];
-        [self startTimeout];
         self.ssmMediatedAd = ad;
+        [self startTimeout];
         self.ssmHandlerURL = [NSURL URLWithString:ad.urlString];
         ANLogDebug(@"requesting SSM mediated Ad from URL %@", self.ssmHandlerURL);
         
@@ -242,9 +242,9 @@
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
     __weak ANSSMMediationAdViewController *weakSelf = self;
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 kAppNexusMediationNetworkTimeoutInterval
-                                 * NSEC_PER_SEC),
+                                 self.ssmMediatedAd.networkTimeout * NSEC_PER_MSEC),
                    dispatch_get_main_queue(), ^{
                        ANSSMMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;

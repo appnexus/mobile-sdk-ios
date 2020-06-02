@@ -26,5 +26,6 @@
 @property (nonatomic, readwrite, strong) NSString *auctionInfo;
 @property (nonatomic, readwrite)         BOOL      isAdTypeNative;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
+@property (nonatomic, readwrite)          int     networkTimeout;
 
 @end

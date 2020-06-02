@@ -34,20 +34,24 @@
         [self handleFailure:errorCode errorInfo:errorInfo];
         return NO;
     }else{
-        
-        NSString *filepath = [[NSBundle mainBundle] pathForResource:@"ssmAd" ofType:@"txt"];
-        NSError *error;
-        NSString *fileContents = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
-
-        if (error)
-            NSLog(@"Error reading file: %@", error.localizedDescription);
-
-        // maybe for debugging...
-        NSLog(@"contents: %@", fileContents);
-
-        
-        [self didReceiveAd:fileContents];
-
+        if([ad.urlString containsString:@"https://donothing.adnxs.com"]){
+            // ANAdMediationTimeoutTestCase is using this for SSM Timeout testing
+            self.ssmMediatedAd = ad;
+            [self startTimeout];
+        }else {
+            NSString *filepath = [[NSBundle mainBundle] pathForResource:@"ssmAd" ofType:@"txt"];
+            NSError *error;
+            NSString *fileContents = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
+            
+            if (error)
+                NSLog(@"Error reading file: %@", error.localizedDescription);
+            
+            // maybe for debugging...
+            NSLog(@"contents: %@", fileContents);
+            
+            
+            [self didReceiveAd:fileContents];
+        }
     }
     return true;
 }
