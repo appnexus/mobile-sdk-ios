@@ -669,6 +669,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             csrAd.responseURL     = [csrObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
             csrAd.impressionUrls  = [[self class] impressionUrlsFromContentSourceObject:csrObject];
             csrAd.clickUrls  = [[self class] getClickUrlsFromContentSourceObject:csrObject];
+            int timeout = [csrObject[kANUniversalTagAdServerResponseKeyTimeout] intValue];
+            csrAd.networkTimeout = (timeout > 0 && timeout != 500) ? timeout :kAppNexusMediationNetworkTimeoutInterval * 1000;
             return  csrAd;
         }
     }
