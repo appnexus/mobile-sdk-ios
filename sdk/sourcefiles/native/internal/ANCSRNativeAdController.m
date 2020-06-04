@@ -143,7 +143,8 @@
     if (self.timeoutCanceled) return;
     __weak ANCSRNativeAdController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                  self.csrAd.networkTimeout * NSEC_PER_MSEC),
+                                  kAppNexusMediationNetworkTimeoutInterval
+                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
                        ANCSRNativeAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
