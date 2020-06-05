@@ -148,7 +148,7 @@
                    dispatch_get_main_queue(), ^{
                        ANCSRNativeAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
-                       ANLogWarn(@"mediation_timeout");
+                       ANLogWarn(@"csr_timeout");
                        [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
                    });
 }
