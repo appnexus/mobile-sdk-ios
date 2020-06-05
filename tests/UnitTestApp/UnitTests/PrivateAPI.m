@@ -30,7 +30,6 @@ limitations under the License.
 #pragma mark -
 
 @interface PrivateAPI : XCTestCase<ANMultiAdRequestDelegate, ANBannerAdViewDelegate>
-                                                        //FIX -- cleanup unrequired propertis.
 
 
 
@@ -168,7 +167,6 @@ TMARK();
 
 
 #pragma mark - ANMultiAdRequestDelegate.
-                                        //FIX -- required?
 
 - (void)multiAdRequestDidComplete:(ANMultiAdRequest *)mar
 {
@@ -188,7 +186,6 @@ TMARKMESSAGE(@"%@", error.userInfo);
 
 
 #pragma mark - ANAdProtocol.
-                                        //FIX -- required?
 
 - (void)adDidReceiveAd:(nonnull id)ad
 {
@@ -255,7 +252,6 @@ TERROR(@"%@ -- %@", [MARHelper adunitDescription:ad], error.userInfo);
 
 
 #pragma mark - ANNativeAdRequestDelegate.
-                                    //FIX -- required?
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didReceiveResponse:(nonnull ANNativeAdResponse *)response
 {

@@ -40,7 +40,7 @@
 
 @property (nonatomic, readonly, strong)  ANAdWebViewControllerConfiguration  *configuration;
 
-@property (nonatomic, readwrite, weak)  id<ANAdViewInternalDelegate>  adViewANJAMDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdViewInternalDelegate>  adViewANJAMInternalDelegate;
 @property (nonatomic, readwrite, weak)  id<ANAdViewInternalDelegate>  adViewDelegate;
 
 @property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerANJAMDelegate>      anjamDelegate;

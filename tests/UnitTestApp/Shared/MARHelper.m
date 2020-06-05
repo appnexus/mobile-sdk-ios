@@ -69,11 +69,11 @@ limitations under the License.
 
 
     } else if ([ad isKindOfClass:[ANInstreamVideoAd class]]) {
-        adinfo = @"video FIX";
+        adinfo = @"video TBD";
         //...
 
     } else if ([ad isKindOfClass:[ANNativeAdResponse class]]) {
-        adinfo = @"native FIX";
+        adinfo = @"native TBD";
         //...
 
     } else {
@@ -90,7 +90,6 @@ limitations under the License.
                                               orMemberID: (NSInteger)memberID
                                         andInventoryCode: (nullable NSString *)inventoryCode
                                             uniqueSuffix: (nullable NSString *)uniqueSuffix
-            //FIX -- unused?
 {
     NSString  *key  = @"";
 
