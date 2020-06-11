@@ -13,12 +13,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @protocol ANAudioVolumeChangeListenerDelegate;
 
 @interface ANAudioVolumeChangeListener : NSObject
 
+@property (nonatomic, readwrite, assign)  BOOL isAudioSessionActive;
 @property (nonatomic, readwrite, weak) id<ANAudioVolumeChangeListenerDelegate> delegate;
 
 - (id)initWithDelegate:(id<ANAudioVolumeChangeListenerDelegate>)delegate;

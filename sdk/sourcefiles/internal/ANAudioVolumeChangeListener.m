@@ -15,12 +15,11 @@
 
 
 #import "ANAudioVolumeChangeListener.h"
-#import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
+#import "ANLogging.h"
 
 @interface ANAudioVolumeChangeListener ()
 
-@property (nonatomic, readwrite, assign)  BOOL isAudioSessionActive;
+@property (nonatomic, readwrite, strong) UISlider *audioVolumeSlider;
 
 @end
 
@@ -32,116 +31,63 @@
     self = [super init];
     if ( self ) {
         self.delegate = delegate;
-        self.isAudioSessionActive = NO;
-        [self setCategoryForAudioSession];
-        [self subscribeToAudioChangeListening];
-        [self registerObserverAndNotification];
+        [self setupVolumeView];
     }
     
     return self;
 }
 
 
-#pragma mark - Subscribe/Unsubscribe
+#pragma mark - MPVolumeView Setup
 
-- (void)setCategoryForAudioSession
+- (void)setupVolumeView
 {
-    //To allow mixing with other music
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+    MPVolumeView *viewVolume = [[MPVolumeView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    viewVolume.alpha = 0.01;
+    [self setupVolumeViewSliderHandler:viewVolume];
 }
 
-- (void)subscribeToAudioChangeListening
+- (void)setupVolumeViewSliderHandler:(MPVolumeView *) viewVolume
 {
-    NSError *error;
-    [[AVAudioSession sharedInstance] setActive:YES error:&error];
-    if (error)
-    {
+    __block UISlider *slider = nil;
+    [viewVolume.subviews enumerateObjectsUsingBlock:^(UISlider *obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UISlider class]]){
+            slider = obj;
+            *stop = YES;
+        }
+    }];
+    if (slider == nil){
         self.isAudioSessionActive = NO;
+        ANLogDebug(@"Unable to find MPVolumeSlider in MPVolumeView");
+        return;
     }
-    else
-    {
-        self.isAudioSessionActive = YES;
-    }
+    self.isAudioSessionActive = YES;
+    self.audioVolumeSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+    self.audioVolumeSlider = slider;
+    [self.audioVolumeSlider addTarget:self action:@selector(volumeViewSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
-
-- (void)registerObserverAndNotification{
-    //To observe when volume change event occurs
-    [[AVAudioSession sharedInstance] addObserver:self
-                   forKeyPath:@"outputVolume"
-                      options:0
-                      context:nil];
-    //To notify if interruption comes for active audio session due to an incoming call, alarm clock, etc
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(interruption:)
-                                                 name:AVAudioSessionInterruptionNotification
-                                               object:nil];
-    //InterruptionTypeEnded sometimes is not called, so this is handled in handleApplicationBecameActive.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                            selector:@selector(handleApplicationBecameActive:)
-                                                name:UIApplicationDidBecomeActiveNotification
-                                              object:nil];
-}
-
-
-#pragma mark - KVO
-
--(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqual:@"outputVolume"]) {
-        [self.delegate didUpdateAudioLevel:[self getAudioVolumePercentage]];
-    }
-}
-
 
 #pragma mark - Responding to Volume level change
 
--(NSNumber *) getAudioVolumePercentage {
+- (void)volumeViewSliderValueChanged:(UISlider *)slider{
+    if (self.isAudioSessionActive) {
+        [self.delegate didUpdateAudioLevel:@(100.0 * slider.value)];
+    }else{
+        [self.delegate didUpdateAudioLevel:nil];
+    }
+}
+
+-(NSNumber *) getAudioVolumePercentage {   
     if (!self.isAudioSessionActive) {
         return nil;
     }
-    return @(100.0 * [AVAudioSession sharedInstance].outputVolume);
+    return @(100.0 * self.audioVolumeSlider.value);
 }
-
-
-#pragma mark - Interruption Notification
-
-- (void)interruption:(NSNotification*)notification {
-    // get the user info dictionary
-    NSDictionary *interruptionDict = notification.userInfo;
-    // get the AVAudioSessionInterruptionTypeKey enum from the dictionary
-    NSInteger interruptionType = [[interruptionDict valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
-    // decide what to do based on interruption type here...
-    switch (interruptionType) {
-        case AVAudioSessionInterruptionTypeBegan:
-        {
-            // Interruption began,system deactivates audio session.In that case audio focus is not active so pass nil to AudioVolumeChange event
-            self.isAudioSessionActive = NO;
-            [self.delegate didUpdateAudioLevel:nil];
-        }
-            break;
-            
-        case AVAudioSessionInterruptionTypeEnded:
-        {
-            // Interruption end, reactivate the audio session
-            [self subscribeToAudioChangeListening];
-            [self.delegate didUpdateAudioLevel:[self getAudioVolumePercentage]];
-        }
-            break;
-    }
-}
-
-- (void)handleApplicationBecameActive:(NSNotification *)notification{
-    if (!self.isAudioSessionActive) {
-        [self subscribeToAudioChangeListening];
-    }
-}
-
 
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [[AVAudioSession sharedInstance] removeObserver:self forKeyPath:@"outputVolume"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    self.audioVolumeSlider = nil;
 }
 
 @end

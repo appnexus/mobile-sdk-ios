@@ -597,11 +597,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     [self updateWebViewOnPositionAndViewabilityStatus];
     
-    if (self.audioVolumeChange == nil) {
-        //Initialize Audio Volume Change Listener for Outstream Video
-        self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
-        [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
-    }
     
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
     {
@@ -644,11 +639,18 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     } else {
         [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:NO]];
     }
+    if (self.audioVolumeChange) {
+        self.audioVolumeChange.isAudioSessionActive = NO;
+        [self updateWebViewOnAudioVolumeChange:nil];
+    }
 }
 
 -(void)handleApplicationDidBecomeActive:(NSNotification *)notification
 {
     self.appIsInBackground = NO;
+    if (self.audioVolumeChange) {
+        self.audioVolumeChange.isAudioSessionActive = YES;
+    }
 }
 
 - (void)setupOrientationChangeNotification {
@@ -736,7 +738,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         } else {
             [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:self.isViewable]];
         }
-        [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
+        if (self.audioVolumeChange) {
+          [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
+        }
     }
     
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
@@ -861,6 +865,11 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
             break;
         }
         case ANMRAIDActionAudioVolumeChange:
+            if (self.audioVolumeChange == nil) {
+                //Initialize Audio Volume Change Listener for Outstream Video
+                self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
+                [self updateWebViewOnAudioVolumeChange:@(100.0 * [AVAudioSession sharedInstance].outputVolume)];
+            }
             break;
         case ANMRAIDActionEnable:
             if (self.isMRAID) return;
