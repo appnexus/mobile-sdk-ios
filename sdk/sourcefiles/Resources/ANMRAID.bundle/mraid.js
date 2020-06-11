@@ -147,6 +147,10 @@
     mraid.enable = function() {
         mraid.util.nativeCall("mraid://enable/");
     };
+    
+    mraid.audioVolumeChange = function() {
+        mraid.util.nativeCall("mraid://audioVolumeChange/");
+    };
 
     //Closes an expanded ad or hides an ad in default state
     mraid.close = function() {

@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, ANMRAIDAction) {
     ANMRAIDActionSetOrientationProperties,
     ANMRAIDActionSetUseCustomClose,
     ANMRAIDActionOpenURI,
+    ANMRAIDActionAudioVolumeChange,
     ANMRAIDActionEnable
 };
 

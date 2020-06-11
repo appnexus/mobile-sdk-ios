@@ -860,6 +860,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
             }
             break;
         }
+        case ANMRAIDActionAudioVolumeChange:
+            break;
         case ANMRAIDActionEnable:
             if (self.isMRAID) return;
             self.isMRAID = YES;
