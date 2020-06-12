@@ -56,7 +56,7 @@
         return;
     }
     self.isAudioSessionActive = YES;
-    self.audioVolumeSlider = [UISlider new];
+    self.audioVolumeSlider = [[UISlider alloc] initWithFrame:CGRectZero];
     self.audioVolumeSlider = slider;
     [self.audioVolumeSlider addTarget:self action:@selector(volumeViewSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
