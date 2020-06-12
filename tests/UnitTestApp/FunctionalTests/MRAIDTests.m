@@ -1378,7 +1378,8 @@
     [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
                                           atOrigin:CGPointZero
                                           withSize:CGSizeMake(320.0f, 50.0f)];
-    [self addBannerAsSubview];   
+    [self addBannerAsSubview];
+    [self audioVolumeChange];
     NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
     XCTAssertTrue([self isVolumePercentageNumeric:actualVolumePer], @"expected volume percentage::numeric but actual::%@",actualVolumePer);
     
@@ -1393,6 +1394,7 @@
    
     [self addBannerAsSubview];
     [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
+    [self audioVolumeChange];
     NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
     XCTAssertTrue([actualVolumePer isEqualToString:@"<null>"], @"expected volume percentage::null but actual::%@",actualVolumePer);
     
@@ -1724,6 +1726,10 @@
 
 - (void)resize {
     [self mraidNativeCall:@"resize()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
+}
+
+- (void)audioVolumeChange {
+   [self mraidNativeCall:@"audioVolumeChange()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
 }
 
 - (NSString *)getState {
