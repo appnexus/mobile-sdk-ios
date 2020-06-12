@@ -42,13 +42,7 @@
 
 - (void)setupVolumeView
 {
-    MPVolumeView *viewVolume = [[MPVolumeView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    viewVolume.alpha = 0.01;
-    [self setupVolumeViewSliderHandler:viewVolume];
-}
-
-- (void)setupVolumeViewSliderHandler:(MPVolumeView *) viewVolume
-{
+    MPVolumeView *viewVolume = [[MPVolumeView alloc] init];
     __block UISlider *slider = nil;
     [viewVolume.subviews enumerateObjectsUsingBlock:^(UISlider *obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UISlider class]]){
@@ -62,7 +56,7 @@
         return;
     }
     self.isAudioSessionActive = YES;
-    self.audioVolumeSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+    self.audioVolumeSlider = [UISlider new];
     self.audioVolumeSlider = slider;
     [self.audioVolumeSlider addTarget:self action:@selector(volumeViewSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
