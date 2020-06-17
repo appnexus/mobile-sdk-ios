@@ -22,6 +22,8 @@
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 
+@property (nonatomic, readwrite, strong) NSDate *processStart;
+@property (nonatomic, readwrite, strong) NSDate *processEnd;
 
 @end
 
@@ -32,9 +34,11 @@
     [super viewDidLoad];
     self.title = @"Banner Ad";
 
-    int adWidth  = 300;
-    int adHeight = 250;
-    NSString *adID = @"1281482";
+    int adWidth  = 320;
+    int adHeight = 50;
+    NSString *adID = @"19065996";
+    NSString *inventoryCode = @"finanzen.net-app_ios_phone-home_index-banner";
+    NSInteger memberID = 7823;
     
     // We want to center our ad on the screen.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -46,24 +50,33 @@
     CGSize size = CGSizeMake(adWidth, adHeight);
     
     // Make a banner ad view.
-    self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    //self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    self.banner = [[ANBannerAdView alloc] initWithFrame:rect memberId:memberID inventoryCode:inventoryCode adSize:size];
     self.banner.rootViewController = self;
     self.banner.delegate = self;
     [self.view addSubview:self.banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
     self.banner.shouldServePublicServiceAnnouncements = NO;
+    self.banner.autoRefreshInterval = 30;
     
     // Load an ad.
+    self.processStart = [NSDate date];
     [self.banner loadAd];
 }
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+    self.processEnd = [NSDate date];
+    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+    NSLog(@"Updated Ad rendered at: %f", executionTime*1000);
 }
 
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{
     NSLog(@"Ad request Failed With Error");
+    self.processEnd = [NSDate date];
+    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+    NSLog(@"Updated Ad delivery failed at: %f", executionTime*1000);
 }
 
 - (void)didReceiveMemoryWarning

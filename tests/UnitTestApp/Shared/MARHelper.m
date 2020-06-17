@@ -69,11 +69,11 @@ limitations under the License.
 
 
     } else if ([ad isKindOfClass:[ANInstreamVideoAd class]]) {
-        adinfo = @"video FIX";
+        adinfo = @"video TBD";
         //...
 
     } else if ([ad isKindOfClass:[ANNativeAdResponse class]]) {
-        adinfo = @"native FIX";
+        adinfo = @"native TBD";
         //...
 
     } else {
@@ -90,7 +90,6 @@ limitations under the License.
                                               orMemberID: (NSInteger)memberID
                                         andInventoryCode: (nullable NSString *)inventoryCode
                                             uniqueSuffix: (nullable NSString *)uniqueSuffix
-            //FIX -- unused?
 {
     NSString  *key  = @"";
 
@@ -195,8 +194,7 @@ TMARK();
 
 + (nullable NSDictionary *)getJSONBodyFromMultiAdRequestInstance:(nonnull ANMultiAdRequest *)marInstance
 {
-    NSString      *urlString   = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    NSURLRequest  *request     = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:marInstance baseUrlString:urlString];
+    NSURLRequest  *request     = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:marInstance];
     NSError       *error       = nil;
     NSDictionary  *jsonBody    = (NSDictionary *)[NSJSONSerialization JSONObjectWithData: request.HTTPBody
                                                                                  options: kNilOptions
@@ -212,8 +210,7 @@ TMARK();
 + (nullable NSDictionary *)getJSONBodyFromAdUnit: (nonnull ANAdView *)adunit
                               withMultiAdRequest: (nonnull ANMultiAdRequest *)marInstance
 {
-    NSString      *urlString   = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    NSURLRequest  *request     = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adunit adunitMultiAdRequestManager:marInstance baseUrlString:urlString];
+    NSURLRequest  *request     = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adunit adunitMultiAdRequestManager:marInstance];
     NSError       *error       = nil;
     NSDictionary  *jsonBody    = (NSDictionary *)[NSJSONSerialization JSONObjectWithData: request.HTTPBody
                                                                                  options: kNilOptions
@@ -228,8 +225,7 @@ TMARK();
 
 + (nullable NSDictionary *)getJSONBodyFromAdUnit:(nonnull ANAdView *)adunit
 {
-    NSString      *urlString   = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    NSURLRequest  *request     = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adunit baseUrlString:urlString];
+    NSURLRequest  *request     = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adunit];
     NSError       *error       = nil;
     NSDictionary  *jsonBody    = (NSDictionary *)[NSJSONSerialization JSONObjectWithData: request.HTTPBody
                                                                                  options: kNilOptions

@@ -57,7 +57,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequest
 {
-    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
@@ -66,7 +65,7 @@ static NSString  *videoPlacementID  = @"9924001";
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
         NSError  *error;
         id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
@@ -179,7 +178,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestWithPurpose1AndConsentSetTrue
 {
-    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
@@ -190,7 +188,7 @@ static NSString  *videoPlacementID  = @"9924001";
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
         NSError  *error;
         id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
@@ -231,7 +229,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestWithPurpose1SetTrueAndConsentSetFalse
 {
-    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
@@ -242,7 +239,7 @@ static NSString  *videoPlacementID  = @"9924001";
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
         NSError  *error;
         id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
@@ -283,7 +280,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestWithPurpose1SetFalse
 {
-    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
@@ -294,7 +290,7 @@ static NSString  *videoPlacementID  = @"9924001";
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
         NSError  *error;
         id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
@@ -334,7 +330,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestWithoutPurpose1ConsentTrue
 {
-    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
@@ -345,7 +340,7 @@ static NSString  *videoPlacementID  = @"9924001";
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
         NSError  *error;
         id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
@@ -386,7 +381,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestWithoutPurpose1ConsentFalse
 {
-    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
@@ -397,7 +391,7 @@ static NSString  *videoPlacementID  = @"9924001";
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
         NSError  *error;
         id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
@@ -441,9 +435,8 @@ static NSString  *videoPlacementID  = @"9924001";
 - (void)testUTRequestForDuration
 {
  
-    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
-    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
     
@@ -499,12 +492,11 @@ static NSString  *videoPlacementID  = @"9924001";
 - (void)testUTRequestWithOneCustomKeywordsValue
 {
     
-    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher  = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
 
     [adFetcher addCustomKeywordWithKey:@"state" value:@"NY"];
     
-    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
 
 
@@ -547,7 +539,6 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testUTRequestWithMultipleCustomKeywordsValues
 {    
-    NSString                *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     
     [adFetcher addCustomKeywordWithKey:@"state" value:@"NY"];
@@ -555,7 +546,7 @@ static NSString  *videoPlacementID  = @"9924001";
     [adFetcher addCustomKeywordWithKey:@"county" value:@"essex"];
     [adFetcher addCustomKeywordWithKey:@"county" value:@"morris"];
 
-    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
@@ -603,11 +594,9 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)testRequestContentType {
     
-    NSString *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    
     TestANUniversalFetcher *adFetcher = [[TestANUniversalFetcher alloc] initWithPlacementId:@"1281482"];
     
-    NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     
     NSString *contentType =  [request valueForHTTPHeaderField:@"content-type"];
     XCTAssertNotNil(contentType);
@@ -619,12 +608,11 @@ static NSString  *videoPlacementID  = @"9924001";
 - (void)testUTRequestWithContentURLCustomKeywordsValue
 {
     
-    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher  = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     
     [adFetcher addCustomKeywordWithKey:@"content_url" value:@"http://www.appnexus.com"];
     
-    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
     

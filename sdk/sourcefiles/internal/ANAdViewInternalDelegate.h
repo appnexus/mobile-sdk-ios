@@ -17,6 +17,7 @@
 
 #import "ANAdConstants.h"
 #import "ANAdProtocol.h"
+#import "ANAdFetcherResponse.h"
 
 
 
@@ -32,6 +33,10 @@
 - (void)adWasClickedWithURL:(NSString *)urlString;
 - (void)adDidReceiveAd:(id)adObject;
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
+
+- (void)lazyAdDidReceiveAd:(id)adObject;
+- (BOOL)valueOfEnableLazyWebviewLoad;
+- (ANAdFetcherResponse *)getLazyFetcherResponse;
 
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
