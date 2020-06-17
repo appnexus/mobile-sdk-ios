@@ -298,6 +298,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     // No need for "dispatch once" since `load` is called only once during app launch.
     [[ANSDKSettings sharedInstance] optionalSDKInitialization];
     [self constructAdServerRequestURL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
     
 }
 
@@ -314,6 +315,11 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     [utMutableRequest setHTTPMethod:@"POST"];
     
     [ANHTTPNetworkSession startTaskWithHttpRequest:utMutableRequest];
+}
+
++ (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
+    [utMutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"user-agent"];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
 }
 
 + (void) openURL: (nonnull NSString *)urlString
@@ -428,10 +434,12 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
                                       {
                                           ANLogDebug(@"userAgentString=%@", userAgentString);
                                           userAgent = userAgentString;
+                                          
 
                                           [webViewForUserAgent stopLoading];
                                           [webViewForUserAgent removeFromSuperview];
-
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
                                           @synchronized (self) {
                                               userAgentQueryIsActive = NO;
                                           }

@@ -164,6 +164,11 @@
         }
         
         strongSelf.isFetcherLoading = NO;
+        
+        if (!strongSelf.fetcherMARManager) {
+            [strongSelf restartAutoRefreshTimer];
+        }
+        
         [strongSelf requestFailedWithError:error.localizedDescription];
         ANLogError(@"%@", sessionError);
 

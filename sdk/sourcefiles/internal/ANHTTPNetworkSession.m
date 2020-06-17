@@ -109,7 +109,7 @@ limitations under the License.
 }
 
 /**
- Appends additional data to the @c responseData field of @c MPHTTPNetworkTaskData in
+ Appends additional data to the @c responseData field of @c ANHTTPNetworkTaskData in
  a thread safe manner.
  @param data New data to append.
  @param task Task to append the data to.
