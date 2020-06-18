@@ -137,6 +137,21 @@
     return YES;
 }
 
+#pragma mark - Timeout handler
+
+- (void)startTimeout {
+    if (self.timeoutCanceled) return;
+    __weak ANCSRNativeAdController *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                  kAppNexusMediationNetworkTimeoutInterval
+                                  * NSEC_PER_SEC),
+                   dispatch_get_main_queue(), ^{
+                       ANCSRNativeAdController *strongSelf = weakSelf;
+                       if (!strongSelf || strongSelf.timeoutCanceled) return;
+                       ANLogWarn(@"csr_timeout");
+                       [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
+                   });
+}
 
 #pragma mark - ANNativeCustomAdapterRequestDelegate
 

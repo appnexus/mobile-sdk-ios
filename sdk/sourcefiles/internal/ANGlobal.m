@@ -311,6 +311,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     [self constructAdServerRequestURL];
     [self loadWebViewConfigurations];
     [ANWarmupWebView sharedInstance];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
     
 }
 
@@ -465,6 +466,11 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     }
 }
 
++ (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
+    [utMutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"user-agent"];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+}
+
 + (void) openURL: (nonnull NSString *)urlString
 {
     if (@available(iOS 10.0, *)) {
@@ -577,10 +583,12 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
                                       {
                                           ANLogDebug(@"userAgentString=%@", userAgentString);
                                           userAgent = userAgentString;
+                                          
 
                                           [webViewForUserAgent stopLoading];
                                           [webViewForUserAgent removeFromSuperview];
-
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
                                           @synchronized (self) {
                                               userAgentQueryIsActive = NO;
                                           }
@@ -598,7 +606,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (ANVideoOrientation) parseVideoOrientation:(NSString *)aspectRatio {
     double aspectRatioValue = [aspectRatio doubleValue];
-    return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortraint;
+    return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortrait;
 }
 
 @end

@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "ANAdResponseInfo.h"
 
@@ -22,25 +22,44 @@
 
 @interface ANAdFetcherResponse : NSObject
 
-@property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readonly, strong, nonnull) id  adObject;
-@property (nonatomic, readonly, strong, nullable) id  adObjectHandler;
-@property (nonatomic, readonly, strong, nullable) NSError *error;
+/**
+ * There are two successful cases: 1) AdUnit loaded normally; 2) AdUnit loaded lazily.
+ * All other cases are error cases.
+ */
+@property (nonatomic, readonly, assign, getter=isSuccessful)  BOOL  successful;
+
+/**
+ * Distinguish whether an AdView adObject is being lazy loaded.
+ */
+@property (nonatomic, readonly)                               BOOL  isLazy;
+
+/**
+ * Distinguish whether a lazy adObject is passing back to the AdUnit calling environment for the FIRST time, or the SECOND time.
+ * ANAdFetcherResponse is initialized as the FIRST time.
+ * The SECOND time is detected in [ANUniversalAdFetcher didCompleteFirstLoadFromWebViewController:], where isLazyFirstPassThroughAdUnit is set to NO.
+ */
+@property (nonatomic, readwrite)                              BOOL  isLazyFirstPassThroughAdUnit;
+
+@property (nonatomic, readwrite, strong, nullable)   id  adObject;
+@property (nonatomic, readonly, strong, nullable)    id  adObjectHandler;
 
 @property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo  *adResponseInfo;
+
+@property (nonatomic, readonly, strong, nullable)  NSString  *adContent;
+@property (nonatomic, readonly)                    CGSize     sizeOfWebview;
+@property (nonatomic, readonly, strong, nullable)  NSURL     *baseURL;
+
+@property (nonatomic, readonly, strong, nullable) NSError *error;
 
 
 //
 + (nonnull ANAdFetcherResponse *)responseWithError:(nonnull NSError *)error;
 
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
-                           andAdObjectHandler: (nullable id)adObjectHandler;
+                                   andAdObjectHandler: (nullable id)adObjectHandler;
 
-//
-- (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error;
-
-- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
-                               andAdObjectHandler: (nullable id)adObjectHandler;
-
-
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdContent: (nonnull NSString *)adContent
+                                                    adSize: (CGSize)sizeOfWebview
+                                                   baseURL: (nonnull NSURL *)baseURL
+                                        andAdObjectHandler: (nonnull id)adObjectHandler;
 @end

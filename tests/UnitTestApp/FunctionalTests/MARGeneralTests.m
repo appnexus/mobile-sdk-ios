@@ -27,6 +27,9 @@
 #import "ANInstreamVideoAd+Test.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 
+#import "ANAdViewInternalDelegate.h"
+
+
 
 #pragma mark - Global private constants.
 

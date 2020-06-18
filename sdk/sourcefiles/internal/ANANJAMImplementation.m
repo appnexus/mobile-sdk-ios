@@ -108,7 +108,7 @@ NSString *const kANKeyCaller = @"caller";
     if (ANHasHttpPrefix([url scheme])
         && [[UIApplication sharedApplication] canOpenURL:url]) {
         //added as the test case was failing due to unavailability of a delegate.
-        [controller.adViewANJAMDelegate adWillLeaveApplication];
+        [controller.adViewANJAMInternalDelegate adWillLeaveApplication];
         [ANGlobal openURL:[url absoluteString]];
     }
 }
@@ -141,7 +141,7 @@ NSString *const kANKeyCaller = @"caller";
     NSString *event = [query valueForKey:@"event"];
     NSString *data = [query valueForKey:@"data"];
     
-    [controller.adViewANJAMDelegate adDidReceiveAppEvent:event withData:data];
+    [controller.adViewANJAMInternalDelegate adDidReceiveAppEvent:event withData:data];
 }
 
 // Get Device ID

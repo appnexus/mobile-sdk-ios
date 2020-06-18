@@ -27,7 +27,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.3.1"
+#define AN_SDK_VERSION                  @"7.3.2"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -49,15 +49,6 @@
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
 #define kANAdSize1x1 CGSizeMake(1,1)
-
-// Macros for dispatching asynchronously to the main queue
-#define safe_block(block, ...) block ? block(__VA_ARGS__) : nil
-#define async_queue_block(queue, block, ...) dispatch_async(queue, ^ \
-{ \
-safe_block(block, __VA_ARGS__); \
-})
-#define main_queue_block(block, ...) async_queue_block(dispatch_get_main_queue(), block, __VA_ARGS__);
-
 
 typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,

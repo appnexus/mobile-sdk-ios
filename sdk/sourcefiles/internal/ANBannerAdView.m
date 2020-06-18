@@ -37,6 +37,9 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANNativeRenderingViewController.h"
 
+#import "ANMRAIDContainerView.h"
+#import "ANWebView.h"
+
 
 
 
@@ -52,7 +55,7 @@ static NSString *const kANInline        = @"inline";
 
 #pragma mark -
 
-@interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
+@interface ANBannerAdView() <ANBannerAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong)  UIView  *contentView;
 
@@ -68,7 +71,7 @@ static NSString *const kANInline        = @"inline";
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
-
+@property (nonatomic, readwrite, strong)  ANAdFetcherResponse  *lazyFetcherResponse;
 
 @end
 
@@ -79,18 +82,21 @@ static NSString *const kANInline        = @"inline";
 
 @implementation ANBannerAdView
 
-@synthesize  autoRefreshInterval  = __autoRefreshInterval;
-@synthesize  contentView          = _contentView;
-@synthesize  adSize               = _adSize;
-@synthesize  loadedAdSize         = _loadedAdSize;
-@synthesize  countImpressionOnAdReceived   = _countImpressionOnAdReceived;
-@synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
-@synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
-@synthesize  nativeAdRendererId           = _nativeAdRendererId;
-@synthesize  enableNativeRendering           = _enableNativeRendering;
-@synthesize  adResponseInfo           = _adResponseInfo;
-@synthesize  minDuration             = __minDuration;
-@synthesize  maxDuration             = __maxDuration;
+@synthesize  autoRefreshInterval            = __autoRefreshInterval;
+@synthesize  contentView                    = _contentView;
+@synthesize  adSize                         = _adSize;
+@synthesize  loadedAdSize                   = _loadedAdSize;
+@synthesize  shouldAllowBannerDemand        = _shouldAllowBannerDemand;
+@synthesize  shouldAllowVideoDemand         = _shouldAllowVideoDemand;
+@synthesize  shouldAllowNativeDemand        = _shouldAllowNativeDemand;
+@synthesize  nativeAdRendererId             = _nativeAdRendererId;
+@synthesize  enableNativeRendering          = _enableNativeRendering;
+@synthesize  adResponseInfo                 = _adResponseInfo;
+@synthesize  minDuration                    = __minDuration;
+@synthesize  maxDuration                    = __maxDuration;
+
+@synthesize  countImpressionOnAdReceived    = _countImpressionOnAdReceived;
+@synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
 
 
 
@@ -103,19 +109,25 @@ static NSString *const kANInline        = @"inline";
     
     // Defaults.
     //
-    __autoRefreshInterval   = kANBannerDefaultAutoRefreshInterval;
-    _transitionDuration     = kAppNexusBannerAdTransitionDefaultDuration;
-    _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
-    _adSize                 = APPNEXUS_SIZE_UNDEFINED;
-    _adSizes                = nil;
-    _countImpressionOnAdReceived = NO;
-    _shouldAllowNativeDemand      = NO;
+    __autoRefreshInterval         = kANBannerDefaultAutoRefreshInterval;
+    _transitionDuration           = kAppNexusBannerAdTransitionDefaultDuration;
+    _loadedAdSize                 = APPNEXUS_SIZE_UNDEFINED;
+    _adSize                       = APPNEXUS_SIZE_UNDEFINED;
+    _adSizes                      = nil;
+
+    _shouldAllowBannerDemand      = YES;
     _shouldAllowVideoDemand       = NO;
-    _nativeAdRendererId          = 0;
-    _videoAdOrientation     = ANUnknown;    
-    self.allowSmallerSizes  = NO;
-    self.loadAdHasBeenInvoked = NO;
-    self.enableNativeRendering = NO;
+    _shouldAllowNativeDemand      = NO;
+
+    _nativeAdRendererId           = 0;
+    _videoAdOrientation           = ANUnknown;
+
+    self.allowSmallerSizes        = NO;
+    self.loadAdHasBeenInvoked     = NO;
+    self.enableNativeRendering    = NO;
+
+    _countImpressionOnAdReceived  = NO;
+    __enableLazyWebviewLoad       = NO;
 
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
@@ -185,8 +197,35 @@ static NSString *const kANInline        = @"inline";
 
 - (void) loadAd
 {
-    self.loadAdHasBeenInvoked = YES;
+    self.loadAdHasBeenInvoked   = YES;
+    self.lazyFetcherResponse    = nil;
+
     [super loadAd];
+}
+
+
+- (void)loadWebview
+{
+    if (!self.isEligibleForLazyLoad) {
+        ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
+        return;
+    }
+
+    if (self.contentView) {
+        ANLogWarn(@"AdUnit LAZY LOAD IS ALREADY COMPLETED.");
+        return;
+    }
+
+
+    //
+    BOOL  returnValue  = [self.universalAdFetcher allocateAndSetWebviewWithSize: self.lazyFetcherResponse.sizeOfWebview
+                                                                        content: self.lazyFetcherResponse.adContent
+                                                                  isXMLForVideo: NO ];
+    if (!returnValue)
+    {
+        NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
+        ANLogError(@"%@", error);
+    }
 }
 
 
@@ -286,6 +325,52 @@ static NSString *const kANInline        = @"inline";
     return __autoRefreshInterval;
 }
 
+- (void)setEnableLazyWebviewLoad:(BOOL)propertyValue
+{
+    if (YES == __enableLazyWebviewLoad) {
+        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewLoad once it is enabled.");
+        return;
+    }
+
+    // NB  Best effort to set critical section around fetcher for enableLazyWebviewLoad property.
+    //
+    if (self.loadAdHasBeenInvoked && (YES == self.universalAdFetcher.isFetcherLoading)) {
+        ANLogWarn(@"CANNOT ENABLE enableLazyWebviewLoad while fetcher is loading.");
+        return;
+    }
+
+    //
+    __enableLazyWebviewLoad = propertyValue;
+}
+
+- (BOOL)isEligibleForLazyLoad
+{
+    return  (nil != self.lazyFetcherResponse);
+}
+
+
+
+
+#pragma mark - Helper methods.
+
+- (void)fireTrackerAndOMID
+{
+    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+    self.impressionURLs = nil;
+
+    // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+    //
+    if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+    {
+        ANMRAIDContainerView  *standardAdView  = (ANMRAIDContainerView *)self.contentView;
+
+        if (standardAdView.webViewController.omidAdSession != nil)
+        {
+            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+        }
+    }
+
+}
 
 
 
@@ -398,24 +483,32 @@ static NSString *const kANInline        = @"inline";
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-    NSError *error;
-    
-    if ([response isSuccessful]) 
-    {
-        
-        self.loadAdHasBeenInvoked = YES;
+    id  adObject         = response.adObject;
+    id  adObjectHandler  = response.adObjectHandler;
 
-        id  adObject         = response.adObject;
-        id  adObjectHandler  = response.adObjectHandler;
+    NSError  *error  = nil;
+
+    if (!response.isSuccessful)
+    {
+        [self finishRequest:response withReponseError:response.error];
+        return;
+    }
+
+
+    // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
+    //
+    if (!response.isLazy || response.isLazyFirstPassThroughAdUnit)
+    {
+        self.loadAdHasBeenInvoked = YES;
 
         self.contentView = nil;
         self.impressionURLs = nil;
-        
+
         _adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
         if (_adResponseInfo) {
             [self setAdResponseInfo:_adResponseInfo];
         }
-        
+
         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
         if (creativeId) {
              [self setCreativeId:creativeId];
@@ -425,100 +518,125 @@ static NSString *const kANInline        = @"inline";
         if (adTypeString) {
             [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
         }
+    }
 
-        if ([adObject isKindOfClass:[UIView class]])
+    // Process AdUnit according to class type of UIView.
+    //
+    if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
+    {
+        if (!response.isLazy || response.isLazyFirstPassThroughAdUnit)
         {
-          
-            self.contentView = adObject;
-            NSString *width = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth forObject:adObjectHandler];
-            NSString *height = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
+            NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
+            NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
 
-            if(width && height){
+
+            if (width && height)
+            {
                 CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
                 _loadedAdSize = receivedSize;
-            }else {
+            } else {
                 _loadedAdSize = self.adSize;
-                }
-            if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]){
-                NSError             *registerError;
-                self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
-              
-           
-                if(self.obstructionViews != nil && self.obstructionViews.count > 0){
-                    [self.nativeAdResponse registerViewForTracking: self.contentView
-                                            withRootViewController: self.displayController
-                                                    clickableViews: @[]
-                               openMeasurementFriendlyObstructions:self.obstructionViews
-                                                             error: &registerError];
-                }else{
-                    [self.nativeAdResponse registerViewForTracking: self.contentView
-                                            withRootViewController: self.displayController
-                                                    clickableViews: @[]
-                                                             error: &registerError];
-                }
-               
             }
-            if(_adResponseInfo.adType == ANAdTypeBanner || _adResponseInfo.adType == ANAdTypeVideo){
-              [self setFriendlyObstruction];
-            }
-            
-            [self adDidReceiveAd:self];
 
             if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
-                
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
-                if (self.window || self.countImpressionOnAdReceived)  {
-                    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-                    self.impressionURLs = nil;
-                    
-                    // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
-                    if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
-                    {
-                        ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-                        if(standardAdView.webViewController.omidAdSession != nil){
-                            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
-                        }
-                    }
+
+                // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
+                //   but only when the AdUnit is not lazy.
+                //
+                if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
+                    [self fireTrackerAndOMID];
                 }
             }
-
-        } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
-            ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
-            
-            self.creativeId  = nativeAdResponse.creativeId;
-            self.adType      = ANAdTypeNative;
-
-            nativeAdResponse.clickThroughAction           = self.clickThroughAction;
-            nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
-
-            //
-            [self ad:self didReceiveNativeAd:nativeAdResponse];
-
-        } else {
-            NSString  *unrecognizedResponseErrorMessage  = [NSString stringWithFormat:@"UNRECOGNIZED ad response.  (%@)", [adObject class]];
-
-            NSDictionary  *errorInfo  = @{NSLocalizedDescriptionKey: NSLocalizedString(
-                                                                         unrecognizedResponseErrorMessage,
-                                                                         @"Error: UNKNOWN ad object returned as response to multi-format ad request."
-                                                                       )
-                                        };
-
-            error = [NSError errorWithDomain:AN_ERROR_DOMAIN
-                                        code:ANAdResponseNonViewResponse
-                                    userInfo:errorInfo];
         }
 
+
+        // Return early if AdUnit is lazy loaded.
+        //
+        if (response.isLazyFirstPassThroughAdUnit)
+        {
+            self.lazyFetcherResponse = response;
+            [self lazyAdDidReceiveAd:self];
+            return;
+
+        } else {
+            [self fireTrackerAndOMID];
+        }
+
+
+        // Handle AdUnit that is NOT lazy loaded.
+        //
+        self.contentView = adObject;
+
+        if ((_adResponseInfo.adType == ANAdTypeBanner) || (_adResponseInfo.adType == ANAdTypeVideo))
+        {
+          [self setFriendlyObstruction];
+        }
+
+        if ([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]])
+        {
+            NSError  *registerError  = nil;
+
+            self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
+
+            if ((self.obstructionViews != nil) && (self.obstructionViews.count > 0))
+            {
+                [self.nativeAdResponse registerViewForTracking: self.contentView
+                                        withRootViewController: self.displayController
+                                                clickableViews: @[]
+                           openMeasurementFriendlyObstructions: self.obstructionViews
+                                                         error: &registerError];
+            } else {
+                [self.nativeAdResponse registerViewForTracking: self.contentView
+                                        withRootViewController: self.displayController
+                                                clickableViews: @[]
+                                                         error: &registerError];
+            }
+        }
+
+        [self adDidReceiveAd:self];
+
+
+    // Process AdUnit according to class type of ANNativeAdResponse.
+    //
+    } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
+        ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
+
+        self.creativeId  = nativeAdResponse.creativeId;
+        self.adType      = ANAdTypeNative;
+
+        nativeAdResponse.clickThroughAction           = self.clickThroughAction;
+        nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
+
+        //
+        [self ad:self didReceiveNativeAd:nativeAdResponse];
+
+
+    // AdUnit class type is UNRECOGNIZED.
+    //
     } else {
-        error = response.error;
+        NSString  *unrecognizedResponseErrorMessage  = [NSString stringWithFormat:@"UNRECOGNIZED ad response.  (%@)", [adObject class]];
+
+        NSDictionary  *errorInfo  = @{NSLocalizedDescriptionKey: NSLocalizedString(
+                                                                     unrecognizedResponseErrorMessage,
+                                                                     @"Error: UNKNOWN ad object returned as response to multi-format ad request."
+                                                                   )
+                                    };
+
+        error = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                    code:ANAdResponseNonViewResponse
+                                userInfo:errorInfo];
+
+        [self finishRequest:response withReponseError:error];
     }
+}
 
-
-    if (error) {
-        self.contentView = nil;
-        [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
-
-    }
+- (void)finishRequest:(ANAdFetcherResponse *)response withReponseError:(NSError *)error
+{
+    self.contentView = nil;
+    self.lazyFetcherResponse = nil;
+    [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
 }
 
 
@@ -573,7 +691,9 @@ static NSString *const kANInline        = @"inline";
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
     NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
-    [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    if(_shouldAllowBannerDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    }
     if(_shouldAllowNativeDemand){
         [mediaTypes addObject:@(ANAllowedMediaTypeNative)];
     }
@@ -602,6 +722,15 @@ static NSString *const kANInline        = @"inline";
     return displayController;
 }
 
+- (BOOL)valueOfEnableLazyWebviewLoad
+{
+    return  self.enableLazyWebviewLoad;
+}
+
+- (ANAdFetcherResponse *)getLazyFetcherResponse
+{
+    return  self.lazyFetcherResponse;
+}
 
 
 
@@ -609,18 +738,9 @@ static NSString *const kANInline        = @"inline";
 
 - (void)didMoveToWindow
 {
-    if (self.contentView  && ( _adResponseInfo.adType == ANAdTypeBanner)) {
-        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-        self.impressionURLs = nil;
-        
-        // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
-        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
-        {
-            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-            if(standardAdView.webViewController.omidAdSession != nil){
-                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
-            }
-        }
+    if (self.contentView && (_adResponseInfo.adType == ANAdTypeBanner))
+    {
+        [self fireTrackerAndOMID];
     }
 }
 

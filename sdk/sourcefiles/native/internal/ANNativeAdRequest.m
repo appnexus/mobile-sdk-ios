@@ -306,7 +306,7 @@
         
     } errorHandler:^(NSError * _Nonnull error) {
         ANLogError(@"Error downloading image: %@", error);
-        
+        dispatch_semaphore_signal(semaphore);
     }];
     //
     return  semaphore;

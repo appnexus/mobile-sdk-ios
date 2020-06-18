@@ -20,6 +20,7 @@
 
 @property (nonatomic, readwrite, strong) NSString *urlString;
 @property (nonatomic, readwrite, strong) NSString *responseURL;
+@property (nonatomic, readwrite)          int     networkTimeout;
 
 
 @end
