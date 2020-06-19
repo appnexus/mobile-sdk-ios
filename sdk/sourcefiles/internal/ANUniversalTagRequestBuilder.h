@@ -24,14 +24,11 @@
 
 // NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
 //
-+ (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
-                                               baseUrlString: (nonnull NSString *)baseUrlString;
++ (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate;
 
 + (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
-                                 adunitMultiAdRequestManager: (nonnull ANMultiAdRequest *)adunitMARManager
-                                               baseUrlString: (nonnull NSString *)baseUrlString;
+                                 adunitMultiAdRequestManager: (nonnull ANMultiAdRequest *)adunitMARManager;
 
-+ (nullable NSURLRequest *)buildRequestWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
-                                                   baseUrlString: (nonnull NSString *)baseUrlString;
++ (nullable NSURLRequest *)buildRequestWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager;
 
 @end

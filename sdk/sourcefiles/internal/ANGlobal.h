@@ -50,7 +50,6 @@
 
 #define kANAdSize1x1 CGSizeMake(1,1)
 
-
 typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,
     ANAllowedMediaTypeInterstitial  = 3,
@@ -150,5 +149,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 + (nonnull NSString *) getUserAgent;
 
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
+
++ (nullable NSMutableURLRequest *) adServerRequestURL;
 
 @end
