@@ -21,6 +21,7 @@
 #import "ANLogging.h"
 #import "ANOMIDImplementation.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANHTTPNetworkSession.h"
 
 
 
@@ -291,37 +292,22 @@
     NSURLRequest  *request  = [NSURLRequest requestWithURL: imageURL
                                                cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                            timeoutInterval: kAppNexusNativeAdImageDownloadTimeoutInterval];
+    
+    
+    [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        UIImage  *image  = [UIImage imageWithData:data];
 
-    NSURLSessionDataTask  *task  =
-        [[NSURLSession sharedSession] dataTaskWithRequest: request
-                                        completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
-                                        {
-                                              ANLogDebug(@"BEGIN NSURL session...");
-
-                                              NSInteger  statusCode  = -1;
-
-                                              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                                  NSHTTPURLResponse  *httpResponse  = (NSHTTPURLResponse *)response;
-                                                  statusCode = [httpResponse statusCode];
-                                              }
-
-                                              if ((statusCode >= 400) || (statusCode == -1))  {
-                                                  ANLogError(@"Error downloading image: %@", error);
-
-                                              } else {
-                                                  UIImage  *image  = [UIImage imageWithData:data];
-
-                                                  if (image) {
-                                                      [ANNativeAdImageCache setImage:image forKey:imageURL];
-                                                      [object setValue:image forKeyPath:keyPath];
-                                                  }
-                                              }
-
-                                              dispatch_semaphore_signal(semaphore);
-                                          }
-         ];
-    [task resume];
-
+        if (image) {
+            [ANNativeAdImageCache setImage:image forKey:imageURL];
+            [object setValue:image forKeyPath:keyPath];
+        }
+        
+        dispatch_semaphore_signal(semaphore);
+        
+    } errorHandler:^(NSError * _Nonnull error) {
+        ANLogError(@"Error downloading image: %@", error);
+        dispatch_semaphore_signal(semaphore);
+    }];
     //
     return  semaphore;
 }
