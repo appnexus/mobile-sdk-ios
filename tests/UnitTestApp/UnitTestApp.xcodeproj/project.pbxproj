@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */; };
+		00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */; };
 		004833BF24A39D6400BFF7A6 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970C21FF32EB005D1F0E /* ANHTTPStubbingManager.m */; };
 		004833E824A3CF7300BFF7A6 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970E21FF32EB005D1F0E /* ANHTTPStubURLProtocol.m */; };
 		0E061F1E23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E061F1C23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json */; };
@@ -530,6 +531,7 @@
 
 /* Begin PBXFileReference section */
 		003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewHTMLImpressionTestCase.m; sourceTree = "<group>"; };
+		00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMCustomKeywordsResponse.json; sourceTree = "<group>"; };
 		004833C824A3AC4300BFF7A6 /* ANGlobal+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANGlobal+ANTest.h"; sourceTree = "<group>"; };
 		004833CD24A3B81A00BFF7A6 /* ANHTTPNetworkSession+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANHTTPNetworkSession+ANTest.h"; sourceTree = "<group>"; };
 		0E061F1C23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testLoadTwoMARInstancesSimultaneously.json; sourceTree = "<group>"; };
@@ -1670,6 +1672,7 @@
 				97FFD04D2372DA7700412B20 /* ANAdResponseRTB_Banner.json */,
 				97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */,
 				97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */,
+				00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */,
 				60F8A80723280EC10030D53D /* ANJAMDeviceIdResponse.json */,
 				60F8A80523280EC10030D53D /* ANJAMDispatchAppEventResponse.json */,
 				60F8A80B23280EC10030D53D /* ANJAMExternalBrowserResponse.json */,
@@ -2150,6 +2153,7 @@
 				97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */,
 				97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */,
 				0E6612C122CA736300DDC5CD /* ANGADUnifiedNativeAdView.xib in Resources */,
+				00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */,
 				60F8A82423294D590030D53D /* ANJAMDeviceIdResponse.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,

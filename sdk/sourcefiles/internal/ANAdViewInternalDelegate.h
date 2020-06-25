@@ -45,6 +45,7 @@
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 - (NSString *)adTypeForMRAID;
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customkeywordsForANJAM;
 
 - (UIViewController *)displayController;
 - (BOOL)landingPageLoadsInBackground;
