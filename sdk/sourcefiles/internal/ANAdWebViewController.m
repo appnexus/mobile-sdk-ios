@@ -32,6 +32,7 @@
 #import "ANOMIDImplementation.h"
 #import "ANWebView.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
+#import "ANAudioVolumeChangeListener.h"
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
@@ -47,7 +48,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 
 
-@interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
+@interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, ANAudioVolumeChangeListenerDelegate>
 
 @property (nonatomic, readwrite, strong)    UIView      *contentView;
 @property (nonatomic, readwrite, strong)    ANWebView      *webView;
@@ -71,6 +72,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)  NSString  *videoXML;
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+@property (nonatomic, readwrite, strong)  ANAudioVolumeChangeListener* audioVolumeChange;
 @end
 
 @implementation ANAdWebViewController
@@ -205,6 +207,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     [self stopOMIDAdSession];
     [self stopWebViewLoadForDealloc];
     [self.viewabilityTimer invalidate];
+    self.audioVolumeChange = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -594,6 +597,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     [self updateWebViewOnPositionAndViewabilityStatus];
     
+    
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
     {
         [self setupRapidTimerForCheckingPositionAndViewability];
@@ -635,11 +639,18 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     } else {
         [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:NO]];
     }
+    if (self.audioVolumeChange) {
+        self.audioVolumeChange.isAudioSessionActive = NO;
+        [self updateWebViewOnAudioVolumeChange:nil];
+    }
 }
 
 -(void)handleApplicationDidBecomeActive:(NSNotification *)notification
 {
     self.appIsInBackground = NO;
+    if (self.audioVolumeChange) {
+        self.audioVolumeChange.isAudioSessionActive = YES;
+    }
 }
 
 - (void)setupOrientationChangeNotification {
@@ -727,6 +738,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         } else {
             [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:self.isViewable]];
         }
+        if (self.audioVolumeChange) {
+          [self updateWebViewOnAudioVolumeChange:[self.audioVolumeChange getAudioVolumePercentage]];
+        }
     }
     
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
@@ -745,7 +759,15 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     [self fireJavaScript:[ANMRAIDJavascriptUtil maxSize:[ANMRAIDUtil maxSizeSafeArea]]];
 }
 
-
+- (void)updateWebViewOnAudioVolumeChange:(NSNumber *)volumePercentage {
+    if (self.viewable) {
+        ANLogDebug(@"AudioVolume change percentage : %@", volumePercentage);
+        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChange:volumePercentage]];
+    }else{
+        ANLogDebug(@"AudioVolume change percentage : null");
+        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChange:nil]];
+    }
+}
 
 - (void)updateCurrentAppOrientation {
     
@@ -842,6 +864,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
             }
             break;
         }
+        case ANMRAIDActionAudioVolumeChange:
+            if (self.audioVolumeChange == nil) {
+                //Initialize Audio Volume Change Listener for Outstream Video
+                self.audioVolumeChange = [[ANAudioVolumeChangeListener alloc] initWithDelegate:self];
+                [self updateWebViewOnAudioVolumeChange:@(100.0 * [AVAudioSession sharedInstance].outputVolume)];
+            }
+            break;
         case ANMRAIDActionEnable:
             if (self.isMRAID) return;
             self.isMRAID = YES;
@@ -977,6 +1006,11 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 }
 
 
+#pragma mark - ANAudioVolumeChangeDelegate
+
+- (void)didUpdateAudioLevel:(NSNumber *)volumePercentage {
+    [self updateWebViewOnAudioVolumeChange:volumePercentage];
+}
 
 @end   //ANAdWebViewController
 

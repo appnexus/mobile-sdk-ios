@@ -40,6 +40,7 @@
     listeners['viewableChange'] = [];
     listeners['sizeChange'] = [];
     listeners['exposureChange'] = [];
+    listeners['audioVolumeChange'] = [];
     var state = 'loading'; //Can be loading, default, expanded, hidden, or resized
     var placement_type = 'inline';
     var is_viewable = false;
@@ -145,6 +146,10 @@
 
     mraid.enable = function() {
         mraid.util.nativeCall("mraid://enable/");
+    };
+    
+    mraid.audioVolumeChange = function() {
+        mraid.util.nativeCall("mraid://audioVolumeChange/");
     };
 
     //Closes an expanded ad or hides an ad in default state
@@ -477,6 +482,12 @@
         if (state === 'loading') return;
         mraid.util.fireEvent('exposureChange', exposureObject.exposedPercentage,exposureObject.visibleRectangle,exposureObject.occlusionRectangles);
     };
+ 
+    
+     mraid.util.audioVolumeChangeEvent = function(audioVolumeObject) {
+         if (state === 'loading') return;
+         mraid.util.fireEvent('audioVolumeChange', audioVolumeObject.volumePercentage);
+     };
 
 
     mraid.util.validateResizeProperties = function(properties, callingFunctionName) {

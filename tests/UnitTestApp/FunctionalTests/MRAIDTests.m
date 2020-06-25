@@ -1372,7 +1372,34 @@
     [self clearTest];
 }
 
+#pragma mark - mraid.addEventListener AudioVolumeChange
 
+- (void)testAudioVolumeChangeEventOnScreen {
+    [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
+                                          atOrigin:CGPointZero
+                                          withSize:CGSizeMake(320.0f, 50.0f)];
+    [self addBannerAsSubview];
+    [self audioVolumeChange];
+    NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
+    XCTAssertTrue([self isVolumePercentageNumeric:actualVolumePer], @"expected volume percentage::numeric but actual::%@",actualVolumePer);
+    
+    [self clearTest];
+   
+}
+
+- (void)testAudioVolumeChangeEventOffScreen {
+    [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
+                                          atOrigin:CGPointZero
+                                          withSize:CGSizeMake(320.0f, 50.0f)];
+   
+    [self addBannerAsSubview];
+    [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
+    [self audioVolumeChange];
+    NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
+    XCTAssertTrue([actualVolumePer isEqualToString:@"<null>"], @"expected volume percentage::null but actual::%@",actualVolumePer);
+    
+    [self clearTest];
+}
 
 #pragma mark - mraid.supports()
 
@@ -1677,6 +1704,16 @@
    self.banner.frame = frame;
 }
 
+-(bool) isVolumePercentageNumeric:(NSString*) volumePercentage{
+   NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+   [numberFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+   NSNumber* number = [numberFormatter numberFromString:volumePercentage];
+   if (number != nil) {
+      return true;
+   }
+   return false;
+}
+
 # pragma mark - MRAID Accessor Functions
 
 - (void)expand {
@@ -1689,6 +1726,10 @@
 
 - (void)resize {
     [self mraidNativeCall:@"resize()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
+}
+
+- (void)audioVolumeChange {
+   [self mraidNativeCall:@"audioVolumeChange()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
 }
 
 - (NSString *)getState {
