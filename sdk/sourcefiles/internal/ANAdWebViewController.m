@@ -639,10 +639,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     } else {
         [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:NO]];
     }
-    if (self.audioVolumeChange) {
-        self.audioVolumeChange.isAudioSessionActive = NO;
-        [self updateWebViewOnAudioVolumeChange:nil];
-    }
 }
 
 -(void)handleApplicationDidBecomeActive:(NSNotification *)notification
@@ -763,9 +759,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (self.viewable) {
         ANLogDebug(@"AudioVolume change percentage : %@", volumePercentage);
         [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChange:volumePercentage]];
-    }else{
-        ANLogDebug(@"AudioVolume change percentage : null");
-        [self fireJavaScript:[ANMRAIDJavascriptUtil audioVolumeChange:nil]];
     }
 }
 

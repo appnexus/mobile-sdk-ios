@@ -1396,7 +1396,7 @@
     [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
     [self audioVolumeChange];
     NSString *actualVolumePer = [self evaluateJavascript:@"testVolumePercentage"];
-    XCTAssertTrue([actualVolumePer isEqualToString:@"<null>"], @"expected volume percentage::null but actual::%@",actualVolumePer);
+    XCTAssertTrue([actualVolumePer isEqualToString:@"0"], @"expected volume percentage::null but actual::%@",actualVolumePer);
     
     [self clearTest];
 }

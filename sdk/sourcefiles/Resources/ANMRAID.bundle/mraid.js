@@ -108,6 +108,9 @@
      */
     mraid.addEventListener = function(event_name, method) {
         if (listeners[event_name].indexOf(method) > -1) return; // Listener is already registered
+        if(event_name == 'audioVolumeChange'){
+            mraid.audioVolumeChange();
+        }
         listeners[event_name].push(method);
     };
 
