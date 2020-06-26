@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Interstitial Ad";
-    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"1281482"];
+    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"19212468"];
     self.interstitialAd.delegate = self;
     self.interstitialAd.clickThroughAction = ANClickThroughActionReturnURL;
     [self.interstitialAd loadAd];

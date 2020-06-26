@@ -34,7 +34,7 @@
 
     int adWidth  = 300;
     int adHeight = 250;
-    NSString *adID = @"1281482";
+    NSString *adID = @"19212468";
     
     // We want to center our ad on the screen.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
