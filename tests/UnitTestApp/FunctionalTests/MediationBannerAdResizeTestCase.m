@@ -64,7 +64,7 @@
 #pragma mark - Successful Banners
 
 
-/* FIX
+/* TBD
 No visible @interface for 'ViewController' declares the selector 'loadAdMobBannerResizeWithDelegate:shouldResize:'
  */
 

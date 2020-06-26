@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "ANAdResponseInfo.h"
 
@@ -22,25 +22,34 @@
 
 @interface ANAdFetcherResponse : NSObject
 
-@property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readonly, strong, nonnull) id  adObject;
-@property (nonatomic, readonly, strong, nullable) id  adObjectHandler;
-@property (nonatomic, readonly, strong, nullable) NSError *error;
+/**
+ * There are two successful cases: 1) AdUnit loaded normally; 2) AdUnit loaded lazily.
+ * All other cases are error cases, including the return of nobid instead of an ad object.
+ */
+@property (nonatomic, readonly, assign, getter=isSuccessful)  BOOL  successful;
+
+/**
+ * Set to YES when an AdUnit is being lazy loaded.  This happens during the first return to the AdUnit from processing UT Response.
+ * NOTE  The second return to the AdUnit, when the lazy AdUnit loads the webview, the ANFetcherResponse instance is new and isLazy will be NO.
+ */
+@property (nonatomic, readonly)  BOOL  isLazy;
+
+@property (nonatomic, readwrite, strong, nullable)   id  adObject;
+@property (nonatomic, readonly, strong, nullable)    id  adObjectHandler;
 
 @property (nonatomic, readwrite, strong, nullable)  ANAdResponseInfo  *adResponseInfo;
+
+@property (nonatomic, readonly, strong, nullable) NSError *error;
 
 
 //
 + (nonnull ANAdFetcherResponse *)responseWithError:(nonnull NSError *)error;
 
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
-                           andAdObjectHandler: (nullable id)adObjectHandler;
+                                   andAdObjectHandler: (nullable id)adObjectHandler;
 
-//
-- (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error;
-
-- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
-                               andAdObjectHandler: (nullable id)adObjectHandler;
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
+                                       andAdObjectHandler: (nonnull id)adObjectHandler;
 
 
 @end

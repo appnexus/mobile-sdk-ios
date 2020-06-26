@@ -171,7 +171,6 @@
         
         [strongSelf requestFailedWithError:error.localizedDescription];
         ANLogError(@"%@", sessionError);
-
     }];
 }
 

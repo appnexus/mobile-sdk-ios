@@ -201,9 +201,9 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 {
     _adViewDelegate                                     = adViewDelegate;
     self.webViewController.adViewDelegate               = adViewDelegate;
-    self.webViewController.adViewANJAMDelegate          = adViewDelegate;
+    self.webViewController.adViewANJAMInternalDelegate          = adViewDelegate;
     self.expandWebViewController.adViewDelegate         = adViewDelegate;
-    self.expandWebViewController.adViewANJAMDelegate    = adViewDelegate;
+    self.expandWebViewController.adViewANJAMInternalDelegate    = adViewDelegate;
 
     if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)])
     {
@@ -499,6 +499,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         dispatch_async(dispatch_get_main_queue(),
         ^{
             __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
+
             if (!strongSelf)  {
                 ANLogError(@"COULD NOT ACQUIRE strongSelf.");
                 return;

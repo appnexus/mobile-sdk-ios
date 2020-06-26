@@ -220,6 +220,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
+
 /**
  Set whether impression should be counted when the creative is loaded.
  This feature is disabled by default.
@@ -252,13 +253,20 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite) BOOL enableNativeRendering;
 
-
 /**
  *  nativeAdRendererId :  Native Assembly renderer_id that is associated with the placement.
  *  If rendererId is not set, the default is zero (0).
  *  A value of zero indicates that renderer_id will not be sent in the UT Request.
-*/
+ */
 @property (nonatomic, readonly) NSInteger nativeAdRendererId DEPRECATED_MSG_ATTRIBUTE("nativeAdRendererId is deprecated.");
+
+
+/**
+ *  If enableLazyLoad is not set, the default is NO.
+ *  Generate AdUnit without loading webview automatically.
+ *  Host app must complete load with [self loadLazyAd].
+ */
+@property (nonatomic, readwrite)  BOOL  enableLazyLoad;
 
 
 
@@ -312,6 +320,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  automatically.
  */
 - (void) loadAd;
+
+- (BOOL) loadLazyAd;
 
 
 @end

@@ -21,11 +21,12 @@ limitations under the License.
 
 #pragma mark - Global public constants.
 
-NSTimeInterval  kWaitOneSecond    = 1;
-NSTimeInterval  kWaitTwoSeconds   = 2;
-NSTimeInterval  kWaitShort        = 5;
-NSTimeInterval  kWaitLong         = 10;
-NSTimeInterval  kWaitVeryLong     = 15;
+NSTimeInterval  kWaitQuarterSecond  = 0.25;
+NSTimeInterval  kWaitOneSecond      = 1;
+NSTimeInterval  kWaitTwoSeconds     = 2;
+NSTimeInterval  kWaitShort          = 5;
+NSTimeInterval  kWaitLong           = 10;
+NSTimeInterval  kWaitVeryLong       = 15;
 
 
 
@@ -52,11 +53,11 @@ TMARK();
     blockOperation.qualityOfService = NSQualityOfServiceBackground;
 
     [blockOperation addExecutionBlock:^{
-                        TINFO(@"SLEEPING for %@ seconds...", @(seconds));
-                        [NSThread sleepForTimeInterval:seconds];
+                                            TINFO(@"SLEEPING for %@ seconds...", @(seconds));
+                                            [NSThread sleepForTimeInterval:seconds];
 
-                        dispatch_async(dispatch_get_main_queue(), block);
-                    } ];
+                                            if (block) { dispatch_async(dispatch_get_main_queue(), block); }
+                                        } ];
 
     [blockOperation start];
 }
