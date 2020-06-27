@@ -166,7 +166,7 @@ NSString *const kANKeyCaller = @"caller";
 + (void)callGetCustomKeywords:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *cb = [query valueForKey:@"cb"];
     
-    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: controller.adViewANJAMDelegate.customkeywordsForANJAM
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: controller.adViewANJAMInternalDelegate.customkeywordsForANJAM
                                                                                                        withSeparatorString: @"," ];
     [ANANJAMImplementation loadResult:controller cb:cb paramsList:customKeywordsAsStrings];
 }
