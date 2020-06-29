@@ -16,7 +16,20 @@
 #import "ANMRAIDContainerView+ANTest.h"
 #import "ANOMIDImplementation.h"
 
+#import "NSObject+Swizzling.h"
+#import <objc/runtime.h>
+
+
+
+
+#pragma mark - Globals.
+
 static CGFloat const kANOMIDSessionFinishDelay = 3.0f;
+
+
+
+
+#pragma mark -
 
 @implementation ANMRAIDContainerView (ANTest)
 
@@ -37,5 +50,56 @@ static CGFloat const kANOMIDSessionFinishDelay = 3.0f;
         [super willMoveToSuperview:newSuperview];
     }
 }
+
+
+
+#pragma mark - Swizzle methods.
+
++ (void)swizzleMRAIDContainerView:(BOOL)swizzleForward
+{
+    NSBlockOperation  *operation  = nil;
+
+    if (swizzleForward)
+    {
+        operation = [NSBlockOperation blockOperationWithBlock:
+                         ^{
+                            [[self class] exchangeInstanceSelector: @selector(initWithSize:HTML:webViewBaseURL:)
+                                                      withSelector: @selector(test_initWithSize:HTML:webViewBaseURL:) ];
+
+                            [[self class] exchangeInstanceSelector: @selector(initWithSize:videoXML:)
+                                                      withSelector: @selector(test_initWithSize:videoXML:) ];
+                        }];
+
+    } else {
+        operation = [NSBlockOperation blockOperationWithBlock:
+                         ^{
+                            [[self class] exchangeInstanceSelector: @selector(test_initWithSize:HTML:webViewBaseURL:)
+                                                      withSelector: @selector(initWithSize:HTML:webViewBaseURL:) ];
+
+                            [[self class] exchangeInstanceSelector: @selector(test_initWithSize:videoXML:)
+                                                      withSelector: @selector(initWithSize:videoXML:) ];
+                        }];
+    }
+
+    //
+    [operation start];
+}
+
+
+- (instancetype)test_initWithSize: (CGSize)size
+                             HTML: (NSString *)html
+                   webViewBaseURL: (NSURL *)baseURL
+{
+    NSLog(@"%s -- RETURNING nil.", __PRETTY_FUNCTION__);
+    return  nil;
+}
+
+- (instancetype)test_initWithSize: (CGSize)size
+                         videoXML: (NSString *)videoXML
+{
+    NSLog(@"%s -- RETURNING nil.", __PRETTY_FUNCTION__);
+    return  nil;
+}
+
 
 @end

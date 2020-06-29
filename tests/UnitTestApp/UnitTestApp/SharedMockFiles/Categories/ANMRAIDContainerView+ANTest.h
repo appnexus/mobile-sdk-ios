@@ -20,9 +20,10 @@
 
 
 
-
 @interface ANMRAIDContainerView (ANTest) 
 
 @property (nonatomic, readwrite, strong)     ANAdWebViewController                       *webViewController;
+
++ (void)swizzleMRAIDContainerView:(BOOL)swizzleForward;
 
 @end

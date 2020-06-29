@@ -392,8 +392,7 @@
     if (self.timeoutCanceled) return;
     __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 kAppNexusMediationNetworkTimeoutInterval
-                                 * NSEC_PER_SEC),
+                                 self.mediatedAd.networkTimeout * NSEC_PER_MSEC),
                    dispatch_get_main_queue(), ^{
                        ANMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;

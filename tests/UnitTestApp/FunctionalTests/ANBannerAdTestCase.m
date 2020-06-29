@@ -23,7 +23,7 @@
 
 
 
-@interface ANBannerAdTestCase : XCTestCase<ANBannerAdViewDelegate>
+@interface ANBannerAdTestCase : XCTestCase<ANBannerAdViewDelegate ,ANNativeAdDelegate>
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  UIView        *bannerSuperView;
@@ -33,6 +33,8 @@
 
 @property (nonatomic, strong) XCTestExpectation *loadAdResponseReceivedExpectation;
 @property (nonatomic, strong) XCTestExpectation *loadAdResponseFailedExpectation;
+
+@property (nonatomic, strong) XCTestExpectation *loadBannerAdResponseReceivedExpectation;
 
 @property (nonatomic, readwrite)  BOOL  locationEnabledForCreative;
 
@@ -71,6 +73,7 @@
                                                                                                                completion:nil];
     
     self.loadAdResponseReceivedExpectation = nil;
+    self.loadBannerAdResponseReceivedExpectation = nil;
     
 }
 
@@ -90,6 +93,63 @@
 
 
 #pragma mark - Test methods.
+
+- (void)testNoMediaTypeBannerAd
+{
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    [self stubRequestWithResponse:@"ANAdResponseRTB_Banner"];
+    
+    self.banner = [[ANBannerAdView alloc] initWithFrame: CGRectMake(50 , 50 , 300,250)
+                                            placementId: @"1"
+                                                 adSize: CGSizeMake(300 , 250)];
+    
+    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.banner.shouldAllowNativeDemand = NO;
+    self.banner.shouldAllowVideoDemand = NO;
+    self.banner.shouldAllowBannerDemand = NO;
+
+    self.banner.delegate = self;
+    [self.banner loadAd];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    
+    self.loadBannerAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    XCTAssertEqual(self.banner.shouldAllowBannerDemand, NO);
+}
+
+
+
+- (void)testDisabledBannerEnableNative
+{
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    [self stubRequestWithResponse:@"SuccessfulDisabledBannerEnableNative"];
+    
+    self.banner = [[ANBannerAdView alloc] initWithFrame: CGRectMake(50 , 50 , 300,250)
+                                            placementId: @"1"
+                                                 adSize: CGSizeMake(300 , 250)];
+    
+    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.banner.shouldAllowNativeDemand = YES;
+    self.banner.shouldAllowVideoDemand = NO;
+    self.banner.shouldAllowBannerDemand = NO;
+
+    self.banner.delegate = self;
+    [self.banner loadAd];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    
+    self.loadBannerAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    XCTAssertEqual(self.banner.shouldAllowBannerDemand, NO);
+    XCTAssertEqual(self.banner.shouldAllowNativeDemand, YES);
+}
 
 - (void)testIncorrectWidth
 {
@@ -316,6 +376,7 @@
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 {
     [self.loadAdResponseReceivedExpectation fulfill];
+    [self.loadBannerAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;
 }
 
@@ -327,6 +388,10 @@
     [self.loadAdResponseReceivedExpectation fulfill];
     [self.loadAdResponseFailedExpectation fulfill];
     self.receiveAdFailure = YES;
+}
+
+- (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance{
+    [self.loadBannerAdResponseReceivedExpectation fulfill];
 }
 
 @end

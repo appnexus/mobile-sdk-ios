@@ -31,13 +31,13 @@
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANGDPRSettings.h"
-
+#import "ANHTTPNetworkSession.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 
 #pragma mark -
 
 @interface ANAdFetcherBase()
-    //EMPTY
+
 @end
 
 
@@ -109,17 +109,14 @@
 {
     if (self.isFetcherLoading)  { return; }
 
-
-    //
-    NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = nil;
 
     if (self.fetcherMARManager) {
-        request = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:self.fetcherMARManager baseUrlString:urlString];
+        request = [ANUniversalTagRequestBuilder buildRequestWithMultiAdRequestManager:self.fetcherMARManager];
     } else if (self.adunitMARManager) {
-        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate adunitMultiAdRequestManager:self.adunitMARManager baseUrlString:urlString];
+        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate adunitMultiAdRequestManager:self.adunitMARManager];
     } else {
-        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
+        request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate];
     }
 
     if (!request){
@@ -127,64 +124,54 @@
         return;
     }
     
-
-    //
-    NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
-
-    NSURLSessionDataTask       *requestAdTask   = nil;
-    ANAdFetcherBase *__weak     weakSelf        = self;
-
+    NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", [request URL],[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
 
     ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
                         @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
+    
+    __weak __typeof__(self) weakSelf = self;
+   [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+         __typeof__(self) strongSelf = weakSelf;
+       
+       if (!strongSelf)  {
+           ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+           return;
+       }
 
-    requestAdTask = [[NSURLSession sharedSession] dataTaskWithRequest: request
-                                                         completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
-                                    {
-                                      ANAdFetcherBase * __strong  strongSelf  = weakSelf;
+       if (!strongSelf.fetcherMARManager) {
+           [strongSelf restartAutoRefreshTimer];
+       }
+       strongSelf.isFetcherLoading = YES;
 
-                                      if (!strongSelf) {
-                                          ANLogError(@"FAILED to establish strongSelf.");
-                                          return;
-                                      }
+       NSString *responseString = [[NSString alloc] initWithData:data
+                                                        encoding:NSUTF8StringEncoding];
+       if (! strongSelf.fetcherMARManager) {
+           ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
+       }
 
-                                      NSInteger statusCode = -1;
+       ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
+                   @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
 
-                                      if (!self.fetcherMARManager) {
-                                          [strongSelf restartAutoRefreshTimer];
-                                      }
+       [strongSelf handleAdServerResponse:data];
 
-                                      if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                          statusCode = [httpResponse statusCode];
-                                      }
-
-                                      if (statusCode >= 400 || statusCode == -1)
-                                      {
-                                          strongSelf.isFetcherLoading = NO;
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                              [strongSelf requestFailedWithError:error.localizedDescription];
-                                          });
-
-                                      } else {
-                                          strongSelf.isFetcherLoading = YES;
-
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                              NSString *responseString = [[NSString alloc] initWithData:data
-                                                                                               encoding:NSUTF8StringEncoding];
-                                              if (! strongSelf.fetcherMARManager) {
-                                                  ANLogDebug(@"Response JSON (for single tag requests ONLY)... %@", responseString);
-                                              }
-
-                                              ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
-                                                                  @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-
-                                              [strongSelf handleAdServerResponse:data];
-                                          });
-                                      }   // ENDIF -- statusCode
-                                  } ];
-
-    [requestAdTask resume];
+    } errorHandler:^(NSError * _Nonnull error) {
+        NSError  *sessionError  = nil;
+         __typeof__(self) strongSelf = weakSelf;
+        
+        if (!strongSelf)  {
+            ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+            return;
+        }
+        
+        strongSelf.isFetcherLoading = NO;
+        
+        if (!strongSelf.fetcherMARManager) {
+            [strongSelf restartAutoRefreshTimer];
+        }
+        
+        [strongSelf requestFailedWithError:error.localizedDescription];
+        ANLogError(@"%@", sessionError);
+    }];
 }
 
 

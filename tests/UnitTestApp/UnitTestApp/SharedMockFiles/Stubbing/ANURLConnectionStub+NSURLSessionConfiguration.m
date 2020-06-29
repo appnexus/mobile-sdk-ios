@@ -17,6 +17,9 @@
 
 #import "ANURLConnectionStub.h"
 #import "NSObject+Swizzling.h"
+#import "ANHTTPNetworkSession+ANTest.h"
+#import "ANGlobal+ANTest.h"
+
 
 
 /**
@@ -59,6 +62,10 @@ static NSURLSessionConfiguration* ANHTTPStubs_ephemeralSessionConfiguration(id s
                                                                                             (IMP)ANHTTPStubs_ephemeralSessionConfiguration,
                                                                                             [NSURLSessionConfiguration class],
                                                                                             YES);
+    
+    // Recreated network session and mutable request after http stubbing is enabled.
+    [[ANHTTPNetworkSession sharedInstance]setAdServerSession:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:[ANHTTPNetworkSession sharedInstance] delegateQueue:nil]];
+    [ANGlobal constructAdServerRequestURL];
 }
 
 @end

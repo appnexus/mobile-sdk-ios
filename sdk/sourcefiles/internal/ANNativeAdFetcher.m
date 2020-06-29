@@ -130,10 +130,19 @@
     [super stopAdLoad];
 }
 
+
+- (void)startAutoRefreshTimer
+{
+    // Implemented only by ANUniversalAdFetcher
+}
+
 - (void)restartAutoRefreshTimer
 {
     // Implemented only by ANUniversalAdFetcher
 }
+
+
+
 
 #pragma mark - Ad handlers.
 

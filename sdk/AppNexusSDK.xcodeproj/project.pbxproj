@@ -88,6 +88,8 @@
 		0ECF336622D79A62007DB185 /* AppNexusSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ECF336022D79A62007DB185 /* AppNexusSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0EF636D322D7726000D3320F /* ANProxyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */; };
+		381A0184245B17850093EBB2 /* ANAudioVolumeChangeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */; };
 		4F06400823A2E7D700E7920A /* ANAdFetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANAdFetcherBase.m */; };
 		4F06400923A2E7DC00E7920A /* ANAdFetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */; };
 		4F5758B12303A8CB00AFF4B6 /* ANMultiAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5758B02303A8CB00AFF4B6 /* ANMultiAdRequest.m */; };
@@ -97,6 +99,10 @@
 		4F8EBCD4235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
 		4F8EBCD5235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
 		4F99240E2357BEC1008E31B6 /* ANMultiAdRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C690231F0C0C00678DB8 /* ANMultiAdRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60165D262464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */; };
+		60165D272464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */; };
+		60165D282464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */; };
+		60165D292464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */; };
 		60183FD52293482700CFDE33 /* ANWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FD222933E9500CFDE33 /* ANWebView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		60183FD622934AB500CFDE33 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FD322933E9500CFDE33 /* ANWebView.m */; };
 		602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
@@ -384,6 +390,8 @@
 		0ECF336022D79A62007DB185 /* AppNexusSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDK.h; sourceTree = "<group>"; };
 		0ECF336122D79A62007DB185 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EEE97DA21764ACD007DADE6 /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
+		381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAudioVolumeChangeListener.h; sourceTree = "<group>"; };
+		381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAudioVolumeChangeListener.m; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -396,6 +404,8 @@
 		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
 		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
 		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
+		60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPNetworkSession.m; sourceTree = "<group>"; };
+		60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPNetworkSession.h; sourceTree = "<group>"; };
 		60183FD222933E9500CFDE33 /* ANWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		60183FD322933E9500CFDE33 /* ANWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ANCategory.h"; sourceTree = "<group>"; };
@@ -836,6 +846,8 @@
 				8AC7C5371A3B5CEF00AA5548 /* ANAdWebViewController.m */,
 				8AD618A81981C11F00AC0780 /* ANANJAMImplementation.h */,
 				8AD618A91981C11F00AC0780 /* ANANJAMImplementation.m */,
+				381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */,
+				381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */,
 				8AD618AA1981C11F00AC0780 /* ANBannerAdView.m */,
 				8AD618AC1981C11F00AC0780 /* ANBrowserViewController.h */,
 				8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */,
@@ -843,6 +855,8 @@
 				8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */,
 				8AD618B01981C11F00AC0780 /* ANGlobal.h */,
 				8AD618B11981C11F00AC0780 /* ANGlobal.m */,
+				60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */,
+				60165D242464823D00E8E07C /* ANHTTPNetworkSession.m */,
 				8AD618B21981C11F00AC0780 /* ANInterstitialAd.m */,
 				8AD618B31981C11F00AC0780 /* ANInterstitialAdViewController.h */,
 				8AD618B41981C11F00AC0780 /* ANInterstitialAdViewController.m */,
@@ -1012,6 +1026,7 @@
 				8A9AEDB31A1BE8C200C58BDA /* ANAdView.h in Headers */,
 				8A9AEDCE1A1BF88200C58BDA /* ANAdViewInternalDelegate.h in Headers */,
 				8A9AEDD01A1BF88200C58BDA /* ANANJAMImplementation.h in Headers */,
+				381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */,
 				8A9AEDC61A1BF88200C58BDA /* ANBannerAdView+ANContentViewTransitions.h in Headers */,
 				8A9AEDB41A1BE8C200C58BDA /* ANBannerAdView.h in Headers */,
 				FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */,
@@ -1026,6 +1041,7 @@
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
 				0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */,
 				8A9AEDD41A1BF88200C58BDA /* ANGlobal.h in Headers */,
+				60165D282464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
 				609732B41E42E7910061EC0A /* ANInstreamVideoAd.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
 				8A9AEDD51A1BF88200C58BDA /* ANInterstitialAdViewController.h in Headers */,
@@ -1113,6 +1129,7 @@
 				0E02F07124336D590073A226 /* ANCSRNativeAdResponse.h in Headers */,
 				F5731BC2228C9A4C0012B134 /* ANGDPRSettings.h in Headers */,
 				F5731B72228C8FD60012B134 /* ANGlobal.h in Headers */,
+				60165D292464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
 				F5731B74228C900E0012B134 /* ANLocation.h in Headers */,
 				F5731B78228C90310012B134 /* ANLogging.h in Headers */,
 				F5731B75228C90240012B134 /* ANLogManager.h in Headers */,
@@ -1316,6 +1333,7 @@
 				8A9AEDF01A1BF99D00C58BDA /* ANAdView.m in Sources */,
 				8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */,
 				8A9AEDF21A1BF99D00C58BDA /* ANANJAMImplementation.m in Sources */,
+				381A0184245B17850093EBB2 /* ANAudioVolumeChangeListener.m in Sources */,
 				8A9AEDE81A1BF99D00C58BDA /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				8A9AEDF31A1BF99D00C58BDA /* ANBannerAdView.m in Sources */,
 				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
@@ -1328,6 +1346,7 @@
 				0E3E3E64241FB73500823D66 /* ANCSRNativeAdResponse.m in Sources */,
 				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
 				8A9AEDF61A1BF99D00C58BDA /* ANGlobal.m in Sources */,
+				60165D262464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */,
 				609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */,
 				8A9AEDF71A1BF99D00C58BDA /* ANInterstitialAd.m in Sources */,
 				8A9AEDF81A1BF99D00C58BDA /* ANInterstitialAdViewController.m in Sources */,
@@ -1406,6 +1425,7 @@
 				0E02F07024336D570073A226 /* ANCSRNativeAdResponse.m in Sources */,
 				F5731B6C228C8E430012B134 /* ANGDPRSettings.m in Sources */,
 				F5731B71228C8FD20012B134 /* ANGlobal.m in Sources */,
+				60165D272464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */,
 				F5731B73228C900B0012B134 /* ANLocation.m in Sources */,
 				F5731B77228C902D0012B134 /* ANLogging.m in Sources */,
 				F5731B76228C902A0012B134 /* ANLogManager.m in Sources */,
@@ -1493,7 +1513,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.3.2;
+				MARKETING_VERSION = 7.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1529,7 +1549,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.3.2;
+				MARKETING_VERSION = 7.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1681,7 +1701,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.3.2;
+				MARKETING_VERSION = 7.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.AppNexusNativeSDK;
@@ -1726,7 +1746,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.3.2;
+				MARKETING_VERSION = 7.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.AppNexusNativeSDK;

@@ -13,26 +13,40 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "ANAdFetcherResponse.h"
 
 #import "ANLogging.h"
 
 
 
+
+#pragma mark -
+
 @interface ANAdFetcherResponse ()
 
-@property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readwrite, strong, nonnull) id adObject;
+@property (nonatomic, readwrite, assign, getter=isSuccessful)  BOOL  successful;
+@property (nonatomic, readwrite)                               BOOL  isLazy;
+
 @property (nonatomic, readwrite, strong, nullable) id adObjectHandler;
+
+@property (nonatomic, readwrite, strong, nullable)  NSString  *adContent;
+@property (nonatomic, readwrite)                    CGSize     sizeOfWebview;
+@property (nonatomic, readwrite, strong, nullable)  NSURL     *baseURL;
+@property (nonatomic, readwrite, strong, nullable)  id         anjamDelegate;
+
 @property (nonatomic, readwrite, strong, nullable) NSError *error;
 
 @end
 
 
 
+#pragma mark -
+
 @implementation ANAdFetcherResponse
 
-#pragma mark - Lifecycle.
+#pragma mark Lifecycle.
 
 - (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error {
     self = [super init];
@@ -42,15 +56,39 @@
     return self;
 }
 
-- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
-                                       andAdObjectHandler: (nullable id)adObjectHandler
+
+- (nonnull instancetype)initAdResponseWithAdObject: (nonnull id)adObject
+                                andAdObjectHandler: (nullable id)adObjectHandler
 {
     self = [super init];
-    if (self) {
-        _successful = YES;
-        _adObject = adObject;
-        _adObjectHandler = adObjectHandler;
-    }
+
+    if (!self)  { return nil; }
+
+
+    //
+    _successful             = YES;
+
+    _adObject               = adObject;
+    _adObjectHandler        = adObjectHandler;
+
+    return self;
+}
+
+- (nonnull ANAdFetcherResponse *)initLazyResponseWithAdObject: (nonnull id)adObject
+                                           andAdObjectHandler: (nonnull id)adObjectHandler
+{
+    self = [super init];
+
+    if (!self)  { return nil; }
+
+
+    //
+    _successful                     = YES;
+    _isLazy                         = YES;
+
+    _adObject                       = adObject;
+    _adObjectHandler                = adObjectHandler;
+
     return self;
 }
 
@@ -62,11 +100,18 @@
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
+
 + (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
-                           andAdObjectHandler: (nullable id)adObjectHandler
+                                   andAdObjectHandler: (nullable id)adObjectHandler
 {
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
-                                                       andAdObjectHandler: adObjectHandler];
+    return [[ANAdFetcherResponse alloc] initAdResponseWithAdObject: adObject
+                                                andAdObjectHandler: adObjectHandler ];
+}
+
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
+                                       andAdObjectHandler: (nonnull id)adObjectHandler
+{
+    return  [[ANAdFetcherResponse alloc] initLazyResponseWithAdObject:adObject andAdObjectHandler:adObjectHandler];
 }
 
 

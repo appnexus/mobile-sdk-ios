@@ -31,4 +31,5 @@
 -(void)createInstreamVideoWithCreativeTag;
 -(void)createInstreamVideoWithVASTCreativeXML;
 -(NSUInteger) getAdPlayElapsedTime;
+- (void) createVideoPlayer;
 @end

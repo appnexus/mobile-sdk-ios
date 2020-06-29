@@ -31,7 +31,7 @@
 
 // This protocol definition meant for local use only, to simplify typecasting of MAR Manager objects.
 //
-@protocol  ANUniversalTagRequestBuilderFetcherDelegate  <   ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
+@protocol  ANUniversalTagRequestBuilderFetcherDelegate  <ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
                                                             ANAdProtocolVideo, ANAdProtocolPublicServiceAnnouncement >
     //EMPTY
 @end
@@ -50,8 +50,6 @@
 @property (nonatomic, readwrite, weak)  ANMultiAdRequest    *fetcherMARManager;
 @property (nonatomic, readwrite, weak)  ANMultiAdRequest    *adunitMARManager;
 
-@property (nonatomic, readwrite, strong)  NSString  *baseURLString;
-
 @end
 
 
@@ -67,34 +65,28 @@
 // NB  marManager is defined when this class is involed by MultiAdRequest, otherwise it is nil.
 //
 + (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
-                                               baseUrlString: (nonnull NSString *)baseUrlString
 {
     ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: adFetcherDelegate
                                                                          optionallyWithAdunitMultiAdRequestManager: nil
-                                                                                           orMultiAdRequestManager: nil
-                                                                                                     baseUrlString: baseUrlString ];
+                                                                                           orMultiAdRequestManager: nil];
     return [requestBuilder request];
 }
 
 + (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
                                  adunitMultiAdRequestManager: (nonnull ANMultiAdRequest *)adunitMARManager
-                                               baseUrlString: (nonnull NSString *)baseUrlString
 {
     ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: adFetcherDelegate
                                                                          optionallyWithAdunitMultiAdRequestManager: adunitMARManager
-                                                                                           orMultiAdRequestManager: nil
-                                                                                                     baseUrlString: baseUrlString ];
+                                                                                           orMultiAdRequestManager: nil];
     return [requestBuilder request];
 }
 
 + (nullable NSURLRequest *)buildRequestWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
-                                                   baseUrlString: (nonnull NSString *)baseUrlString
 {
     ANUniversalTagRequestBuilder *requestBuilder =
         [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: (id<ANUniversalRequestTagBuilderDelegate>)marManager
                               optionallyWithAdunitMultiAdRequestManager: nil
-                                                orMultiAdRequestManager: marManager
-                                                          baseUrlString: baseUrlString ];
+                                                orMultiAdRequestManager: marManager];
     return [requestBuilder request];
 }
 
@@ -102,7 +94,6 @@
 - (instancetype)initWithAdFetcherDelegate: (nullable id)adFetcherDelegate
 optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMARManager
                   orMultiAdRequestManager: (nullable ANMultiAdRequest *)fetcherMARManager
-                            baseUrlString: (nonnull NSString *)baseUrlString
 {
     self = [super init];
     if (!self)  { return nil; }
@@ -112,9 +103,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     _adFetcherDelegate  = adFetcherDelegate;
     _fetcherMARManager  = fetcherMARManager;
     _adunitMARManager   = adunitMARManager;
-
-    _baseURLString = baseUrlString;
-
     return self;
 }
 
@@ -125,17 +113,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSURLRequest *)request
 {
-    NSURL                *URL             = [NSURL URLWithString:self.baseURLString];
-    NSMutableURLRequest  *mutableRequest  = [[NSMutableURLRequest alloc] initWithURL: URL
-                                                                         cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
-                                                                     timeoutInterval: kAppNexusRequestTimeoutInterval];
-
-    // Set header fields for HTTP request.
-    // NB  Content-Type needs to be set explicity else will default to "application/x-www-form-urlencoded".
-    //
-    [mutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
-    [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [mutableRequest setHTTPMethod:@"POST"];
+    NSMutableURLRequest  *mutableRequest  = [ANGlobal adServerRequestURL];
     
     NSError       *error       = nil;
     NSData        *postData    = nil;

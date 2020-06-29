@@ -61,7 +61,7 @@
 // Create Banner Ad Object
 - (ANBannerAdView *)createBannerAd:(UIView *) adView
 {
-    self.bannerAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"17982237" adSize:CGSizeMake(300, 250)];
+    self.bannerAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"19212468" adSize:CGSizeMake(300, 250)];
     self.bannerAd.rootViewController =self;
     self.bannerAd.delegate =self;
     self.bannerAd.shouldResizeAdToFitContainer = YES;
@@ -73,7 +73,7 @@
 // Create Interstitial Ad Object
 - (ANInterstitialAd *)createInterstitialAd
 {
-    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"17982237"];
+    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"19212468"];
     self.interstitialAd.delegate =self;
     return self.interstitialAd;
     
@@ -83,7 +83,7 @@
 // Create InstreamVideo Ad Object
 - (ANInstreamVideoAd *)createVideoAd
 {
-    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:@"17982237"];
+    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:@"19212468"];
     self.videoAd.loadDelegate =self;
     return self.videoAd;
 }
@@ -92,7 +92,7 @@
 - (ANNativeAdRequest *)createNativeAd
 {
     self.nativeAdRequest = [[ANNativeAdRequest alloc] init];
-    self.nativeAdRequest.placementId = @"17982237";
+    self.nativeAdRequest.placementId = @"19212468";
     self.nativeAdRequest.shouldLoadIconImage = YES;
     self.nativeAdRequest.shouldLoadMainImage = YES;
     self.nativeAdRequest.delegate = self;

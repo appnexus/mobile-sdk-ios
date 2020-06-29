@@ -97,10 +97,9 @@ static NSString  *PlacementID  = @"9924001";
 
 - (void)testUTRequestWithtpuids
 {
-    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
     
-    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -128,10 +127,9 @@ static NSString  *PlacementID  = @"9924001";
 
 - (void)testUTRequestForCSR
 {
-    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
     
-    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

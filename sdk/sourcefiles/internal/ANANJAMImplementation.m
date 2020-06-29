@@ -27,6 +27,7 @@ NSString *const kANCallRecordEvent = @"RecordEvent";
 NSString *const kANCallDispatchAppEvent = @"DispatchAppEvent";
 NSString *const kANCallGetDeviceID = @"GetDeviceID";
 NSString *const kANCallSetMraidRefreshFrequency = @"SetMRAIDRefreshFrequency";
+NSString *const kANCallGetCustomKeywords = @"GetCustomKeywords";
 
 NSString *const kANKeyCaller = @"caller";
 
@@ -58,7 +59,9 @@ NSString *const kANKeyCaller = @"caller";
         [ANANJAMImplementation callGetDeviceID:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallSetMraidRefreshFrequency]) {
         [ANANJAMImplementation callSetMraidRefreshFrequency:controller query:queryComponents];
-    } else {
+    } else if ([call isEqualToString:kANCallGetCustomKeywords]) {
+        [ANANJAMImplementation callGetCustomKeywords:controller query:queryComponents];
+    }else {
         ANLogWarn(@"ANJAM called with unsupported function: %@", call);
     }
 }
@@ -108,7 +111,7 @@ NSString *const kANKeyCaller = @"caller";
     if (ANHasHttpPrefix([url scheme])
         && [[UIApplication sharedApplication] canOpenURL:url]) {
         //added as the test case was failing due to unavailability of a delegate.
-        [controller.adViewANJAMDelegate adWillLeaveApplication];
+        [controller.adViewANJAMInternalDelegate adWillLeaveApplication];
         [ANGlobal openURL:[url absoluteString]];
     }
 }
@@ -141,7 +144,7 @@ NSString *const kANKeyCaller = @"caller";
     NSString *event = [query valueForKey:@"event"];
     NSString *data = [query valueForKey:@"data"];
     
-    [controller.adViewANJAMDelegate adDidReceiveAppEvent:event withData:data];
+    [controller.adViewANJAMInternalDelegate adDidReceiveAppEvent:event withData:data];
 }
 
 // Get Device ID
@@ -156,6 +159,16 @@ NSString *const kANKeyCaller = @"caller";
                                  @"id": ANAdvertisingIdentifier()
                                  };
     [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
+}
+
+// Get Custom Keywords
+
++ (void)callGetCustomKeywords:(ANAdWebViewController *)controller query:(NSDictionary *)query {
+    NSString *cb = [query valueForKey:@"cb"];
+    
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: controller.adViewANJAMInternalDelegate.customkeywordsForANJAM
+                                                                                                       withSeparatorString: @"," ];
+    [ANANJAMImplementation loadResult:controller cb:cb paramsList:customKeywordsAsStrings];
 }
 
 + (void)callSetMraidRefreshFrequency:(ANAdWebViewController *)controller query:(NSDictionary *)query {

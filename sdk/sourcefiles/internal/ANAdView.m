@@ -83,8 +83,11 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  adResponseInfo                     = __adResponseInfo;
-@synthesize  obstructionViews                    = __obstructionViews;
+@synthesize  adResponseInfo                         = __adResponseInfo;
+@synthesize  obstructionViews                       = __obstructionViews;
+
+
+
 
 #pragma mark - Initialization
 
@@ -407,9 +410,9 @@
  */
 - (void)setMarManager:(ANMultiAdRequest *)marManager
 {
-    if (self.universalAdFetcher  &&  (marManager != _marManager)) {
-        [self.universalAdFetcher stopAdLoad];
-        self.universalAdFetcher = nil;
+    if (_universalAdFetcher  &&  (marManager != _marManager)) {
+        [_universalAdFetcher stopAdLoad];
+        _universalAdFetcher = nil;
     }
 
     _marManager = marManager;
@@ -613,6 +616,15 @@
     }
 }
 
+- (void)lazyAdDidReceiveAd:(nonnull id)adObject
+{
+    if ([self.delegate respondsToSelector:@selector(lazyAdDidReceiveAd:)])
+    {
+        [self.delegate lazyAdDidReceiveAd:adObject];
+    }
+}
+
+
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance
 {
     if ([self.delegate respondsToSelector:@selector(ad:didReceiveNativeAd:)]) {
@@ -622,7 +634,6 @@
 
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
 {
-ANLogMark();
     [self setAdResponseInfo:adResponseInfo];
     
     if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
@@ -657,6 +668,10 @@ ANLogMark();
 {
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return nil;
+}
+
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customkeywordsForANJAM {
+    return __customKeywords;
 }
 
 

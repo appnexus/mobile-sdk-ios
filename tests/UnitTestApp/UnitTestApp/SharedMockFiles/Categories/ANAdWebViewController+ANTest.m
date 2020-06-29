@@ -14,9 +14,38 @@
  */
 
 #import "ANAdWebViewController+ANTest.h"
+#import "NSObject+Swizzling.h"
+#import <objc/runtime.h>
+#import <WebKit/WebKit.h>
+#import "ANTimeTracker.h"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 
 @implementation ANAdWebViewController (ANTest)
 
 @dynamic completedFirstLoad, lastKnownVisibleRect, lastKnownExposedPercentage;
+
++ (void)load {
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        [[self class] exchangeInstanceSelector:@selector(initWithConfiguration:)
+                                  withSelector:@selector(test_initWithConfiguration:)];
+        [[self class] exchangeInstanceSelector:@selector(webView:didFinishNavigation:)
+                                  withSelector:@selector(test_webView:didFinishNavigation:)];
+    }];
+    [operation start];
+}
+
+
+- (ANAdWebViewControllerConfiguration *)test_initWithConfiguration:(ANAdWebViewControllerConfiguration *)configuration{
+    ANAdWebViewControllerConfiguration  *wkwebConfiguration = [self test_initWithConfiguration:configuration];
+    [ANTimeTracker sharedInstance].webViewInitLoadingAt = [NSDate date];
+    return wkwebConfiguration;
+     
+}
+
+- (void)test_webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [ANTimeTracker sharedInstance].webViewFinishLoadingAt = [NSDate date];
+    [self test_webView:webView didFinishNavigation:navigation];
+}
 
 @end

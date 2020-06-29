@@ -97,7 +97,7 @@
 
 
 - (void)testBannerAd {
-    [self stubRequestWithResponse:@"PerformanceStatsRTBBannerAd"];
+    [self stubRequestWithResponse:@"SuccessfulAllowMagicSizeBannerObjectResponse"];
     
     CGRect rect = CGRectMake(0, 0, 300, 250);
     int adWidth  = 300;
@@ -121,7 +121,7 @@
 
 
 - (void)testVideoAd {
-    [self stubRequestWithResponse:@"PerformanceStatsRTBVideoAd"];
+    [self stubRequestWithResponse:@""];
     
     self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:@"19065996"];
     [self.videoAd loadAdWithDelegate:self];
@@ -137,7 +137,7 @@
 
 
 - (void)testNativeAd {
-    [self stubRequestWithResponse:@"PerformanceStatsRTBNativeAd"];
+    [self stubRequestWithResponse:@""];
     
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
@@ -153,7 +153,7 @@
 
 
 - (void)testInterstitialAd {
-    [self stubRequestWithResponse:@"PerformanceStatsRTBInterstitialAd"];
+    [self stubRequestWithResponse:@""];
     
     self.interstitial = [[ANInterstitialAd alloc] init];
     self.interstitial.placementId = @"19065996";
@@ -169,7 +169,7 @@
 
 
 -(void)testMAR{
-    [self createAllMARCombination:@"PerformanceStatsRTBMARAd"];
+    [self createAllMARCombination:@""];
     
     self.failAdExpectationTestcase = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval

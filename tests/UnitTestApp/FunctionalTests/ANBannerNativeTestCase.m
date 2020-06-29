@@ -147,6 +147,63 @@
 }
 
 
+- (void)testIsBannerDisabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowBannerDemand = NO;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 0);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+}
+
+
+- (void)testIsBannerDisabledNativeVideoEnabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowBannerDemand = NO;
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 2);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+}
+
+
+- (void)testIsBannerNativeDisabledVideoEnabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowBannerDemand = NO;
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
+    self.multiFormatAd.shouldAllowNativeDemand = NO;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 1);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+}
+
+- (void)testIsBannerVideoDisabledNativeEnabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowBannerDemand = NO;
+    self.multiFormatAd.shouldAllowVideoDemand = NO;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 1);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+}
+
+
 - (void)testIsBannerNativeEnabled
 {
     TESTTRACE();

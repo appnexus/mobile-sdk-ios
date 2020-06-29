@@ -27,7 +27,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.3.2"
+#define AN_SDK_VERSION                  @"7.4"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -49,7 +49,6 @@
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
 #define kANAdSize1x1 CGSizeMake(1,1)
-
 
 typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,
@@ -150,5 +149,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 + (nonnull NSString *) getUserAgent;
 
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
+
++ (nullable NSMutableURLRequest *) adServerRequestURL;
 
 @end

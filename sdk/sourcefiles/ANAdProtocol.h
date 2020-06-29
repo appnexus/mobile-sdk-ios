@@ -257,18 +257,18 @@
  */
 - (void)removeAllOpenMeasurementFriendlyObstructions;
 
-
-
 @end
+
 
 
 @protocol ANNativeAdRequestProtocol <ANAdProtocolFoundation>
-//EMPTY
+    //EMPTY
 @end
 
 @protocol ANNativeAdResponseProtocol <ANAdProtocolBrowser>
-//EMPTY
+    //EMPTY
 @end
+
 
 
 @protocol ANVideoAdProtocol <ANAdProtocol, ANAdProtocolVideo>
@@ -300,6 +300,7 @@
    ad:didReceivNativeAd:    used to receive ANNativeAdReponse when that is returned from an ANBannerAdView request.
  */
 - (void)adDidReceiveAd:(nonnull id)ad;
+- (void)lazyAdDidReceiveAd:(nonnull id)ad;
 
 - (void)ad:(nonnull id)loadInstance didReceiveNativeAd:(nonnull id)responseInstance;
 
