@@ -1,3 +1,18 @@
+## 7.4
+### New Feature
++ MS-4214: Added support for loading the Ad lazily (Lazy Load) [https://wiki.xandr.com/x/VJFlBg]
+
+### Mediation partner upgrade
++ FacebookAd SDK v5.9.0
+
+### Improvements/Bug Fixes
++ MS-4231: Added support to respect timeout set in Console
++ MS-4284: Implemented support for MRAID v3.0 audioVolumeChange event  
++ MS-4290: Added support to get Custom Keywords in the JavaScript layer via ANJAM
++ MS-4319: Added support to disable Banner demand for BannerAdView
++ MS-4335: Improved Banner Ad performance
+
+
 ## 7.3.2
 ### Improvements/Bug Fixes
 + MS-4352: Fixed NSHTTPCookieStorage setting
