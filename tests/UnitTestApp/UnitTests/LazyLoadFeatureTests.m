@@ -113,20 +113,6 @@ limitations under the License.
 
 
     //
-    self.expectationLazyAdDidReceiveAd                          = nil;
-    self.expectationAdDidReceiveAd                              = nil;
-    self.expectationAdDidReceiveNativeAd                        = nil;
-    self.expectationMultiAdRequestSuccess                       = nil;
-    self.expectationRequestFailedWithError                      = nil;
-
-    self.expectationAdResponseInfoIsDefined                     = nil;
-    self.expectationAdResponseInfoIsDefinedAndDifferent         = nil;
-    self.expectationTryToLoadWebviewSecondTimeForLazyAdUnit     = nil;
-    self.expectationAutoRefreshTimerIsSetProperly               = nil;
-    self.expectationFindANAdResponseInfoOnLazyFailure           = nil;
-    self.expectationRunLoadAdASecondTimeWithoutCallingLoadLazyAd    = nil;
-
-    //
     self.rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
 
     self.loadWebviewWhenLazyLoadCompletes               = YES;
@@ -141,6 +127,20 @@ limitations under the License.
 {
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    
+    //
+    self.expectationLazyAdDidReceiveAd                          = nil;
+    self.expectationAdDidReceiveAd                              = nil;
+    self.expectationAdDidReceiveNativeAd                        = nil;
+    self.expectationMultiAdRequestSuccess                       = nil;
+    self.expectationRequestFailedWithError                      = nil;
+
+    self.expectationAdResponseInfoIsDefined                     = nil;
+    self.expectationAdResponseInfoIsDefinedAndDifferent         = nil;
+    self.expectationTryToLoadWebviewSecondTimeForLazyAdUnit     = nil;
+    self.expectationAutoRefreshTimerIsSetProperly               = nil;
+    self.expectationFindANAdResponseInfoOnLazyFailure           = nil;
+    self.expectationRunLoadAdASecondTimeWithoutCallingLoadLazyAd    = nil;
 }
 
 - (void)createAdUnits
