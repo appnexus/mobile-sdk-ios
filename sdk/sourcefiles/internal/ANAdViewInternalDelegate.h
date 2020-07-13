@@ -39,10 +39,6 @@
 - (BOOL)valueOfEnableLazyLoad;
 - (BOOL)valueOfIsLazySecondPassThroughAdUnit;
 
-- (void)lazyAdDidReceiveAd:(id)adObject;
-- (BOOL)valueOfEnableLazyWebviewLoad;
-- (ANAdFetcherResponse *)getLazyFetcherResponse;
-
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 

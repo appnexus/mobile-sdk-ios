@@ -41,6 +41,7 @@
 
 @property (nonatomic, readonly, strong, nullable) NSError *error;
 
+
 //
 + (nonnull ANAdFetcherResponse *)responseWithError:(nonnull NSError *)error;
 
@@ -49,4 +50,6 @@
 
 + (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
                                        andAdObjectHandler: (nonnull id)adObjectHandler;
+
+
 @end

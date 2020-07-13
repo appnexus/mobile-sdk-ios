@@ -76,7 +76,6 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 - (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd
-        //FIX -- webview.
 {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return nil;

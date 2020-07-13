@@ -114,4 +114,5 @@
     return  [[ANAdFetcherResponse alloc] initLazyResponseWithAdObject:adObject andAdObjectHandler:adObjectHandler];
 }
 
+
 @end
