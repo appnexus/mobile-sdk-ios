@@ -17,6 +17,10 @@
 
 
 #import "ANVideoAdPlayer+Test.h"
+#import "NSObject+Swizzling.h"
+#import <objc/runtime.h>
+#import <WebKit/WebKit.h>
+#import "ANTimeTracker.h"
 
 @implementation ANVideoAdPlayer(Test)
 
@@ -50,6 +54,27 @@
     return 10;
 }
 
++ (void)load {
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+    
+        [[self class] exchangeInstanceSelector:@selector(webView:didStartProvisionalNavigation:)
+                                  withSelector:@selector(test_webView:didStartProvisionalNavigation:)];
+        
+        [[self class] exchangeInstanceSelector:@selector(webView:didFinishNavigation:)
+                                  withSelector:@selector(test_webView:didFinishNavigation:)];
+    }];
+    [operation start];
+}
+
+-(void)test_webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+    [ANTimeTracker sharedInstance].webViewInitLoadingAt = [NSDate date];
+    [self test_webView:webView didStartProvisionalNavigation:navigation];
+}
+
+- (void)test_webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [ANTimeTracker sharedInstance].webViewFinishLoadingAt = [NSDate date];
+    [self test_webView:webView didFinishNavigation:navigation];
+}
 
 
 @end

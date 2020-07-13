@@ -1,4 +1,4 @@
-/*   Copyright 2020 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,17 +13,8 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import "ANNativeRenderingViewController.h"
 
-#import "ANMRAIDContainerView.h"
-
-
-
-
-@interface ANMRAIDContainerView (ANTest) 
-
-@property (nonatomic, readwrite, strong)     ANAdWebViewController                       *webViewController;
-
-+ (void)swizzleMRAIDContainerView:(BOOL)swizzleForward;
+@interface ANNativeRenderingViewController (ANTest)
 
 @end

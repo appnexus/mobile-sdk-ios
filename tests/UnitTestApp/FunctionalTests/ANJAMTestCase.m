@@ -31,6 +31,7 @@
 @interface ANJAMTestCase : XCTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) ANBannerAdView *adView;
 @property (nonatomic, strong) XCTestExpectation *deviceIdExpectation;
+@property (nonatomic, strong) XCTestExpectation *customKeywordsExpectation;
 @property (nonatomic, strong) XCTestExpectation *dispatchAppEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *internalBrowserExpectation;
 @property (nonatomic, strong) XCTestExpectation *externalBrowserExpectation;
@@ -70,6 +71,7 @@
     self.adView.appEventDelegate = nil;
     self.adView = nil;
     self.deviceIdExpectation = nil;
+    self.customKeywordsExpectation = nil;
     self.dispatchAppEventExpectation = nil;
     self.internalBrowserExpectation = nil;
     self.externalBrowserExpectation = nil;
@@ -92,6 +94,20 @@
     [self.adView loadAd];
     [self waitForExpectationsWithTimeout:10.0 handler:nil];
     self.deviceIdExpectation = nil;
+}
+
+
+- (void)testANJAMCustomKeywordsResponse {
+    [self tearDown];
+    [self setUp];
+    [self stubRequestWithResponse:@"ANJAMCustomKeywordsResponse"];
+    self.customKeywordsExpectation = [self expectationWithDescription:@"Waiting for CustomKeywords app event to be received."];
+    [self.adView addCustomKeywordWithKey:@"foo" value:@"bar1"];
+    [self.adView addCustomKeywordWithKey:@"randomkey" value:@"randomvalue"];
+    self.adView.autoRefreshInterval =  0;
+    [self.adView loadAd];
+    [self waitForExpectationsWithTimeout:20.0 handler:nil];
+    self.customKeywordsExpectation = nil;
 }
 
 - (void)testANJAMDispatchAppEvent {
@@ -189,6 +205,10 @@ TESTTRACE();
         XCTAssertEqualObjects(data, @"true");
         [self.mayDeepLinkExpectation fulfill];
 
+    } else if ([name isEqualToString:@"CustomKeywordsYes"]) {
+        XCTAssertNotNil(data);
+        XCTAssertEqualObjects(data, @"bar1randomvalue");
+        [self.customKeywordsExpectation fulfill];
     } else if ([name isEqualToString:@"DeepLinkNo"]) {
         XCTAssertNotNil(data);
         XCTAssertEqualObjects(data, @"false");
