@@ -31,8 +31,13 @@
 - (ANClickThroughAction)clickThroughAction;
 
 - (void)adWasClickedWithURL:(NSString *)urlString;
+
 - (void)adDidReceiveAd:(id)adObject;
 - (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
+- (void)lazyAdDidReceiveAd:(id)adObject;
+
+- (BOOL)valueOfEnableLazyLoad;
+- (BOOL)valueOfIsLazySecondPassThroughAdUnit;
 
 - (void)lazyAdDidReceiveAd:(id)adObject;
 - (BOOL)valueOfEnableLazyWebviewLoad;
@@ -50,6 +55,7 @@
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 - (NSString *)adTypeForMRAID;
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customkeywordsForANJAM;
 
 - (UIViewController *)displayController;
 - (BOOL)landingPageLoadsInBackground;

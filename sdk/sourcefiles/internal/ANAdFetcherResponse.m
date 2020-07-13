@@ -74,10 +74,8 @@
     return self;
 }
 
-- (nonnull instancetype)initLazyResponseWithAdContent: (nonnull NSString *)adContent
-                                               adSize: (CGSize)sizeOfWebview
-                                              baseURL: (nonnull NSURL *)baseURL
-                                   andAdObjectHandler: (nonnull id)adObjectHandler
+- (nonnull ANAdFetcherResponse *)initLazyResponseWithAdObject: (nonnull id)adObject
+                                           andAdObjectHandler: (nonnull id)adObjectHandler
 {
     self = [super init];
 
@@ -87,17 +85,12 @@
     //
     _successful                     = YES;
     _isLazy                         = YES;
-    _isLazyFirstPassThroughAdUnit   = YES;
 
-    _adContent              = adContent;
-    _sizeOfWebview          = sizeOfWebview;
-    _baseURL                = baseURL;
-
-    _adObjectHandler        = adObjectHandler;
+    _adObject                       = adObject;
+    _adObjectHandler                = adObjectHandler;
 
     return self;
 }
-
 
 
 
@@ -115,15 +108,10 @@
                                                 andAdObjectHandler: adObjectHandler ];
 }
 
-+ (nonnull ANAdFetcherResponse *)lazyResponseWithAdContent: (nonnull NSString *)adContent
-                                                    adSize: (CGSize)sizeOfWebview
-                                                   baseURL: (nonnull NSURL *)baseURL
-                                        andAdObjectHandler: (nonnull id)adObjectHandler
++ (nonnull ANAdFetcherResponse *)lazyResponseWithAdObject: (nonnull id)adObject
+                                       andAdObjectHandler: (nonnull id)adObjectHandler
 {
-    return [[ANAdFetcherResponse alloc] initLazyResponseWithAdContent: adContent
-                                                               adSize: sizeOfWebview
-                                                              baseURL: baseURL
-                                                   andAdObjectHandler: adObjectHandler ];
+    return  [[ANAdFetcherResponse alloc] initLazyResponseWithAdObject:adObject andAdObjectHandler:adObjectHandler];
 }
 
 @end

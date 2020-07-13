@@ -48,6 +48,8 @@
                               content: (nonnull NSString *)webviewContent
                         isXMLForVideo: (BOOL)isContentXMLForVideo;
 
+- (BOOL)allocateAndSetWebviewFromCachedAdObjectHandler;
+
 @end
 
 

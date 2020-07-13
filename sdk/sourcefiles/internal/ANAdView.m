@@ -618,7 +618,8 @@
 
 - (void)lazyAdDidReceiveAd:(nonnull id)adObject
 {
-    if ([self.delegate respondsToSelector:@selector(lazyAdDidReceiveAd:)]) {
+    if ([self.delegate respondsToSelector:@selector(lazyAdDidReceiveAd:)])
+    {
         [self.delegate lazyAdDidReceiveAd:adObject];
     }
 }
@@ -669,5 +670,8 @@
     return nil;
 }
 
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customkeywordsForANJAM {
+    return __customKeywords;
+}
 @end
 

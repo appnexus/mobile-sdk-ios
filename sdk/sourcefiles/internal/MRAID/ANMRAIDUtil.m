@@ -84,6 +84,8 @@
         return ANMRAIDActionSetUseCustomClose;
     } else if ([command isEqualToString:@"open"]) {
         return ANMRAIDActionOpenURI;
+    }else if ([command isEqualToString:@"audioVolumeChange"]) {
+        return ANMRAIDActionAudioVolumeChange;
     } else if ([command isEqualToString:@"enable"]) {
         return ANMRAIDActionEnable;
     }

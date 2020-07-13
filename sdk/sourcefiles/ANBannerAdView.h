@@ -262,12 +262,11 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 
 /**
- *  If enableNativeRendering is not set, the default is NO.
+ *  If enableLazyLoad is not set, the default is NO.
  *  Generate AdUnit without loading webview automatically.
- *  Host app must complete load with [self loadWebview].
+ *  Host app must complete load with [self loadLazyAd].
  */
-@property (nonatomic, readwrite)  BOOL  enableLazyWebviewLoad;
-
+@property (nonatomic, readwrite)  BOOL  enableLazyLoad;
 
 /**
  *  Sets whether or not Native Ads(AppNexus Media Type:12) can serve on this Ad object with nativeRendererId.
@@ -320,8 +319,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 - (void) loadAd;
 
-- (void) loadWebview;
-
+- (BOOL) loadLazyAd;
 
 @end
 

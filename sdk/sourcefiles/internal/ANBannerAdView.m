@@ -71,7 +71,22 @@ static NSString *const kANInline        = @"inline";
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
-@property (nonatomic, readwrite, strong)  ANAdFetcherResponse  *lazyFetcherResponse;
+/**
+ * This flag remembers whether the initial return of the ad object from UT Response processing
+ *   indicated that the AdUnit was lazy loaded.
+ *
+ * NOTE: Because ANBannerAdView is a multi-format AdUnit, it may return an ad object that is NOT lazy loaded
+ *       even if the feature flag is set for lazy loading (enableLazyLoad).
+ *       For example when video or native ad is returnd to ANBannerAdView with enableLazyLoad=YES.
+ */
+@property (nonatomic, readwrite)  BOOL  didBecomeLazyAdUnit;
+
+/**
+ * This flag is set by loadLazyAd before loading the webview.  It allows the fetcher to distinguish
+ *   whether the ad object is returned from UT Response processing (first pass), or is being handled
+ *   only to load the webview of a lazy loaded AdUnit (second pass).
+ */
+@property (nonatomic, readwrite)  BOOL  isLazySecondPassThroughAdUnit;
 
 @end
 
@@ -96,8 +111,7 @@ static NSString *const kANInline        = @"inline";
 @synthesize  maxDuration                    = __maxDuration;
 
 @synthesize  countImpressionOnAdReceived    = _countImpressionOnAdReceived;
-@synthesize  enableLazyWebviewLoad          = __enableLazyWebviewLoad;
-
+@synthesize  enableLazyLoad                 = _enableLazyLoad;
 
 
 #pragma mark - Lifecycle.
@@ -127,8 +141,12 @@ static NSString *const kANInline        = @"inline";
     self.enableNativeRendering    = NO;
 
     _countImpressionOnAdReceived  = NO;
-    __enableLazyWebviewLoad       = NO;
 
+    _enableLazyLoad                 = NO;
+    _didBecomeLazyAdUnit            = NO;
+    _isLazySecondPassThroughAdUnit  = NO;
+
+    //
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
 
@@ -197,35 +215,42 @@ static NSString *const kANInline        = @"inline";
 
 - (void) loadAd
 {
-    self.loadAdHasBeenInvoked   = YES;
-    self.lazyFetcherResponse    = nil;
+    self.loadAdHasBeenInvoked = YES;
+
+    self.didBecomeLazyAdUnit            = NO;
+    self.isLazySecondPassThroughAdUnit  = NO;
 
     [super loadAd];
 }
 
 
-- (void)loadWebview
+- (BOOL)loadLazyAd
 {
-    if (!self.isEligibleForLazyLoad) {
+    if (!self.didBecomeLazyAdUnit) {
         ANLogWarn(@"AdUnit is NOT A CANDIDATE FOR LAZY LOADING.");
-        return;
+        return  NO;
     }
 
     if (self.contentView) {
         ANLogWarn(@"AdUnit LAZY LOAD IS ALREADY COMPLETED.");
-        return;
+        return  NO;
     }
 
 
     //
-    BOOL  returnValue  = [self.universalAdFetcher allocateAndSetWebviewWithSize: self.lazyFetcherResponse.sizeOfWebview
-                                                                        content: self.lazyFetcherResponse.adContent
-                                                                  isXMLForVideo: NO ];
+    self.isLazySecondPassThroughAdUnit = YES;
+
+    BOOL  returnValue  = [self.universalAdFetcher allocateAndSetWebviewFromCachedAdObjectHandler];
+
     if (!returnValue)
     {
         NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
         ANLogError(@"%@", error);
+        return  NO;
     }
+
+
+    return  returnValue;
 }
 
 
@@ -325,27 +350,27 @@ static NSString *const kANInline        = @"inline";
     return __autoRefreshInterval;
 }
 
-- (void)setEnableLazyWebviewLoad:(BOOL)propertyValue
+- (void)setEnableLazyLoad:(BOOL)booleanValue
 {
-    if (YES == __enableLazyWebviewLoad) {
-        ANLogWarn(@"CANNOT CHANGE enableLazyWebviewLoad once it is enabled.");
+    if (YES == _enableLazyLoad) {
+        ANLogWarn(@"enableLazyLoad is already ENABLED.");
         return;
     }
 
-    // NB  Best effort to set critical section around fetcher for enableLazyWebviewLoad property.
+    if (NO == booleanValue) {
+        ANLogWarn(@"CANNOT DISABLE enableLazyLoad once it is set.");
+        return;
+    }
+
+    // NB  Best effort to set critical section around fetcher for enableLazyLoad property.
     //
     if (self.loadAdHasBeenInvoked && (YES == self.universalAdFetcher.isFetcherLoading)) {
-        ANLogWarn(@"CANNOT ENABLE enableLazyWebviewLoad while fetcher is loading.");
+        ANLogWarn(@"CANNOT ENABLE enableLazyLoad while fetcher is loading.");
         return;
     }
 
     //
-    __enableLazyWebviewLoad = propertyValue;
-}
-
-- (BOOL)isEligibleForLazyLoad
-{
-    return  (nil != self.lazyFetcherResponse);
+    _enableLazyLoad = YES;
 }
 
 
@@ -378,6 +403,11 @@ static NSString *const kANInline        = @"inline";
 
 - (void)setContentView:(UIView *)newContentView
 {
+    // Do not update lazy loaded webview unless the new webview candidate is defined.
+    //
+    if (!newContentView && self.isLazySecondPassThroughAdUnit)  { return; }
+
+    //
     if (newContentView != _contentView)
     {
         UIView *oldContentView = _contentView;
@@ -481,30 +511,61 @@ static NSString *const kANInline        = @"inline";
 
 #pragma mark - ANUniversalAdFetcherDelegate
 
+/**
+ * NOTE:  How are flags used to distinguish lazy loading from regular loading of AdUnits?
+ *        With the introduction of lazy loading, there are three different cases that call universalAdFetcher:didfinishRequestWithResponse:.
+ *
+ *        AdUnit is lazy loaded -- first return to AdUnit from UT Response processing.
+ *              response.isLazy==YES
+ *        Lazy AdUnit is loading webview -- second return to AdUnit, initiated by the AdUnit itself (loadLazyAd)
+ *              response.isLazy==NO  &&  AdUnit.isLazySecondPassThroughAdUnit==YES
+ *        AdUnit is NOT lazy loaded
+ *              response.isLazy==NO  &&  AdUnit.isLazySecondPassThroughAdUnit==NO
+ */
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     id  adObject         = response.adObject;
     id  adObjectHandler  = response.adObjectHandler;
 
+    BOOL  trackersShouldBeFired  = NO;
+
     NSError  *error  = nil;
 
+
+    // Try to get ANAdResponseInfo from anything that comes through.
+    //
+    if (self.enableLazyLoad && adObjectHandler) {
+        _adResponseInfo = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
+        if (_adResponseInfo) {
+            [self setAdResponseInfo:_adResponseInfo];
+        }
+    }
+
+
+    //
     if (!response.isSuccessful)
     {
         [self finishRequest:response withReponseError:response.error];
+
+        if (self.enableLazyLoad) {
+            [self.universalAdFetcher restartAutoRefreshTimer];
+            [self.universalAdFetcher startAutoRefreshTimer];
+        }
+
         return;
     }
 
 
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
-    if (!response.isLazy || response.isLazyFirstPassThroughAdUnit)
+    if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
     {
         self.loadAdHasBeenInvoked = YES;
 
         self.contentView = nil;
         self.impressionURLs = nil;
 
-        _adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
+        _adResponseInfo = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
         if (_adResponseInfo) {
             [self setAdResponseInfo:_adResponseInfo];
         }
@@ -524,7 +585,7 @@ static NSString *const kANInline        = @"inline";
     //
     if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
     {
-        if (!response.isLazy || response.isLazyFirstPassThroughAdUnit)
+        if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
         {
             NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
             NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
@@ -546,7 +607,7 @@ static NSString *const kANInline        = @"inline";
                 //   but only when the AdUnit is not lazy.
                 //
                 if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
-                    [self fireTrackerAndOMID];
+                    trackersShouldBeFired = YES;
                 }
             }
         }
@@ -554,14 +615,18 @@ static NSString *const kANInline        = @"inline";
 
         // Return early if AdUnit is lazy loaded.
         //
-        if (response.isLazyFirstPassThroughAdUnit)
+        if (response.isLazy)
         {
-            self.lazyFetcherResponse = response;
+            self.didBecomeLazyAdUnit = YES;
+            self.isLazySecondPassThroughAdUnit = NO;
+
+            [self.universalAdFetcher stopAutoRefreshTimer];
+
             [self lazyAdDidReceiveAd:self];
             return;
 
         } else {
-            [self fireTrackerAndOMID];
+            trackersShouldBeFired = YES;
         }
 
 
@@ -593,6 +658,10 @@ static NSString *const kANInline        = @"inline";
                                                 clickableViews: @[]
                                                          error: &registerError];
             }
+        }
+
+        if (trackersShouldBeFired) {
+            [self fireTrackerAndOMID];
         }
 
         [self adDidReceiveAd:self];
@@ -634,8 +703,15 @@ static NSString *const kANInline        = @"inline";
 
 - (void)finishRequest:(ANAdFetcherResponse *)response withReponseError:(NSError *)error
 {
-    self.contentView = nil;
-    self.lazyFetcherResponse = nil;
+    self.contentView          = nil;
+    self.didBecomeLazyAdUnit  = NO;
+
+    // Preserve existing ANAdResponseInfo whan AdUnit is lazy loaded.
+    //
+    if (self.enableLazyLoad && self.isLazySecondPassThroughAdUnit) {
+        response.adResponseInfo = self.adResponseInfo;
+    }
+
     [self adRequestFailedWithError:error andAdResponseInfo:response.adResponseInfo];
 }
 
@@ -722,15 +798,16 @@ static NSString *const kANInline        = @"inline";
     return displayController;
 }
 
-- (BOOL)valueOfEnableLazyWebviewLoad
+- (BOOL)valueOfEnableLazyLoad
 {
-    return  self.enableLazyWebviewLoad;
+    return  self.enableLazyLoad;
 }
 
-- (ANAdFetcherResponse *)getLazyFetcherResponse
+- (BOOL)valueOfIsLazySecondPassThroughAdUnit
 {
-    return  self.lazyFetcherResponse;
+    return  self.isLazySecondPassThroughAdUnit;
 }
+
 
 
 

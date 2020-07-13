@@ -104,7 +104,6 @@
     [super stopAdLoad];
     [self clearMediationController];
     [self stopAutoRefreshTimer];
-    
 }
 
 
@@ -150,20 +149,23 @@
 
     // AdUnit case.
     //
+    // Stop auto-refreush timer for video, but start it for everything else,
+    //   unless it is the first pass for Lazy AdUnit.
+    //
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
 
-    if ([response.adObject isKindOfClass:[ANMRAIDContainerView class]]) {
-        if (((ANMRAIDContainerView *)response.adObject).isBannerVideo) {
-            [self stopAutoRefreshTimer];
-            return;
-        }
+    if (    [response.adObject isKindOfClass:[ANMRAIDContainerView class]]
+         && ((ANMRAIDContainerView *)response.adObject).isBannerVideo)
+    {
+        [self stopAutoRefreshTimer];
+        return;
     }
 
-    // Start of auto refresh timer (if it is active), unless this is the first pass by lazy AdUnit.
-    //
-    if (!response.isLazyFirstPassThroughAdUnit) {
+    BOOL  isLazyLoadSecondPass  = [self.delegate respondsToSelector:@selector(valueOfIsLazySecondPassThroughAdUnit)] && [self.delegate valueOfIsLazySecondPassThroughAdUnit];
+    if (!response.isLazy && !isLazyLoadSecondPass)
+    {
         [self startAutoRefreshTimer];
     }
 }
@@ -228,7 +230,7 @@
 
 #pragma mark - Auto refresh timer.
 
-- (void) startAutoRefreshTimer
+- (void)startAutoRefreshTimer
 {
     if (!self.autoRefreshTimer) {
         ANLogDebug(@"fetcher_stopped");
@@ -258,7 +260,7 @@
     }
 }
 
-- (void) stopAutoRefreshTimer
+- (void)stopAutoRefreshTimer
 {
     [self.autoRefreshTimer invalidate];
     self.autoRefreshTimer = nil;
@@ -340,12 +342,10 @@
                                                         andHeight: standardAd.height];
 
     //
-    if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyWebviewLoad)] && [self.delegate valueOfEnableLazyWebviewLoad])
+    if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyLoad)] && [self.delegate valueOfEnableLazyLoad])
     {
-        ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdContent: standardAd.content
-                                                                                         adSize: sizeOfWebview
-                                                                                        baseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]
-                                                                             andAdObjectHandler: self.adObjectHandler ];
+        ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdObject: standardAd
+                                                                            andAdObjectHandler: self.adObjectHandler ];
         [self processFinalResponse:fetcherResponse];
 
         return;
@@ -473,20 +473,9 @@
             }
         }
 
-        if ([self.delegate respondsToSelector:@selector(getLazyFetcherResponse)])
-        {
-            fetcherResponse = [self.delegate getLazyFetcherResponse];
-
-            if (fetcherResponse) {
-                fetcherResponse.adObject                        = self.adView;
-                fetcherResponse.isLazyFirstPassThroughAdUnit    = NO;
-            }
-        }
-
-        if (!fetcherResponse) {
-            fetcherResponse = [ANAdFetcherResponse responseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
-        }
-
+        fetcherResponse = [ANAdFetcherResponse responseWithAdObject: self.adView
+                                                 andAdObjectHandler: self.adObjectHandler ];
+         
     } else {
         NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
         fetcherResponse = [ANAdFetcherResponse responseWithError:error];
@@ -594,4 +583,23 @@
 
     return  YES;
 }
+
+- (BOOL)allocateAndSetWebviewFromCachedAdObjectHandler
+{
+    ANStandardAd  *lazyStandardAd  = (ANStandardAd *)self.adObjectHandler;
+
+    CGSize         sizeOfWebview   = [self getWebViewSizeForCreativeWidth: lazyStandardAd.width
+                                                                andHeight: lazyStandardAd.height];
+
+    // Optimistically restart activated autorefresh timer.
+    // Successful load of lazy AdUnit webview will stop autorefresh timer.
+    //
+    [self restartAutoRefreshTimer];
+    [self startAutoRefreshTimer];
+
+    return  [self allocateAndSetWebviewWithSize: sizeOfWebview
+                                        content: lazyStandardAd.content
+                                  isXMLForVideo: NO ];
+}
+
 @end
