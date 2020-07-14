@@ -392,6 +392,7 @@
 		0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1F7220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m */; };
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
+		38F0224A24B8561500CE4CE0 /* ANGDPRSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F0224924B8561500CE4CE0 /* ANGDPRSettingsTestCase.m */; };
 		4F11628B238749A200101DC1 /* MARHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE4DB05237B40F8005B5BCF /* MARHelper.m */; };
 		4F3B837E2481E866005EE88C /* LazyWebview_Basic.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F3B837B2481E865005EE88C /* LazyWebview_Basic.json */; };
 		4F3B837F2481E866005EE88C /* LazyWebview_MRAID.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F3B837D2481E865005EE88C /* LazyWebview_MRAID.json */; };
@@ -953,6 +954,7 @@
 		0EEFE1F9220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
 		0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
 		0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
+		38F0224924B8561500CE4CE0 /* ANGDPRSettingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettingsTestCase.m; sourceTree = "<group>"; };
 		4F3B837B2481E865005EE88C /* LazyWebview_Basic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LazyWebview_Basic.json; sourceTree = "<group>"; };
 		4F3B837D2481E865005EE88C /* LazyWebview_MRAID.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LazyWebview_MRAID.json; sourceTree = "<group>"; };
 		4F59A7A42379CC6B002E0482 /* MARGeneralTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARGeneralTests.m; sourceTree = "<group>"; };
@@ -1630,6 +1632,7 @@
 				4F9CED4723CC9E7700BE3443 /* PrivateAPI.m */,
 				0E8C982C21FF4191005D1F0E /* UIViewConstraintsTestCase.m */,
 				0EC17C5121F72EA300F0F6AF /* UnitTests.m */,
+				38F0224924B8561500CE4CE0 /* ANGDPRSettingsTestCase.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -2487,6 +2490,7 @@
 				0E8C984121FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
 				0EEFE114220055C4002B5F5F /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
 				4FE5D816248A21AD00B86BDA /* ANNativeAdRequest+ANTest.m in Sources */,
+				38F0224A24B8561500CE4CE0 /* ANGDPRSettingsTestCase.m in Sources */,
 				0E6612C322CA736300DDC5CD /* ANNativeAdView.m in Sources */,
 				0E8C982B21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m in Sources */,
 				60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */,

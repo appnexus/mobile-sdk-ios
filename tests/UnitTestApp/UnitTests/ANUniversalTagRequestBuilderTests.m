@@ -233,7 +233,7 @@ static NSString  *videoPlacementID  = @"9924001";
     dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
     XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    [ANGDPRSettings setConsentRequired:FALSE];
+    [ANGDPRSettings setConsentRequired:[NSNumber numberWithInt:0]];
     [ANGDPRSettings setPurposeConsents:@"1010"];
 
     //
@@ -367,10 +367,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
         // Device Id Start
         NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertNotNil(idfa);
-        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+        XCTAssertNil(deviceId);
         //
         [expectation fulfill];
     });
@@ -386,7 +383,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
     XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     
-    [ANGDPRSettings setConsentRequired:FALSE];
+    [ANGDPRSettings setConsentRequired:[NSNumber numberWithInt:0]];
 
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,

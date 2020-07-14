@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "7.4"
+  s.version      = "7.4.1"
   s.platform     = :ios, "9.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
@@ -47,7 +47,7 @@ DESC
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
     subspec.dependency 'FBAudienceNetwork', '5.9.0'
     subspec.source_files         = "csr/Facebook/*.{h,m}"
-    subspec.public_header_files  = "csr/Facebook/ANFBSettings.h"
+    subspec.public_header_files  = "csr/Facebook/*.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
   end 
 
