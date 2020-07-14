@@ -1,3 +1,9 @@
+## 7.4.1
+
+### Improvements/Bug Fixes
++ MS-4435: Fixed crash when using TCF 2.0 purpose consent strings
++ MS-4437: Fixed cocoapods build for Facebook CSR Adapter
+
 ## 7.4
 ### New Feature
 + MS-4214: Added support for loading the Ad lazily (Lazy Load) [https://wiki.xandr.com/x/VJFlBg]
