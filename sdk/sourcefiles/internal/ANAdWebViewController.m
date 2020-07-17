@@ -247,9 +247,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     WKUserContentController  *controller  = self.webView.configuration.userContentController;
     
-    [controller addUserScript:ANGlobal.anjamScript];
-    [controller addUserScript:ANGlobal.mraidScript];
-    
     if (!self.configuration.userSelectionEnabled)
     {
         NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
@@ -264,7 +261,12 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
     if(!self.configuration.isVASTVideoAd){
         
-        [controller addUserScript:ANGlobal.omidScript];
+        WKUserScript* omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
+           injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+        forMainFrameOnly: YES];
+        
+        
+        [controller addUserScript:omidScript];
     }
     
     if (self.configuration.scrollingEnabled) {

@@ -152,12 +152,4 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (nullable NSMutableURLRequest *) adServerRequestURL;
 
-+ (nonnull WKUserScript *) mraidScript;
-
-+ (nonnull WKUserScript *) anjamScript;
-
-+ (nonnull WKUserScript *) omidScript;
-
-+ (nonnull WKWebViewConfiguration *) webConfiguration;
-
 @end

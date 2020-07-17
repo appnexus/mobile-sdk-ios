@@ -34,9 +34,12 @@
     [super viewDidLoad];
     self.title = @"Banner Ad";
 
-    int adWidth  = 320;
-    int adHeight = 50;
-    NSString *adID = @"19065996";
+    int adWidth  = 300;
+    int adHeight = 250;
+    NSString *adID = @"15215010";
+    
+    int adWidth1  = 320;
+    int adHeight1 = 50;
     NSString *inventoryCode = @"finanzen.net-app_ios_phone-home_index-banner";
     NSInteger memberID = 7823;
     
@@ -51,7 +54,12 @@
     
     // Make a banner ad view.
     //self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
-    self.banner = [[ANBannerAdView alloc] initWithFrame:rect memberId:memberID inventoryCode:inventoryCode adSize:size];
+    
+    // Needed for when we create our ad view.
+    CGRect rect1 = CGRectMake(originX, originY, adWidth1, adHeight1);
+    CGSize size1 = CGSizeMake(adWidth1, adHeight1);
+    
+    self.banner = [[ANBannerAdView alloc] initWithFrame:rect1 memberId:memberID inventoryCode:inventoryCode adSize:size1];
     self.banner.rootViewController = self;
     self.banner.delegate = self;
     [self.view addSubview:self.banner];
