@@ -99,6 +99,12 @@ WKWebViewConfiguration  *configuration = nil;
         return self;
     }
 
+-(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL{
+    self.frame = CGRectMake(0, 0, size.width, size.height);
+    [self loadHTMLString:contentString baseURL:baseURL];
+    
+}
+
     -(void) loadWebViewWithUserScripts {
     
         WKUserContentController  *controller  = self.configuration.userContentController;

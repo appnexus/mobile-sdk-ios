@@ -24,6 +24,7 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANClickOverlayView.h"
 #import "ANWebView.h"
+#import "ANWarmupWebView.h"
 
 static NSString *const kANNativeResponseObject= @"AN_NATIVE_RENDERING_OBJECT";
 static NSString *const kANNativeRenderingURL = @"AN_NATIVE_RENDERING_URL";
@@ -93,8 +94,9 @@ static NSString *const kANativeRenderingValidURL = @"validRenderingURL";
         base = [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]];
     }
     
-    _webView = [[ANWebView alloc] initWithSize:size content:html baseURL:base];
-
+    _webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
+    
+    [_webView loadWithSize:size content:html baseURL:base];
     
     [self configureWebView];
 }

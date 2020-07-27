@@ -97,7 +97,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         _checkViewableRunLoopMode = NSRunLoopCommonModes;
         
         _appIsInBackground = NO;
-        _processStart = [NSDate date];
+        
     }
     return self;
 }
@@ -121,6 +121,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
+    
+    _webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
+    
+    
     
     _webView = [[ANWebView alloc]initWithSize:(CGSize)size
                                    URL:(NSURL *)URL
@@ -146,6 +150,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration
 {
+    _processStart = [NSDate date];
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
     
@@ -313,10 +318,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    self.processEnd = [NSDate date];
-    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
-    NSLog(@"Updated Ad WebView controller at: %f", executionTime*1000);
-    
     [self processWebViewDidFinishLoad];
 }
 
@@ -539,6 +540,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         {
             @synchronized(self) {
                 [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
+                self.processEnd = [NSDate date];
+                NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+                NSLog(@"Updated branch Create webview: %f", executionTime*1000);
             }
         }
         

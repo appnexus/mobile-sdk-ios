@@ -54,9 +54,7 @@ limitations under the License.
 - (ANWebView *) fetchWarmedUpWebView {
     ANWebView *removedWebView = [self.webViewQueue lastObject];
     [self.webViewQueue removeLastObject];
-    
     [self prepareWebView];
-
     return removedWebView;
     
 }
