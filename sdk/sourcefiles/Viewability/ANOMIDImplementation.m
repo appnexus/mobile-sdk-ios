@@ -53,9 +53,8 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
         return;
     
     if(!OMIDAppnexusSDK.sharedInstance.isActive){
-        NSError *error;
-        [[OMIDAppnexusSDK sharedInstance] activateWithOMIDAPIVersion:OMIDSDKAPIVersionString
-                                                               error:&error];
+        [[OMIDAppnexusSDK sharedInstance] activate];
+       
         
         // This Creates / updates a partner for each new activation of OMID SDK
         self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
@@ -85,14 +84,20 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     // empty string.
     NSString *customRefId = @"";
 
-    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:  self.partner
-                                                                                          webView:  webView
-                                                                        customReferenceIdentifier:  customRefId
-                                                                                            error: &ctxError];
+    /*
+     contentUrl : there is a new context parameter for “content URL”. This is the deep-link URL for the app screen that is displaying the ad.
+     If the content URL is not known, pass null for the parameter.
+     */
+    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:self.partner
+                                                                                          webView:webView
+                                                                                       contentUrl:nil customReferenceIdentifier:customRefId error: &ctxError];
+                                         
     OMIDOwner impressionOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNativeOwner;
-    OMIDOwner videoEventsOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNoneOwner;
+    OMIDOwner mediaEventsOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNoneOwner;
 
-    return [self initialseOMIDAdSessionForView:webView withSessionContext:context andImpressionOwner:impressionOwner andVideoEventsOwner:videoEventsOwner];
+    
+    
+    return [self initialseOMIDAdSessionForView:webView withSessionContext:context andImpressionOwner:impressionOwner andMediaEventsOwner:mediaEventsOwner htmlAd:(mediaEventsOwner == OMIDNoneOwner)];
 }
 
 
@@ -101,25 +106,41 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return nil;    
     
-    NSError *ctxError;    
-    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:  self.partner
-                                                                                          script:   self.getOMIDJS
-                                                                                        resources:scripts
-                                                                        customReferenceIdentifier: nil
-                                                                                            error: &ctxError];
+    NSError *ctxError;
+
+    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:self.partner
+                                                                                           script:self.getOMIDJS
+                                                                                            resources:scripts
+                                                                                            contentUrl:nil
+                                                                                            customReferenceIdentifier:nil
+                                                                                            error:&ctxError];
     
-    return [self initialseOMIDAdSessionForView:view withSessionContext:context andImpressionOwner:OMIDNativeOwner andVideoEventsOwner:OMIDNoneOwner];
+    return [self initialseOMIDAdSessionForView:view withSessionContext:context andImpressionOwner:OMIDNativeOwner andMediaEventsOwner:OMIDNoneOwner htmlAd:false];
 }
 
 
--(OMIDAppnexusAdSession*) initialseOMIDAdSessionForView:(id)view withSessionContext:(OMIDAppnexusAdSessionContext*)context andImpressionOwner:(OMIDOwner)impressionOwner andVideoEventsOwner:(OMIDOwner)videoEventsOwner
+-(OMIDAppnexusAdSession*) initialseOMIDAdSessionForView:(id)view withSessionContext:(OMIDAppnexusAdSessionContext*)context andImpressionOwner:(OMIDOwner)impressionOwner andMediaEventsOwner:(OMIDOwner)mediaEventsOwner htmlAd:(BOOL)isBannerAd
 {
-    //Note that it is important that the videoEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
+    //Note that it is important that the mediaEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
     NSError *cfgError;
+    
+    OMIDCreativeType creativeType;
+    if (mediaEventsOwner == OMIDNoneOwner) {
+        creativeType = isBannerAd ? OMIDCreativeTypeHtmlDisplay : OMIDCreativeTypeNativeDisplay;
+    } else {
+        // let the JS session script declare creative type,
+        creativeType = OMIDCreativeTypeDefinedByJavaScript;
+    }
+    
     OMIDAppnexusAdSessionConfiguration *config = [[OMIDAppnexusAdSessionConfiguration alloc]
-                                                  initWithImpressionOwner:impressionOwner videoEventsOwner:videoEventsOwner
-                                                  isolateVerificationScripts:NO error:&cfgError];
-    // Create the session
+                                                  initWithCreativeType:creativeType
+                                                  impressionType:((mediaEventsOwner == OMIDNoneOwner)?OMIDImpressionTypeViewable:OMIDImpressionTypeDefinedByJavaScript)
+                                                  impressionOwner:impressionOwner
+                                                  mediaEventsOwner:mediaEventsOwner
+                                                  isolateVerificationScripts:NO
+                                                  error:&cfgError];
+                                                  
+                                                  
     NSError *sessError;
     OMIDAppnexusAdSession *omidAdSession = [[OMIDAppnexusAdSession alloc] initWithConfiguration:config
                                                                                adSessionContext:context error:&sessError];
@@ -151,6 +172,9 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     if(omidAdSession != nil){
         NSError *adEvtsError;
         OMIDAppnexusAdEvents *adEvents = [[OMIDAppnexusAdEvents alloc] initWithAdSession:omidAdSession error:&adEvtsError];
+        NSError *loadedError;
+        [adEvents loadedWithError:&loadedError];
+        
         NSError *impError;
         [adEvents impressionOccurredWithError:&impError];
     }
@@ -164,7 +188,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
         return;
 
     if(omidAdSession != nil){
-        [omidAdSession addFriendlyObstruction:view];
+        [omidAdSession addFriendlyObstruction:view purpose:OMIDFriendlyObstructionOther detailedReason:nil error:nil];
     }
 }
 
