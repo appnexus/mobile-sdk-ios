@@ -24,8 +24,6 @@
 #import "ANWebView.h"
 #import "ANGDPRSettings.h"
 
-#define AN_USER_DENIED_LOCATION_PERMISSION 1
-
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
 NSString * __nonnull const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelegateTagKeyAllowSmallerSizes";
