@@ -30,5 +30,7 @@
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
 
  -(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL;
+
++ (ANWebView *) fetchWebView;
     
 @end

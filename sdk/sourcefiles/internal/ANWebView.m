@@ -27,6 +27,8 @@ WKUserScript *mraidScript = nil;
 
 WKWebViewConfiguration  *configuration = nil;
 
+NSMutableArray<ANWebView *> *webViewQueue;
+
 @implementation ANWebView
     
     -(instancetype) initWithSize:(CGSize)size
@@ -99,11 +101,35 @@ WKWebViewConfiguration  *configuration = nil;
         return self;
     }
 
--(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL{
-    self.frame = CGRectMake(0, 0, size.width, size.height);
-    [self loadHTMLString:contentString baseURL:baseURL];
+    -(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL{
+        
+        self.frame = CGRectMake(0, 0, size.width, size.height);
+        [self loadHTMLString:contentString baseURL:baseURL];
     
-}
+    }
+
+    + (ANWebView *) fetchWebView {
+        ANWebView *removedWebView = nil;
+        if(webViewQueue == nil){
+            webViewQueue = [[NSMutableArray alloc] init];
+            
+        } else if (webViewQueue.count > 0){
+            removedWebView = [webViewQueue lastObject];
+            [webViewQueue removeLastObject];
+            
+        }
+        [ANWebView  prepareWebView];
+        return removedWebView;
+     
+    }
+
+    + (void) prepareWebView {
+        ANWebView *webView = [[ANWebView alloc] initWithSize:CGSizeZero];
+        
+        [webView loadHTMLString:@"" baseURL:nil];
+        
+        [webViewQueue addObject:webView];
+    }
 
     -(void) loadWebViewWithUserScripts {
     

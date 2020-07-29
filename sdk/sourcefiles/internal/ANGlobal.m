@@ -21,7 +21,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
 #import "ANOMIDImplementation.h"
-#import "ANWarmupWebView.h"
+#import "ANWebView.h"
 
 #define AN_USER_DENIED_LOCATION_PERMISSION 1
 
@@ -301,7 +301,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     // No need for "dispatch once" since `load` is called only once during app launch.
     [[ANSDKSettings sharedInstance] optionalSDKInitialization];
     [self constructAdServerRequestURL];
-    [ANWarmupWebView sharedInstance];
+    [ANWebView fetchWebView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
     
 }

@@ -31,7 +31,6 @@
 
 #import "ANOMIDImplementation.h"
 #import "ANWebView.h"
-#import "ANWarmupWebView.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
 #import "ANAudioVolumeChangeListener.h"
 
@@ -122,10 +121,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
     
-    _webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
-    
-    
-    
     _webView = [[ANWebView alloc]initWithSize:(CGSize)size
                                    URL:(NSURL *)URL
                                baseURL:(NSURL *)baseURL];
@@ -169,8 +164,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (!_configuration.scrollingEnabled) {
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
-    
-    self.webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
+    self.webView = [ANWebView fetchWebView];
+    //self.webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
     [self loadWebViewWithUserScripts];
     
     __weak ANAdWebViewController  *weakSelf  = self;
