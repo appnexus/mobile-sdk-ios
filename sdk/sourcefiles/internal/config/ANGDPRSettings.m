@@ -114,7 +114,7 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     if(purposeConsents.length <= 0){
         purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_PurposeConsents];
     }
-    if(purposeConsents > 0){
+    if(purposeConsents != nil && purposeConsents.length > 0){
         return [purposeConsents substringToIndex:1];
     }
     return nil;

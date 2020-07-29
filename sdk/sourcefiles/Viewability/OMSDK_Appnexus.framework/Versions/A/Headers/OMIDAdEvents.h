@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "OMIDAdSession.h"
+#import "OMIDVASTProperties.h"
 
 /**
  *  Ad event API enabling the integration partner to signal to all verification providers when key events have occurred.
@@ -31,4 +32,19 @@
  */
 - (BOOL)impressionOccurredWithError:(NSError *_Nullable *_Nullable)error;
 
+/**
+ *  Notifies the ad session that display loaded event has occurred.
+ *
+ *  When triggered all registered verification providers will be notified of this event.
+ */
+- (BOOL)loadedWithError:(NSError *_Nullable *_Nullable)error;
+
+/**
+ *  Notifies the ad session that video/audio loaded event has occurred.
+ *
+ *  When triggered all registered verification providers will be notified of this event.
+ * @param vastProperties contains static information about the video/audio placement.
+ */
+- (BOOL)loadedWithVastProperties:(OMIDAppnexusVASTProperties *_Nonnull)vastProperties
+                           error:(NSError *_Nullable *_Nullable)error;
 @end

@@ -428,6 +428,14 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
+    XCTAssertTrue([self.requestData containsString:@"creativeType"]);
+    XCTAssertTrue([self.requestData containsString:@"nativeDisplay"]);
+    XCTAssertTrue([self.requestData containsString:@"impressionType"]);
+    XCTAssertTrue([self.requestData containsString:@"viewable"]);
+    XCTAssertTrue([self.requestData containsString:@"mediaType"]);
+    XCTAssertTrue([self.requestData containsString:@"display"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.7-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
     self.expectationForOmidSessionFinish = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self.multiFormatAd removeFromSuperview];
     self.multiFormatAd = nil;

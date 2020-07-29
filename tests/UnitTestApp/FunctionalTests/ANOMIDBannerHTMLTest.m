@@ -44,8 +44,9 @@
 @property (nonatomic, strong) XCTestExpectation *OMIDImpressionEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDSessionFinishEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDAdSessionIDUpdateExpectaion;
-//"adSessionId":"BC05657C-9D2F-419C-B776-2AFDF79AF70B"
-//"adSessionId":"29B4BAC9-3237-4406-9FC1-5E3A2DF6A7E5" This should be different from first one.
+@property (nonatomic, strong) XCTestExpectation *OMIDMediaTypeExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMIDVersionExpectation;
+
 
 @property (nonatomic) BOOL geometryFulfilled;
 @property (nonatomic) BOOL oneHundredPercentViewableFulfilled;
@@ -106,7 +107,8 @@
     self.adSessionIdForFirstAd = @"";
     self.adSessionIdForSecondAd = @"";
     self.interstitial = nil;
-    
+    self.OMIDMediaTypeExpectation = nil;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }
@@ -129,9 +131,20 @@
 
 }
 
+- (void)testOMIDVersion
+{
+    [self stubRequestWithResponse:@"OMID_TestResponse"];
 
+    self.OMIDVersionExpectation = [self expectationWithDescription:@"Didn't receive OMID version"];
 
+    [self.bannerAdView loadAd];
 
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+
+                                 }];
+
+}
 
 - (void)testOMIDGeometry
 {
@@ -169,6 +182,34 @@
 
 }
 
+
+- (void)testOMIDBannerMediaType
+{
+    [self stubRequestWithResponse:@"OMID_TestResponse"];
+     self.OMIDMediaTypeExpectation = [self expectationWithDescription:@"Didn't receive OMID Media Type event"];
+     
+
+     [self.bannerAdView loadAd];
+     [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+                                  handler:^(NSError *error) {
+     }];
+
+}
+
+
+
+- (void)testOMIDInterstitialMediaType
+{
+    [self stubRequestWithResponse:@"OMID_TestResponse"];
+     self.OMIDMediaTypeExpectation = [self expectationWithDescription:@"Didn't receive OMID Media Type event"];
+     
+
+     [self.interstitial loadAd];
+     [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+                                  handler:^(NSError *error) {
+     }];
+
+}
 
 - (void)testOMIDSessionFinish
 {
@@ -303,7 +344,7 @@
     didReceiveAppEvent: (NSString *)name
               withData: (NSString *)data
 {
-    
+
     if(self.isOMIDSessionFinish || self.isOMIDSessionFinishRemoveFromSuperview){
         sleep(1);
     }
@@ -311,10 +352,20 @@
         // Decode and confim various OMID EVENT Datas here.
         // the cases are made as if block so that all expectations are fulfilled. This block will be called more that once during test exection once atleast for each expectation case.
 
+        if ([data containsString:@"impressionType"] && [data containsString:@"viewable"] && [data containsString:@"mediaType"] && [data containsString:@"display"] &&  [data containsString:@"creativeType"] && [data containsString:@"htmlDisplay"] && self.OMIDMediaTypeExpectation) {
+               [self.OMIDMediaTypeExpectation fulfill];
+           }
+        
         if (self.OMIDSupportedExpecation && [data containsString:@"OmidSupported[true]"]) {
             // Only assert if it has been setup to assert.
             [self.OMIDSupportedExpecation fulfill];
         }
+        
+        if (self.OMIDVersionExpectation && [data containsString:@"1.3.7-Appnexus"] && [data containsString:@"libraryVersion"]) {
+            // Only assert if it has been setup to assert.
+            [self.OMIDVersionExpectation fulfill];
+        }
+
 
         if (self.OMIDAdSessionStartedExpectation && [data containsString:@"\"type\":\"sessionStart\""]) {
             // Only assert if it has been setup to assert.
