@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-
 #import "ANAdConstants.h"
 
 
@@ -152,4 +151,5 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (nullable NSMutableURLRequest *) adServerRequestURL;
 
++ (void) setWebViewCookie:(nonnull WKWebView*)webView;
 @end

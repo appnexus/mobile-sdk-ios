@@ -20,7 +20,7 @@
 #import "ANLogging.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
-
+#import "ANGDPRSettings.h"
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
@@ -460,4 +460,21 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortrait;
 }
 
++ (void) setWebViewCookie:(nonnull WKWebView*)webView{
+    if([ANGDPRSettings canAccessDeviceData]){
+         
+         for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+             // Skip cookies that will break our script
+             if ([cookie.value rangeOfString:@"'"].location != NSNotFound) {
+                 continue;
+             }
+             if (@available(iOS 11.0, *)) {
+                 [webView.configuration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
+             } else {
+                 // Fallback on earlier versions
+                 [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+             }
+         }
+     }
+}
 @end

@@ -15,9 +15,13 @@
 
 #import <objc/runtime.h>
 #import "ANTimeTracker.h"
+#import "ANHTTPCookieStorage.h"
 #import "ANAdFetcherBase+ANTest.h"
 #import "NSObject+Swizzling.h"
 #import <objc/runtime.h>
+#import "ANGDPRSettings.h"
+#import "ANSDKSettings+PrivateMethods.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation ANAdFetcherBase (ANTest)
@@ -27,23 +31,37 @@
 
 + (void)load {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-    
+        
         [[self class] exchangeInstanceSelector:@selector(requestAd)
                                   withSelector:@selector(test_requestAd)];
         [[self class] exchangeInstanceSelector:@selector(handleAdServerResponse:)
                                   withSelector:@selector(test_handleAdServerResponse:)];
-        
-
-        
-//        [[self class] exchangeInstanceSelector:@selector(webView:didFinishNavigation:)
-//                                  withSelector:@selector(test_webView:didFinishNavigation:)];
+        [[self class] exchangeInstanceSelector:@selector(cookieSync:)
+                                  withSelector:@selector(test_cookieSync:)];
     }];
     [operation start];
 }
 
-
+- (void)test_cookieSync:(NSHTTPURLResponse *)response{
+    
+    if([ANGDPRSettings canAccessDeviceData]){
+        NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[response URL]];
+        NSDictionary *cookieHeaders;
+        cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies];
+        [ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie = cookieHeaders;
+    }
+    [self test_cookieSync:response];
+}
 
 -(void)test_requestAd{
+    if([ANGDPRSettings canAccessDeviceData]){
+          NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl];
+          NSURL                *URL             = [NSURL URLWithString:urlString];
+          NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:URL];
+          NSDictionary *cookieHeaders;
+          cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies];
+         [ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie = cookieHeaders;
+    }
     [ANTimeTracker sharedInstance].networkAdRequestInit = [NSDate date];
     [self test_requestAd];
 }
@@ -51,6 +69,5 @@
 - (void)test_handleAdServerResponse:(NSData *)data{
     [ANTimeTracker sharedInstance].networkAdRequestComplete = [NSDate date];
     [self test_handleAdServerResponse:data];
-
 }
 @end
