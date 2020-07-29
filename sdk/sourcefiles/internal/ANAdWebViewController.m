@@ -33,7 +33,6 @@
 #import "ANWebView.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
 #import "ANAudioVolumeChangeListener.h"
-
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 
@@ -256,6 +255,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
                                                                            forMainFrameOnly: NO];
         [controller addUserScript:userSelectionSuppressionScript];
     }
+    // Set HttpCookie for Webview
+    [ANGlobal setWebViewCookie:self.webView];
     
     // Attach  OMID JS script to WKWebview for HTML Banner Ad's
     // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.

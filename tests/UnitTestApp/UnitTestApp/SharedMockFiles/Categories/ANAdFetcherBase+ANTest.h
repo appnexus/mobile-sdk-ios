@@ -17,5 +17,6 @@
 
 @interface ANAdFetcherBase (ANTest)
 
+- (void)cookieSync:(NSHTTPURLResponse *)response;
 
 @end

@@ -23,7 +23,6 @@
 #import "ANOMIDImplementation.h"
 #import "ANVideoPlayerSettings.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
-
 static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>
@@ -231,6 +230,8 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     //configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
     [configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
     
+    // Set HttpCookie for Webview
+    [ANGlobal setWebViewCookie:self.webView];
  
     UIWindow *currentWindow = [UIApplication sharedApplication].keyWindow;
     //provide the width & height of the webview else the video wont be displayed ********
