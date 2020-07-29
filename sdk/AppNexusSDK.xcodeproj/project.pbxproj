@@ -1092,7 +1092,6 @@
 				609732CE1E42E9860061EC0A /* ANUniversalAdFetcher.h in Headers */,
 				609732D11E42E9860061EC0A /* ANUniversalTagAdServerResponse.h in Headers */,
 				609732D41E42E9860061EC0A /* ANUniversalTagRequestBuilder.h in Headers */,
-				60165D282464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
 				973B23AB238D1E4C00717D67 /* ANUSPrivacySettings.h in Headers */,
 				972025CE222FD90E00C13454 /* ANVerificationScriptResource.h in Headers */,
 				609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */,
@@ -1172,7 +1171,6 @@
 				0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */,
 				0099B483228CA0EB004E80AB /* UIView+ANCategory.h in Headers */,
 				F5731B4B228C8D050012B134 /* UIView+ANNativeAdCategory.h in Headers */,
-				60165D292464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,7 +1341,6 @@
 				9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				8A9AEDF51A1BF99D00C58BDA /* ANClickOverlayView.m in Sources */,
 				609732B91E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
-				60165D262464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */,
 				0E0C5E5C2437E2EC0030B813 /* ANCSRAd.m in Sources */,
 				0E92D3B52420D06A00209580 /* ANCSRNativeAdController.m in Sources */,
 				0E3E3E64241FB73500823D66 /* ANCSRNativeAdResponse.m in Sources */,
@@ -1460,7 +1457,6 @@
 				F5731B4E228C8D170012B134 /* ANVerificationScriptResource.m in Sources */,
 				006F6BA12295FFD0003D2DF0 /* ANWebView.m in Sources */,
 				F52F82EC2293362900F4578C /* NSObject+ANCategory.m in Sources */,
-				60165D272464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */,
 				F52F82ED2293367700F4578C /* NSString+ANCategory.m in Sources */,
 				0099B486228CA191004E80AB /* NSTimer+ANCategory.m in Sources */,
 				0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */,
