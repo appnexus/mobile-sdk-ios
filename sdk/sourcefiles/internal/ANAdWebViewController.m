@@ -72,9 +72,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
-@property (nonatomic, readwrite, strong) NSDate *processStart;
-@property (nonatomic, readwrite, strong) NSDate *processEnd;
-
 @property (nonatomic, readwrite, strong)  ANAudioVolumeChangeListener* audioVolumeChange;
 
 @end
@@ -144,7 +141,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration
 {
-    _processStart = [NSDate date];
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
     
@@ -536,9 +532,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         {
             @synchronized(self) {
                 [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
-                self.processEnd = [NSDate date];
-                NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
-                NSLog(@"Updated branch Create webview: %f", executionTime*1000);
             }
         }
         
