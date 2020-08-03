@@ -22,7 +22,9 @@
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 
-
+@property (nonatomic, readwrite, strong) NSDate *processStart;
+@property (nonatomic, readwrite, strong) NSDate *processEnd;
+@property (nonatomic, readwrite, strong) NSDate *previousDifference;
 @end
 
 @implementation BannerAdViewController
@@ -34,7 +36,12 @@
 
     int adWidth  = 300;
     int adHeight = 250;
-    NSString *adID = @"19212468";
+    NSString *adID = @"15215010";
+    
+    int adWidth1  = 320;
+    int adHeight1 = 50;
+    NSString *inventoryCode = @"finanzen.net-app_ios_phone-home_index-banner";
+    NSInteger memberID = 7823;
     
     // We want to center our ad on the screen.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -46,24 +53,38 @@
     CGSize size = CGSizeMake(adWidth, adHeight);
     
     // Make a banner ad view.
-    self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    //self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    
+    // Needed for when we create our ad view.
+    CGRect rect1 = CGRectMake(originX, originY, adWidth1, adHeight1);
+    CGSize size1 = CGSizeMake(adWidth1, adHeight1);
+    
+    self.banner = [[ANBannerAdView alloc] initWithFrame:rect1 memberId:memberID inventoryCode:inventoryCode adSize:size1];
     self.banner.rootViewController = self;
     self.banner.delegate = self;
     [self.view addSubview:self.banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
     self.banner.shouldServePublicServiceAnnouncements = NO;
+    self.banner.autoRefreshInterval = 10;
     
     // Load an ad.
+    self.processStart = [NSDate date];
     [self.banner loadAd];
 }
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+    self.processEnd = [NSDate date];
+    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+    NSLog(@"Updated Ad rendered at: %f", executionTime*1000);
 }
 
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{
     NSLog(@"Ad request Failed With Error");
+    self.processEnd = [NSDate date];
+    NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+    NSLog(@"Updated Ad delivery failed at: %f", executionTime*1000);
 }
 
 - (void)didReceiveMemoryWarning

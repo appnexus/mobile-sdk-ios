@@ -19,12 +19,23 @@
 #import "ANSDKSettings.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANOMIDImplementation.h"
+
+WKUserScript  *anjamScript = nil;
+
+WKUserScript *mraidScript = nil;
+
+WKWebViewConfiguration  *configuration = nil;
+
+NSMutableArray<ANWebView *> *webViewQueue;
 
 @implementation ANWebView
     
     -(instancetype) initWithSize:(CGSize)size
     {
-        WKWebViewConfiguration *configuration = [[self class] setDefaultWebViewConfiguration];
+        [[self class] loadWebViewConfigurations];
+        
+        WKWebViewConfiguration *configuration = [[self class] webConfiguration];
         
         self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height) configuration:configuration];
         if (!self)  { return nil; }
@@ -35,7 +46,7 @@
         if (@available(iOS 11.0, *)) {
             self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        
+        [self loadWebViewWithUserScripts];
         return self;
     }
     
@@ -89,9 +100,48 @@
         
         return self;
     }
+
+    -(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL{
+        
+        self.frame = CGRectMake(0, 0, size.width, size.height);
+        [self loadHTMLString:contentString baseURL:baseURL];
+    
+    }
+
+    + (ANWebView *) fetchWebView {
+        ANWebView *removedWebView = nil;
+        if(webViewQueue == nil){
+            webViewQueue = [[NSMutableArray alloc] init];
+            
+        } else if (webViewQueue.count > 0){
+            removedWebView = [webViewQueue lastObject];
+            [webViewQueue removeLastObject];
+            
+        }
+        [ANWebView  prepareWebView];
+        return removedWebView;
+     
+    }
+
+    + (void) prepareWebView {
+        ANWebView *webView = [[ANWebView alloc] initWithSize:CGSizeZero];
+        
+        [webView loadHTMLString:@"" baseURL:nil];
+        
+        [webViewQueue addObject:webView];
+    }
+
+    -(void) loadWebViewWithUserScripts {
+    
+        WKUserContentController  *controller  = self.configuration.userContentController;
+    
+        [controller addUserScript:self.class.anjamScript];
+        [controller addUserScript:self.class.mraidScript];
+    
+    }
     
     
-    + (WKWebViewConfiguration *)setDefaultWebViewConfiguration
+    + (void) addDefaultWebViewConfiguration
     {
         static dispatch_once_t   processPoolToken;
         static WKProcessPool    *anSdkProcessPool;
@@ -100,7 +150,7 @@
             anSdkProcessPool = [[WKProcessPool alloc] init];
         });
         
-        WKWebViewConfiguration  *configuration  = [[WKWebViewConfiguration alloc] init];
+        configuration  = [[WKWebViewConfiguration alloc] init];
         
         configuration.processPool                   = anSdkProcessPool;
         configuration.allowsInlineMediaPlayback     = YES;
@@ -159,30 +209,67 @@
             [controller addUserScript:execCurrentPositionDeniedScript];
             
         }
-        return configuration;
+    }
+
++ (void) loadWebViewConfigurations {
+    if(mraidScript == nil){
+        mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
+                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly: YES];
+    }
+    if(anjamScript == nil){
+        anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
+                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly: YES];
+    }
+    if(configuration == nil){
+        [self addDefaultWebViewConfiguration];
     }
     
-    - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script {
-        __block NSString *resultString = nil;
-        __block BOOL finished = NO;
-        
-        [self evaluateJavaScript:script completionHandler:^(id result, NSError *error) {
-            if (error == nil) {
-                if (result != nil) {
-                    resultString = [NSString stringWithFormat:@"%@", result];
-                }
-            } else {
-                NSLog(@"evaluateJavaScript error : %@", error.localizedDescription);
-            }
-            finished = YES;
-        }];
-        
-        while (!finished)
-        {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        
-        return resultString;
+}
+
++ (WKUserScript *)mraidScript {
+    return mraidScript;
+}
+
++ (WKUserScript *)anjamScript {
+    return anjamScript;
+}
+
++(nonnull WKWebViewConfiguration *) webConfiguration {
+    return configuration;
+}
+
++ (NSString *)mraidJS
+{
+    NSString *mraidPath = ANMRAIDBundlePath();
+    if (!mraidPath) {
+        return @"";
     }
+    
+    NSBundle    *mraidBundle    = [[NSBundle alloc] initWithPath:mraidPath];
+    NSData      *data           = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
+    NSString    *mraidString    = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    return  mraidString;
+}
+
++ (NSString *)anjamJS
+{
+    NSString *sdkjsPath = ANPathForANResource(@"sdkjs", @"js");
+    NSString *anjamPath = ANPathForANResource(@"anjam", @"js");
+    if (!sdkjsPath || !anjamPath) {
+        return @"";
+    }
+    
+    NSData      *sdkjsData  = [NSData dataWithContentsOfFile:sdkjsPath];
+    NSData      *anjamData  = [NSData dataWithContentsOfFile:anjamPath];
+    NSString    *sdkjs      = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
+    NSString    *anjam      = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
+    
+    NSString  *anjamString  = [NSString stringWithFormat:@"%@ %@", sdkjs, anjam];
+    
+    return  anjamString;
+}
 
 @end

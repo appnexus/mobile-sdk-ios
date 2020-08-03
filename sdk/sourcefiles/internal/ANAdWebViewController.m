@@ -71,7 +71,12 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)  NSString  *videoXML;
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+
+@property (nonatomic, readwrite, strong) NSDate *processStart;
+@property (nonatomic, readwrite, strong) NSDate *processEnd;
+
 @property (nonatomic, readwrite, strong)  ANAudioVolumeChangeListener* audioVolumeChange;
+
 @end
 
 @implementation ANAdWebViewController
@@ -90,6 +95,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         _checkViewableRunLoopMode = NSRunLoopCommonModes;
         
         _appIsInBackground = NO;
+        
     }
     return self;
 }
@@ -138,6 +144,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration
 {
+    _processStart = [NSDate date];
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
     
@@ -156,9 +163,21 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (!_configuration.scrollingEnabled) {
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
-    _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
-    //[self createWebView:size HTML:htmlToLoad baseURL:base];
+    self.webView = [ANWebView fetchWebView];
+    //self.webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
     [self loadWebViewWithUserScripts];
+    
+    __weak ANAdWebViewController  *weakSelf  = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong ANAdWebViewController  *strongSelf  = weakSelf;
+            if (!strongSelf)  {
+                return;
+            }
+            [strongSelf.webView loadHTMLString:htmlToLoad baseURL:base];
+        });
+    });
+    
     return self;
 }
 
@@ -212,71 +231,20 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 #pragma mark - Scripts
 
-+ (NSString *)mraidHTML {
-    return [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[self class] mraidJS]];
-}
-
-+ (NSString *)anjamHTML {
-    return [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[self class] anjamJS]];
-}
-
-+ (NSString *)mraidJS
-{
-    NSString *mraidPath = ANMRAIDBundlePath();
-    if (!mraidPath) {
-        return @"";
-    }
-    
-    NSBundle    *mraidBundle    = [[NSBundle alloc] initWithPath:mraidPath];
-    NSData      *data           = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
-    NSString    *mraidString    = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    return  mraidString;
-}
-
-+ (NSString *)anjamJS
-{
-    NSString *sdkjsPath = ANPathForANResource(@"sdkjs", @"js");
-    NSString *anjamPath = ANPathForANResource(@"anjam", @"js");
-    if (!sdkjsPath || !anjamPath) {
-        return @"";
-    }
-    
-    NSData      *sdkjsData  = [NSData dataWithContentsOfFile:sdkjsPath];
-    NSData      *anjamData  = [NSData dataWithContentsOfFile:anjamPath];
-    NSString    *sdkjs      = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
-    NSString    *anjam      = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
-    
-    NSString  *anjamString  = [NSString stringWithFormat:@"%@ %@", sdkjs, anjam];
-    
-    return  anjamString;
-}
-
 + (NSString *)prependViewportToHTML:(NSString *)html
 {
     return [NSString stringWithFormat:@"%@%@", @"<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">", html];
 }
 
-+ (NSString *)prependScriptsToHTML:(NSString *)html {
-    return [NSString stringWithFormat:@"%@%@%@", [[self class] anjamHTML], [[self class] mraidHTML], html];
-}
+//+ (NSString *)prependScriptsToHTML:(NSString *)html {
+//    return [NSString stringWithFormat:@"%@%@%@", [[self class] anjamHTML], [[self class] mraidHTML], html];
+//}
 
 #pragma mark - configure WKWebView
  
 -(void) loadWebViewWithUserScripts {
     
     WKUserContentController  *controller  = self.webView.configuration.userContentController;
-    
-    WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
-                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                    forMainFrameOnly: YES];
-    
-    WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
-                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                    forMainFrameOnly: YES];
-    
-    [controller addUserScript:anjamScript];
-    [controller addUserScript:mraidScript];
     
     if (!self.configuration.userSelectionEnabled)
     {
@@ -293,9 +261,12 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     // Attach  OMID JS script to WKWebview for HTML Banner Ad's
     // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
     if(!self.configuration.isVASTVideoAd){
-        WKUserScript *omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
-                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                       forMainFrameOnly: YES];
+        
+        WKUserScript* omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
+           injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+        forMainFrameOnly: YES];
+        
+        
         [controller addUserScript:omidScript];
     }
     
@@ -565,6 +536,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         {
             @synchronized(self) {
                 [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
+                self.processEnd = [NSDate date];
+                NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+                NSLog(@"Updated branch Create webview: %f", executionTime*1000);
             }
         }
         
@@ -575,6 +549,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         if(!([self.videoXML length] > 0)){
              self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:false];
         }
+        
+        
        
     }
 }

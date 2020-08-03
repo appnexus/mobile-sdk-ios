@@ -92,6 +92,10 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
 @property (nonatomic, readwrite, assign) BOOL responsiveAd;
 
+@property (nonatomic, readwrite, strong) NSDate *processStart;
+@property (nonatomic, readwrite, strong) NSDate *processEnd;
+
+
 @end
 
 
@@ -140,7 +144,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
     if (self) {
         _baseURL = baseURL;
-
+        _processStart = [NSDate date];
         self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: html
                                                               webViewBaseURL: baseURL];
@@ -511,6 +515,10 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
             [strongSelf addSubview:contentView];
             strongSelf.webViewController.contentView.hidden = NO;
+            
+            self.processEnd = [NSDate date];
+            NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
+            NSLog(@"Updated branch MRAIDContainer webview received at: %f", executionTime*1000);
 
             [contentView an_constrainToSizeOfSuperview];
             [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
