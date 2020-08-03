@@ -398,6 +398,7 @@
 		0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1F7220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m */; };
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
+		0EFE016F2498473D00284F49 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
 		38F0224A24B8561500CE4CE0 /* ANGDPRSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F0224924B8561500CE4CE0 /* ANGDPRSettingsTestCase.m */; };
 		4F11628B238749A200101DC1 /* MARHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE4DB05237B40F8005B5BCF /* MARHelper.m */; };
 		4F3B837E2481E866005EE88C /* LazyWebview_Basic.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F3B837B2481E865005EE88C /* LazyWebview_Basic.json */; };
@@ -2456,10 +2457,10 @@
 				973D2C1922C634A2008195C9 /* BannerAdClickThruViewController.swift in Sources */,
 				0EEAF63A229BCB840008CAC9 /* BannerAdFunctionalViewController.swift in Sources */,
 				0EC17C4521F72D1900F0F6AF /* main.m in Sources */,
+				0EFE016F2498473D00284F49 /* TestANCSRUniversalFetcher.m in Sources */,
 				0E8C97C821FF32EC005D1F0E /* NSObject+Swizzling.m in Sources */,
 				976E5A2A23571682008A4E60 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				0E8C97A721FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
-				0E9EBD6A24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */,
 				0EEFE15B22005C9F002B5F5F /* TestANUniversalFetcher.m in Sources */,
 				0EEAF639229BCB840008CAC9 /* TestCaseConstent.swift in Sources */,
 				0EEAF637229BCB840008CAC9 /* UITestViewController.swift in Sources */,

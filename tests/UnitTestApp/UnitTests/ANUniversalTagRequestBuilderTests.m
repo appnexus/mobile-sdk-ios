@@ -136,6 +136,8 @@ static NSString  *videoPlacementID  = @"9924001";
         NSString *deviceModel = device[@"model"];
         XCTAssertTrue(deviceModel.length > 0);
 
+        XCTAssertNil(jsonDict[@"auction_timeout_ms"]);
+
         NSNumber *connectionType = device[@"connectiontype"];
         XCTAssertNotNil(connectionType);
 

@@ -95,6 +95,8 @@
         sdkSettings = [[ANSDKSettings alloc] init];
         sdkSettings.locationEnabledForCreative =  YES;
         sdkSettings.enableOpenMeasurement = YES;
+        sdkSettings.auctionTimeout = 0;
+
     });
     return sdkSettings;
 }

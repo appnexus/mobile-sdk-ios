@@ -93,7 +93,37 @@ static NSString  *PlacementID  = @"9924001";
     self.CSRAdFiredOMIDTrackerExpectation = nil;
     self.nativeRequest = nil;
     self.nativeResponse = nil;
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
 }
+
+- (void)testUTRequestWithAudienceNetwork
+{
+    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:200];
+    TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSError *error;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        XCTAssertNotNil(jsonDict[@"auction_timeout_ms"]);
+        XCTAssertEqual([jsonDict[@"auction_timeout_ms"]  intValue], 200);
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
 
 - (void)testUTRequestWithtpuids
 {
@@ -119,11 +149,14 @@ static NSString  *PlacementID  = @"9924001";
         XCTAssertNotNil(tpuids[0][@"provider"]);
         XCTAssertEqualObjects(tpuids[0][@"provider"], @"audienceNetwork");
         XCTAssertNotNil(tpuids[0][@"user_id"]);
-        
+        XCTAssertNil(jsonDict[@"auction_timeout_ms"]);
+
         [expectation fulfill];
     });
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
+
+
 
 - (void)testUTRequestForCSR
 {
