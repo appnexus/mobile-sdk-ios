@@ -1,3 +1,13 @@
+## 7.5
+
+### Mediation partner upgrade
++ MS-4450 : Updated FacebookAd SDK to v5.10.1
+
+### Improvements/Bug Fixes
++ MS-4233: Updated Open Measurement SDK to v1.3.7
++ MS-4301: Minor performance tweaks to Banner Ad rendering
++ MS-4405: Fixed issue with NSHTTPCookieStorage being set based on purposeConsent value
+
 ## 7.4.1
 
 ### Improvements/Bug Fixes
