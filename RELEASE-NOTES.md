@@ -1,4 +1,6 @@
 ## 7.5
+### New Feature
++ MS-4384: Added support for Auction timeout [https://wiki.xandr.com/x/noS1Bg]
 
 ### Mediation partner upgrade
 + MS-4450 : Updated FacebookAd SDK to v5.10.1
