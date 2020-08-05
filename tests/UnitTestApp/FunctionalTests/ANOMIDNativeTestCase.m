@@ -82,12 +82,16 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.7-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
+
 }
 
 - (void)testOMIDSessionFinish{
     [self stubRequestWithResponse:@"OMID_Native_RTBResponse"];
     [self.adRequest loadAd];
     [XCTestCase delayForTimeInterval:10];
+    
     XCTAssertTrue([self.requestData containsString:@"OmidSupported"]);
     XCTAssertTrue([self.requestData containsString:@"true"]);
     XCTAssertTrue([self.requestData containsString:@"sessionStart"]);
@@ -96,6 +100,16 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
+    XCTAssertTrue([self.requestData containsString:@"creativeType"]);
+    XCTAssertTrue([self.requestData containsString:@"nativeDisplay"]);
+    XCTAssertTrue([self.requestData containsString:@"impressionType"]);
+    XCTAssertTrue([self.requestData containsString:@"viewable"]);
+    XCTAssertTrue([self.requestData containsString:@"mediaType"]);
+    XCTAssertTrue([self.requestData containsString:@"display"]);
+    XCTAssertTrue([self.requestData containsString:@"impression"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.7-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
+
     [self.adResponseInfo unregisterViewFromTracking];
     [XCTestCase delayForTimeInterval:5];
     XCTAssertTrue([self.requestData containsString:@"sessionFinish"]);

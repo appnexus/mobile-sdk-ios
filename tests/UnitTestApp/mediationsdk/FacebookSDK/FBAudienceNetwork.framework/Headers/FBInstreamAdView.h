@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A customized UIView to display an instream video ad by Facebook.
  */
+FB_DEPRECATED_WITH_MESSAGE("Instream ads have been deprecated.")
 FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED @interface FBInstreamAdView : UIView
 
 /**
@@ -60,7 +61,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED @interface FBInstreamAdView : UIView
 
  @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
  */
-- (nullable instancetype)initWithPlacementID:(NSString *)placementID NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithPlacementID:(NSString *)placementID NS_DESIGNATED_INITIALIZER
+    FB_DEPRECATED_WITH_MESSAGE("Instream ads have been deprecated. Initialiser will return nil.");
 
 /**
  Begins loading ad content.
@@ -68,7 +70,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED @interface FBInstreamAdView : UIView
  You should implement `adViewDidLoad:` and `adView:didFailWithError:` methods
  of `FBInstreamAdViewDelegate` to be notified when loading succeeds or fails.
  */
-- (void)loadAd;
+- (void)
+    loadAd FB_DEPRECATED_WITH_MESSAGE("Instream ads have been deprecated. Calling this method will have no effect.");
 
 /**
  Begins loading ad content from a bid payload attained through a server side bid.
@@ -79,7 +82,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED @interface FBInstreamAdView : UIView
 
  @param bidPayload The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
  */
-- (void)loadAdWithBidPayload:(NSString *)bidPayload;
+- (void)loadAdWithBidPayload:(NSString *)bidPayload
+    FB_DEPRECATED_WITH_MESSAGE("Instream ads have been deprecated. Calling this method will have no effect.");
 
 /**
  Begins ad playback.  This method should only be called after an `adViewDidLoad:` call
@@ -88,7 +92,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED @interface FBInstreamAdView : UIView
  @param rootViewController The view controller that will be used to modally
    present additional view controllers, to render the ad's landing page for example.
  */
-- (BOOL)showAdFromRootViewController:(nullable UIViewController *)rootViewController;
+- (BOOL)showAdFromRootViewController:(nullable UIViewController *)rootViewController
+    FB_DEPRECATED_WITH_MESSAGE("Instream ads have been deprecated. Calling this method will have no effect.");
 
 @end
 

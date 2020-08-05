@@ -73,7 +73,6 @@ typedef NS_ENUM(NSInteger, FBAdFormatTypeName) {
     FBAdFormatTypeNameUnknown = 0,
     FBAdFormatTypeNameBanner,
     FBAdFormatTypeNameInterstitial,
-    FBAdFormatTypeNameInstream,
     FBAdFormatTypeNameNative,
     FBAdFormatTypeNameNativeBanner,
     FBAdFormatTypeNameRewardedVideo,

@@ -44,7 +44,6 @@
 {
     if (self = [self init]) {
         self.delegate = delegate;
-        [self setup];
     }
     return self;
 }

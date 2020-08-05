@@ -52,6 +52,11 @@ Get AppNexus SDK Version
 */
 @property (nonatomic, readonly, strong, nonnull) NSString *sdkVersion;
 
+/*!
+*  The amount of time, in milliseconds, to wait for a bidder to respond to a bid request, Default is zero
+ */
+@property (nonatomic, readwrite, assign) NSUInteger auctionTimeout;
+
 
 + (nonnull instancetype)sharedInstance;
 

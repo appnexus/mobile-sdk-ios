@@ -23,7 +23,7 @@
 #import "ANUSPrivacySettings.h"
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
-
+#import "ANSDKSettings.h"
 #pragma mark - Private constants.
 
 
@@ -269,6 +269,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (privacyString.length != 0) {
         requestDict[@"us_privacy"] = privacyString;
     }
+    
+    NSUInteger auctionTimeout  = [[ANSDKSettings sharedInstance] auctionTimeout];
+    if (auctionTimeout > 0 &&  auctionTimeout < NSIntegerMax) {
+        requestDict[@"auction_timeout_ms"] = @(auctionTimeout);
+    }
+    
     
     return [requestDict copy];
 }
@@ -582,7 +588,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (deviceId) {
         deviceDict[@"device_id"] = deviceId;
     }
-
 
     //
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];

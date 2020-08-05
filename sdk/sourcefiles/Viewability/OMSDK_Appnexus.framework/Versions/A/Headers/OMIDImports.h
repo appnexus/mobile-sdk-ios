@@ -6,4 +6,4 @@
 #import "OMIDAdSession.h"
 #import "OMIDAdEvents.h"
 #import "OMIDVASTProperties.h"
-#import "OMIDVideoEvents.h"
+#import "OMIDMediaEvents.h"

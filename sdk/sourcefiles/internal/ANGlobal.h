@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-
 #import "ANAdConstants.h"
 
 
@@ -27,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.4.1"
+#define AN_SDK_VERSION                  @"7.5"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -152,4 +151,5 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (nullable NSMutableURLRequest *) adServerRequestURL;
 
++ (void) setWebViewCookie:(nonnull WKWebView*)webView;
 @end

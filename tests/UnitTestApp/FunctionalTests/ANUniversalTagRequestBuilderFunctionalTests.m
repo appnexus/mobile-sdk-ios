@@ -49,6 +49,7 @@ static NSString  *videoPlacementID  = @"9924001";
 
 - (void)tearDown {
     [super tearDown];
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
 }
 
 - (void)testUTRequestForSetGDPRConsentTrue
@@ -402,5 +403,133 @@ static NSString  *videoPlacementID  = @"9924001";
     
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
+
+
+- (void)testUTRequestForAuctionTimeoutNonZero
+{
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:200];
+    
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+    
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        XCTAssertNotNil(jsonDict[@"auction_timeout_ms"]);
+        XCTAssertEqual([jsonDict[@"auction_timeout_ms"]  intValue], 200);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForAuctionTimeoutZero
+{
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
+    
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        XCTAssertNil(jsonDict[@"auction_timeout_ms"]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+
+- (void)testUTRequestForAuctionTimeoutZeroDefault
+{
+    
+    
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        XCTAssertNil(jsonDict[@"auction_timeout_ms"]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+
+- (void)testUTRequestForAuctionTimeoutNegativevalue
+{
+    
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:-10];
+    
+    
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        XCTAssertNil(jsonDict[@"auction_timeout_ms"]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
 
 @end

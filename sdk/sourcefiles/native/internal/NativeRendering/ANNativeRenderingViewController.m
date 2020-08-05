@@ -93,8 +93,9 @@ static NSString *const kANativeRenderingValidURL = @"validRenderingURL";
         base = [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]];
     }
     
-    _webView = [[ANWebView alloc] initWithSize:size content:html baseURL:base];
-
+    _webView = [ANWebView fetchWebView];
+    
+    [_webView loadWithSize:size content:html baseURL:base];
     
     [self configureWebView];
 }

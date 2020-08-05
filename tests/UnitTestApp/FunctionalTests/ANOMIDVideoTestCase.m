@@ -40,9 +40,13 @@ static NSString   *placementID      = @"12534678";
 @property (nonatomic, strong) XCTestExpectation *OMID100PercentViewableExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDImpressionEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDAdSessionFinishedExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMIDMediaTypeExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMIDVersionExpectation;
 
 @property (nonatomic) BOOL geometryFulfilled;
 @property (nonatomic) BOOL oneHundredPercentViewableFulfilled;
+@property (nonatomic) BOOL isOMIDImpressionEventFulfilled;
+@property (nonatomic) BOOL isOMIDAdSessionFinishedEventFulfilled;
 
 @end
 
@@ -58,6 +62,9 @@ static NSString   *placementID      = @"12534678";
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
     [NSURLProtocol wk_registerScheme:@"http"];
     [NSURLProtocol wk_registerScheme:@"https"];
+    self.isOMIDImpressionEventFulfilled = NO;
+    self.isOMIDAdSessionFinishedEventFulfilled = NO;
+
 }
 
 - (void)tearDown {
@@ -75,6 +82,7 @@ static NSString   *placementID      = @"12534678";
     self.OMIDImpressionEventExpectation = nil;
     self.OMIDAdSessionFinishedExpectation = nil;
     
+    self.OMIDMediaTypeExpectation = nil;
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
@@ -99,14 +107,27 @@ static NSString   *placementID      = @"12534678";
     [self clearBannerVideoAd];
 }
 
+
+- (void)testOMIDVersion
+{
+    [self setupBannerVideoAd];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
+    self.OMIDSupportedExpecation = [self expectationWithDescription:@"Didn't receive OmidSupported[true]"];
+    self.OMIDAdSessionStartedExpectation = [self expectationWithDescription:@"Didn't receive OMID sessionStart event"];
+    [self.banner loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    [self clearBannerVideoAd];
+}
+
+
 - (void)testOMIDBannerVideoGeometry
 {
     [self setupBannerVideoAd];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    self.OMIDGeomentryChangeExpectation = [self expectationWithDescription:@"Didn't receive OMID geometryChange event"];
-    self.geometryFulfilled = NO;
-    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
-    self.oneHundredPercentViewableFulfilled = NO;
+    self.OMIDVersionExpectation = [self expectationWithDescription:@"Didn't receive OMID version"];
 
     [self.banner loadAd];
 
@@ -118,6 +139,24 @@ static NSString   *placementID      = @"12534678";
 
 }
 
+
+
+- (void)testOMIDBannerVideoMediaType
+{
+    [self setupBannerVideoAd];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
+    self.OMIDGeomentryChangeExpectation = [self expectationWithDescription:@"Didn't receive OMID Media Type event"];
+    self.OMIDMediaTypeExpectation = [self expectationWithDescription:@"Didn't receive OMID Media Type event"];
+
+    [self.banner loadAd];
+
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+
+                                 }];
+    [self clearBannerVideoAd];
+
+}
 
 
 - (void)testOMIDBannerVideoImpression
@@ -159,6 +198,26 @@ static NSString   *placementID      = @"12534678";
           
       }];
     [self clearInstreamVideoAd];
+}
+
+
+
+
+- (void)testOMIDInstreamVideoMediaType
+{
+    [self setupInstreamVideoAd];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
+    self.OMIDGeomentryChangeExpectation = [self expectationWithDescription:@"Didn't receive OMID Media Type event"];
+    self.OMIDMediaTypeExpectation = [self expectationWithDescription:@"Didn't receive OMID Media Type event"];
+
+    [self.instreamVideoAd loadAdWithDelegate:self];
+
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+
+                                 }];
+    [self clearBannerVideoAd];
+
 }
 
 - (void)testOMIDInstreamVideoGeometry
@@ -205,7 +264,7 @@ static NSString   *placementID      = @"12534678";
     [self.instreamVideoAd loadAdWithDelegate:self];
     self.OMIDAdSessionFinishedExpectation = [self expectationWithDescription:@"Didn't receive OMID sessionFinish event"];
     [self.banner loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:200 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
 
     }];
@@ -279,6 +338,9 @@ static NSString   *placementID      = @"12534678";
 # pragma mark - Intercept HTTP Request Callback
 
 - (void)didReceiveIABResponse:(NSString *)response {
+    
+    NSLog(@"response by Abhishek %@",response);
+
     if ([response containsString:@"OmidSupported"]) {
         [self.OMIDSupportedExpecation fulfill];
     }
@@ -293,19 +355,34 @@ static NSString   *placementID      = @"12534678";
         
     }
     
+    if (self.OMIDVersionExpectation && [response containsString:@"1.3.7-Appnexus"] && [response containsString:@"libraryVersion"]) {
+          // Only assert if it has been setup to assert.
+          [self.OMIDVersionExpectation fulfill];
+      }
+
+    
     if ([response containsString:@"percentageInView"] && [response containsString:@"100"] && !self.oneHundredPercentViewableFulfilled) {
         self.oneHundredPercentViewableFulfilled = YES;
         [self.OMID100PercentViewableExpectation fulfill];
         
     }
     
-    if ([response containsString:@"impression"]) {
+    if ([response containsString:@"impression"]  && !self.isOMIDImpressionEventFulfilled) {
+        self.isOMIDImpressionEventFulfilled = YES;
         [self.OMIDImpressionEventExpectation fulfill];
     }
     
-    if ([response containsString:@"sessionFinish"]) {
-           [self.OMIDAdSessionFinishedExpectation fulfill];
+    
+    if ([response containsString:@"sessionFinish"]  && !self.isOMIDAdSessionFinishedEventFulfilled ) {
+        self.isOMIDAdSessionFinishedEventFulfilled = YES;
+        [self.OMIDAdSessionFinishedExpectation fulfill];
     }
+    
+     if ([response containsString:@"impressionType"] && [response containsString:@"definedByJavaScript"] && [response containsString:@"mediaType"] && [response containsString:@"video"] &&  [response containsString:@"creativeType"] ) {
+         [self.OMIDMediaTypeExpectation fulfill];
+     }
+    
+    
 }
 
 @end

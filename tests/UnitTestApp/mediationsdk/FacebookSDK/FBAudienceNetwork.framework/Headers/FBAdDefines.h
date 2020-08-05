@@ -19,6 +19,9 @@
 #ifndef FBAudienceNetwork_FBAdDefines_h
 #define FBAudienceNetwork_FBAdDefines_h
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmacro-redefined"
+
 #ifdef __cplusplus
 #define FB_EXTERN_C_BEGIN extern "C" {
 #define FB_EXTERN_C_END }
@@ -69,4 +72,6 @@
 #endif
 #endif
 
-#endif
+#pragma GCC diagnostic pop
+
+#endif  // FBAudienceNetwork_FBAdDefines_h

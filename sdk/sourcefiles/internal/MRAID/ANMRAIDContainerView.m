@@ -140,7 +140,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
     if (self) {
         _baseURL = baseURL;
-
         self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
                                                                         HTML: html
                                                               webViewBaseURL: baseURL];
@@ -511,7 +510,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
             [strongSelf addSubview:contentView];
             strongSelf.webViewController.contentView.hidden = NO;
-
+            
             [contentView an_constrainToSizeOfSuperview];
             [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
                                                 yAttribute:NSLayoutAttributeTop];
