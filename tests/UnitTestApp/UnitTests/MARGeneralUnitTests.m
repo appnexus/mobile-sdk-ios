@@ -19,7 +19,8 @@ limitations under the License.
 #import "ANMultiAdRequest.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANUniversalAdFetcher+ANTest.h"
-
+#import "ANSDKSettings+PrivateMethods.h"
+#import "ANOMIDImplementation.h"
 
 
 #pragma mark - Global private constants.
@@ -566,6 +567,161 @@ TMARK();
 {
 TMARKMESSAGE(@"%@", error.userInfo);
 }
+
+
+- (void)testOMIDEnableAdUnitMARBannerAd
+{
+    [[ANSDKSettings sharedInstance] setEnableOpenMeasurement:YES];
+    NSDictionary  *jsonBody     = nil;
+    
+    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+                                                 delegate: self
+                                                  adUnits: self.adUnitsForTest.banner,
+                nil ];
+    
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    NSArray *tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"banner_frameworks"],@[@(6)]);
+    
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"banner_frameworks"],@[@(6)]);
+}
+
+- (void)testOMIDEnableAdUnitMARBannerVideoAd
+{
+    [[ANSDKSettings sharedInstance] setEnableOpenMeasurement:YES];
+    NSDictionary  *jsonBody     = nil;
+    
+    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+                                                 delegate: self
+                                                  adUnits: self.adUnitsForTest.banner, self.adUnitsForTest.instreamVideo,
+                nil ];
+    
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    NSArray *tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"banner_frameworks"],@[@(6)]);
+    
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.instreamVideo withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"video_frameworks"],@[@(6)]);
+}
+
+
+- (void)testOMIDEnableAdUnitMARBannerVideoNativeAd
+{
+    [[ANSDKSettings sharedInstance] setEnableOpenMeasurement:YES];
+
+    NSDictionary  *jsonBody     = nil;
+    
+    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+                                                 delegate: self
+                                                  adUnits: self.adUnitsForTest.banner, self.adUnitsForTest.instreamVideo, self.adUnitsForTest.native,
+                nil ];
+    
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    NSArray *tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"banner_frameworks"],@[@(6)]);
+    
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.instreamVideo withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"video_frameworks"],@[@(6)]);
+    
+    jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.native withMultiAdRequest:self.mar];
+    XCTAssertTrue([jsonBody[@"iab_support"][@"omidpn"] isEqualToString:AN_OMIDSDK_PARTNER_NAME]);
+    XCTAssertEqualObjects(jsonBody[@"iab_support"][@"omidpv"],[ANSDKSettings sharedInstance].sdkVersion);
+    
+    tags = jsonBody[@"tags"];
+    XCTAssertNotNil(tags);
+    XCTAssertEqualObjects(tags[0][@"native_frameworks"],@[@(6)]);
+}
+
+
+- (void)testOMIDDisableAdUnitMARBannerAd
+{
+    [[ANSDKSettings sharedInstance] setEnableOpenMeasurement:NO];
+     NSDictionary  *jsonBody     = nil;
+
+      self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+                                                   delegate: self
+                                                    adUnits: self.adUnitsForTest.banner,
+                                                             nil ];
+
+
+      jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+      XCTAssertNil(jsonBody[@"iab_support"]);
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpn"] );
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpv"]);
+
+
+      jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+      XCTAssertNil(jsonBody[@"iab_support"]);
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpn"] );
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpv"]);
+
+      NSArray *tags = jsonBody[@"tags"];
+      XCTAssertNotNil(tags);
+      XCTAssertNil(tags[0][@"banner_frameworks"]);
+}
+
+- (void)testOMIDDisableAdUnitMARBannerVideoNativeAd
+{
+    [[ANSDKSettings sharedInstance] setEnableOpenMeasurement:NO];
+     NSDictionary  *jsonBody     = nil;
+
+      self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+                                                   delegate: self
+                                                    adUnits: self.adUnitsForTest.banner, self.adUnitsForTest.instreamVideo,
+                                                             nil ];
+
+
+      jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+      XCTAssertNil(jsonBody[@"iab_support"]);
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpn"] );
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpv"]);
+
+
+      jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
+      XCTAssertNil(jsonBody[@"iab_support"]);
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpn"] );
+      XCTAssertNil(jsonBody[@"iab_support"][@"omidpv"]);
+
+      NSArray *tags = jsonBody[@"tags"];
+      XCTAssertNotNil(tags);
+      XCTAssertNil(tags[0][@"banner_frameworks"]);
+}
+
+
 
 
 @end

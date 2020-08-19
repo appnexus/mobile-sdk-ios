@@ -35,14 +35,34 @@
     return self;
 }
 
+-(instancetype)initWithPlacementId:(NSString *)placementId andAllowMediaType:(NSArray<NSValue *> *)mediaType
+{
+    self = [super init];
+    if (!self)  { return nil; }
+    
+    self.placementId     = placementId;
+    self.externalUid     = @"AppNexus";
+    self.allowedAdSizes  = [[NSMutableSet alloc] initWithArray:@[ [NSValue valueWithCGSize:kANAdSize1x1] ]];
+    self.adAllowedMediaTypes = [mediaType copy];
+    self.delegate = self;
+    
+    //
+    return self;
+}
+
+
 
 
 #pragma mark - ANUniversalAdFetcherFoundationDelegate  (Partial implementation.)
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    ANLogTrace(@"");
-    return  @[ @(ANAllowedMediaTypeVideo) ];   //XXX
+    if(_adAllowedMediaTypes != nil && _adAllowedMediaTypes.count > 0 ){
+        return  [_adAllowedMediaTypes copy];
+    }else{
+        return  @[ @(ANAllowedMediaTypeVideo) ];   //XXX
+    }
+    
 }
 
 

@@ -339,8 +339,6 @@ static NSString   *placementID      = @"12534678";
 
 - (void)didReceiveIABResponse:(NSString *)response {
     
-    NSLog(@"response by Abhishek %@",response);
-
     if ([response containsString:@"OmidSupported"]) {
         [self.OMIDSupportedExpecation fulfill];
     }
