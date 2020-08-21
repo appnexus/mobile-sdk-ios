@@ -390,9 +390,17 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     //
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
+    if ([self.adFetcherDelegate respondsToSelector:@selector(forceCreativeId)]){
+        NSInteger   forceCreativeId  = [self.adFetcherDelegate forceCreativeId];
+        if (forceCreativeId > 0) {
+            tagDict[@"force_creative_id"] = @(forceCreativeId);
+        }
+    }
+    
     if(ANSDKSettings.sharedInstance.enableOpenMeasurement){
         [self getAdFramework:tagDict];
     }
+
     //
     if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
         tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];

@@ -77,6 +77,7 @@
 @synthesize  customKeywords                         = __customKeywords;
 
 @synthesize  creativeId                             = __creativeId;
+@synthesize  forceCreativeId                        = __forceCreativeId;
 @synthesize  adType                                 = __adType;
 @synthesize  externalUid                            = __externalUid;
 
@@ -241,6 +242,16 @@
     }
 }
 
+- (void)setForceCreativeId:(NSInteger)forceCreativeId {
+    if (forceCreativeId <= 0) {
+        ANLogError(@"Could not set forceCreativeId to %ld", (long)forceCreativeId);
+        return;
+    }
+    if (forceCreativeId != __forceCreativeId) {
+        ANLogDebug(@"Setting forceCreativeId to %ld", (long)forceCreativeId);
+        __forceCreativeId = forceCreativeId;
+    }
+}
 
 - (void)setAdType:(ANAdType)adType
 {

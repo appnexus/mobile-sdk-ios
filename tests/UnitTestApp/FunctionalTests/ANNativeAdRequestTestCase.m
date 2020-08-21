@@ -130,6 +130,26 @@
     
 }
 
+- (void)testSetForceCreativeIdOnlyOnNative
+{
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    self.adRequest.forceCreativeId = 135482485;
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+
+    XCTAssertEqual(135482485, self.adRequest.forceCreativeId);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"force_creative_id"] integerValue], 135482485);
+    
+}
+
 - (void)testNativeRendererId
 {
     [self stubRequestWithResponse:@"native_videoResponse"];

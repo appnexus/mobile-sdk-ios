@@ -58,7 +58,7 @@
 @synthesize  gender          = __gender;
 @synthesize  customKeywords  = __customKeywords;
 @synthesize  externalUid     = __externalUid;
-
+@synthesize  forceCreativeId     = __forceCreativeId;
 @synthesize  adType                 = __adType;
 @synthesize  rendererId             = _rendererId;
 
@@ -316,6 +316,17 @@
 
 
 #pragma mark - ANNativeAdRequestProtocol methods.
+
+- (void)setForceCreativeId:(NSInteger)forceCreativeId {
+    if (forceCreativeId <= 0) {
+        ANLogError(@"Could not set forceCreativeId to %ld", (long)forceCreativeId);
+        return;
+    }
+    if (forceCreativeId != __forceCreativeId) {
+        ANLogDebug(@"Setting forceCreativeId to %ld", (long)forceCreativeId);
+        __forceCreativeId = forceCreativeId;
+    }
+}
 
 - (void)setPlacementId:(nullable NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
