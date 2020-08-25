@@ -63,22 +63,22 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 
 - (void)handleAmazonError:(AmazonAdError *)amazonError {
     ANLogDebug(@"Received error from Amazon with description: %@", amazonError.description);
-    ANAdResponseCode responseCode = ANAdResponseInternalError;
+    ANAdResponseCode *responseCode = ANAdResponseCode.INTERNAL_ERROR;
     switch (amazonError.errorCode) {
         case AmazonAdErrorRequest:
-            responseCode = ANAdResponseInvalidRequest;
+            responseCode = ANAdResponseCode.INVALID_REQUEST;
             break;
         case AmazonAdErrorNoFill:
-            responseCode = ANAdResponseUnableToFill;
+            responseCode = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case AmazonAdErrorInternalServer:
-            responseCode = ANAdResponseInternalError;
+            responseCode = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case AmazonAdErrorNetworkConnection:
-            responseCode = ANAdResponseNetworkError;
+            responseCode = ANAdResponseCode.NETWORK_ERROR;
             break;
         case AmazonAdErrorReserved:
-            responseCode = ANAdResponseInternalError;
+            responseCode = ANAdResponseCode.INTERNAL_ERROR;
             break;
         default:
             break;
