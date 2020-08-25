@@ -273,7 +273,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
         }
 
-        [ANTrackerManager fireTrackerURLArray:impressionURLs];
+        [ANTrackerManager fireTrackerURLArray:impressionURLs withBlock:nil];
         impressionURLs = nil;
         
         // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
@@ -293,7 +293,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
-        [ANTrackerManager fireTrackerURLArray:impressionURLs];
+        [ANTrackerManager fireTrackerURLArray:impressionURLs withBlock:nil];
         impressionURLs = nil;
         [adToShow presentFromViewController:controller];
         

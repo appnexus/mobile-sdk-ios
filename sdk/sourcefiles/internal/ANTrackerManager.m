@@ -66,9 +66,9 @@
 
 #pragma mark - Public methods.
 
-+ (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
++ (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs withBlock:(OnComplete)completionBlock
 {
-    [[self sharedManager] fireTrackerURLArray:arrayWithURLs];
+    [[self sharedManager] fireTrackerURLArray:arrayWithURLs withBlock:completionBlock];
 }
 
 + (void)fireTrackerURL: (NSString *)URL
@@ -79,9 +79,15 @@
 
 #pragma mark - Private methods.
 
-- (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
+- (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs withBlock:(OnComplete)completionBlock
 {
-    if (!arrayWithURLs || ([arrayWithURLs count] <= 0))  { return; }
+    if (!arrayWithURLs || ([arrayWithURLs count] <= 0)) {
+        if(completionBlock)
+        {
+          completionBlock(NO);
+        }
+        return;
+    }
 
     //
     if (!self.internetIsReachable)
@@ -89,7 +95,7 @@
         ANLogDebug(@"Internet IS UNREACHABLE - queing trackers for firing later: %@", arrayWithURLs);
 
         [arrayWithURLs enumerateObjectsUsingBlock:^(NSString *URL, NSUInteger idx, BOOL *stop) {
-            [self queueTrackerURLForRetry:URL];
+            [self queueTrackerURLForRetry:URL withBlock:completionBlock];
         }];
 
         return;
@@ -115,7 +121,11 @@
                                                         return;
                                                     }
 
-                                                    [strongSelf queueTrackerURLForRetry:URL];
+                                                    [strongSelf queueTrackerURLForRetry:URL withBlock:completionBlock];
+                                                } else {
+                                                    if (completionBlock) {
+                                                        completionBlock(YES);
+                                                    }
                                                 }
                                             }
             ] resume];
@@ -125,11 +135,11 @@
 - (void)fireTrackerURL: (NSString *)URL
 {
     if ([URL length] > 0) {
-        [self fireTrackerURLArray:@[URL]];
+        [self fireTrackerURLArray:@[URL] withBlock:nil];
     }
 }
 
-- (void)retryTrackerFires 
+- (void)retryTrackerFiresWithBlock:(OnComplete)completionBlock
 {
     NSArray *trackerArrayCopy;
 
@@ -143,6 +153,9 @@
             [self.trackerRetryTimer invalidate];
 
         } else {
+            if (completionBlock) {
+              completionBlock(NO);
+            }
             return;
         }
     }
@@ -169,10 +182,13 @@
                                                                 return;
                                                             }
 
-                                                            [strongSelf queueTrackerInfoForRetry:info];
+                                                            [strongSelf queueTrackerInfoForRetry:info withBlock:completionBlock];
                                                         }
                                                     } else {
                                                         ANLogDebug(@"RETRY SUCCESSFUL for %@", info);
+                                                        if (completionBlock) {
+                                                          completionBlock(YES);
+                                                        }
                                                     }
                                                 }
                 ] resume];
@@ -180,20 +196,20 @@
 }
 
 
-- (void)queueTrackerURLForRetry:(NSString *)URL 
+- (void)queueTrackerURLForRetry:(NSString *)URL withBlock:(OnComplete)completionBlock
 {
-    [self queueTrackerInfoForRetry:[[ANTrackerInfo alloc] initWithURL:URL]];
+    [self queueTrackerInfoForRetry:[[ANTrackerInfo alloc] initWithURL:URL] withBlock:completionBlock];
 }
 
-- (void)queueTrackerInfoForRetry:(ANTrackerInfo *)trackerInfo 
+- (void)queueTrackerInfoForRetry:(ANTrackerInfo *)trackerInfo withBlock:(OnComplete)completionBlock
 {
     @synchronized(self) {
         [self.trackerArray addObject:trackerInfo];
-        [self scheduleRetryTimerIfNecessary];
+        [self scheduleRetryTimerIfNecessaryWithBlock:completionBlock];
     }
 }
 
-- (void)scheduleRetryTimerIfNecessary {
+- (void)scheduleRetryTimerIfNecessaryWithBlock:(OnComplete)completionBlock {
     if (![self.trackerRetryTimer an_isScheduled]) {
         __weak ANTrackerManager *weakSelf = self;
         self.trackerRetryTimer = [NSTimer an_scheduledTimerWithTimeInterval: kANTrackerManagerRetryInterval
@@ -203,7 +219,7 @@
                                                                                      ANLogError(@"FAILED TO ACQUIRE strongSelf.");
                                                                                      return;
                                                                                   }
-                                                                                  [strongSelf retryTrackerFires];
+                                                                                  [strongSelf retryTrackerFiresWithBlock:completionBlock];
                                                                               }
                                                                     repeats: YES ];
     }

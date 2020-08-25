@@ -311,4 +311,10 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
     }
 }
 
+- (void)adDidLogImpression {
+    if ([self.delegate respondsToSelector:@selector(adDidLogImpression:)]) {
+        [self.delegate adDidLogImpression:self];
+    }
+}
+
 @end

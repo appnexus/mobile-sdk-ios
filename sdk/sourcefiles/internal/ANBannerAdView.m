@@ -380,7 +380,7 @@ static NSString *const kANInline        = @"inline";
 
 - (void)fireTrackerAndOMID
 {
-    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+    [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
     self.impressionURLs = nil;
 
     // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM

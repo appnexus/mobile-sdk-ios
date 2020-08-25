@@ -72,4 +72,9 @@
  */
 - (void)adWillLeaveApplication:(nonnull id)response;
 
+/*!
+* Sent when  an impression is recorded for an native ad
+*/
+- (void)adDidLogImpression:(nonnull id)response;
+
 @end

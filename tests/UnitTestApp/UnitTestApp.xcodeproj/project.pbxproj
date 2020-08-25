@@ -397,6 +397,9 @@
 		0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1F7220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m */; };
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
+		3812956C24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json in Resources */ = {isa = PBXBuildFile; fileRef = 3812956A24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json */; };
+		3812956E24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3812956D24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m */; };
+		3812957024AA255900116AAB /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE17B22007497002B5F5F /* SuccessfulNativeStandardAdResponse.json */; };
 		0EFE016F2498473D00284F49 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
 		38904C4424E1309B00A472CC /* ANAdResponseCodeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38904C4324E1309B00A472CC /* ANAdResponseCodeTestCase.m */; };
 		38A8E164248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A8E15B248A6A7C0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json */; };
@@ -973,6 +976,8 @@
 		0EEFE1F9220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
 		0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
 		0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
+		3812956A24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native_AdDidLogImpression.json; sourceTree = "<group>"; };
+		3812956D24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdDidLogImpressionAPITestCase.m; sourceTree = "<group>"; };
 		38904C4324E1309B00A472CC /* ANAdResponseCodeTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseCodeTestCase.m; sourceTree = "<group>"; };
 		38A8E15B248A6A7C0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native_withError_1002.json; sourceTree = "<group>"; };
 		38A8E15D248A6A7C0081E9CD /* CSR_Facebook_Banner_Native_withError_1012.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native_withError_1012.json; sourceTree = "<group>"; };
@@ -1704,6 +1709,7 @@
 				0EEFE1B422008A1A002B5F5F /* MRAIDTests.m */,
 				0E336C2C2461FB000033C76F /* NoNetworkAdFailTestCase.m */,
 				0EEFE190220080DE002B5F5F /* OutstreamVideoAdClassObjectFromUTResponseTests.m */,
+				3812956D24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m */,
 			);
 			path = FunctionalTests;
 			sourceTree = "<group>";
@@ -1810,6 +1816,7 @@
 				38A8E15F248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_Default.json */,
 				0E642D56244E63FE009084E0 /* csm_bannerad.json */,
 				0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */,
+				3812956A24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json */,
 				4F3B837B2481E865005EE88C /* LazyWebview_Basic.json */,
 				4F3B837D2481E865005EE88C /* LazyWebview_MRAID.json */,
 				4F5F4DB024988A9F008BC33C /* LazyWebview_nobid.json */,
@@ -2292,6 +2299,7 @@
 				97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */,
 				97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */,
 				0E6612C122CA736300DDC5CD /* ANGADUnifiedNativeAdView.xib in Resources */,
+				3812957024AA255900116AAB /* SuccessfulNativeStandardAdResponse.json in Resources */,
 				00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */,
 				60F8A82423294D590030D53D /* ANJAMDeviceIdResponse.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
@@ -2314,6 +2322,7 @@
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0E3F32F323CE68E300CA830D /* bannerNative_basic_banner.json in Resources */,
 				0E3F32F223CE68E300CA830D /* bannerNative_native_mediation.json in Resources */,
+				3812956C24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
@@ -2598,6 +2607,7 @@
 				003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */,
 				0E9D6A6F248E8301006600CC /* ANAdAdapterInterstitialNetworkTimeout.m in Sources */,
 				0E336C3F246346DB0033C76F /* ANNativeRenderingViewController+ANTest.m in Sources */,
+				3812956E24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m in Sources */,
 				0EEFE193220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m in Sources */,
 				0EAFC639242E22E200500DC1 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m in Sources */,
 				0E1D14B022784C0900343050 /* ANBannerNativeRenderingTestCase.m in Sources */,

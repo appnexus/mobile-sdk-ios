@@ -17,7 +17,7 @@
 #import "ANTrackerManager.h"
 #import "ANReachability+ANTest.h"
 #import "XCTestCase+ANCategory.h"
-
+#import "ANGlobal.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANTrackerManager+ANTest.h"
 #import "NSTimer+ANCategory.h"
@@ -26,6 +26,7 @@
 
 @property (nonatomic, readwrite, strong)  NSString  *urlString;
 @property (nonatomic, readwrite, assign)  BOOL       urlWasFired;
+@property (nonatomic, strong) XCTestExpectation *firedImpressionTrackerExpectation;
 
 @end
 
@@ -38,6 +39,7 @@
 
 - (void)tearDown {
     [super tearDown];
+    self.firedImpressionTrackerExpectation = nil;
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -65,6 +67,48 @@
 
     [XCTestCase delayForTimeInterval:1.5];
     XCTAssertTrue(self.urlWasFired);
+}
+
+- (void)testFireTrackerURLArrayWithBlocks {
+    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
+    self.firedImpressionTrackerExpectation = [self expectationWithDescription:@"Didn't receive Impression Tracker event"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestLoaded:)
+                                                 name:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                               object:nil];
+    self.urlString = @"https://acdn.adnxs.com/mobile/native_test/empty_response.json";
+    [ANTrackerManager fireTrackerURLArray:@[self.urlString] withBlock:^(BOOL isTrackerURLFired) {
+        if (isTrackerURLFired) {
+            [self.firedImpressionTrackerExpectation fulfill];
+        }
+    }];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval  handler:nil];
+}
+
+- (void)testSimulateOfflineFireTrackerURLArrayWithBlocks {
+    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
+    self.firedImpressionTrackerExpectation = [self expectationWithDescription:@"Didn't receive Impression Tracker event"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestLoaded:)
+                                                 name:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                               object:nil];
+    [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:YES];
+
+    self.urlString = @"https://acdn.adnxs.com/mobile/native_test/empty_response.json";
+    [ANTrackerManager fireTrackerURLArray:@[self.urlString] withBlock:^(BOOL isTrackerURLFired) {
+        if (isTrackerURLFired) {
+            [self.firedImpressionTrackerExpectation fulfill];
+        }
+    }];
+    [XCTestCase delayForTimeInterval:3.0];
+    
+    NSTimer *fireTimer = [ANTrackerManager sharedManager].trackerRetryTimer;
+    XCTAssertTrue(fireTimer.an_isScheduled);
+
+    [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
+    fireTimer.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
+
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval handler:nil];
 }
 
 - (void)requestLoaded:(NSNotification *)notification {
