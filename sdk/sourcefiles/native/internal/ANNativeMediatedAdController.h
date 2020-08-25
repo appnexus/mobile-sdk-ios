@@ -51,12 +51,12 @@
 - (BOOL)checkIfMediationHasResponded;
 - (void)setAdapter:(id<ANNativeCustomAdapter>)adapter;
 - (void)clearAdapter;
-- (void)didFailToReceiveAd:(ANAdResponseCode)errorCode;
+- (void)didFailToReceiveAd:(ANAdResponseCode *)errorCode;
 
 
 // Adapter Error Handling
-- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject;
-- (void)handleInstantiationFailure:(NSString *)className errorCode:(ANAdResponseCode)errorCode errorInfo:(NSString *)errorInfo;
+- (void)finish:(ANAdResponseCode *)errorCode withAdObject:(id)adObject;
+- (void)handleInstantiationFailure:(NSString *)className errorCode:(ANAdResponseCode *)errorCode errorInfo:(NSString *)errorInfo;
 
 
 // Adapter Latency Measurement

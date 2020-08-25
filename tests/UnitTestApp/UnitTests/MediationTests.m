@@ -460,10 +460,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
         case ANMediationTestsNoFill:
         {
-            NSInteger  anErrorCode  = [[self.bannerAdViewExtended anError] code];
-            TESTTRACEM(@"anErrorCode=%@", @(anErrorCode));
-
-            XCTAssertTrue(anErrorCode == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
+            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
             break;
         }
 

@@ -68,13 +68,13 @@
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
-    ANAdResponseCode errorCode = ANDefaultCode;
+    ANAdResponseCode *errorCode = ANAdResponseCode.DEFAULT;
     
     do {
         // check that the ad is non-nil
         if (!ad) {
             errorInfo = @"null mediated ad object";
-            errorCode = ANAdResponseUnableToFill;
+            errorCode = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         }
         
@@ -91,7 +91,7 @@
         Class adClass = NSClassFromString(className);
         if (!adClass) {
             errorInfo = @"ClassNotFoundError";
-            errorCode = ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
@@ -100,7 +100,7 @@
             || ![adInstance respondsToSelector:@selector(setDelegate:)]
             || ![adInstance conformsToProtocol:@protocol(ANCustomAdapter)]) {
             errorInfo = @"InstantiationError";
-            errorCode = ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
@@ -121,14 +121,14 @@
             // don't add class to invalid networks list for this failure
             className = nil;
             errorInfo = @"ClassCastError";
-            errorCode = ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
     } while (false);
     
     
-    if (errorCode != ANDefaultCode) {
+    if (errorCode.code != ANAdResponseCode.DEFAULT.code) {
         [self handleInstantiationFailure: className
                                errorCode: errorCode
                                errorInfo: errorInfo ];
@@ -142,7 +142,7 @@
 
 
 - (void)handleInstantiationFailure:(NSString *)className
-                         errorCode:(ANAdResponseCode)errorCode
+                         errorCode:(ANAdResponseCode *)errorCode
                          errorInfo:(NSString *)errorInfo
 {
     if ([errorInfo length] > 0) {
@@ -261,7 +261,7 @@
 
 #pragma mark - ANCustomAdapterDelegate
 
-- (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
+- (void)didFailToLoadAd:(ANAdResponseCode *)errorCode {
     [self didFailToReceiveAd:errorCode];
 }
 
@@ -333,7 +333,7 @@
     if ([self checkIfHasResponded])  { return; }
     
     if (!adObject) {
-        [self didFailToReceiveAd:ANAdResponseInternalError];
+        [self didFailToReceiveAd:ANAdResponseCode.INTERNAL_ERROR];
         return;
     }
     
@@ -350,11 +350,11 @@
         adObject = containerView;
     }
     
-    [self finish:ANAdResponseSuccessful withAdObject:adObject];
+    [self finish:ANAdResponseCode.SUCCESS withAdObject:adObject];
     
 }
 
-- (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
+- (void)didFailToReceiveAd:(ANAdResponseCode *)errorCode {
 
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
@@ -363,7 +363,7 @@
 }
 
 
-- (void)finish: (ANAdResponseCode)errorCode
+- (void)finish: (ANAdResponseCode *)errorCode
   withAdObject: (id)adObject
 {
 
@@ -397,7 +397,7 @@
                        ANMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(@"mediation_timeout");
-                       [strongSelf didFailToReceiveAd:ANAdResponseInternalError];
+                       [strongSelf didFailToReceiveAd:ANAdResponseCode.INTERNAL_ERROR];
                    });
     
 }

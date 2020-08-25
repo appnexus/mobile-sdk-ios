@@ -82,7 +82,7 @@
 - (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(GADRequestError *)error {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANLogError(@"Error loading Google native ad: %@", error);
-    ANAdResponseCode code = [ANAdAdapterBaseDFP responseCodeFromRequestError:error];
+    ANAdResponseCode *code = [ANAdAdapterBaseDFP responseCodeFromRequestError:error];
     [self.requestDelegate didFailToLoadNativeAd:code];
 }
 

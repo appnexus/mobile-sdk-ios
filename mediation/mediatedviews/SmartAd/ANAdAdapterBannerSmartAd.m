@@ -44,7 +44,7 @@
         [self.bannerView loadWithPlacement:placement];
         
     } else {
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE];
     }
     
 }
@@ -62,7 +62,7 @@
     
 - (void)bannerView:(SASBannerView *)bannerView didFailToLoadWithError:(NSError *)error {
     ANLogTrace(@"");
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
 }
     
 - (void)bannerViewWillExpand:(SASBannerView *)bannerView {

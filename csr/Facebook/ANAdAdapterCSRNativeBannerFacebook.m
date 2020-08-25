@@ -14,6 +14,13 @@
  */
 
 #import "ANAdAdapterCSRNativeBannerFacebook.h"
+
+typedef NS_ENUM(NSUInteger, FBRequestError) {
+    FBNoFill = 1001,
+    FBAdLoadTooFrequently = 1002,
+    FBInternalError = 2001
+};
+
 @import FBAudienceNetwork;
 
 @protocol ANCSRNativeAdRequestAdDelegate;
@@ -73,6 +80,7 @@
     [self.requestDelegate didLoadNativeAd:self.csrNativeAdResponse];
 }
 
+
 #pragma mark FBNativeBannerAdDelegate
 
 - (void)nativeBannerAdDidDownloadMedia:(FBNativeBannerAd *)nativeBannerAd{
@@ -86,9 +94,20 @@
 
 - (void)nativeBannerAd:(FBNativeBannerAd *)nativeBannerAd didFailWithError:(NSError *)error{
     ANLogError(@"Error loading Facebook banner native ad: %@", error);
-    ANAdResponseCode code = ANAdResponseInternalError;
-    if (error.code == 1001) {
-        code = ANAdResponseUnableToFill;
+    ANAdResponseCode *code;
+    switch (error.code) {
+        case FBNoFill:
+            code = ANAdResponseCode.UNABLE_TO_FILL;
+            break;
+        case FBAdLoadTooFrequently:
+            code = ANAdResponseCode.REQUEST_TOO_FREQUENT;
+            break;
+        case FBInternalError:
+            code = ANAdResponseCode.INTERNAL_ERROR;
+            break;
+        default:
+            code = [ANAdResponseCode CUSTOM_ADAPTER_ERROR:[NSString stringWithFormat:@"Error: %ld Message: %@", (long)error.code, error.localizedDescription]];
+            break;
     }
     [self.requestDelegate didFailToLoadNativeAd:code];
 }

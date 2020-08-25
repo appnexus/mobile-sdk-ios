@@ -23,6 +23,7 @@
 #import "ANOMIDImplementation.h"
 #import "ANVideoPlayerSettings.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
+#import "ANAdResponseCode.h"
 static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>
@@ -166,7 +167,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     if (!containerView)
     {
         if([self.delegate respondsToSelector:@selector(videoAdError:)]){
-            NSError *error = ANError(@"containerView is nil.", ANAdResponseInternalError);
+            NSError *error = ANError(@"containerView is nil.", ANAdResponseCode.INTERNAL_ERROR.code);
             [self.delegate videoAdError:error];
         }
         
@@ -363,7 +364,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
         [self removePlayer];
         ANLogInfo(@"video player error");
         if([self.delegate respondsToSelector:@selector(videoAdLoadFailed:withAdResponseInfo:)]){
-            NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseInternalError);
+            NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseCode.INTERNAL_ERROR.code);
             [self.delegate videoAdLoadFailed:error withAdResponseInfo:nil];
         }
     }
@@ -428,7 +429,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
                 
                 if (!self.browserViewController) {
                     if([self.delegate respondsToSelector:@selector(videoAdError:)]){
-                        NSError *error = ANError(@"ANBrowserViewController initialization FAILED.", ANAdResponseInternalError);
+                        NSError *error = ANError(@"ANBrowserViewController initialization FAILED.", ANAdResponseCode.INTERNAL_ERROR.code);
                         [self.delegate videoAdError:error];
                     }
                 }

@@ -124,7 +124,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (!jsonObject)
     {
         NSDictionary  *userInfo  = @{ NSLocalizedDescriptionKey : @"[ANUniversalTagRequestBuilder requestBody] returned nil." };
-        error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInternalError userInfo:userInfo];
+        error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INTERNAL_ERROR.code userInfo:userInfo];
     }
 
     if (!error) {

@@ -35,12 +35,12 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE];
         return;
     }
     if (!idString.length) {
         ANLogError(@"Unable to load InMobi banner due to empty ad unit id");
-        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
         return;
     }
     CGRect frame = CGRectMake(0, 0, size.width, size.height);

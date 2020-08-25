@@ -69,47 +69,47 @@
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
     ANLogDebug(@"AdMob interstitial failed to load with error: %@", error);
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     
     switch (error.code) {
         case kGADErrorInvalidRequest:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case kGADErrorNoFill:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case kGADErrorNetworkError:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case kGADErrorServerError:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case kGADErrorOSVersionTooLow:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorTimeout:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case kGADErrorAdAlreadyUsed:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorMediationDataError:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case kGADErrorMediationAdapterError:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorMediationInvalidAdSize:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case kGADErrorInternalError:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorInvalidArgument:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         default:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
     }
     

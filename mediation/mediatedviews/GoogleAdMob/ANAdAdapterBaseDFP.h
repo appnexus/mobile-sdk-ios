@@ -31,6 +31,6 @@
 + (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 + (DFPRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
-+ (ANAdResponseCode)responseCodeFromRequestError:(GADRequestError *)error;
++ (ANAdResponseCode *)responseCodeFromRequestError:(GADRequestError *)error;
 
 @end

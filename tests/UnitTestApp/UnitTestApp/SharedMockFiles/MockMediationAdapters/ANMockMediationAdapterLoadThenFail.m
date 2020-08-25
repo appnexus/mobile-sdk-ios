@@ -33,7 +33,7 @@
     TESTTRACEM(@"Load with UIView, then force failure code ANAdResponseUnableToFill.");
 
     [self.delegate didLoadBannerAd:[UIView new]];
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
 }
 
 @end

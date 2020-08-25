@@ -23,7 +23,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
     [self.delegate didLoadBannerAd:[UIView new]];
 }
 

@@ -15,22 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, ANAdResponseCode) {
-    ANDefaultCode               = -1,
-
-    ANAdResponseSuccessful      = 0,
-    ANAdResponseInvalidRequest,
-    ANAdResponseUnableToFill,
-    ANAdResponseMediatedSDKUnavailable,
-    ANAdResponseNetworkError,
-    ANAdResponseInternalError,
-
-    ANAdResponseBadFormat       = 100,
-    ANAdResponseBadURL,
-    ANAdResponseBadURLConnection,
-    ANAdResponseNonViewResponse
-};
-
 typedef NS_ENUM(NSUInteger, ANGender) {
     ANGenderUnknown,
     ANGenderMale,

@@ -90,6 +90,10 @@
 		0EF636D322D7726000D3320F /* ANProxyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */; };
 		381A0184245B17850093EBB2 /* ANAudioVolumeChangeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */; };
+		3850566B24DAD12F00D4B54D /* ANAdResponseCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3850566924DAD12F00D4B54D /* ANAdResponseCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3850566C24DAD12F00D4B54D /* ANAdResponseCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3850566924DAD12F00D4B54D /* ANAdResponseCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3850566D24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */; };
+		3850566E24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */; };
 		4F06400823A2E7D700E7920A /* ANAdFetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANAdFetcherBase.m */; };
 		4F06400923A2E7DC00E7920A /* ANAdFetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */; };
 		4F5758B12303A8CB00AFF4B6 /* ANMultiAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5758B02303A8CB00AFF4B6 /* ANMultiAdRequest.m */; };
@@ -392,6 +396,8 @@
 		0EEE97DA21764ACD007DADE6 /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
 		381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAudioVolumeChangeListener.h; sourceTree = "<group>"; };
 		381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAudioVolumeChangeListener.m; sourceTree = "<group>"; };
+		3850566924DAD12F00D4B54D /* ANAdResponseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdResponseCode.h; sourceTree = "<group>"; };
+		3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseCode.m; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -673,6 +679,7 @@
 				ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */,
 				9706554D232B93A200D484D4 /* ANAdResponseInfo.h */,
 				ECE4EA8E194B768A0069D934 /* ANAdView.h */,
+				3850566924DAD12F00D4B54D /* ANAdResponseCode.h */,
 				ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */,
 				ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */,
 				0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */,
@@ -839,6 +846,7 @@
 				4FE7CE781F2FD6A100A5044A /* universalTag */,
 				4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */,
 				4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */,
+				3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */,
 				9706554E232B93A200D484D4 /* ANAdResponseInfo.m */,
 				8AD618A41981C11F00AC0780 /* ANAdView.m */,
 				8AD618A51981C11F00AC0780 /* ANAdViewInternalDelegate.h */,
@@ -1028,6 +1036,7 @@
 				8A9AEDD01A1BF88200C58BDA /* ANANJAMImplementation.h in Headers */,
 				381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */,
 				8A9AEDC61A1BF88200C58BDA /* ANBannerAdView+ANContentViewTransitions.h in Headers */,
+				3850566B24DAD12F00D4B54D /* ANAdResponseCode.h in Headers */,
 				8A9AEDB41A1BE8C200C58BDA /* ANBannerAdView.h in Headers */,
 				FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */,
 				8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */,
@@ -1168,6 +1177,7 @@
 				0ECF336322D79A62007DB185 /* AppNexusNativeSDK.h in Headers */,
 				F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */,
 				F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */,
+				3850566C24DAD12F00D4B54D /* ANAdResponseCode.h in Headers */,
 				0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */,
 				0099B483228CA0EB004E80AB /* UIView+ANCategory.h in Headers */,
 				F5731B4B228C8D050012B134 /* UIView+ANNativeAdCategory.h in Headers */,
@@ -1370,6 +1380,7 @@
 				F5731BCF228F07FC0012B134 /* ANNativeAdFetcher.m in Sources */,
 				8A9AEE061A1BF99D00C58BDA /* ANNativeAdImageCache.m in Sources */,
 				8A9AEE071A1BF99D00C58BDA /* ANNativeAdRequest.m in Sources */,
+				3850566D24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */,
 				8A9AEE0A1A1BF99D00C58BDA /* ANNativeAdResponse.m in Sources */,
 				8A9AEE0B1A1BF99D00C58BDA /* ANNativeAdStarRating.m in Sources */,
 				8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */,
@@ -1448,6 +1459,7 @@
 				F5731B66228C8E200012B134 /* ANSSMStandardAd.m in Sources */,
 				F5731B68228C8E260012B134 /* ANSSMVideoAd.m in Sources */,
 				F5731B6A228C8E2D0012B134 /* ANStandardAd.m in Sources */,
+				3850566E24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */,
 				F5731B70228C8F820012B134 /* ANTargetingParameters.m in Sources */,
 				F5731B7F228C94AB0012B134 /* ANTrackerInfo.m in Sources */,
 				F5731B7E228C94990012B134 /* ANTrackerManager.m in Sources */,

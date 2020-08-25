@@ -486,7 +486,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         [self deallocActions];
         
         if([self.videoDelegate respondsToSelector:@selector(videoAdError:)]){
-            NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseInternalError);
+            NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseCode.INTERNAL_ERROR.code);
             [self.videoDelegate videoAdError:error];
         }
         

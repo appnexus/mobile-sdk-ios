@@ -28,7 +28,7 @@
 @interface ANAdAdapterBaseInMobi (PrivateMethods)
 
 + (NSString *)appId;
-+ (ANAdResponseCode)responseCodeFromInMobiRequestStatus:(IMRequestStatus *)status;
++ (ANAdResponseCode *)responseCodeFromInMobiRequestStatus:(IMRequestStatus *)status;
 + (void)setInMobiTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
 + (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 

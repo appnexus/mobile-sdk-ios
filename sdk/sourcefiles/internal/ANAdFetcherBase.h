@@ -76,7 +76,7 @@
 - (void)requestAd;
 - (void)stopAdLoad;
 - (void)fireResponseURL:(nullable NSString *)responseURLString
-                 reason:(ANAdResponseCode)reason
+                 reason:(nonnull ANAdResponseCode *)reason
                adObject:(nonnull id)adObject;
 
 

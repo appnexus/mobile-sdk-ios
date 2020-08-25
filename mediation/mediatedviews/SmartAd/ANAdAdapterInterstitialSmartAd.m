@@ -36,7 +36,7 @@
         self.sasInterstitialAdManager = [[SASInterstitialManager alloc] initWithPlacement:placement delegate:self];
         [self.sasInterstitialAdManager load];
     } else {
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE];
     }
 }
 
@@ -58,7 +58,7 @@
     
 - (void)interstitialManager:(SASInterstitialManager *)manager didFailToLoadWithError:(NSError *)error {
     ANLogTrace(@"");
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
 }
 
 - (void)interstitialManager:(SASInterstitialManager *)manager didFailToShowWithError:(NSError *)error {

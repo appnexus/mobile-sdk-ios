@@ -98,7 +98,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self expectAdFetcherCallbackWithResponseCode:ANAdResponseUnableToFill];
+    [self expectAdFetcherCallbackWithResponseCode:ANAdResponseCode.UNABLE_TO_FILL];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:nil];
 }
@@ -108,7 +108,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self expectAdFetcherCallbackWithResponseCode:ANAdResponseNetworkError];
+    [self expectAdFetcherCallbackWithResponseCode:ANAdResponseCode.NETWORK_ERROR];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:nil];
 }
@@ -118,7 +118,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self expectAdFetcherCallbackWithResponseCode:ANAdResponseSuccessful];
+    [self expectAdFetcherCallbackWithResponseCode:ANAdResponseCode.SUCCESS];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:nil];
 }
@@ -128,7 +128,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseInternalError
+    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseCode.INTERNAL_ERROR
                                             timeout:kAppNexusRequestTimeoutInterval];
 }
 
@@ -137,7 +137,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseUnableToFill
+    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseCode.UNABLE_TO_FILL
                                             timeout:0.5];
 }
 
@@ -146,7 +146,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseSuccessful
+    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseCode.SUCCESS
                                             timeout:0.5];
 }
 
@@ -155,7 +155,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseSuccessful
+    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseCode.SUCCESS
                                             timeout:0.5];
 }
 
@@ -164,7 +164,7 @@
                                                                               withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
-    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseNetworkError
+    [self validateAdFetcherCallbackWithResponseCode:ANAdResponseCode.NETWORK_ERROR
                                             timeout:0.5];
 }
 
@@ -173,7 +173,7 @@
 
 #pragma mark - Helper Methods
 
-- (void)expectAdFetcherCallbackWithResponseCode:(ANAdResponseCode)code
+- (void)expectAdFetcherCallbackWithResponseCode:(ANAdResponseCode *)code
 {
 TESTTRACE();
     [self expectationForNotification: kANUniversalAdFetcherFireResponseURLRequestedNotification
@@ -183,14 +183,14 @@ TESTTRACE();
                                      NSDictionary   *userInfo   = notification.userInfo;
                                      NSNumber       *reason     = userInfo[kANUniversalAdFetcherFireResponseURLRequestedReason];
 
-                                     if (reason && ([reason integerValue] == code))  { return YES; }
+        if (reason && ([reason integerValue] == code.code))  { return YES; }
                                      return NO;
                                  } ];
 }
 
 // Assert that AdFetcher receives ANAdResponse code exactly once, and that no other code is ever received.
 //
-- (void)validateAdFetcherCallbackWithResponseCode: (ANAdResponseCode)code
+- (void)validateAdFetcherCallbackWithResponseCode: (ANAdResponseCode *)code
                                           timeout: (NSTimeInterval)timeout
 {
 TESTTRACE();
@@ -208,7 +208,7 @@ TESTTRACE();
                                                                             NSDictionary  *userInfo  = notification.userInfo;
 
                                                                             reason                      = userInfo[kANUniversalAdFetcherFireResponseURLRequestedReason];
-                                                                            validCallback               = reason && ([reason integerValue] == code);
+                                                                             validCallback               = reason && ([reason integerValue] == code.code);
                                                                             receivedDesiredCallback     = validCallback;
                                                                         }
 

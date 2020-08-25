@@ -20,6 +20,7 @@
 #import "ANAdConstants.h"
 #import "ANLocation.h"
 #import "ANAdResponseInfo.h"
+#import "ANAdResponseCode.h"
 
 @class ANLocation;
 

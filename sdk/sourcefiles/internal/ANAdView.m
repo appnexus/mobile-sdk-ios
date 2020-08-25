@@ -150,11 +150,11 @@
     if (!placementIdValid && !inventoryCodeValid) {
         NSString      *errorString  = ANErrorString(@"no_placement_id");
         NSDictionary  *errorInfo    = @{NSLocalizedDescriptionKey: errorString};
-        NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+        NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INVALID_REQUEST.code userInfo:errorInfo];
 
         errorString  = ANErrorString(@"no_placement_id");
         errorInfo    = @{NSLocalizedDescriptionKey: errorString};
-        error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+        error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INVALID_REQUEST.code userInfo:errorInfo];
     }
 
     if ([self isKindOfClass:[ANBannerAdView class]])
@@ -164,7 +164,7 @@
         if (!bav.adSizes) {
             errorString  = ANErrorString(@"adSizes_undefined");
             errorInfo    = @{NSLocalizedDescriptionKey: errorString};
-            error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+            error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INVALID_REQUEST.code userInfo:errorInfo];
         }
     }
 

@@ -17,6 +17,7 @@
 #import "NSDictionary+ANCategory.h"
 #import "ANRTBVideoAd.h"
 #import "ANAdConstants.h"
+#import "ANAdResponseCode.h"
 
 @interface ANVideoAdProcessor()
     @property (nonatomic, readwrite, strong) id<ANVideoAdProcessorDelegate> delegate;
@@ -96,7 +97,7 @@
     [self.adPlayer setDelegate:nil];
     
     if([self.delegate respondsToSelector:@selector(videoAdProcessor:didFailVideoProcessing:)]){
-        NSError *error = ANError(@"Error parsing video tag", ANAdResponseInternalError);
+        NSError *error = ANError(@"Error parsing video tag", ANAdResponseCode.INTERNAL_ERROR.code);
         [self.delegate videoAdProcessor:self didFailVideoProcessing:error];
     }else {
         ANLogError(@"no delegate subscription found");

@@ -451,7 +451,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
         
     }else if(!response.isSuccessful && (response.adObject == nil)){
-        [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat) withAdResponseInfo:response.adResponseInfo];
+        [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseCode.BAD_FORMAT.code) withAdResponseInfo:response.adResponseInfo];
         return;
     }
 }

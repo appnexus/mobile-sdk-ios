@@ -95,10 +95,10 @@
 -(void)requestFailedWithError:(NSString *)error{
     NSError  *sessionError  = nil;
     if (self.fetcherMARManager) {
-        sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseNetworkError,  error);
+        sessionError = ANError(@"multi_ad_request_failed %@", ANAdResponseCode.NETWORK_ERROR.code,  error);
         [self.fetcherMARManager internalMultiAdRequestDidFailWithError:sessionError];
     }else{
-        sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error);
+        sessionError = ANError(@"ad_request_failed %@", ANAdResponseCode.NETWORK_ERROR.code, error);
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
         [self processFinalResponse:response];
     }
@@ -224,7 +224,7 @@
     //
     if (arrayOfTags.count <= 0)
     {
-        NSError  *responseError  = ANError(@"multi_ad_request_failed %@", ANAdResponseUnableToFill, @"UT Response FAILED to return any ad objects.");
+        NSError  *responseError  = ANError(@"multi_ad_request_failed %@", ANAdResponseCode.UNABLE_TO_FILL.code, @"UT Response FAILED to return any ad objects.");
         
         [self.fetcherMARManager internalMultiAdRequestDidFailWithError:responseError];
         return;
@@ -262,7 +262,7 @@
 {
     if (!tag) {
         ANLogError(@"tag is nil.");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseCode.UNABLE_TO_FILL.code) andAdResponseInfo:nil];
         return;
     }
     
@@ -284,7 +284,7 @@
             
             adResponseInfo.placementId = placementId;
             
-            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:adResponseInfo];
+            [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseCode.UNABLE_TO_FILL.code) andAdResponseInfo:adResponseInfo];
             return;
         }
     }
@@ -296,7 +296,7 @@
     if (ads.count <= 0)
     {
         ANLogWarn(@"response_no_ads");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseCode.UNABLE_TO_FILL.code) andAdResponseInfo:nil];
         return;
     }
     
@@ -313,24 +313,24 @@
     self.ads = ads;
     
     [self clearMediationController];
-    [self continueWaterfall];
+    [self continueWaterfall:ANAdResponseCode.UNABLE_TO_FILL];
 }
 
 
 - (void)fireResponseURL:(nullable NSString *)urlString
-                 reason:(ANAdResponseCode)reason
+                 reason:(nonnull ANAdResponseCode *)reason
                adObject:(nonnull id)adObject
 {
     if (urlString) {
         [ANTrackerManager fireTrackerURL:urlString];
     }
     
-    if (reason == ANAdResponseSuccessful) {
+    if (reason.code == ANAdResponseCode.SUCCESS.code) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];
         
     } else {
-        ANLogError(@"FAILED with reason=%@.", @(reason));
+        ANLogError(@"FAILED with reason=%@.", reason.message);
         
         // mediated ad failed. clear mediation controller
         [self clearMediationController];
@@ -340,9 +340,15 @@
             self.isFetcherLoading = NO;
             return;
         }
-        
-        [self continueWaterfall];
+
+        [self continueWaterfall:reason];
     }
+}
+
+- (void)finishRequestWithResponseCode:(ANAdResponseCode *)reason
+{
+    ANLogError(@"%@", reason.message);
+    [self finishRequestWithError:ANError(reason.message, reason.code, nil) andAdResponseInfo:nil];
 }
 
 @end

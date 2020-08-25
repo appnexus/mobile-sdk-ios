@@ -24,7 +24,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
     [self.delegate didLoadBannerAd:[UIView new]];
-    [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.NETWORK_ERROR];
 }
 
 @end

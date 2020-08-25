@@ -36,12 +36,12 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
-        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
         return;
     }
     if (!idString.length) {
         ANLogError(@"Unable to load InMobi interstitial due to empty ad unit id");
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE];
         return;
     }
     self.adInterstitial = [[IMInterstitial alloc] initWithPlacementId:[idString longLongValue]];

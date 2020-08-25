@@ -141,7 +141,7 @@
         error = response.error;
 
     } else if (! [response.adObject isKindOfClass:[ANNativeAdResponse class]]) {
-        error = ANError(@"native_request_invalid_response", ANAdResponseBadFormat);
+        error = ANError(@"native_request_invalid_response", ANAdResponseCode.BAD_FORMAT.code);
     }
 
     if (error) {
