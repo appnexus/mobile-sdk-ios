@@ -103,6 +103,8 @@ static NSString *const kANativeRenderingValidURL = @"validRenderingURL";
 
 -(void) configureWebView {
 
+    // This is required to avoid the crash :- "Attempt to add script message handler with name '' when one already exists."
+    [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"rendererOp"];
     [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"rendererOp"];
 
     [self.webView setNavigationDelegate:self];
