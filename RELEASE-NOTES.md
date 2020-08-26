@@ -1,3 +1,16 @@
+## 7.6
+### New Features
++ MS-4433: Support for iOS 14 [https://wiki.xandr.com/x/3Ie1Bg]
++ MS-4268: Support for Open Measurement SDK Open RTB Signals
++ MS-4473: Added support for forcing the creative Id in Ad request for test/debug purposes
++ MS-4361: Added onAdImpression callback for the Native Ads [https://wiki.xandr.com/x/xoe1Bg]
+
+### Mediation partner upgrade
++ MS-4497: Upgraded Google AdMob SDK to v7.64.0
+
+### Improvements/Bug Fixes
++ MS-4362: Ad ResultCode is now a class instead of enum - this fixes issue with result codes getting overridden for concurrent Ad requests
+
 ## 7.5
 ### New Feature
 + MS-4384: Added support for Auction timeout [https://wiki.xandr.com/x/noS1Bg]
