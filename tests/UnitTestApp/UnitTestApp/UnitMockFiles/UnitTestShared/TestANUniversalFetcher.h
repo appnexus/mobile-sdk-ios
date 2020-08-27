@@ -25,11 +25,13 @@
 @interface TestANUniversalFetcher : ANAdView<ANUniversalAdFetcherDelegate>
 
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+@property (nonatomic, strong)  NSArray<NSValue *>  *adAllowedMediaTypes;
 
 @property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> delegate;
 
 
 - (instancetype)initWithPlacementId:(NSString *)placementId;
+-(instancetype)initWithPlacementId:(NSString *)placementId andAllowMediaType:(NSArray<NSValue *> *)mediaType;
 
 
 @end

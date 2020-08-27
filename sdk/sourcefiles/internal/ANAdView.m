@@ -77,6 +77,7 @@
 @synthesize  customKeywords                         = __customKeywords;
 
 @synthesize  creativeId                             = __creativeId;
+@synthesize  forceCreativeId                        = __forceCreativeId;
 @synthesize  adType                                 = __adType;
 @synthesize  externalUid                            = __externalUid;
 
@@ -149,11 +150,11 @@
     if (!placementIdValid && !inventoryCodeValid) {
         NSString      *errorString  = ANErrorString(@"no_placement_id");
         NSDictionary  *errorInfo    = @{NSLocalizedDescriptionKey: errorString};
-        NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+        NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INVALID_REQUEST.code userInfo:errorInfo];
 
         errorString  = ANErrorString(@"no_placement_id");
         errorInfo    = @{NSLocalizedDescriptionKey: errorString};
-        error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+        error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INVALID_REQUEST.code userInfo:errorInfo];
     }
 
     if ([self isKindOfClass:[ANBannerAdView class]])
@@ -163,7 +164,7 @@
         if (!bav.adSizes) {
             errorString  = ANErrorString(@"adSizes_undefined");
             errorInfo    = @{NSLocalizedDescriptionKey: errorString};
-            error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+            error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INVALID_REQUEST.code userInfo:errorInfo];
         }
     }
 
@@ -241,6 +242,16 @@
     }
 }
 
+- (void)setForceCreativeId:(NSInteger)forceCreativeId {
+    if (forceCreativeId <= 0) {
+        ANLogError(@"Could not set forceCreativeId to %ld", (long)forceCreativeId);
+        return;
+    }
+    if (forceCreativeId != __forceCreativeId) {
+        ANLogDebug(@"Setting forceCreativeId to %ld", (long)forceCreativeId);
+        __forceCreativeId = forceCreativeId;
+    }
+}
 
 - (void)setAdType:(ANAdType)adType
 {

@@ -64,11 +64,11 @@ TESTTRACE();
 }
 
 - (void)test_fireResponseURL: (NSString *)resultCBString
-                      reason: (ANAdResponseCode)reason
+                      reason: (ANAdResponseCode *)reason
                     adObject: (id)adObject
 {
 TESTTRACE();
-    NSDictionary  *userInfo  = @{kANUniversalAdFetcherFireResponseURLRequestedReason:@(reason)};
+    NSDictionary  *userInfo  = @{kANUniversalAdFetcherFireResponseURLRequestedReason:@(reason.code)};
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kANUniversalAdFetcherFireResponseURLRequestedNotification
                                                         object:self

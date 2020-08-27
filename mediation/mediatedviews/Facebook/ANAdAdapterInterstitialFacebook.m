@@ -54,9 +54,9 @@
 }
 
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     if (error.code == 1001) {
-        code = ANAdResponseUnableToFill;
+        code = ANAdResponseCode.UNABLE_TO_FILL;;
     }
     [self.delegate didFailToLoadAd:code];
 }

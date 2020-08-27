@@ -65,13 +65,13 @@
 - (BOOL)initializeRequest {
     NSString *className = nil;
     NSString *errorInfo = nil;
-    ANAdResponseCode errorCode = (ANAdResponseCode)ANDefaultCode;
+    ANAdResponseCode *errorCode = ANAdResponseCode.DEFAULT;
 
     do {
         // check that the ad is non-nil
         if (!self.mediatedAd) {
             errorInfo = @"null mediated ad object";
-            errorCode = (ANAdResponseCode)ANAdResponseUnableToFill;
+            errorCode = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         }
         
@@ -86,14 +86,14 @@
         Class adClass = NSClassFromString(className);
         if (!adClass) {
             errorInfo = @"ClassNotFoundError";
-            errorCode = (ANAdResponseCode)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
         id adInstance = [[adClass alloc] init];
         if (![self validAdInstance:adInstance]) {
             errorInfo = @"InstantiationError";
-            errorCode = (ANAdResponseCode)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
@@ -110,7 +110,7 @@
                                             targetingParameters:[self targetingParameters]];
     } while (false);
 
-    if (errorCode != (ANAdResponseCode)ANDefaultCode) {
+    if (errorCode.code != ANAdResponseCode.DEFAULT.code) {
         [self handleInstantiationFailure:className
                                errorCode:errorCode
                                errorInfo:errorInfo];
@@ -137,7 +137,7 @@
 }
 
 - (void)handleInstantiationFailure:(NSString *)className
-                         errorCode:(ANAdResponseCode)errorCode
+                         errorCode:(ANAdResponseCode *)errorCode
                          errorInfo:(NSString *)errorInfo
 {
     if ([errorInfo length] > 0) {
@@ -190,7 +190,7 @@
 - (void)didReceiveAd:(id)adObject {
     if ([self checkIfMediationHasResponded]) return;
     if (!adObject) {
-        [self didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
+        [self didFailToReceiveAd:ANAdResponseCode.INTERNAL_ERROR];
         return;
     }
     self.hasSucceeded = YES;
@@ -198,17 +198,17 @@
     
     ANLogDebug(@"received an ad from the adapter");
     
-    [self finish:(ANAdResponseCode)ANAdResponseSuccessful withAdObject:adObject];
+    [self finish:ANAdResponseCode.SUCCESS withAdObject:adObject];
 }
 
-- (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
+- (void)didFailToReceiveAd:(ANAdResponseCode *)errorCode {
     if ([self checkIfMediationHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil];
 }
 
-- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
+- (void)finish:(ANAdResponseCode *)errorCode withAdObject:(id)adObject
 {
     // use queue to force return
     [self runInBlock:^(void) {
@@ -257,7 +257,7 @@ ANLogDebug(@"responseURLString=%@", responseURLString);
                        ANNativeMediatedAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(@"mediation_timeout");
-                       [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
+                       [strongSelf didFailToReceiveAd:ANAdResponseCode.INTERNAL_ERROR];
                    });
 }
 
@@ -304,7 +304,7 @@ ANLogDebug(@"responseURLString=%@", responseURLString);
     [self didReceiveAd:response];
 }
 
-- (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode {
+- (void)didFailToLoadNativeAd:(ANAdResponseCode *)errorCode {
     [self didFailToReceiveAd:errorCode];
 }
 

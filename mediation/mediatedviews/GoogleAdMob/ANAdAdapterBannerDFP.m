@@ -144,7 +144,7 @@ static CGFloat const kANTotalRetries = 10;
         if (self.retryCount<kANTotalRetries) {
             if (self.secondPriceIsHigher) {
                 [self.timer invalidate];
-                [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+                [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
             }
         }else{
             [self.timer invalidate];
@@ -168,47 +168,47 @@ static CGFloat const kANTotalRetries = 10;
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
 {
     ANLogDebug(@"DFP banner failed to load with error: %@", [error localizedDescription]);
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     
     switch (error.code) {
         case kGADErrorInvalidRequest:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case kGADErrorNoFill:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case kGADErrorNetworkError:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case kGADErrorServerError:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case kGADErrorOSVersionTooLow:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorTimeout:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case kGADErrorAdAlreadyUsed:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorMediationDataError:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case kGADErrorMediationAdapterError:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorMediationInvalidAdSize:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case kGADErrorInternalError:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case kGADErrorInvalidArgument:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         default:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
     }
     [self.timer invalidate];

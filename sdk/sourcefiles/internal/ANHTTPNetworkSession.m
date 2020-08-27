@@ -16,6 +16,7 @@ limitations under the License.
 #import "ANHTTPNetworkSession.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANAdResponseCode.h"
 
 
 @interface ANHTTPNetworkTaskData : NSObject
@@ -227,7 +228,7 @@ didCompleteWithError:(nullable NSError *)error {
     // Validate response is a HTTP response.
     NSHTTPURLResponse * httpResponse = [task.response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)task.response : nil;
     if (httpResponse == nil) {
-        NSError *responseError = ANError(@"Network response is not of type NSHTTPURLResponse", ANAdResponseNetworkError);
+        NSError *responseError = ANError(@"Network response is not of type NSHTTPURLResponse", ANAdResponseCode.NETWORK_ERROR.code);
         ANLogError(@"%@", responseError);
         taskData.errorHandler(responseError);
         return;
@@ -235,7 +236,7 @@ didCompleteWithError:(nullable NSError *)error {
 
     // Validate response code is not an error (>= 400)
     if (httpResponse.statusCode >= 400) {
-        NSError * responseError = ANError(@"connection_failed", ANAdResponseNetworkError);
+        NSError * responseError = ANError(@"connection_failed", ANAdResponseCode.NETWORK_ERROR.code);
         ANLogError(@"%@", responseError);
         taskData.errorHandler(responseError);
         return;
@@ -243,7 +244,7 @@ didCompleteWithError:(nullable NSError *)error {
 
     // Validate that there is data
     if (taskData.responseData == nil) {
-        NSError * noDataError = ANError(@"The ad response does not contain data", ANAdResponseNetworkError);
+        NSError * noDataError = ANError(@"The ad response does not contain data", ANAdResponseCode.NETWORK_ERROR.code);
         ANLogError(@"%@", noDataError);
         taskData.errorHandler(noDataError);
         return;

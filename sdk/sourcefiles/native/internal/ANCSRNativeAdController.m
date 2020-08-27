@@ -68,13 +68,13 @@
 - (BOOL)initializeRequest {
     NSString *className = nil;
     NSString *errorInfo = nil;
-    ANAdResponseCode errorCode = (ANAdResponseCode)ANDefaultCode;
+    ANAdResponseCode *errorCode = ANAdResponseCode.DEFAULT;
 
     do {
         // check that the ad is non-nil
         if (!self.csrAd) {
             errorInfo = @"null csrAd ad object";
-            errorCode = (ANAdResponseCode)ANAdResponseUnableToFill;
+            errorCode = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         }
         
@@ -89,14 +89,14 @@
         Class adClass = NSClassFromString(className);
         if (!adClass) {
             errorInfo = @"ClassNotFoundError";
-            errorCode = (ANAdResponseCode)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
         id adInstance = [[adClass alloc] init];
         if (![self validAdInstance:adInstance]) {
             errorInfo = @"InstantiationError";
-            errorCode = (ANAdResponseCode)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         }
         
@@ -111,7 +111,7 @@
          
     } while (false);
 
-    if (errorCode != (ANAdResponseCode)ANDefaultCode) {
+    if (errorCode.code != ANAdResponseCode.DEFAULT.code) {
         [self handleInstantiationFailure:className
                                errorCode:errorCode
                                errorInfo:errorInfo];
@@ -149,7 +149,7 @@
                        ANCSRNativeAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(@"csr_timeout");
-                       [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
+                       [strongSelf didFailToReceiveAd:ANAdResponseCode.INTERNAL_ERROR];
                    });
 }
 
@@ -163,7 +163,7 @@
     [self didReceiveAd:response];
 }
 
-- (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode {
+- (void)didFailToLoadNativeAd:(ANAdResponseCode *)errorCode {
     [self didFailToReceiveAd:errorCode];
 }
 

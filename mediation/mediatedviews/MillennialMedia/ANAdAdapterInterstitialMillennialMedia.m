@@ -36,7 +36,7 @@
                        targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (!idString) {
-        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
         return;
     }
     [self configureMillennialSettingsWithTargetingParameters:targetingParameters];
@@ -82,45 +82,45 @@
 
 - (void)interstitialAd:(MMInterstitialAd * __nonnull)ad loadDidFailWithError:(NSError * __nonnull)error {
     ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     
     switch (error.code) {
         case MMSDKErrorServerResponseBadStatus:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case MMSDKErrorServerResponseNoContent:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case MMSDKErrorPlacementRequestInProgress:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case MMSDKErrorRequestsDisabled:
-            code = ANAdResponseMediatedSDKUnavailable;
+            code = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         case MMSDKErrorNoFill:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case MMSDKErrorVersionMismatch:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case MMSDKErrorMediaDownloadFailed:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case MMSDKErrorRequestTimeout:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case MMSDKErrorNotInitialized:
             ANLogError(@"%@ - Millennial Media SDK Uninitialized", NSStringFromSelector(_cmd));
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case MMSDKErrorInterstitialAdAlreadyLoaded:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case MMSDKErrorInterstitialAdContentUnavailable:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         default:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
     }
     

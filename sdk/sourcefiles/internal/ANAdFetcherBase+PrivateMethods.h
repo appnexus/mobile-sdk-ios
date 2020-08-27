@@ -21,7 +21,9 @@
 
 - (void)clearMediationController;
 
-- (void)continueWaterfall;
+- (void)continueWaterfall:(ANAdResponseCode *)reason;
+
+- (void)finishRequestWithResponseCode:(ANAdResponseCode *)reason;
 
 - (void)finishRequestWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 

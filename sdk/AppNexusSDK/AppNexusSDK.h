@@ -19,6 +19,7 @@ FOUNDATION_EXPORT double AppNexusSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 
 #import <AppNexusSDK/ANAdConstants.h>
+#import <AppNexusSDK/ANAdResponseCode.h>
 #import <AppNexusSDK/ANAdProtocol.h>
 #import <AppNexusSDK/ANSDKSettings.h>
 #import <AppNexusSDK/ANLogManager.h>

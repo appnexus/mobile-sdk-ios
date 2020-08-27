@@ -23,8 +23,8 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.NETWORK_ERROR];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
 }
 
 @end

@@ -25,7 +25,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.NETWORK_ERROR];
 }
 
 @end

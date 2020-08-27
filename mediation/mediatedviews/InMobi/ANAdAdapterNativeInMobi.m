@@ -81,12 +81,12 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
-        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseMediatedSDKUnavailable];
+        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE];
         return;
     }
     if (!adUnitId.length) {
         ANLogError(@"Unable to load InMobi native ad due to empty ad unit id");
-        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseUnableToFill];
+        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseCode.UNABLE_TO_FILL];
         return;
     }
     NSString *appId;
@@ -133,14 +133,14 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         ANNativeMediatedAdResponse *adResponse = [self nativeAdResponseFromNativeContent:nativeContent];
         adResponse.customElements = @{ kANNativeElementObject : self.nativeAd};
         if (!adResponse) {
-            [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
+            [self.requestDelegate didFailToLoadNativeAd:ANAdResponseCode.INTERNAL_ERROR];
             return;
         }
         
         
         [self.requestDelegate didLoadNativeAd:adResponse];
     }else{
-        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
+        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseCode.INTERNAL_ERROR];
     }
 }
 

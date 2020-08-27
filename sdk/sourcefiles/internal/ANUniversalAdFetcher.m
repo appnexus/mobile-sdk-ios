@@ -174,7 +174,7 @@
 //    The loop of the waterfall lifecycle is managed by methods calling one another
 //      until a valid ad object is found OR when the waterfall runs out.
 //
-- (void)continueWaterfall
+- (void)continueWaterfall:(ANAdResponseCode *)reason
 {
     // stop waterfall if delegate reference was lost
     if (!self.delegate) {
@@ -185,14 +185,13 @@
     BOOL adsLeft = (self.ads.count > 0);
     
     if (!adsLeft) {
-        ANLogWarn(@"response_no_ads");
-        if (self.noAdUrl) {
-            ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
-            [ANTrackerManager fireTrackerURL:self.noAdUrl];
-        }
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
-        return;
-    }
+         if (self.noAdUrl) {
+              ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
+              [ANTrackerManager fireTrackerURL:self.noAdUrl];
+          }
+         [self finishRequestWithResponseCode:reason];
+         return;
+     }
     
     
     //
@@ -224,8 +223,6 @@
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
 }
-
-
 
 
 #pragma mark - Auto refresh timer.
@@ -290,7 +287,7 @@
 - (void)handleRTBVideoAd:(ANRTBVideoAd *)videoAd
 {
     if (!videoAd.assetURL && !videoAd.content) {
-        [self continueWaterfall];
+        [self continueWaterfall:ANAdResponseCode.UNABLE_TO_FILL];
     }
     
     NSString *notifyUrlString = videoAd.notifyUrlString;
@@ -427,7 +424,7 @@
         ANNativeStandardAdResponse *nativeStandardAdResponse = (ANNativeStandardAdResponse *)self.adObjectHandler;
         [self traditionalNativeAd:nativeStandardAdResponse];
     }else{
-        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
+        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseCode.INTERNAL_ERROR.code);
         ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithError:error];
         [self processFinalResponse:fetcherResponse];
     }
@@ -477,7 +474,7 @@
                                                  andAdObjectHandler: self.adObjectHandler ];
          
     } else {
-        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
+        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseCode.INTERNAL_ERROR.code);
         fetcherResponse = [ANAdFetcherResponse responseWithError:error];
     }
 
@@ -514,7 +511,7 @@
 
 - (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoAdProcessor didFailVideoProcessing: (nonnull NSError *)error
 {
-    [self continueWaterfall];
+    [self continueWaterfall:ANAdResponseCode.UNABLE_TO_FILL];
 }
 
 
@@ -568,7 +565,7 @@
 
     if (!self.adView)
     {
-        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
+        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseCode.INTERNAL_ERROR.code);
         ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithError:error];
         [self processFinalResponse:fetcherResponse];
 

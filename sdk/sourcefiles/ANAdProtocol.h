@@ -20,6 +20,7 @@
 #import "ANAdConstants.h"
 #import "ANLocation.h"
 #import "ANAdResponseInfo.h"
+#import "ANAdResponseCode.h"
 
 @class ANLocation;
 
@@ -136,6 +137,11 @@
  an ad using inventory code.
  */
 @property (nonatomic, readonly, strong, nullable) NSString *inventoryCode;
+
+/**
+ Set AppNexus CreativeId that you want to display on this AdUnit for debugging/testing purpose.
+ */
+@property (nonatomic, readwrite, assign) NSInteger forceCreativeId;
 
 /**
  The reserve price is the minimum bid amount you'll accept to show

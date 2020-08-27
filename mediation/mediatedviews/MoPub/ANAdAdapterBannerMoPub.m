@@ -79,7 +79,7 @@
 }
 
 - (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error{
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
 }
 
 - (void)willPresentModalViewForAd:(MPAdView *)view {

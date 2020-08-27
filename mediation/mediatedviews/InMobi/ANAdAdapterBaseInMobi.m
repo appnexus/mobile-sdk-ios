@@ -39,29 +39,29 @@ static NSString *kANAdAdapterBaseInMobiAppId = @"";
     kANAdAdapterBaseInMobiAppId = newAppId;
 }
 
-+ (ANAdResponseCode)responseCodeFromInMobiRequestStatus:(IMRequestStatus *)status {
++ (ANAdResponseCode *)responseCodeFromInMobiRequestStatus:(IMRequestStatus *)status {
     switch (status.code) {
         case kIMStatusCodeNetworkUnReachable:
-            return ANAdResponseNetworkError;
+            return ANAdResponseCode.NETWORK_ERROR;
         case kIMStatusCodeNoFill:
-            return ANAdResponseUnableToFill;
+            return ANAdResponseCode.UNABLE_TO_FILL;
         case kIMStatusCodeRequestInvalid:
-            return ANAdResponseInvalidRequest;
+            return ANAdResponseCode.INVALID_REQUEST;
         case kIMStatusCodeRequestPending:
-            return ANAdResponseInternalError;
+            return ANAdResponseCode.INTERNAL_ERROR;
         case kIMStatusCodeRequestTimedOut:
-            return ANAdResponseNetworkError;
+            return ANAdResponseCode.NETWORK_ERROR;
         case kIMStatusCodeInternalError:
-            return ANAdResponseInternalError;
+            return ANAdResponseCode.INTERNAL_ERROR;
         case kIMStatusCodeServerError:
-            return ANAdResponseNetworkError;
+            return ANAdResponseCode.NETWORK_ERROR;
         case kIMStatusCodeAdActive:
-            return ANAdResponseInternalError;
+            return ANAdResponseCode.INTERNAL_ERROR;
         case kIMStatusCodeEarlyRefreshRequest:
-            return ANAdResponseUnableToFill;
+            return ANAdResponseCode.UNABLE_TO_FILL;
         default:
             ANLogDebug(@"Unhandled IMRequestStatus code: %ld", (long)status.code);
-            return ANAdResponseInternalError;
+            return ANAdResponseCode.INTERNAL_ERROR;
     }
 }
 

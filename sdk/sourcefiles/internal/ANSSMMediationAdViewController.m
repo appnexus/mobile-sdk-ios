@@ -71,12 +71,12 @@
 - (BOOL)requestForAd:(ANSSMStandardAd *)ad {
     // variables to pass into the failure handler if necessary
     NSString *errorInfo = nil;
-    ANAdResponseCode errorCode = ANDefaultCode;
+    ANAdResponseCode *errorCode = ANAdResponseCode.DEFAULT;
     
     // check that the ad is non-nil
     if ((!ad) || (!ad.urlString)) {
         errorInfo = @"null mediated ad object";
-        errorCode = ANAdResponseUnableToFill;
+        errorCode = ANAdResponseCode.UNABLE_TO_FILL;
         [self handleFailure:errorCode errorInfo:errorInfo];
         return NO;
     }else{
@@ -100,7 +100,7 @@
             
         } errorHandler:^(NSError * _Nonnull error) {
             __typeof__(self) strongSelf = weakSelf;
-            [strongSelf handleFailure:ANAdResponseNetworkError errorInfo:@"connection_failed"];
+            [strongSelf handleFailure:ANAdResponseCode.NETWORK_ERROR errorInfo:@"connection_failed"];
             
         }];
         
@@ -111,7 +111,7 @@
 
 
 
-- (void)handleFailure:(ANAdResponseCode)errorCode
+- (void)handleFailure:(ANAdResponseCode *)errorCode
             errorInfo:(NSString *)errorInfo
 {
     
@@ -150,7 +150,7 @@
     if ([self checkIfHasResponded])  { return; }
     
     if (!adContent || !(adContent.length>0)) {
-        [self handleFailure:ANAdResponseInternalError errorInfo:@"Received Empty SSM response from server"];
+        [self handleFailure:ANAdResponseCode.INTERNAL_ERROR errorInfo:@"Received Empty SSM response from server"];
         return;
     }
     
@@ -178,7 +178,7 @@
     
 }
 
-- (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
+- (void)didFailToReceiveAd:(ANAdResponseCode *)errorCode {
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
@@ -186,7 +186,7 @@
 }
 
 
-- (void)finish: (ANAdResponseCode)errorCode
+- (void)finish: (ANAdResponseCode *)errorCode
   withAdObject: (id)adObject
 {
     // use queue to force return
@@ -211,7 +211,7 @@
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
     if (self.ssmAdView.webViewController == controller) {
-        [self finish:ANAdResponseSuccessful withAdObject:self.ssmAdView];
+        [self finish:ANAdResponseCode.SUCCESS withAdObject:self.ssmAdView];
     }
 }
 
@@ -228,7 +228,7 @@
                    dispatch_get_main_queue(), ^{
                        ANSSMMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
-                       [strongSelf handleFailure:ANAdResponseInternalError errorInfo:@"mediation_timeout"];
+                       [strongSelf handleFailure:ANAdResponseCode.INTERNAL_ERROR errorInfo:@"mediation_timeout"];
                    });
     
 }

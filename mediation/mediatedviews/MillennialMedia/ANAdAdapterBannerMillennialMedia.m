@@ -44,7 +44,7 @@
     ANLogTrace(@"%@ %@ | Requesting MillennialMedia banner with size %fx%f",
                NSStringFromClass([self class]), NSStringFromSelector(_cmd), size.width, size.height);
     if (!idString) {
-        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
         return;
     }
     [self configureMillennialSettingsWithTargetingParameters:targetingParameters];
@@ -76,46 +76,46 @@
     if (self.inlineAd.view) {
         [self.delegate didLoadBannerAd:self.inlineAd.view];
     } else {
-        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
     }
 }
 
 - (void)inlineAd:(MMInlineAd * __nonnull)ad requestDidFailWithError:(NSError * __nonnull)error {
     ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     
     switch (error.code) {
         case MMSDKErrorServerResponseBadStatus:
-            code = ANAdResponseInvalidRequest;
+            code = ANAdResponseCode.INVALID_REQUEST;
             break;
         case MMSDKErrorServerResponseNoContent:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case MMSDKErrorPlacementRequestInProgress:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case MMSDKErrorRequestsDisabled:
             ANLogDebug(@"%@ - MMSDKErrorRequestsDisabled", NSStringFromSelector(_cmd));
-            code = ANAdResponseMediatedSDKUnavailable;
+            code = ANAdResponseCode.MEDIATED_SDK_UNAVAILABLE;
             break;
         case MMSDKErrorNoFill:
-            code = ANAdResponseUnableToFill;
+            code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
         case MMSDKErrorVersionMismatch:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         case MMSDKErrorMediaDownloadFailed:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case MMSDKErrorRequestTimeout:
-            code = ANAdResponseNetworkError;
+            code = ANAdResponseCode.NETWORK_ERROR;
             break;
         case MMSDKErrorNotInitialized:
             ANLogDebug(@"%@ - MMSDKErrorNotInitialized", NSStringFromSelector(_cmd));
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
         default:
-            code = ANAdResponseInternalError;
+            code = ANAdResponseCode.INTERNAL_ERROR;
             break;
     }
     

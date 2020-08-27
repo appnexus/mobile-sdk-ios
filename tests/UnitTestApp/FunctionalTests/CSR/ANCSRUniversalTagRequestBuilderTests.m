@@ -31,6 +31,10 @@
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 static NSString  *PlacementID  = @"9924001";
 
+static const NSInteger UNABLE_TO_FILL = 2 ;
+static const NSInteger INTERNAL_ERROR = 5 ;
+static const NSInteger REQUEST_TOO_FREQUENT = 6 ;
+static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 @interface ANCSRUniversalTagRequestBuilderTests : XCTestCase< SDKValidationURLProtocolDelegate , ANNativeAdResponseProtocol , ANNativeAdRequestDelegate >
 
@@ -43,6 +47,14 @@ static NSString  *PlacementID  = @"9924001";
 @property (nonatomic, strong) XCTestExpectation *CSRAdFiredImpressionTrackerExpectation;
 @property (nonatomic, strong) XCTestExpectation *CSRAdFiredOMIDTrackerExpectation;
 @property (nonatomic, strong) XCTestExpectation *CSRAdFiredClickTrackerExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdNetWorkErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdUnableToFillErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdLoadTooFrequentlyErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdDisplayFormatMismatchErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdSDKVersionUnsupportedErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdInvalidRequestErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdServerErrorExpectation;
+@property (nonatomic, strong) XCTestExpectation *CSRAdInternalErrorExpectation;
 
 @property (nonatomic) NSString *testcase;
 @property (nonatomic) UIView *nativeView;
@@ -91,6 +103,14 @@ static NSString  *PlacementID  = @"9924001";
     self.CSRAdFiredImpressionTrackerExpectation = nil;
     self.CSRAdFiredClickTrackerExpectation = nil;
     self.CSRAdFiredOMIDTrackerExpectation = nil;
+    self.CSRAdNetWorkErrorExpectation = nil;
+    self.CSRAdUnableToFillErrorExpectation = nil;
+    self.CSRAdLoadTooFrequentlyErrorExpectation = nil;
+    self.CSRAdDisplayFormatMismatchErrorExpectation = nil;
+    self.CSRAdSDKVersionUnsupportedErrorExpectation = nil;
+    self.CSRAdInvalidRequestErrorExpectation = nil;
+    self.CSRAdServerErrorExpectation = nil;
+    self.CSRAdInternalErrorExpectation = nil;
     self.nativeRequest = nil;
     self.nativeResponse = nil;
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
@@ -338,6 +358,110 @@ static NSString  *PlacementID  = @"9924001";
 }
 
 
+- (void)testCSRBannerNativeWithNetworkError
+{
+    self.testcase = @"testCSRBannerNativeWithNetworkError";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1000"];
+    self.CSRAdNetWorkErrorExpectation = [self expectationWithDescription:@"Didn't receive network error"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)testCSRBannerNativeWithUnableToFill
+{
+    self.testcase = @"testCSRBannerNativeWithUnableToFill";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1001"];
+    self.CSRAdUnableToFillErrorExpectation = [self expectationWithDescription:@"Didn't receive unable to fill error"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)testCSRBannerNativeWithLoadTooFrequently
+{
+    self.testcase = @"testCSRBannerNativeWithLoadTooFrequently";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1002"];
+    self.CSRAdLoadTooFrequentlyErrorExpectation = [self expectationWithDescription:@"Didn't receive load too frequently"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)testCSRBannerNativeWithDisplayFormatMismatch
+{
+    self.testcase = @"testCSRBannerNativeWithDisplayFormatMismatch";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1011"];
+    self.CSRAdDisplayFormatMismatchErrorExpectation = [self expectationWithDescription:@"Didn't receive display format mismatch"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)testCSRBannerNativeWithSDKVersionUnsupported
+{
+    self.testcase = @"testCSRBannerNativeWithSDKVersionUnsupported";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1012"];
+    self.CSRAdSDKVersionUnsupportedErrorExpectation = [self expectationWithDescription:@"Didn't receive sdk version unsupported"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)testCSRBannerNativeWithInvalidRequest
+{
+    self.testcase = @"testCSRBannerNativeWithInvalidRequest";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1203"];
+    self.CSRAdInvalidRequestErrorExpectation = [self expectationWithDescription:@"Didn't receive invalid request"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)testCSRBannerNativeWithServerError
+{
+    self.testcase = @"testCSRBannerNativeWithServerError";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_2000"];
+    self.CSRAdServerErrorExpectation = [self expectationWithDescription:@"Didn't receive server error"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+
+}
+
+- (void)testCSRBannerNativeWithInternalError
+{
+    self.testcase = @"testCSRBannerNativeWithInternalError";
+    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_Default"];
+    self.CSRAdInternalErrorExpectation = [self expectationWithDescription:@"Didn't receive internal error"];
+    [self.nativeRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    
+}
+
 #pragma mark - ANAdDelegate
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
@@ -362,6 +486,52 @@ static NSString  *PlacementID  = @"9924001";
     
 }
 
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo{
+    switch (error.code) {
+        case INTERNAL_ERROR:
+            if ([self.testcase isEqualToString:@"testCSRBannerNativeWithInternalError"]) {
+                [self.CSRAdInternalErrorExpectation fulfill];
+            }
+            break;
+        case UNABLE_TO_FILL:
+            if ([self.testcase isEqualToString:@"testCSRBannerNativeWithUnableToFill"]) {
+                [self.CSRAdUnableToFillErrorExpectation fulfill];
+            }
+            break;
+        case REQUEST_TOO_FREQUENT:
+            if ([self.testcase isEqualToString:@"testCSRBannerNativeWithLoadTooFrequently"]) {
+                [self.CSRAdLoadTooFrequentlyErrorExpectation fulfill];
+            }
+            break;
+        case CUSTOM_ADAPTER_ERROR:
+            if ([error.localizedDescription containsString:@"1000"]) {
+                if ([self.testcase isEqualToString:@"testCSRBannerNativeWithNetworkError"]) {
+                    [self.CSRAdNetWorkErrorExpectation fulfill];
+                }
+            }
+            else if ([error.localizedDescription containsString:@"1011"]) {
+                if ([self.testcase isEqualToString:@"testCSRBannerNativeWithDisplayFormatMismatch"]) {
+                    [self.CSRAdDisplayFormatMismatchErrorExpectation fulfill];
+                }
+            }
+            else if ([error.localizedDescription containsString:@"1012"]) {
+                if ([self.testcase isEqualToString:@"testCSRBannerNativeWithSDKVersionUnsupported"]) {
+                    [self.CSRAdSDKVersionUnsupportedErrorExpectation fulfill];
+                }
+            }
+            else if ([error.localizedDescription containsString:@"1203"]) {
+                if ([self.testcase isEqualToString:@"testCSRBannerNativeWithInvalidRequest"]) {
+                    [self.CSRAdInvalidRequestErrorExpectation fulfill];
+                }
+            }
+            else if ([error.localizedDescription containsString:@"2000"]) {
+                if ([self.testcase isEqualToString:@"testCSRBannerNativeWithServerError"]) {
+                    [self.CSRAdServerErrorExpectation fulfill];
+                }
+            }
+            break;
+    }
+}
 
 # pragma mark - Ad Server Response Stubbing
 

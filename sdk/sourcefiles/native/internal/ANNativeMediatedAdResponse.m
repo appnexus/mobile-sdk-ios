@@ -129,7 +129,11 @@
 #pragma mark - Impression Tracking
 - (void)fireImpTrackers {
     if (self.impTrackers && !self.impressionsHaveBeenTracked) {
-        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers withBlock:^(BOOL isTrackerFired) {
+            if (isTrackerFired) {
+                [super adDidLogImpression];
+            }
+        }];
     }
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];

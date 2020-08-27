@@ -102,6 +102,23 @@ static NSString   *inventoryCode    = @"trucksmash";
 
 }
 
+- (void)testInitializeWithForceCreativeID
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    instreamVideoAd.forceCreativeId = 135482485;
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+
+    [instreamVideoAd loadAdWithDelegate:self];
+
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+
+    //
+    XCTAssertEqual(135482485, instreamVideoAd.forceCreativeId);
+    XCTAssertEqual([self.jsonRequestBody[@"tags"][0][@"force_creative_id"] integerValue], 135482485);
+
+}
+
 - (void)testInitializeWithMemberIDAndCode
 {
     ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithMemberId:958 inventoryCode:@"trucksmash"];

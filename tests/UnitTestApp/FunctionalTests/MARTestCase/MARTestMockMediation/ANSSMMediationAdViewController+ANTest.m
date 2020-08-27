@@ -25,12 +25,12 @@
 - (BOOL)requestForAd:(ANSSMStandardAd *)ad {
     // variables to pass into the failure handler if necessary
     NSString *errorInfo = nil;
-    ANAdResponseCode errorCode = ANDefaultCode;
+    ANAdResponseCode *errorCode = ANAdResponseCode.DEFAULT;
     
     // check that the ad is non-nil
     if ((!ad) || (!ad.urlString)) {
         errorInfo = @"null mediated ad object";
-        errorCode = ANAdResponseUnableToFill;
+        errorCode = ANAdResponseCode.UNABLE_TO_FILL;
         [self handleFailure:errorCode errorInfo:errorInfo];
         return NO;
     }else{

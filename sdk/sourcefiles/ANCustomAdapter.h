@@ -15,13 +15,13 @@
 
 #import "ANTargetingParameters.h"
 #import "ANAdConstants.h"
-
+#import "ANAdResponseCode.h"
 
 
 
 
 @protocol ANCustomAdapterDelegate <NSObject>
-- (void)didFailToLoadAd:(ANAdResponseCode)errorCode;
+- (void)didFailToLoadAd:(nonnull ANAdResponseCode *)errorCode;
 - (void)adWasClicked;
 - (void)willPresentAd;
 - (void)didPresentAd;

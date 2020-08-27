@@ -55,5 +55,6 @@
 - (void)willCloseAd;
 - (void)didCloseAd;
 - (void)willLeaveApplication;
+- (void)adDidLogImpression;
 
 @end

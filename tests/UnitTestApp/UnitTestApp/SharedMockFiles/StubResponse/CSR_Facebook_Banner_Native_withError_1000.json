@@ -1,0 +1,55 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "47BDB1DC-FE94-4989-85EA-C2F3877284DA",
+            "tag_id": 18793423,
+            "auction_id": "2323993573404092115",
+            "nobid": false,
+            "no_ad_url": "https://nym1-ib.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKjA3yjAQAAAwDWAAUBCNjIjfQFENPNqtj4-p6gIBgAKjYJAA0BABENCAQAGQkJCOA_IQkJCAAAKREJADEJCfDt4D8wz4f7CDjtSEDtSEgAUABYvv1cYABowNV2eACAAQGKAQCSAQNVU0SYAQGgAQGoAQGwAQC4AQDAAQDIAQLQAQHYAQDgAQHwAQDYAgDgAq2YSIADAIgDAZADAJgDF6ADAaoDAMADrALIAwDYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBA0xMC43NS4xMDkuMTQ5qAQAsgQOCAAQARgAIAAoADAAOAK4BADABADIBADaBAIIAOAEAPAEAIIFFmNvbS54YW5kci5TaW1wbGVOYXRpdmWIBQGYBQCgBYyk4oWziMSDJMAFAMkFAAX0FPA_0gUJCQULdAAAANgFAeAFAfAFAPoFBAgAEACQBgCYBgC4BgDBBgEfIAAA8L_aBhYKEAkNGQFcEAAYAOAGDPIGAggAgAcBiAcAoAdByAcA&s=a42dc0cfd9d592c970d1a02aa5e62c07a764d795",
+            "timeout_ms": 0,
+            "ad_profile_id": 1182765,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "csr",
+                    "ad_type": "native",
+                    "buyer_member_id": 9863,
+                    "creative_id": 0,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "is_prebid_server_bid": true,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/app/185/trk.js#app;vk=appnexus.com-omid;tv=app-native-23h;dom_id=%native_dom_id%;st=2;d=0x0;vc=iab;vid_ccr=1;tag_id=18793423;cb=https%3A%2F%2Fnym1-ib.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKqBqAqAwAAAwDWAAUBCNjIjfQFENPNqtj4-p6gIBgAKjYJj8L1KFz_WEARjw0JBBkABQEI4D8hERsAKREJADEFGqgA4D8wz4f7CDjtSECHTUi7A1AAWL79XGAAaMDVdnjcqAWAAQGKAQNVU0SSBQb0dQGYAQGgAQGoAQGwAQC4AQDAAQXIAQLQAQHYAQDgAQHwAQDYAgDgAq2YSIADAIgDAZADAJgDF6ADAaoDgAMKrQJodHRwczovL3d3dy5mYWNlYm9vay5jb20vYXVkaWVuY2VuZXR3b3JrL251cmwvP3BhcnRuZXI9MjM2NTc1NDkyMDQwNzE0NyZhcHA9MjAzODA3NzEwOTg0NjI5OSZwbGFjZW1lbnQ9MjU2MjU3ODY1MDcyOTQ3MyZhdWN0aW9uPTI1OTYwNjE1OTA5Njg2MzU5MTYmaW1wcmVzc2lvbj0yMzIzOTkzNTczNDA0MDkyMTE1XzAmcmVxdWVzdD02Nzc5OTgzMTU4NzA2MTgxNjY0JmJpZD0zODY4NTU0NjM4NDA2NTU3NDc0Jm9ydGJfbG9zc19jb2RlPTAmY2xlYXJpbmdfcHJpY2U9JHtBVUNUSU9OX1BSSUNFfSZhcHBfdmVyc2lvbj1pT1MtMS4wGhMyMzIzOTkzNR2QFCITMzg2ODpvAAgqD2EtQBxOZXR3b3JrOk4mAPCVwAOsAsgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKIEDTEwLjc1LjEwOS4xNDmoBACyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANoEAggB4AQA8AQAggUWY29tLnhhbmRyLlNpbXBsZU5hdGl2ZYgFAZgFAKAFjKTihbOIxIMkwAUAyQUAAAAAAADwP9IFCQkASYdsANgFAeAFAfAFAPoFBAgAEACQBgCYBgC4BgDBBgkiGPA_2gYWChAJDRkBXBAAGADgBgzyBgIIAIAHAYgHAKAHQcgHAA..%26s%3D7a82f83dd331c8ca4d669776d9f8d6c8249f76b7;ts=1585669208;cet=0;cecb=\"></script>"
+                    },
+                    "csr": {
+                        "handler": [
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.csr.FBNativeBanner",
+                                "payload": "{\"type\":\"ID\",\"bid_id\":\"3868554638406557474\",\"placement_id\":\"2038077109846299_2562578650721000\",\"resolved_placement_id\":\"2038077109846299_2562578650721000\",\"sdk_version\":\"5.7.1\",\"device_id\":null,\"template\":500,\"payload\":null,\"bid_time_token\":\"V1_eyJwbGF0Zm9ybV9pZCI6MjM2NTc1NDkyMDQwNzE0Nywib3J0Yl9hdWN0aW9uX2lkIjoiMjU5NjA2MTU5MDk2ODYzNTkxNiIsImJpZF9zb3VyY2UiOjUsImNsdXN0ZXJfaWQiOjY2LCJ0ZXN0Ijp0cnVlfQ==\"}"
+                            },
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterCSRNativeBannerFacebook",
+                                "payload": "{\"type\":\"ID\",\"bid_id\":\"3868554638406557474\",\"placement_id\":\"2038077109846299_2562578650721000\",\"resolved_placement_id\":\"2038077109846299_2562578650721000\",\"sdk_version\":\"5.7.1\",\"device_id\":null,\"template\":500,\"payload\":null,\"bid_time_token\":\"V1_eyJwbGF0Zm9ybV9pZCI6MjM2NTc1NDkyMDQwNzE0Nywib3J0Yl9hdWN0aW9uX2lkIjoiMjU5NjA2MTU5MDk2ODYzNTkxNiIsImJpZF9zb3VyY2UiOjUsImNsdXN0ZXJfaWQiOjY2LCJ0ZXN0Ijp0cnVlfQ==\"}"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "https://appnexustracker.com/impressionTrackerfired"
+                                ],
+                                "click_urls": [
+                                "https://appnexustracker.com/clicktrackerfired"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

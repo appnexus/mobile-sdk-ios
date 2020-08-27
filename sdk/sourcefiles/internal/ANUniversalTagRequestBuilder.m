@@ -24,6 +24,8 @@
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANSDKSettings.h"
+#import "ANOMIDImplementation.h"
+
 #pragma mark - Private constants.
 
 
@@ -122,7 +124,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (!jsonObject)
     {
         NSDictionary  *userInfo  = @{ NSLocalizedDescriptionKey : @"[ANUniversalTagRequestBuilder requestBody] returned nil." };
-        error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInternalError userInfo:userInfo];
+        error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseCode.INTERNAL_ERROR.code userInfo:userInfo];
     }
 
     if (!error) {
@@ -251,6 +253,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     requestDict[@"sdkver"] = AN_SDK_VERSION;  //LEGACY.  Replaced by sdk object.
     
     requestDict[@"supply_type"] = @"mobile_app";
+    
+    
+    if(ANSDKSettings.sharedInstance.enableOpenMeasurement){
+        requestDict[@"iab_support"]  = [self getIABSupport];
+    }
+
     
     // add GDPR Consent
     NSDictionary *gdprConsent = [self getGDPRConsentObject];
@@ -382,6 +390,16 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     //
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
+    if ([self.adFetcherDelegate respondsToSelector:@selector(forceCreativeId)]){
+        NSInteger   forceCreativeId  = [self.adFetcherDelegate forceCreativeId];
+        if (forceCreativeId > 0) {
+            tagDict[@"force_creative_id"] = @(forceCreativeId);
+        }
+    }
+    
+    if(ANSDKSettings.sharedInstance.enableOpenMeasurement){
+        [self getAdFramework:tagDict];
+    }
 
     //
     if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
@@ -418,6 +436,27 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
     //
     return [tagDict copy];
+}
+
+-(void)getAdFramework:(NSMutableDictionary *)tag{
+    
+    NSArray *mediaTypes = [self.adFetcherDelegate adAllowedMediaTypes];
+    for(int mediaTypeIndex = 0; mediaTypeIndex < mediaTypes.count; mediaTypeIndex++) {
+        ANAllowedMediaType mediaType = [mediaTypes[mediaTypeIndex] intValue];
+        switch(mediaType)
+        {
+            case ANAllowedMediaTypeBanner:
+            case ANAllowedMediaTypeInterstitial:
+                tag[@"banner_frameworks"] =  @[@(6)];
+                break;
+            case ANAllowedMediaTypeNative:
+                tag[@"native_frameworks"] =  @[@(6)];
+                break;
+            case ANAllowedMediaTypeVideo:
+                tag[@"video_frameworks"] =  @[@(6)];
+                break;
+        }
+    }
 }
 
 - (NSDictionary<NSString *, id> *)nativeRendererRequest
@@ -729,6 +768,14 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     } else {
         return  nil;
     }
+}
+
+- (NSDictionary *)getIABSupport
+{
+    return  @{
+        @"omidpn"  : AN_OMIDSDK_PARTNER_NAME,
+        @"omidpv"    : [[ANSDKSettings sharedInstance] sdkVersion]
+    };
 }
 
 

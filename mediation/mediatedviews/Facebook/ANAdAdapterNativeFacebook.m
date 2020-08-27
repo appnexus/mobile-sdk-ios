@@ -108,9 +108,9 @@
 
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error {
     ANLogError(@"Error loading Facebook native ad: %@", error);
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     if (error.code == 1001) {
-        code = ANAdResponseUnableToFill;
+        code = ANAdResponseCode.UNABLE_TO_FILL;
     }
     [self.requestDelegate didFailToLoadNativeAd:code];
 }

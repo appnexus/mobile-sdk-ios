@@ -24,7 +24,7 @@
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
 
 - (void)markLatencyStart;
-- (void)handleFailure:(ANAdResponseCode)errorCode
+- (void)handleFailure:(ANAdResponseCode *)errorCode
             errorInfo:(NSString *)errorInfo;
 - (void)didReceiveAd:(NSString *)adContent;
 @end

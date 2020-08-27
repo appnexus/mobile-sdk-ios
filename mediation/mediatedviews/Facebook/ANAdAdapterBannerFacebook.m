@@ -46,7 +46,7 @@
         fbAdSize = kFBAdSizeHeight250Rectangle;
         frame = CGRectMake(0, 0, 1, 250);
     } else {
-        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        [self.delegate didFailToLoadAd:ANAdResponseCode.UNABLE_TO_FILL];
         return;
     }
 
@@ -62,9 +62,9 @@
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
     ANLogDebug(@"Facebook banner failed to load with error: %@", error);
-    ANAdResponseCode code = ANAdResponseInternalError;
+    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     if (error.code == 1001) {
-        code = ANAdResponseUnableToFill;
+        code = ANAdResponseCode.UNABLE_TO_FILL;
     }
     [self.delegate didFailToLoadAd:code];
 }

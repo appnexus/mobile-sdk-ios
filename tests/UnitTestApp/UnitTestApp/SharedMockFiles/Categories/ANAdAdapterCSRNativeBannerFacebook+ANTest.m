@@ -14,6 +14,13 @@
  */
 
 #import "ANAdAdapterCSRNativeBannerFacebook+ANTest.h"
+
+typedef NS_ENUM(NSUInteger, FBRequestError) {
+    FBNoFill = 1001,
+    FBAdLoadTooFrequently = 1002,
+    FBInternalError = 2001
+};
+
 @import FBAudienceNetwork;
 
 @protocol ANCSRNativeAdRequestAdDelegate;
@@ -26,8 +33,19 @@
 
 
 - (void) requestAdwithPayload:(nonnull NSString *) payload targetingParameters:(nullable ANTargetingParameters *)targetingParameters{
-    
-    [self showNativeBannerAd];
+    NSString *placement = [self getPlacementIdFrom:payload];
+    if ([placement isEqualToString:@"2038077109846299_2562578650729473"]) {
+        [self showNativeBannerAd];
+    }else{
+        [self showErrorsForNativeBannerAd:placement];
+    }
+   
+}
+
+-(NSString *)getPlacementIdFrom:(NSString *)payload{
+    NSData *data = [payload dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    return json[@"placement_id"];
 }
 
 - (void)showNativeBannerAd
@@ -42,6 +60,51 @@
     csrNativeAdResponse.customElements = @{ kANNativeCSRObject : self};
     self.csrNativeAdResponse = csrNativeAdResponse;
     [self.requestDelegate didLoadNativeAd:self.csrNativeAdResponse];
+}
+
+- (void)showErrorsForNativeBannerAd:(NSString *)placement
+{
+    NSInteger errorCode = 0;
+    if ([placement isEqualToString:@"2038077109846299_2562578650721000"]) {
+        errorCode = 1000;
+    }else if ([placement isEqualToString:@"2038077109846299_2562578650721001"]) {
+        errorCode = 1001;
+    }else if ([placement isEqualToString:@"2038077109846299_2562578650721002"]) {
+        errorCode = 1002;
+    }else if ([placement isEqualToString:@"2038077109846299_2562578650721011"]) {
+        errorCode = 1011;
+    }else if ([placement isEqualToString:@"2038077109846299_2562578650721012"]) {
+        errorCode = 1012;
+    }else if ([placement isEqualToString:@"2038077109846299_2562578650721203"]) {
+        errorCode = 1203;
+    }else if ([placement isEqualToString:@"2038077109846299_2562578650722000"]) {
+        errorCode = 2000;
+    }else if ([placement isEqualToString:@"2038077109846299_25625786507220001"]) {
+        errorCode = 2001;
+    }
+    [self nativeBannerAdFailedWithError:errorCode];
+}
+
+- (void)nativeBannerAdFailedWithError:(NSInteger)errorCode
+{
+    NSError *error;
+    ANAdResponseCode *code;
+    switch (errorCode) {
+        case FBNoFill:
+            code = ANAdResponseCode.UNABLE_TO_FILL;
+            break;
+        case FBAdLoadTooFrequently:
+            code = ANAdResponseCode.REQUEST_TOO_FREQUENT;
+            break;
+        case FBInternalError:
+            code = ANAdResponseCode.INTERNAL_ERROR;
+            break;
+        default:
+            error = [NSError errorWithDomain:@"com.facebook.ads.sdk" code:errorCode userInfo:@{NSLocalizedDescriptionKey:@"CUSTOM_ADAPTER_ERROR"}];
+            code = [ANAdResponseCode CUSTOM_ADAPTER_ERROR:[NSString stringWithFormat:@"Error: %ld Message: %@", (long)error.code, error.localizedDescription]];
+            break;
+    }
+    [self.requestDelegate didFailToLoadNativeAd:code];
 }
 
 - (BOOL)hasExpired {

@@ -39,4 +39,11 @@
 "native_adapter_error"="Could not register with mediated SDK adapter, it does not implement the required methods.";
 "native_adapter_native_ad_delegate_missing"="The native mediated adapter has not synthesized the nativeAdDelegate property";
 "native_invalid_clickable_views"="A non-view object was passed in clickableViews. Ignoring.";
+"ad_network_error"="The ad request failed due to a network error";
+"ad_request_too_frequent_error"="Called loadAd too many times";
+"ad_display_format_mismatch_error"="Display format in the ad request does not match the display format specified for this placement";
+"sdk_version_unsupported_error"="The SDK version in the ad request is no longer supported";
+"invalid_request_error"="The ad request failed due to an invalid configuration (for example, size or placement ID not set)";
+"ad_server_error"="The ad request failed due to a server error";
+"ad_internal_error"="The ad request failed due to a internal error";
 "lazy_ad_load_failed %@"="Lazy ad load FAILED TO INSTANTIATE WEBVIEW.  (ANAdResponseCode: %@";

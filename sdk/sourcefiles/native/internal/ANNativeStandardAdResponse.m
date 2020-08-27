@@ -145,7 +145,11 @@
 
 - (void)fireImpTrackers {
     if (self.impTrackers) {
-        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers withBlock:^(BOOL isTrackerFired) {
+            if (isTrackerFired) {
+                [super adDidLogImpression];
+            }
+        }];
     }
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
@@ -232,7 +236,7 @@
 
 - (void)fireClickTrackers
 {
-    [ANTrackerManager fireTrackerURLArray:self.clickTrackers];
+    [ANTrackerManager fireTrackerURLArray:self.clickTrackers withBlock:nil];
 }
 
 

@@ -84,7 +84,7 @@
 //    The loop of the waterfall lifecycle is managed by methods calling one another
 //      until a valid ad object is found OR when the waterfall runs out.
 //
-- (void)continueWaterfall
+- (void)continueWaterfall:(ANAdResponseCode *)reason
 {
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
@@ -95,12 +95,11 @@
     BOOL adsLeft = (self.ads.count > 0);
     
     if (!adsLeft) {
-        ANLogWarn(@"response_no_ads");
         if (self.noAdUrl) {
-            ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
-            [ANTrackerManager fireTrackerURL:self.noAdUrl];
-        }
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill) andAdResponseInfo:nil];
+             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
+             [ANTrackerManager fireTrackerURL:self.noAdUrl];
+         }
+        [self finishRequestWithResponseCode:reason];
         return;
     }
     
@@ -121,9 +120,10 @@
         [self handleNativeStandardAd:nextAd];
     }else {
         ANLogError(@"Implementation error: Unspported ad in native ads waterfall.  (class=%@)", [nextAd class]);
-        [self continueWaterfall]; // skip this ad an jump to next ad
+        [self continueWaterfall:ANAdResponseCode.UNABLE_TO_FILL]; // skip this ad an jump to next ad
     }
 }
+
 
 -(void) stopAdLoad {
     [super stopAdLoad];

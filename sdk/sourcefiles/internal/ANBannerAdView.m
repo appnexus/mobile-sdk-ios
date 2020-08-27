@@ -244,7 +244,7 @@ static NSString *const kANInline        = @"inline";
 
     if (!returnValue)
     {
-        NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseInternalError);
+        NSError  *error  = ANError(@"lazy_ad_load_failed", ANAdResponseCode.INTERNAL_ERROR.code);
         ANLogError(@"%@", error);
         return  NO;
     }
@@ -380,7 +380,7 @@ static NSString *const kANInline        = @"inline";
 
 - (void)fireTrackerAndOMID
 {
-    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+    [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
     self.impressionURLs = nil;
 
     // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
@@ -694,7 +694,7 @@ static NSString *const kANInline        = @"inline";
                                     };
 
         error = [NSError errorWithDomain:AN_ERROR_DOMAIN
-                                    code:ANAdResponseNonViewResponse
+                                    code:ANAdResponseCode.NON_VIEW_RESPONSE.code
                                 userInfo:errorInfo];
 
         [self finishRequest:response withReponseError:error];

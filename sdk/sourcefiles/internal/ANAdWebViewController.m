@@ -288,6 +288,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
                                                       object:nil];
     }
     if(self.configuration.isVASTVideoAd){
+        // This is required to avoid the crash :- "Attempt to add script message handler with name '' when one already exists."
+        [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"observe"];
+        [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"interOp"];
+        
         [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
         self.webView.configuration.allowsInlineMediaPlayback = YES;
         [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
@@ -486,7 +490,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         [self deallocActions];
         
         if([self.videoDelegate respondsToSelector:@selector(videoAdError:)]){
-            NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseInternalError);
+            NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseCode.INTERNAL_ERROR.code);
             [self.videoDelegate videoAdError:error];
         }
         

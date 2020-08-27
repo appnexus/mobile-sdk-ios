@@ -91,7 +91,7 @@
 
 @optional
 - (void)didLoadNativeAd:(nonnull ANNativeMediatedAdResponse *)response;
-- (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode;
+- (void)didFailToLoadNativeAd:(nonnull ANAdResponseCode *)errorCode;
 
 @end
 

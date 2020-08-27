@@ -255,6 +255,71 @@ TESTTRACE();
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
 }
 
+- (void)testSetForceCreativeIdOnlyOnBanner
+{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+
+    ANBannerAdView *banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(320, 50)];
+    banner.forceCreativeId = 135482485;
+
+    [banner loadAd];
+    [self waitForExpectationsWithTimeout: 2 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+             ];
+    self.requestExpectation = nil;
+
+    //
+    XCTAssertEqual(135482485, banner.forceCreativeId);
+
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"force_creative_id"] integerValue], 135482485);
+}
+
+- (void)testSetForceCreativeIdWithNegativeValues
+{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+
+    ANBannerAdView *banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(320, 50)];
+    banner.forceCreativeId = -135482485;
+
+    [banner loadAd];
+    [self waitForExpectationsWithTimeout: 2 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+             ];
+    self.requestExpectation = nil;
+
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNil(jsonBody[@"tags"][0][@"force_creative_id"]);
+
+}
+
+- (void)testSetForceCreativeIdWithZero
+{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+
+    ANBannerAdView *banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(320, 50)];
+    banner.forceCreativeId = 0;
+
+    [banner loadAd];
+    [self waitForExpectationsWithTimeout: 2 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+             ];
+    self.requestExpectation = nil;
+
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNil(jsonBody[@"tags"][0][@"force_creative_id"]);
+
+}
+
 - (void)testSetPlacementOnlyOnInterstitial
 {
     self.requestExpectation = [self expectationWithDescription:@"request"];
@@ -330,6 +395,25 @@ TESTTRACE();
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
 }
 
+- (void)testSetForceCreativeIdOnlyOnInterstitial
+{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+
+    ANInterstitialAd *interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    interstitial.forceCreativeId = 135482485;
+    [interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+
+    //
+    XCTAssertEqual(135482485, interstitial.forceCreativeId);
+
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"force_creative_id"] integerValue], 135482485);
+}
 
 
 

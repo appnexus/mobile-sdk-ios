@@ -23,9 +23,11 @@ static const  NSTimeInterval  kANTrackerManagerRetryInterval           = 300;
 
 @interface ANTrackerManager : NSObject
 
+typedef void(^OnComplete) (BOOL isTrackerFired);
+
 + (instancetype)sharedManager;
 
-+ (void)fireTrackerURLArray:(NSArray<NSString *> *)arrayWithURLs;
++ (void)fireTrackerURLArray:(NSArray<NSString *> *)arrayWithURLs withBlock:(OnComplete)completionBlock;
 + (void)fireTrackerURL:(NSString *)URL;
 
 @end
