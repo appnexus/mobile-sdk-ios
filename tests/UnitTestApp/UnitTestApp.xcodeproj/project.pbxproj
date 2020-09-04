@@ -397,10 +397,10 @@
 		0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1F7220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m */; };
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
+		0EFE016F2498473D00284F49 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
 		3812956C24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json in Resources */ = {isa = PBXBuildFile; fileRef = 3812956A24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json */; };
 		3812956E24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3812956D24AA1E7000116AAB /* ANNativeAdDidLogImpressionAPITestCase.m */; };
 		3812957024AA255900116AAB /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE17B22007497002B5F5F /* SuccessfulNativeStandardAdResponse.json */; };
-		0EFE016F2498473D00284F49 /* TestANCSRUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9EBD6924336111001A30D8 /* TestANCSRUniversalFetcher.m */; };
 		38904C4424E1309B00A472CC /* ANAdResponseCodeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38904C4324E1309B00A472CC /* ANAdResponseCodeTestCase.m */; };
 		38A8E164248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A8E15B248A6A7C0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json */; };
 		38A8E165248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1012.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A8E15D248A6A7C0081E9CD /* CSR_Facebook_Banner_Native_withError_1012.json */; };
@@ -437,8 +437,6 @@
 		607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E2B4BAC23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json */; };
 		607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE19922008124002B5F5F /* ANNativeAdRequest+ANTest.m */; };
 		607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
-		607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
-		607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */; };
 		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
 		60F8A80023280C2A0030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
@@ -1117,8 +1115,6 @@
 			files = (
 				0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */,
 				0E5529BA2419228C00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
-				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
-				607BB65C240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1128,7 +1124,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E6B7E4622D8DE06005D069E /* AppNexusSDK.framework in Frameworks */,
-				607BB65D240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
