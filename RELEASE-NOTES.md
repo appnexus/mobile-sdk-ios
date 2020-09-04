@@ -1,3 +1,7 @@
+## 7.6.1
+### Improvements/Bug Fixes
++ MS-4520: Rollback iOS 14 AppTrackingTransparency changes (Please refer https://wiki.xandr.com/x/3Ie1Bg for the latest updates on Xandr Mobile SDK's support for iOS 14)
+
 ## 7.6
 ### New Features
 + MS-4433: Support for iOS 14 [https://wiki.xandr.com/x/3Ie1Bg]
