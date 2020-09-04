@@ -23,9 +23,7 @@
 #import "ANOMIDImplementation.h"
 #import "ANWebView.h"
 #import "ANGDPRSettings.h"
-#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
-    #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#endif
+
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
@@ -57,15 +55,6 @@ BOOL ANAdvertisingTrackingEnabled() {
     // - Estimating number of unique users
     // - Security and fraud detection
     // - Debugging
-    if (@available(iOS 14, *)) {
-#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
-        if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
-            return true;
-        }else{
-            return false;
-        }
-#endif
-    }
     return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 
