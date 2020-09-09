@@ -19,6 +19,7 @@
 #import "ANCarrierObserver.h"
 #import "ANReachability.h"
 #import "ANBaseUrlConfig.h"
+#import "ANWebView.h"
 
 
 @interface ANBaseUrlConfig : NSObject
@@ -126,5 +127,8 @@
     [ANCarrierObserver shared];
 }
 
+- (void) improveAdLoadPerformance {
+    [ANWebView fetchWebView];
+}
 
 @end

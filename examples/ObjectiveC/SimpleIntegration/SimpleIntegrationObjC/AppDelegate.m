@@ -14,6 +14,7 @@ limitations under the License.
 */
 
 #import "AppDelegate.h"
+#import <AppNexusSDK/AppNexusSDK.h>
 
 @interface AppDelegate ()
 
@@ -24,6 +25,7 @@ limitations under the License.
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[ANSDKSettings sharedInstance] improveAdLoadPerformance];
     return YES;
 }
 
