@@ -33,7 +33,7 @@
 /**
  Special ad sizes for which the content view should be constrained to the container view.
  */
-@property (nonatomic, copy, nullable) NSArray<NSValue *> *sizesThatShouldConstrainToSuperview;
+@property (nonatomic, copy, nullable) BOOL (^shouldConstrainToSuperview)(NSValue* _Nonnull);
 
 /**
  * Set false to block Location popup asked by Creative, Also notify creative that User denied the request for location.
