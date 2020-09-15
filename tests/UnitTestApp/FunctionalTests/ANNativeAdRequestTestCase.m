@@ -58,12 +58,9 @@
 - (void)setUp {
     [super setUp];
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];
-    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
 }
 
 - (void)tearDown {
@@ -108,6 +105,9 @@
 
 - (void)testSetPlacementIdOnlyOnNative
 {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     //self.requestExpectation = [self expectationWithDescription:@"request"];
     [self.adRequest setPlacementId:@"1"];
@@ -135,6 +135,9 @@
 
 - (void)testSetForceCreativeIdOnlyOnNative
 {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     self.adRequest.forceCreativeId = 135482485;
     
@@ -155,6 +158,9 @@
 
 - (void)testNativeRendererId
 {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"native_videoResponse"];
     [self.adRequest setPlacementId:@"1"];
     [self.adRequest setRendererId:127];
@@ -174,6 +180,9 @@
 }
 
 - (void)testNativeVideoObject {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"native_videoResponse"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
@@ -190,6 +199,9 @@
 }
 
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setExternalUid:@"AppNexus"];
@@ -216,6 +228,9 @@
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnNative {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setPlacementId:@"1"];
@@ -247,6 +262,9 @@
 }
 
 - (void)testAppNexusWithMainImageLoad {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
@@ -264,6 +282,9 @@
 }
 
 - (void)testAppNexusWithAdditionalDescription {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
@@ -277,6 +298,9 @@
 }
 
 - (void)testFacebook {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"facebook_mediated_response"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -294,6 +318,9 @@
 }
 
 - (void)testFacebookWithIconImageLoad {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"facebook_mediated_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
@@ -312,6 +339,9 @@
 }
 
 - (void)testInvalidMediationAdapter {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_mediated_response"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -322,6 +352,9 @@
 }
 
 - (void)testWaterfallMediationAdapterEndingInFacebook {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_fb_mediated_response"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -338,6 +371,9 @@
 }
 
 - (void)testNoResponse {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"empty_response"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -348,6 +384,9 @@
 }
 
 - (void)testCustomAdapterFailToStandardResponse {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_to_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
@@ -363,6 +402,9 @@
 }
 
 - (void)testMediatedResponseInvalidType {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_invalid_type"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -373,6 +415,9 @@
 }
 
 - (void)testSuccessfulResponseWithNoAds {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"no_ads_ok_response"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -383,6 +428,9 @@
 }
 
 - (void)testMediatedResponseEmptyMediatedAd {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"empty_mediated_ad_response"];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -394,6 +442,9 @@
 
 - (void)testBackgroundLoadVersusForegroundNotification
 {
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
 
     self.adRequest.shouldLoadMainImage = YES;
@@ -418,7 +469,73 @@
     XCTAssertNotNil(self.adResponseInfo.iconImage);
 }
 
+- (void)testNativeAdRequest_ResponseOnBackgroundThread
+{
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self loadNativeAdRequest];
+    });
+    
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+        
+    }];
+    
+    [self validateGenericNativeAdObject];
+    XCTAssertEqual(self.adResponseInfo.networkCode, ANNativeAdNetworkCodeAppNexus);
+    XCTAssertNotNil(self.adResponseInfo.iconImage);
+    XCTAssertEqual(self.adResponseInfo.mainImageSize.width, 300);
+    XCTAssertEqual(self.adResponseInfo.mainImageSize.height, 250);
+    self.adResponseInfo.mainImageURL ? XCTAssertNotNil(self.adResponseInfo.mainImage) : XCTAssertNil(self.adResponseInfo.mainImage);
+    self.adResponseInfo.mainImageURL ? XCTAssertTrue([self.adResponseInfo.mainImage isKindOfClass:[UIImage class]]) : nil;
+    
+}
 
+- (void)testNativeAdRequestJSONOnBackgroundThread
+{
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self loadNativeAdRequest];
+    });
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+
+
+    XCTAssertEqual(@"1", [self.adRequest placementId]);
+    XCTAssertEqual(135482485, self.adRequest.forceCreativeId);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"force_creative_id"] integerValue], 135482485);
+    XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
+    XCTAssertEqual([jsonBody[@"tags"][0][@"native"][@"renderer_id"] integerValue], 127);
+    NSDictionary *user = jsonBody[@"user"];
+    NSString *externalUid = user[@"external_uid"];
+    XCTAssertNotNil(externalUid);
+    XCTAssertEqualObjects(externalUid, @"AppNexus");
+    
+}
+
+- (void)loadNativeAdRequest{
+    self.adRequest= [[ANNativeAdRequest alloc] init];
+    [self.adRequest setPlacementId:@"1"];
+    [self.adRequest setExternalUid:@"AppNexus"];
+    self.adRequest.forceCreativeId = 135482485;
+    [self.adRequest setRendererId:127];
+    [self.adRequest setExternalUid:@"AppNexus"];
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
+    self.adRequest.gender = ANGenderMale;
+    self.adRequest.shouldLoadIconImage = YES;
+    self.adRequest.shouldLoadMainImage = YES;
+    self.adRequest.delegate = self;
+    [self.adRequest loadAd];
+
+}
 
 
 #pragma mark - Helper methods.
