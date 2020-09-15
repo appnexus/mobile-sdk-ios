@@ -62,6 +62,4 @@ Get AppNexus SDK Version
 
 - (void) optionalSDKInitialization;
 
--(void) improveAdLoadPerformance;
-
 @end

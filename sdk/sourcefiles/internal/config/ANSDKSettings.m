@@ -122,12 +122,8 @@
 //
 - (void) optionalSDKInitialization
 {
-    [ANGlobal getUserAgent];
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
-}
-
-- (void) improveAdLoadPerformance {
     [ANWebView fetchWebView];
 }
 
