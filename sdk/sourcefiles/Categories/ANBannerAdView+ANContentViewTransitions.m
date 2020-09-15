@@ -142,8 +142,11 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
 - (void)constrainContentView {
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    BOOL shouldConstrainToSuperview = [ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview containsObject: [NSValue valueWithCGSize:self.contentView.bounds.size]];
-    
+    BOOL shouldConstrainToSuperview = NO;
+    if (ANSDKSettings.sharedInstance.shouldConstrainToSuperview != nil) {
+        shouldConstrainToSuperview = ANSDKSettings.sharedInstance.shouldConstrainToSuperview([NSValue valueWithCGSize:self.contentView.bounds.size]);
+    }
+
     if(CGSizeEqualToSize([self adSize], CGSizeMake(1, 1)) || shouldConstrainToSuperview){
         
         [self.contentView an_constrainToSizeOfSuperview];
