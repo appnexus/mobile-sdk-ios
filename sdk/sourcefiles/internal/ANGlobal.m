@@ -80,20 +80,13 @@ NSString * __nonnull ANUUID()
 }
 
 NSString *__nonnull ANAdvertisingIdentifier() {
-    static NSString *udidComponent = @"";
-    
-    if ([udidComponent isEqualToString:@""]) {
-        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-        
-        if (advertisingIdentifier) {
-            udidComponent = advertisingIdentifier;
-            ANLogInfo(@"IDFA = %@", advertisingIdentifier);
-        } else {
-            ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
-        }
-	}
-	
-    return udidComponent;
+    NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+    if (advertisingIdentifier) {
+        ANLogInfo(@"IDFA = %@", advertisingIdentifier);
+    } else {
+        ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
+    }
+    return advertisingIdentifier;
 }
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {
