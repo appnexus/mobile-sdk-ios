@@ -22,9 +22,6 @@
 #import "ANHTTPNetworkSession.h"
 #import "ANOMIDImplementation.h"
 #import "ANGDPRSettings.h"
-#import "ANReachability.h"
-#import "ANCarrierObserver.h"
-
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
