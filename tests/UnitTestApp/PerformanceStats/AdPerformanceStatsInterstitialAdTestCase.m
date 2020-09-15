@@ -51,12 +51,15 @@
     
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
-    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 -(void) setupInterstitialWithPlacement:(NSString *)placement{
     self.interstitial = [[ANInterstitialAd alloc] init];
     self.interstitial.placementId = placement;
+    self.interstitial.forceCreativeId = 223272198;
     self.interstitial.delegate = self;
 }
 

@@ -35,7 +35,6 @@
 #import "ANUniversalAdFetcher+ANTest.h"
 
 
-#define kAppNexusRequestTimeoutInterval 20.0
 
 
 
@@ -254,6 +253,9 @@
       [ANInterstitialAd setDoNotResetAdUnitUUID:NO];
       [ANNativeAdRequest setDoNotResetAdUnitUUID:NO];
       [ANInstreamVideoAd setDoNotResetAdUnitUUID:NO];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 

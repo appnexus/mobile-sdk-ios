@@ -44,6 +44,9 @@
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
      [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 - (void)testSimulateOffline {

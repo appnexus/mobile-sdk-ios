@@ -29,6 +29,7 @@
 #import "ANVideoAdPlayer.h"
 #import "ANAdView+PrivateMethods.h"
 
+
 @interface ANAdOMIDViewablityTestCase : XCTestCase<ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate , ANInstreamVideoAdLoadDelegate>
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
@@ -75,6 +76,9 @@
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 -(void) setupBannerAd{
@@ -91,6 +95,9 @@
 - (void)clearSetupInterstitialAd {
     self.interstitial = nil;
     [self.interstitial removeFromSuperview];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 -(void) setupInterstitialAd{
@@ -102,6 +109,9 @@
 - (void)clearSetupNativeAd {
     self.adRequest = nil;
     self.adResponseInfo = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 -(void) setupNativeAd{
@@ -113,6 +123,9 @@
 - (void)clearSetupInstreamAd {
     self.instreamVideoAd = nil;
     self.instreamVideoAd.adPlayer = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 -(void) setupInstreamAd {
     [self clearSetupInstreamAd];

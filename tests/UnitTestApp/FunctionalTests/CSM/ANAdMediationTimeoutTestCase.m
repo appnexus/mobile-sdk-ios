@@ -288,8 +288,9 @@
     self.mediationBannerRespectTimeoutFail = nil;
     self.mediationInterstitialRespectTimeoutFail = nil;
     self.mediationNativeRespectTimeoutFail = nil;
-    
-    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
     
 }
 

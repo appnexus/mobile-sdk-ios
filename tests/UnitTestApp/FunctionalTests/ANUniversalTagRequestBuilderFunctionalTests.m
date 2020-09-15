@@ -50,7 +50,18 @@ static NSString  *placementID  = @"9924001";
 
 - (void)tearDown {
     [super tearDown];
+    
+    [ANGDPRSettings reset];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_TCString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 - (void)testUTRequestForSetGDPRConsentTrue
@@ -278,7 +289,7 @@ static NSString  *placementID  = @"9924001";
 {
      [ANGDPRSettings  reset];
     [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABTCF_TCString"];
-    [[NSUserDefaults standardUserDefaults] setValue:0 forKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"IABTCF_gdprApplies"];
     
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];

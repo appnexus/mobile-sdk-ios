@@ -55,12 +55,6 @@
 
 #pragma mark - Test lifecycle.
 
-+ (void)load {
-    TESTTRACE();
-
-    [ANGlobal getUserAgent];
-    [ANLogManager setANLogLevel:ANLogLevelAll];
-}
 
 - (void)setUp {
     TESTTRACE();
@@ -100,6 +94,9 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 

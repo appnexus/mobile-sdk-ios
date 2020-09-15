@@ -101,6 +101,10 @@
     self.removeFriendlyObstruction = NO;
     self.adRequest = nil;
     self.nativeResponse = nil;
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 

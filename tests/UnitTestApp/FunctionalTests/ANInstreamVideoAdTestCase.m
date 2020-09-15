@@ -78,6 +78,9 @@ static NSString   *inventoryCode    = @"trucksmash";
     self.instreamVideoAd = nil;
     self.expectationLoadVideoAd = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 

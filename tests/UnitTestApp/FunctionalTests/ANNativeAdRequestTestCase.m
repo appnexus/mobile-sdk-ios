@@ -79,6 +79,9 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 - (void)setupRequestTracker {

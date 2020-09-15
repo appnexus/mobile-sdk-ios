@@ -23,6 +23,7 @@
 #import "UIView+ANCategory.h"
 #import "ANMediationContainerView.h"
 #import "ANHTTPStubbingManager.h"
+
 @interface BannerMediationAdaptersResizeTestCase : XCTestCase <ANBannerAdViewDelegate>
 
 @property (nonatomic) XCTestExpectation *adResponseExpectation;
@@ -58,6 +59,10 @@
     self.shouldResizeAdToFitContainer = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
     
 }
 

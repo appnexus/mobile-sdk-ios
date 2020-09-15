@@ -26,7 +26,6 @@
 #import "ANLogging+Make.h"
 #import "ANLog.h"
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
-#define kAppNexusRequestTimeoutInterval 30.0
 
 // The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
 // And also depend on https://acdn.adnxs.com/mobile/omsdk/test/omid-validation-verification-script.js to send ANJAM events back to it. This is configured via the Stubbed response setup
@@ -110,6 +109,10 @@
     self.OMIDMediaTypeExpectation = nil;
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 
 }
 
@@ -221,29 +224,7 @@
     self.isOMIDSessionFinishRemoveFromSuperview = NO;
 
     [self.bannerAdView loadAd];
-    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-    }];
-}
-
-
-- (void)testOMIDSessionFinishRemoveAd
-{
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-        selector:@selector(receiveTestNotification:)
-        name:@"kANLoggingNotification"
-        object:nil];
-    
-    [self stubRequestWithResponse:@"OMID_TestResponse"];
-    
-    self.OMIDSessionFinishEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Session Finish event"];
-    
-    self.isOMIDSessionFinish = NO;
-    self.isOMIDSessionFinishRemoveFromSuperview = YES;
-    self.bannerAdView.autoRefreshInterval = 0;
-    [self.bannerAdView loadAd];
-    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
 }
@@ -256,7 +237,7 @@
      self.OMIDImpressionEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Impression event"];
     [self.interstitial loadAd];
 
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
 
                                  }];

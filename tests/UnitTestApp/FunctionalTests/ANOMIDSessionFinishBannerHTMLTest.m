@@ -1,6 +1,6 @@
 /*
  *
- *    Copyright 2020 APPNEXUS INC
+ *    Copyright 2018 APPNEXUS INC
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,36 +17,36 @@
 
 #import <XCTest/XCTest.h>
 #import "ANBannerAdView.h"
+#import "ANInterstitialAd.h"
+#import "ANInterstitialAd+ANTest.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
-#import "ANAdView+PrivateMethods.h"
+#import "ANMRAIDContainerView.h"
+#import "ANLogging+Make.h"
+#import "ANLog.h"
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
 
-@interface ANBannerAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
+// The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
+// And also depend on https://acdn.adnxs.com/mobile/omsdk/test/omid-validation-verification-script.js to send ANJAM events back to it. This is configured via the Stubbed response setup
+
+@interface ANOMIDSessionFinishBannerHTMLTest : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate, ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
-
-
-//Expectations for OMID
-@property (nonatomic, strong) XCTestExpectation *OMID0PercentViewableExpectation;
-
-
-@property (nonatomic) UIView *friendlyObstruction;
+@property (nonatomic, strong) XCTestExpectation *OMIDSessionFinishEventExpectation;
 
 @end
 
-@implementation ANBannerAdOMIDViewablityTestCase
+@implementation  ANOMIDSessionFinishBannerHTMLTest
 
 - (void)setUp {
     [super setUp];
+    [ANLogManager setANLogLevel:ANLogLevelAll];
+    ANSetNotificationsEnabled(YES);
+
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
-          [additionalView removeFromSuperview];
-      }
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 
-    
     self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
                                                   placementId:@"13457285"
                                                        adSize:CGSizeMake(300, 250)];
@@ -54,15 +54,7 @@
     self.bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     self.bannerAdView.delegate = self;
     self.bannerAdView.appEventDelegate = self;
-    self.bannerAdView.autoRefreshInterval = 0;
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
-
-    
-    
-    self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
-    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
-
 
 }
 
@@ -72,35 +64,40 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [self.bannerAdView removeFromSuperview];
-    [self.friendlyObstruction removeFromSuperview];
     self.bannerAdView.delegate = nil;
     self.bannerAdView.appEventDelegate = nil;
     self.bannerAdView = nil;
     [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
 
-    self.OMID0PercentViewableExpectation = nil;
-
+    // Clear all expectations for next test
+    self.OMIDSessionFinishEventExpectation = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
+
 }
 
-
-- (void)testOMIDViewablePercent0
+- (void)testOMIDSessionFinishRemoveAd
 {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(receiveTestNotification:)
+        name:@"kANLoggingNotification"
+        object:nil];
+
     [self stubRequestWithResponse:@"OMID_TestResponse"];
 
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
+    self.OMIDSessionFinishEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Session Finish event"];
 
     [self.bannerAdView loadAd];
-
     [self waitForExpectationsWithTimeout:900
                                  handler:^(NSError *error) {
-
-                                 }];
-
+    }];
 }
+
 
 
 #pragma mark - Stubbing
@@ -124,7 +121,7 @@
 #pragma mark - ANAdDelegate
 
 - (void)adDidReceiveAd:(id)ad {
- 
+
 }
 
 
@@ -132,25 +129,20 @@
 
 }
 
-#pragma mark - ANAppEventDelegate.
-- (void)            ad: (id<ANAdProtocol>)ad
-    didReceiveAppEvent: (NSString *)name
-              withData: (NSString *)data
+
+- (void) receiveTestNotification:(NSNotification *) notification
 {
-    NSLog(@"Data is %@",data);
-    if ([name isEqualToString:@"OMIDEvent"]) {
+    if ([[notification name] isEqualToString:@"kANLoggingNotification"]) {
+        NSDictionary *userInfo = [notification userInfo];
+        NSString * message  = userInfo[@"kANLogMessageKey"] ;
         
-        if ([data containsString:@"\"percentageInView\":0"]) {
-            if ( self.OMID0PercentViewableExpectation) {
-                // Only assert if it has been setup to assert.
-                [self.OMID0PercentViewableExpectation fulfill];
-                
-            }
-            
+        if ( self.OMIDSessionFinishEventExpectation && [message containsString:@"\"type\":\"sessionFinish\""]) {
+            [self.OMIDSessionFinishEventExpectation fulfill];
         }
+
+        
     }
+        NSLog (@"Successfully received the test notification!");
 }
-
-
 @end
 

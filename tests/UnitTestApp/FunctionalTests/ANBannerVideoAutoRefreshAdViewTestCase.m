@@ -44,7 +44,9 @@
     self.banner = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 -(void) setupBannerVideoAdWithPlacementID:(NSString *)placementID

@@ -34,6 +34,9 @@ static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 

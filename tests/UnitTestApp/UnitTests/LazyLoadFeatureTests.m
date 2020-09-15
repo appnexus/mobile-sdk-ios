@@ -207,7 +207,7 @@ limitations under the License.
     //
     [self.lazyBanner loadAd];
 
-    [self waitForExpectationsWithTimeout:kWaitShort handler:nil];
+    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
 }
 
 - (void)testFeatureFlagCanBeSet
@@ -244,7 +244,7 @@ limitations under the License.
                                     XCTAssert(self.multiFormatBanner.enableLazyLoad == NO);
                                 } ];
 
-    [self waitForExpectationsWithTimeout:kWaitShort handler:nil];
+    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
 }
 
 - (void)testAdResponseInfoIsDeliveredForLazyLoad
@@ -277,7 +277,7 @@ limitations under the License.
 
     [self.multiFormatBanner loadAd];
 
-    [self waitForExpectationsWithTimeout:kWaitShort handler:nil];
+    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
 }
 
 - (void)testLoadWebviewDoesNothingForLazyAdUnitsThatAreAlreadyLoaded
@@ -455,7 +455,7 @@ limitations under the License.
     self.lazyBanner.autoRefreshInterval = 108;
     [self.lazyBanner loadAd];
 
-    [self waitForExpectationsWithTimeout:kWaitShort handler:nil];
+    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
 }
 
 - (void)testLoadAdTwiceInARow

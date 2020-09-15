@@ -23,26 +23,25 @@
 #import "ANAdView+PrivateMethods.h"
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
 
-@interface ANBannerAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
+@interface ANBannerAdOMIDViewablityRemoveFriendlyObstruction : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
 
 
 //Expectations for OMID
-@property (nonatomic, strong) XCTestExpectation *OMID0PercentViewableExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMID100PercentViewableExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMIDRemoveFriendlyObstructionExpectation;
 
 
 @property (nonatomic) UIView *friendlyObstruction;
 
 @end
 
-@implementation ANBannerAdOMIDViewablityTestCase
+@implementation ANBannerAdOMIDViewablityRemoveFriendlyObstruction
 
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
-          [additionalView removeFromSuperview];
-      }
+
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 
@@ -79,7 +78,9 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
 
-    self.OMID0PercentViewableExpectation = nil;
+    // Clear all expectations for next test
+    self.OMID100PercentViewableExpectation = nil;
+    self.OMIDRemoveFriendlyObstructionExpectation = nil;
 
     for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
           [additionalView removeFromSuperview];
@@ -87,21 +88,40 @@
 }
 
 
-- (void)testOMIDViewablePercent0
+
+- (void)testOMIDViewableRemoveFriendlyObstruction
 {
     [self stubRequestWithResponse:@"OMID_TestResponse"];
-
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-
+    
+    [self.bannerAdView addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
+    
     [self.bannerAdView loadAd];
-
+    
     [self waitForExpectationsWithTimeout:900
                                  handler:^(NSError *error) {
+        
+    }];
 
-                                 }];
+    self.OMIDRemoveFriendlyObstructionExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
 
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (4.0 * NSEC_PER_SEC));
+      dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+         [self.bannerAdView removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
+
+        self.friendlyObstruction.frame = CGRectMake(self.bannerAdView.frame.origin.x+10 , self.bannerAdView.frame.origin.y , self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+
+         self.bannerAdView.frame = CGRectMake(self.bannerAdView.frame.origin.x+10, self.bannerAdView.frame.origin.y, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+         
+      
+      });
+    
+    
+    [self waitForExpectationsWithTimeout:900
+                                 handler:^(NSError *error) {
+        
+    }];
 }
-
 
 #pragma mark - Stubbing
 
@@ -141,13 +161,18 @@
     if ([name isEqualToString:@"OMIDEvent"]) {
         
         if ([data containsString:@"\"percentageInView\":0"]) {
-            if ( self.OMID0PercentViewableExpectation) {
+            if (self.OMIDRemoveFriendlyObstructionExpectation) {
                 // Only assert if it has been setup to assert.
-                [self.OMID0PercentViewableExpectation fulfill];
+                [self.OMIDRemoveFriendlyObstructionExpectation fulfill];
                 
             }
+        }
+        else  if (self.OMID100PercentViewableExpectation && [data containsString:@"\"percentageInView\":100"]) {
+            // Only assert if it has been setup to assert.
+            [self.OMID100PercentViewableExpectation fulfill];
             
         }
+        
     }
 }
 

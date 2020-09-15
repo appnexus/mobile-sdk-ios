@@ -21,7 +21,7 @@
 # HOW DOES IT WORK?
 #   * Schemes contain test suites which contain test classes which contain test methods.
 #   * Schemes also support a variety of devices for each iOS version.
-# 
+#
 #   * The test script manages Xcode schemes, iOS Simulator devices and their versions in three different ways:
 #       1) Define the target on the commandline with -scheme and -versionDevice
 #       2) Skip the commandline and rely on internal hardwired lists:
@@ -30,33 +30,23 @@
 #       3) Skip both commandline and internal lists by asking Xcode:
 #             DYNAMIC_LIST_OF_SCHEMES
 #             DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES
-# 
+#
 #     Review the help information for the different combinations in which these can be used.
-# 
+#
 #   * Manage which tests to run with -only-testing and -skip-testing.
 #       These arguments are passed to xcodebuild.  Both can be used multiple times to define specific test coverage.
-#       Both take an argument of the form, TestSuite/TestClass/TestMethod, where only the first 
+#       Both take an argument of the form, TestSuite/TestClass/TestMethod, where only the first
 #         element of the tuple is required.
-# 
+#
 #       See the man page for xcodebuild(1) for further details.
-# 
+#
 #
 #
 # NB  Be sure Xcode is NOT RUNNING OR IN THE BACKGROUND while this script is run.
 #
-# NB  10% of the time it fails to generate any results under Jenkins.  
+# NB  10% of the time it fails to generate any results under Jenkins.
 #     This is an operational problem with Jenkins.  The test may not run, or may only run partially.
 #
-#
-#
-# TBD--
-#       . Allow workspaces as well as projects.
-#       . Target real devices?
-#       . Finesse dry run logging, or throw out dry run logic.
-#       . Trap signals for clean(er) closure?
-#
-
-#set -x
 
 
 
@@ -66,30 +56,28 @@
 BASENAME="$(basename $0)"
 
 USAGE="
-        Usage: $BASENAME [-help] [-dryrun] [-dynamicInputs] [-showDynamicInputs]
-                         project_directory 
-                         [-scheme scheme1 [-scheme scheme2 ...]] 
+        Usage: $BASENAME [-help] [-dynamicInputs] [-showDynamicInputs]
+                         project_directory
+                         [-scheme scheme1 [-scheme scheme2 ...]]
                          [-versionDevice versionDevice1 [-versionDevice versionDevice2 ...]]
                          [additional_arguments_for_Xcodebuild]
   "
 
 USAGE_DETAILS="
-        -dryrun         Execute script without executing xcodebuild.
-                          To validate that all inputs will work.
 
         -dynamicInputs  Run tests for all schemes, device models and versions offered by Xcode.
                           Ignores any inputs from -scheme and -versionDevice.
 
-        -showDynamicInputs  
+        -showDynamicInputs
                         Post Xcode config then exit.
 
-        project_directory   
+        project_directory
                         Full path to Xcode project directory.
 
-        -scheme         Name of scheme in which tests are run.  
+        -scheme         Name of scheme in which tests are run.
                           Use multiple times to name multiple schemes.
 
-        -versionDevice  Name of device model and version.  
+        -versionDevice  Name of device model and version.
                           Use format "version,device", where spaces in device are replaced with underscores.
                           Use multiple times to name multiple device model + version pairings.
 
@@ -103,7 +91,7 @@ USAGE_DETAILS="
         
         Only project_directory is mandatory.
 
-        If -dynamicInputs is not given and either -scheme or -versionDevice are missing, then these values 
+        If -dynamicInputs is not given and either -scheme or -versionDevice are missing, then these values
           are taken from static lists hardcoded into the script.  See script header for details.
           Elements of these lists may be individually commented out for convenience.
 
@@ -147,7 +135,7 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 
 
 #----------------------------- -o-
-# Static lists of Xcode options.  
+# Static lists of Xcode options.
 # NB  THESE MAY BE OUT OF DATE.  Use -dynamicInputs to see (and use) current values at startup.
 #
 # These lists may be cherry-picked by placing a sharp (#) immediately before an entry.
@@ -158,9 +146,9 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 # Hardcoded Xcode schemes.
 #
 STATIC_LIST_OF_SCHEMES="
-    #AppNexusNativeSDK 
-    #AppNexusSDK 
-    #NativeSDKTestApp 
+    #AppNexusNativeSDK
+    #AppNexusSDK
+    #NativeSDKTestApp
     UnitTestApp
 "
 
@@ -183,12 +171,21 @@ STATIC_LIST_OF_VERSIONS_AND_DEVICES="
     #11.1,iPhone_8_Plus
     #11.1,iPhone_SE
     #11.1,iPhone_X
+    #12.0,iPhone_6
     #13.4,iPhone_11
     #13.4,iPhone_11_Pro
     #13.4,iPhone_11_Pro_Max
     #13.4,iPhone_8
     #13.4,iPhone_8_Plus
-    13.5,iPhone_11
+    #13.4.1,iPhone_6s
+    #13.4.1,iPhone_7
+    13.4.1,iPhone_8
+    #13.4.1,iPhone_8_Plus
+    #13.4.1,iPhone_SE
+    13.4.1,iPhone_11
+    #13.4.1,iPhone_11_Pro
+    #13.4.1,iPhone_11_Pro_Max
+    #13.5,iPhone_11
     #13.5,iPhone_11_Pro
     #13.5,iPhone_11_Pro_Max
     #13.5,iPhone_8
@@ -205,13 +202,11 @@ STATIC_LIST_OF_VERSIONS_AND_DEVICES="
 
 DATE=$(date '+%Y%m%d,%H%M' | tr 'A-Z' 'a-z')
 
-
 PROJECT_DIRECTORY=      # NB  Defined based upon path to project directory.
 
 TEST_RESULT_DIRECTORY="$(basename ${BASENAME} .sh)--results-${DATE}"
 
 TEST_RESULT_DIRECTORY_PRETTY="html-summary"
-
 
 TEST_RESULT_LOG="summary-of-all-tests.txt"
 TEST_RESULT_TEMP="$(basename ${BASENAME} .sh)-temp.txt"
@@ -219,23 +214,13 @@ TEST_RESULT_TEMP="$(basename ${BASENAME} .sh)-temp.txt"
 TEST_RESULT_CURRENT_FILE=
 TEST_RESULT_CURRENT_FILE_PREFIX="buildAndTest--"
 
-
-TOTAL_PASS=0
-TOTAL_FAIL=0
-
-TOTAL_TIME_START=
-TOTAL_TIME_END=
-TOTAL_TIME_DIFFERENCE=
-
+EXPECTED_FAILED_NUMBER=0
 
 #
 PROJECT=
 PROJECT_DIRECTORY=
 
 ADDITIONAL_XCODEBUILD_ARGUMENTS=
-
-IS_DRYRUN=      # Empty value means false.
-DRYRUN_LABEL=
 
 IS_DYNAMICINPUTS=
 IS_SHOWDYNAMICINPUTS=
@@ -260,14 +245,6 @@ runXcodebuild()   # <scheme> <iosVersion> <deviceModel>
 
   local  CMD=
 
-  local  TIME_START=
-  local  TIME_END=
-  local  TIME_DIFFERENCE=
-
-  local  DESTINATION_PASS=0
-  local  DESTINATION_FAIL=0
-
-
   [ -z "$SCHEME"  -o  -z "$IOSVERSION"  -o  -z "$DEVICEMODEL" ] && {
     echo "runXcodeBuild(): MISSING arguments.  (SCHEME=$SCHEME IOSVERSION=$IOSVERSION DEVICEMODEL=$DEVICEMODEL)"  1>&2
     exit 1
@@ -276,60 +253,25 @@ runXcodebuild()   # <scheme> <iosVersion> <deviceModel>
 
   #
   CMD="
-        xcodebuild $IS_DRYRUN test 
-                -project $PROJECT 
-                -scheme $SCHEME 
+        xcodebuild test
+                -project $PROJECT
+                -scheme $SCHEME
                 -destination \"$(makeDestination $IOSVERSION $DEVICEMODEL)\"
+                -parallel-testing-enabled NO
+                -maximum-concurrent-test-simulator-destinations 1
                 $ADDITIONAL_XCODEBUILD_ARGUMENTS
     "
 
   TEST_RESULT_CURRENT_FILE="$TEST_RESULT_DIRECTORY/${TEST_RESULT_CURRENT_FILE_PREFIX}${IOSVERSION},${DEVICEMODEL}--${SCHEME}.txt"
 
+  eval $CMD 2>&1  | tee $TEST_RESULT_CURRENT_FILE
+  
+  cat $TEST_RESULT_CURRENT_FILE | egrep '^(Test Suite|[     ]+Executed)'  >$TEST_RESULT_TEMP
+  cat $TEST_RESULT_CURRENT_FILE | egrep -v '===' | $XCPRETTY -r html -o $TEST_RESULT_DIRECTORY_PRETTY/${IOSVERSION},${DEVICEMODEL}--${SCHEME}.html
+  
+  EXPECTED_FAILED_NUMBER=$(cat $TEST_RESULT_TEMP | egrep -c "'All tests' failed")
 
-
-  log ""
-  log "#-------------------------------------------------------------------- -""o--"
-  TIME_START=$(date '+%s')
-  log "#------- START: $(dateStringFromSeconds $TIME_START)"
-  log ""
-  log $CMD
-  log ""
-
-  eval $CMD  2>&1  | tee $TEST_RESULT_CURRENT_FILE 
-
-  TIME_END=$(date '+%s')
-  TIME_DIFFERENCE=$(expr $TIME_END - $TIME_START)
-  log "#------- END: $(dateStringFromSeconds $TIME_END) -- $(daysHoursMinSecs $TIME_DIFFERENCE)"
-
-
-  #
-  [ "$IS_DRYRUN" ] && { 
-    return 0
-  }
-
-
-  #
-  cat $TEST_RESULT_CURRENT_FILE | egrep '^(Test Suite|[ 	]+Executed)'  >$TEST_RESULT_TEMP        # whitespace == [space + tab]
-  cat $TEST_RESULT_CURRENT_FILE | 
-        egrep -v '===' |
-        $XCPRETTY -r html -o $TEST_RESULT_DIRECTORY_PRETTY/${IOSVERSION},${DEVICEMODEL}--${SCHEME}.html 
-
-  DESTINATION_PASS=$(cat $TEST_RESULT_TEMP | egrep -c -w "passed")
-  DESTINATION_FAIL=$(cat $TEST_RESULT_TEMP | egrep -w "failures" | egrep -c -v 'with 0 failures')
-
-  TOTAL_PASS=$(expr $TOTAL_PASS + $DESTINATION_PASS)
-  TOTAL_FAIL=$(expr $TOTAL_FAIL + $DESTINATION_FAIL)
-
-  log ""
-  log "#------- DESTINATION_PASS=$DESTINATION_PASS"
-  log "#------- DESTINATION_FAIL=$DESTINATION_FAIL"
-  log ""
   cat $TEST_RESULT_TEMP  >>$TEST_RESULT_LOG
-  log ""
-  log ""
-  log ""
-  log ""
-
   rm $TEST_RESULT_TEMP
   return 0
 }
@@ -373,21 +315,6 @@ isSharped()  # <string>
 }
 
 #----------------------------- -o-
-listOfUnsharpedTokens()   # <list_of_tokens>
-{
-  local  UNSHARPED_TOKENS=""
-
-  for token in $*; do
-    isSharped "$token"
-    [ $? -eq 0 ] && continue
-
-    UNSHARPED_TOKENS="$UNSHARPED_TOKENS $token"
-  done
-
-  echo $UNSHARPED_TOKENS
-}
-
-#----------------------------- -o-
 isOptionTokenOrEmptyString()  # <token>
 {
   local  TOKEN=$1
@@ -402,8 +329,6 @@ isOptionTokenOrEmptyString()  # <token>
 
   return  $?
 }
-
-
 
 #----------------------------- -o-
 post()  # [nocr|error]
@@ -433,9 +358,7 @@ post()  # [nocr|error]
 #----------------------------- -o-
 log()
 {
-  [ "$IS_DRYRUN" ] && {
-    echo $*
-  } || {
+  {
     echo $*  | tee -a $TEST_RESULT_LOG
   }
 }
@@ -477,51 +400,6 @@ THIMK
   echo
 
   exit  0
-}
-
-
-#----------------------------- -o-
-daysHoursMinSecs() {   # <time_in_seconds>
-  local  TIME_IN_SECONDS=$1
-
-  local  DAYS=$(expr $TIME_IN_SECONDS / 60 / 60 / 24)
-  local  HOURS=$(expr $TIME_IN_SECONDS / 60 / 60 % 24)
-  local  MINUTES=$(expr $TIME_IN_SECONDS / 60 % 60)
-  local  SECONDS=$(expr $TIME_IN_SECONDS % 60)
-
-  [ $DAYS -le 9 ]    && { DAYS="0$DAYS"; }
-  [ $HOURS -le 9 ]   && { HOURS="0$HOURS"; }
-  [ $MINUTES -le 9 ] && { MINUTES="0$MINUTES"; }
-  [ $SECONDS -le 9 ] && { SECONDS="0$SECONDS"; }
-
-
-  #
-  [ $DAYS -ne 0 ] && {
-    DAYS=$(expr $DAYS - 0)
-    echo -n ${DAYS}+${HOURS}:${MINUTES}:${SECONDS} days
-    true
-  } || {
-    [ $HOURS -ne 0 ] && {
-      HOURS=$(expr $HOURS - 0)
-      echo -n ${HOURS}:${MINUTES}:${SECONDS} hours
-      true
-    } || {
-      [ $MINUTES -ne 0 ] && {
-        MINUTES=$(expr $MINUTES - 0)
-        echo -n ${MINUTES}:${SECONDS} minutes
-        true
-      } || {
-        SECONDS=$(expr $SECONDS - 0)
-        echo -n ${SECONDS} seconds
-      }
-    }
-  }
-}
-
-#----------------------------- -o-
-dateStringFromSeconds() {
-  local  INPUTDATE=${1:-"$(date '+%s')"}
-  echo -n $(date -j -f '%s' $INPUTDATE "$DATE_FORMAT")
 }
 
 
@@ -577,7 +455,7 @@ captureDynamicListOfVersionsAndDevices()
   post nocr "Capturing Xcode device models and versions...  "
 
   DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=$(
-        instruments -s devices                                  | 
+        instruments -s devices                                  |
             egrep -w Simulator                                  |   # Filter: Only Simulator devices.
             egrep -wv 'iPad|Watch|TV'                           |   # Filter: Only iPhone (given as, NOT other devices)
 
@@ -631,17 +509,9 @@ setPathToResultsDirectoryAndLogFiles()
     post error "setPathToResultsDirectoryAndLogFiles(): PROJECT_DIRECTORY is undefined."
     exit 1
   }
-
   
   #
   TEST_RESULT_DIRECTORY="$PROJECT_DIRECTORY/$TEST_RESULT_DIRECTORY"
-
-  [ "$IS_DRYRUN" ] && {
-    TEST_RESULT_DIRECTORY="${TEST_RESULT_DIRECTORY}--DRYRUN"
-  }
-
-
-  #
   TEST_RESULT_DIRECTORY_PRETTY="$TEST_RESULT_DIRECTORY/$TEST_RESULT_DIRECTORY_PRETTY"
   TEST_RESULT_LOG="$TEST_RESULT_DIRECTORY/$TEST_RESULT_LOG"
   TEST_RESULT_TEMP="$TEST_RESULT_DIRECTORY/$TEST_RESULT_TEMP"
@@ -677,10 +547,6 @@ esac
 
 while [ "$1" ]; do
   case "$1" in
-    -dryrun|-dr)
-        IS_DRYRUN="-dry-run"
-        DRYRUN_LABEL="(DRY RUN)"        ;;
-
     -dynamicInputs|-di)
         IS_DYNAMICINPUTS=true           ;;
 
@@ -689,10 +555,10 @@ while [ "$1" ]; do
 
     -scheme|-s)
         isOptionTokenOrEmptyString "$2"
-        [ $? -ne 0 ] && { 
+        [ $? -ne 0 ] && {
           post error "Scheme is missing."
           echo
-          postUsageAndExit; 
+          postUsageAndExit;
         }
 
         SCHEMES="$SCHEMES $2"
@@ -700,16 +566,16 @@ while [ "$1" ]; do
 
     -versionDevice|-vd)
         isOptionTokenOrEmptyString "$2"
-        [ $? -ne 0 ] && { 
+        [ $? -ne 0 ] && {
           post error "Version+device tuple is missing."
           echo
-          postUsageAndExit; 
+          postUsageAndExit;
         }
 
         VERSIONS_AND_DEVICES="$VERSIONS_AND_DEVICES $2"
         shift                           ;;
 
-    *)    
+    *)
         [ "$PROJECT" ] && {
           ADDITIONAL_XCODEBUILD_ARGUMENTS="$ADDITIONAL_XCODEBUILD_ARGUMENTS $1"
           shift
@@ -795,10 +661,10 @@ setPathToResultsDirectoryAndLogFiles
       [ $? -eq 0 ] && continue
 
       isValidScheme $s
-      [ "$?" -ne 0 ] && { 
+      [ "$?" -ne 0 ] && {
         post error "Scheme is UNRECOGNIZED by Xcode.  ($s)"
         echo
-        postUsageAndExit; 
+        postUsageAndExit;
       }
   done
 
@@ -807,65 +673,13 @@ setPathToResultsDirectoryAndLogFiles
     [ $? -eq 0 ] && continue
 
     isValidVersionDevice $vd
-    [ "$?" -ne 0 ] && { 
+    [ "$?" -ne 0 ] && {
       post error "Version+device tuple is UNRECOGNIZED by Xcode.  ($vd)"
       echo
-      postUsageAndExit; 
+      postUsageAndExit;
     }
   done
 }
-
-
-
-#----------------------------- -o-
-# Post summary.
-
-log ""
-log "CONFIGURATION SUMMARY"
-log "====================="
-log ""
-log "PROJECT -- $PROJECT"
-log ""
-
-log "SCHEMES -- $(listOfUnsharpedTokens $SCHEMES)"
-log ""
-
-log "VERSIONS+DEVICES -- $(listOfUnsharpedTokens $VERSIONS_AND_DEVICES)"
-log ""
-
-log "TEST_RESULT_DIRECTORY -- $TEST_RESULT_DIRECTORY"
-log ""
-
-log ADDITIONAL_XCODEBUILD_ARGUMENTS -- ${ADDITIONAL_XCODEBUILD_ARGUMENTS:-"(none)"}
-log ""
-log ""
-
-
-log "DYNAMIC_LIST_OF_SCHEMES -- $DYNAMIC_LIST_OF_SCHEMES"
-log ""
-
-log "DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES -- $DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES"
-log ""
-log ""
-
-
-
-#----------------------------- -o-
-# Run tests.
-
-log ""
-[ "$IS_DRYRUN" ] && {
-  log "RUNNING TESTS $DRYRUN_LABEL"
-  log "======================="
-} || {
-  log "RUNNING TESTS"
-  log "============="
-}
-log ""
-
-TOTAL_TIME_START=$(date '+%s')
-log "#------- ALL TESTS ${DRYRUN_LABEL} START: $(dateStringFromSeconds $TOTAL_TIME_START)"
-log ""
 
 
 for version_and_device  in ${VERSIONS_AND_DEVICES[@]}
@@ -885,9 +699,7 @@ do
     isSharped "$scheme"
     [ $? -eq 0 ] && continue
 
-    [ -z "$IS_DRYRUN" ] && {
-      deleteDerivedData
-    }
+    deleteDerivedData
 
     runXcodebuild $scheme $iosVersion $deviceModel
 
@@ -895,22 +707,13 @@ do
 done  #VERSIONS_AND_DEVICES
 
 
-#
-[ -z "$IS_DRYRUN" ] && {
-  log ""
-  log ""
-  log "#------- TOTAL_PASS=$TOTAL_PASS"
-  log "#------- TOTAL_FAIL=$TOTAL_FAIL"
-}
-
-TOTAL_TIME_END=$(date '+%s')
-TOTAL_TIME_DIFFERENCE=$(expr $TOTAL_TIME_END - $TOTAL_TIME_START)
-
-log ""
-log "#------- ALL TESTS ${DRYRUN_LABEL} END: $(dateStringFromSeconds $TOTAL_TIME_END) -- $(daysHoursMinSecs $TOTAL_TIME_DIFFERENCE)"
-
-
 
 #
-exit 0
+if [ "$EXPECTED_FAILED_NUMBER" -gt "0" ];then
+  log "#------- FOUND FAILED TESTCASES"
+  exit 1
+else
+  log "#------- ALL TESTCASES PASSED"
+  exit 0
+fi
 

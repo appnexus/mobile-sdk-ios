@@ -87,12 +87,17 @@
     [ANNativeAdRequest setDoNotResetAdUnitUUID:NO];
     [ANInstreamVideoAd setDoNotResetAdUnitUUID:NO];
     
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
+    
 }
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     self.bannerAd.delegate = nil;
     self.bannerAd.appEventDelegate = nil;
     [self.bannerAd removeFromSuperview];
+    [self clearCountsAndExpectations];
 }
 
 

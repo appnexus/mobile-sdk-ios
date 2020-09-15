@@ -38,6 +38,11 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    [self clearSetupBannerVideoAd];
+}
+
+
+- (void)clearSetupBannerVideoAd {
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     self.banner.delegate = nil;
@@ -45,11 +50,9 @@
     [self.banner removeFromSuperview];
     self.banner = nil;
     self.loadAdSuccesfulException = nil;
-}
-
-
-- (void)clearSetupBannerVideoAd {
-    self.banner = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 -(void) setupBannerVideoAd{

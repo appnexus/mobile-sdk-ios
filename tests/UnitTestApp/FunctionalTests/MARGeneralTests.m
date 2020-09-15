@@ -91,8 +91,6 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 
 - (void)setUp
 {
-    [self clearCountsAndExpectations];
-
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
@@ -129,7 +127,9 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     [self.httpStubManager disable];
     [self.httpStubManager removeAllStubs];
     self.mar = nil;
-
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 - (void)tearDown
@@ -171,7 +171,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     
     
-    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, self.countOfRequestedAdUnits);
@@ -225,6 +225,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
         XCTAssertTrue([[arrayOfAUInternal objectAtIndex:index] isEqualToString:[arrayOfAUExternal objectAtIndex:index]]);
         index += 1;
     }
+    [self clearCountsAndExpectations];
 }
 
 - (void)testFetchAndConfirmAdUnitsForAllMediaTypes
@@ -249,10 +250,11 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     XCTAssertNotNil(self.mar);
     
-    [self waitForExpectationsWithTimeout:kWaitVeryLong*3 handler:nil];
+    [self waitForExpectationsWithTimeout: 3 * kAppNexusRequestTimeoutInterval handler:nil];
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 
 - (void)testLoadThenReLoad
@@ -279,7 +281,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     
-    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses, self.countOfRequestedAdUnits);
@@ -294,11 +296,12 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     
-    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 
 - (void)testLoadThenReLoadWithInventoryCode
@@ -329,7 +332,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     
-    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
@@ -348,11 +351,12 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     self.AdUnit_countOfReceiveFailures = 0;
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     
-    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 
 - (void)testLoadTwoMARInstancesSimultaneously
@@ -403,6 +407,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 2);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 
 - (void)testDropAdUnitThatIsOutOfScopeDuringMARLoad
@@ -431,10 +436,11 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
     
     
-    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 
 
@@ -493,6 +499,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 //
 - (void)testMARFailureWithRequestError
@@ -535,6 +542,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
         
     }];
     XCTAssertEqual(self.MAR_countOfCompletionFailures, 1);
+    [self clearCountsAndExpectations];
 }
 
 - (void)testMARSuccessWithSomeAdUnitErrors
@@ -597,6 +605,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, self.countOfRequestedAdUnits);
+    [self clearCountsAndExpectations];
 }
 
 // NB  https://en.wikipedia.org/wiki/Sophie_Germain_prime
@@ -648,6 +657,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     XCTAssertEqual(self.bannerAd1.autoRefreshInterval, autoRefreshTimerInterval);
     XCTAssertNil(self.bannerAd1.universalAdFetcher.autoRefreshTimer);
+    [self clearCountsAndExpectations];
 }
 
 // NB  https://en.wikipedia.org/wiki/Sophie_Germain_prime
@@ -680,7 +690,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     self.expectationAdUnitLoadResponseOrFailure.expectedFulfillmentCount = 1;
     self.expectationAdUnitLoadResponseOrFailure.assertForOverFulfill = NO;
     
-    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
     
     //
@@ -688,6 +698,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     XCTAssertTrue((self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures) >= 1);
     
     XCTAssertNotNil(self.adUnitsForTest.bannerBanner.contentView);
+    [self clearCountsAndExpectations];
 }
 
 

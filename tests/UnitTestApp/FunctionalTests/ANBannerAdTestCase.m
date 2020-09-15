@@ -71,10 +71,11 @@
     self.banner = nil;
     [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
-    
     self.loadAdResponseReceivedExpectation = nil;
     self.loadBannerAdResponseReceivedExpectation = nil;
-    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 
@@ -303,7 +304,7 @@
     
     
     self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:10 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
                                  }];

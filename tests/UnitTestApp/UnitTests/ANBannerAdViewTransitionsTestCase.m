@@ -30,9 +30,6 @@
 
 @implementation ANBannerAdViewTransitionsTestCase
 
-+ (void)load {
-    [ANLogManager setANLogLevel:ANLogLevelAll];
-}
 
 - (void)setUp {
     [super setUp];
@@ -73,25 +70,10 @@
     self.centerXConstraint = nil;
     self.centerYConstraint = nil;
     [self.bannerAdView removeFromSuperview];
-}
-
-- (void)testFadeTransition {
-    // Setup
-    ANBannerAdView *bannerAdView = self.bannerAdView;
-    bannerAdView.transitionType = ANBannerViewAdTransitionTypeFade;
-    bannerAdView.transitionDuration = 2.5f;
     
-    // Adding Content View
-    [bannerAdView setContentView:[self catContentView]];
-    XCTAssert([bannerAdView.transitionInProgress boolValue] == YES);
-    [self keyValueObservingExpectationForObject:bannerAdView
-                                        keyPath:@"transitionInProgress"
-                                  expectedValue:@(NO)];
-    [self waitForExpectationsWithTimeout:bannerAdView.transitionDuration + 0.1
-                                 handler:^(NSError *error) {
-                                     XCTAssert([bannerAdView.transitionInProgress boolValue] == NO);
-                                     [bannerAdView removeFromSuperview];
-    }];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 - (void)testFlipTransition {

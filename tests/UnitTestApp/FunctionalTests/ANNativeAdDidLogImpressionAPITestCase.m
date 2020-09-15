@@ -67,6 +67,10 @@
     self.adDidLogImpressionAPIForNativeStandardAd = nil;
     self.nativeRequest = nil;
     self.nativeResponse = nil;
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 
 - (void)testCSRNativeBannerWithAdDidLogImpressionAPI

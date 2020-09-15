@@ -28,6 +28,7 @@ limitations under the License.
 #import "ANInstreamVideoAd+Test.h"
 #import "ANVideoAdPlayer.h"
 
+
 @interface ANAdResponseTestCase : XCTestCase<ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate, ANInstreamVideoAdLoadDelegate>
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
@@ -56,9 +57,15 @@ limitations under the License.
     [super tearDown];
     [self clearSetupBannerAd];
     [self clearSetupInterstitialAd];
+    [self clearSetupInstreamAd];
+    [self clearSetupNativeAd];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     self.loadAdResponseReceivedExpectation = nil;
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 
@@ -68,6 +75,9 @@ limitations under the License.
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 
 -(void) setupBannerAd{
@@ -84,6 +94,9 @@ limitations under the License.
 - (void)clearSetupInterstitialAd {
     self.interstitial = nil;
     [self.interstitial removeFromSuperview];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 
 -(void) setupInterstitialAd{
@@ -95,6 +108,9 @@ limitations under the License.
 - (void)clearSetupNativeAd {
     self.adRequest = nil;
     self.adResponseInfo = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 
 -(void) setupNativeAd{
@@ -106,6 +122,9 @@ limitations under the License.
 - (void)clearSetupInstreamAd {
     self.instreamVideoAd = nil;
     self.instreamVideoAd.adPlayer = nil;
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 -(void) setupInstreamAd {
     [self clearSetupInstreamAd];

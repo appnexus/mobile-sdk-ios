@@ -50,13 +50,16 @@
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
     [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 
 -(void) setupBannerWithPlacement:(NSString *)placement withFrame:(CGRect)frame andSize:(CGSize)size{
     self.bannerAd = [[ANBannerAdView alloc] initWithFrame:frame
                                               placementId:placement
                                                    adSize:size];
+    self.bannerAd.forceCreativeId = 223272198;
     self.bannerAd.autoRefreshInterval = 0;
     self.bannerAd.delegate = self;
     
@@ -76,7 +79,7 @@
     [[ANTimeTracker sharedInstance] setTimeAt:PERFORMANCESTATSRTBAD_FIRST_REQUEST];
     
     self.firstLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval/2
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];
@@ -90,7 +93,7 @@
     
     
     self.secondLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval/2
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];

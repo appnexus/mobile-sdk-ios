@@ -26,10 +26,11 @@
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "NSURLProtocol+WKWebViewSupport.h"
 #import "ANBannerAdView+ANTest.h"
-
+#import <UIKit/UIKit.h>
 static NSString   *placementID      = @"12534678";
 #define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
-@interface ANOMIDVideoTestCase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
+
+@interface ANOMIDInstreamVideoTestCase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
 
@@ -37,7 +38,7 @@ static NSString   *placementID      = @"12534678";
 @property (nonatomic, strong) XCTestExpectation *OMIDSupportedExpecation;
 @property (nonatomic, strong) XCTestExpectation *OMIDAdSessionStartedExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDGeomentryChangeExpectation;
-@property (nonatomic, strong) XCTestExpectation *OMID100PercentViewableExpectation;
+@property (nonatomic, strong) XCTestExpectation *OMIDPercentViewableExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDImpressionEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDAdSessionFinishedExpectation;
 @property (nonatomic, strong) XCTestExpectation *OMIDMediaTypeExpectation;
@@ -50,10 +51,12 @@ static NSString   *placementID      = @"12534678";
 
 @end
 
-@implementation ANOMIDVideoTestCase
+@implementation ANOMIDInstreamVideoTestCase
 
 - (void)setUp {
     [super setUp];
+
+    
     [ANLogManager setANLogLevel:ANLogLevelAll];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
@@ -78,7 +81,7 @@ static NSString   *placementID      = @"12534678";
     self.OMIDSupportedExpecation = nil;
     self.OMIDAdSessionStartedExpectation = nil;
     self.OMIDGeomentryChangeExpectation = nil;
-    self.OMID100PercentViewableExpectation = nil;
+    self.OMIDPercentViewableExpectation = nil;
     self.OMIDImpressionEventExpectation = nil;
     self.OMIDAdSessionFinishedExpectation = nil;
     
@@ -89,6 +92,10 @@ static NSString   *placementID      = @"12534678";
     [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
     [NSURLProtocol wk_unregisterScheme:@"http"];
     [NSURLProtocol wk_unregisterScheme:@"https"];
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 #pragma mark - Test methods.
@@ -179,7 +186,7 @@ static NSString   *placementID      = @"12534678";
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
     self.OMIDAdSessionFinishedExpectation = [self expectationWithDescription:@"Didn't receive OMID sessionFinish event"];
     [self.banner loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:8 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];
@@ -224,13 +231,9 @@ static NSString   *placementID      = @"12534678";
 {
     [self setupInstreamVideoAd];
     [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    [self.instreamVideoAd loadAdWithDelegate:self];
     self.OMIDGeomentryChangeExpectation = [self expectationWithDescription:@"Didn't receive OMID geometryChange event"];
     self.geometryFulfilled = NO;
-    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
-    self.oneHundredPercentViewableFulfilled = NO;
-
-    [self.banner loadAd];
+    [self.instreamVideoAd loadAdWithDelegate:self];
 
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -239,6 +242,22 @@ static NSString   *placementID      = @"12534678";
     [self clearInstreamVideoAd];
 
 }
+
+- (void)testOMIDInstreamPercentViewable
+{
+    [self setupInstreamVideoAd];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
+    self.OMIDPercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view PercentViewable event"];
+    self.oneHundredPercentViewableFulfilled = NO;
+    [self.instreamVideoAd loadAdWithDelegate:self];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+
+                                 }];
+    [self clearInstreamVideoAd];
+
+}
+
 
 
 
@@ -264,7 +283,7 @@ static NSString   *placementID      = @"12534678";
     [self.instreamVideoAd loadAdWithDelegate:self];
     self.OMIDAdSessionFinishedExpectation = [self expectationWithDescription:@"Didn't receive OMID sessionFinish event"];
     [self.banner loadAd];
-    [self waitForExpectationsWithTimeout:200 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
 
     }];
@@ -350,18 +369,16 @@ static NSString   *placementID      = @"12534678";
     if ([response containsString:@"geometryChange"] && !self.geometryFulfilled) {
         self.geometryFulfilled = YES;
         [self.OMIDGeomentryChangeExpectation fulfill];
-        
     }
     
     if (self.OMIDVersionExpectation && [response containsString:@"1.3.7-Appnexus"] && [response containsString:@"libraryVersion"]) {
           // Only assert if it has been setup to assert.
           [self.OMIDVersionExpectation fulfill];
       }
-
     
-    if ([response containsString:@"percentageInView"] && [response containsString:@"100"] && !self.oneHundredPercentViewableFulfilled) {
+    if ([response containsString:@"percentageInView"]  && !self.oneHundredPercentViewableFulfilled) {
         self.oneHundredPercentViewableFulfilled = YES;
-        [self.OMID100PercentViewableExpectation fulfill];
+        [self.OMIDPercentViewableExpectation fulfill];
         
     }
     

@@ -114,6 +114,9 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     self.nativeRequest = nil;
     self.nativeResponse = nil;
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 - (void)testUTRequestWithAudienceNetwork

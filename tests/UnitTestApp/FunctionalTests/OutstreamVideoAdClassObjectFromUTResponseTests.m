@@ -63,6 +63,10 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     self.loadAdSuccesfulException = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 

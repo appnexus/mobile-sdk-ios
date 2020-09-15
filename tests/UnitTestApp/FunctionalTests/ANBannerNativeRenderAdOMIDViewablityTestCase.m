@@ -90,6 +90,7 @@
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
     [self.bannerAdView removeFromSuperview];
     [self.friendlyObstruction removeFromSuperview];
     self.bannerAdView.delegate = nil;
@@ -105,7 +106,9 @@
     
     self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = NO;
-    
+    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 
