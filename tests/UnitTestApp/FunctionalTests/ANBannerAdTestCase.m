@@ -160,10 +160,16 @@
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 0;
     int adHeight = 10;
-    NSArray *sizes = [NSArray arrayWithObjects:
-                      [NSValue valueWithCGSize:CGSizeMake(adWidth, adHeight)],
-                      nil];
-    ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview  = sizes;
+
+    ANSDKSettings.sharedInstance.shouldConstrainToSuperview = ^BOOL(NSValue *value) {
+        CGSize size = [value CGSizeValue];
+        if (size.width == adWidth && size.height == adHeight) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    
     CGSize size = CGSizeMake(adWidth, adHeight);
     [self setupBannerWithPlacement:@"13653381" withFrame:rect andSize:size];
 
@@ -185,10 +191,16 @@
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 10;
     int adHeight = -42;
-    NSArray *sizes = [NSArray arrayWithObjects:
-                      [NSValue valueWithCGSize:CGSizeMake(adWidth, adHeight)],
-                      nil];
-    ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview  = sizes;
+
+    ANSDKSettings.sharedInstance.shouldConstrainToSuperview = ^BOOL(NSValue *value) {
+        CGSize size = [value CGSizeValue];
+        if (size.width == adWidth && size.height == adHeight) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     CGSize size = CGSizeMake(adWidth, adHeight);
     [self setupBannerWithPlacement:@"13653381" withFrame:rect andSize:size];
 
@@ -210,10 +222,16 @@
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 10;
     int adHeight = 10;
-    NSArray *sizes = [NSArray arrayWithObjects:
-                      [NSValue valueWithCGSize:CGSizeMake(adWidth, adHeight)],
-                      nil];
-    ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview  = sizes;
+
+    ANSDKSettings.sharedInstance.shouldConstrainToSuperview = ^BOOL(NSValue *value) {
+        CGSize size = [value CGSizeValue];
+        if (size.width == adWidth && size.height == adHeight) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     CGSize size = CGSizeMake(adWidth, adHeight);
     [self setupBannerWithPlacement:@"13653381" withFrame:rect andSize:size];
     
