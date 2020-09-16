@@ -9,10 +9,13 @@ rm -fr "$OUTDIR" > /dev/null 2>&1
 rm -fr "$OD_DEVICE" > /dev/null 2>&1
 rm -fr "$OD_SIMULATOR" > /dev/null 2>&1
 
+BITCODEFLAG="-fembed-bitcode"
+echo "Bitcode enabled"
+
 function buildDevice {
     echo "Building framework for device:" $1
     LOGFILE="$LOGDIR"/$1.log
-    xcodebuild -project "AppNexusSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+    xcodebuild -project "AppNexusSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" BITCODE_GENERATION_MODE="bitcode" OTHER_CFLAGS="$BITCODEFLAG" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
     mkdir -p "$OUTDIR"/$1
     mv "$OUTDIR"/$1.framework "$OUTDIR"/$1/$1.framework
 }
@@ -20,7 +23,7 @@ function buildDevice {
 function buildSim {
     echo "Building framework for simulator:" $1
     LOGFILE="$LOGDIR"/$1.log
-    xcodebuild -project "AppNexusSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+    xcodebuild -project "AppNexusSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" BITCODE_GENERATION_MODE="bitcode" OTHER_CFLAGS="$BITCODEFLAG" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
     mkdir -p "$OUTDIR"/$1
     mv "$OUTDIR"/$1.framework "$OUTDIR"/$1/$1.framework
 }
