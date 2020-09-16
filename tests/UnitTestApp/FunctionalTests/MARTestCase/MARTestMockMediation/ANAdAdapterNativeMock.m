@@ -16,10 +16,6 @@
 #import "ANAdAdapterNativeMock.h"
 
 
-
-static NSInteger const kANAdAdapterNativeInMobiRatingScaleDefault = 5;
-static NSString *const kANAdAdapterNativeInMobiImageURLKey = @"url";
-
 @interface ANAdAdapterNativeMock ()
 
 
@@ -31,7 +27,7 @@ static NSString *const kANAdAdapterNativeInMobiImageURLKey = @"url";
 @synthesize nativeAdDelegate = _nativeAdDelegate;
 @synthesize expired = _expired;
 
-#pragma mark - InMobi Key Names
+#pragma mark -  Key Names
 
 - (void)requestNativeAdWithServerParameter:(nullable NSString *)parameterString
                                   adUnitId:(nullable NSString *)adUnitId
@@ -43,7 +39,5 @@ static NSString *const kANAdAdapterNativeInMobiImageURLKey = @"url";
     
 }
 
-
-#pragma mark - IMNativeDelegate
 
 @end

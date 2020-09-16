@@ -119,7 +119,7 @@
 - (void)testLocalSuccessfulMediationResponse
 {
     NSMutableArray<id>  *adsArray    = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:kANAdResponseSuccessfulMediation]];
-    XCTAssert([adsArray count] == 4);
+    XCTAssert([adsArray count] == 3);
 
     ANMediatedAd *firstMediatedAd = [adsArray objectAtIndex:0];
     ANMediatedAd *expectedFirstMediatedAd = [[ANMediatedAd alloc] init];
@@ -131,36 +131,25 @@
     XCTAssertNotNil(firstMediatedAd.responseURL);
     XCTAssertEqual(firstMediatedAd.creativeId.length, 0);
     
+    
     ANMediatedAd *secondMediatedAd = [adsArray objectAtIndex:1];
-    ANMediatedAd *expectedSecondMediatedAd = [[ANMediatedAd alloc] init];
-    expectedSecondMediatedAd.width = @"320";
-    expectedSecondMediatedAd.height = @"50";
-    expectedSecondMediatedAd.className = @"ANAdAdapterBannerMillennialMedia";
-    expectedSecondMediatedAd.adId = @"148502";
-    [self mediatedAd:secondMediatedAd equalToMediatedAd:expectedSecondMediatedAd];
+    ANMediatedAd *expectedThirdMediatedAd = [[ANMediatedAd alloc] init];
+    expectedThirdMediatedAd.width = @"320";
+    expectedThirdMediatedAd.height = @"50";
+    expectedThirdMediatedAd.className = @"ANAdAdapterBannerAdMob";
+    expectedThirdMediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
+    [self mediatedAd:secondMediatedAd equalToMediatedAd:expectedThirdMediatedAd];
     XCTAssertNotNil(secondMediatedAd.responseURL);
     XCTAssertEqual(secondMediatedAd.creativeId.length, 0);
 
 
     
     ANMediatedAd *thirdMediatedAd = [adsArray objectAtIndex:2];
-    ANMediatedAd *expectedThirdMediatedAd = [[ANMediatedAd alloc] init];
-    expectedThirdMediatedAd.width = @"320";
-    expectedThirdMediatedAd.height = @"50";
-    expectedThirdMediatedAd.className = @"ANAdAdapterBannerAdMob";
-    expectedThirdMediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
-    [self mediatedAd:thirdMediatedAd equalToMediatedAd:expectedThirdMediatedAd];
-    XCTAssertNotNil(thirdMediatedAd.responseURL);
-    XCTAssertEqual(thirdMediatedAd.creativeId.length, 0);
-
-
-    
-    ANMediatedAd *fourthMediatedAd = [adsArray objectAtIndex:3];
     ANMediatedAd *expectedFourthMediatedAd = [[ANMediatedAd alloc] init];
     expectedFourthMediatedAd.className = @"ANAdAdapterBanneriAd";
-    [self mediatedAd:fourthMediatedAd equalToMediatedAd:expectedFourthMediatedAd];
-    XCTAssertNotNil(fourthMediatedAd.responseURL);
-    XCTAssertEqual(fourthMediatedAd.creativeId.length, 0);
+    [self mediatedAd:thirdMediatedAd equalToMediatedAd:expectedFourthMediatedAd];
+    XCTAssertNotNil(thirdMediatedAd.responseURL);
+    XCTAssertEqual(thirdMediatedAd.creativeId.length, 0);
 
 }
 

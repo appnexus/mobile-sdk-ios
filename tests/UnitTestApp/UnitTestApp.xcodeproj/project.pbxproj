@@ -45,7 +45,6 @@
 		0E3D3F4B23C5F8C600BCBE14 /* testMARCombinationTwoNativeRTBAndCSM.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3D3F4A23C5F8C500BCBE14 /* testMARCombinationTwoNativeRTBAndCSM.json */; };
 		0E3D3F4D23C600B900BCBE14 /* ANMARScalingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D3F4C23C600B900BCBE14 /* ANMARScalingTestCase.m */; };
 		0E3F32E423CE68E300CA830D /* facebook_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D223CE68E300CA830D /* facebook_mediated_response.json */; };
-		0E3F32E523CE68E300CA830D /* mopub_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D323CE68E300CA830D /* mopub_mediated_response.json */; };
 		0E3F32E623CE68E300CA830D /* empty_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D423CE68E300CA830D /* empty_response.json */; };
 		0E3F32E723CE68E300CA830D /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D523CE68E300CA830D /* native_videoResponse.json */; };
 		0E3F32E823CE68E300CA830D /* custom_dummy_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D623CE68E300CA830D /* custom_dummy_mediated_response.json */; };
@@ -62,7 +61,6 @@
 		0E3F32F423CE68E300CA830D /* nativeResponseWithoutImpTrackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32E223CE68E300CA830D /* nativeResponseWithoutImpTrackers.json */; };
 		0E3F32F523CE68E300CA830D /* custom_adapter_fb_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32E323CE68E300CA830D /* custom_adapter_fb_mediated_response.json */; };
 		0E3F32F623CE694300CA830D /* facebook_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D223CE68E300CA830D /* facebook_mediated_response.json */; };
-		0E3F32F723CE694300CA830D /* mopub_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D323CE68E300CA830D /* mopub_mediated_response.json */; };
 		0E3F32F823CE694300CA830D /* empty_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D423CE68E300CA830D /* empty_response.json */; };
 		0E3F32F923CE694300CA830D /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D523CE68E300CA830D /* native_videoResponse.json */; };
 		0E3F32FA23CE694300CA830D /* custom_dummy_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32D623CE68E300CA830D /* custom_dummy_mediated_response.json */; };
@@ -673,7 +671,6 @@
 		0E3D3F4A23C5F8C500BCBE14 /* testMARCombinationTwoNativeRTBAndCSM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationTwoNativeRTBAndCSM.json; sourceTree = "<group>"; };
 		0E3D3F4C23C600B900BCBE14 /* ANMARScalingTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANMARScalingTestCase.m; sourceTree = "<group>"; };
 		0E3F32D223CE68E300CA830D /* facebook_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = facebook_mediated_response.json; sourceTree = "<group>"; };
-		0E3F32D323CE68E300CA830D /* mopub_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mopub_mediated_response.json; sourceTree = "<group>"; };
 		0E3F32D423CE68E300CA830D /* empty_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty_response.json; sourceTree = "<group>"; };
 		0E3F32D523CE68E300CA830D /* native_videoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = native_videoResponse.json; sourceTree = "<group>"; };
 		0E3F32D623CE68E300CA830D /* custom_dummy_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_dummy_mediated_response.json; sourceTree = "<group>"; };
@@ -1226,7 +1223,6 @@
 				0E3F32D723CE68E300CA830D /* empty_mediated_ad_response.json */,
 				0E3F32D423CE68E300CA830D /* empty_response.json */,
 				0E3F32D223CE68E300CA830D /* facebook_mediated_response.json */,
-				0E3F32D323CE68E300CA830D /* mopub_mediated_response.json */,
 				0E3F32D523CE68E300CA830D /* native_videoResponse.json */,
 				0E3F32DC23CE68E300CA830D /* nativeResponse1.json */,
 				0E3F32D823CE68E300CA830D /* nativeResponse2.json */,
@@ -2389,7 +2385,6 @@
 				4F3B83802481E8E1005EE88C /* LazyWebview_Basic.json in Resources */,
 				4F3B83812481E8E1005EE88C /* LazyWebview_MRAID.json in Resources */,
 				4F5F4DB324988A9F008BC33C /* LazyWebview_nobid.json in Resources */,
-				0E3F32F723CE694300CA830D /* mopub_mediated_response.json in Resources */,
 				0E3F32F923CE694300CA830D /* native_videoResponse.json in Resources */,
 				0E3F330023CE694300CA830D /* nativeResponse1.json in Resources */,
 				0E3F32FC23CE694300CA830D /* nativeResponse2.json in Resources */,
@@ -2462,7 +2457,6 @@
 				0E3F32E623CE68E300CA830D /* empty_response.json in Resources */,
 				FC4E6F7324E99939003F2381 /* OMID_VideoResponse.json in Resources */,
 				0E3F32E423CE68E300CA830D /* facebook_mediated_response.json in Resources */,
-				0E3F32E523CE68E300CA830D /* mopub_mediated_response.json in Resources */,
 				0E3F32E723CE68E300CA830D /* native_videoResponse.json in Resources */,
 				0E4B79212282E9510085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */,
 				0E3F32EE23CE68E300CA830D /* nativeResponse1.json in Resources */,
