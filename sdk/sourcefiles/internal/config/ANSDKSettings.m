@@ -19,6 +19,7 @@
 #import "ANCarrierObserver.h"
 #import "ANReachability.h"
 #import "ANBaseUrlConfig.h"
+#import "ANWebView.h"
 
 
 @interface ANBaseUrlConfig : NSObject
@@ -121,10 +122,9 @@
 //
 - (void) optionalSDKInitialization
 {
-    [ANGlobal getUserAgent];
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
+    [ANWebView fetchWebView];
 }
-
 
 @end

@@ -21,9 +21,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
 #import "ANOMIDImplementation.h"
-#import "ANWebView.h"
 #import "ANGDPRSettings.h"
-
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
@@ -292,9 +290,8 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 + (void)load {
     
     // No need for "dispatch once" since `load` is called only once during app launch.
-    [[ANSDKSettings sharedInstance] optionalSDKInitialization];
+    [ANGlobal getUserAgent];
     [self constructAdServerRequestURL];
-    [ANWebView fetchWebView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
     
 }
