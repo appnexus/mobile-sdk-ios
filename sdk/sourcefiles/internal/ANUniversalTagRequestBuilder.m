@@ -25,6 +25,9 @@
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANSDKSettings.h"
 #import "ANOMIDImplementation.h"
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 
 #pragma mark - Private constants.
 
@@ -621,7 +624,17 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 
     //
-    deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:!ANAdvertisingTrackingEnabled()];
+    if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+        if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+            deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:false];
+        }else if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusDenied){
+            deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:true];
+        }
+#endif
+    }else{
+        deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:!ANAdvertisingTrackingEnabled()];
+    }
     
     NSDictionary<NSString *, id> *deviceId = [self deviceId];
     if (deviceId) {

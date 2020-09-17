@@ -1,3 +1,10 @@
+## 7.6.2
+### New Feature
++ MS-4433: Support for determining app-tracking permission status based on trackingAuthorizationStatus enum values (authorized, denied) [https://wiki.xandr.com/x/3Ie1Bg]
+
+### Improvements/Bug Fixes
++ MS-4523: Changed sizesThatShouldConstrainToSuperview to a block (Github #54)
+
 ## 7.6.1
 ### Improvements/Bug Fixes
 + MS-4520: Rollback iOS 14 AppTrackingTransparency changes (Please refer https://wiki.xandr.com/x/3Ie1Bg for the latest updates on Xandr Mobile SDK's support for iOS 14)
