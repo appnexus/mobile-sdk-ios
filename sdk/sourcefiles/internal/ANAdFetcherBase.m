@@ -135,6 +135,10 @@
         [request setAllHTTPHeaderFields:cookieHeaders];
     }
     
+    if(ANSDKSettings.sharedInstance.enableTestMode){
+        [request setValue:@"1" forHTTPHeaderField:@"X-Is-Test"];
+    }
+    
     NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", [request URL],[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
     
     ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
