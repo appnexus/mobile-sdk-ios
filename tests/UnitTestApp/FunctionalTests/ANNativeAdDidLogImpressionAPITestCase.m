@@ -47,7 +47,7 @@
     self.nativeRequest.delegate = self;
     
     self.nativeAdView=[[ANNativeAdView alloc]initWithFrame:CGRectMake(0, 100, 300, 250)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeAdView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeAdView];
     
 }
 
@@ -68,7 +68,7 @@
     self.nativeRequest = nil;
     self.nativeResponse = nil;
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
              [additionalView removeFromSuperview];
          }
 }
@@ -115,7 +115,7 @@
     [self populateNativeViewWithResponse];
     UIImageView *imageview = [[UIImageView alloc]
                               initWithFrame:CGRectMake(50, 50, 20, 20)];
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rvc = [ANGlobal getKeyWindow].rootViewController;
     NSError *registerError;
 
     if(self.nativeResponse.customElements[kANNativeCSRObject]) {

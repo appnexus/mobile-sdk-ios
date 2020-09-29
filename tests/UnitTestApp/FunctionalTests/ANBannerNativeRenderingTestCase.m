@@ -97,7 +97,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 
@@ -120,7 +120,7 @@
     self.multiFormatAd.shouldAllowNativeDemand = nativeDemand;
     self.multiFormatAd.enableNativeRendering = enableNativeRendering;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.multiFormatAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.multiFormatAd];
     
     
 }
@@ -259,8 +259,7 @@
 
     self.shouldResizeAdToFitContainer = YES;
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 400)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
-
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 300;
     int adHeight = 250;
@@ -303,8 +302,7 @@
 
     self.shouldResizeAdToFitContainer = NO;
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 400)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
-
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 300;
     int adHeight = 250;

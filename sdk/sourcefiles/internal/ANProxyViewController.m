@@ -15,6 +15,7 @@
 
 #import "ANProxyViewController.h"
 #import "UIView+ANCategory.h"
+#import "ANGlobal.h"
 
 @implementation ANProxyViewController
 
@@ -32,7 +33,7 @@
     } else if ([self.adView an_parentViewController]) {
         return [self.adView an_parentViewController];
     } else {
-        UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController *topController = [ANGlobal getKeyWindow].rootViewController;
         while (topController.presentedViewController) {
             topController = topController.presentedViewController;
         }

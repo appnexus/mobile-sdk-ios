@@ -21,7 +21,7 @@
 //#import "ANSDKSettings+PrivateMethods.h"
 //#import "XCTestCase+ANAdResponse.h"
 //#import "ANAdView+PrivateMethods.h"
-//#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+//#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 //
 //@interface ANBannerAdOMIDViewablityPercent100LaterTestCase : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
 //@property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
@@ -42,7 +42,7 @@
 //- (void)setUp {
 //    [super setUp];
 //    // Put setup code here. This method is called before the invocation of each test method in the class.
-//    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+//    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
 //          [additionalView removeFromSuperview];
 //      }
 //    [[ANHTTPStubbingManager sharedStubbingManager] enable];
@@ -53,17 +53,17 @@
 //                                                  placementId:@"13457285"
 //                                                       adSize:CGSizeMake(300, 250)];
 //    self.bannerAdView.accessibilityLabel = @"AdView";
-//    self.bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//    self.bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
 //    self.bannerAdView.delegate = self;
 //    self.bannerAdView.appEventDelegate = self;
 //    self.bannerAdView.autoRefreshInterval = 0;
-//    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+//    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
 //
 //    
 //    
 //    self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
 //    [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-//    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+//    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
 //
 //
 //}
@@ -78,7 +78,7 @@
 //    self.bannerAdView.delegate = nil;
 //    self.bannerAdView.appEventDelegate = nil;
 //    self.bannerAdView = nil;
-//    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+//    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
 //                                                                                                               completion:nil];
 //
 //    // Clear all expectations for next test
@@ -86,7 +86,7 @@
 //    self.OMID0PercentViewableExpectation = nil;
 //    self.OMIDRemoveFriendlyObstructionExpectation = nil;
 //
-//    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+//    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
 //          [additionalView removeFromSuperview];
 //      }
 //}

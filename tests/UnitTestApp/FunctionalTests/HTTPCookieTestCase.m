@@ -53,11 +53,11 @@
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
     self.loadAdResponseReceivedExpectation = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
     // Put teardown code here. This method is called after the invocation of each test method in the class.

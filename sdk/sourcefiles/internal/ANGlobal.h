@@ -147,6 +147,8 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (nonnull NSString *) getUserAgent;
 
++ (nonnull UIWindow *) getKeyWindow;
+
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
 
 + (nullable NSMutableURLRequest *) adServerRequestURL;

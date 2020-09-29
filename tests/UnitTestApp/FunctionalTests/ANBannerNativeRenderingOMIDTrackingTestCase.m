@@ -144,7 +144,7 @@
     self.multiFormatAd.shouldAllowNativeDemand = nativeDemand;
     self.multiFormatAd.enableNativeRendering = enableNativeRendering;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.multiFormatAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.multiFormatAd];
 
 
 }

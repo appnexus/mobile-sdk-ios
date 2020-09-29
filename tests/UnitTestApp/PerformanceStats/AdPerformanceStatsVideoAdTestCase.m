@@ -47,14 +47,14 @@
     
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     
     self.videoAd.loadDelegate = nil;
     [self.videoAd removeFromSuperview];
     self.videoAd = nil;
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }

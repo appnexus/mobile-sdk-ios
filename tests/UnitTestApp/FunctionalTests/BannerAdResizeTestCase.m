@@ -70,10 +70,10 @@
     [self.banner removeFromSuperview];
     self.banner = nil;
     self.bannerSuperView = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     self.loadAdShouldResizeAdToFitContainerExpectation = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -97,7 +97,7 @@
     
     self.shouldResizeAdToFitContainer = NO;
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 400)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
     
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 300;
@@ -133,7 +133,7 @@
     
     self.shouldResizeAdToFitContainer = YES;
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 400)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
     
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 300;

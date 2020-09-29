@@ -64,7 +64,7 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }

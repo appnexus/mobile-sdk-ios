@@ -113,7 +113,7 @@ limitations under the License.
 
 
     //
-    self.rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.rootVC = [ANGlobal getKeyWindow].rootViewController;
 
     self.loadWebviewWhenLazyLoadCompletes               = YES;
     self.swizzleToPreventWebviewLoad                    = NO;

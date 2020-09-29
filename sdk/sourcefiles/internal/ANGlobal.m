@@ -225,7 +225,7 @@ CGRect ANPortraitScreenBounds() {
 
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+    UIWindow *window = [ANGlobal getKeyWindow];
     if (@available(iOS 11.0, *)) {
         CGFloat topPadding = window.safeAreaInsets.top;
         CGFloat bottomPadding = window.safeAreaInsets.bottom;
@@ -418,7 +418,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
             dispatch_async(dispatch_get_main_queue(),
             ^{
                 WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
-                UIWindow   *currentWindow        = [UIApplication sharedApplication].keyWindow;
+                UIWindow   *currentWindow        = [ANGlobal getKeyWindow];
 
                 [webViewForUserAgent setHidden:YES];
                 [currentWindow addSubview:webViewForUserAgent];
@@ -445,6 +445,20 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     //
     ANLogDebug(@"userAgent=%@", userAgent);
     return userAgent;
+}
+
+#pragma mark - Get KeyWindow
+
++ (nonnull UIWindow *) getKeyWindow
+{
+    UIWindow *keyWindow = nil;
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    return keyWindow;
 }
 
 #pragma mark - Get Video Orientation Method

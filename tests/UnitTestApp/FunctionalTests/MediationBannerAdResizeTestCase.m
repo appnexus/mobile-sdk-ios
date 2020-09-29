@@ -40,7 +40,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
-    self.rootViewController = (ViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    self.rootViewController = (ViewController *)[ANGlobal getKeyWindow].rootViewController;
 }
 
 - (void)tearDown {
@@ -60,7 +60,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
     

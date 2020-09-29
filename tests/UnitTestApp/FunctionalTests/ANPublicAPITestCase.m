@@ -54,7 +54,7 @@
     self.request = nil;
     self.requestExpectation = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }

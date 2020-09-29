@@ -35,7 +35,7 @@
 - (void)testMediationResponse {
     NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
 
-    XCTAssertEqual([adsArray count], 4);
+    XCTAssertEqual([adsArray count], 3);
 
     for (ANMediatedAd *mediatedAd in adsArray) {
         XCTAssertNotNil(mediatedAd.responseURL);

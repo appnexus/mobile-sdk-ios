@@ -25,7 +25,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANLogging+Make.h"
 #import "ANLog.h"
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 // The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
 // And also depend on https://acdn.adnxs.com/mobile/omsdk/test/omid-validation-verification-script.js to send ANJAM events back to it. This is configured via the Stubbed response setup
@@ -51,10 +51,10 @@
                                                   placementId:@"13457285"
                                                        adSize:CGSizeMake(300, 250)];
     self.bannerAdView.accessibilityLabel = @"AdView";
-    self.bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.bannerAdView.delegate = self;
     self.bannerAdView.appEventDelegate = self;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
 
 }
 
@@ -67,14 +67,14 @@
     self.bannerAdView.delegate = nil;
     self.bannerAdView.appEventDelegate = nil;
     self.bannerAdView = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
 
     // Clear all expectations for next test
     self.OMIDSessionFinishEventExpectation = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 

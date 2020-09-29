@@ -57,7 +57,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
     
     _adLoadedMultiple = NO;
     _adFailedMultiple = NO;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }

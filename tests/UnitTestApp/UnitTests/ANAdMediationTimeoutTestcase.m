@@ -40,7 +40,7 @@ limitations under the License.
 - (void)testNativeMediationResponseTimeout {
     NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
 
-    XCTAssertEqual([adsArray count], 4);
+    XCTAssertEqual([adsArray count], 3);
 
     for (ANMediatedAd *mediatedAd in adsArray) {
         XCTAssertEqual(mediatedAd.networkTimeout,1500);
@@ -63,7 +63,7 @@ limitations under the License.
 - (void)testMediationResponseDefaultTimeout {
     NSMutableArray<id>  *adsArray  = [TestGlobal adsArrayFromFirstTagInReponseData:[self dataWithJSONResource:@"SuccessfulMediationResponseDefaultTimeout"]];
 
-    XCTAssertEqual([adsArray count], 4);
+    XCTAssertEqual([adsArray count], 3);
 
     for (ANMediatedAd *mediatedAd in adsArray) {
         XCTAssertEqual(mediatedAd.networkTimeout,15000);

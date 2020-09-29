@@ -43,7 +43,7 @@
 
 - (void)createBannerView {
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = [ANGlobal getKeyWindow].rootViewController;
     bannerAdView.rootViewController = rootViewController;
     [rootViewController.view addSubview:bannerAdView];
 
@@ -71,7 +71,7 @@
     self.centerYConstraint = nil;
     [self.bannerAdView removeFromSuperview];
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }

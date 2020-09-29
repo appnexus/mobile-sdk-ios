@@ -65,7 +65,7 @@
                                                   placementId:@"13457285"
                                                        adSize:CGSizeMake(300, 250)];
     self.bannerAdView.accessibilityLabel = @"AdView";
-    self.bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.bannerAdView.delegate = self;
     self.bannerAdView.shouldAllowNativeDemand = YES;
     self.bannerAdView.enableNativeRendering = YES;
@@ -96,7 +96,7 @@
     self.bannerAdView.delegate = nil;
     self.bannerAdView.appEventDelegate = nil;
     self.bannerAdView = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
     // Clear all expectations for next test
@@ -106,7 +106,7 @@
     
     self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = NO;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -116,10 +116,10 @@
 {
     
     self.bannerAdView.autoRefreshInterval = 0;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
     
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
@@ -141,11 +141,11 @@
 {
     
     self.bannerAdView.autoRefreshInterval = 0;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
     
     
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
@@ -172,9 +172,9 @@
     self.testcase = @"testBannerNativeOMIDViewablePercent0";
 
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     self.bannerAdView.enableNativeRendering = NO;
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
@@ -197,10 +197,10 @@
 {
     self.testcase = @"testBannerNativeOMIDViewablePercent100";
 
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
     
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     
     self.bannerAdView.enableNativeRendering = NO;
@@ -224,10 +224,10 @@
 
 - (void)testBannerNativeOMIDViewableRemoveAllFriendlyObstruction
 {
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
     
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     
     self.bannerAdView.enableNativeRendering = NO;

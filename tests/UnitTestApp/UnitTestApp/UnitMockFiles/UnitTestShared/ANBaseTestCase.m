@@ -21,7 +21,7 @@
 
 
 
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 
 

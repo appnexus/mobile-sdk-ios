@@ -20,8 +20,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
-
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 @interface ANInterstitialAdTestCase : XCTestCase <ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
 @property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
@@ -44,7 +43,7 @@
     self.interstitial = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
     

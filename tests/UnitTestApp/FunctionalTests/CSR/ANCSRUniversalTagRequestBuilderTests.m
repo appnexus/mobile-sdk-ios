@@ -95,7 +95,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 -(void)clearObject{
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
     // Clear all expectations for next test
@@ -114,7 +114,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     self.nativeRequest = nil;
     self.nativeResponse = nil;
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }

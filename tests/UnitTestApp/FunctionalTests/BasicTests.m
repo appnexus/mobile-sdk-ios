@@ -45,7 +45,7 @@ float const BASIC_TEST_TIMEOUT = 10.0;
     [self.banner removeFromSuperview];
     self.banner = nil;
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }

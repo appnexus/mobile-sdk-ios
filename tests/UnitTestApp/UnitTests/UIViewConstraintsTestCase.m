@@ -17,6 +17,7 @@
 #import <XCTest/XCTest.h>
 #import "UIView+ANCategory.h"
 #import "XCTestCase+ANCategory.h"
+#import "ANGlobal.h"
 
 static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
 static CGFloat const kUIViewConstraintsTestCaseContainerViewWidth = 320;
@@ -38,7 +39,7 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
 - (void)setupContainerView {
     UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kUIViewConstraintsTestCaseContainerViewWidth, kUIViewConstraintsTestCaseContainerViewHeight)];
     containerView.backgroundColor = [UIColor orangeColor];
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = [ANGlobal getKeyWindow].rootViewController;
     [rootViewController.view addSubview:containerView];
     self.containerView = containerView;
 }

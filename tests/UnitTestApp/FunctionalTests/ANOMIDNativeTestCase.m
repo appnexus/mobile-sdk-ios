@@ -57,7 +57,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }
@@ -125,7 +125,7 @@
 {
     self.adResponseInfo = response;
     NSError *registerError;
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rvc = [ANGlobal getKeyWindow].rootViewController;
     [self.adResponseInfo registerViewForTracking:rvc.view withRootViewController:rvc clickableViews:nil error:&registerError];
     [self.delegateCallbackExpectation fulfill];
 }

@@ -195,7 +195,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     [self loadWebViewWithUserScripts];
     
-    UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
+    UIWindow  *currentWindow  = [ANGlobal getKeyWindow];
     [currentWindow addSubview:self.webView];
     [self.webView setHidden:true];
     

@@ -54,8 +54,8 @@
     self.bannerAd = nil;
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }
@@ -78,7 +78,7 @@
     CGSize size = CGSizeMake(adWidth, adHeight);
     [self setupBannerVideoWithPlacement:BANNERVIDEO_PLACEMENT withFrame:rect andSize:size];
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAd];
     self.testCase = PERFORMANCESTATSRTBAD_FIRST_REQUEST;
     [[ANTimeTracker sharedInstance] setTimeAt:PERFORMANCESTATSRTBAD_FIRST_REQUEST];
     
@@ -93,7 +93,7 @@
     [self clearAd];
     [self setupBannerVideoWithPlacement:BANNERVIDEO_PLACEMENT withFrame:rect andSize:size];
     self.testCase = PERFORMANCESTATSRTBAD_SECOND_REQUEST;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAd];
     [[ANTimeTracker sharedInstance] getDiffereanceAt:PERFORMANCESTATSRTBAD_SECOND_REQUEST];
     [self.bannerAd loadAd];
     

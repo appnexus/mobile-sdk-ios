@@ -28,7 +28,7 @@
 //#import "ANBannerAdView+ANTest.h"
 //
 //static NSString   *placementID      = @"12534678";
-//#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+//#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 //@interface ANInstreamVideoAdOMIDRemoveAllFriendlyObstructionTestcase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
 //@property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 //@property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
@@ -92,8 +92,8 @@
 //    [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
 //    [NSURLProtocol wk_unregisterScheme:@"http"];
 //    [NSURLProtocol wk_unregisterScheme:@"https"];
-//    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-//    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+//    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+//    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
 //        [additionalView removeFromSuperview];
 //    }
 //    [self clearInstreamVideoAd];
@@ -178,14 +178,14 @@
 //    if ([ad isKindOfClass:[ANInstreamVideoAd class]]) {
 //        self.videoView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
 //        [self.videoView setBackgroundColor:[UIColor yellowColor]];
-//        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.videoView];
+//        [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.videoView];
 //
 //
 //        [self.instreamVideoAd playAdWithContainer:self.videoView withDelegate:self];
 //
 //
 //
-//        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+//        [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
 //
 //
 //

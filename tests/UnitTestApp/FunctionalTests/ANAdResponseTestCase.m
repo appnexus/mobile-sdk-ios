@@ -64,7 +64,7 @@ limitations under the License.
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     self.loadAdResponseReceivedExpectation = nil;
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -76,7 +76,7 @@ limitations under the License.
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
              [additionalView removeFromSuperview];
          }
 }
@@ -88,14 +88,14 @@ limitations under the License.
                                                  adSize:CGSizeMake(320, 480)];
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 - (void)clearSetupInterstitialAd {
     self.interstitial = nil;
     [self.interstitial removeFromSuperview];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
              [additionalView removeFromSuperview];
          }
 }
@@ -110,7 +110,7 @@ limitations under the License.
     self.adRequest = nil;
     self.adResponse = nil;
     self.adResponseInfo = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
              [additionalView removeFromSuperview];
          }
 }
@@ -124,7 +124,7 @@ limitations under the License.
 - (void)clearSetupInstreamAd {
     self.instreamVideoAd = nil;
     self.instreamVideoAd.adPlayer = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
              [additionalView removeFromSuperview];
          }
 }
@@ -434,7 +434,7 @@ limitations under the License.
     [self.loadAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;
     if ([ad isKindOfClass:[ANInterstitialAd class]]) {
-        [self.interstitial displayAdFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+        [self.interstitial displayAdFromViewController:[ANGlobal getKeyWindow].rootViewController];
     }
 }
 

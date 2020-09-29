@@ -64,7 +64,7 @@
     self.nativeAdRequest1 = nil;
     self.nativeAdRequest2 = nil;
     self.mar = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }

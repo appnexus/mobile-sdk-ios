@@ -19,6 +19,7 @@ limitations under the License.
 #import "ANTrackerManager+ANTest.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANGlobal.h"
 
 @interface ANBannerAdViewHTMLImpressionTestCase : XCTestCase <ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
@@ -67,7 +68,7 @@ limitations under the License.
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-        for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+        for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
               [additionalView removeFromSuperview];
           }
 }

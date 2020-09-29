@@ -50,7 +50,7 @@
     self.bannerAd = nil;
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }
@@ -86,7 +86,7 @@
     
     [self setupBannerWithPlacement:BANNERNATIVE_PLACEMENT withFrame:rect andSize:size];
     self.testCase = PERFORMANCESTATSRTBAD_SECOND_REQUEST;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAd];
     [[ANTimeTracker sharedInstance] getDiffereanceAt:PERFORMANCESTATSRTBAD_SECOND_REQUEST];
     [self.bannerAd loadAd];
     self.secondLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];

@@ -96,7 +96,7 @@
    self.banner.appEventDelegate = nil;
    [self.banner removeFromSuperview];
    self.banner = nil;
-   for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+   for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
       [additionalView removeFromSuperview];
    }
 }
@@ -1563,7 +1563,7 @@
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     }
 
-   for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+   for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
          [additionalView removeFromSuperview];
      }
     [super clearTest];
@@ -1671,8 +1671,8 @@
     [self.interstitial setBackgroundColor:[UIColor redColor]];
     [self.interstitial setCloseDelay:0.1];
     [self delay:0.5];
-    [self.interstitial displayAdFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-    UIViewController *pvc = [UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
+    [self.interstitial displayAdFromViewController:[ANGlobal getKeyWindow].rootViewController];
+    UIViewController *pvc = [ANGlobal getKeyWindow].rootViewController.presentedViewController;
     // webview is contained in a container view
     id wv = [[[[pvc.view subviews] firstObject] subviews] firstObject];
     STAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of InterstitialAdView");

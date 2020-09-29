@@ -28,9 +28,10 @@
 #import "ANBannerAdView+ANTest.h"
 #import <UIKit/UIKit.h>
 static NSString   *placementID      = @"12534678";
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 @interface ANOMIDInstreamVideoTestCase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
+
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
 
@@ -93,7 +94,7 @@ static NSString   *placementID      = @"12534678";
     [NSURLProtocol wk_unregisterScheme:@"http"];
     [NSURLProtocol wk_unregisterScheme:@"https"];
     
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -302,8 +303,8 @@ static NSString   *placementID      = @"12534678";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowVideoDemand =  YES;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 -(void) clearBannerVideoAd{

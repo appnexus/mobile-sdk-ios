@@ -50,7 +50,7 @@
     [self.banner removeFromSuperview];
     self.banner = nil;
     self.loadAdSuccesfulException = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
 }
@@ -68,8 +68,8 @@
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowVideoDemand =  YES;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 -(void) setupBannerNativeAd{
@@ -85,8 +85,8 @@
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowNativeDemand =  YES;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 -(void) setupBannerAd{
@@ -101,8 +101,8 @@
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 #pragma mark - Test methods.

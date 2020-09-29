@@ -76,7 +76,7 @@
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -88,14 +88,14 @@
                                                  adSize:CGSizeMake(320, 480)];
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 - (void)clearSetupInterstitialAd {
     self.interstitial = nil;
     [self.interstitial removeFromSuperview];
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -109,7 +109,7 @@
 - (void)clearSetupNativeAd {
     self.adRequest = nil;
     self.adResponseInfo = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -123,7 +123,7 @@
 - (void)clearSetupInstreamAd {
     self.instreamVideoAd = nil;
     self.instreamVideoAd.adPlayer = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
 }
@@ -337,7 +337,7 @@
     [self.loadAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;
     if ([ad isKindOfClass:[ANInterstitialAd class]]) {
-        [self.interstitial displayAdFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+        [self.interstitial displayAdFromViewController:[ANGlobal getKeyWindow].rootViewController];
     }
 }
 

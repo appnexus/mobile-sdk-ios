@@ -50,10 +50,10 @@
                                             placementId:@"2140063"
                                                  adSize:CGSizeMake(320, 50)];
     self.adView.accessibilityLabel = @"AdView";
-    self.adView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.adView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.adView.appEventDelegate = self;
     self.adView.delegate = self;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.adView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.adView];
 }
 
 - (void)tearDown {
@@ -66,10 +66,10 @@
     self.adView = nil;
     self.customKeywordsExpectation = nil;
     self.recordEventDelegateView = nil;
-    for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
 }
 
