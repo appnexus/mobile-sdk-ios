@@ -484,6 +484,11 @@
 		97FFD0532372DA7900412B20 /* ANAdResponseCSM_Banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */; };
 		97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */; };
 		97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */; };
+		FC4C72D024FEFB7100379108 /* ANAdResponseRTB_VideoFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72CE24FEFB7100379108 /* ANAdResponseRTB_VideoFail.json */; };
+		FC4C72D224FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72D124FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json */; };
+		FC4C72D424FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72D324FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json */; };
+		FC4C72D624FEFD8500379108 /* ANAdResponseCSM_BannerFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72D524FEFD8500379108 /* ANAdResponseCSM_BannerFail.json */; };
+		FC4C72E324FF02B800379108 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4C72E224FF02B800379108 /* GoogleMobileAds.framework */; };
 		FC4E6F2924E9779E003F2381 /* ReleaseTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4E6F2824E9779E003F2381 /* ReleaseTestAppTests.m */; };
 		FC4E6F3124E977AE003F2381 /* AdPerformanceStatsBannerAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6636022458A9EC008FB3FB /* AdPerformanceStatsBannerAdTestCase.m */; };
 		FC4E6F3224E977BA003F2381 /* AdPerformanceStatsBannerNativeRendererAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6636162458D04C008FB3FB /* AdPerformanceStatsBannerNativeRendererAdTestCase.m */; };
@@ -650,7 +655,6 @@
 		0E1D14B322784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_renderingInvalidURL.json; sourceTree = "<group>"; };
 		0E2B4BAC23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationTwoRTBNative.json; sourceTree = "<group>"; };
 		0E2C24892236AE4D006038E1 /* MediationBannerAdResizeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationBannerAdResizeTestCase.m; sourceTree = "<group>"; };
-		0E2C24902236B075006038E1 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		0E32ACDB24832E2F0027D5A5 /* SuccessfulMediationResponseDefaultTimeout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMediationResponseDefaultTimeout.json; sourceTree = "<group>"; };
 		0E32F7DD23C608B10036E0B4 /* testMARCombinationTwelveRTBBanner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationTwelveRTBBanner.json; sourceTree = "<group>"; };
 		0E32F7E023C60E800036E0B4 /* testMARCombinationThirtyCSMBanner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testMARCombinationThirtyCSMBanner.json; sourceTree = "<group>"; };
@@ -1068,7 +1072,6 @@
 		4FE4DB08237B42F2005B5BCF /* MARHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MARHelper.h; sourceTree = "<group>"; };
 		4FF9B85A23AC0C3D00A9EB56 /* TestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGlobal.h; sourceTree = "<group>"; };
 		4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGlobal.m; sourceTree = "<group>"; };
-		607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsTestCase.m; sourceTree = "<group>"; };
 		60F8A7FC23280A630030D53D /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
 		60F8A80523280EC10030D53D /* ANJAMDispatchAppEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMDispatchAppEventResponse.json; sourceTree = "<group>"; };
@@ -1101,6 +1104,11 @@
 		97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseCSM_Banner.json; sourceTree = "<group>"; };
 		97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Native.json; sourceTree = "<group>"; };
 		97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Video.json; sourceTree = "<group>"; };
+		FC4C72CE24FEFB7100379108 /* ANAdResponseRTB_VideoFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_VideoFail.json; sourceTree = "<group>"; };
+		FC4C72D124FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_NativeFail.json; sourceTree = "<group>"; };
+		FC4C72D324FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_BannerFail.json; sourceTree = "<group>"; };
+		FC4C72D524FEFD8500379108 /* ANAdResponseCSM_BannerFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseCSM_BannerFail.json; sourceTree = "<group>"; };
+		FC4C72E224FF02B800379108 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		FC4E6F2624E9779E003F2381 /* AppReleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppReleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4E6F2824E9779E003F2381 /* ReleaseTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseTestAppTests.m; sourceTree = "<group>"; };
 		FC4E6F2A24E9779E003F2381 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1127,6 +1135,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E56C70D21F8AF4200ADE6E1 /* Security.framework in Frameworks */,
+				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
 				0E8C981A21FF36F6005D1F0E /* Accounts.framework in Frameworks */,
 				0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */,
 				0E6B7E4822D8DE49005D069E /* AppNexusSDK.framework in Frameworks */,
@@ -1140,6 +1150,7 @@
 				0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
 				0ED159E12236B53B00D56022 /* CoreMedia.framework in Frameworks */,
+				FC4C72E324FF02B800379108 /* GoogleMobileAds.framework in Frameworks */,
 				0ED159E32236B54100D56022 /* CoreMotion.framework in Frameworks */,
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
 				0ED159DB2236B52800D56022 /* EventKit.framework in Frameworks */,
@@ -1147,8 +1158,6 @@
 				0E5529BD241925DB00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
 				0E56C6FF21F8AF2200ADE6E1 /* Foundation.framework in Frameworks */,
 				0E56C70321F8AF2D00ADE6E1 /* GameKit.framework in Frameworks */,
-				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
-				607BB65B240461F3002A0F57 /* GoogleMobileAds.framework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
 				0ED159E92236B55B00D56022 /* libsqlite3.tbd in Frameworks */,
@@ -1160,7 +1169,6 @@
 				0E56C70921F8AF3B00ADE6E1 /* PassKit.framework in Frameworks */,
 				0E56C70B21F8AF3E00ADE6E1 /* QuartzCore.framework in Frameworks */,
 				0ED159EF2236B56B00D56022 /* SafariServices.framework in Frameworks */,
-				0E56C70D21F8AF4200ADE6E1 /* Security.framework in Frameworks */,
 				0E56C70F21F8AF4800ADE6E1 /* Social.framework in Frameworks */,
 				0E56C71121F8AF4C00ADE6E1 /* StoreKit.framework in Frameworks */,
 				0E56C71321F8AF5200ADE6E1 /* SystemConfiguration.framework in Frameworks */,
@@ -1186,14 +1194,6 @@
 				0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */,
 				0E5529BA2419228C00D50C51 /* FBAudienceNetwork.framework in Frameworks */,
 				0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0EEAF61E229BC8BD0008CAC9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0E6B7E4622D8DE06005D069E /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,7 +1304,7 @@
 		0E54378722DCB92B00301AEF /* GoogleAdMobSDK */ = {
 			isa = PBXGroup;
 			children = (
-				607BB65A240461F3002A0F57 /* GoogleMobileAds.framework */,
+				FC4C72E224FF02B800379108 /* GoogleMobileAds.framework */,
 			);
 			path = GoogleAdMobSDK;
 			sourceTree = "<group>";
@@ -1359,7 +1359,6 @@
 				0E56C6FE21F8AF2200ADE6E1 /* Foundation.framework */,
 				0E56C70221F8AF2D00ADE6E1 /* GameKit.framework */,
 				0ED159F82236B82800D56022 /* GLKit.framework */,
-				0E2C24902236B075006038E1 /* GoogleMobileAds.framework */,
 				0ED159E42236B54900D56022 /* JavaScriptCore.framework */,
 				0ED159E62236B55400D56022 /* libc++.tbd */,
 				0ED159E82236B55B00D56022 /* libsqlite3.tbd */,
@@ -1877,9 +1876,13 @@
 			children = (
 				0E8794F323C34D23008DA1D6 /* MARStubResponse */,
 				97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */,
+				FC4C72D524FEFD8500379108 /* ANAdResponseCSM_BannerFail.json */,
 				97FFD04D2372DA7700412B20 /* ANAdResponseRTB_Banner.json */,
+				FC4C72D324FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json */,
 				97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */,
+				FC4C72D124FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json */,
 				97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */,
+				FC4C72CE24FEFB7100379108 /* ANAdResponseRTB_VideoFail.json */,
 				00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */,
 				60F8A80723280EC10030D53D /* ANJAMDeviceIdResponse.json */,
 				60F8A80523280EC10030D53D /* ANJAMDispatchAppEventResponse.json */,
@@ -2417,9 +2420,11 @@
 				97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */,
 				97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */,
 				0E6612C122CA736300DDC5CD /* ANGADUnifiedNativeAdView.xib in Resources */,
+				FC4C72D424FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json in Resources */,
 				3812957024AA255900116AAB /* SuccessfulNativeStandardAdResponse.json in Resources */,
 				00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */,
 				60F8A82423294D590030D53D /* ANJAMDeviceIdResponse.json in Resources */,
+				FC4C72D224FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
 				38A8E167248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_Default.json in Resources */,
 				60F8A82523294D5C0030D53D /* ANJAMDispatchAppEventResponse.json in Resources */,
@@ -2462,6 +2467,7 @@
 				0E3F32EE23CE68E300CA830D /* nativeResponse1.json in Resources */,
 				0E3F32EA23CE68E300CA830D /* nativeResponse2.json in Resources */,
 				0E3F32F423CE68E300CA830D /* nativeResponseWithoutImpTrackers.json in Resources */,
+				FC4C72D624FEFD8500379108 /* ANAdResponseCSM_BannerFail.json in Resources */,
 				38A8E168248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1001.json in Resources */,
 				0E3F32F023CE68E300CA830D /* no_ads_ok_response.json in Resources */,
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
@@ -2470,6 +2476,7 @@
 				0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */,
 				0E1C24B8242A86C300A70AC4 /* OMID_Video_TestResponse.json in Resources */,
 				0EEFE1F222009819002B5F5F /* SecondPriceForDFPParamIsUnset.json in Resources */,
+				FC4C72D024FEFB7100379108 /* ANAdResponseRTB_VideoFail.json in Resources */,
 				0E642D58244E640C009084E0 /* SecondPriceForDFPSuccess.json in Resources */,
 				0E81279E23C894660045D788 /* ssmAd.txt in Resources */,
 				0EEFE1A3220081C0002B5F5F /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
@@ -3125,7 +3132,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/mediationsdk/GoogleAdMobSDK\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3189,7 +3196,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/mediationsdk/GoogleAdMobSDK\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -3221,7 +3228,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
-					"\"$(SRCROOT)/mediationsdk/GoogleAdMobSDK\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
@@ -3263,6 +3269,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
+					"\"$(SRCROOT)/mediationsdk/GoogleAdMobSDK\"",
 					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -3301,6 +3308,7 @@
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
+					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3335,6 +3343,7 @@
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
+					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

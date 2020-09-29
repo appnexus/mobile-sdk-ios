@@ -277,13 +277,20 @@
             ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
             
             NSString *placementId  = @"";
+            NSString *auctionId  = @"";
             if(tag[kANUniversalTagAdServerResponseKeyAdsTagId] != nil)
             {
                 placementId = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsTagId]];
             }
             
+            if(tag[kANUniversalTagAdServerResponseKeyAdsAuctionId] != nil)
+            {
+                auctionId = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsAuctionId]];
+            }
+                      
             adResponseInfo.placementId = placementId;
-            
+            adResponseInfo.auctionId = auctionId;
+
             [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseCode.UNABLE_TO_FILL.code) andAdResponseInfo:adResponseInfo];
             return;
         }

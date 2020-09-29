@@ -33,6 +33,7 @@
 #pragma mark - Public constants.
 
 NSString *const  kANUniversalTagAdServerResponseKeyAdsTagId    = @"tag_id";
+NSString *const  kANUniversalTagAdServerResponseKeyAdsAuctionId    = @"auction_id";
 NSString *const  kANUniversalTagAdServerResponseKeyNoBid       = @"nobid";
 NSString *const  kANUniversalTagAdServerResponseKeyTagNoAdUrl  = @"no_ad_url";
 NSString *const  kANUniversalTagAdServerResponseKeyTagUUID     = @"uuid";
@@ -260,6 +261,11 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          {
            memberId  = [[NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsBuyerMemberId]] integerValue];
          }
+        NSString *auctionId  = @"";
+        if(tag[kANUniversalTagAdServerResponseKeyAdsAuctionId] != nil)
+        {
+            auctionId  = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsAuctionId]];
+        }
          
          //Initialise AdResponse object to expose all the public facing APIs from the UTv3 response
          ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
@@ -268,6 +274,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          adResponseInfo.adType = [ANGlobal adTypeStringToEnum:adType];
          adResponseInfo.contentSource = contentSource;
          adResponseInfo.memberId = memberId;
+         adResponseInfo.auctionId = auctionId;
 
         ANVerificationScriptResource *omidVerificationScriptResource;
         if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){

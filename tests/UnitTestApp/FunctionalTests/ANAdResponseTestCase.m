@@ -34,7 +34,8 @@ limitations under the License.
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
 @property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
-@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponseInfo;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponse;
+@property (nonatomic, readwrite, strong)  ANAdResponseInfo    *adResponseInfo;
 @property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
 @property (nonatomic, readwrite)  BOOL  receiveAdSuccess;
 @property (nonatomic, readwrite)  BOOL  receiveAdFailure;
@@ -107,6 +108,7 @@ limitations under the License.
 
 - (void)clearSetupNativeAd {
     self.adRequest = nil;
+    self.adResponse = nil;
     self.adResponseInfo = nil;
     for (UIView *additionalView in [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]){
              [additionalView removeFromSuperview];
@@ -156,8 +158,27 @@ limitations under the License.
     XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
     XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
     XCTAssertNil(self.banner.adResponseInfo.networkName);
-    
+    XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"9187200539711848928");
+
 }
+
+
+- (void)testAdResponseWithRTBBannerAdFailToLoadAd {
+    
+    [self setupBannerAd];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_BannerFail"];
+    [self.banner loadAd];
+    
+    self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"19881071");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"8856182017388121550");
+
+}
+
 
 - (void)testAdResponseWithCSMBannerAd {
     
@@ -176,9 +197,23 @@ limitations under the License.
     XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
     XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"csm");
     XCTAssertEqualObjects(self.banner.adResponseInfo.networkName, @"ANAdAdapterBannerDFP");
-    
+    XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"8250270890488509817");
 }
 
+- (void)testAdResponseWithCSMBannerAdFailToLoadAd {
+    
+    [self setupBannerAd];
+    [self stubRequestWithResponse:@"ANAdResponseCSM_BannerFail"];
+    [self.banner loadAd];
+    
+    self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"19881071");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"8371000362677779861");
+}
 - (void) testAdResponseWithBannerNativeAd
 {
     [self setupBannerAd];
@@ -198,6 +233,24 @@ limitations under the License.
    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeNative);
    XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
    XCTAssertNil(self.banner.adResponseInfo.networkName);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"4353110489672000411");
+}
+
+- (void) testAdResponseWithBannerNativeAdFailToLoadAd
+{
+    [self setupBannerAd];
+    self.banner.shouldAllowNativeDemand = YES;
+    self.banner.enableNativeRendering = YES;
+    [self.banner setAdSize:CGSizeMake(300, 250)];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_NativeFail"];
+    [self.banner loadAd];
+    self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+   [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                handler:^(NSError *error) {
+                                    
+                                }];
+   XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"19881071");
+   XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"127336549891345873");
 }
 
 - (void) testAdResponseWithBannerVideoAd
@@ -218,6 +271,25 @@ limitations under the License.
    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeVideo);
    XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
    XCTAssertNil(self.banner.adResponseInfo.networkName);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"5025666871894732601");
+
+}
+
+- (void) testAdResponseWithBannerVideoAdFailToLoadAd
+{
+    [self setupBannerAd];
+    self.banner.shouldAllowVideoDemand = YES;
+    [self.banner setAdSize:CGSizeMake(300, 250)];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_VideoFail"];
+    [self.banner loadAd];
+    self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+   [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                handler:^(NSError *error) {
+                                    
+                                }];
+   XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"19881071");
+   XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"6677786726688787883");
+
 }
 
 - (void)testAdResponseWithInterstitialAd {
@@ -237,7 +309,22 @@ limitations under the License.
     XCTAssertTrue(self.interstitial.adResponseInfo.adType == ANAdTypeBanner);
     XCTAssertEqualObjects(self.interstitial.adResponseInfo.contentSource, @"rtb");
     XCTAssertNil(self.interstitial.adResponseInfo.networkName);
+    XCTAssertEqualObjects(self.interstitial.adResponseInfo.auctionId, @"9187200539711848928");
+}
+
+- (void)testAdResponseWithInterstitialAdFailToLoadAd {
     
+    [self setupInterstitialAd];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_BannerFail"];
+    [self.interstitial loadAd];
+    
+    self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqualObjects(self.interstitial.adResponseInfo.placementId, @"19881071");
+    XCTAssertEqualObjects(self.interstitial.adResponseInfo.auctionId, @"8856182017388121550");
 }
 
 - (void)testAdResponseWithNativeAd {
@@ -250,12 +337,29 @@ limitations under the License.
                                 handler:^(NSError *error) {
                                     
                                 }];
-   XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.creativeId, @"162039377");
-   XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.placementId, @"16392991");
-   XCTAssertTrue(self.adResponseInfo.adResponseInfo.memberId == 10094);
-   XCTAssertTrue(self.adResponseInfo.adResponseInfo.adType == ANAdTypeNative);
-   XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.contentSource, @"rtb");
-   XCTAssertNil(self.adResponseInfo.adResponseInfo.networkName);
+   XCTAssertEqualObjects(self.adResponse.adResponseInfo.creativeId, @"162039377");
+   XCTAssertEqualObjects(self.adResponse.adResponseInfo.placementId, @"16392991");
+   XCTAssertTrue(self.adResponse.adResponseInfo.memberId == 10094);
+   XCTAssertTrue(self.adResponse.adResponseInfo.adType == ANAdTypeNative);
+   XCTAssertEqualObjects(self.adResponse.adResponseInfo.contentSource, @"rtb");
+   XCTAssertNil(self.adResponse.adResponseInfo.networkName);
+   XCTAssertEqualObjects(self.adResponse.adResponseInfo.auctionId, @"4353110489672000411");
+
+}
+
+- (void)testAdResponseWithNativeAdFailToLoadAd {
+    [self setupNativeAd];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_NativeFail"];
+    [self.adRequest loadAd];
+    self.adRequest.shouldLoadIconImage = YES;
+   self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+   [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                handler:^(NSError *error) {
+                                    
+                                }];
+   XCTAssertEqualObjects(self.adResponseInfo.placementId, @"19881071");
+   XCTAssertEqualObjects(self.adResponseInfo.auctionId, @"127336549891345873");
+
 }
 
 - (void) testAdResponseWithInstreamAd
@@ -274,7 +378,23 @@ limitations under the License.
    XCTAssertTrue(self.instreamVideoAd.adResponseInfo.adType == ANAdTypeVideo);
    XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.contentSource, @"rtb");
    XCTAssertNil(self.instreamVideoAd.adResponseInfo.networkName);
+   XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.auctionId, @"5025666871894732601");
 }
+
+- (void) testAdResponseWithInstreamAdFailToLoadAd
+{
+    [self setupInstreamAd];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_VideoFail"];
+    [self.instreamVideoAd loadAdWithDelegate:self];
+    self.loadAdResponseFailedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+   [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                handler:^(NSError *error) {
+                                    
+                                }];
+   XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.placementId, @"19881071");
+   XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.auctionId, @"6677786726688787883");
+}
+
 
 #pragma mark - Stubbing
 
@@ -332,15 +452,14 @@ limitations under the License.
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
-    self.adResponseInfo = response;
+    self.adResponse = response;
     [self.loadAdResponseReceivedExpectation fulfill];
     self.receiveAdSuccess = YES;
 }
 
-- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
-{
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo{
     TESTTRACEM(@"error.info=%@", error.userInfo);
-
+    self.adResponseInfo = adResponseInfo;
     [self.loadAdResponseReceivedExpectation fulfill];
     [self.loadAdResponseFailedExpectation fulfill];
     self.receiveAdFailure = YES;
