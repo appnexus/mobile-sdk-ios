@@ -771,13 +771,11 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
     NSNumber  *gdprRequired  = [ANGDPRSettings getConsentRequired];
     
-    //NSInteger intVlaue = gdprRequired
-    
     if (gdprRequired != nil)
     {
         return  @{
-            @"consent_required"  : [NSNumber numberWithBool:gdprRequired.boolValue],
-                     @"consent_string"    : gdprConsent
+                    @"consent_required"  : [NSNumber numberWithBool:gdprRequired.boolValue],
+                    @"consent_string"    : gdprConsent
                  };
 
     } else {
