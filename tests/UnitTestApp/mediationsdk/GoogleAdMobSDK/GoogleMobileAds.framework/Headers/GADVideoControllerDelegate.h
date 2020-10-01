@@ -6,7 +6,6 @@
 //
 
 #import <GoogleMobileAds/GADVideoController.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// The GADVideoControllerDelegate protocol defines methods that are called by the video controller
 /// object in response to the video events that occurred throughout the lifetime of the video

@@ -7,13 +7,18 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADCustomEventRequest.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 @protocol GADCustomEventNativeAdDelegate;
 
 /// Native ad custom event protocol. Your native ad custom event handler class must conform to this
 /// protocol.
 @protocol GADCustomEventNativeAd <NSObject>
+
+/// Delegate object used for receiving custom native ad load request progress.
+@property(nonatomic, weak, nullable) id<GADCustomEventNativeAdDelegate> delegate;
+
+/// Returns an initialized custom event native ad.
+- (nonnull instancetype)init;
 
 /// Called when the custom event is scheduled to be executed.
 ///
@@ -46,8 +51,5 @@
 /// tracks user impressions and notifies the custom event of impressions using
 /// -[GADMediatedUnifiedNativeAd didRecordImpression].
 - (BOOL)handlesUserImpressions;
-
-/// Delegate object used for receiving custom native ad load request progress.
-@property(nonatomic, weak, nullable) id<GADCustomEventNativeAdDelegate> delegate;
 
 @end

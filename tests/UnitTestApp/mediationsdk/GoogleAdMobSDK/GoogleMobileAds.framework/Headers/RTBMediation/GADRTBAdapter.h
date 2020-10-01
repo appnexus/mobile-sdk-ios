@@ -5,10 +5,9 @@
 //  Copyright 2018 Google LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import <GoogleMobileAds/Mediation/GADMediationAdapter.h>
 #import <GoogleMobileAds/RTBMediation/GADRTBRequestParameters.h>
+#import <UIKit/UIKit.h>
 
 /// Completion handler for signal generation. Returns either signals or an error object.
 typedef void (^GADRTBSignalCompletionHandler)(NSString *_Nullable signals,
@@ -16,6 +15,9 @@ typedef void (^GADRTBSignalCompletionHandler)(NSString *_Nullable signals,
 
 /// Adapter that provides signals to the Google Mobile Ads SDK to be included in an auction.
 @protocol GADRTBAdapter <GADMediationAdapter>
+
+/// Returns an initialized RTB adapter.
+- (nonnull instancetype)init;
 
 /// Asks the receiver for encrypted signals. Signals are provided to the 3PAS at request time. The
 /// receiver must call completionHandler with signals or an error.

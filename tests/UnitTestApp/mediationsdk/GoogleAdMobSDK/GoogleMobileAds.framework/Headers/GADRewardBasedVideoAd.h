@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GoogleMobileAds/GADAdMetadataKeys.h>
+#import <GoogleMobileAds/GADAdMetadata.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADRequestError.h>
 #import <GoogleMobileAds/GADRewardBasedVideoAdDelegate.h>
@@ -14,6 +14,11 @@
 
 /// The GADRewardBasedVideoAd class is used for requesting and presenting a reward based video ad.
 /// This class isn't thread safe.
+GAD_DEPRECATED_MSG_ATTRIBUTE(
+    "Use GADRewardedAd instead. Google AdMob publishers, follow instructions here: "
+    "https://googlemobileadssdk.page.link/admob-ios-rewarded-migration. "
+    "Google Ad Manager publishers, follow instructions here: "
+    "https://googlemobileadssdk.page.link/admanager-ios-rewarded-migration.")
 @interface GADRewardBasedVideoAd : NSObject
 
 /// Delegate for receiving video notifications.

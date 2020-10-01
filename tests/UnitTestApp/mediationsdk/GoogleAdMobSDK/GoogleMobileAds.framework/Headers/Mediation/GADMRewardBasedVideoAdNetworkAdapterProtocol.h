@@ -5,9 +5,9 @@
 //  Copyright 2015 Google. All rights reserved.
 //
 
-#import <GoogleMobileAds/GoogleMobileAds.h>
-
-@protocol GADMRewardBasedVideoAdNetworkConnector;
+#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <GoogleMobileAds/Mediation/GADMRewardBasedVideoAdNetworkConnectorProtocol.h>
+#import <UIKit/UIKit.h>
 
 /// Your adapter must conform to this protocol to provide reward based video ads.
 @protocol GADMRewardBasedVideoAdNetworkAdapter <NSObject>

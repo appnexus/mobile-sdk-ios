@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADRequestError.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 @class GADBannerView;
 
@@ -27,6 +26,9 @@
 /// connectivity or ad availablility (i.e., no fill).
 - (void)adView:(nonnull GADBannerView *)bannerView
     didFailToReceiveAdWithError:(nonnull GADRequestError *)error;
+
+/// Tells the delegate that an impression has been recorded for an ad.
+- (void)adViewDidRecordImpression:(nonnull GADBannerView *)bannerView;
 
 #pragma mark Click-Time Lifecycle Notifications
 

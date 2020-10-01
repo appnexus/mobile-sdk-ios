@@ -5,13 +5,13 @@
 //  Copyright 2012 Google LLC. All rights reserved.
 //
 
-#import <GoogleMobileAds/DFPCustomRenderedBannerViewDelegate.h>
 #import <GoogleMobileAds/GADAdLoader.h>
 #import <GoogleMobileAds/GADAdLoaderDelegate.h>
 #import <GoogleMobileAds/GADAppEventDelegate.h>
 #import <GoogleMobileAds/GADBannerView.h>
 #import <GoogleMobileAds/GADVideoController.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+
+@class DFPBannerView;
 
 /// The delegate of a GADAdLoader object must conform to this protocol to receive DFPBannerViews.
 @protocol DFPBannerAdLoaderDelegate <GADAdLoaderDelegate>
@@ -65,10 +65,6 @@
 /// Indicates that the publisher will record impressions manually when the ad becomes visible to the
 /// user.
 @property(nonatomic) BOOL enableManualImpressions;
-
-/// Optional delegate object for custom rendered ads.
-@property(nonatomic, weak, nullable) IBOutlet id<DFPCustomRenderedBannerViewDelegate>
-    customRenderedBannerViewDelegate;
 
 /// Video controller for controlling video rendered by this ad view.
 @property(nonatomic, readonly, nonnull) GADVideoController *videoController;

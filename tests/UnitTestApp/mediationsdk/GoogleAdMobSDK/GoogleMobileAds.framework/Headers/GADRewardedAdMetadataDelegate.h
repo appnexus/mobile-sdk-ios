@@ -6,9 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import <GoogleMobileAds/GADAdMetadataKeys.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <GoogleMobileAds/GADAdMetadata.h>
 
 @class GADRewardedAd;
 

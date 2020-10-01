@@ -22,8 +22,10 @@ typedef struct GAD_BOXABLE GADAdSize GADAdSize;
 ///
 /// @see typedef GADAdSize
 struct GAD_BOXABLE GADAdSize {
-  CGSize size;       ///< The ad size. Don't modify this value directly.
-  NSUInteger flags;  ///< Reserved.
+  /// The ad size. Don't modify this value directly.
+  CGSize size;
+  /// Reserved.
+  NSUInteger flags;
 };
 
 #pragma mark Standard Sizes
@@ -82,6 +84,7 @@ GAD_EXTERN GADAdSize GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(CGFloat w
 /// Returns a GADAdSize with the given width and a Google-optimized height. This is a convenience
 /// function to return GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth or
 /// GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth based on the current interface orientation.
+/// This function must be called on the main queue.
 GAD_EXTERN GADAdSize GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(CGFloat width);
 
 #pragma mark Custom Sizes

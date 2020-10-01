@@ -44,11 +44,6 @@ typedef NS_ENUM(NSInteger, GADGender) {
 /// extras type.
 - (void)removeAdNetworkExtrasFor:(nonnull Class<GADAdNetworkExtras>)aClass;
 
-#pragma mark Collecting SDK Information
-
-/// Returns the version of the SDK.
-+ (nonnull NSString *)sdkVersion;
-
 #pragma mark Publisher Provided
 
 /// Scene object. Used in multiscene apps to request ads of the appropriate size.
@@ -56,9 +51,9 @@ typedef NS_ENUM(NSInteger, GADGender) {
 
 #pragma mark User Information
 
-/// The user's current location may be used to deliver more relevant ads. However do not use Core
-/// Location just for advertising, make sure it is used for more beneficial reasons as well. It is
-/// both a good idea and part of Apple's guidelines.
+/// The user's current location. Location data is not used to target Google ads; however, it may be
+/// used by 3rd party ad networks. Do not use Core Location just for advertising. Your app should
+/// have a valid use case for it as well.
 - (void)setLocationWithLatitude:(CGFloat)latitude
                       longitude:(CGFloat)longitude
                        accuracy:(CGFloat)accuracyInMeters;
@@ -93,6 +88,10 @@ typedef NS_ENUM(NSInteger, GADGender) {
 
 /// Deprecated property. The user's birthday.
 @property(nonatomic, copy, nullable) NSDate *birthday GAD_DEPRECATED_ATTRIBUTE;
+
+/// Returns the version of the SDK.
++ (nonnull NSString *)
+    sdkVersion GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMobileAds.sharedInstance.sdkVersion");
 
 /// Provide the user's birthday to increase ad relevancy.
 - (void)setBirthdayWithMonth:(NSInteger)month

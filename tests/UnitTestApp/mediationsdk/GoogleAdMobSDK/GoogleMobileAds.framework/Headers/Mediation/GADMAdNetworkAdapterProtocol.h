@@ -5,15 +5,13 @@
 //  Copyright 2011 Google. All rights reserved.
 //
 
-#import <GoogleMobileAds/GoogleMobileAds.h>
-
-#import "GADMAdNetworkConnectorProtocol.h"
-#import "GADMEnums.h"
+#import <GoogleMobileAds/GADAdLoader.h>
+#import <GoogleMobileAds/GADAdSize.h>
+#import <GoogleMobileAds/Mediation/GADMAdNetworkConnectorProtocol.h>
+#import <UIKit/UIKit.h>
 
 /// Subclasses should prefix their name with "GADMAdapter" example: GADMAdapterGoogleAdMobAds
 #define kGADMAdapterClassNamePrefix @"GADMAdapter"
-
-@protocol GADMAdNetworkConnector;
 
 /// Ad network adapter protocol.
 @protocol GADMAdNetworkAdapter <NSObject>

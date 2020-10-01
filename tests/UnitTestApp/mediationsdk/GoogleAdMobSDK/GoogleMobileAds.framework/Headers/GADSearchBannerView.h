@@ -7,7 +7,6 @@
 
 #import <GoogleMobileAds/GADAdSizeDelegate.h>
 #import <GoogleMobileAds/GADBannerView.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// A view that displays search ads.
 /// To show search ads:

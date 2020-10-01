@@ -1,5 +1,11 @@
-#import <Foundation/Foundation.h>
+//
+//  GADDelayedAdRenderingOptions.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2018 Google LLC. All rights reserved.
+//
 
+#import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADAdLoader.h>
 
 /// Delegate for delayed rendering of Google banner ads.

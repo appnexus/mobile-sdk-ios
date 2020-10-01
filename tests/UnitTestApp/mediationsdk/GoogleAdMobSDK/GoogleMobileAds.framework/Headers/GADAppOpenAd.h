@@ -2,10 +2,11 @@
 //  GADAppOpenAd.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2019 Google LLC. All rights reserved.
+//  Copyright 2020 Google LLC. All rights reserved.
 //
 
 #import <GoogleMobileAds/GADAdValue.h>
+#import <GoogleMobileAds/GADFullScreenContentDelegate.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADResponseInfo.h>
 #import <UIKit/UIKit.h>
@@ -14,14 +15,14 @@
 
 @class GADAppOpenAd;
 
-/// The handler block to execute when the ad load operation completes. If the load failed, the
+/// The handler block to execute when the ad load operation completes. On failure, the
 /// appOpenAd is nil and the |error| is non-nil. On success, the appOpenAd is non-nil and the
 /// |error| is nil.
 typedef void (^GADAppOpenAdLoadCompletionHandler)(GADAppOpenAd *_Nullable appOpenAd,
                                                   NSError *_Nullable error);
 
-/// Ad shown at app open time.
-@interface GADAppOpenAd : NSObject
+/// An app open ad. Used to monetize app load screens.
+@interface GADAppOpenAd : NSObject <GADFullScreenPresentingAd>
 
 /// Loads an app open ad.
 ///
@@ -34,27 +35,25 @@ typedef void (^GADAppOpenAdLoadCompletionHandler)(GADAppOpenAd *_Nullable appOpe
              orientation:(UIInterfaceOrientation)orientation
        completionHandler:(nonnull GADAppOpenAdLoadCompletionHandler)completionHandler;
 
+/// Optional delegate object that receives notifications about presentation and dismissal of full
+/// screen content from this ad. Full screen content covers your application's content. The delegate
+/// may want to pause animations and time sensitive interactions. Set this delegate before
+/// presenting the ad.
+@property(nonatomic, weak, nullable) id<GADFullScreenContentDelegate> fullScreenContentDelegate;
+
 /// Information about the ad response that returned the ad.
 @property(nonatomic, readonly, nonnull) GADResponseInfo *responseInfo;
 
-/// Called when the ad is estimated to have earned money. Available for whitelisted accounts only.
+/// Called when the ad is estimated to have earned money. Available for allowlisted accounts only.
 @property(nonatomic, nullable, copy) GADPaidEventHandler paidEventHandler;
 
-@end
+/// Returns whether the app open ad can be presented from the provided root view controller. Sets
+/// the error out parameter if the app open ad can't be presented. Must be called on the main
+/// thread.
+- (BOOL)canPresentFromRootViewController:(nonnull UIViewController *)rootViewController
+                                   error:(NSError *_Nullable __autoreleasing *_Nullable)error;
 
-#pragma mark - App Open Ad View
-
-/// The handler block to execute when the ad is about to be closed.
-typedef void (^GADAppOpenAdCloseHandler)(void);
-
-/// Displays app open ads.
-@interface GADAppOpenAdView : UIView
-
-/// The ad displayed in the ad view.
-@property(nonatomic, nullable) GADAppOpenAd *appOpenAd;
-
-/// The handler to execute when the ad is about to be closed. The ad is closed when the user clicks
-/// the ad's close button or when the ad has been shown for a few seconds.
-@property(nonatomic, nullable) GADAppOpenAdCloseHandler adCloseHandler;
+/// Presents the app open ad with the provided view controller. Must be called on the main thread.
+- (void)presentFromRootViewController:(nonnull UIViewController *)rootViewController;
 
 @end

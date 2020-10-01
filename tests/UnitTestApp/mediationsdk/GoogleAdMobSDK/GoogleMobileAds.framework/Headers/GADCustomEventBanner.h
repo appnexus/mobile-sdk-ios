@@ -8,7 +8,6 @@
 #import <GoogleMobileAds/GADAdSize.h>
 #import <GoogleMobileAds/GADCustomEventBannerDelegate.h>
 #import <GoogleMobileAds/GADCustomEventRequest.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
 
 /// The banner custom event protocol. Your banner custom event handler must implement this protocol.
@@ -19,6 +18,9 @@
 /// In your class, define the -delegate and -setDelegate: methods or use "@synthesize delegate". The
 /// Google Mobile Ads SDK sets this property on instances of your class.
 @property(nonatomic, weak, nullable) id<GADCustomEventBannerDelegate> delegate;
+
+/// Returns an initialized custom event banner.
+- (nonnull instancetype)init;
 
 /// Called by mediation when your custom event is scheduled to be executed. Report execution results
 /// to the delegate.

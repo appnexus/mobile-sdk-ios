@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// An object implementing this protocol contains information set by the publisher on the client
 /// device for a particular ad network.

@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADAdNetworkExtras.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Ad network extras sent to Google networks.
 @interface GADExtras : NSObject <GADAdNetworkExtras>

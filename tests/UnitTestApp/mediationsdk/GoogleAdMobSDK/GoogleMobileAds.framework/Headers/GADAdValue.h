@@ -1,3 +1,10 @@
+//
+//  GADAdValue.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2019 Google LLC. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, GADAdValuePrecision) {

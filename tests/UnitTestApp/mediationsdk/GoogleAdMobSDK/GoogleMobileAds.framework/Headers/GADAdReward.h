@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Reward information for GADRewardBasedVideoAd ads.
 @interface GADAdReward : NSObject

@@ -5,7 +5,7 @@
 //  Copyright 2019 Google. All rights reserved.
 //
 
-#import <GoogleMobileAds/GoogleMobileAds.h>
+#import <GoogleMobileAds/GADAdSize.h>
 
 /// Returns the closest valid ad size from possibleAdSizes as compared to |original|. The selected
 /// size must be smaller than or equal in size to the original. The selected size must also be
