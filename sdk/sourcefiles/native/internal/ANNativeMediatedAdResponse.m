@@ -147,4 +147,8 @@
     [self fireImpTrackers];
 }
 
+- (void)registerAdWillExpire{
+    [self registerAdAboutToExpire];
+}
+
 @end

@@ -28,6 +28,7 @@
 #import "ANNativeAdResponse.h"
 
 #import "ANNativeAdRequest+ANTest.h"
+#import "ANNativeAdResponse+ANTest.h"
 
 
 
@@ -44,6 +45,8 @@
 @property (nonatomic, readwrite, strong)  XCTestExpectation  *delegateCallbackExpectation;
 
 @property (nonatomic, readwrite, assign)  BOOL  successfulAdCall;
+@property (nonatomic, readwrite, strong) XCTestExpectation *nativeAdWillExpireExpectation;
+@property (nonatomic, readwrite, strong) XCTestExpectation *nativeAdDidExpireExpectation;
 
 @end
 
@@ -71,7 +74,7 @@
     self.successfulAdCall = NO;
     self.adResponseInfo = nil;
     self.adRequestError = nil;
-
+    self.nativeAdWillExpireExpectation = nil;
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
@@ -537,6 +540,61 @@
 
 }
 
+- (void)testNativeAdWillExpireWithSettingAboutToExpireTimeIntervalGreaterThanUpperValue{
+     [self stubRequestWithResponse:@"appnexus_standard_response"];
+
+       self.adRequest= [[ANNativeAdRequest alloc] init];
+       [self.adRequest setPlacementId:@"1"];
+       self.adRequest.delegate = self;
+       [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval = 22000;
+
+       [self.adRequest loadAd];
+       self.nativeAdWillExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+       [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                    handler:nil];
+    
+       XCTAssertEqual([ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval, 22000);
+       XCTAssertEqual(self.adResponseInfo.aboutToExpireInterval, 60);
+}
+
+
+- (void)testNativeAdWillExpireWithoutSettingAboutToExpireTimeInterval {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval = 0;
+
+    self.adRequest= [[ANNativeAdRequest alloc] init];
+    [self.adRequest setPlacementId:@"1"];
+    self.adRequest.delegate = self;
+    [self.adRequest loadAd];
+    self.nativeAdWillExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+ 
+    XCTAssertEqual([ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval, 60);
+    XCTAssertEqual(self.adResponseInfo.aboutToExpireInterval, 60);
+
+}
+
+- (void)testNativeAdWillExpire {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+
+    self.adRequest= [[ANNativeAdRequest alloc] init];
+    [self.adRequest setPlacementId:@"1"];
+    self.adRequest.delegate = self;
+    [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval = 30;
+    [self.adRequest loadAd];
+    self.nativeAdWillExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    
+    self.nativeAdDidExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+     [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+                                  handler:nil];
+    
+    XCTAssertEqual([ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval, self.adResponseInfo.aboutToExpireInterval);
+    
+}
+
 
 #pragma mark - Helper methods.
 
@@ -568,15 +626,13 @@
     }
 }
 
-
-
-
 #pragma mark - ANNativeAdRequestDelegate
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
 TESTTRACE();
 
+    response.delegate = self;
     if ([request getIncrementCountEnabledOrIfSet:NO thenValue:NO])
     {
         // Expecting increment value of two (in ANNativeAdRequest(ANTest), plus once more incremented here.
@@ -598,6 +654,15 @@ TESTTRACE();
         [self.delegateCallbackExpectation fulfill];
 }
 
+- (void)adDidExpire:(nonnull id)response {
+    NSLog(@"adDidExpire");
+    [self.nativeAdDidExpireExpectation fulfill];
+}
+
+- (void)adWillExpire:(nonnull id)response {
+    NSLog(@"adWillExpire");
+    [self.nativeAdWillExpireExpectation fulfill];
+}
 
 
 

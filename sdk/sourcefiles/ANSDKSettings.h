@@ -73,4 +73,11 @@ Get AppNexus SDK Version
 
 - (void) optionalSDKInitialization;
 
+
+/**
+   An AppNexus nativeAdAboutToExpireInterval. A nativeAdAboutToExpireInterval is a numeric value that is used to notify before ad is about to expire. Default value of aboutToExpireTimeInterval is 60(second).
+ * nativeAdAboutToExpireInterval accept value in second.
+ */
+@property (nonatomic, readwrite, assign) NSInteger nativeAdAboutToExpireInterval;
+
 @end

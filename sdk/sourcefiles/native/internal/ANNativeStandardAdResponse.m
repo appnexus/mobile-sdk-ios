@@ -268,6 +268,9 @@
 - (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller {
     [self willLeaveApplication];
 }
+- (void)registerAdWillExpire{
+    [self registerAdAboutToExpire];
+}
 
 @end
 

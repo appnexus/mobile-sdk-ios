@@ -20,9 +20,13 @@
 #import "ANAdProtocol.h"
 #import "ANOMIDImplementation.h"
 #import "ANVerificationScriptResource.h"
+#import "ANSDKSettings.h"
 
-NSString * const  kANNativeElementObject                                   = @"ELEMENT";
+NSString * const  kANNativeElementObject                               = @"ELEMENT";
 NSString * const  kANNativeCSRObject                                   = @"CSRAdObject";
+NSInteger  const  kANNativeFacebookAdAboutToExpire                    = 3600;
+NSInteger  const  kANNativeRTBAdAboutToExpire                         = 21600;
+NSInteger  const  kANNativeRTBAdAboutToExpireForMember_11217          = 300;
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
@@ -55,6 +59,9 @@ NSString * const  kANNativeCSRObject                                   = @"CSRAd
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 @property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
 @property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
+@property (nonatomic, readwrite, strong) NSTimer *adWillExpireTimer;
+@property (nonatomic, readwrite, strong) NSTimer *adDidExpireTimer;
+@property (nonatomic, readwrite, assign) NSInteger aboutToExpireInterval;
 
 @end
 
@@ -65,7 +72,7 @@ NSString * const  kANNativeCSRObject                                   = @"CSRAd
 
 @synthesize  clickThroughAction             = _clickThroughAction;
 @synthesize  landingPageLoadsInBackground   = _landingPageLoadsInBackground;
-
+@synthesize aboutToExpireInterval               = _aboutToExpireInterval;
 
 #pragma mark - Lifecycle.
 
@@ -73,10 +80,10 @@ NSString * const  kANNativeCSRObject                                   = @"CSRAd
 {
     self = [super init];
     if (!self)  { return nil; }
-
+    
     //
     self.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
-
+    _aboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
     return  self;
 }
 
@@ -107,7 +114,7 @@ NSString * const  kANNativeCSRObject                                   = @"CSRAd
         }
         return NO;
     }
-    if (self.hasExpired) {
+    if (self.expired) {
         ANLogError(@"native_expired_response");
         if (error) {
             *error = ANError(@"native_expired_response", ANNativeAdRegisterErrorCodeExpiredResponse);
@@ -130,7 +137,6 @@ NSString * const  kANNativeCSRObject                                   = @"CSRAd
         self.viewForTracking = view;
         [view setAnNativeAdResponse:self];
         self.rootViewController = controller;
-        self.expired = YES;
         [self registerOMID];
         return YES;
     }
@@ -314,7 +320,86 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
 - (void)adDidLogImpression {
     if ([self.delegate respondsToSelector:@selector(adDidLogImpression:)]) {
         [self.delegate adDidLogImpression:self];
+        [self invalidateAdExpireTimer:self.adWillExpireTimer];
+        [self invalidateAdExpireTimer:self.adDidExpireTimer];
     }
+}
+
+-(void)registerAdAboutToExpire{
+    [self setAboutToExpireTimeInterval];
+    [self invalidateAdExpireTimer:self.adWillExpireTimer];
+    NSTimeInterval timeInterval;
+    if(self.networkCode == ANNativeAdNetworkCodeFacebook){
+        timeInterval =  kANNativeFacebookAdAboutToExpire - self.aboutToExpireInterval;
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 ){
+        timeInterval = kANNativeRTBAdAboutToExpireForMember_11217 - self.aboutToExpireInterval;
+    }else{
+        timeInterval =  kANNativeRTBAdAboutToExpire - self.aboutToExpireInterval;
+    }
+    
+    self.adWillExpireTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                                              target:self
+                                                            selector:@selector(onAdAboutToExpire)
+                                                            userInfo:nil
+                                                             repeats:NO];
+}
+
+- (void)onAdAboutToExpire {
+    if ([self.delegate respondsToSelector:@selector(adWillExpire:)] && self.adWillExpireTimer.valid) {
+        [self.delegate adWillExpire:self];
+        [self setAdDidExpire];
+    }
+    [self invalidateAdExpireTimer:self.adWillExpireTimer];
+}
+
+
+-(void)setAdDidExpire{
+    [self invalidateAdExpireTimer:self.adDidExpireTimer];
+    self.adDidExpireTimer = [NSTimer scheduledTimerWithTimeInterval:self.aboutToExpireInterval
+                                                             target:self
+                                                           selector:@selector(onAdExpired)
+                                                           userInfo:nil
+                                                            repeats:NO];
+}
+
+
+- (void)onAdExpired {
+    self.expired = YES;
+    if ([self.delegate respondsToSelector:@selector(adDidExpire:)] && self.adDidExpireTimer.valid) {
+        [self.delegate adDidExpire:self];
+    }
+    [self invalidateAdExpireTimer:self.adDidExpireTimer];
+}
+
+
+-(void)invalidateAdExpireTimer:(NSTimer *)timer{
+    if(timer.valid){
+        [timer invalidate];
+    }
+}
+
+
+- (void)setAboutToExpireTimeInterval
+{
+    NSInteger aboutToExpireTimeInterval = [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval;
+    
+    if (aboutToExpireTimeInterval <= 0)
+    {
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set less than or equal to zero");
+        return;
+    }else if(self.networkCode == ANNativeAdNetworkCodeFacebook && aboutToExpireTimeInterval >= kANNativeFacebookAdAboutToExpire){
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 60 minutes for FacebookAds");
+        return;
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_11217 ){
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 11217");
+        return;
+    }else if(aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpire){
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 6 hours");
+        return;
+    }
+    
+    ANLogDebug(@"Setting nativeAdAboutToExpireInterval to %ld", (long)aboutToExpireTimeInterval);
+    _aboutToExpireInterval = aboutToExpireTimeInterval;
 }
 
 @end

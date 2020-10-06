@@ -37,7 +37,7 @@
 #define APPNEXUS_SIZE_UNDEFINED         CGSizeMake(-1, -1)
 
 
-
+#define kAppNexusNativeAdAboutToExpireInterval 60
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
 #define kAppNexusMediationNetworkTimeoutInterval 15.0

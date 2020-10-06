@@ -27,4 +27,6 @@
 
 + (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled;
 
+@property (nonatomic, readwrite, assign) NSInteger aboutToExpireTimeInterval;
+
 @end
