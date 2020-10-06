@@ -106,6 +106,22 @@ static NSString *const kANativeRenderingValidURL = @"validRenderingURL";
     // This is required to avoid the crash :- "Attempt to add script message handler with name '' when one already exists."
     [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"rendererOp"];
     [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"rendererOp"];
+    
+    self.webView.scrollView.scrollEnabled = NO;
+    self.webView.scrollView.bounces = NO;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self.webView
+                                                    name:UIKeyboardWillChangeFrameNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.webView
+                                                    name:UIKeyboardDidChangeFrameNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.webView
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.webView
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 
     [self.webView setNavigationDelegate:self];
     [self.webView setUIDelegate:self];
