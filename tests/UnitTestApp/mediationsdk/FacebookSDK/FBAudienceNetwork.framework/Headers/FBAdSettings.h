@@ -120,6 +120,17 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED @interface FBAdSettings : NSObject
 @property (class, nonatomic, copy, readonly) NSString *routingToken;
 
 /**
+ User's consent for advertiser tracking.
+
+ @param advertiserTrackingEnabled User's consent state.
+
+ The setter API only works in iOS14 or above and won't take effect in iOS13 or below.
+
+ More information: https://developers.facebook.com/docs/audience-network/support/faq/advertising-tracking-enabled
+ */
++ (void)setAdvertiserTrackingEnabled:(BOOL)advertiserTrackingEnabled;
+
+/**
  Returns test mode on/off.
  */
 + (BOOL)isTestMode;
