@@ -1,3 +1,18 @@
+## 7.7
+### New Feature
++ MS-4412 Added support for listening to Ad Expiry events for Native Ads [https://wiki.xandr.com/x/ugPyBg]
++ MS-4449 Added support for setting test flags to bypass request filtering (for testing purposes only)[https://wiki.xandr.com/x/MAPyBg]
++ MS-4459 AuctionId information is now available through AdResponseInfo class
+### Mediation partner updates
++ MS-4426 Upgraded Facebook SDK to v6.0.0
++ MS-4499 Upgraded SmartAd Server SDK to v7.6.2
++ MS-4498 Upgraded Google AdMob SDK to v7.66.0
++ MS-4418 Discontinued support for Amazon, inMobi, Millennial Media and Mopub adapters.(Github Intent to Implement #53)
+### Improvements/Bug Fixes
++ MS-4550 Updated GDPR logic. Now priority will be given to IAB TCF2.0 strings
++ MS-4543 Fixed scrolling for Native Assembly WebView
++ MS-4522 Fixed caching issues with ANAdvertisingIdentifier. Now it will be fetched for every single request.
+
 ## 7.6.2
 ### New Feature
 + MS-4433: Support for determining app-tracking permission status based on trackingAuthorizationStatus enum values (authorized, denied) [https://wiki.xandr.com/x/3Ie1Bg]
