@@ -101,6 +101,9 @@
     
     self.firstLoadAdResponseReceivedExpectation = nil;
      self.secondLoadAdResponseReceivedExpectation = nil;
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {

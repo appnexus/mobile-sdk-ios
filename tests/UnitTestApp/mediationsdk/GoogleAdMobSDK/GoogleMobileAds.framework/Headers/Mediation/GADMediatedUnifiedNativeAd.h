@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADNativeAdImage.h>
 #import <GoogleMobileAds/GADUnifiedNativeAdAssetIdentifiers.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Provides methods used for constructing native ads. The adapter must return an object conforming
 /// to this protocol for native ad requests.

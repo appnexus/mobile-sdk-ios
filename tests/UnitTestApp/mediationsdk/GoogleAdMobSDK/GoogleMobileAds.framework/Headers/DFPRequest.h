@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADRequest.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Add this constant to the testDevices property's array to receive test ads on the simulator.
 GAD_EXTERN const id _Nonnull kDFPSimulatorID;

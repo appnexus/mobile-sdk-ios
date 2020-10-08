@@ -7,7 +7,6 @@
 
 #import <GoogleMobileAds/GADCustomEventInterstitialDelegate.h>
 #import <GoogleMobileAds/GADCustomEventRequest.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
 
 /// The interstitial custom event protocol. Your interstitial custom event handler must implement
@@ -19,6 +18,9 @@
 /// In your class, define the -delegate and -setDelegate: methods or use "@synthesize delegate". The
 /// Google Mobile Ads SDK sets this property on instances of your class.
 @property(nonatomic, weak, nullable) id<GADCustomEventInterstitialDelegate> delegate;
+
+/// Returns an initialized custom event interstitial.
+- (nonnull instancetype)init;
 
 /// Called by mediation when your custom event is scheduled to be executed. Your implementation
 /// should start retrieving the interstitial ad. Report execution results to the delegate. You must

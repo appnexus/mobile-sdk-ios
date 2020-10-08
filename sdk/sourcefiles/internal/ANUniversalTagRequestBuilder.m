@@ -774,8 +774,8 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (gdprRequired != nil)
     {
         return  @{
-                     @"consent_required"  : gdprRequired,
-                     @"consent_string"    : gdprConsent
+                    @"consent_required"  : [NSNumber numberWithBool:gdprRequired.boolValue],
+                    @"consent_string"    : gdprConsent
                  };
 
     } else {

@@ -28,6 +28,7 @@ extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyAdsTagId;
 extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyNoBid;
 extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyTagNoAdUrl;
 extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyTagUUID;
+extern NSString * _Nonnull const  kANUniversalTagAdServerResponseKeyAdsAuctionId;
 
 
 

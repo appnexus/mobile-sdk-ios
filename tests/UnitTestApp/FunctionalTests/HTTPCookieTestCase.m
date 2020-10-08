@@ -26,6 +26,7 @@
 #import "ANInstreamVideoAd.h"
 #import "ANTimeTracker.h"
 
+
 @interface HTTPCookieTestCase : XCTestCase <ANBannerAdViewDelegate , ANInstreamVideoAdLoadDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, strong) XCTestExpectation *loadAdResponseReceivedExpectation;
@@ -52,10 +53,13 @@
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
     self.loadAdResponseReceivedExpectation = nil;
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
@@ -73,6 +77,7 @@
     self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(50 , 50 , 300,250)
                                             placementId:BANNER_PLACEMENT
                                                  adSize:CGSizeMake(300 , 250)];
+    self.banner.forceCreativeId = 223272198;
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
@@ -83,16 +88,16 @@
     }];
     NSDictionary *lastResponseCookie = [ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie;
     XCTAssertNotEqual([ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie , lastResponseCookie);
-    XCTAssertEqualObjects([ANHTTPCookieStorage sharedInstance].bannerWebViewCookie , lastResponseCookie);
-    XCTAssertEqualObjects([[ANHTTPCookieStorage sharedInstance] getCurrentCookie],lastResponseCookie);
+    XCTAssertTrue([[[ANHTTPCookieStorage sharedInstance].bannerWebViewCookie objectForKey:@"Cookie"] containsString:[lastResponseCookie objectForKey:@"Cookie"]]);
+    XCTAssertTrue([[[ANHTTPCookieStorage sharedInstance].getCurrentCookie objectForKey:@"Cookie"] containsString:[lastResponseCookie objectForKey:@"Cookie"]]);
     self.requestOrder = 2;
     [self.banner loadAd];
     self.loadAdSecondResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
-    XCTAssertEqualObjects([ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie , lastResponseCookie);
-    XCTAssertNotEqual([ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie , lastResponseCookie);
+    XCTAssertNotEqual([ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie , lastResponseCookie);
+    XCTAssertEqualObjects([ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie , lastResponseCookie);
 }
 
 - (void)testVideoAdCookieSet {
@@ -102,6 +107,7 @@
     XCTAssertNotNil([[ANHTTPCookieStorage sharedInstance] getCurrentCookie]);
     self.requestOrder = 1;
     self.instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:VIDEO_PLACEMENT];
+    self.instreamVideoAd.forceCreativeId = 182434863;
     [self.instreamVideoAd loadAdWithDelegate:self];
     
     self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
@@ -110,7 +116,7 @@
     }];
     NSDictionary *lastResponseCookie = [ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie;
     XCTAssertNotEqual([ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie , lastResponseCookie);
-    XCTAssertEqualObjects([ANHTTPCookieStorage sharedInstance].videoAdPlayerCookie , lastResponseCookie);
+    XCTAssertTrue([[[ANHTTPCookieStorage sharedInstance].videoAdPlayerCookie objectForKey:@"Cookie"] containsString:[lastResponseCookie objectForKey:@"Cookie"]]);
     self.requestOrder = 2;
     [self.instreamVideoAd loadAdWithDelegate:self];
     self.loadAdSecondResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
@@ -119,10 +125,8 @@
     }];
     
     
-    NSDictionary *currentRequestCookie = [ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie;
-
-//    XCTAssertEqualObjects(currentRequestCookie , lastResponseCookie);
-    XCTAssertNotEqual([ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie , lastResponseCookie);
+    XCTAssertNotEqual([ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie , lastResponseCookie);
+    XCTAssertEqualObjects([ANHTTPCookieStorage sharedInstance].adFetcherResponseCookie , lastResponseCookie);
 }
 
 #pragma mark - Stubbing

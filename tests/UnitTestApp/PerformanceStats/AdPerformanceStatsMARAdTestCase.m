@@ -33,7 +33,6 @@
 #import "ANTimeTracker.h"
 
 
-#define kAppNexusRequestTimeoutInterval 15.0
 
 
 
@@ -77,7 +76,9 @@
     self.videoAd = nil;
     self.nativeAdRequest = nil;
     self.mar = nil;
-    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 
@@ -87,9 +88,13 @@
 
 -(void)createAllMARCombination {
     self.bannerAd = [self setBannerAdUnit:CGRectMake(0, 50, 320, 50) size:CGSizeMake(320, 50)placement:MAR_PLACEMENT];
+    self.bannerAd.forceCreativeId = 223272198;
     self.interstitialAd = [self setInterstitialAdUnit:MAR_PLACEMENT];
+    self.interstitialAd.forceCreativeId = 223272198;
     self.nativeAdRequest = [self setNativeAdUnit:NATIVE_PLACEMENT];
+    self.nativeAdRequest.forceCreativeId = 135482485;
     self.videoAd = [self setInstreamVideoAdUnit:VIDEO_PLACEMENT];
+    self.videoAd.forceCreativeId = 182434863;
     
     self.mar = [[ANMultiAdRequest alloc] initWithMemberId:10094 andDelegate:self];
     
@@ -199,8 +204,8 @@
     ANBannerAdView* bannerAdView = [[ANBannerAdView alloc] initWithFrame:rect
                                                              placementId:placement
                                                                   adSize:size];
-    bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:bannerAdView];
+    bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:bannerAdView];
     return bannerAdView;
 }
 

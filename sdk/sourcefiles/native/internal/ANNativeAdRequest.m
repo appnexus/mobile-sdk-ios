@@ -22,6 +22,7 @@
 #import "ANOMIDImplementation.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
+#import "ANNativeAdResponse+PrivateMethods.h"
 
 
 
@@ -79,7 +80,6 @@
     [self setupSizeParametersAs1x1];
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
     self.utRequestUUIDString = ANUUID();
-
     return self;
 }
 
@@ -156,6 +156,10 @@
     //
     __weak ANNativeAdRequest  *weakSelf        = self;
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
+    
+    // register AdWillExpire
+    [nativeResponse registerAdWillExpire];
+    
     
     // In case of Mediation
     if (nativeResponse.adResponseInfo == nil) {
@@ -426,7 +430,6 @@
 {
     [self.customKeywords removeAllObjects];
 }
-
 
 @end
 

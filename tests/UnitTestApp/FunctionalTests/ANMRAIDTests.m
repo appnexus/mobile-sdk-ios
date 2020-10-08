@@ -66,9 +66,9 @@
 
 
 
-#pragma mark - MRAIDTests
+#pragma mark - ANMRAIDTests
 
-@interface MRAIDTests : ANBaseTestCase
+@interface ANMRAIDTests : ANBaseTestCase
 
 @property (strong, nonatomic) id webView; // Could be WKWebView or UIWebView
 
@@ -77,7 +77,7 @@
 
 
 
-@implementation MRAIDTests
+@implementation ANMRAIDTests
 
 - (void)setUp {
     [super setUp];
@@ -86,16 +86,19 @@
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-    
-    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
-    [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    self.banner.delegate = nil;
-    self.banner.appEventDelegate = nil;
-    [self.banner removeFromSuperview];
-    self.banner = nil;
+   // Put teardown code here. This method is called after the invocation of each test method in the class.
+   [super tearDown];
+   
+   [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
+   [[ANHTTPStubbingManager sharedStubbingManager] disable];
+   [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+   self.banner.delegate = nil;
+   self.banner.appEventDelegate = nil;
+   [self.banner removeFromSuperview];
+   self.banner = nil;
+   for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+      [additionalView removeFromSuperview];
+   }
 }
 
 #pragma mark - Basic MRAID Banner Test
@@ -1560,6 +1563,9 @@
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     }
 
+   for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+         [additionalView removeFromSuperview];
+     }
     [super clearTest];
 }
 
@@ -1665,8 +1671,8 @@
     [self.interstitial setBackgroundColor:[UIColor redColor]];
     [self.interstitial setCloseDelay:0.1];
     [self delay:0.5];
-    [self.interstitial displayAdFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-    UIViewController *pvc = [UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
+    [self.interstitial displayAdFromViewController:[ANGlobal getKeyWindow].rootViewController];
+    UIViewController *pvc = [ANGlobal getKeyWindow].rootViewController.presentedViewController;
     // webview is contained in a container view
     id wv = [[[[pvc.view subviews] firstObject] subviews] firstObject];
     STAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of InterstitialAdView");

@@ -44,7 +44,9 @@
     self.banner = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 -(void) setupBannerVideoAdWithPlacementID:(NSString *)placementID
@@ -59,8 +61,8 @@
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 16;
     self.banner.delegate = self;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 #pragma mark - Test methods.

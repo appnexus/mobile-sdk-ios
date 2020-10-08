@@ -58,8 +58,26 @@ Get AppNexus SDK Version
 @property (nonatomic, readwrite, assign) NSUInteger auctionTimeout;
 
 
+/**
+ * Sets whether or not AdRequests should be executed in Test Mode.
+ * Setting this to YES will execute AdRequests in Test Mode.
+ * This should be set to YES only during development/testing.
+ * Enabling Test Mode in production will result in unintended consequences and will impact Monetization of your app. Use with caution.
+ *
+ * default is NO.
+ */
+@property (nonatomic) BOOL enableTestMode;
+
+
 + (nonnull instancetype)sharedInstance;
 
 - (void) optionalSDKInitialization;
+
+
+/**
+   An AppNexus nativeAdAboutToExpireInterval. A nativeAdAboutToExpireInterval is a numeric value that is used to notify before ad is about to expire. Default value of aboutToExpireTimeInterval is 60(second).
+ * nativeAdAboutToExpireInterval accept value in second.
+ */
+@property (nonatomic, readwrite, assign) NSInteger nativeAdAboutToExpireInterval;
 
 @end

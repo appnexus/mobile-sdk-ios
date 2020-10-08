@@ -19,7 +19,6 @@
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANNativeAdRequest+ANTest.h"
 
-#define kAppNexusRequestTimeoutInterval 30.0
 
 
 
@@ -98,6 +97,10 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 #pragma mark - Test methods.

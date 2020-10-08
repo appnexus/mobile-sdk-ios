@@ -23,6 +23,7 @@
 #import "UIView+ANCategory.h"
 #import "ANMediationContainerView.h"
 #import "ANHTTPStubbingManager.h"
+
 @interface BannerMediationAdaptersResizeTestCase : XCTestCase <ANBannerAdViewDelegate>
 
 @property (nonatomic) XCTestExpectation *adResponseExpectation;
@@ -39,7 +40,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
-    self.rootViewController = (ViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    self.rootViewController = (ViewController *)[ANGlobal getKeyWindow].rootViewController;
 }
 
 - (void)tearDown {
@@ -58,6 +59,10 @@
     self.shouldResizeAdToFitContainer = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
     
 }
 

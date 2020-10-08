@@ -135,6 +135,10 @@
         [request setAllHTTPHeaderFields:cookieHeaders];
     }
     
+    if(ANSDKSettings.sharedInstance.enableTestMode){
+        [request setValue:@"1" forHTTPHeaderField:@"X-Is-Test"];
+    }
+    
     NSString  *requestContent  = [NSString stringWithFormat:@"%@ /n %@", [request URL],[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
     
     ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
@@ -277,13 +281,20 @@
             ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
             
             NSString *placementId  = @"";
+            NSString *auctionId  = @"";
             if(tag[kANUniversalTagAdServerResponseKeyAdsTagId] != nil)
             {
                 placementId = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsTagId]];
             }
             
+            if(tag[kANUniversalTagAdServerResponseKeyAdsAuctionId] != nil)
+            {
+                auctionId = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsAuctionId]];
+            }
+                      
             adResponseInfo.placementId = placementId;
-            
+            adResponseInfo.auctionId = auctionId;
+
             [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseCode.UNABLE_TO_FILL.code) andAdResponseInfo:adResponseInfo];
             return;
         }

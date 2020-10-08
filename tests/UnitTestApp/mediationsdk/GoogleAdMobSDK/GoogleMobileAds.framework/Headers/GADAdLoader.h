@@ -10,7 +10,6 @@
 #import <GoogleMobileAds/GADAdLoaderDelegate.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADRequestError.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
 
 /// Ad loader options base class. See each ad type's header for available GADAdLoaderOptions

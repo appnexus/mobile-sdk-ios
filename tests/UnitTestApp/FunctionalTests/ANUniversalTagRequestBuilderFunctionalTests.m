@@ -50,7 +50,18 @@ static NSString  *placementID  = @"9924001";
 
 - (void)tearDown {
     [super tearDown];
+    
+    [ANGDPRSettings reset];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_TCString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
+    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 - (void)testUTRequestForSetGDPRConsentTrue
@@ -81,7 +92,7 @@ static NSString  *placementID  = @"9924001";
                        XCTAssertNotNil(gdpr_consent);
                        XCTAssertEqual(gdpr_consent.count, 2);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
-                       XCTAssertTrue([gdpr_consent[@"consent_required"] boolValue]);
+                       XCTAssertTrue(gdpr_consent[@"consent_required"]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
                        [expectation fulfill];
                    });
@@ -117,7 +128,7 @@ static NSString  *placementID  = @"9924001";
                        XCTAssertNotNil(gdpr_consent);
                        XCTAssertEqual(gdpr_consent.count, 2);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
-                       XCTAssertFalse([gdpr_consent[@"consent_required"] boolValue]);
+                       XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
                        [expectation fulfill];
                    });
@@ -190,7 +201,7 @@ static NSString  *placementID  = @"9924001";
                        XCTAssertNotNil(gdpr_consent);
                        XCTAssertEqual(gdpr_consent.count, 2);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
-                       XCTAssertTrue([gdpr_consent[@"consent_required"] boolValue]);
+                       XCTAssertTrue(gdpr_consent[@"consent_required"]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
                        [expectation fulfill];
                    });
@@ -228,7 +239,7 @@ static NSString  *placementID  = @"9924001";
                        XCTAssertNotNil(gdpr_consent);
                        XCTAssertEqual(gdpr_consent.count, 2);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
-                       XCTAssertTrue([gdpr_consent[@"consent_required"] boolValue]);
+                       XCTAssertTrue(gdpr_consent[@"consent_required"]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
                        [expectation fulfill];
                    });
@@ -278,7 +289,7 @@ static NSString  *placementID  = @"9924001";
 {
      [ANGDPRSettings  reset];
     [[NSUserDefaults standardUserDefaults] setObject:@"a390129402948384453" forKey:@"IABTCF_TCString"];
-    [[NSUserDefaults standardUserDefaults] setValue:0 forKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"IABTCF_gdprApplies"];
     
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
@@ -303,7 +314,7 @@ static NSString  *placementID  = @"9924001";
                        XCTAssertNotNil(gdpr_consent);
                        XCTAssertEqual(gdpr_consent.count, 2);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
-                       XCTAssertFalse([gdpr_consent[@"consent_required"] boolValue]);
+                       XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
                        [expectation fulfill];
                    });

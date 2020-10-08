@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADAdNetworkExtras.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Create an instance of this class to set additional parameters for each custom event object. The
 /// additional parameters for a custom event are keyed by the custom event label. These extras are

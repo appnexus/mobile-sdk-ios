@@ -6,7 +6,6 @@
 //
 
 #import <GoogleMobileAds/GADAdLoader.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Position of the AdChoices icon in the containing ad.
 typedef NS_ENUM(NSInteger, GADAdChoicesPosition) {

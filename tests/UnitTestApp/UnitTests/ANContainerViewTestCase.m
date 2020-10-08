@@ -17,6 +17,7 @@
 #import "ANMediationContainerView.h"
 #import "XCTestCase+ANCategory.h"
 #import "UIView+ANCategory.h"
+#import "ANGlobal.h"
 
 static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
 
@@ -34,13 +35,16 @@ static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 
 - (void)testANMediationDynamicWidthContainerView {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 250)];
     ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:contentView];
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = [ANGlobal getKeyWindow].rootViewController;
     [rootViewController.view addSubview:containerView];
     containerView.translatesAutoresizingMaskIntoConstraints = NO;
     [containerView an_constrainWithFrameSize];
@@ -52,7 +56,7 @@ static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
 - (void)testANMediationStaticWidthContainerView {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 250)];
     ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:contentView];
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = [ANGlobal getKeyWindow].rootViewController;
     [rootViewController.view addSubview:containerView];
     containerView.translatesAutoresizingMaskIntoConstraints = NO;
     [containerView an_constrainWithFrameSize];

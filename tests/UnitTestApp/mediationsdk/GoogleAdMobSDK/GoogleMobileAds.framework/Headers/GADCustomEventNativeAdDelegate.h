@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADCustomEventNativeAd.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <GoogleMobileAds/Mediation/GADMediatedUnifiedNativeAd.h>
 
 /// The delegate of the GADCustomEventNativeAd object must adopt the GADCustomEventNativeAdDelegate

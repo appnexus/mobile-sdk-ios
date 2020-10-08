@@ -27,6 +27,7 @@
 #import "ANGADUnifiedNativeAdView.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "UIView+ANCategory.h"
+#import "ANGlobal.h"
 @class UITestViewController;
 
 @interface ViewController ()< CLLocationManagerDelegate , ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate, ANNativeAdDelegate>
@@ -368,7 +369,7 @@
 
 - (void)registerNativeView {
     NSError *registerError;
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rvc = [ANGlobal getKeyWindow].rootViewController;
     self.nativeAdResponse.delegate = self;
     switch (self.nativeAdResponse.networkCode) {
         case ANNativeAdNetworkCodeAdMob:

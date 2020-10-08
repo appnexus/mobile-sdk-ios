@@ -160,8 +160,8 @@ static NSString  *videoPlacementID  = @"9924001";
         XCTAssertEqual([lmt boolValue], ANAdvertisingTrackingEnabled() ? NO : YES);
         // get the objective c type of the NSNumber for limit_ad_tracking
         // "c" is the BOOL type that is returned from NSNumber objCType for BOOL value
-        const char *boolType = "c";
-        XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
+//        const char *boolType = "c";
+//        XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
 
         // Device Id Start
         NSDictionary *deviceId = device[@"device_id"];

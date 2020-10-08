@@ -52,5 +52,10 @@
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *networkName;
 
+/**
+ An AppNexus auctionId.  An auction identifier is unique id generated for the current bid.
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *auctionId;
+
 @end
 

@@ -11,7 +11,6 @@
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADRequestError.h>
 #import <GoogleMobileAds/GADResponseInfo.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
 
 /// An interstitial ad. This is a full-screen advertisement shown at natural transition points in
@@ -54,11 +53,11 @@
 /// once even with different requests.
 @property(nonatomic, readonly) BOOL hasBeenUsed;
 
-/// Information about the ad response that returned the current ad. Nil while an ad request is in
-/// progress or if the latest ad request failed.
+/// Information about the ad response that returned the current ad or an error.  Nil until the first
+/// ad request succeeds or fails.
 @property(nonatomic, readonly, nullable) GADResponseInfo *responseInfo;
 
-/// Called when the ad is estimated to have earned money. Available for whitelisted accounts only.
+/// Called when the ad is estimated to have earned money. Available for allowlisted accounts only.
 @property(nonatomic, nullable, copy) GADPaidEventHandler paidEventHandler;
 
 /// Presents the interstitial ad which takes over the entire screen until the user dismisses it.

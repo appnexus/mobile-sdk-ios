@@ -6,7 +6,6 @@
 //
 
 #import <GoogleMobileAds/GADNativeAdImage.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Provides additional GADNativeAdImage initializers.
 @interface GADNativeAdImage (MediationAdditions)

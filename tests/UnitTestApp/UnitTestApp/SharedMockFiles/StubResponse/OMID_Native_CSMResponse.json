@@ -26,13 +26,13 @@
                         "handler": [
                             {
                                 "type": "android",
-                                "class": "com.appnexus.opensdk.mediatednativead.InMobiNativeAd",
+                                "class": "com.appnexus.opensdk.mediatednativead.AdMobNativeAd",
                                 "id": "1554248310953",
                                 "param": "#{PARAM}"
                             },
                             {
                                 "type": "ios",
-                                "class": "ANAdAdapterNativeInMobi",
+                                "class": "ANAdAdapterNativeAdMob",
                                 "id": "1554248310953",
                                 "param": "#{PARAM}"
                             }

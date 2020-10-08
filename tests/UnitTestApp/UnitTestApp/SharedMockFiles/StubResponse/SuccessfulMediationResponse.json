@@ -43,42 +43,6 @@
             "media_type_id": 0,
             "media_subtype_id": 0,
             "viewability": {
-                "config": "MOCK__config_2",
-            },
-            "csm": {
-                "banner": {
-                    "content": "MOCK__content_2",
-                    "width": 320,
-                    "height": 50
-                },
-                "timeout_ms": 1500,
-                "handler": [{
-                    "param": "#{PARAM}",
-                    "class": "ANAdAdapterBannerMillennialMedia",
-                    "width": "320",
-                    "height": "50",
-                    "type": "ios",
-                    "id": "148502"
-                }, {
-                    "param": "#{PARAM}",
-                    "class": "com.appnexus.opensdk.mediatedviews.MOCK__androidClass_2",
-                    "width": "320",
-                    "height": "50",
-                    "type": "android",
-                    "id": "MOCK__id_2b"
-                }],
-                "trackers": [{
-                    "impression_urls": [ "MOCK__impression_url_2" ],
-                    "video_events": {}
-                }],
-                "response_url": "MOCK__response_url_2"
-            }
-        }, {
-            "content_source": "csm",
-            "ad_type": "banner",
-            "media_type_id": 0,
-            "media_subtype_id": 0,
-            "viewability": {
                 "config": "MOCK__config_3",
             },
             "csm": {

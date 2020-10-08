@@ -26,7 +26,6 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANUniversalAdFetcher+ANTest.h"
-#define kAppNexusRequestTimeoutInterval 10.0
 
 
 
@@ -65,7 +64,9 @@
     self.mar = nil;
     
     [ANBannerAdView setDoNotResetAdUnitUUID:NO];
-    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
@@ -169,8 +170,8 @@
     ANBannerAdView* bannerAdView = [[ANBannerAdView alloc] initWithFrame:rect
                                                              placementId:placement
                                                                   adSize:size];
-    bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:bannerAdView];
+    bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:bannerAdView];
     return bannerAdView;
 }
 @end

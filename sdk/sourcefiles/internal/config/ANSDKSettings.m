@@ -19,6 +19,8 @@
 #import "ANCarrierObserver.h"
 #import "ANReachability.h"
 #import "ANBaseUrlConfig.h"
+#import "ANWebView.h"
+#import "ANLogging.h"
 
 
 @interface ANBaseUrlConfig : NSObject
@@ -88,6 +90,8 @@
 
 @implementation ANSDKSettings
 
+@synthesize nativeAdAboutToExpireInterval = __nativeAdAboutToExpireInterval;
+
 + (id)sharedInstance {
     static dispatch_once_t sdkSettingsToken;
     static ANSDKSettings *sdkSettings;
@@ -95,8 +99,9 @@
         sdkSettings = [[ANSDKSettings alloc] init];
         sdkSettings.locationEnabledForCreative =  YES;
         sdkSettings.enableOpenMeasurement = YES;
+        sdkSettings.enableTestMode = NO;
         sdkSettings.auctionTimeout = 0;
-
+        sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
     });
     return sdkSettings;
 }
@@ -121,9 +126,18 @@
 //
 - (void) optionalSDKInitialization
 {
-    [ANGlobal getUserAgent];
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
+    [ANWebView fetchWebView];
+}
+
+-(void)setNativeAdAboutToExpireInterval:(NSInteger)nativeAdAboutToExpireInterval{
+    if(nativeAdAboutToExpireInterval <= 0 ){
+        __nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set less than or equal to zero");
+        return;
+    }
+    __nativeAdAboutToExpireInterval = nativeAdAboutToExpireInterval;
 }
 
 

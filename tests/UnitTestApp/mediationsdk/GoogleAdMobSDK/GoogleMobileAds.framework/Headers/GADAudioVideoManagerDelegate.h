@@ -5,7 +5,7 @@
 //  Copyright 2016 Google LLC. All rights reserved.
 //
 
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <Foundation/Foundation.h>
 
 @class GADAudioVideoManager;
 

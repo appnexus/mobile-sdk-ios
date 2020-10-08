@@ -9,7 +9,6 @@
 #import <GoogleMobileAds/GADNativeExpressAdViewDelegate.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADVideoController.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
 
 /// A view that displays native express ads.

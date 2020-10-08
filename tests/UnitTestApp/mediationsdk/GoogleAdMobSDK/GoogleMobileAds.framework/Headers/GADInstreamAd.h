@@ -22,6 +22,7 @@ typedef void (^GADInstreamAdLoadCompletionHandler)(GADInstreamAd *_Nullable inst
                                                    NSError *_Nullable error);
 
 /// An instream ad.
+GAD_DEPRECATED_ATTRIBUTE
 @interface GADInstreamAd : NSObject
 
 /// Loads an instream ad with the provided ad unit ID. Instream ads only support
@@ -43,7 +44,7 @@ typedef void (^GADInstreamAdLoadCompletionHandler)(GADInstreamAd *_Nullable inst
 /// Information about the ad response that returned the ad.
 @property(nonatomic, readonly, nonnull) GADResponseInfo *responseInfo;
 
-/// Called when the ad is estimated to have earned money. Available for whitelisted accounts only.
+/// Called when the ad is estimated to have earned money. Available for allowlisted accounts only.
 @property(nonatomic, nullable, copy) GADPaidEventHandler paidEventHandler;
 
 @end

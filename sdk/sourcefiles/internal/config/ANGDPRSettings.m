@@ -71,13 +71,12 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 
 /**
  * Get the GDPR consent string in the SDK.
- * Check for ANGDPR_ConsentString And IABConsent_ConsentString and return if present else return @""
+ * Check for ANIABTCF_ConsentString or ANGDPR_ConsentString or ANIABConsent_ConsentString in that order and return if present else return @""
  */
 + (nullable NSString *) getConsentString{
-    
-    NSString* consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANGDPR_ConsentString];
+    NSString* consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABTCF_ConsentString];
     if(consentString.length <= 0){
-        consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABTCF_ConsentString];
+        consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANGDPR_ConsentString];
         if(consentString.length <= 0){
             consentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABConsent_ConsentString];
         }
@@ -87,13 +86,13 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 
 /**
  * Get the GDPR consent required in the SDK
- * Check for ANGDPR_ConsentRequired And IABConsent_SubjectToGDPR  and return if present else return nil
+ * Check for ANIABTCF_SubjectToGDPR ,  ANGDPR_ConsentRequired And ANIABConsent_SubjectToGDPR in that order  and return if present else return nil
  */
 + (nullable NSNumber *) getConsentRequired{
     
-    NSNumber *hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANGDPR_ConsentRequired];
+    NSNumber *hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANIABTCF_SubjectToGDPR];
     if(hasConsent == nil){
-        hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANIABTCF_SubjectToGDPR];
+        hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANGDPR_ConsentRequired];
         if(hasConsent == nil){
             NSString *hasConsentStringValue = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABConsent_SubjectToGDPR];
             NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
@@ -106,13 +105,13 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 
 /**
 * Get the GDPR device consent required in the SDK to pass IDFA & cookies
-* Check for ANGDPR_PurposeConsents And ANIABTCF_PurposeConsents  and return if present else return nil
+* Check for ANIABTCF_PurposeConsents And ANGDPR_PurposeConsents in that order  and return if present else return nil
 */
 + (NSString *) getDeviceAccessConsent {
     
-    NSString* purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_PurposeConsents];
+    NSString* purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_PurposeConsents];
     if(purposeConsents.length <= 0){
-        purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_PurposeConsents];
+        purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_PurposeConsents];
     }
     if(purposeConsents != nil && purposeConsents.length > 0){
         return [purposeConsents substringToIndex:1];

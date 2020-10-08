@@ -15,11 +15,24 @@
 
 #import "ANNativeAdResponse+ANTest.h"
 #import <objc/runtime.h>
-
+#import "ANNativeAdResponse+PrivateMethods.h"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wprotocol"
 @implementation ANNativeAdResponse (ANTest)
 #pragma clang diagnostic pop
 
+
+
+-(void)registerAdAboutToExpire{
+    
+    [self setAboutToExpireTimeInterval];
+    [self invalidateAdExpireTimer:self.adWillExpireTimer];
+    
+    self.adWillExpireTimer = [NSTimer scheduledTimerWithTimeInterval:10
+                                                              target:self
+                                                            selector:@selector(onAdAboutToExpire)
+                                                            userInfo:nil
+                                                             repeats:NO];
+}
 
 @end

@@ -12,7 +12,6 @@
 #import <GoogleMobileAds/GADNativeAd.h>
 #import <GoogleMobileAds/GADNativeAdImage.h>
 #import <GoogleMobileAds/GADVideoController.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
 
 /// Native ad custom click handler block. |assetID| is the ID of asset that has received a click.
@@ -33,9 +32,6 @@ GAD_EXTERN NSString *_Nonnull const GADNativeCustomTemplateAdMediaViewKey;
 /// Array of available asset keys.
 @property(nonatomic, readonly, nonnull) NSArray<NSString *> *availableAssetKeys;
 
-/// Returns video controller for controlling receiver's video.
-@property(nonatomic, readonly, nonnull) GADVideoController *videoController;
-
 /// Returns media view for rendering video loaded by the receiver. Returns nil if receiver doesn't
 /// has a video.
 @property(nonatomic, readonly, nullable) GADMediaView *mediaView;
@@ -48,6 +44,9 @@ GAD_EXTERN NSString *_Nonnull const GADNativeCustomTemplateAdMediaViewKey;
 
 /// The display ad measurement associated with this ad.
 @property(nonatomic, readonly, nullable) GADDisplayAdMeasurement *displayAdMeasurement;
+
+/// Media content.
+@property(nonatomic, readonly, nonnull) GADMediaContent *mediaContent;
 
 /// Returns the native ad image corresponding to the specified key or nil if the image is not
 /// available.
@@ -64,6 +63,13 @@ GAD_EXTERN NSString *_Nonnull const GADNativeCustomTemplateAdMediaViewKey;
 /// Call when the ad is displayed on screen to the user. Can be called multiple times. Only the
 /// first impression is recorded.
 - (void)recordImpression;
+
+#pragma mark - Deprecated
+
+/// Returns video controller for controlling receiver's video.
+@property(nonatomic, readonly, nonnull)
+    GADVideoController *videoController GAD_DEPRECATED_MSG_ATTRIBUTE(
+        "Use the videoController property from the ad's mediaContent instead.");
 
 /// Call when the user clicks on the ad. Provide the asset key that best matches the asset the user
 /// interacted with. Provide |customClickHandler| only if this template is configured with a custom

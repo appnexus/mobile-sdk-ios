@@ -24,6 +24,16 @@
 @protocol ANNativeAdDelegate <NSObject>   // This is the ANNativeAd Response Delegate.
 
 @optional
+/*!
+* Sent when the native  ad is about to expire.
+*/
+- (void)adWillExpire:(nonnull id)response;
+
+/*!
+* Sent when the native ad is expired.
+*/
+- (void)adDidExpire:(nonnull id)response;
+
 
 /*!
  * Sent when the native view is clicked by the user.

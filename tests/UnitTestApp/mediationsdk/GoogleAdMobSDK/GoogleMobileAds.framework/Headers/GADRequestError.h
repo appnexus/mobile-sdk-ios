@@ -57,8 +57,9 @@ typedef NS_ENUM(NSInteger, GADErrorCode) {
   /// Will not send request because the rewarded ad object has already been used.
   kGADErrorRewardedAdAlreadyUsed GAD_DEPRECATED_MSG_ATTRIBUTE("Use kGADErrorAdAlreadyUsed.") = 14,
 
-  /// Deprecated error code, use kGADErrorNoFill.
-  kGADErrorMediationNoFill GAD_DEPRECATED_MSG_ATTRIBUTE("Use kGADErrorNoFill.") = 9,
+  /// A mediation ad network adapter received an ad request, but did not fill. The adapter's error
+  /// is included as an underlyingError.
+  kGADErrorMediationNoFill = 9,
 
   /// Will not send request because the ad object has already been used.
   kGADErrorAdAlreadyUsed = 19,

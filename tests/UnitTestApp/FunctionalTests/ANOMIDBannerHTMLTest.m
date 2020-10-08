@@ -25,8 +25,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANLogging+Make.h"
 #import "ANLog.h"
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
-#define kAppNexusRequestTimeoutInterval 30.0
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 // The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
 // And also depend on https://acdn.adnxs.com/mobile/omsdk/test/omid-validation-verification-script.js to send ANJAM events back to it. This is configured via the Stubbed response setup
@@ -74,10 +73,10 @@
                                                   placementId:@"13457285"
                                                        adSize:CGSizeMake(300, 250)];
     self.bannerAdView.accessibilityLabel = @"AdView";
-    self.bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.bannerAdView.delegate = self;
     self.bannerAdView.appEventDelegate = self;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAdView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
 
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"13457285"];
     self.interstitial.delegate = self;
@@ -94,7 +93,7 @@
     self.bannerAdView.delegate = nil;
     self.bannerAdView.appEventDelegate = nil;
     self.bannerAdView = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
 
     // Clear all expectations for next test
@@ -110,6 +109,10 @@
     self.OMIDMediaTypeExpectation = nil;
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 
 }
 
@@ -221,29 +224,7 @@
     self.isOMIDSessionFinishRemoveFromSuperview = NO;
 
     [self.bannerAdView loadAd];
-    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-    }];
-}
-
-
-- (void)testOMIDSessionFinishRemoveAd
-{
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-        selector:@selector(receiveTestNotification:)
-        name:@"kANLoggingNotification"
-        object:nil];
-    
-    [self stubRequestWithResponse:@"OMID_TestResponse"];
-    
-    self.OMIDSessionFinishEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Session Finish event"];
-    
-    self.isOMIDSessionFinish = NO;
-    self.isOMIDSessionFinishRemoveFromSuperview = YES;
-    self.bannerAdView.autoRefreshInterval = 0;
-    [self.bannerAdView loadAd];
-    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
 }
@@ -256,7 +237,7 @@
      self.OMIDImpressionEventExpectation = [self expectationWithDescription:@"Didn't receive OMID Impression event"];
     [self.interstitial loadAd];
 
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
 
                                  }];

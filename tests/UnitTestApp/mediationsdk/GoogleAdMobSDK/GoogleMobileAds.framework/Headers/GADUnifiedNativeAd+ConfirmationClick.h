@@ -6,10 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import <GoogleMobileAds/GADUnifiedNativeAd.h>
 #import <GoogleMobileAds/GADUnifiedNativeAdUnconfirmedClickDelegate.h>
+#import <UIKit/UIKit.h>
 
 @interface GADUnifiedNativeAd (ConfirmedClick)
 

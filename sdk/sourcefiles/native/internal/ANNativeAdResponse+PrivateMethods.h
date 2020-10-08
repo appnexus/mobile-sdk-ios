@@ -39,6 +39,8 @@
 #pragma mark - Unregistration
 
 - (void)unregisterViewFromTracking;
+
+
 #pragma mark - Click handling
 
 - (void)attachGestureRecognizersToNativeView:(UIView *)nativeView
@@ -56,5 +58,9 @@
 - (void)didCloseAd;
 - (void)willLeaveApplication;
 - (void)adDidLogImpression;
+- (void)registerAdWillExpire;
+
+// ANNativeAdRequest to ANNativeStandardAdResponse/ANNativeMediatedAdResponse/ANCSRNativeAdResponse
+- (void)registerAdAboutToExpire;
 
 @end

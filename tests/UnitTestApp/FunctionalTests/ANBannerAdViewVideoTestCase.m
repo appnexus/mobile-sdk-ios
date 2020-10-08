@@ -38,6 +38,11 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    [self clearSetupBannerVideoAd];
+}
+
+
+- (void)clearSetupBannerVideoAd {
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     self.banner.delegate = nil;
@@ -45,11 +50,9 @@
     [self.banner removeFromSuperview];
     self.banner = nil;
     self.loadAdSuccesfulException = nil;
-}
-
-
-- (void)clearSetupBannerVideoAd {
-    self.banner = nil;
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 -(void) setupBannerVideoAd{
@@ -65,8 +68,8 @@
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowVideoDemand =  YES;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 -(void) setupBannerNativeAd{
@@ -82,8 +85,8 @@
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowNativeDemand =  YES;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 -(void) setupBannerAd{
@@ -98,8 +101,8 @@
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 #pragma mark - Test methods.

@@ -13,7 +13,7 @@
 @property(nonatomic, readonly, getter=isCustomClickGestureEnabled) BOOL customClickGestureEnabled;
 
 /// Enables custom click gestures. Must be called before the ad is associated with an ad view.
-/// Available for whitelisted accounts only.
+/// Available for allowlisted accounts only.
 - (void)enableCustomClickGestures;
 
 /// Records a click triggered by a custom click gesture.

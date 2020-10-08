@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GoogleMobileAds/GADAdSize.h>
-#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 @class GADBannerView;
 

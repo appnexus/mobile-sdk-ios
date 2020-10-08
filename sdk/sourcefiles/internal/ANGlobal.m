@@ -21,9 +21,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
 #import "ANOMIDImplementation.h"
-#import "ANWebView.h"
 #import "ANGDPRSettings.h"
-
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
@@ -80,20 +78,13 @@ NSString * __nonnull ANUUID()
 }
 
 NSString *__nonnull ANAdvertisingIdentifier() {
-    static NSString *udidComponent = @"";
-    
-    if ([udidComponent isEqualToString:@""]) {
-        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-        
-        if (advertisingIdentifier) {
-            udidComponent = advertisingIdentifier;
-            ANLogInfo(@"IDFA = %@", advertisingIdentifier);
-        } else {
-            ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
-        }
-	}
-	
-    return udidComponent;
+    NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+    if (advertisingIdentifier) {
+        ANLogInfo(@"IDFA = %@", advertisingIdentifier);
+    } else {
+        ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
+    }
+    return advertisingIdentifier;
 }
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {
@@ -234,7 +225,7 @@ CGRect ANPortraitScreenBounds() {
 
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+    UIWindow *window = [ANGlobal getKeyWindow];
     if (@available(iOS 11.0, *)) {
         CGFloat topPadding = window.safeAreaInsets.top;
         CGFloat bottomPadding = window.safeAreaInsets.bottom;
@@ -299,9 +290,8 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 + (void)load {
     
     // No need for "dispatch once" since `load` is called only once during app launch.
-    [[ANSDKSettings sharedInstance] optionalSDKInitialization];
+    [ANGlobal getUserAgent];
     [self constructAdServerRequestURL];
-    [ANWebView fetchWebView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
     
 }
@@ -428,7 +418,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
             dispatch_async(dispatch_get_main_queue(),
             ^{
                 WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
-                UIWindow   *currentWindow        = [UIApplication sharedApplication].keyWindow;
+                UIWindow   *currentWindow        = [ANGlobal getKeyWindow];
 
                 [webViewForUserAgent setHidden:YES];
                 [currentWindow addSubview:webViewForUserAgent];
@@ -455,6 +445,20 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     //
     ANLogDebug(@"userAgent=%@", userAgent);
     return userAgent;
+}
+
+#pragma mark - Get KeyWindow
+
++ (nonnull UIWindow *) getKeyWindow
+{
+    UIWindow *keyWindow = nil;
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    return keyWindow;
 }
 
 #pragma mark - Get Video Orientation Method

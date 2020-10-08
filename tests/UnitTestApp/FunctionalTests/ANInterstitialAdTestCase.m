@@ -20,8 +20,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
-#define kAppNexusRequestTimeoutInterval 30.0
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 @interface ANInterstitialAdTestCase : XCTestCase <ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
 @property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
@@ -44,6 +43,9 @@
     self.interstitial = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
     
 }
 - (void)testANInterstitialWithTrue
@@ -82,7 +84,7 @@
     XCTAssertEqual(10, self.interstitial.controller.autoDismissAdDelay);
     self.closeAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidClose to be received"];
     
-    [self waitForExpectationsWithTimeout:10 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
                                  }];
@@ -103,7 +105,7 @@
     [self.interstitial.controller.closeButton sendActionsForControlEvents: UIControlEventTouchUpInside];
     self.closeAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidClose to be received"];
     
-    [self waitForExpectationsWithTimeout:10 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
                                  }];

@@ -56,10 +56,10 @@
                                             placementId:@"2140063"
                                                  adSize:CGSizeMake(320, 50)];
     self.adView.accessibilityLabel = @"AdView";
-    self.adView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.adView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.adView.appEventDelegate = self;
     self.adView.delegate = self;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.adView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.adView];
 }
 
 - (void)tearDown {
@@ -78,8 +78,10 @@
     self.mayDeepLinkExpectation = nil;
     self.recordEventExpectation = nil;
     self.recordEventDelegateView = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
-                                                                                                               completion:nil];
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO             completion:nil];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 
@@ -87,51 +89,40 @@
 #pragma mark - Test methods.
 
 - (void)testANJAMDeviceIDResponse {
-    [self tearDown];
-    [self setUp];
     [self stubRequestWithResponse:@"ANJAMDeviceIdResponse"];
     self.deviceIdExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:10.0 handler:nil];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
     self.deviceIdExpectation = nil;
-}
-
-
-- (void)testANJAMCustomKeywordsResponse {
     [self tearDown];
-    [self setUp];
-    [self stubRequestWithResponse:@"ANJAMCustomKeywordsResponse"];
-    self.customKeywordsExpectation = [self expectationWithDescription:@"Waiting for CustomKeywords app event to be received."];
-    [self.adView addCustomKeywordWithKey:@"foo" value:@"bar1"];
-    [self.adView addCustomKeywordWithKey:@"randomkey" value:@"randomvalue"];
-    self.adView.autoRefreshInterval =  0;
-    [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:20.0 handler:nil];
-    self.customKeywordsExpectation = nil;
 }
+
 
 - (void)testANJAMDispatchAppEvent {
     [self stubRequestWithResponse:@"ANJAMDispatchAppEventResponse"];
     self.dispatchAppEventExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
     self.dispatchAppEventExpectation = nil;
+    [self tearDown];
 }
 
 - (void)testMayDeepLinkResponse{
     [self stubRequestWithResponse:@"ANJAMMayDeepLinkResponse"];
     self.mayDeepLinkExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:20.0 handler:nil];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
     self.mayDeepLinkExpectation = nil;
+    [self tearDown];
 }
 
 - (void)testMayDeepLinkNoResponse{
     [self stubRequestWithResponse:@"ANJAMMayDeepLinkResponseNo"];
     self.mayDeepLinkExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
     self.mayDeepLinkExpectation = nil;
+    [self tearDown];
 }
 
 - (void)testRecordEventResponse{
@@ -144,13 +135,14 @@
                                                  name:kANLoggingNotification
                                                object:nil];
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:10.0 handler:nil];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
     self.recordEventExpectation = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kANLoggingNotification
                                                   object:nil];
     ANSetNotificationsEnabled(NO);
     #endif
+    [self tearDown];
 }
 
 - (void)receivedLog:(NSNotification *)notification {

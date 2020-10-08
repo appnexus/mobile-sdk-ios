@@ -69,12 +69,13 @@
     self.banner.appEventDelegate = nil;
     [self.banner removeFromSuperview];
     self.banner = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
-    
     self.loadAdResponseReceivedExpectation = nil;
     self.loadBannerAdResponseReceivedExpectation = nil;
-    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 
@@ -104,14 +105,14 @@
                                             placementId: @"1"
                                                  adSize: CGSizeMake(300 , 250)];
     
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.banner.shouldAllowNativeDemand = NO;
     self.banner.shouldAllowVideoDemand = NO;
     self.banner.shouldAllowBannerDemand = NO;
 
     self.banner.delegate = self;
     [self.banner loadAd];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
     
     self.loadBannerAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
@@ -133,14 +134,14 @@
                                             placementId: @"1"
                                                  adSize: CGSizeMake(300 , 250)];
     
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.banner.shouldAllowNativeDemand = YES;
     self.banner.shouldAllowVideoDemand = NO;
     self.banner.shouldAllowBannerDemand = NO;
 
     self.banner.delegate = self;
     [self.banner loadAd];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
     
     self.loadBannerAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
@@ -154,7 +155,7 @@
 - (void)testIncorrectWidth
 {
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 430)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
 
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 0;
@@ -185,7 +186,7 @@
 - (void)testIncorrectHeight
 {
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 430)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
 
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 10;
@@ -216,7 +217,7 @@
 - (void)testBannerAllowMagicSize {
     
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 430)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerSuperView];
     
     CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
     int adWidth  = 10;
@@ -270,11 +271,11 @@
                                             placementId: @"1"
                                                  adSize: CGSizeMake(300 , 250)];
     
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.banner.delegate = self;
     [self.banner loadAd];
-    UIViewController *copyRootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    UIViewController *copyRootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
     
     self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
@@ -292,7 +293,7 @@
     XCTAssertEqual(self.banner.adSize.height, 250);
     XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
     XCTAssertEqualObjects(self.banner.creativeId, @"106794309");
-    [UIApplication sharedApplication].keyWindow.rootViewController  = copyRootViewController;
+    [ANGlobal getKeyWindow].rootViewController  = copyRootViewController;
 }
 
 -(void)testBannerAdLocationPopupUnblocked{
@@ -311,17 +312,17 @@
                                             placementId: @"1"
                                                  adSize: CGSizeMake(300 , 250)];
     
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     self.banner.delegate = self;
     [self.banner loadAd];
     
     
-    UIViewController *copyRootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    UIViewController *copyRootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
     
     
     self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:10 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
                                  }];
@@ -336,13 +337,13 @@
     XCTAssertEqual(self.banner.loadedAdSize.height, 250);
     XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
     XCTAssertEqualObjects(self.banner.creativeId, @"106794309");
-    [UIApplication sharedApplication].keyWindow.rootViewController  = copyRootViewController;
+    [ANGlobal getKeyWindow].rootViewController  = copyRootViewController;
     
 }
 
 -(BOOL)isLocationPopupExist {
     
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = [ANGlobal getKeyWindow];
     UIViewController *rootViewController = window.rootViewController;
     
     if ([[rootViewController presentedViewController] isKindOfClass:[UIAlertController class]]) {

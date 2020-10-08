@@ -89,7 +89,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [self.friendlyObstruction removeFromSuperview];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
     // Clear all expectations for next test
@@ -101,6 +101,10 @@
     self.removeFriendlyObstruction = NO;
     self.adRequest = nil;
     self.nativeResponse = nil;
+    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 
@@ -109,9 +113,9 @@
 {
     
     self.testcase = @"testBannerNativeOMIDViewablePercent0";
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     
@@ -134,10 +138,10 @@
 {
     self.testcase = @"testBannerNativeOMIDViewablePercent100";
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
     
 //        [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-//        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+//        [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
 
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
@@ -160,7 +164,7 @@
 {
     self.testcase = @"testBannerNativeOMIDViewablePercent100";
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
 
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
@@ -193,10 +197,10 @@
 {
     self.testcase = @"testBannerNativeOMIDViewableRemoveFriendlyObstruction";
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.nativeView];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.nativeView];
     
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     

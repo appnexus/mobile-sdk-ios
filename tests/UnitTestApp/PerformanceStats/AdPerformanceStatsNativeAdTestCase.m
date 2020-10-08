@@ -45,6 +45,7 @@
 
 - (void)tearDown {
     [self clearAd];
+    
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
@@ -53,6 +54,7 @@
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
     [self.adRequest setPlacementId:placement];
+    self.adRequest.forceCreativeId = 135482485;
 }
 
 
@@ -64,7 +66,7 @@
     [[ANTimeTracker sharedInstance] setTimeAt:PERFORMANCESTATSRTBAD_FIRST_REQUEST];
     
     [self.adRequest loadAd];
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval/2
+    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
         
     }];
@@ -75,7 +77,7 @@
     [[ANTimeTracker sharedInstance] getDiffereanceAt:PERFORMANCESTATSRTBAD_SECOND_REQUEST];
     
     [self.adRequest loadAd];
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval/2
+    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
         
     }];
@@ -92,6 +94,9 @@
     
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {

@@ -20,4 +20,9 @@
 
 @property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 
+-(void)registerAdAboutToExpire;
+- (void)setAboutToExpireTimeInterval;
+-(void)invalidateAdExpireTimer:(NSTimer *_Nullable)timer;
+@property (nonatomic, readwrite, strong) NSTimer * _Nullable adWillExpireTimer;
+@property (nonatomic, readonly, assign) NSInteger aboutToExpireInterval;
 @end

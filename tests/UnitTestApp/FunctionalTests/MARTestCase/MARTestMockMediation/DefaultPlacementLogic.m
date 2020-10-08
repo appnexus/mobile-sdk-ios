@@ -83,7 +83,7 @@ limitations under the License.
 
     self.placementIDNobidResponseWhenAllIsCorrect                                    = @"15712318";
     self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined     = @"15028015";
-    self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"17383879";
+    self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsNOTDefined  = @"14305745";
 
 
     //
@@ -109,6 +109,10 @@ limitations under the License.
     self.nativeResponse = nil;
 
     self.adResponseInfo = nil;
+    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+          [additionalView removeFromSuperview];
+      }
 }
 
 

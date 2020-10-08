@@ -28,7 +28,7 @@
 #import "ANBannerAdView+ANTest.h"
 
 static NSString   *placementID      = @"12534678";
-#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+#define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 @interface ANInstreamVideoAdOMIDViewablityTestCase : XCTestCase<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate, SDKValidationURLProtocolDelegate, ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInstreamVideoAd  *instreamVideoAd;
@@ -94,6 +94,12 @@ static NSString   *placementID      = @"12534678";
     [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
     [NSURLProtocol wk_unregisterScheme:@"http"];
     [NSURLProtocol wk_unregisterScheme:@"https"];
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
+    [self clearBannerVideoAd];
+    [self clearInstreamVideoAd];
 }
 
 #pragma mark - Test methods.
@@ -113,7 +119,6 @@ static NSString   *placementID      = @"12534678";
                                  handler:^(NSError *error) {
         
     }];
-    [self clearBannerVideoAd];
     
 }
 
@@ -132,7 +137,6 @@ static NSString   *placementID      = @"12534678";
     [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
-    [self clearInstreamVideoAd];
     
 }
 
@@ -153,7 +157,6 @@ static NSString   *placementID      = @"12534678";
                                  handler:^(NSError *error) {
         
     }];
-    [self clearBannerVideoAd];
     
 }
 
@@ -174,7 +177,6 @@ static NSString   *placementID      = @"12534678";
                                  handler:^(NSError *error) {
         
     }];
-    [self clearInstreamVideoAd];
     
 }
 
@@ -192,8 +194,8 @@ static NSString   *placementID      = @"12534678";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowVideoDemand =  YES;
-    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
 
 -(void) clearBannerVideoAd{
@@ -230,14 +232,14 @@ static NSString   *placementID      = @"12534678";
     if ([ad isKindOfClass:[ANInstreamVideoAd class]]) {
         self.videoView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
         [self.videoView setBackgroundColor:[UIColor yellowColor]];
-        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.videoView];
+        [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.videoView];
         
         
         [self.instreamVideoAd playAdWithContainer:self.videoView withDelegate:self];
         
         
         
-        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.friendlyObstruction];
+        [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
         
         
         
@@ -274,180 +276,6 @@ static NSString   *placementID      = @"12534678";
     
     
 }
-
-
-
-- (void)testOMIDBannerVideoViewableRemoveFriendlyObstruction
-{
-    [self setupBannerVideoAd];
-    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
-    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
-    self.percentViewableFulfilled = NO;
-    
-    [self.banner loadAd];
-    
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    self.removeFriendlyObstruction = YES;
-    [self.banner removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    
-    self.videoView.frame = CGRectMake(self.videoView.frame.origin.x+ 10, self.videoView.frame.origin.y+ 50, self.videoView.frame.size.width+20, self.videoView.frame.size.height+20);
-    
-    self.banner.frame = CGRectMake(self.videoView.frame.origin.x, self.videoView.frame.origin.y, self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-    self.friendlyObstruction.frame = CGRectMake(self.videoView.frame.origin.x , self.videoView.frame.origin.y , self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    
-    
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    
-    [self clearBannerVideoAd];
-    
-}
-
-
-- (void)testOMIDInstreamVideoViewableRemoveFriendlyObstruction
-{
-    [self setupInstreamVideoAd];
-    
-    [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
-    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
-
-    
-    self.percentViewableFulfilled = NO;
-
-    [self.instreamVideoAd loadAdWithDelegate:self];
-
-    
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    
-    
-    self.removeFriendlyObstruction = YES;
-    [self.instreamVideoAd removeOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    
-    
-    self.videoView.frame = CGRectMake(self.videoView.frame.origin.x+ 10, self.videoView.frame.origin.y+ 50, self.videoView.frame.size.width+20, self.videoView.frame.size.height+20);
-    
-    self.instreamVideoAd.frame = CGRectMake(self.videoView.frame.origin.x, self.videoView.frame.origin.y, self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-    self.friendlyObstruction.frame = CGRectMake(self.videoView.frame.origin.x , self.videoView.frame.origin.y , self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-
-
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    
-    
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    [self clearInstreamVideoAd];
-
-}
-
-
-- (void)testOMIDInstreamVideoViewableRemoveAllFriendlyObstruction
-{
-    [self setupInstreamVideoAd];
-    
-    [self.instreamVideoAd addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
-    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
-
-    
-    self.percentViewableFulfilled = NO;
-
-    [self.instreamVideoAd loadAdWithDelegate:self];
-
-    
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    
-    
-    self.removeFriendlyObstruction = YES;
-    [self.instreamVideoAd removeAllOpenMeasurementFriendlyObstructions];
-    
-    
-    self.videoView.frame = CGRectMake(self.videoView.frame.origin.x+ 10, self.videoView.frame.origin.y+ 50, self.videoView.frame.size.width+20, self.videoView.frame.size.height+20);
-    
-    self.instreamVideoAd.frame = CGRectMake(self.videoView.frame.origin.x, self.videoView.frame.origin.y, self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-    self.friendlyObstruction.frame = CGRectMake(self.videoView.frame.origin.x , self.videoView.frame.origin.y , self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-
-
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    
-    
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    [self clearInstreamVideoAd];
-
-}
-
-
-- (void)testOMIDBannerVideoViewableRemoveAllFriendlyObstruction
-{
-    [self setupBannerVideoAd];
-    [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
-    self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
-    self.percentViewableFulfilled = NO;
-    
-    [self.banner loadAd];
-    
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    self.removeFriendlyObstruction = YES;
-    [self.banner removeAllOpenMeasurementFriendlyObstructions];
-    
-    self.videoView.frame = CGRectMake(self.videoView.frame.origin.x+ 10, self.videoView.frame.origin.y+ 50, self.videoView.frame.size.width+20, self.videoView.frame.size.height+20);
-    
-    self.banner.frame = CGRectMake(self.videoView.frame.origin.x, self.videoView.frame.origin.y, self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-    self.friendlyObstruction.frame = CGRectMake(self.videoView.frame.origin.x , self.videoView.frame.origin.y , self.videoView.frame.size.width, self.videoView.frame.size.height);
-    
-
-    self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
-    
-    
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    
-    [self clearBannerVideoAd];
-    
-}
-
 
 
 @end

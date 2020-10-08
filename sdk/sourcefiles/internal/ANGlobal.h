@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.6.2"
+#define AN_SDK_VERSION                  @"7.7"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -37,7 +37,7 @@
 #define APPNEXUS_SIZE_UNDEFINED         CGSizeMake(-1, -1)
 
 
-
+#define kAppNexusNativeAdAboutToExpireInterval 60
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
@@ -146,6 +146,8 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 + (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
 + (nonnull NSString *) getUserAgent;
+
++ (nonnull UIWindow *) getKeyWindow;
 
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
 

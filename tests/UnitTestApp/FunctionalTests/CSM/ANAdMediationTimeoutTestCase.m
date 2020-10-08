@@ -21,7 +21,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANSDKSettings+PrivateMethods.h"
-
+#import "ANGlobal.h"
 #define kAppNexusCSMTimeoutInterval 6.0
 
 
@@ -60,7 +60,7 @@
     
     // Make a banner ad view.
     self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50) placementId:@"1" adSize:CGSizeMake(320, 50)];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
     
     self.banner.delegate = self;
     [self.banner loadAd];
@@ -275,7 +275,7 @@
 -(void)clearObject{
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
     // Clear all expectations for next test
@@ -288,8 +288,9 @@
     self.mediationBannerRespectTimeoutFail = nil;
     self.mediationInterstitialRespectTimeoutFail = nil;
     self.mediationNativeRespectTimeoutFail = nil;
-    
-    
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
     
 }
 

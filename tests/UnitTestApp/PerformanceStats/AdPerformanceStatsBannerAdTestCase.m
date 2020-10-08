@@ -49,14 +49,17 @@
     self.bannerAd = nil;
     self.firstLoadAdResponseReceivedExpectation = nil;
     self.secondLoadAdResponseReceivedExpectation = nil;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-    
+    [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+             [additionalView removeFromSuperview];
+         }
 }
 
 -(void) setupBannerWithPlacement:(NSString *)placement withFrame:(CGRect)frame andSize:(CGSize)size{
     self.bannerAd = [[ANBannerAdView alloc] initWithFrame:frame
                                               placementId:placement
                                                    adSize:size];
+    self.bannerAd.forceCreativeId = 223272198;
     self.bannerAd.autoRefreshInterval = 0;
     self.bannerAd.delegate = self;
     
@@ -70,27 +73,27 @@
     CGSize size = CGSizeMake(adWidth, adHeight);
     [self setupBannerWithPlacement:BANNER_PLACEMENT withFrame:rect andSize:size];
     
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAd];
     self.testCase = PERFORMANCESTATSRTBAD_FIRST_REQUEST;
     [self.bannerAd loadAd];
     [[ANTimeTracker sharedInstance] setTimeAt:PERFORMANCESTATSRTBAD_FIRST_REQUEST];
     
     self.firstLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval/2
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];
     
     [self setupBannerWithPlacement:BANNER_PLACEMENT withFrame:rect andSize:size];
     self.testCase = PERFORMANCESTATSRTBAD_SECOND_REQUEST;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerAd];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAd];
     [self.bannerAd loadAd];
     
     [[ANTimeTracker sharedInstance] getDiffereanceAt:PERFORMANCESTATSRTBAD_SECOND_REQUEST];
     
     
     self.secondLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval/2
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];

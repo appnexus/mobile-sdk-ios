@@ -489,7 +489,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         //
         if (! self.isBannerVideo) {
             self.webViewController.contentView.hidden = YES;
-            [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+            [[ANGlobal getKeyWindow] insertSubview:self.webViewController.contentView
                                                                atIndex:0];
         }
 

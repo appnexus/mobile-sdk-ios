@@ -32,7 +32,6 @@
 #import "ANAdView+ANTest.h"
 
 
-#define kAppNexusRequestTimeoutInterval 15.0
 
 
 
@@ -110,6 +109,9 @@
        [ANInterstitialAd setDoNotResetAdUnitUUID:NO];
        [ANNativeAdRequest setDoNotResetAdUnitUUID:NO];
        [ANInstreamVideoAd setDoNotResetAdUnitUUID:NO];
+    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
+        [additionalView removeFromSuperview];
+    }
 }
 
 
@@ -783,8 +785,8 @@
     ANBannerAdView* bannerAdView = [[ANBannerAdView alloc] initWithFrame:rect
                                                              placementId:placement
                                                                   adSize:size];
-    bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:bannerAdView];
+    bannerAdView.rootViewController = [ANGlobal getKeyWindow].rootViewController;
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:bannerAdView];
     return bannerAdView;
 }
 

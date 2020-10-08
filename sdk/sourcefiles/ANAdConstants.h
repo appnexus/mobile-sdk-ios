@@ -32,8 +32,6 @@ typedef NS_ENUM(NSUInteger, ANNativeAdRegisterErrorCode) {
 typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeAppNexus = 0,
     ANNativeAdNetworkCodeFacebook,
-    ANNativeAdNetworkCodeInMobi,
-    ANNativeAdNetworkCodeYahoo,
     ANNativeAdNetworkCodeCustom,
     ANNativeAdNetworkCodeAdMob
 };
