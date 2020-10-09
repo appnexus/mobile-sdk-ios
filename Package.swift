@@ -14,7 +14,6 @@ let package = Package(
             name: "AppNexusSDK",
             targets: [
                 "AppNexusSDK",
-                "OMSDK_Appnexus"
             ]
         ),
     ],
@@ -25,19 +24,28 @@ let package = Package(
         ),
         .target(
             name: "AppNexusSDK",
-            dependencies: [],
-            path: "./sdk/sourcefiles",
+            dependencies: ["OMSDK_Appnexus"],
+            path: "sdk/sourcefiles",
             exclude: [
                 "Resources/Info.plist",
                 "Viewability/OMSDK_Appnexus.framework",
                 "Viewability/OMSDK_Appnexus.xcframework"
             ],
+//            sources: ["./"],
             resources: [
-                .process("./Resources")
+                .process("Resources")
             ],
-            publicHeadersPath: "./swiftpm-support",
             cSettings: [
-                .headerSearchPath("../"),
+                .headerSearchPath("./"),
+                .headerSearchPath("./Categories"),
+                .headerSearchPath("./internal"),
+                .headerSearchPath("./internal/config"),
+                .headerSearchPath("./internal/MRAID"),
+                .headerSearchPath("./native"),
+                .headerSearchPath("./native/internal"),
+                .headerSearchPath("./native/internal/NativeRendering"),
+                .headerSearchPath("./video"),
+                .headerSearchPath("./Viewability"),
             ]
         )
     ]
