@@ -34,7 +34,7 @@ let package = Package(
             resources: [
                 .process("Resources")
             ],
-            publicHeadersPath: "./swiftpm-support",
+            publicHeadersPath: "./swiftpm-public-headers",
             cSettings: [
                 .headerSearchPath("./"),
                 .headerSearchPath("./Categories"),

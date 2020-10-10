@@ -1,0 +1,1 @@
+../native/ANNativeCustomAdapter.h
