@@ -21,6 +21,7 @@ DESC
 
   s.subspec 'AppNexusSDK' do |subspec|
     subspec.source_files         = "sdk/sourcefiles/**/*.{h,m}"
+    subspec.exclude_files = 'sdk/sourcefiles/swiftpm-public-headers/**/*.h'
     subspec.public_header_files  = "sdk/sourcefiles/*.h","sdk/sourcefiles/native/*.h"
     subspec.resources            = "sdk/sourcefiles/**/*.{png,bundle,xib,nib,js,html,strings}"
     subspec.vendored_frameworks   = "sdk/sourcefiles/Viewability/OMSDK_Appnexus.framework"
