@@ -1,21 +1,31 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 #pragma once
 
-#ifdef __OBJC__
+#include "../ANVideoPlayerSettings.h"
+#include "../ANAdConstants.h"
+#include "../ANAdProtocol.h"
+#include "../ANAdResponseCode.h"
+#include "../ANAdResponseInfo.h"
+#include "../ANAdView.h"
+#include "../ANBannerAdView.h"
+#include "../ANCustomAdapter.h"
+#include "../ANGDPRSettings.h"
+#include "../ANInstreamVideoAd.h"
+#include "../ANInterstitialAd.h"
+#include "../ANLocation.h"
+#include "../ANLogging.h"
+#include "../ANLogManager.h"
+#include "../ANMultiAdRequest.h"
+#include "../ANProxyViewController.h"
+#include "../ANSDKSettings.h"
+#include "../ANTargetingParameters.h"
+#include "../ANUSPrivacySettings.h"
 
-#import <Foundation/Foundation.h>
-
-#include "../YGEnums.h"
-#include "../YGMacros.h"
-#include "../YGNode.h"
-#include "../YGStyle.h"
-#include "../YGValue.h"
-#include "../Yoga.h"
+#include "../native/ANNativeMediatedAdResponse.h"
+#include "../native/ANCSRNativeAdResponse.h"
+#include "../native/ANNativeAdDelegate.h"
+#include "../native/ANNativeAdRequest.h"
+#include "../native/ANNativeAdResponse.h"
+#include "../native/ANNativeAdStarRating.h"
+#include "../native/ANNativeCustomAdapter.h"
 
 #endif

@@ -31,10 +31,10 @@ let package = Package(
                 "Viewability/OMSDK_Appnexus.framework",
                 "Viewability/OMSDK_Appnexus.xcframework"
             ],
-//            sources: ["./"],
             resources: [
                 .process("Resources")
             ],
+            publicHeadersPath: "./swiftpm-support",
             cSettings: [
                 .headerSearchPath("./"),
                 .headerSearchPath("./Categories"),
