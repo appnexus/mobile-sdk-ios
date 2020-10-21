@@ -662,11 +662,12 @@ static NSString *const kANInline        = @"inline";
 
         if (trackersShouldBeFired) {
             [self fireTrackerAndOMID];
-            //reset this property so that the refresh of banner doesnt get affected - https://jira.xandr-services.com/browse/MS-4573
-            self.isLazySecondPassThroughAdUnit = NO;
-            [self adDidReceiveAd:self];
         }
-        
+        //reset this property so that the refresh of banner doesnt get affected - https://jira.xandr-services.com/browse/MS-4573
+        self.isLazySecondPassThroughAdUnit = NO;
+        [self adDidReceiveAd:self];
+
+
     // Process AdUnit according to class type of ANNativeAdResponse.
     //
     } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
