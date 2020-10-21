@@ -405,7 +405,7 @@ static NSString *const kANInline        = @"inline";
 {
     // Do not update lazy loaded webview unless the new webview candidate is defined.
     //
-    if (!newContentView && self.isLazySecondPassThroughAdUnit)  { return; }
+    //if (!newContentView && self.isLazySecondPassThroughAdUnit)  { return; }
 
     //
     if (newContentView != _contentView)
