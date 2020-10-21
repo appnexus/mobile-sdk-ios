@@ -405,7 +405,7 @@ static NSString *const kANInline        = @"inline";
 {
     // Do not update lazy loaded webview unless the new webview candidate is defined.
     //
-    //if (!newContentView && self.isLazySecondPassThroughAdUnit)  { return; }
+    if (!newContentView && self.isLazySecondPassThroughAdUnit)  { return; }
 
     //
     if (newContentView != _contentView)
@@ -662,11 +662,11 @@ static NSString *const kANInline        = @"inline";
 
         if (trackersShouldBeFired) {
             [self fireTrackerAndOMID];
+            //reset this property so that the refresh of banner doesnt get affected - https://jira.xandr-services.com/browse/MS-4573
+            self.isLazySecondPassThroughAdUnit = NO;
+            [self adDidReceiveAd:self];
         }
-
-        [self adDidReceiveAd:self];
-
-
+        
     // Process AdUnit according to class type of ANNativeAdResponse.
     //
     } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
