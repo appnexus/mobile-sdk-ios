@@ -53,15 +53,16 @@
     CGSize size = CGSizeMake(adWidth, adHeight);
     
     // Make a banner ad view.
-    //self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    self.banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
     
     // Needed for when we create our ad view.
     CGRect rect1 = CGRectMake(originX, originY, adWidth1, adHeight1);
     CGSize size1 = CGSizeMake(adWidth1, adHeight1);
     
-    self.banner = [[ANBannerAdView alloc] initWithFrame:rect1 memberId:memberID inventoryCode:inventoryCode adSize:size1];
+    //self.banner = [[ANBannerAdView alloc] initWithFrame:rect1 memberId:memberID inventoryCode:inventoryCode adSize:size1];
     self.banner.rootViewController = self;
     self.banner.delegate = self;
+    self.banner.enableLazyLoad = YES;
     [self.view addSubview:self.banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
@@ -78,6 +79,10 @@
     self.processEnd = [NSDate date];
     NSTimeInterval executionTime = [self.processEnd timeIntervalSinceDate:self.processStart];
     NSLog(@"Updated Ad rendered at: %f", executionTime*1000);
+}
+
+-(void) lazyAdDidReceiveAd:(id)ad {
+    [self.banner loadLazyAd];
 }
 
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{

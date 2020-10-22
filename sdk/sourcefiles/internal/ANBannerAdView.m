@@ -405,7 +405,12 @@ static NSString *const kANInline        = @"inline";
 {
     // Do not update lazy loaded webview unless the new webview candidate is defined.
     //
-    if (!newContentView && self.isLazySecondPassThroughAdUnit)  { return; }
+    if (!newContentView && self.isLazySecondPassThroughAdUnit)  {
+        //reset this property so that the refresh of banner doesnt get affected - https://jira.xandr-services.com/browse/MS-4573
+        _contentView = newContentView;
+        return;
+        
+    }
 
     //
     if (newContentView != _contentView)
@@ -663,7 +668,6 @@ static NSString *const kANInline        = @"inline";
         if (trackersShouldBeFired) {
             [self fireTrackerAndOMID];
         }
-
         [self adDidReceiveAd:self];
 
 

@@ -60,8 +60,6 @@
 		0E14220E22F99ACA006C597A /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD5194B768A0069D934 /* UIButtonBarArrowLeft@2x.png */; };
 		0E14220F22F99ACA006C597A /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */; };
 		0E14221022F99ACA006C597A /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */; };
-		0E14221122F99AD4006C597A /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
-		0E14221222F99AD6006C597A /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		0E14221322F99AE2006C597A /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */; };
 		0E14221422F99AE7006C597A /* anjam.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACD194B768A0069D934 /* anjam.js */; };
 		0E14221522F99AE9006C597A /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
@@ -94,6 +92,10 @@
 		3850566C24DAD12F00D4B54D /* ANAdResponseCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3850566924DAD12F00D4B54D /* ANAdResponseCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3850566D24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */; };
 		3850566E24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */; };
+		38975FF32540488D006C4578 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF12540488D006C4578 /* ANBrowserViewController.xib */; };
+		38975FF42540488D006C4578 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF12540488D006C4578 /* ANBrowserViewController.xib */; };
+		38975FF52540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */; };
+		38975FF62540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */; };
 		4F06400823A2E7D700E7920A /* ANAdFetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANAdFetcherBase.m */; };
 		4F06400923A2E7DC00E7920A /* ANAdFetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */; };
 		4F5758B12303A8CB00AFF4B6 /* ANMultiAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5758B02303A8CB00AFF4B6 /* ANMultiAdRequest.m */; };
@@ -268,8 +270,6 @@
 		F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA96194B768A0069D934 /* NSString+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F52F82F1229338F100F4578C /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		F52F82F2229338FC00F4578C /* ANProxyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		F52F83142295DCA500F4578C /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
-		F52F83152295DCA500F4578C /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		F52F83162295DCA500F4578C /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACE194B768A0069D934 /* errors.strings */; };
 		F52F83172295DCA500F4578C /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE97DA21764ACD007DADE6 /* omsdk.js */; };
 		F5731B3F228C8CA80012B134 /* ANNativeAdImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB876201A0994310022D9A5 /* ANNativeAdImageCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -380,8 +380,6 @@
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
 		0E3E3E61241FB73500823D66 /* ANCSRNativeAdResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANCSRNativeAdResponse.h; sourceTree = "<group>"; };
 		0E3E3E62241FB73500823D66 /* ANCSRNativeAdResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCSRNativeAdResponse.m; sourceTree = "<group>"; };
-		0E6D9AB220D1A943001FA1FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController.xib; sourceTree = "<group>"; };
-		0E6D9AB320D1A943001FA1FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
 		0E72F63A22D72C7700744B5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E7BC1C9229FC71D002F41FF /* ANNativeRenderingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANNativeRenderingViewController.m; path = ../native/internal/NativeRendering/ANNativeRenderingViewController.m; sourceTree = "<group>"; };
 		0E7BC1CA229FC71D002F41FF /* ANNativeRenderingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeRenderingViewController.h; path = ../native/internal/NativeRendering/ANNativeRenderingViewController.h; sourceTree = "<group>"; };
@@ -398,6 +396,8 @@
 		381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAudioVolumeChangeListener.m; sourceTree = "<group>"; };
 		3850566924DAD12F00D4B54D /* ANAdResponseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdResponseCode.h; sourceTree = "<group>"; };
 		3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseCode.m; sourceTree = "<group>"; };
+		38975FF12540488D006C4578 /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
+		38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -973,9 +973,9 @@
 			isa = PBXGroup;
 			children = (
 				ECE4EACF194B768A0069D934 /* images */,
-				FC210A302007D529002A9F0E /* ANBrowserViewController.xib */,
-				FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */,
 				ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */,
+				38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */,
+				38975FF12540488D006C4578 /* ANBrowserViewController.xib */,
 				ECE4EACD194B768A0069D934 /* anjam.js */,
 				8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */,
 				609733001E42EAFF0061EC0A /* ASTMediationManager.js */,
@@ -1274,8 +1274,6 @@
 				0E1421EC22F99AC9006C597A /* an_arrow_right.png in Resources */,
 				0E1421ED22F99AC9006C597A /* an_arrow_right@2x.png in Resources */,
 				0E1421EE22F99AC9006C597A /* an_arrow_right@3x.png in Resources */,
-				0E14221122F99AD4006C597A /* ANBrowserViewController.xib in Resources */,
-				0E14221222F99AD6006C597A /* ANBrowserViewController_SizeClasses.xib in Resources */,
 				0E14221322F99AE2006C597A /* ANInterstitialAdViewController.xib in Resources */,
 				0E14221422F99AE7006C597A /* anjam.js in Resources */,
 				0E14221522F99AE9006C597A /* ANMRAID.bundle in Resources */,
@@ -1300,6 +1298,8 @@
 				0E1421FA22F99AC9006C597A /* UIButtonBarArrowLeft@2x.png in Resources */,
 				0E1421FB22F99AC9006C597A /* UIButtonBarArrowRight.png in Resources */,
 				0E1421FC22F99AC9006C597A /* UIButtonBarArrowRight@2x.png in Resources */,
+				38975FF52540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */,
+				38975FF32540488D006C4578 /* ANBrowserViewController.xib in Resources */,
 				0E14221C22F99B02006C597A /* vastVideo.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1312,10 +1312,10 @@
 				0E1421FE22F99ACA006C597A /* an_arrow_left@2x.png in Resources */,
 				0E1421FF22F99ACA006C597A /* an_arrow_left@3x.png in Resources */,
 				0E14220022F99ACA006C597A /* an_arrow_right.png in Resources */,
+				38975FF42540488D006C4578 /* ANBrowserViewController.xib in Resources */,
 				0E14220122F99ACA006C597A /* an_arrow_right@2x.png in Resources */,
+				38975FF62540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */,
 				0E14220222F99ACA006C597A /* an_arrow_right@3x.png in Resources */,
-				F52F83142295DCA500F4578C /* ANBrowserViewController.xib in Resources */,
-				F52F83152295DCA500F4578C /* ANBrowserViewController_SizeClasses.xib in Resources */,
 				0E14220322F99ACA006C597A /* appnexus_logo_icon.png in Resources */,
 				0E14220422F99ACA006C597A /* appnexus_logo_icon@2x.png in Resources */,
 				0E14220522F99ACA006C597A /* compass.png in Resources */,
@@ -1478,25 +1478,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		FC210A302007D529002A9F0E /* ANBrowserViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0E6D9AB220D1A943001FA1FA /* Base */,
-			);
-			name = ANBrowserViewController.xib;
-			sourceTree = "<group>";
-		};
-		FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0E6D9AB320D1A943001FA1FA /* Base */,
-			);
-			name = ANBrowserViewController_SizeClasses.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		8A9AED9F1A1BE84F00C58BDA /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1526,7 +1507,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.7;
+				MARKETING_VERSION = 7.7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1563,7 +1544,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.7;
+				MARKETING_VERSION = 7.7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1715,7 +1696,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.7;
+				MARKETING_VERSION = 7.7.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.AppNexusNativeSDK;
@@ -1760,7 +1741,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 7.7;
+				MARKETING_VERSION = 7.7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.AppNexusNativeSDK;
