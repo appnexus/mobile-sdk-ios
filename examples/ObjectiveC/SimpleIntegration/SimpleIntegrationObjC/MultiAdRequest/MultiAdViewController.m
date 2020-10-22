@@ -48,9 +48,9 @@
     self.marAdRequest = [[ANMultiAdRequest alloc] initWithMemberId:10094 andDelegate:self];
     // Add Ad Units
     [self.marAdRequest addAdUnit:[self createBannerAd:self.bannerAdView]];
-    [self.marAdRequest addAdUnit:[self createInterstitialAd]];
-    [self.marAdRequest addAdUnit: [self createVideoAd]];
-    [self.marAdRequest addAdUnit:[self createNativeAd]];
+    //[self.marAdRequest addAdUnit:[self createInterstitialAd]];
+    //[self.marAdRequest addAdUnit: [self createVideoAd]];
+    //[self.marAdRequest addAdUnit:[self createNativeAd]];
     // Load Ad Units
     [self.marAdRequest load];
     
@@ -61,7 +61,7 @@
 // Create Banner Ad Object
 - (ANBannerAdView *)createBannerAd:(UIView *) adView
 {
-    self.bannerAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"19212468" adSize:CGSizeMake(300, 250)];
+    self.bannerAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"15215010" adSize:CGSizeMake(300, 250)];
     self.bannerAd.rootViewController =self;
     self.bannerAd.delegate =self;
     self.bannerAd.shouldResizeAdToFitContainer = YES;
@@ -104,6 +104,10 @@
 #pragma mark - Delegate methods exclusively for ANMultiAdRequest.
 - (void) multiAdRequestDidComplete:(nonnull ANMultiAdRequest *)mar{
     NSLog(@"Multi Ad Request Did Complete");
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.marAdRequest load];
+    });
 }
 
 - (void) multiAdRequest:(nonnull ANMultiAdRequest *)mar didFailWithError:(nonnull NSError *)error{
@@ -128,6 +132,10 @@
 - (void)ad:(id)ad requestFailedWithError:(NSError *)error{
     NSLog(@"requestFailedWithError %@:",error);
     
+}
+
+-(void) lazyAdDidReceiveAd:(id)ad {
+    [self.bannerAd loadLazyAd];
 }
 
 #pragma mark - Delegate methods exclusively for ANNativeAd.
