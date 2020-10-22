@@ -1,3 +1,8 @@
+## 7.7.1
+### Improvements/Bug Fixes
++ MS-4573 Fixed banner refresh on Lazyload
++ MS-4574 Add support for Cocoapods version 1.10.0
+
 ## 7.7
 ### New Feature
 + MS-4412 Added support for listening to Ad Expiry events for Native Ads [https://wiki.xandr.com/x/ugPyBg]
