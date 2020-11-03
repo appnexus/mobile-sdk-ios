@@ -58,13 +58,18 @@
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
+    
+    [ANTimeTracker sharedInstance].networkAdRequestComplete = nil;
+     [ANTimeTracker sharedInstance].networkAdRequestInit = nil;
+     [ANTimeTracker sharedInstance].webViewInitLoadingAt = nil;
+     [ANTimeTracker sharedInstance].webViewFinishLoadingAt = nil;
 }
 
 -(void) setupBannerVideoWithPlacement:(NSString *)placement withFrame:(CGRect)frame andSize:(CGSize)size{
     self.bannerAd = [[ANBannerAdView alloc] initWithFrame:frame
                                               placementId:placement
                                                    adSize:size];
-    self.bannerAd.forceCreativeId = 182434863;
+    self.bannerAd.forceCreativeId = 182192610;
     self.bannerAd.autoRefreshInterval = 0;
     self.bannerAd.delegate = self;
     self.bannerAd.shouldAllowVideoDemand = YES;
@@ -131,28 +136,58 @@
             
             NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",BANNERVIDEO,PERFORMANCESTATSRTBAD_FIRST_REQUEST];
             [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-            NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-            
             XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_FIRST_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+            NSLog(@"PerformanceStats First RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+            
+            NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",BANNERVIDEO,PERFORMANCESTATSRTBAD_FIRST_WEBVIEW_REQUEST];
+            [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByWebview]];
             XCTAssertGreaterThan(PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+            NSLog(@"PerformanceStats First Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
+            
+            
+            NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",BANNERVIDEO,PERFORMANCESTATSRTBAD_FIRST_NETWORK_REQUEST];
+            [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
             XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+            NSLog(@"PerformanceStats First Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
+            
+            
+            
+            
+            
             
             [self.firstLoadAdResponseReceivedExpectation fulfill];
             
         }else if( [self.testCase isEqualToString:PERFORMANCESTATSRTBAD_SECOND_REQUEST]){
             
             [[ANTimeTracker sharedInstance] getDiffereanceAt:@"adDidReceiveAd-SecondRequest"];
-            
             NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",BANNERVIDEO,PERFORMANCESTATSRTBAD_SECOND_REQUEST];
             [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-            NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-            
             XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_SECOND_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+            NSLog(@"PerformanceStats Second RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+            
+            
+            
+            NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",BANNERVIDEO,PERFORMANCESTATSRTBAD_SECOND_WEBVIEW_REQUEST];
+            [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByWebview]];
+            XCTAssertGreaterThan(PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+            NSLog(@"PerformanceStats Second Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
+            
+            
+            
+            NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",BANNERVIDEO,PERFORMANCESTATSRTBAD_SECOND_NETWORK_REQUEST];
+            [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
             //NOTE :- Even after using force creative ID with video ad found that each time webview second load time is getting failed on Mac Mini 2 with similar type of error
             //((PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_SECOND_LOAD) greater than ([[ANTimeTracker sharedInstance] getTimeTakenByWebview])) failed: ("1200") is not greater than ("1350.725098")
             //Thus to make testcase pass made the following change by increasing load time of webview
             XCTAssertGreaterThan(PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_SECOND_LOAD_TEST,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+
             XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+            NSLog(@"PerformanceStats Second Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
+            
+            
+            
+            
+            
             
             [self.secondLoadAdResponseReceivedExpectation fulfill];
         }

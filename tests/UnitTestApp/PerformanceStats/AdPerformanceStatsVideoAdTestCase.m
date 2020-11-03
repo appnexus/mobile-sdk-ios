@@ -57,11 +57,16 @@
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
+    
+    [ANTimeTracker sharedInstance].networkAdRequestComplete = nil;
+     [ANTimeTracker sharedInstance].networkAdRequestInit = nil;
+     [ANTimeTracker sharedInstance].webViewInitLoadingAt = nil;
+     [ANTimeTracker sharedInstance].webViewFinishLoadingAt = nil;
 }
 
 -(void) setupVideoAdWithPlacement:(NSString *)placement{
     self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placement];
-    self.videoAd.forceCreativeId = 182434863;
+    self.videoAd.forceCreativeId = 182192610;
     [self.videoAd loadAdWithDelegate:self];
 }
 
@@ -120,13 +125,22 @@
         
         [[ANTimeTracker sharedInstance] getDiffereanceAt:@"adDidReceiveAd-FirstRequest"];
         
+        
         NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",VIDEO,PERFORMANCESTATSRTBAD_FIRST_REQUEST];
         [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-        NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+        XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_FIRST_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+        NSLog(@"PerformanceStats First RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+        
+        NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",VIDEO,PERFORMANCESTATSRTBAD_FIRST_WEBVIEW_REQUEST];
+        [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByWebview]];
+        XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_WEBVIEW_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+        NSLog(@"PerformanceStats First Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
         
         
-        
-        
+        NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",VIDEO,PERFORMANCESTATSRTBAD_FIRST_NETWORK_REQUEST];
+        [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
+        XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+        NSLog(@"PerformanceStats First Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
         
         XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_FIRST_LOAD,[ANTimeTracker sharedInstance].timeTaken);
         //NOTE :- Even after using force creative ID with ANInstreamVideoAd ad found that each time webview first load time is getting failed on Mac Mini 2 with similar type of error
@@ -135,7 +149,6 @@
         XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_WEBVIEW_FIRST_LOAD * 4,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
         
         
-        XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
         
         [self.firstLoadAdResponseReceivedExpectation fulfill];
         
@@ -147,9 +160,22 @@
         
         NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",VIDEO,PERFORMANCESTATSRTBAD_SECOND_REQUEST];
         [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-        NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-        
         XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_SECOND_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+        NSLog(@"PerformanceStats Second RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+        
+        
+        
+        NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",VIDEO,PERFORMANCESTATSRTBAD_SECOND_WEBVIEW_REQUEST];
+        [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByWebview]];
+        XCTAssertGreaterThan(PERFORMANCESTATSRTBVIDEOAD_WEBVIEW_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+        NSLog(@"PerformanceStats Second Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
+        
+        
+        
+        NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",VIDEO,PERFORMANCESTATSRTBAD_SECOND_NETWORK_REQUEST];
+        [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
+        XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+        NSLog(@"PerformanceStats Second Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
         //NOTE :- Even after using force creative ID with ANInstreamVideoAd ad found that each time webview second load time is getting failed on Mac Mini 2 with similar type of error
         //((PERFORMANCESTATSRTBVIDEOAD_WEBVIEW_SECOND_LOAD) greater than ([[ANTimeTracker sharedInstance] getTimeTakenByWebview])) failed: ("400") is not greater than ("682.153015")
         //Thus to make testcase pass made the following change
