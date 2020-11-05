@@ -286,6 +286,11 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"auction_timeout_ms"] = @(auctionTimeout);
     }
     
+    // override  Country code and  Zip code
+    NSDictionary<NSString *, id> *geoOverrideCountryZipCode = [self geoOverrideCountryZipCode];
+    if ([geoOverrideCountryZipCode count] != 0) {
+        requestDict[@"geoOverride"] = geoOverrideCountryZipCode;
+    }
     
     return [requestDict copy];
 }
@@ -791,6 +796,20 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     };
 }
 
+- (NSDictionary<NSString *, id> *)geoOverrideCountryZipCode
+{
+    NSMutableDictionary<NSString *, id>  *geoOverrideCountryZipCode  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
+    NSString *countryCode = [[ANSDKSettings sharedInstance] geoOverrideCountryCode];
+    if (countryCode.length != 0) {
+        geoOverrideCountryZipCode[@"countryCode"] = countryCode;
+    }
+    NSString *zipCode = [[ANSDKSettings sharedInstance] geoOverrideZipCode];
+    if (zipCode.length != 0) {
+        geoOverrideCountryZipCode[@"zip"] = zipCode;
+    }
+    return [geoOverrideCountryZipCode copy];
+}
 
 
 #pragma mark - Class methods.

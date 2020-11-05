@@ -80,4 +80,14 @@ Get AppNexus SDK Version
  */
 @property (nonatomic, readwrite, assign) NSInteger nativeAdAboutToExpireInterval;
 
+/**
+An AppNexus geoOverrideCountryCode  is a string value which allows publishers to override country code.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *geoOverrideCountryCode;
+
+/**
+An AppNexus geoOverrideZipCode  is a string value which allows publishers to override zip code.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *geoOverrideZipCode;
+
 @end
