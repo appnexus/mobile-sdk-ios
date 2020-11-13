@@ -62,6 +62,8 @@
 @synthesize  forceCreativeId     = __forceCreativeId;
 @synthesize  adType                 = __adType;
 @synthesize  rendererId             = _rendererId;
+@synthesize  extInvCode             = __extInvCode;
+@synthesize  trafficSourceCode      = __trafficSourceCode;
 
 
 
@@ -321,6 +323,29 @@
 
 #pragma mark - ANNativeAdRequestProtocol methods.
 
+- (void)setExtInvCode:(nullable NSString *)extInvCode{
+    extInvCode = ANConvertToNSString(extInvCode);
+    if ([extInvCode length] < 1) {
+        ANLogError(@"Could not set extInvCode to non-string value");
+        return;
+    }
+    if (extInvCode != __extInvCode) {
+        ANLogDebug(@"Setting extInvCode to %@", extInvCode);
+        __extInvCode = extInvCode;
+    }
+}
+
+- (void)setTrafficSourceCode:(nullable NSString *)trafficSourceCode{
+    trafficSourceCode = ANConvertToNSString(trafficSourceCode);
+    if ([trafficSourceCode length] < 1) {
+        ANLogError(@"Could not set trafficSourceCode to non-string value");
+        return;
+    }
+    if (trafficSourceCode != __trafficSourceCode) {
+        ANLogDebug(@"Setting trafficSourceCode to %@", __trafficSourceCode);
+        __trafficSourceCode = trafficSourceCode;
+    }
+}
 - (void)setForceCreativeId:(NSInteger)forceCreativeId {
     if (forceCreativeId <= 0) {
         ANLogError(@"Could not set forceCreativeId to %ld", (long)forceCreativeId);

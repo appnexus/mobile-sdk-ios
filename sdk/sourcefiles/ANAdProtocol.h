@@ -161,6 +161,18 @@
  */
 - (void)setInventoryCode:(nullable NSString *)inventoryCode memberId:(NSInteger)memberID;
 
+/**
+ Set the extInvCode, Specifies predefined value passed on the query string that can be used in reporting. The value must be entered into the system before it is logged.
+*/
+
+@property (nonatomic, readwrite, strong, nullable) NSString *extInvCode;
+
+
+/**
+Set the trafficSourceCode,  Specifies the third-party source of the impression.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *trafficSourceCode;
+
 @end   //ANAdProtocolFoundation
 
 

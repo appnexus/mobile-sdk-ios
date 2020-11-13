@@ -545,6 +545,7 @@
 		FC4E6F7324E99939003F2381 /* OMID_VideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 9736FABA2354CF26008F6687 /* OMID_VideoResponse.json */; };
 		FC4E6F7424E99A9C003F2381 /* ANOMIDInstreamVideoTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736FAAB235492F7008F6687 /* ANOMIDInstreamVideoTestCase.m */; };
 		FCBF0CD624D1E3CC00EA4474 /* ANGlobal+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */; };
+		FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */; };
 		FCE9649224EA5FBC002FA163 /* HTTPCookieTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4B24BF1AE100614011 /* HTTPCookieTestCase.m */; };
 /* End PBXBuildFile section */
 
@@ -1113,6 +1114,7 @@
 		FC4E6F2824E9779E003F2381 /* ReleaseTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseTestAppTests.m; sourceTree = "<group>"; };
 		FC4E6F2A24E9779E003F2381 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANGlobal+ANTest.m"; sourceTree = "<group>"; };
+		FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITrafficSourceCodeAndExtInvCode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1711,6 +1713,7 @@
 		0EC17C5021F72EA300F0F6AF /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */,
 				0E5529B22419203A00D50C51 /* CSR */,
 				0E642D52244E6098009084E0 /* ANAdMediationTimeoutTestcase.m */,
 				38904C4324E1309B00A472CC /* ANAdResponseCodeTestCase.m */,
@@ -2706,6 +2709,7 @@
 				0E8C97A221FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				973B23B1238D2C7000717D67 /* ANUSPrivacySettingsTestCase.m in Sources */,
 				979EA146223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m in Sources */,
+				FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */,
 				97E3447B2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m in Sources */,
 				60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */,
 				4F78CD8324A5262800196E1B /* LazyLoadFeatureTests.m in Sources */,
