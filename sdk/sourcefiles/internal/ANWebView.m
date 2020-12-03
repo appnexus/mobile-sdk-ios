@@ -46,7 +46,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
         if (@available(iOS 11.0, *)) {
             self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        [self loadWebViewWithUserScripts];
+        //[self loadWebViewWithUserScripts];
         return self;
     }
     
@@ -109,21 +109,26 @@ NSMutableArray<ANWebView *> *webViewQueue;
     }
 
     + (ANWebView *) fetchWebView {
-        if(webViewQueue == nil){
-            webViewQueue = [[NSMutableArray alloc] init];
-            [ANWebView  prepareWebView];
+        ANWebView *removedWebView;
+        
+        if(webViewQueue.count > 0){
+            removedWebView = [webViewQueue lastObject];
+            [webViewQueue removeLastObject];
+        } else {
+            removedWebView = [[ANWebView alloc] initWithSize:CGSizeZero];
         }
-        ANWebView *removedWebView = [webViewQueue lastObject];
-        [webViewQueue removeLastObject];
         [ANWebView  prepareWebView];
         return removedWebView;
     }
 
     + (void) prepareWebView {
+        
+        if(webViewQueue == nil){
+                webViewQueue = [[NSMutableArray alloc] init];
+        }
         ANWebView *webView = [[ANWebView alloc] initWithSize:CGSizeZero];
-        
         [webView loadHTMLString:@"" baseURL:nil];
-        
+            
         [webViewQueue addObject:webView];
     }
 
