@@ -46,7 +46,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
         if (@available(iOS 11.0, *)) {
             self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        //[self loadWebViewWithUserScripts];
+        [self loadWebViewWithUserScripts];
         return self;
     }
     
