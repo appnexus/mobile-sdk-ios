@@ -157,6 +157,85 @@ static NSString   *inventoryCode    = @"trucksmash";
     XCTAssertEqual(instreamVideoAd.placementId, placementID);
 }
 
+- (void)testTrafficSourceCode
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [instreamVideoAd setTrafficSourceCode:@"Xandr"];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    XCTAssertEqualObjects(self.jsonRequestBody[@"tags"][0][@"traffic_source_code"], @"Xandr");
+    XCTAssertNil(self.jsonRequestBody[@"tags"][0][@"ext_inv_code"]);
+    instreamVideoAd = nil;
+}
+
+
+- (void)testExtInvCode
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [instreamVideoAd setExtInvCode:@"Xandr"];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    XCTAssertEqualObjects(self.jsonRequestBody[@"tags"][0][@"ext_inv_code"], @"Xandr");
+    XCTAssertNil(self.jsonRequestBody[@"tags"][0][@"traffic_source_code"]);
+    instreamVideoAd = nil;
+}
+
+- (void)testTrafficSourceCodeAndExtInvCodeSet
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    [instreamVideoAd setExtInvCode:@"Xandr-ext_inv_code"];
+    [instreamVideoAd setTrafficSourceCode:@"Xandr-traffic_source_code"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    XCTAssertEqualObjects(self.jsonRequestBody[@"tags"][0][@"traffic_source_code"], @"Xandr-traffic_source_code");
+    XCTAssertEqualObjects(self.jsonRequestBody[@"tags"][0][@"ext_inv_code"], @"Xandr-ext_inv_code");
+    instreamVideoAd = nil;
+}
+
+- (void)testTrafficSourceCodeAndExtInvCodeNotSet
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    NSDictionary *tag = self.jsonRequestBody[@"tags"][0];
+    XCTAssertFalse([tag objectForKey:@"ext_inv_code"]);
+    XCTAssertFalse([tag objectForKey:@"traffic_source_code"]);
+    instreamVideoAd = nil;
+}
+
+- (void)testTrafficSourceCodeAndExtInvCodeNullSet
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    [instreamVideoAd setExtInvCode:NULL];
+    [instreamVideoAd setTrafficSourceCode:NULL];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    NSDictionary *tag = self.jsonRequestBody[@"tags"][0];
+    XCTAssertFalse([tag objectForKey:@"ext_inv_code"]);
+    XCTAssertFalse([tag objectForKey:@"traffic_source_code"]);
+    instreamVideoAd = nil;
+}
+
 
 - (void)testAdDuration {
         [self initializeInstreamVideoWithAllProperties];

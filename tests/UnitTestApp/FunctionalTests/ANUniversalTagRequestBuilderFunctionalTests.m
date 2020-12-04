@@ -58,6 +58,8 @@ static NSString  *placementID  = @"9924001";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = nil;
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
     
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
@@ -421,7 +423,6 @@ static NSString  *placementID  = @"9924001";
 {
     [[ANSDKSettings sharedInstance] setAuctionTimeout:200];
     
-    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
 
@@ -454,7 +455,6 @@ static NSString  *placementID  = @"9924001";
 {
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
     
-    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -485,7 +485,6 @@ static NSString  *placementID  = @"9924001";
 {
     
     
-    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -517,7 +516,6 @@ static NSString  *placementID  = @"9924001";
     [[ANSDKSettings sharedInstance] setAuctionTimeout:-10];
     
     
-    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -537,6 +535,132 @@ static NSString  *placementID  = @"9924001";
         XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
         NSDictionary *jsonDict = (NSDictionary *)jsonObject;
         XCTAssertNil(jsonDict[@"auction_timeout_ms"]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForZipCodeAndCountryCode
+{
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = @"US";
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = @"226006";
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *geoOverrideDict = jsonDict[@"geoOverride"];
+        XCTAssertNotNil(geoOverrideDict);
+        NSString *countryCode = geoOverrideDict[@"countryCode"];
+        NSString *zipCode = geoOverrideDict[@"zip"];
+        XCTAssertTrue([countryCode isEqualToString:ANSDKSettings.sharedInstance.geoOverrideCountryCode]);
+        XCTAssertTrue([zipCode isEqualToString:ANSDKSettings.sharedInstance.geoOverrideZipCode]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForValidZipCodeAndEmptyCountryCode
+{
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = @"";
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = @"226006";
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *geoOverrideDict = jsonDict[@"geoOverride"];
+        XCTAssertNotNil(geoOverrideDict);
+        XCTAssertNil(geoOverrideDict[@"countryCode"]);
+        NSString *zipCode = geoOverrideDict[@"zip"];
+        XCTAssertTrue([zipCode isEqualToString:ANSDKSettings.sharedInstance.geoOverrideZipCode]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForEmptyZipCodeAndValidCountryCode
+{
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = @"US";
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = @"";
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *geoOverrideDict = jsonDict[@"geoOverride"];
+        XCTAssertNotNil(geoOverrideDict);
+        XCTAssertNil(geoOverrideDict[@"zip"]);
+        NSString *countryCode = geoOverrideDict[@"countryCode"];
+        XCTAssertTrue([countryCode isEqualToString:ANSDKSettings.sharedInstance.geoOverrideCountryCode]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForEmptyZipCodeAndEmptyCountryCode
+{
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = @"";
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = @"";
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *geoOverrideDict = jsonDict[@"geoOverride"];
+        XCTAssertNil(geoOverrideDict);
         [expectation fulfill];
     });
     

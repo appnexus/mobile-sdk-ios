@@ -54,7 +54,7 @@
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
     [self.adRequest setPlacementId:placement];
-    self.adRequest.forceCreativeId = 135482485;
+    self.adRequest.forceCreativeId = 142877136;
 }
 
 
@@ -97,6 +97,10 @@
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
+    [ANTimeTracker sharedInstance].networkAdRequestComplete = nil;
+     [ANTimeTracker sharedInstance].networkAdRequestInit = nil;
+     [ANTimeTracker sharedInstance].webViewInitLoadingAt = nil;
+     [ANTimeTracker sharedInstance].webViewFinishLoadingAt = nil;
 }
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {
@@ -111,14 +115,21 @@
         
         [[ANTimeTracker sharedInstance] getDiffereanceAt:@"adDidReceiveAd-FirstRequest"];
         
+        
+        
         NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",NATIVE,PERFORMANCESTATSRTBAD_FIRST_REQUEST];
         [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-        NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-        
         XCTAssertGreaterThan(PERFORMANCESTATSRTBNATIVEAD_FIRST_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+        NSLog(@"PerformanceStats First RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+        
+        NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",NATIVE,PERFORMANCESTATSRTBAD_FIRST_WEBVIEW_REQUEST];
+        [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:-1];
         
         
+        NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",NATIVE,PERFORMANCESTATSRTBAD_FIRST_NETWORK_REQUEST];
+        [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
         XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+        NSLog(@"PerformanceStats First Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
         
         [self.firstLoadAdResponseReceivedExpectation fulfill];
         
@@ -127,16 +138,25 @@
         
         [[ANTimeTracker sharedInstance] getDiffereanceAt:@"adDidReceiveAd-SecondRequest"];
         
+        
         NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",NATIVE,PERFORMANCESTATSRTBAD_SECOND_REQUEST];
         [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-        NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-        
-        
-        
-        
-        
         XCTAssertGreaterThan(PERFORMANCESTATSRTBNATIVEAD_SECOND_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+        NSLog(@"PerformanceStats Second RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+        
+        
+        
+        NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",NATIVE,PERFORMANCESTATSRTBAD_SECOND_WEBVIEW_REQUEST];
+        [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:-1];
+        NSLog(@"PerformanceStats Second Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
+        
+        
+        
+        NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",NATIVE,PERFORMANCESTATSRTBAD_SECOND_NETWORK_REQUEST];
+        [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
         XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+        NSLog(@"PerformanceStats Second Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
+        
         [self.secondLoadAdResponseReceivedExpectation fulfill];
     }
     

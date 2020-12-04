@@ -86,6 +86,8 @@
 
 @synthesize  adResponseInfo                         = __adResponseInfo;
 @synthesize  obstructionViews                       = __obstructionViews;
+@synthesize  extInvCode                             = __extInvCode;
+@synthesize  trafficSourceCode                      = __trafficSourceCode;
 
 
 
@@ -271,6 +273,31 @@
         __adResponseInfo = adResponseInfo;
     }
 }
+
+- (void)setExtInvCode:(nullable NSString *)extInvCode{
+    extInvCode = ANConvertToNSString(extInvCode);
+    if ([extInvCode length] < 1) {
+        ANLogError(@"Could not set extInvCode to non-string value");
+        return;
+    }
+    if (extInvCode != __extInvCode) {
+        ANLogDebug(@"Setting extInvCode to %@", extInvCode);
+        __extInvCode = extInvCode;
+    }
+}
+
+- (void)setTrafficSourceCode:(nullable NSString *)trafficSourceCode{
+    trafficSourceCode = ANConvertToNSString(trafficSourceCode);
+    if ([trafficSourceCode length] < 1) {
+        ANLogError(@"Could not set trafficSourceCode to non-string value");
+        return;
+    }
+    if (trafficSourceCode != __trafficSourceCode) {
+        ANLogDebug(@"Setting trafficSourceCode to %@", __trafficSourceCode);
+        __trafficSourceCode = trafficSourceCode;
+    }
+}
+
 
 
 - (void)setPlacementId:(nullable NSString *)placementId {

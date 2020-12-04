@@ -54,12 +54,17 @@
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
+    
+    [ANTimeTracker sharedInstance].networkAdRequestComplete = nil;
+     [ANTimeTracker sharedInstance].networkAdRequestInit = nil;
+     [ANTimeTracker sharedInstance].webViewInitLoadingAt = nil;
+     [ANTimeTracker sharedInstance].webViewFinishLoadingAt = nil;
 }
 
 -(void) setupInterstitialWithPlacement:(NSString *)placement{
     self.interstitial = [[ANInterstitialAd alloc] init];
     self.interstitial.placementId = placement;
-    self.interstitial.forceCreativeId = 223272198;
+    self.interstitial.forceCreativeId = 152193258;
     self.interstitial.delegate = self;
 }
 
@@ -116,12 +121,24 @@
         
         NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",INTERSTITIAL,PERFORMANCESTATSRTBAD_FIRST_REQUEST];
         [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-        NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-        
         XCTAssertGreaterThan(PERFORMANCESTATSRTBINTERSTITIALAD_FIRST_LOAD,[ANTimeTracker sharedInstance].timeTaken);
-        XCTAssertGreaterThan(PERFORMANCESTATSRTBINTERSTITIALAD_WEBVIEW_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+        NSLog(@"PerformanceStats First RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
         
+        NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",INTERSTITIAL,PERFORMANCESTATSRTBAD_FIRST_WEBVIEW_REQUEST];
+        [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByWebview]];
+        XCTAssertGreaterThan(PERFORMANCESTATSRTBINTERSTITIALAD_WEBVIEW_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+        NSLog(@"PerformanceStats First Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
+        
+        
+        NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",INTERSTITIAL,PERFORMANCESTATSRTBAD_FIRST_NETWORK_REQUEST];
+        [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
         XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_FIRST_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+        NSLog(@"PerformanceStats First Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
+        
+        
+        
+        
+        
         
         [self.firstLoadAdResponseReceivedExpectation fulfill];
         
@@ -129,13 +146,28 @@
         
         [[ANTimeTracker sharedInstance] getDiffereanceAt:@"adDidReceiveAd-SecondRequest"];
         
+        
         NSString *adLoadKey = [NSString stringWithFormat:@"%@%@",INTERSTITIAL,PERFORMANCESTATSRTBAD_SECOND_REQUEST];
         [ANTimeTracker saveSet:adLoadKey date:[NSDate date] loadTime:[ANTimeTracker sharedInstance].timeTaken];
-        NSLog(@"PerformanceStats RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
-        
         XCTAssertGreaterThan(PERFORMANCESTATSRTBINTERSTITIALAD_SECOND_LOAD,[ANTimeTracker sharedInstance].timeTaken);
+        NSLog(@"PerformanceStats Second RTB %@ - %@",adLoadKey, [ANTimeTracker getData:adLoadKey]);
+        
+        
+        
+        NSString *adWebViewLoadKey = [NSString stringWithFormat:@"%@%@",INTERSTITIAL,PERFORMANCESTATSRTBAD_SECOND_WEBVIEW_REQUEST];
+        [ANTimeTracker saveSet:adWebViewLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByWebview]];
         XCTAssertGreaterThan(PERFORMANCESTATSRTBINTERSTITIALAD_WEBVIEW_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByWebview]);
+        NSLog(@"PerformanceStats Second Webview %@ - %@",adWebViewLoadKey, [ANTimeTracker getData:adWebViewLoadKey]);
+        
+        
+        
+        NSString *adNetworkLoadKey = [NSString stringWithFormat:@"%@%@",INTERSTITIAL,PERFORMANCESTATSRTBAD_SECOND_NETWORK_REQUEST];
+        [ANTimeTracker saveSet:adNetworkLoadKey date:[NSDate date] loadTime:[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]];
         XCTAssertGreaterThan(PERFORMANCESTATSRTB_NETWORK_SECOND_LOAD,[[ANTimeTracker sharedInstance] getTimeTakenByNetworkCall]);
+        NSLog(@"PerformanceStats Second Network %@ - %@",adNetworkLoadKey, [ANTimeTracker getData:adNetworkLoadKey]);
+        
+        
+        
         [self.secondLoadAdResponseReceivedExpectation fulfill];
     }
     

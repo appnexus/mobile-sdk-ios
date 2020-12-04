@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "7.7.1"
+  s.version      = "7.8"
   s.platform     = :ios, "9.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
@@ -29,7 +29,7 @@ DESC
 
   s.subspec 'GoogleAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency  'Google-Mobile-Ads-SDK', '7.66.0'
+    subspec.dependency  'Google-Mobile-Ads-SDK', '7.67.0'
     subspec.source_files         = "mediation/mediatedviews/GoogleAdMob/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Google-Mobile-Ads-SDK/**' }
@@ -37,7 +37,7 @@ DESC
 
   s.subspec 'FacebookCSRAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'FBAudienceNetwork', '6.0.0'
+    subspec.dependency 'FBAudienceNetwork', '6.2.0'
     subspec.source_files         = "csr/Facebook/*.{h,m}"
     subspec.public_header_files  = "csr/Facebook/*.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
@@ -45,7 +45,7 @@ DESC
 
   s.subspec 'FacebookAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'FBAudienceNetwork', '6.0.0'
+    subspec.dependency 'FBAudienceNetwork', '6.2.0'
     subspec.source_files         = "mediation/mediatedviews/Facebook/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
@@ -55,7 +55,7 @@ DESC
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
     subspec.source_files = "mediation/mediatedviews/SmartAd/*.{h,m}"
     subspec.public_header_files = "mediation/mediatedviews/SmartAd/ANAdAdapterSmartAdBase.h"
-    subspec.dependency 'Smart-Display-SDK', '7.6.2'
+    subspec.dependency 'Smart-Display-SDK', '7.8.0'
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Smart-Display-SDK/**' }
   end
 

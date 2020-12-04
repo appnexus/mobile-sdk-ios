@@ -286,6 +286,11 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"auction_timeout_ms"] = @(auctionTimeout);
     }
     
+    // override  Country code and  Zip code
+    NSDictionary<NSString *, id> *geoOverrideCountryZipCode = [self geoOverrideCountryZipCode];
+    if ([geoOverrideCountryZipCode count] != 0) {
+        requestDict[@"geoOverride"] = geoOverrideCountryZipCode;
+    }
     
     return [requestDict copy];
 }
@@ -336,7 +341,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     NSInteger   publisherId  = [self.adFetcherDelegate publisherId];
     NSInteger   memberId     = [self.adFetcherDelegate memberId];
     NSString   *invCode      = [self.adFetcherDelegate inventoryCode];
-
+    
     if (invCode && memberId>0)
     {
         tagDict[@"code"] = invCode;
@@ -384,7 +389,17 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
                                      } ];
         }
     }
-
+    
+    NSString    *extInvCode  = [self.adFetcherDelegate extInvCode];
+    if(extInvCode.length > 0 ){
+        tagDict[@"ext_inv_code"] = extInvCode;
+    }
+    
+    NSString    *trafficSourceCode   = [self.adFetcherDelegate trafficSourceCode];
+    if(trafficSourceCode.length > 0 ){
+        tagDict[@"traffic_source_code"] = trafficSourceCode;
+    }
+    
     tagDict[@"sizes"] = sizesArray;
     
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
@@ -791,6 +806,20 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     };
 }
 
+- (NSDictionary<NSString *, id> *)geoOverrideCountryZipCode
+{
+    NSMutableDictionary<NSString *, id>  *geoOverrideCountryZipCode  = [[NSMutableDictionary<NSString *, id> alloc] init];
+
+    NSString *countryCode = [[ANSDKSettings sharedInstance] geoOverrideCountryCode];
+    if (countryCode.length != 0) {
+        geoOverrideCountryZipCode[@"countryCode"] = countryCode;
+    }
+    NSString *zipCode = [[ANSDKSettings sharedInstance] geoOverrideZipCode];
+    if (zipCode.length != 0) {
+        geoOverrideCountryZipCode[@"zip"] = zipCode;
+    }
+    return [geoOverrideCountryZipCode copy];
+}
 
 
 #pragma mark - Class methods.

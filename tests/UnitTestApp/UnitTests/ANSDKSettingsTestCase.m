@@ -38,4 +38,24 @@ limitations under the License.
     XCTAssertTrue([[[NSBundle bundleForClass: [ANSDKSettings class]] bundleIdentifier] isEqualToString:@"corp.appnexus.AppNexusSDK"]);
 }
 
+- (void)testOverrideCountryCode {
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = @"US";
+    XCTAssertEqual(@"US", ANSDKSettings.sharedInstance.geoOverrideCountryCode);
+}
+
+- (void)testOverrideZipCode {
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = @"226006";
+    XCTAssertEqual(@"226006", ANSDKSettings.sharedInstance.geoOverrideZipCode);
+}
+
+- (void)testResetOverrideCountryCode {
+    ANSDKSettings.sharedInstance.geoOverrideCountryCode = @"";
+    XCTAssertTrue(ANSDKSettings.sharedInstance.geoOverrideCountryCode.length == 0);
+}
+
+- (void)testResetOverrideZipCode {
+    ANSDKSettings.sharedInstance.geoOverrideZipCode = @"";
+    XCTAssertTrue(ANSDKSettings.sharedInstance.geoOverrideCountryCode.length == 0);
+}
+
 @end

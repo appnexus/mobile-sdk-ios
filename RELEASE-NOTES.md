@@ -1,3 +1,16 @@
+## 7.8
+### New Feature
++ MS-4387 Added support to pass traffic source and external inventory codes in Ad Request [https://wiki.xandr.com/x/5gEYBw]
++ MS-4517 Added support for overriding Country and Zip Codes  [https://wiki.xandr.com/x/-QEYBw]
+### Mediation partner updates
++ MS-4426 Upgraded Facebook SDK to v6.2.0
++ MS-4499 Upgraded SmartAd Server SDK to v7.8.0
++ MS-4498 Upgraded Google AdMob SDK to v7.67.0
+### Improvements/Bug Fixes
++ MS-4557 Resolved issue with BannerAd not rendering on the first load
++ MS-4587 - Fixed issue with OMID sessionFinish event not being returned for Native ads
+
+
 ## 7.7.1
 ### Improvements/Bug Fixes
 + MS-4573 Fixed banner refresh on Lazyload

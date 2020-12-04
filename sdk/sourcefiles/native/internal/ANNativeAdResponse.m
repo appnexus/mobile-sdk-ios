@@ -320,9 +320,9 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
 - (void)adDidLogImpression {
     if ([self.delegate respondsToSelector:@selector(adDidLogImpression:)]) {
         [self.delegate adDidLogImpression:self];
-        [self invalidateAdExpireTimer:self.adWillExpireTimer];
-        [self invalidateAdExpireTimer:self.adDidExpireTimer];
     }
+    [self invalidateAdExpireTimer:self.adWillExpireTimer];
+    [self invalidateAdExpireTimer:self.adDidExpireTimer];
 }
 
 -(void)registerAdAboutToExpire{
@@ -337,11 +337,10 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
         timeInterval =  kANNativeRTBAdAboutToExpire - self.aboutToExpireInterval;
     }
     
-    self.adWillExpireTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
-                                                              target:self
-                                                            selector:@selector(onAdAboutToExpire)
-                                                            userInfo:nil
-                                                             repeats:NO];
+    typeof(self) __weak weakSelf = self;
+    self.adWillExpireTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [weakSelf onAdAboutToExpire];
+    }];
 }
 
 - (void)onAdAboutToExpire {

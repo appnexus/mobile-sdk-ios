@@ -109,25 +109,26 @@ NSMutableArray<ANWebView *> *webViewQueue;
     }
 
     + (ANWebView *) fetchWebView {
-        ANWebView *removedWebView = nil;
-        if(webViewQueue == nil){
-            webViewQueue = [[NSMutableArray alloc] init];
-            
-        } else if (webViewQueue.count > 0){
+        ANWebView *removedWebView;
+        
+        if(webViewQueue.count > 0){
             removedWebView = [webViewQueue lastObject];
             [webViewQueue removeLastObject];
-            
+        } else {
+            removedWebView = [[ANWebView alloc] initWithSize:CGSizeZero];
         }
         [ANWebView  prepareWebView];
         return removedWebView;
-     
     }
 
     + (void) prepareWebView {
+        
+        if(webViewQueue == nil){
+                webViewQueue = [[NSMutableArray alloc] init];
+        }
         ANWebView *webView = [[ANWebView alloc] initWithSize:CGSizeZero];
-        
         [webView loadHTMLString:@"" baseURL:nil];
-        
+            
         [webViewQueue addObject:webView];
     }
 

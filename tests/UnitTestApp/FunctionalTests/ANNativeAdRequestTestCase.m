@@ -201,6 +201,98 @@
     XCTAssertGreaterThan(self.adResponseInfo.iconImageSize.height, 0);
 }
 
+
+
+- (void)testTrafficSourceCodeAndExtInvCodeSet {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest setInventoryCode:@"test" memberId:2];
+    [self.adRequest setExtInvCode:@"Xandr-ext_inv_code"];
+    [self.adRequest setTrafficSourceCode:@"Xandr-traffic_source_code"];
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    self.requestExpectation = nil;
+    
+    XCTAssertEqual(2, [self.adRequest memberId]);
+    XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqualObjects(jsonBody[@"tags"][0][@"traffic_source_code"], @"Xandr-traffic_source_code");
+    XCTAssertEqualObjects(jsonBody[@"tags"][0][@"ext_inv_code"], @"Xandr-ext_inv_code");
+    
+    
+}
+
+
+
+- (void)testExtInvCode {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest setInventoryCode:@"test" memberId:2];
+    [self.adRequest setExtInvCode:@"Xandr-traffic_source_code"];
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    self.requestExpectation = nil;
+    
+    XCTAssertEqual(2, [self.adRequest memberId]);
+    XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    NSDictionary *tag = jsonBody[@"tags"][0];
+    XCTAssertEqualObjects(tag[@"ext_inv_code"], @"Xandr-traffic_source_code");
+    XCTAssertFalse([tag objectForKey:@"traffic_source_code"]);
+}
+
+
+- (void)testTrafficSourceCode {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest setInventoryCode:@"test" memberId:2];
+    [self.adRequest setTrafficSourceCode:@"Xandr-traffic_source_code"];
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    self.requestExpectation = nil;
+    
+    XCTAssertEqual(2, [self.adRequest memberId]);
+    XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    NSDictionary *tag = jsonBody[@"tags"][0];
+    XCTAssertFalse([tag objectForKey:@"ext_inv_code"]);
+    XCTAssertEqualObjects(tag[@"traffic_source_code"], @"Xandr-traffic_source_code");
+    
+}
+
+
+
+
+
+- (void)testTrafficSourceCodeAndExtInvCodeNotSet {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest setInventoryCode:@"test" memberId:2];
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    self.requestExpectation = nil;
+    
+    XCTAssertEqual(2, [self.adRequest memberId]);
+    XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    NSDictionary *tag = jsonBody[@"tags"][0];
+    XCTAssertFalse([tag objectForKey:@"ext_inv_code"]);
+    XCTAssertFalse([tag objectForKey:@"traffic_source_code"]);
+}
+
+
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;

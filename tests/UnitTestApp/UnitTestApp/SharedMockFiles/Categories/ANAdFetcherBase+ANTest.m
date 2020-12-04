@@ -62,8 +62,8 @@
           cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies];
          [ANHTTPCookieStorage sharedInstance].adFetcherRequestCookie = cookieHeaders;
     }
-    [ANTimeTracker sharedInstance].networkAdRequestInit = [NSDate date];
     [self test_requestAd];
+    [ANTimeTracker sharedInstance].networkAdRequestInit = [NSDate date];
 }
 
 - (void)test_handleAdServerResponse:(NSData *)data{
