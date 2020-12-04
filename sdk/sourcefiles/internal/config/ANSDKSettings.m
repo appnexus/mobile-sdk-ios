@@ -128,7 +128,7 @@
 {
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
-    [ANWebView fetchWebView];
+    [ANWebView prepareWebView];
 }
 
 -(void)setNativeAdAboutToExpireInterval:(NSInteger)nativeAdAboutToExpireInterval{
