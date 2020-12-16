@@ -68,7 +68,7 @@
 + (void)load {
     TESTTRACE();
 
-    [ANGlobal getUserAgent];
+    [ANGlobal userAgent];
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
 
