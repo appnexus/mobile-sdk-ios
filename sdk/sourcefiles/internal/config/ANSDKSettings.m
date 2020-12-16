@@ -128,6 +128,7 @@
 {
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
+    [ANGlobal adServerRequestURL];
     [ANWebView prepareWebView];
 }
 

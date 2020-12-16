@@ -290,16 +290,10 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 @implementation ANGlobal
 
-+ (void)load {
-    
-    // No need for "dispatch once" since `load` is called only once during app launch.
-    [ANGlobal getUserAgent];
-    [self constructAdServerRequestURL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
-    
-}
-
 +(nullable NSMutableURLRequest *) adServerRequestURL {
+    if(utMutableRequest == nil){
+        [ANGlobal constructAdServerRequestURL];
+    }
     return utMutableRequest;
 }
 
