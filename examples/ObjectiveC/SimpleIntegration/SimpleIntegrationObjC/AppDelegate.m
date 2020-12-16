@@ -25,7 +25,6 @@ limitations under the License.
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [ANLogManager setANLogLevel:ANLogLevelAll];
     [[ANSDKSettings sharedInstance] optionalSDKInitialization];
     return YES;
 }

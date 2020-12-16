@@ -37,7 +37,6 @@
     int adWidth  = 300;
     int adHeight = 250;
     NSString *adID = @"15215010";
-    //NSString *adID = @"15023720";
     
     int adWidth1  = 320;
     int adHeight1 = 50;
@@ -63,20 +62,12 @@
     //self.banner = [[ANBannerAdView alloc] initWithFrame:rect1 memberId:memberID inventoryCode:inventoryCode adSize:size1];
     self.banner.rootViewController = self;
     self.banner.delegate = self;
-    //self.banner.enableLazyLoad = YES;
+    self.banner.enableLazyLoad = YES;
     [self.view addSubview:self.banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
     self.banner.shouldServePublicServiceAnnouncements = NO;
     self.banner.autoRefreshInterval = 10;
-    
-    self.banner.enableNativeRendering = YES;
-    self.banner.shouldAllowNativeDemand = YES;
-    
-    [self.banner addCustomKeywordWithKey:@"kw" value:@"test_native_teaser"];
-    
-    [self.banner setShouldResizeAdToFitContainer:YES];
-    
     
     // Load an ad.
     self.processStart = [NSDate date];
