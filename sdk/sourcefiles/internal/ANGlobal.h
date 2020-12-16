@@ -145,7 +145,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
-+ (nonnull NSString *) getUserAgent;
++ (nonnull NSString *) userAgent;
 
 + (nonnull UIWindow *) getKeyWindow;
 

@@ -37,6 +37,8 @@ NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                  
 
 NSMutableURLRequest  *utMutableRequest = nil;
 
+NSString *anUserAgent = nil;
+
 
 NSString *__nonnull ANDeviceModel()
 {
@@ -258,7 +260,7 @@ NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
-    [request setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[ANGlobal ANUserAgent] forHTTPHeaderField:@"User-Agent"];
     return [request copy];
 }
 
@@ -312,7 +314,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 }
 
 + (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
-    [utMutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"user-agent"];
+    [utMutableRequest setValue:[ANGlobal ANUserAgent] forHTTPHeaderField:@"user-agent"];
     [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
 }
 
@@ -396,55 +398,56 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 
 //
-+ (nonnull NSString *) getUserAgent
++ (void) getUserAgent
 {
-    static NSString  *userAgent               = nil;
     static BOOL       userAgentQueryIsActive  = NO;
-
+    
     // Return customUserAgent if provided
     NSString *customUserAgent = ANSDKSettings.sharedInstance.customUserAgent;
     if(customUserAgent && customUserAgent.length != 0){
         ANLogDebug(@"userAgent=%@", customUserAgent);
-        return customUserAgent;
+        anUserAgent = customUserAgent;
+        
     }
-
-    if (!userAgent) {
+    
+    if (!anUserAgent) {
         if (!userAgentQueryIsActive)
         {
             @synchronized (self) {
                 userAgentQueryIsActive = YES;
             }
-
+            
             dispatch_async(dispatch_get_main_queue(),
-            ^{
-                WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
-                UIWindow   *currentWindow        = [ANGlobal getKeyWindow];
-
-                [webViewForUserAgent setHidden:YES];
-                [currentWindow addSubview:webViewForUserAgent];
-
+                           ^{
+                WKWebView  *webViewForUserAgent  = [WKWebView new];
                 [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
                                       completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
-                                      {
-                                          ANLogDebug(@"userAgentString=%@", userAgentString);
-                                          userAgent = userAgentString;
-                                          
-
-                                          [webViewForUserAgent stopLoading];
-                                          [webViewForUserAgent removeFromSuperview];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
-                                          @synchronized (self) {
-                                              userAgentQueryIsActive = NO;
-                                          }
-                                      } ];
+                 {
+                    if (error != nil) {
+                        ANLogError(@"%@ error: %@", NSStringFromSelector(_cmd), error);
+                    } else if ([userAgentString isKindOfClass:NSString.class]) {
+                        ANLogDebug(@"userAgentString=%@", userAgentString);
+                        anUserAgent = userAgentString;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
+                        @synchronized (self) {
+                            userAgentQueryIsActive = NO;
+                        }
+                    }
+                }];
             });
+            
         }
+        //
+        ANLogDebug(@"userAgent=%@", anUserAgent);
+        
     }
-
-    //
-    ANLogDebug(@"userAgent=%@", userAgent);
-    return userAgent;
+}
+    
++ (NSString *) userAgent {
+    if(anUserAgent == nil){
+        [ANGlobal getUserAgent];
+    }
+    return anUserAgent;
 }
 
 #pragma mark - Get KeyWindow
