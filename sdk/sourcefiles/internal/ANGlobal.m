@@ -38,6 +38,7 @@ NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                  
 NSMutableURLRequest  *utMutableRequest = nil;
 
 NSString *anUserAgent = nil;
+WKWebView  *webViewForUserAgent = nil;
 
 
 NSString *__nonnull ANDeviceModel()
@@ -260,7 +261,7 @@ NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
-    [request setValue:[ANGlobal ANUserAgent] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[ANGlobal userAgent] forHTTPHeaderField:@"User-Agent"];
     return [request copy];
 }
 
@@ -314,7 +315,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 }
 
 + (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
-    [utMutableRequest setValue:[ANGlobal ANUserAgent] forHTTPHeaderField:@"user-agent"];
+    [utMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
     [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
 }
 
@@ -419,7 +420,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
             
             dispatch_async(dispatch_get_main_queue(),
                            ^{
-                WKWebView  *webViewForUserAgent  = [WKWebView new];
+                webViewForUserAgent  = [WKWebView new];
                 [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
                                       completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
                  {
@@ -431,9 +432,13 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
                         @synchronized (self) {
                             userAgentQueryIsActive = NO;
+                            
                         }
                     }
+                    webViewForUserAgent = nil;
                 }];
+                
+
             });
             
         }
