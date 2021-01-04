@@ -123,6 +123,13 @@
 
                                                     [strongSelf queueTrackerURLForRetry:URL withBlock:completionBlock];
                                                 } else {
+                                                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                    ANLogDebug(@"BURDA Response status code: %ld", (long)[httpResponse statusCode]);
+                                                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                                    NSInteger requestCount = [defaults integerForKey:@"totalImpSuccessCount"];
+                                                    [defaults setInteger:requestCount+1 forKey:@"totalImpSuccessCount"];
+                                                    [defaults synchronize];
+                                                
                                                     if (completionBlock) {
                                                         completionBlock(YES);
                                                     }
@@ -183,8 +190,25 @@
                                                             }
 
                                                             [strongSelf queueTrackerInfoForRetry:info withBlock:completionBlock];
+                                                        } else {
+                                                            ANLogDebug(@"BURDA retry count exceeded no tracker fired");
+                                                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                                            NSInteger requestCount = [defaults integerForKey:@"totalImpFailureCount"];
+                                                            [defaults setInteger:requestCount+1 forKey:@"totalImpFailureCount"];
+                                                            [defaults synchronize];
+                                                            ANLogDebug(@"BURDA Impression failure %ld", requestCount+1);
                                                         }
                                                     } else {
+                                                        ANLogDebug(@"RETRY SUCCESSFUL for %@", info);
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        
+                                                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                                        NSInteger requestCount = [defaults integerForKey:@"totalImpSuccessCount"];
+                                                        [defaults setInteger:requestCount+1 forKey:@"totalImpSuccessCount"];
+                                                        [defaults synchronize];
+                                                        ANLogDebug(@"BURDA Request Success %ld", requestCount+1);
+                                                        
+                                                        ANLogDebug(@"BURDA Response status code: %ld", (long)[httpResponse statusCode]);
                                                         ANLogDebug(@"RETRY SUCCESSFUL for %@", info);
                                                         if (completionBlock) {
                                                           completionBlock(YES);

@@ -38,6 +38,7 @@
 
 - (BOOL)valueOfEnableLazyLoad;
 - (BOOL)valueOfIsLazySecondPassThroughAdUnit;
+- (BOOL) valueOfCountImpressionOnAdReceived;
 
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;

@@ -380,8 +380,10 @@ static NSString *const kANInline        = @"inline";
 
 - (void)fireTrackerAndOMID
 {
-    [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
-    self.impressionURLs = nil;
+    if(self.impressionURLs != nil) {
+        [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
+        self.impressionURLs = nil;
+    }
 
     // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
     //
@@ -812,7 +814,9 @@ static NSString *const kANInline        = @"inline";
     return  self.isLazySecondPassThroughAdUnit;
 }
 
-
+- (BOOL) valueOfCountImpressionOnAdReceived {
+    return self.countImpressionOnAdReceived;
+}
 
 
 #pragma mark - UIView observer methods.

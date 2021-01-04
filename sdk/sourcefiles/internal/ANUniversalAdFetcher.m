@@ -354,6 +354,9 @@
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
+    } else {
+        [self fireImpressionTrackers:standardAd];
+        
     }
 }
 
@@ -369,6 +372,7 @@
         self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
                                                                    withFetcher: self
                                                                 adViewDelegate: self.delegate];
+        [self fireImpressionTrackers:mediatedAd];
     }
 }
 
@@ -378,6 +382,7 @@
     self.ssmMediationController = [ANSSMMediationAdViewController initMediatedAd:mediatedAd
                                                                      withFetcher:self
                                                                   adViewDelegate:self.delegate];
+    [self fireImpressionTrackers:mediatedAd];
 }
 
 - (void)handleNativeAd:(ANNativeStandardAdResponse *)nativeAd
@@ -416,6 +421,19 @@
     
     self.nativeAdView = [[ANNativeRenderingViewController alloc] initWithSize:sizeofWebView BaseObject:nativeRenderingElement];
      self.nativeAdView.loadingDelegate = self;
+}
+
+- (void) fireImpressionTrackers:(ANBaseAdObject *) ad {
+    //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
+    BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
+    if(countImpressionOnAdReceived){
+        [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
+        ad.impressionUrls = nil;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSInteger impURLCount = [defaults integerForKey:@"totalAdCreated"];
+        [defaults setInteger:impURLCount+1 forKey:@"totalAdCreated"];
+        [defaults synchronize];
+    }
 }
 
 
