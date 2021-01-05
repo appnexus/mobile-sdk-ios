@@ -40,7 +40,7 @@
     }
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     self.originalHiddenState = NO;
-    self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    self.orientation = ANStatusBarOrientation();
     self.needCloseButton = YES;
     return self;
 }
@@ -82,7 +82,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
+    self.originalHiddenState = ANStatusBarHidden();
     
 }
 
@@ -253,12 +253,12 @@
         if (self.orientationProperties) {
             switch (self.orientationProperties.forceOrientation) {
                 case ANMRAIDOrientationPortrait:
-                    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+                    if (ANStatusBarOrientation() == UIInterfaceOrientationPortraitUpsideDown) {
                         return UIInterfaceOrientationPortraitUpsideDown;
                     }
                     return UIInterfaceOrientationPortrait;
                 case ANMRAIDOrientationLandscape:
-                    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+                    if (ANStatusBarOrientation() == UIInterfaceOrientationLandscapeRight) {
                         return UIInterfaceOrientationLandscapeRight;
                     }
                     return UIInterfaceOrientationLandscapeLeft;
@@ -272,7 +272,7 @@
     - (void)viewWillLayoutSubviews {
         CGFloat buttonDistanceToSuperview;
         if ([self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
-            CGSize statusBarFrameSize = [[UIApplication sharedApplication] statusBarFrame].size;
+            CGSize statusBarFrameSize = ANStatusBarFrame().size;
             buttonDistanceToSuperview = statusBarFrameSize.height;
             if (statusBarFrameSize.height > statusBarFrameSize.width) {
                 buttonDistanceToSuperview = statusBarFrameSize.width;
@@ -306,7 +306,7 @@
         if ([self.view an_isViewable]) {
             if (orientationProperties.allowOrientationChange && orientationProperties.forceOrientation == ANMRAIDOrientationNone) {
                 [UIViewController attemptRotationToDeviceOrientation];
-            } else if ([UIApplication sharedApplication].statusBarOrientation != [self preferredInterfaceOrientationForPresentation]) {
+            } else if (ANStatusBarOrientation() != [self preferredInterfaceOrientationForPresentation]) {
                 [self.delegate dismissAndPresentAgainForPreferredInterfaceOrientationChange];
             }
         }

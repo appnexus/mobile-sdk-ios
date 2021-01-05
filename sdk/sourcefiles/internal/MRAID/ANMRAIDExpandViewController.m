@@ -147,17 +147,17 @@
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     switch (self.orientationProperties.forceOrientation) {
         case ANMRAIDOrientationPortrait:
-            if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+            if (ANStatusBarOrientation() == UIInterfaceOrientationPortraitUpsideDown) {
                 return UIInterfaceOrientationPortraitUpsideDown;
             }
             return UIInterfaceOrientationPortrait;
         case ANMRAIDOrientationLandscape:
-            if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+            if (ANStatusBarOrientation() == UIInterfaceOrientationLandscapeRight) {
                 return UIInterfaceOrientationLandscapeRight;
             }
             return UIInterfaceOrientationLandscapeLeft;
         default: {
-            UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+            UIInterfaceOrientation currentOrientation = ANStatusBarOrientation();
             return currentOrientation;
         }
     }   
@@ -166,7 +166,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (![self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        self.originalStatusBarHiddenState = [UIApplication sharedApplication].statusBarHidden;
+        self.originalStatusBarHiddenState = ANStatusBarHidden();
         
     }
 }

@@ -129,7 +129,9 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
-
+CGRect ANStatusBarFrame(void);
+BOOL ANStatusBarHidden(void);
+UIInterfaceOrientation ANStatusBarOrientation(void);
 
 #pragma mark - Global class.
 

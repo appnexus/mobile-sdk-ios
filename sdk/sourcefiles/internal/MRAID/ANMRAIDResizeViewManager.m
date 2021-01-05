@@ -17,6 +17,7 @@
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
 #import "ANMRAIDResizeView.h"
+#import "ANGlobal.h"
 
 @interface ANMRAIDResizeViewManager () <ANMRAIDResizeViewDelegate>
 
@@ -188,7 +189,7 @@
 
 - (CGAffineTransform)transformForOrientation {
     CGFloat radians = 0;
-    switch ([UIApplication sharedApplication].statusBarOrientation) {
+    switch (ANStatusBarOrientation()) {
         case UIInterfaceOrientationLandscapeLeft:
             radians = -(CGFloat)M_PI_2;
             break;

@@ -140,7 +140,7 @@ NSString *__nullable ANConvertToNSString(id __nullable value) {
 
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
     // If portrait, no adjustment is necessary.
-    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() == UIInterfaceOrientationPortrait) {
         return rect;
     }
     
@@ -155,7 +155,7 @@ CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rec
     CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
     
     CGRect adjustedRect;
-    switch ([UIApplication sharedApplication].statusBarOrientation) {
+    switch (ANStatusBarOrientation()) {
         case UIInterfaceOrientationLandscapeLeft:
             adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
             break;
@@ -202,10 +202,10 @@ void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDict
 
 CGRect ANPortraitScreenBounds() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
         if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
             // need to orient screen bounds
-            switch ([UIApplication sharedApplication].statusBarOrientation) {
+            switch (ANStatusBarOrientation()) {
                 case UIInterfaceOrientationLandscapeLeft:
                     return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
                     break;
@@ -233,10 +233,10 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
         CGFloat rightPadding = window.safeAreaInsets.right;
         screenBounds = CGRectMake(leftPadding, topPadding, screenBounds.size.width - (leftPadding + rightPadding), screenBounds.size.height - (topPadding + bottomPadding));
     }
-    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
         if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
             // need to orient screen bounds
-            switch ([UIApplication sharedApplication].statusBarOrientation) {
+            switch (ANStatusBarOrientation()) {
                 case UIInterfaceOrientationLandscapeLeft:
                     return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
                     break;
@@ -282,7 +282,36 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     return viewController.view.window != nil ? YES : NO;
 }
 
+CGRect ANStatusBarFrame(){
+    CGRect statusBarFrame;
+    if (@available(iOS 13.0, *)) {
+        statusBarFrame = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] statusBarFrame];
+    }else {
+        statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    }
+    return statusBarFrame;
+}
 
+BOOL ANStatusBarHidden(){
+    BOOL statusBarHidden;
+    if (@available(iOS 13.0, *)) {
+        statusBarHidden = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] isStatusBarHidden];
+    }else {
+        statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+    }
+    return statusBarHidden;
+}
+
+UIInterfaceOrientation ANStatusBarOrientation()
+{
+    UIInterfaceOrientation statusBarOrientation;
+    if (@available(iOS 13.0, *)) {
+        statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
+    }else {
+        statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    return statusBarOrientation;
+}
 
 
 @implementation ANGlobal
@@ -326,7 +355,6 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
-
 
 #pragma mark - Custom keywords.
 

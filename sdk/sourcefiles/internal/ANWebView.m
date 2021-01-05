@@ -161,15 +161,27 @@ NSMutableArray<ANWebView *> *webViewQueue;
         // video always loads in full-screen.
         // See: https://bugs.webkit.org/show_bug.cgi?id=147512
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            configuration.requiresUserActionForMediaPlayback = NO;
+            if (@available(iOS 10.0, *)) {
+                configuration.mediaTypesRequiringUserActionForPlayback = NO;
+            }else {
+                configuration.requiresUserActionForMediaPlayback = NO;
+            }
             
         } else {
             if (    [[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)]
                 && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}] )
             {
-                configuration.requiresUserActionForMediaPlayback = NO;
+                if (@available(iOS 10.0, *)) {
+                    configuration.mediaTypesRequiringUserActionForPlayback = NO;
+                }else {
+                    configuration.requiresUserActionForMediaPlayback = NO;
+                }
             } else {
-                configuration.requiresUserActionForMediaPlayback = YES;
+                if (@available(iOS 10.0, *)) {
+                    configuration.mediaTypesRequiringUserActionForPlayback = YES;
+                }else {
+                    configuration.requiresUserActionForMediaPlayback = YES;
+                }
             }
         }
         
