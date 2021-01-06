@@ -444,6 +444,8 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     
 + (NSString *) userAgent {
     if(anUserAgent == nil){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
+           
         [ANGlobal getUserAgent];
     }
     return anUserAgent;
