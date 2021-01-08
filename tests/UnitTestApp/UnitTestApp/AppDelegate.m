@@ -27,7 +27,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [ANGlobal getUserAgent];
+    [ANGlobal userAgent];
 
     [ANLogManager setANLogLevel:ANLogLevelAll];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];

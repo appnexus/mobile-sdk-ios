@@ -581,7 +581,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 
     //
-    NSString *userAgent = [ANGlobal getUserAgent];
+    NSString *userAgent = [ANGlobal userAgent];
     if (userAgent) {
         deviceDict[@"useragent"] = userAgent;
     }

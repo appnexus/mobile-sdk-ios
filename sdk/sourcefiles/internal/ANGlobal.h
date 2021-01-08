@@ -147,7 +147,7 @@ UIInterfaceOrientation ANStatusBarOrientation(void);
 
 + (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
-+ (nonnull NSString *) getUserAgent;
++ (nonnull NSString *) userAgent;
 
 + (nonnull UIWindow *) getKeyWindow;
 
