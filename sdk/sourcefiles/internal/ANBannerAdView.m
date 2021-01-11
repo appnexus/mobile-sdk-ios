@@ -381,6 +381,7 @@ static NSString *const kANInline        = @"inline";
 - (void)fireTrackerAndOMID
 {
     if(self.impressionURLs != nil) {
+        //this check is important because,though 
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         self.impressionURLs = nil;
     }

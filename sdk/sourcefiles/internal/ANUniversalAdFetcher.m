@@ -355,7 +355,7 @@
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
     } else {
-        [self fireImpressionTrackers:standardAd];
+        [self fireImpressionTrackersEarly:standardAd];
         
     }
 }
@@ -372,7 +372,6 @@
         self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
                                                                    withFetcher: self
                                                                 adViewDelegate: self.delegate];
-        [self fireImpressionTrackers:mediatedAd];
     }
 }
 
@@ -382,7 +381,6 @@
     self.ssmMediationController = [ANSSMMediationAdViewController initMediatedAd:mediatedAd
                                                                      withFetcher:self
                                                                   adViewDelegate:self.delegate];
-    [self fireImpressionTrackers:mediatedAd];
 }
 
 - (void)handleNativeAd:(ANNativeStandardAdResponse *)nativeAd
@@ -423,7 +421,7 @@
      self.nativeAdView.loadingDelegate = self;
 }
 
-- (void) fireImpressionTrackers:(ANBaseAdObject *) ad {
+- (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
     //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
     BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
     if(countImpressionOnAdReceived){

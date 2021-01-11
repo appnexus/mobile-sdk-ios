@@ -84,7 +84,8 @@
 
 - (void) beginWaterfallWithAdObjects:(nonnull NSMutableArray<id> *)ads;
 
-
+// fire impression trackers if the publisher wants to fire them early in the lifecycle
+- (void) fireImpressionTrackersEarly:(nonnull ANBaseAdObject *) ad;
 @end
 
 
