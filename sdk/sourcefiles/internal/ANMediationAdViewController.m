@@ -20,7 +20,6 @@
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
-#import "ANTrackerManager.h"
 #import "NSString+ANCategory.h"
 #import "ANMediationContainerView.h"
 #import "NSObject+ANCategory.h"

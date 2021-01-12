@@ -123,8 +123,6 @@
 
                                                     [strongSelf queueTrackerURLForRetry:URL withBlock:completionBlock];
                                                 } else {
-                                                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                
                                                     if (completionBlock) {
                                                         completionBlock(YES);
                                                     }
@@ -185,11 +183,8 @@
                                                             }
 
                                                             [strongSelf queueTrackerInfoForRetry:info withBlock:completionBlock];
-                                                        } 
+                                                        }
                                                     } else {
-                                                        ANLogDebug(@"RETRY SUCCESSFUL for %@", info);
-                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                        
                                                         ANLogDebug(@"RETRY SUCCESSFUL for %@", info);
                                                         if (completionBlock) {
                                                           completionBlock(YES);
