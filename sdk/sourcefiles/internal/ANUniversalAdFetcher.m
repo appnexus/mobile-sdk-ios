@@ -427,10 +427,7 @@
     if(countImpressionOnAdReceived){
         [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
         ad.impressionUrls = nil;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSInteger impURLCount = [defaults integerForKey:@"totalAdCreated"];
-        [defaults setInteger:impURLCount+1 forKey:@"totalAdCreated"];
-        [defaults synchronize];
+        
     }
 }
 

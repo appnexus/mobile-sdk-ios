@@ -381,7 +381,7 @@ static NSString *const kANInline        = @"inline";
 - (void)fireTrackerAndOMID
 {
     if(self.impressionURLs != nil) {
-        //this check is important because,though 
+        //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or 
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         self.impressionURLs = nil;
     }

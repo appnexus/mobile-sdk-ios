@@ -148,11 +148,6 @@
     [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
         __typeof__(self) strongSelf = weakSelf;
         
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSInteger requestCount = [defaults integerForKey:@"totalRequestCount"];
-        [defaults setInteger:requestCount+1 forKey:@"totalRequestCount"];
-        [defaults synchronize];
-        ANLogDebug(@"Burda Request Count %ld", requestCount+1);
         if (!strongSelf)  {
             ANLogError(@"COULD NOT ACQUIRE strongSelf.");
             return;
@@ -281,11 +276,7 @@
         
         if (noBid) {
             ANLogWarn(@"response_no_ads");
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSInteger requestCount = [defaults integerForKey:@"totalRequestFailure"];
-            [defaults setInteger:requestCount+1 forKey:@"totalRequestFailure"];
-            [defaults synchronize];
-            ANLogDebug(@"BURDA Request failure %ld", requestCount+1);
+            
             //
             ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
             
@@ -323,11 +314,7 @@
     if (noAdURLString) {
         self.noAdUrl = noAdURLString;
     }
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger requestCount = [defaults integerForKey:@"totalRequestSuccess"];
-    [defaults setInteger:requestCount+1 forKey:@"totalRequestSuccess"];
-    [defaults synchronize];
-    ANLogDebug(@"BURDA Request Success %ld", requestCount+1);
+    
     //
     [self beginWaterfallWithAdObjects:ads];
 }
