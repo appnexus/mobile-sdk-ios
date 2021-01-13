@@ -425,6 +425,7 @@
     //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
     BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
     if(countImpressionOnAdReceived){
+        ANLogDebug(@"Impression URL fired when we have a valid ad & the view is created");
         [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
         ad.impressionUrls = nil;
         
