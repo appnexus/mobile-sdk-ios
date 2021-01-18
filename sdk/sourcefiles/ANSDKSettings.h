@@ -90,4 +90,5 @@ An AppNexus geoOverrideZipCode  is a string value which allows publishers to ove
 */
 @property (nonatomic, readwrite, strong, nullable) NSString *geoOverrideZipCode;
 
+@property (nonatomic, readwrite) BOOL disableIDFAUsage;
 @end

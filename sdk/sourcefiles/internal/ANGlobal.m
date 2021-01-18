@@ -78,6 +78,8 @@ NSString * __nonnull ANUUID()
 }
 
 NSString *__nonnull ANAdvertisingIdentifier() {
+    if (ANSDKSettings.sharedInstance.disableIDFAUsage) { return @""; }
+    
     NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     if (advertisingIdentifier) {
         ANLogInfo(@"IDFA = %@", advertisingIdentifier);
