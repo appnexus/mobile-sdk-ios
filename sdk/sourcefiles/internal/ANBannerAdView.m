@@ -380,8 +380,12 @@ static NSString *const kANInline        = @"inline";
 
 - (void)fireTrackerAndOMID
 {
-    [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
-    self.impressionURLs = nil;
+    if(self.impressionURLs != nil) {
+        //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or there was no urls in the response
+        ANLogDebug(@"Impression URL fired when adview is attaching to window");
+        [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
+        self.impressionURLs = nil;
+    }
 
     // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
     //
@@ -812,7 +816,9 @@ static NSString *const kANInline        = @"inline";
     return  self.isLazySecondPassThroughAdUnit;
 }
 
-
+- (BOOL) valueOfCountImpressionOnAdReceived {
+    return self.countImpressionOnAdReceived;
+}
 
 
 #pragma mark - UIView observer methods.

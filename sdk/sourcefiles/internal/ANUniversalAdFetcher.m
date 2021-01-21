@@ -354,6 +354,9 @@
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
+    } else {
+        [self fireImpressionTrackersEarly:standardAd];
+        
     }
 }
 
@@ -416,6 +419,17 @@
     
     self.nativeAdView = [[ANNativeRenderingViewController alloc] initWithSize:sizeofWebView BaseObject:nativeRenderingElement];
      self.nativeAdView.loadingDelegate = self;
+}
+
+- (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
+    //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
+    BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
+    if(countImpressionOnAdReceived){
+        ANLogDebug(@"Impression URL fired when we have a valid ad & the view is created");
+        [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
+        ad.impressionUrls = nil;
+        
+    }
 }
 
 

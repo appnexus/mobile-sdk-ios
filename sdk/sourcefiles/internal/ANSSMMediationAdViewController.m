@@ -176,6 +176,9 @@
     // Allow ANJAM events to always be passed to the ANAdView
     self.ssmAdView.webViewController.adViewANJAMInternalDelegate = self.adViewDelegate;
     
+    //fire impressionURLS much earlier in the lifecycle
+    [self.adFetcher fireImpressionTrackersEarly:self.ssmMediatedAd];
+    
 }
 
 - (void)didFailToReceiveAd:(ANAdResponseCode *)errorCode {
