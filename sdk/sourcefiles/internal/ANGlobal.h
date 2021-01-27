@@ -112,7 +112,7 @@ BOOL ANAdvertisingTrackingEnabled(void);
 BOOL ANIsFirstLaunch(void);
 
 NSString * __nonnull ANUUID(void);
-NSString *__nonnull ANAdvertisingIdentifier(void);
+NSString *__nullable ANAdvertisingIdentifier(void);
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key);
 NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);

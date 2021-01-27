@@ -90,4 +90,9 @@ An AppNexus geoOverrideZipCode  is a string value which allows publishers to ove
 */
 @property (nonatomic, readwrite, strong, nullable) NSString *geoOverrideZipCode;
 
+/**
+An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in ad request. Default value of disableIDFAUsage is set to NO
+*/
+@property (nonatomic, readwrite) BOOL disableIDFAUsage;
+
 @end

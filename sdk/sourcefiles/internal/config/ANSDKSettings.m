@@ -100,6 +100,7 @@
         sdkSettings.locationEnabledForCreative =  YES;
         sdkSettings.enableOpenMeasurement = YES;
         sdkSettings.enableTestMode = NO;
+        sdkSettings.disableIDFAUsage = NO;
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
     });

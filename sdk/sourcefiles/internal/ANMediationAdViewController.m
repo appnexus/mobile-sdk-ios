@@ -190,7 +190,10 @@
     targetingParameters.externalUid       = adView.externalUid;
     targetingParameters.gender            = adView.gender;
     targetingParameters.location          = adView.location;
-    targetingParameters.idforadvertising  = ANAdvertisingIdentifier();
+    NSString *idfa = ANAdvertisingIdentifier();
+    if(idfa){
+        targetingParameters.idforadvertising  = idfa;
+    }
     
     //
     if ([adView isKindOfClass:[ANBannerAdView class]]) {
