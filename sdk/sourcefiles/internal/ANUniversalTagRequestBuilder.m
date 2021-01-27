@@ -253,7 +253,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"sdk"] = sdk;
     }
     
-    requestDict[@"sdkver"] = AN_SDK_VERSION;  //LEGACY.  Replaced by sdk object.
+    requestDict[@"sdkver"] = [[ANSDKSettings sharedInstance] sdkVersion];  //LEGACY.  Replaced by sdk object.
     
     requestDict[@"supply_type"] = @"mobile_app";
     
@@ -777,7 +777,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 - (NSDictionary *)sdk {
     return  @{
               @"source" : @"ansdk",
-              @"version" : AN_SDK_VERSION
+              @"version" : [[ANSDKSettings sharedInstance] sdkVersion]
               };
 }
 

@@ -108,6 +108,15 @@
 }
 
 - (NSString *)sdkVersion{
+    NSDictionary *sdkPlist = [NSDictionary dictionaryWithContentsOfFile:ANPathForANResource(@"SDK-Info", @"plist")];
+    //if Cocoapods
+    if([sdkPlist[@"CFBundleIdentifier"] isEqualToString:@"corp.appnexus.AppNexusSDK"]){
+        return sdkPlist[@"CFBundleShortVersionString"];
+    }
+    // If Source code or  Dynamic Framework
+    else if([[[NSBundle bundleForClass: [self class]] bundleIdentifier] isEqualToString:@"corp.appnexus.AppNexusSDK"]){
+        return [[[NSBundle bundleForClass: [self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    }
     return AN_SDK_VERSION;
 }
 
