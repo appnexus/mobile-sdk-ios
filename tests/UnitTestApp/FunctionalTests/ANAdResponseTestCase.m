@@ -179,27 +179,6 @@ limitations under the License.
 
 }
 
-
-- (void)testAdResponseWithCSMBannerAd {
-    
-    [self setupBannerAd];
-    [self stubRequestWithResponse:@"ANAdResponseCSM_Banner"];
-    [self.banner loadAd];
-    
-    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
-    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"187027997");
-    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"17432496");
-    XCTAssertTrue(self.banner.adResponseInfo.memberId == 958);
-    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
-    XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"csm");
-    XCTAssertEqualObjects(self.banner.adResponseInfo.networkName, @"ANAdAdapterBannerDFP");
-    XCTAssertEqualObjects(self.banner.adResponseInfo.auctionId, @"8250270890488509817");
-}
-
 - (void)testAdResponseWithCSMBannerAdFailToLoadAd {
     
     [self setupBannerAd];

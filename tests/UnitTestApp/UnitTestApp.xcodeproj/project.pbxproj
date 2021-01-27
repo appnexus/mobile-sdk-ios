@@ -3039,6 +3039,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3061,6 +3062,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NativeSDKTestApp.app/NativeSDKTestApp";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -3070,6 +3072,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3092,6 +3095,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NativeSDKTestApp.app/NativeSDKTestApp";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
