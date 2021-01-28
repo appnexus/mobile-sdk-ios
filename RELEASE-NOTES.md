@@ -1,3 +1,13 @@
+## 7.9
+### New Feature
++ MS-4388 Support to disable passing device IDs in bid requests
+### Mediation partner updates
++ MS-4663 Upgraded Google AdMob SDK from v7.67.0 to v7.69.0
++ MS-4664 Upgraded Facebook SDK from v6.2.0 to v6.2.1
+### Improvements/Bug Fixes
++ MS-3911 Fetch SDK Version Dynamically in ad request
+
+
 ## 7.8
 ### New Feature
 + MS-4387 Added support to pass traffic source and external inventory codes in Ad Request [https://wiki.xandr.com/x/5gEYBw]
