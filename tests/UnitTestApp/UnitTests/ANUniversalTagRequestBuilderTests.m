@@ -49,6 +49,7 @@ static NSString  *videoPlacementID  = @"9924001";
 - (void)tearDown {
     [super tearDown];
     [ANGDPRSettings reset];
+    [ANSDKSettings sharedInstance].disableIDFAUsage  = NO;
 }
 
 
@@ -644,5 +645,131 @@ static NSString  *videoPlacementID  = @"9924001";
     });
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
+
+/**
+ API To verify : disableIDFAUsage
+ If disableIDFAUsage is set to default value(No) then the device_id should not be nil
+ */
+- (void)testUTRequestDisableIDFAUsageDefault
+{
+    
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [ANGDPRSettings setPurposeConsents:@"1010"];
+
+    //
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *device = jsonDict[@"device"];
+        XCTAssertNotNil(device);
+        // Device Id Start
+        NSDictionary *deviceId = device[@"device_id"];
+        XCTAssertNotNil(deviceId);
+        
+        [expectation fulfill];
+    });
+
+    //
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+/**
+ API To verify : disableIDFAUsage
+ If disableIDFAUsage is set to true then device_id should be nil
+ */
+- (void)testUTRequestDisableIDFAUsageSetToTrue
+{
+    [ANSDKSettings sharedInstance].disableIDFAUsage  = YES;
+
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [ANGDPRSettings setPurposeConsents:@"1010"];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *device = jsonDict[@"device"];
+        XCTAssertNotNil(device);
+        // Device Id Start
+        NSDictionary *deviceId = device[@"device_id"];
+        XCTAssertNil(deviceId);
+        
+        [expectation fulfill];
+    });
+
+    //
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+/**
+ API To verify : disableIDFAUsage
+ If disableIDFAUsage is set to false then device_id should not be nil
+ */
+- (void)testUTRequestDisableIDFAUsageSetToFalse
+{
+    [ANSDKSettings sharedInstance].disableIDFAUsage  = YES;
+    [ANSDKSettings sharedInstance].disableIDFAUsage  = NO;
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [ANGDPRSettings setPurposeConsents:@"1010"];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *device = jsonDict[@"device"];
+        XCTAssertNotNil(device);
+        NSDictionary *deviceId = device[@"device_id"];
+        XCTAssertNotNil(deviceId);
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
 
 @end

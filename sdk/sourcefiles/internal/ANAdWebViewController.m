@@ -738,7 +738,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)updateCurrentAppOrientation {
     
-    UIInterfaceOrientation currentAppOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation currentAppOrientation = ANStatusBarOrientation();
     NSString *currentAppOrientationString = (UIInterfaceOrientationIsPortrait(currentAppOrientation)) ? kANPortrait : kANLandscape;
     
     NSArray *supportedOrientations = [[[NSBundle mainBundle] infoDictionary]

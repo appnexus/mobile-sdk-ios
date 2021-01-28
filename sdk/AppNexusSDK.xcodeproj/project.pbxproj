@@ -388,9 +388,9 @@
 		0E9F613420FFDC3B009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeMediatedAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
 		0EA0790A2328E05200FB5764 /* OMSDK_Appnexus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OMSDK_Appnexus.framework; sourceTree = "<group>"; };
 		0ECF335D22D79A61007DB185 /* AppNexusNativeSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusNativeSDK.h; sourceTree = "<group>"; };
-		0ECF335E22D79A61007DB185 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0ECF335E22D79A61007DB185 /* SDK-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SDK-Info.plist"; sourceTree = "<group>"; };
 		0ECF336022D79A62007DB185 /* AppNexusSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDK.h; sourceTree = "<group>"; };
-		0ECF336122D79A62007DB185 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0ECF336122D79A62007DB185 /* SDK-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SDK-Info.plist"; sourceTree = "<group>"; };
 		0EEE97DA21764ACD007DADE6 /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
 		381A0181245B17850093EBB2 /* ANAudioVolumeChangeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAudioVolumeChangeListener.h; sourceTree = "<group>"; };
 		381A0182245B17850093EBB2 /* ANAudioVolumeChangeListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAudioVolumeChangeListener.m; sourceTree = "<group>"; };
@@ -702,7 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				0ECF335D22D79A61007DB185 /* AppNexusNativeSDK.h */,
-				0ECF335E22D79A61007DB185 /* Info.plist */,
+				0ECF335E22D79A61007DB185 /* SDK-Info.plist */,
 			);
 			path = AppNexusNativeSDK;
 			sourceTree = "<group>";
@@ -711,7 +711,7 @@
 			isa = PBXGroup;
 			children = (
 				0ECF336022D79A62007DB185 /* AppNexusSDK.h */,
-				0ECF336122D79A62007DB185 /* Info.plist */,
+				0ECF336122D79A62007DB185 /* SDK-Info.plist */,
 			);
 			path = AppNexusSDK;
 			sourceTree = "<group>";
@@ -1502,7 +1502,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include;
-				INFOPLIST_FILE = AppNexusSDK/Info.plist;
+				INFOPLIST_FILE = "AppNexusSDK/SDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1539,7 +1539,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include;
-				INFOPLIST_FILE = AppNexusSDK/Info.plist;
+				INFOPLIST_FILE = "AppNexusSDK/SDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1691,7 +1691,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = AppNexusNativeSDK/Info.plist;
+				INFOPLIST_FILE = "AppNexusNativeSDK/SDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1699,7 +1699,7 @@
 				MARKETING_VERSION = 7.8;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.AppNexusNativeSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = corp.appnexus.AppNexusSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1736,7 +1736,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = AppNexusNativeSDK/Info.plist;
+				INFOPLIST_FILE = "AppNexusNativeSDK/SDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1744,7 +1744,7 @@
 				MARKETING_VERSION = 7.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.AppNexusNativeSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = corp.appnexus.AppNexusSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

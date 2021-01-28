@@ -150,15 +150,16 @@ NSString *const kANKeyCaller = @"caller";
 // Get Device ID
 
 + (void)callGetDeviceID:(ANAdWebViewController *)controller query:(NSDictionary *)query {
-    NSString *cb = [query valueForKey:@"cb"];
-    
-    // send idName:idfa, id: idfa value
-    NSDictionary *paramsList = @{
-                                 kANKeyCaller: kANCallGetDeviceID,
-                                 @"idname": @"idfa",
-                                 @"id": ANAdvertisingIdentifier()
-                                 };
-    [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
+   
+    NSString *idfa = ANAdvertisingIdentifier();
+        NSString *cb = [query valueForKey:@"cb"];
+        // send idName:idfa, id: idfa value
+        NSDictionary *paramsList = @{
+            kANKeyCaller: kANCallGetDeviceID,
+            @"idname": @"idfa",
+            @"id": (idfa ? idfa : @"")
+        };
+        [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
 }
 
 // Get Custom Keywords

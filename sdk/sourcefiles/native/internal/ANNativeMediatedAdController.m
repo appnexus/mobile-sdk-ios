@@ -173,7 +173,11 @@
     targetingParameters.gender            = self.adRequestDelegate.gender;
     targetingParameters.externalUid       = self.adRequestDelegate.externalUid;
     targetingParameters.location          = self.adRequestDelegate.location;
-    targetingParameters.idforadvertising  = ANAdvertisingIdentifier();
+    NSString *idfa = ANAdvertisingIdentifier();
+    if(idfa){
+        targetingParameters.idforadvertising  = idfa;
+    }
+    
 
     return targetingParameters;
 }

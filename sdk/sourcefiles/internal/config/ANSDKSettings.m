@@ -100,6 +100,7 @@
         sdkSettings.locationEnabledForCreative =  YES;
         sdkSettings.enableOpenMeasurement = YES;
         sdkSettings.enableTestMode = NO;
+        sdkSettings.disableIDFAUsage = NO;
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
     });
@@ -107,6 +108,15 @@
 }
 
 - (NSString *)sdkVersion{
+    NSDictionary *sdkPlist = [NSDictionary dictionaryWithContentsOfFile:ANPathForANResource(@"SDK-Info", @"plist")];
+    //if Cocoapods
+    if([sdkPlist[@"CFBundleIdentifier"] isEqualToString:@"corp.appnexus.AppNexusSDK"]){
+        return sdkPlist[@"CFBundleShortVersionString"];
+    }
+    // If Source code or  Dynamic Framework
+    else if([[[NSBundle bundleForClass: [self class]] bundleIdentifier] isEqualToString:@"corp.appnexus.AppNexusSDK"]){
+        return [[[NSBundle bundleForClass: [self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    }
     return AN_SDK_VERSION;
 }
 
@@ -128,6 +138,7 @@
 {
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
+    [ANGlobal adServerRequestURL];
     [ANWebView prepareWebView];
 }
 

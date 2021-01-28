@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.8"
+#define AN_SDK_VERSION                  @"7.9"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -112,7 +112,7 @@ BOOL ANAdvertisingTrackingEnabled(void);
 BOOL ANIsFirstLaunch(void);
 
 NSString * __nonnull ANUUID(void);
-NSString *__nonnull ANAdvertisingIdentifier(void);
+NSString *__nullable ANAdvertisingIdentifier(void);
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key);
 NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
@@ -129,7 +129,9 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
-
+CGRect ANStatusBarFrame(void);
+BOOL ANStatusBarHidden(void);
+UIInterfaceOrientation ANStatusBarOrientation(void);
 
 #pragma mark - Global class.
 
@@ -145,7 +147,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
-+ (nonnull NSString *) getUserAgent;
++ (nonnull NSString *) userAgent;
 
 + (nonnull UIWindow *) getKeyWindow;
 

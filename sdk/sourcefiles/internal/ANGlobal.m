@@ -37,6 +37,9 @@ NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                  
 
 NSMutableURLRequest  *utMutableRequest = nil;
 
+NSString *anUserAgent = nil;
+WKWebView  *webViewForUserAgent = nil;
+
 
 NSString *__nonnull ANDeviceModel()
 {
@@ -77,7 +80,8 @@ NSString * __nonnull ANUUID()
     return  [[[NSUUID alloc] init] UUIDString];
 }
 
-NSString *__nonnull ANAdvertisingIdentifier() {
+NSString *__nullable ANAdvertisingIdentifier() {
+    if (ANSDKSettings.sharedInstance.disableIDFAUsage) { return nil; }
     NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     if (advertisingIdentifier) {
         ANLogInfo(@"IDFA = %@", advertisingIdentifier);
@@ -140,7 +144,7 @@ NSString *__nullable ANConvertToNSString(id __nullable value) {
 
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
     // If portrait, no adjustment is necessary.
-    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() == UIInterfaceOrientationPortrait) {
         return rect;
     }
     
@@ -155,7 +159,7 @@ CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rec
     CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
     
     CGRect adjustedRect;
-    switch ([UIApplication sharedApplication].statusBarOrientation) {
+    switch (ANStatusBarOrientation()) {
         case UIInterfaceOrientationLandscapeLeft:
             adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
             break;
@@ -202,10 +206,10 @@ void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDict
 
 CGRect ANPortraitScreenBounds() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
         if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
             // need to orient screen bounds
-            switch ([UIApplication sharedApplication].statusBarOrientation) {
+            switch (ANStatusBarOrientation()) {
                 case UIInterfaceOrientationLandscapeLeft:
                     return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
                     break;
@@ -233,10 +237,10 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
         CGFloat rightPadding = window.safeAreaInsets.right;
         screenBounds = CGRectMake(leftPadding, topPadding, screenBounds.size.width - (leftPadding + rightPadding), screenBounds.size.height - (topPadding + bottomPadding));
     }
-    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
         if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
             // need to orient screen bounds
-            switch ([UIApplication sharedApplication].statusBarOrientation) {
+            switch (ANStatusBarOrientation()) {
                 case UIInterfaceOrientationLandscapeLeft:
                     return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
                     break;
@@ -258,7 +262,7 @@ NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
-    [request setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[ANGlobal userAgent] forHTTPHeaderField:@"User-Agent"];
     return [request copy];
 }
 
@@ -282,21 +286,44 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     return viewController.view.window != nil ? YES : NO;
 }
 
+CGRect ANStatusBarFrame(){
+    CGRect statusBarFrame;
+    if (@available(iOS 13.0, *)) {
+        statusBarFrame = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] statusBarFrame];
+    }else {
+        statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    }
+    return statusBarFrame;
+}
 
+BOOL ANStatusBarHidden(){
+    BOOL statusBarHidden;
+    if (@available(iOS 13.0, *)) {
+        statusBarHidden = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] isStatusBarHidden];
+    }else {
+        statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+    }
+    return statusBarHidden;
+}
+
+UIInterfaceOrientation ANStatusBarOrientation()
+{
+    UIInterfaceOrientation statusBarOrientation;
+    if (@available(iOS 13.0, *)) {
+        statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
+    }else {
+        statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    return statusBarOrientation;
+}
 
 
 @implementation ANGlobal
 
-+ (void)load {
-    
-    // No need for "dispatch once" since `load` is called only once during app launch.
-    [ANGlobal getUserAgent];
-    [self constructAdServerRequestURL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
-    
-}
-
 +(nullable NSMutableURLRequest *) adServerRequestURL {
+    if(utMutableRequest == nil){
+        [ANGlobal constructAdServerRequestURL];
+    }
     return utMutableRequest;
 }
 
@@ -312,7 +339,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 }
 
 + (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
-    [utMutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"user-agent"];
+    [utMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
     [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
 }
 
@@ -326,7 +353,6 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
-
 
 #pragma mark - Custom keywords.
 
@@ -396,55 +422,62 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 
 //
-+ (nonnull NSString *) getUserAgent
++ (void) getUserAgent
 {
-    static NSString  *userAgent               = nil;
     static BOOL       userAgentQueryIsActive  = NO;
-
+    
     // Return customUserAgent if provided
     NSString *customUserAgent = ANSDKSettings.sharedInstance.customUserAgent;
     if(customUserAgent && customUserAgent.length != 0){
         ANLogDebug(@"userAgent=%@", customUserAgent);
-        return customUserAgent;
+        anUserAgent = customUserAgent;
+        
     }
-
-    if (!userAgent) {
+    
+    if (!anUserAgent) {
         if (!userAgentQueryIsActive)
         {
             @synchronized (self) {
                 userAgentQueryIsActive = YES;
             }
-
+            
             dispatch_async(dispatch_get_main_queue(),
-            ^{
-                WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
-                UIWindow   *currentWindow        = [ANGlobal getKeyWindow];
-
-                [webViewForUserAgent setHidden:YES];
-                [currentWindow addSubview:webViewForUserAgent];
-
+                           ^{
+                webViewForUserAgent  = [WKWebView new];
                 [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
                                       completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
-                                      {
-                                          ANLogDebug(@"userAgentString=%@", userAgentString);
-                                          userAgent = userAgentString;
-                                          
+                 {
+                    if (error != nil) {
+                        ANLogError(@"%@ error: %@", NSStringFromSelector(_cmd), error);
+                    } else if ([userAgentString isKindOfClass:NSString.class]) {
+                        ANLogDebug(@"userAgentString=%@", userAgentString);
+                        anUserAgent = userAgentString;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
+                        @synchronized (self) {
+                            userAgentQueryIsActive = NO;
+                            
+                        }
+                    }
+                    webViewForUserAgent = nil;
+                }];
+                
 
-                                          [webViewForUserAgent stopLoading];
-                                          [webViewForUserAgent removeFromSuperview];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
-                                          @synchronized (self) {
-                                              userAgentQueryIsActive = NO;
-                                          }
-                                      } ];
             });
+            
         }
+        //
+        ANLogDebug(@"userAgent=%@", anUserAgent);
+        
     }
-
-    //
-    ANLogDebug(@"userAgent=%@", userAgent);
-    return userAgent;
+}
+    
++ (NSString *) userAgent {
+    if(anUserAgent == nil){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
+           
+        [ANGlobal getUserAgent];
+    }
+    return anUserAgent;
 }
 
 #pragma mark - Get KeyWindow

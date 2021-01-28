@@ -130,12 +130,12 @@
 #pragma mark - mraid.setOrientationProperties()
 
 - (void)testForceOrientationLandscapeFromPortrait { // MS-481
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+    XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
 
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
     [self expand];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft, @"Expected landscape left orientation");
+    XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationLandscapeLeft, @"Expected landscape left orientation");
     
     [self close];
     [self clearTest];
@@ -143,12 +143,12 @@
 
 - (void)testForceOrientationPortraitFromLandscape { // MS-481
     [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
 
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"portrait"];
     [self expand];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+    XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
     
     [self close];
     [self clearTest];
@@ -159,10 +159,10 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
     [self expand];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
 
     [self close];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
 
     [self clearTest];
 }
@@ -197,11 +197,11 @@
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
         [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
         [self expand];
-        XCTAssertFalse([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
-        XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+        XCTAssertFalse(ANStatusBarOrientation() == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
+        XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
         
         [self close];
-        XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+        XCTAssertTrue(ANStatusBarOrientation() == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
     }
     
     
@@ -301,8 +301,8 @@
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.height];
 
-   if (![UIApplication sharedApplication].statusBarHidden) {
-        expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.height;
+   if (!ANStatusBarHidden()) {
+        expectedHeight -= ANStatusBarFrame().size.height;
     }
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
 
@@ -320,8 +320,8 @@
     CGFloat expectedWidth = [self eliminateLandscapeSafeAreaInsets:screenBounds.size.height];
     CGFloat expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.width];
 
-    if (![UIApplication sharedApplication].statusBarHidden) {
-        expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.width;
+    if (!ANStatusBarHidden()) {
+        expectedHeight -= ANStatusBarFrame().size.width;
     }
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
 
@@ -330,7 +330,7 @@
 
 - (void)testMaxSizeLandscapeOnRotate {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    XCTAssertTrue(UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation), @"Expected to start in portrait orientation");
+    XCTAssertTrue(UIInterfaceOrientationIsPortrait(ANStatusBarOrientation()), @"Expected to start in portrait orientation");
     [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
     
     CGPoint maxSize = [self getMaxSize];
@@ -340,8 +340,8 @@
     CGFloat expectedWidth = [self eliminateLandscapeSafeAreaInsets:screenBounds.size.height];
     CGFloat expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.width];
 
-    if (![UIApplication sharedApplication].statusBarHidden) {
-        expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.width;
+    if (!ANStatusBarHidden()) {
+        expectedHeight -= ANStatusBarFrame().size.width;
     }
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
@@ -359,8 +359,8 @@
     expectedWidth = [self eliminateLandscapeSafeAreaInsets:screenBounds.size.width];
     expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.height];
 
-    if (![UIApplication sharedApplication].statusBarHidden) {
-        expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.height;
+    if (!ANStatusBarHidden()) {
+        expectedHeight -= ANStatusBarFrame().size.height;
     }
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
@@ -1559,7 +1559,7 @@
 
     [self removeBannerFromSuperview];
 
-    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     }
 

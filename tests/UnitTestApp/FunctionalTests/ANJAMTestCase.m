@@ -82,6 +82,7 @@
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
+    ANSDKSettings.sharedInstance.disableIDFAUsage = NO;
 }
 
 
@@ -89,6 +90,27 @@
 #pragma mark - Test methods.
 
 - (void)testANJAMDeviceIDResponse {
+    [self stubRequestWithResponse:@"ANJAMDeviceIdResponse"];
+    self.deviceIdExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
+    [self.adView loadAd];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
+    self.deviceIdExpectation = nil;
+    [self tearDown];
+}
+
+
+- (void)testANJAMDeviceIDResponseDisableIDFAUsageToYes {
+    ANSDKSettings.sharedInstance.disableIDFAUsage = YES;
+    [self stubRequestWithResponse:@"ANJAMDeviceIdResponse"];
+    self.deviceIdExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
+    [self.adView loadAd];
+    [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval handler:nil];
+    self.deviceIdExpectation = nil;
+    [self tearDown];
+}
+
+- (void)testANJAMDeviceIDResponseDisableIDFAUsageToNo {
+    ANSDKSettings.sharedInstance.disableIDFAUsage = NO;
     [self stubRequestWithResponse:@"ANJAMDeviceIdResponse"];
     self.deviceIdExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
     [self.adView loadAd];
@@ -183,7 +205,8 @@
 TESTTRACE();
     if ([name isEqualToString:@"idfa"]) {
         XCTAssertNotNil(data);
-        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+        NSString *advertisingIdentifier = !ANSDKSettings.sharedInstance.disableIDFAUsage ?  ([[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString]) : @"";
+        
         XCTAssertEqualObjects(data, advertisingIdentifier);
         [self.deviceIdExpectation fulfill];
 

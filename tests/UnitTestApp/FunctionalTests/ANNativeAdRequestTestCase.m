@@ -64,6 +64,9 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];
+    
+    self.adRequest = [[ANNativeAdRequest alloc] init];
+    self.adRequest.delegate = self;
 }
 
 - (void)tearDown {
@@ -108,11 +111,8 @@
 
 - (void)testSetPlacementIdOnlyOnNative
 {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
-    //self.requestExpectation = [self expectationWithDescription:@"request"];
     [self.adRequest setPlacementId:@"1"];
     [self.adRequest setExternalUid:@"AppNexus"];
     
@@ -138,8 +138,6 @@
 
 - (void)testSetForceCreativeIdOnlyOnNative
 {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     self.adRequest.forceCreativeId = 135482485;
@@ -161,8 +159,6 @@
 
 - (void)testNativeRendererId
 {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"native_videoResponse"];
     [self.adRequest setPlacementId:@"1"];
@@ -183,8 +179,6 @@
 }
 
 - (void)testNativeVideoObject {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"native_videoResponse"];
     [self.adRequest loadAd];
@@ -204,6 +198,7 @@
 
 
 - (void)testTrafficSourceCodeAndExtInvCodeSet {
+
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setExtInvCode:@"Xandr-ext_inv_code"];
@@ -249,6 +244,7 @@
 
 
 - (void)testTrafficSourceCode {
+
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setTrafficSourceCode:@"Xandr-traffic_source_code"];
@@ -274,6 +270,7 @@
 
 
 - (void)testTrafficSourceCodeAndExtInvCodeNotSet {
+    
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     
@@ -294,8 +291,7 @@
 
 
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
@@ -323,8 +319,7 @@
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnNative {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
@@ -357,8 +352,7 @@
 }
 
 - (void)testAppNexusWithMainImageLoad {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
@@ -377,8 +371,7 @@
 }
 
 - (void)testAppNexusWithAdditionalDescription {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
@@ -393,8 +386,7 @@
 }
 
 - (void)testFacebook {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"facebook_mediated_response"];
     [self.adRequest loadAd];
@@ -413,8 +405,7 @@
 }
 
 - (void)testFacebookWithIconImageLoad {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"facebook_mediated_response"];
     [self.adRequest loadAd];
@@ -434,8 +425,7 @@
 }
 
 - (void)testInvalidMediationAdapter {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_mediated_response"];
     [self.adRequest loadAd];
@@ -447,8 +437,7 @@
 }
 
 - (void)testWaterfallMediationAdapterEndingInFacebook {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_fb_mediated_response"];
     [self.adRequest loadAd];
@@ -466,8 +455,7 @@
 }
 
 - (void)testNoResponse {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"empty_response"];
     [self.adRequest loadAd];
@@ -479,8 +467,7 @@
 }
 
 - (void)testCustomAdapterFailToStandardResponse {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_to_standard_response"];
     [self.adRequest loadAd];
@@ -497,8 +484,7 @@
 }
 
 - (void)testMediatedResponseInvalidType {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"custom_adapter_invalid_type"];
     [self.adRequest loadAd];
@@ -510,8 +496,7 @@
 }
 
 - (void)testSuccessfulResponseWithNoAds {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"no_ads_ok_response"];
     [self.adRequest loadAd];
@@ -523,8 +508,7 @@
 }
 
 - (void)testMediatedResponseEmptyMediatedAd {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
+
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"empty_mediated_ad_response"];
     [self.adRequest loadAd];
@@ -537,8 +521,6 @@
 
 - (void)testBackgroundLoadVersusForegroundNotification
 {
-    self.adRequest = [[ANNativeAdRequest alloc] init];
-    self.adRequest.delegate = self;
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
 
@@ -635,9 +617,7 @@
 - (void)testNativeAdWillExpireWithSettingAboutToExpireTimeIntervalGreaterThanUpperValue{
      [self stubRequestWithResponse:@"appnexus_standard_response"];
 
-       self.adRequest= [[ANNativeAdRequest alloc] init];
        [self.adRequest setPlacementId:@"1"];
-       self.adRequest.delegate = self;
        [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval = 22000;
 
        [self.adRequest loadAd];
@@ -654,9 +634,7 @@
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval = 0;
 
-    self.adRequest= [[ANNativeAdRequest alloc] init];
     [self.adRequest setPlacementId:@"1"];
-    self.adRequest.delegate = self;
     [self.adRequest loadAd];
     self.nativeAdWillExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -670,9 +648,7 @@
 - (void)testNativeAdWillExpire {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
 
-    self.adRequest= [[ANNativeAdRequest alloc] init];
     [self.adRequest setPlacementId:@"1"];
-    self.adRequest.delegate = self;
     [ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval = 30;
     [self.adRequest loadAd];
     self.nativeAdWillExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];

@@ -17,6 +17,7 @@
 #import "ANGlobal.h"
 #import "ANOMIDImplementation.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
+#import "ANSDKSettings.h"
 
 NSString * const  ANName = @"name";
 NSString * const  ANVersion = @"version";
@@ -61,7 +62,7 @@ NSString * const  ANSkipOffset = @"videoOffset";
         videoSettings.showFullScreenControl = YES;
         videoSettings.initalAudio = Default;
         videoSettings.optionsDictionary = [[NSMutableDictionary alloc] init];
-        NSDictionary *partner = @{ ANName : AN_OMIDSDK_PARTNER_NAME , ANVersion : AN_SDK_VERSION};
+        NSDictionary *partner = @{ ANName : AN_OMIDSDK_PARTNER_NAME , ANVersion : [[ANSDKSettings sharedInstance] sdkVersion]};
         [videoSettings.optionsDictionary setObject:partner forKey:ANPartner];
         [videoSettings.optionsDictionary setObject:ANInstreamVideo forKey:ANEntry];
         videoSettings.showAdText = YES;
