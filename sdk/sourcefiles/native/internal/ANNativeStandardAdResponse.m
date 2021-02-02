@@ -119,12 +119,23 @@
     self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
                                                                  block:^ {
                                                                      ANNativeStandardAdResponse *strongSelf = weakSelf;
-                                                                     [strongSelf checkViewability];
+                                                                     //[strongSelf checkIfIABViewable];
+                                                                    [strongSelf checkIfViewIs1pxOnScreen];
                                                                  }
                                                                repeats:YES];
 }
 
-- (void)checkViewability {
+- (void) checkIfViewIs1pxOnScreen {
+    CGRect updatedVisibleInViewRectangle = [self.viewForTracking an_visibleInViewRectangle];
+    
+    ANLogInfo(@"Punnaghai visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
+    if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
+        [self trackImpression];
+    }
+    
+}
+
+- (void)checkIfIABViewable {
     self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
     BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
     ANLogDebug(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
