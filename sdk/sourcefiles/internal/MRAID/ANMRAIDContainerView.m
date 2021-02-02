@@ -520,6 +520,13 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
 }
 
+- (void)viewVisibleForImpressionFiring:(ANAdWebViewController *)controller
+{
+    if ([self.loadingDelegate respondsToSelector:@selector(viewVisibleForImpressionFiring:)]) {
+        [self.loadingDelegate viewVisibleForImpressionFiring:controller];
+    }
+}
+
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {
     if ([self.loadingDelegate respondsToSelector:@selector(immediatelyRestartAutoRefreshTimerFromWebViewController:)]) {
@@ -592,6 +599,11 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 - (CGRect)visibleRect{
     return self.expandWebViewController    ? [self.expandWebViewController.contentView an_visibleRectangle]
                                            : [self.webViewController.contentView an_visibleRectangle];
+}
+
+- (CGRect)visibleInViewRect{
+    return self.expandWebViewController    ? [self.expandWebViewController.contentView an_visibleInViewRectangle]
+                                           : [self.webViewController.contentView an_visibleInViewRectangle];
 }
 
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties {

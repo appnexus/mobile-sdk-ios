@@ -141,6 +141,22 @@
     return exposedPrecentage;
 }
 
+- (CGRect)an_visibleInViewRectangle{
+    CGRect visibleRectangle =  CGRectMake(0,0,0,0);
+    if(self.an_isViewable){
+    
+        UIWindow *parentWindow = self.window;
+    
+        // We need to call convertRect:toView: on this view's superview rather than on this view itself.
+        CGRect viewFrameInWindowCoordinates = [self.superview convertRect:self.frame toView:parentWindow];
+        visibleRectangle = CGRectIntersection(viewFrameInWindowCoordinates, parentWindow.frame);
+
+    }
+    
+    return visibleRectangle;
+    
+}
+
 - (CGRect)an_visibleRectangle{
     CGRect visibleRectangle =  CGRectMake(0,0,0,0);
     if(self.an_isViewable){

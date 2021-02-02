@@ -129,6 +129,7 @@
 
 @required
 - (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller;
+- (void) viewVisibleForImpressionFiring:(ANAdWebViewController *) controller;
 
 @optional
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
@@ -143,6 +144,7 @@
 - (CGRect)currentPosition;
 - (BOOL)isViewable;
 - (CGRect)visibleRect;
+- (CGRect)visibleInViewRect;
 - (CGFloat)exposedPercent;
 
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties;

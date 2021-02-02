@@ -496,6 +496,16 @@
     [self processFinalResponse:fetcherResponse];
 }
 
+- (void) viewVisibleForImpressionFiring:(ANAdWebViewController *) controller {
+    
+    ANBaseAdObject *adObject = (ANBaseAdObject *)self.adObjectHandler;
+    if(adObject.impressionUrls == nil)
+        return;
+    ANLogDebug(@"Punnaghai fire impression tracker here when we have a 1px view on screen");
+    [ANTrackerManager fireTrackerURLArray:adObject.impressionUrls withBlock:nil];
+    adObject.impressionUrls = nil;
+}
+
 
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {

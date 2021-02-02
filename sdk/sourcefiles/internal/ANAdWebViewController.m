@@ -94,6 +94,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         _appIsInBackground = NO;
         
     }
+    [self setupTimerForCheckingPositionAndViewability];
     return self;
 }
 
@@ -715,7 +716,18 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
     CGRect updatedVisibleRectangle = [self.mraidDelegate visibleRect]; // updatedVisibleRectangle from MRAID Delegate
+    CGRect updatedVisibleInViewRectangle = [self.mraidDelegate visibleInViewRect];
     
+    ANLogInfo(@"Punnaghai exposed rectangle: %@, visible rectangle: %@", NSStringFromCGRect(updatedVisibleRectangle), NSStringFromCGRect(updatedVisibleInViewRectangle));
+    if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
+        //Fire impression tracker here
+        if ([self.loadingDelegate respondsToSelector:@selector(viewVisibleForImpressionFiring:)])
+        {
+            @synchronized(self) {
+                [self.loadingDelegate viewVisibleForImpressionFiring:self];
+            }
+        }
+    }
     // Send exposureChange Event only when there is an update from the previous.
     if(self.lastKnownExposedPercentage != updatedExposedPercentage || !CGRectEqualToRect(self.lastKnownVisibleRect,updatedVisibleRectangle)){
         self.lastKnownExposedPercentage = updatedExposedPercentage;
