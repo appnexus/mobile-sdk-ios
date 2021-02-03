@@ -23,7 +23,9 @@
 #import "NSString+ANCategory.h"
 #import "ANMediationContainerView.h"
 #import "NSObject+ANCategory.h"
-
+#import "NSTimer+ANCategory.h"
+#import "UIView+ANCategory.h"
+#import "ANTrackerManager.h"
 
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
@@ -36,6 +38,9 @@
 @property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+
+@property (nonatomic, readwrite, strong) UIView *adView;
+@property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
 
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
@@ -351,9 +356,14 @@
         ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:adView];
         containerView.controller = self;
         adObject = containerView;
+        self.adView = containerView;
     }
     //fire impressionURLS much earlier in the lifecycle
     [self.adFetcher fireImpressionTrackersEarly:self.mediatedAd];
+    
+    if(self.mediatedAd.impressionUrls != nil){
+        
+    }
     
     [self finish:ANAdResponseCode.SUCCESS withAdObject:adObject];
     
@@ -365,6 +375,30 @@
     [self markLatencyStop];
     self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil];
+}
+
+- (void)setupViewabilityTracker
+{
+    __weak ANMediationAdViewController *weakSelf = self;
+    
+    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+                                                                 block:^ {
+        ANMediationAdViewController *strongSelf = weakSelf;
+                                                                     //[strongSelf checkIfIABViewable];
+                                                                    [strongSelf checkIfViewIs1pxOnScreen];
+                                                                 }
+                                                               repeats:YES];
+}
+
+- (void) checkIfViewIs1pxOnScreen {
+    CGRect updatedVisibleInViewRectangle = [self.adView an_visibleInViewRectangle];
+    
+    ANLogInfo(@"Punnaghai visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
+    if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
+        [ANTrackerManager fireTrackerURLArray:self.mediatedAd.impressionUrls withBlock:nil];
+        self.mediatedAd.impressionUrls = nil;
+    }
+    
 }
 
 
@@ -450,6 +484,7 @@
 - (void)dealloc {
 
     [self clearAdapter];
+    [self.viewabilityTimer invalidate];
 }
 
 @end
