@@ -717,7 +717,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
     CGRect updatedVisibleRectangle = [self.mraidDelegate visibleRect]; // updatedVisibleRectangle from MRAID Delegate
-    CGRect updatedVisibleInViewRectangle = [self.mraidDelegate visibleInViewRect];
+    CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
     
     ANLogInfo(@"Punnaghai exposed rectangle: %@, visible rectangle: %@", NSStringFromCGRect(updatedVisibleRectangle), NSStringFromCGRect(updatedVisibleInViewRectangle));
     if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){

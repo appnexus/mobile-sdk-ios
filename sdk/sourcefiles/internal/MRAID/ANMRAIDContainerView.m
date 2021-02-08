@@ -594,11 +594,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                            : [self.webViewController.contentView an_visibleRectangle];
 }
 
-- (CGRect)visibleInViewRect{
-    return self.expandWebViewController    ? [self.expandWebViewController.contentView an_visibleInViewRectangle]
-                                           : [self.webViewController.contentView an_visibleInViewRectangle];
-}
-
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties {
     UIViewController *presentingController = [self displayController];
     if (!presentingController) {
