@@ -37,6 +37,7 @@
 @property (nonatomic, readonly, strong)  UIView      *contentView;
 @property (nonatomic, readonly, assign)  BOOL         completedFirstLoad;
 @property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readwrite, strong)              NSArray *impressionURLs;
 
 @property (nonatomic, readonly, strong)  ANAdWebViewControllerConfiguration  *configuration;
 
@@ -129,7 +130,6 @@
 
 @required
 - (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller;
-- (void) viewVisibleForImpressionFiring:(ANAdWebViewController *) controller;
 
 @optional
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;

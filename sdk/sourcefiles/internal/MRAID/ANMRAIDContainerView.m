@@ -520,13 +520,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
 }
 
-- (void)viewVisibleForImpressionFiring:(ANAdWebViewController *)controller
-{
-    if ([self.loadingDelegate respondsToSelector:@selector(viewVisibleForImpressionFiring:)]) {
-        [self.loadingDelegate viewVisibleForImpressionFiring:controller];
-    }
-}
-
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {
     if ([self.loadingDelegate respondsToSelector:@selector(immediatelyRestartAutoRefreshTimerFromWebViewController:)]) {

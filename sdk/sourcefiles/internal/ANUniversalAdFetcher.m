@@ -306,7 +306,7 @@
     {
         CGSize  sizeOfWebView  = [self getWebViewSizeForCreativeWidth:videoAd.width andHeight:videoAd.height];
 
-        BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebView content:videoAd.content isXMLForVideo:YES];
+        BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebView content:videoAd.content isXMLForVideo:YES withImpressionURLs:videoAd.impressionUrls];
 
         if (!returnValue) {
             ANLogError(@"FAILED to allocate self.adView.");
@@ -350,7 +350,7 @@
 
 
     //
-    BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebview content:standardAd.content isXMLForVideo:NO];
+    BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebview content:standardAd.content isXMLForVideo:NO withImpressionURLs:standardAd.impressionUrls];
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
@@ -496,17 +496,6 @@
     [self processFinalResponse:fetcherResponse];
 }
 
-- (void) viewVisibleForImpressionFiring:(ANAdWebViewController *) controller {
-    
-    ANBaseAdObject *adObject = (ANBaseAdObject *)self.adObjectHandler;
-    if(adObject.impressionUrls == nil)
-        return;
-    ANLogDebug(@"Punnaghai fire impression tracker here when we have a 1px view on screen");
-    [ANTrackerManager fireTrackerURLArray:adObject.impressionUrls withBlock:nil];
-    adObject.impressionUrls = nil;
-}
-
-
 - (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
 {
     [self autoRefreshTimerDidFire:nil];
@@ -570,6 +559,7 @@
 - (BOOL)allocateAndSetWebviewWithSize: (CGSize)webviewSize
                               content: (nonnull NSString *)webviewContent
                         isXMLForVideo: (BOOL)isContentXMLForVideo
+                   withImpressionURLs: (NSArray *) impressionURLs
 {
     if (self.adView) {
         self.adView.loadingDelegate = nil;
@@ -579,14 +569,19 @@
     if (isContentXMLForVideo)
     {
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: webviewSize
-                                                        videoXML: webviewContent ];
+                                                        videoXML: webviewContent];
+        
 
     } else {
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: webviewSize
                                                             HTML: webviewContent
                                                   webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]] ];
+        
     }
-
+    if(self.adView.webViewController != nil){
+        //Pass the impressionURLs to be fired away when 1px on screen in the webViewController
+        self.adView.webViewController.impressionURLs = impressionURLs;
+    }
     if (!self.adView)
     {
         NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseCode.INTERNAL_ERROR.code);
@@ -620,7 +615,7 @@
 
     return  [self allocateAndSetWebviewWithSize: sizeOfWebview
                                         content: lazyStandardAd.content
-                                  isXMLForVideo: NO ];
+                                  isXMLForVideo: NO withImpressionURLs:lazyStandardAd.impressionUrls];
 }
 
 

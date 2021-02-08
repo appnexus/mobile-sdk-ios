@@ -34,6 +34,7 @@
 
 
 @property (nonatomic, readonly, assign)                         CGSize  size;
+
 @property (nonatomic, readonly, assign, getter=isResponsiveAd)  BOOL    responsiveAd;
 @property (nonatomic, readonly)                                 BOOL    isBannerVideo;
 

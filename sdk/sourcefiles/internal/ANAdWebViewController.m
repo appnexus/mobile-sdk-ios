@@ -21,6 +21,7 @@
 #import "ANMRAIDExpandProperties.h"
 #import "ANMRAIDResizeProperties.h"
 #import "ANAdViewInternalDelegate.h"
+#import "ANTrackerManager.h"
 
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
@@ -721,11 +722,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     ANLogInfo(@"Punnaghai exposed rectangle: %@, visible rectangle: %@", NSStringFromCGRect(updatedVisibleRectangle), NSStringFromCGRect(updatedVisibleInViewRectangle));
     if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
         //Fire impression tracker here
-        if ([self.loadingDelegate respondsToSelector:@selector(viewVisibleForImpressionFiring:)])
-        {
-            @synchronized(self) {
-                [self.loadingDelegate viewVisibleForImpressionFiring:self];
-            }
+        if(self.impressionURLs != nil) {
+            [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         }
     }
     // Send exposureChange Event only when there is an update from the previous.
