@@ -354,9 +354,6 @@
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
-    } else {
-        [self fireImpressionTrackersEarly:standardAd];
-        
     }
 }
 
@@ -421,18 +418,6 @@
      self.nativeAdView.loadingDelegate = self;
 }
 
-- (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
-    //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
-    BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
-    if(countImpressionOnAdReceived){
-        ANLogDebug(@"Impression URL fired when we have a valid ad & the view is created");
-        [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
-        ad.impressionUrls = nil;
-        
-    }
-}
-
-
 - (void) didFailToLoadNativeWebViewController{
     if ([self.adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]) {
         ANNativeStandardAdResponse *nativeStandardAdResponse = (ANNativeStandardAdResponse *)self.adObjectHandler;
@@ -491,8 +476,7 @@
         NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseCode.INTERNAL_ERROR.code);
         fetcherResponse = [ANAdFetcherResponse responseWithError:error];
     }
-
-    //
+    
     [self processFinalResponse:fetcherResponse];
 }
 
@@ -580,7 +564,8 @@
     }
     if(self.adView.webViewController != nil){
         //Pass the impressionURLs to be fired away when 1px on screen in the webViewController
-        self.adView.webViewController.impressionURLs = impressionURLs;
+        self.adView.webViewController.adObject = self.adObjectHandler;
+        
     }
     if (!self.adView)
     {

@@ -103,6 +103,7 @@
         sdkSettings.disableIDFAUsage = NO;
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
+        sdkSettings.countImpressionOn1PxRendering = NO;
     });
     return sdkSettings;
 }

@@ -95,4 +95,11 @@ An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in
 */
 @property (nonatomic, readwrite) BOOL disableIDFAUsage;
 
+/**
+ Set whether impression should be counted when the creative is loaded.
+ This feature is disabled by default.
+ */
+@property (nonatomic, readwrite, assign) BOOL countImpressionOn1PxRendering;
+
+
 @end

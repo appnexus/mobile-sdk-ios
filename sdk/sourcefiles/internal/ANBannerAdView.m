@@ -16,7 +16,7 @@
 #import "ANBannerAdView.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANMRAIDContainerView.h"
-
+#import "ANSDKSettings.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "ANTrackerManager.h"
@@ -382,6 +382,7 @@ static NSString *const kANInline        = @"inline";
 {
     if(self.impressionURLs != nil) {
         //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or there was no urls in the response
+        ANLogDebug(@" Punnaghai Impression URL fired on render");
         ANLogDebug(@"Impression URL fired when adview is attaching to window");
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         self.impressionURLs = nil;
@@ -669,7 +670,7 @@ static NSString *const kANInline        = @"inline";
             }
         }
 
-        if (trackersShouldBeFired) {
+        if (trackersShouldBeFired && !ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
             [self fireTrackerAndOMID];
         }
         [self adDidReceiveAd:self];
@@ -827,7 +828,9 @@ static NSString *const kANInline        = @"inline";
 {
     if (self.contentView && (_adResponseInfo.adType == ANAdTypeBanner))
     {
-        [self fireTrackerAndOMID];
+        if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
+            [self fireTrackerAndOMID];
+        }
     }
 }
 

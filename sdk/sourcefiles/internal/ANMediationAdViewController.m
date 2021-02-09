@@ -15,7 +15,7 @@
 
 #import "ANMediationAdViewController.h"
 #import "ANAdConstants.h"
-
+#import "ANSDKSettings.h"
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
@@ -361,8 +361,8 @@
     //fire impressionURLS much earlier in the lifecycle
     [self.adFetcher fireImpressionTrackersEarly:self.mediatedAd];
     
-    if(self.mediatedAd.impressionUrls != nil){
-        
+    if(self.mediatedAd.impressionUrls != nil && ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
+        [self setupViewabilityTracker];
     }
     
     [self finish:ANAdResponseCode.SUCCESS withAdObject:adObject];

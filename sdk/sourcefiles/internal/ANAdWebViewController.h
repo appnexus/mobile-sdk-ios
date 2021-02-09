@@ -37,7 +37,7 @@
 @property (nonatomic, readonly, strong)  UIView      *contentView;
 @property (nonatomic, readonly, assign)  BOOL         completedFirstLoad;
 @property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
-@property (nonatomic, readwrite, strong)              NSArray *impressionURLs;
+@property (nonatomic, readwrite, strong)              id adObject;
 
 @property (nonatomic, readonly, strong)  ANAdWebViewControllerConfiguration  *configuration;
 

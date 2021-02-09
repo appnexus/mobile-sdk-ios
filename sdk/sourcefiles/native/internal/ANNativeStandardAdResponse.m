@@ -22,6 +22,7 @@
 #import "UIView+ANCategory.h"
 #import "ANTrackerManager.h"
 #import "ANOMIDImplementation.h"
+#import "ANSDKSettings.h"
 
 
 
@@ -119,8 +120,13 @@
     self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
                                                                  block:^ {
                                                                      ANNativeStandardAdResponse *strongSelf = weakSelf;
-                                                                     //[strongSelf checkIfIABViewable];
-                                                                    [strongSelf checkIfViewIs1pxOnScreen];
+        if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
+            [strongSelf checkIfViewIs1pxOnScreen];
+        } else {
+            [strongSelf checkIfIABViewable];
+        }
+                                                                     
+                                                                    
                                                                  }
                                                                repeats:YES];
 }
