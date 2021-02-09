@@ -306,7 +306,7 @@
     {
         CGSize  sizeOfWebView  = [self getWebViewSizeForCreativeWidth:videoAd.width andHeight:videoAd.height];
 
-        BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebView content:videoAd.content isXMLForVideo:YES withImpressionURLs:videoAd.impressionUrls];
+        BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebView content:videoAd.content isXMLForVideo:YES];
 
         if (!returnValue) {
             ANLogError(@"FAILED to allocate self.adView.");
@@ -350,7 +350,7 @@
 
 
     //
-    BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebview content:standardAd.content isXMLForVideo:NO withImpressionURLs:standardAd.impressionUrls];
+    BOOL  returnValue  = [self allocateAndSetWebviewWithSize:sizeOfWebview content:standardAd.content isXMLForVideo:NO];
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
@@ -543,7 +543,6 @@
 - (BOOL)allocateAndSetWebviewWithSize: (CGSize)webviewSize
                               content: (nonnull NSString *)webviewContent
                         isXMLForVideo: (BOOL)isContentXMLForVideo
-                   withImpressionURLs: (NSArray *) impressionURLs
 {
     if (self.adView) {
         self.adView.loadingDelegate = nil;
@@ -600,7 +599,7 @@
 
     return  [self allocateAndSetWebviewWithSize: sizeOfWebview
                                         content: lazyStandardAd.content
-                                  isXMLForVideo: NO withImpressionURLs:lazyStandardAd.impressionUrls];
+                                  isXMLForVideo: NO];
 }
 
 
