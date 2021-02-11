@@ -382,8 +382,7 @@ static NSString *const kANInline        = @"inline";
 {
     if(self.impressionURLs != nil) {
         //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or there was no urls in the response
-        ANLogDebug(@" Punnaghai Impression URL fired on render");
-        ANLogDebug(@"Impression URL fired when adview is attaching to window");
+        ANLogDebug(@" Impression tracker fired on render");
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         self.impressionURLs = nil;
     }

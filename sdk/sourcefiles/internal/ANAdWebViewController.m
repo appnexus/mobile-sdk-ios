@@ -95,12 +95,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         _appIsInBackground = NO;
         
     }
-    //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
-    BOOL  countImpressionOnAdReceived  = [self.adViewDelegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.adViewDelegate valueOfCountImpressionOnAdReceived];
-    if(countImpressionOnAdReceived){
-        
-        [self fireImpressionTrackers];
-    }
+    
     [self setupTimerForCheckingPositionAndViewability];
     return self;
 }
@@ -212,10 +207,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void) fireImpressionTrackers {
     if([self.adObject isKindOfClass:[ANBaseAdObject class]]){
-            ANBaseAdObject *ad = (ANBaseAdObject *)self.adObject;
+        ANBaseAdObject *ad = (ANBaseAdObject *)self.adObject;
             
         if(ad.impressionUrls != nil){
-            ANLogDebug(@" Punnaghai Impression URL fired 1px");
+            ANLogDebug(@" Impression tracker fired");
             [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
             ad.impressionUrls = nil;
         }
@@ -739,8 +734,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
         CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
     
-        ANLogInfo(@"Punnaghai exposed rectangle: %@, visible rectangle: %@", NSStringFromCGRect(updatedVisibleRectangle), NSStringFromCGRect(updatedVisibleInViewRectangle));
+        ANLogInfo(@"Visible rectangle: %@, exposed rectangle: %@", NSStringFromCGRect(updatedVisibleRectangle), NSStringFromCGRect(updatedVisibleInViewRectangle));
         if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
+            ANLogDebug(@"Impression tracker fired on 1px rendering");
             //Fire impression tracker here
             [self fireImpressionTrackers];
         }
@@ -976,7 +972,15 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 - (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
     _adViewDelegate = adViewDelegate;
     if (_adViewDelegate) {
+        //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
+        BOOL  countImpressionOnAdReceived  = [self.adViewDelegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.adViewDelegate valueOfCountImpressionOnAdReceived];
+        if(countImpressionOnAdReceived){
+            ANLogDebug(@"Impression tracker fired on ad received");
+            [self fireImpressionTrackers];
+        }
         [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[_adViewDelegate adTypeForMRAID]]];
+        
+        
     }
 }
 
