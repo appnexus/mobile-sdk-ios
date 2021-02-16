@@ -32,7 +32,7 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate , ANN
         // Do any additional setup after loading the view.
         
         nativeAdRequest = ANNativeAdRequest()
-        nativeAdRequest!.placementId = "1281482"
+        nativeAdRequest!.placementId = "17058950"
         nativeAdRequest!.shouldLoadIconImage = true
         nativeAdRequest!.shouldLoadMainImage = true
         nativeAdRequest!.delegate = self
@@ -63,6 +63,43 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate , ANN
     
     func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error, with adResponseInfo: ANAdResponseInfo?) {
         print("Ad request Failed With Error")
+    }
+    
+    // MARK: - ANNativeAdDelegate
+    func adDidLogImpression(_ response: Any) {
+        print("adDidLogImpression")
+    }
+    
+    func adWillExpire(_ response: Any) {
+        print("adWillExpire")
+    }
+    
+    func adDidExpire(_ response: Any) {
+        print("adDidExpire")
+    }
+    
+    func adWasClicked(_ response: Any) {
+        print("adWasClicked")
+    }
+    
+    func adWillPresent(_ response: Any) {
+        print("adWillPresent")
+    }
+    
+    func adDidPresent(_ response: Any) {
+        print("adDidPresent")
+    }
+    
+    func adWillClose(_ response: Any) {
+        print("adWillClose")
+    }
+    
+    func adDidClose(_ response: Any) {
+        print("adDidClose")
+    }
+    
+    func adWillLeaveApplication(_ response: Any) {
+        print("adWillLeaveApplication")
     }
 }
 
