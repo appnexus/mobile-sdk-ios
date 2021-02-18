@@ -21,8 +21,7 @@
 #import "ANMRAIDExpandProperties.h"
 #import "ANMRAIDResizeProperties.h"
 #import "ANAdViewInternalDelegate.h"
-#import "ANTrackerManager.h"
-#import "ANBaseAdObject.h"
+
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
@@ -95,8 +94,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         _appIsInBackground = NO;
         
     }
-    
-    [self setupTimerForCheckingPositionAndViewability];
     return self;
 }
 
@@ -163,6 +160,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
     self.webView = [ANWebView fetchWebView];
+    //self.webView = [[ANWarmupWebView sharedInstance] fetchWarmedUpWebView];
     [self loadWebViewWithUserScripts];
     
     __weak ANAdWebViewController  *weakSelf  = self;
@@ -203,19 +201,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     //
     return  self;
-}
-
-- (void) fireImpressionTrackers {
-    if([self.adObject isKindOfClass:[ANBaseAdObject class]]){
-        ANBaseAdObject *ad = (ANBaseAdObject *)self.adObject;
-            
-        if(ad.impressionUrls != nil){
-            ANLogDebug(@" Impression tracker fired");
-            [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
-            ad.impressionUrls = nil;
-        }
-    }
-    
 }
     
 
@@ -731,16 +716,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
     CGRect updatedVisibleRectangle = [self.mraidDelegate visibleRect]; // updatedVisibleRectangle from MRAID Delegate
     
-    if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
-        CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
-    
-        ANLogInfo(@"Visible rectangle: %@, exposed rectangle: %@", NSStringFromCGRect(updatedVisibleRectangle), NSStringFromCGRect(updatedVisibleInViewRectangle));
-        if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
-            ANLogDebug(@"Impression tracker fired on 1px rendering");
-            //Fire impression tracker here
-            [self fireImpressionTrackers];
-        }
-    }
     // Send exposureChange Event only when there is an update from the previous.
     if(self.lastKnownExposedPercentage != updatedExposedPercentage || !CGRectEqualToRect(self.lastKnownVisibleRect,updatedVisibleRectangle)){
         self.lastKnownExposedPercentage = updatedExposedPercentage;
@@ -972,15 +947,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 - (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
     _adViewDelegate = adViewDelegate;
     if (_adViewDelegate) {
-        //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
-        BOOL  countImpressionOnAdReceived  = [self.adViewDelegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.adViewDelegate valueOfCountImpressionOnAdReceived];
-        if(countImpressionOnAdReceived){
-            ANLogDebug(@"Impression tracker fired on ad received");
-            [self fireImpressionTrackers];
-        }
         [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[_adViewDelegate adTypeForMRAID]]];
-        
-        
     }
 }
 

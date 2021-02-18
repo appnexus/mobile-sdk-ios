@@ -838,16 +838,17 @@ static NSString *const kANInline        = @"inline";
 #pragma mark - Check if on screen & fire impression trackers
 
 - (void) handleTimerSentNotification:(NSNotification *) notification {
-    if(self.impressionURLs != nil){
-        CGRect updatedVisibleInViewRectangle = [self an_visibleInViewRectangle];
-        
+    if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering && self.impressionURLs != nil){
+        CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
+    
         ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
+        
         if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
-                ANLogDebug(@"Impression tracker fired on 1px rendering from banner adView");
-                //Fire impression tracker here
-                [self fireTrackerAndOMID];
+            ANLogDebug(@"Impression tracker fired on 1px rendering");
+            //Fire impression tracker here
+            [self fireImpressionTrackers];
+            NSLog(@"Timer notification received");
         }
-        NSLog(@"Timer notification received");
     }
 }
 
