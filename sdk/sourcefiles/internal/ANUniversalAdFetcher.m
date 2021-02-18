@@ -38,7 +38,7 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 
-
+#import "ANRealTimer.h"
 
 
 @interface ANUniversalAdFetcher() <     ANVideoAdProcessorDelegate,
@@ -193,7 +193,7 @@
          return;
      }
     
-    
+    [ANRealTimer addListenerObject:nil];
     //
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];

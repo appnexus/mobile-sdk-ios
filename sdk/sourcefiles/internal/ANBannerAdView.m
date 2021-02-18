@@ -20,7 +20,7 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "ANTrackerManager.h"
-
+#import "ANRealTimer.h"
 #import "UIView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
@@ -148,6 +148,8 @@ static NSString *const kANInline        = @"inline";
 
     //
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTimerSentNotification:) name:@"kHandleTimerSentNotification" object:nil];
 }
 
 - (void)awakeFromNib {
@@ -830,6 +832,22 @@ static NSString *const kANInline        = @"inline";
         if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
             [self fireTrackerAndOMID];
         }
+    }
+}
+
+#pragma mark - Check if on screen & fire impression trackers
+
+- (void) handleTimerSentNotification:(NSNotification *) notification {
+    if(self.impressionURLs != nil){
+        CGRect updatedVisibleInViewRectangle = [self an_visibleInViewRectangle];
+        
+        ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
+        if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
+                ANLogDebug(@"Impression tracker fired on 1px rendering from banner adView");
+                //Fire impression tracker here
+                [self fireTrackerAndOMID];
+        }
+        NSLog(@"Timer notification received");
     }
 }
 

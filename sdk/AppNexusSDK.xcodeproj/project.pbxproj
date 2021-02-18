@@ -144,6 +144,10 @@
 		609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FC1E42EAFF0061EC0A /* ANInstreamVideoAd.m */; };
 		609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732FD1E42EAFF0061EC0A /* ANVideoAdPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
+		60C4CB0225DD76B400A744CC /* ANRealTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 60C4CB0025DD76B300A744CC /* ANRealTimer.h */; };
+		60C4CB0325DD76B500A744CC /* ANRealTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 60C4CB0025DD76B300A744CC /* ANRealTimer.h */; };
+		60C4CB0425DD76B500A744CC /* ANRealTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C4CB0125DD76B300A744CC /* ANRealTimer.m */; };
+		60C4CB0525DD76B500A744CC /* ANRealTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C4CB0125DD76B300A744CC /* ANRealTimer.m */; };
 		60D39E1522570FE20029F741 /* ANVideoPlayerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */; };
 		60D39E2922679E480029F741 /* ANVideoPlayerSettings+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */; };
@@ -443,6 +447,8 @@
 		609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoAdPlayer.m; sourceTree = "<group>"; };
 		609733001E42EAFF0061EC0A /* ASTMediationManager.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ASTMediationManager.js; sourceTree = "<group>"; };
 		60AB32891E521FE500429ED7 /* MobileVastPlayer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MobileVastPlayer.js; sourceTree = "<group>"; };
+		60C4CB0025DD76B300A744CC /* ANRealTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANRealTimer.h; sourceTree = "<group>"; };
+		60C4CB0125DD76B300A744CC /* ANRealTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANRealTimer.m; sourceTree = "<group>"; };
 		60D39E0F2256EE420029F741 /* optionsparser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = optionsparser.js; sourceTree = "<group>"; };
 		60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANVideoPlayerSettings.h; sourceTree = "<group>"; };
 		60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettings.m; sourceTree = "<group>"; };
@@ -895,6 +901,8 @@
 				60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */,
 				60183FD222933E9500CFDE33 /* ANWebView.h */,
 				60183FD322933E9500CFDE33 /* ANWebView.m */,
+				60C4CB0025DD76B300A744CC /* ANRealTimer.h */,
+				60C4CB0125DD76B300A744CC /* ANRealTimer.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -1068,6 +1076,7 @@
 				8AC65F691A40DE74006BCF39 /* ANMRAIDOrientationProperties.h in Headers */,
 				8AC65F6B1A40DE74006BCF39 /* ANMRAIDResizeProperties.h in Headers */,
 				8AC65F6D1A40DE74006BCF39 /* ANMRAIDResizeView.h in Headers */,
+				60C4CB0225DD76B400A744CC /* ANRealTimer.h in Headers */,
 				8AC65F6F1A40DE74006BCF39 /* ANMRAIDResizeViewManager.h in Headers */,
 				8AC65F711A40DE74006BCF39 /* ANMRAIDUtil.h in Headers */,
 				4F8EBCD4235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h in Headers */,
@@ -1178,6 +1187,7 @@
 				0ECF336322D79A62007DB185 /* AppNexusNativeSDK.h in Headers */,
 				F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */,
 				F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */,
+				60C4CB0325DD76B500A744CC /* ANRealTimer.h in Headers */,
 				0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */,
 				0099B483228CA0EB004E80AB /* UIView+ANCategory.h in Headers */,
 				F5731B4B228C8D050012B134 /* UIView+ANNativeAdCategory.h in Headers */,
@@ -1408,6 +1418,7 @@
 				97EC51EF2229782B00B740DF /* ANVerificationScriptResource.m in Sources */,
 				609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */,
 				609732D91E42E9860061EC0A /* ANVideoAdProcessor.m in Sources */,
+				60C4CB0425DD76B500A744CC /* ANRealTimer.m in Sources */,
 				60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */,
 				60183FD622934AB500CFDE33 /* ANWebView.m in Sources */,
 				609732B21E42E73D0061EC0A /* NSDictionary+ANCategory.m in Sources */,
@@ -1454,6 +1465,7 @@
 				F5731B87228C951D0012B134 /* ANOMIDImplementation.m in Sources */,
 				F5731B84228C94EE0012B134 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				F52F82F1229338F100F4578C /* ANProxyViewController.m in Sources */,
+				60C4CB0525DD76B500A744CC /* ANRealTimer.m in Sources */,
 				F5731B7C228C948C0012B134 /* ANReachability.m in Sources */,
 				F5731B64228C8E190012B134 /* ANRTBVideoAd.m in Sources */,
 				F5731B6E228C8E4A0012B134 /* ANSDKSettings.m in Sources */,
