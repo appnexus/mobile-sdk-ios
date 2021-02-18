@@ -617,8 +617,10 @@ static NSString *const kANInline        = @"inline";
                 // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
                 //   but only when the AdUnit is not lazy.
                 //
-                if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
-                    trackersShouldBeFired = YES;
+                if (!response.isLazy  && !ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
+                    if(self.window || self.countImpressionOnAdReceived) {
+                        trackersShouldBeFired = YES;
+                    }
                 }
             }
         }
@@ -637,7 +639,9 @@ static NSString *const kANInline        = @"inline";
             return;
 
         } else {
-            trackersShouldBeFired = YES;
+            if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
+                trackersShouldBeFired = YES;
+            }
         }
 
 
@@ -671,7 +675,7 @@ static NSString *const kANInline        = @"inline";
             }
         }
 
-        if (trackersShouldBeFired && !ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
+        if (trackersShouldBeFired) {
             [self fireTrackerAndOMID];
         }
         [self adDidReceiveAd:self];
@@ -846,7 +850,7 @@ static NSString *const kANInline        = @"inline";
         if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
             ANLogDebug(@"Impression tracker fired on 1px rendering");
             //Fire impression tracker here
-            [self fireImpressionTrackers];
+            [self fireTrackerAndOMID];
             NSLog(@"Timer notification received");
         }
     }

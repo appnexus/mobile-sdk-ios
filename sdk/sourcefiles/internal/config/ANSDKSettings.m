@@ -21,6 +21,7 @@
 #import "ANBaseUrlConfig.h"
 #import "ANWebView.h"
 #import "ANLogging.h"
+#import "ANRealTimer.h"
 
 
 @interface ANBaseUrlConfig : NSObject
@@ -85,12 +86,14 @@
 
 @property (nonatomic) ANBaseUrlConfig *baseUrlConfig;
 @property (nonatomic, readwrite, strong, nonnull) NSString *sdkVersion;
+//@property (nonatomic, readwrite, assign) BOOL *countImpressionOn1PxRendering;
 @end
 
 
 @implementation ANSDKSettings
 
 @synthesize nativeAdAboutToExpireInterval = __nativeAdAboutToExpireInterval;
+@synthesize countImpressionOn1PxRendering = __countImpressionOn1PxRendering;
 
 + (id)sharedInstance {
     static dispatch_once_t sdkSettingsToken;
@@ -150,6 +153,13 @@
         return;
     }
     __nativeAdAboutToExpireInterval = nativeAdAboutToExpireInterval;
+}
+
+-(void) setCountImpressionOn1PxRendering:(BOOL)countImpressionOn1PxRendering {
+    if(countImpressionOn1PxRendering){
+        [ANRealTimer sharedManager];
+    }
+    __countImpressionOn1PxRendering = countImpressionOn1PxRendering;
 }
 
 
