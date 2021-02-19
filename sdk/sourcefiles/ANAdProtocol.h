@@ -69,7 +69,7 @@
 /**
  Specifies a string that corresponds to an external user ID for  user
  */
-@property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
+@property (nonatomic, readwrite, strong, nullable) NSString *externalUid DEPRECATED_MSG_ATTRIBUTE("Use ANSDKSettings.publisherUserId instead.");
 
 
 /**

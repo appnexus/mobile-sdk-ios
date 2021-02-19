@@ -63,7 +63,7 @@ class MultiAdViewController: UITableViewController , ANMultiAdRequestDelegate  ,
     
     // Create InstreamVideo Ad Object
     func createVideoAd(adView : UIView) -> ANInstreamVideoAd {
-        videoAd = ANInstreamVideoAd(placementId: "17982237")
+        videoAd = ANInstreamVideoAd(placementId: "17058950")
         videoAd.loadDelegate = self
         return videoAd
     }
@@ -71,7 +71,7 @@ class MultiAdViewController: UITableViewController , ANMultiAdRequestDelegate  ,
     
     // Create Interstitial Ad Object
     func createInterstitialAd()  -> ANInterstitialAd{
-        interstitialAd = ANInterstitialAd(placementId: "17982237")
+        interstitialAd = ANInterstitialAd(placementId: "17058950")
         interstitialAd!.delegate = self
         return interstitialAd!
     }
@@ -79,7 +79,7 @@ class MultiAdViewController: UITableViewController , ANMultiAdRequestDelegate  ,
     // Create Native Ad Object
     func createNativeAd() -> ANNativeAdRequest{
         nativeAdRequest = ANNativeAdRequest()
-        nativeAdRequest!.placementId = "17982237"
+        nativeAdRequest!.placementId = "17058950"
         nativeAdRequest!.shouldLoadIconImage = true
         nativeAdRequest!.shouldLoadMainImage = true
         nativeAdRequest!.delegate = self
@@ -92,7 +92,7 @@ class MultiAdViewController: UITableViewController , ANMultiAdRequestDelegate  ,
         let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.bannerAdView.frame.size.width , height: self.bannerAdView.frame.size.height))
         
         // Make a banner ad view.
-        self.bannerAd = ANBannerAdView(frame: rect, placementId: "17982237", adSize: size)
+        self.bannerAd = ANBannerAdView(frame: rect, placementId: "17058950", adSize: size)
         self.bannerAd!.rootViewController = self
         self.bannerAd!.delegate = self
         self.bannerAd!.shouldResizeAdToFitContainer = true

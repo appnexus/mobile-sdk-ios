@@ -27,7 +27,7 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
 
         let adWidth: Int = 300
         let adHeight: Int = 250
-        let adID = "1281482"
+        let adID = "17058950"
         
         // We want to center our ad on the screen.
         let screenRect: CGRect = UIScreen.main.bounds

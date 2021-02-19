@@ -58,3 +58,10 @@ typedef NS_ENUM(NSUInteger, ANVideoOrientation) {
     ANLandscape,
     ANSquare    
 };
+
+
+
+
+
+
+

@@ -231,6 +231,13 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"user"] = user;
     }
     
+    // Set EUID node, EUID - Third party id solutions
+    //
+    NSArray<NSDictionary<NSString *, NSString *> *>  *externalUserIds  = [self externalUserIds];
+    if (externalUserIds) {
+        requestDict[@"eids"] = externalUserIds;
+    }
+    
     NSDictionary<NSString *, id> *device = [self device];
     if (device) {
         requestDict[@"device"] = device;
@@ -565,11 +572,14 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     
     
     //
-    NSString *externalUid = [self.adFetcherDelegate externalUid];
-    if (externalUid) {
-        userDict[@"external_uid"] = externalUid;
+    NSString *publisherUserId = [[ANSDKSettings sharedInstance] publisherUserId];
+   
+    // Use publisherFirstPartyID if it is present. External Id in ANAdProtocol is deprecated.
+    if (publisherUserId) {
+        userDict[@"external_uid"] = publisherUserId;
+    }else if ([self.adFetcherDelegate externalUid]) {
+        userDict[@"external_uid"] = [self.adFetcherDelegate externalUid];
     }
-
 
     //
     return [userDict copy];
@@ -771,6 +781,50 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
     //
     return [kvSegmentsArray copy];
+}
+
+
+
+- (NSArray<NSDictionary<NSString *, NSString *> *> *)externalUserIds
+{
+    NSArray<ANExternalUserId *>  *externalUserIdArray  = [ANSDKSettings.sharedInstance externalUserIdArray];
+
+    if ([externalUserIdArray count] <= 0)  { return nil; }
+    //
+    NSMutableArray<NSDictionary<NSString *, NSString *> *>  *transformedeuidArray  = [[NSMutableArray<NSDictionary<NSString *, NSString *> *> alloc] init];
+
+    for (ANExternalUserId *externaluserId in externalUserIdArray)
+    {
+        switch (externaluserId.source) {
+            case ANExternalUserIdSourceLiveRamp:
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"liveramp.com",
+                                                 @"id"          : externaluserId.userId
+                                             } ];
+                break;
+            case ANExternalUserIdSourceCriteo:
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"criteo.com",
+                                                 @"id"          : externaluserId.userId
+                                             } ];
+                break;
+            case ANExternalUserIdSourceNetId:
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"netid.de",
+                                                 @"id"          : externaluserId.userId
+                                             } ];
+                break;
+            case ANExternalUserIdSourceTheTradeDesk:
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"adserver.org",
+                                                 @"id"          : externaluserId.userId,
+                                                 @"rti_partner"      : @"TDID"
+                                             } ];
+                break;
+        }
+    }
+    //
+    return [transformedeuidArray copy];
 }
 
 

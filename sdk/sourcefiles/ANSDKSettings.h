@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 
 
+#import "ANExternalUserId.h"
+
 
 
 @interface ANSDKSettings : NSObject
@@ -94,5 +96,17 @@ An AppNexus geoOverrideZipCode  is a string value which allows publishers to ove
 An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in ad request. Default value of disableIDFAUsage is set to NO
 */
 @property (nonatomic, readwrite) BOOL disableIDFAUsage;
+
+
+/**
+ Specifies a string that corresponds to the Publishers  User ID for current application user.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *publisherUserId;
+
+
+/**
+ A Dictionary containing objects that hold External UserId parameters.
+ */
+@property (nonatomic, readwrite, strong, nullable) NSArray<ANExternalUserId *>  *externalUserIdArray;
 
 @end

@@ -11,6 +11,8 @@
 		00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */; };
 		004833BF24A39D6400BFF7A6 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970C21FF32EB005D1F0E /* ANHTTPStubbingManager.m */; };
 		004833E824A3CF7300BFF7A6 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970E21FF32EB005D1F0E /* ANHTTPStubURLProtocol.m */; };
+		00B5CB6E25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; };
+		00B5CB6F25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E061F1E23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E061F1C23D1F37F000F0E1E /* testLoadTwoMARInstancesSimultaneously.json */; };
 		0E14222122F99B9A006C597A /* ANResourceValidationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E14221F22F99B9A006C597A /* ANResourceValidationTestCase.m */; };
 		0E14222322F99BA8006C597A /* ANResourceValidationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */; };
@@ -615,6 +617,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				0E6B7E4922D8DE49005D069E /* AppNexusSDK.framework in Embed Frameworks */,
+				00B5CB6F25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1157,6 +1160,7 @@
 				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
 				FC4C72E324FF02B800379108 /* GoogleMobileAds.framework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
+				00B5CB6E25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
 				0ED159E92236B55B00D56022 /* libsqlite3.tbd in Frameworks */,
 				0ED159EB2236B56100D56022 /* libxml2.tbd in Frameworks */,
@@ -3160,6 +3164,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -3219,6 +3224,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
