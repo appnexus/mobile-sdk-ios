@@ -43,7 +43,7 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate, A
         }
         
         setupContentPlayer()
-        videoAd = ANInstreamVideoAd(placementId: "1281482")
+        videoAd = ANInstreamVideoAd(placementId: "17058950")
         videoAd?.load(with: self)
         videoAd?.clickThroughAction = ANClickThroughAction.openSDKBrowser
         

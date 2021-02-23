@@ -32,7 +32,7 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];
    
     self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
-    self.nativeAdRequest.placementId = @"19212468";
+    self.nativeAdRequest.placementId = @"17058950";
     self.nativeAdRequest.gender = ANGenderMale;
     self.nativeAdRequest.shouldLoadIconImage = YES;
     self.nativeAdRequest.shouldLoadMainImage = YES;
@@ -68,6 +68,44 @@
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {
     NSLog(@"Ad request Failed With Error");
+}
+
+#pragma mark - ANNativeAdDelegate
+
+- (void)adDidLogImpression:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillExpire:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adDidExpire:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWasClicked:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillPresent:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adDidPresent:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillClose:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adDidClose:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillLeaveApplication:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 

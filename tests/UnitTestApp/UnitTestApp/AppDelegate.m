@@ -18,6 +18,9 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANTestGlobal.h"
 #import "ANGlobal.h"
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 
 @interface AppDelegate ()
 
@@ -33,10 +36,38 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
   
+    if (@available(iOS 14, *)) {
+            [self requestTrackingAuthorization];
+        }
+    
     // Override point for customization after application launch.
     return YES;
 }
 
+
+- (void)requestTrackingAuthorization{
+    // Checking the OS version before calling the Tracking Consent dialog, it's available only in iOS 14 and above
+    if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus authStatus) {
+            switch (authStatus) {
+                case ATTrackingManagerAuthorizationStatusNotDetermined:
+                    NSLog(@"Tracking Authorization Status==NotDetermined");
+                    break;
+                case ATTrackingManagerAuthorizationStatusRestricted:
+                    NSLog(@"Tracking Authorization Status==Restricted");
+                    break;
+                case ATTrackingManagerAuthorizationStatusDenied:
+                    NSLog(@"Tracking Authorization Status==Denied");
+                    break;
+                case ATTrackingManagerAuthorizationStatusAuthorized:
+                    NSLog(@"Tracking Authorization Status==Authorized");
+                    break;
+            }
+        }];
+#endif
+    }
+}
 
 #if __IPHONE_9_0
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {

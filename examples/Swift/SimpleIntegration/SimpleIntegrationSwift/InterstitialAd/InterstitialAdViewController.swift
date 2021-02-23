@@ -24,7 +24,7 @@ class InterstitialAdViewController: UIViewController , ANInterstitialAdDelegate 
         super.viewDidLoad()
         self.title = "Interstitial Ad"
         
-        interstitialAd = ANInterstitialAd(placementId: "1281482")
+        interstitialAd = ANInterstitialAd(placementId: "17058950")
         interstitialAd!.delegate = self
         interstitialAd!.clickThroughAction = ANClickThroughAction.openSDKBrowser
         interstitialAd!.load()

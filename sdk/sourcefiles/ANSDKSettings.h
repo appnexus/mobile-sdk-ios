@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 
 
+#import "ANExternalUserId.h"
+
 
 
 @interface ANSDKSettings : NSObject
@@ -101,5 +103,16 @@ An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in
  */
 @property (nonatomic, readwrite, assign) BOOL countImpressionOn1PxRendering;
 
+
+/**
+ Specifies a string that corresponds to the Publishers  User ID for current application user.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *publisherUserId;
+
+
+/**
+ A Dictionary containing objects that hold External UserId parameters.
+ */
+@property (nonatomic, readwrite, strong, nullable) NSArray<ANExternalUserId *>  *externalUserIdArray;
 
 @end
