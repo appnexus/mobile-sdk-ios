@@ -28,7 +28,9 @@
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANNativeAdResponse+ANTest.h"
-
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 static NSString  *PlacementID  = @"9924001";
 
@@ -77,7 +79,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     
     
     self.nativeRequest = [[ANNativeAdRequest alloc] init];
-    self.nativeRequest.delegate = self;
+    self.nativeRequest.delegate =            self;
     
     
     [SDKValidationURLProtocol setDelegate:self];
@@ -277,19 +279,57 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
                 break;
         }
         
-        NSNumber *lmt = device[@"limit_ad_tracking"];
-        XCTAssertNotNil(lmt);
-        XCTAssertEqual([lmt boolValue], ANAdvertisingTrackingEnabled() ? NO : YES);
-        // get the objective c type of the NSNumber for limit_ad_tracking
-        // "c" is the BOOL type that is returned from NSNumber objCType for BOOL value
-        const char *boolType = "c";
-        XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
+      
         
-        // Device Id Start
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertNotNil(idfa);
+        
+             if (@available(iOS 14, *)) {
+         #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+                 if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                     
+                     NSNumber *lmt = device[@"limit_ad_tracking"];
+
+                     XCTAssertEqual([lmt boolValue], ANAdvertisingTrackingEnabled() ? NO : YES);
+                     // get the objective c type of the NSNumber for limit_ad_tracking
+                     // "c" is the BOOL type that is returned from NSNumber objCType for BOOL value
+                     //const char *boolType = "c";
+                     //XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
+                     
+                     // Device Id Start
+                     NSDictionary *deviceId = device[@"device_id"];
+                     XCTAssertNotNil(deviceId);
+                     NSString *idfa = deviceId[@"idfa"];
+                     XCTAssertNotNil(idfa);
+                 }else{
+                     
+                     NSNumber *lmt = device[@"limit_ad_tracking"];
+                     XCTAssertNil(lmt);
+                     // get the objective c type of the NSNumber for limit_ad_tracking
+                     // "c" is the BOOL type that is returned from NSNumber objCType for BOOL value
+                     //const char *boolType = "c";
+                     //XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
+                     // Device Id Start
+                     NSDictionary *deviceId = device[@"device_id"];
+                     XCTAssertNil(deviceId);
+                 }
+         #endif
+             }else{
+                 NSNumber *lmt = device[@"limit_ad_tracking"];
+            
+                 XCTAssertEqual([lmt boolValue], ANAdvertisingTrackingEnabled() ? NO : YES);
+                 // get the objective c type of the NSNumber for limit_ad_tracking
+                 // "c" is the BOOL type that is returned from NSNumber objCType for BOOL value
+                 //const char *boolType = "c";
+                 //XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
+                 
+                 // Device Id Start
+                 NSDictionary *deviceId = device[@"device_id"];
+                 XCTAssertNotNil(deviceId);
+                 NSString *idfa = deviceId[@"idfa"];
+                 XCTAssertNotNil(idfa);
+             }
+        
+        
+
         
         XCTAssertNil(error);
         XCTAssertNotNil(jsonObject);

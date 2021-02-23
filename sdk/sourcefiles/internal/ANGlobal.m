@@ -22,6 +22,9 @@
 #import "ANHTTPNetworkSession.h"
 #import "ANOMIDImplementation.h"
 #import "ANGDPRSettings.h"
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 
 NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
@@ -49,6 +52,11 @@ NSString *__nonnull ANDeviceModel()
     return @(systemInfo.machine);
 }
 
+
+/*
+True : Advertising Tracking Enabled
+False : Advertising Tracking Disabled, Restricted or NotDetermined
+ */
 BOOL ANAdvertisingTrackingEnabled() {
     // If a user does turn this off, use the unique identifier *only* for the following:
     // - Frequency capping
@@ -56,6 +64,16 @@ BOOL ANAdvertisingTrackingEnabled() {
     // - Estimating number of unique users
     // - Security and fraud detection
     // - Debugging
+    
+    if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+        if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized ){
+            return YES;
+        }else {
+            return NO;
+        }
+#endif
+    }
     return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 

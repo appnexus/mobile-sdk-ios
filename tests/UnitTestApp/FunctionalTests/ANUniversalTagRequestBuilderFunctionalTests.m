@@ -25,7 +25,9 @@
 #import "ANUSPrivacySettings.h"
 #import "ANOMIDImplementation.h"
 #import "ANExternalUserId.h"
-
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 
 static NSString *const   kTestUUID              = @"0000-000-000-00";
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
@@ -939,36 +941,84 @@ static NSString  *placementID  = @"9924001";
         NSDictionary *jsonDict = (NSDictionary *)jsonObject;
         NSArray *eidsArray = jsonDict[@"eids"];
         NSDictionary *eidDictionary = jsonDict[@"eids"];
-        XCTAssertEqual(eidDictionary.count, 4 );
         
-        NSUInteger count = [eidsArray count];
-        for (NSUInteger index = 0; index < count ; index++) {
-            TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
-            if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
-                XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
-                XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
-                [criteoExpectation fulfill];
-            }
-            
-            if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
-                XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
-                XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
-                [netIDExpectation fulfill];
-            }
-            
-            if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
-                XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
-                XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
-                [liveRampExpectation fulfill];
-            }
-            
-            if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
-                XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
-                XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
-                XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
-                [tradeDeskExpectation fulfill];
-            }
-        }
+        if (@available(iOS 14, *)) {
+        #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+                if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                    XCTAssertEqual(eidDictionary.count, 4 );
+                    
+                    NSUInteger count = [eidsArray count];
+                    for (NSUInteger index = 0; index < count ; index++) {
+                        TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
+                        if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
+                            [criteoExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
+                            [netIDExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
+                            [liveRampExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
+                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
+                            [tradeDeskExpectation fulfill];
+                        }
+                    }
+                }else {
+                    
+                    XCTAssertNil(eidDictionary );
+                    [tradeDeskExpectation fulfill];
+                    [criteoExpectation fulfill];
+                    [netIDExpectation fulfill];
+                    [liveRampExpectation fulfill];
+
+                    }
+        #endif
+            }else{
+                XCTAssertEqual(eidDictionary.count, 4 );
+                
+                NSUInteger count = [eidsArray count];
+                for (NSUInteger index = 0; index < count ; index++) {
+                    TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
+                    if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
+                        [criteoExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
+                        [netIDExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
+                        [liveRampExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
+                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
+                        [tradeDeskExpectation fulfill];
+                    }
+                }
+    }
+        
+
     });
     
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];

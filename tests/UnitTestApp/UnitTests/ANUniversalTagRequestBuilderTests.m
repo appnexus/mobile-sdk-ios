@@ -22,7 +22,9 @@
 #import "ANReachability.h"
 #import "TestANUniversalFetcher.h"
 #import "ANGDPRSettings.h"
-
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 
 static NSString *const   kTestUUID              = @"0000-000-000-00";
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
@@ -119,10 +121,6 @@ static NSString  *videoPlacementID  = @"9924001";
         NSNumber *gender = user[@"gender"];
         XCTAssertNotNil(gender);
 
-        // externalUid
-        NSString *externalUid = user[@"external_uid"];
-        XCTAssertNotNil(externalUid);
-        XCTAssertEqualObjects(externalUid, @"AppNexus");
         NSString * deviceLanguage = [[NSLocale preferredLanguages] firstObject];
         NSString *language = user[@"language"];
         XCTAssertEqualObjects(language, deviceLanguage);
@@ -156,20 +154,45 @@ static NSString  *videoPlacementID  = @"9924001";
                 break;
         }
 
-        NSNumber *lmt = device[@"limit_ad_tracking"];
-        XCTAssertNotNil(lmt);
-        XCTAssertEqual([lmt boolValue], ANAdvertisingTrackingEnabled() ? NO : YES);
-        // get the objective c type of the NSNumber for limit_ad_tracking
-        // "c" is the BOOL type that is returned from NSNumber objCType for BOOL value
-//        const char *boolType = "c";
-//        XCTAssertEqual(strcmp([lmt objCType], boolType), 0);
+        
+        if (@available(iOS 14, *)) {
+    #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+            if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                NSNumber *lmt = device[@"limit_ad_tracking"];
+                XCTAssertNotNil(lmt);
+                XCTAssertEqual([lmt boolValue], NO);
+                
+                // Device Id Start
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNotNil(deviceId);
+                NSString *idfa = deviceId[@"idfa"];
+                XCTAssertNotNil(idfa);
+                XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+                
+            }else {
+                
+                    NSNumber *lmt = device[@"limit_ad_tracking"];
+                    XCTAssertNil(lmt);
+                    NSDictionary *deviceId = device[@"device_id"];
+                    XCTAssertNil(deviceId);
+                }
+    #endif
+        }else{
+            
+            
+            NSNumber *lmt = device[@"limit_ad_tracking"];
+            XCTAssertNotNil(lmt);
+            XCTAssertEqual([lmt boolValue], ANAdvertisingTrackingEnabled() ? NO : YES);
 
-        // Device Id Start
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertNotNil(idfa);
-        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+            // get the objective c type of the NSNumber for limit_ad_tracking
+
+            // Device Id Start
+            NSDictionary *deviceId = device[@"device_id"];
+            XCTAssertNotNil(deviceId);
+            NSString *idfa = deviceId[@"idfa"];
+            XCTAssertNotNil(idfa);
+        }
+      
         
         //
         [expectation fulfill];
@@ -215,12 +238,31 @@ static NSString  *videoPlacementID  = @"9924001";
         XCTAssertNotNil(device);
         XCTAssertNil(keywords); // no keywords passed unless set in the targeting
 
+        
+        if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+            if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNotNil(deviceId);
+                NSString *idfa = deviceId[@"idfa"];
+                XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+                
+                
+            }else{
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNil(deviceId);
+            }
+    #endif
+        }else{
+            // Device Id Start
+            NSDictionary *deviceId = device[@"device_id"];
+            XCTAssertNotNil(deviceId);
+            NSString *idfa = deviceId[@"idfa"];
+            XCTAssertNotNil(idfa);
 
-        // Device Id Start
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+        }
+
 
         //
         [expectation fulfill];
@@ -267,12 +309,32 @@ static NSString  *videoPlacementID  = @"9924001";
         XCTAssertNil(keywords); // no keywords passed unless set in the targeting
 
 
-        // Device Id Start
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+     
+        
+        if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+            if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                // Device Id Start
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNotNil(deviceId);
+                NSString *idfa = deviceId[@"idfa"];
+                XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
 
+                
+            }else{
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNil(deviceId);
+            }
+    #endif
+        }else{
+            // Device Id Start
+            NSDictionary *deviceId = device[@"device_id"];
+            XCTAssertNotNil(deviceId);
+            NSString *idfa = deviceId[@"idfa"];
+            XCTAssertNotNil(idfa);
+        }
+        
+        
         //
         [expectation fulfill];
     });
@@ -415,14 +477,29 @@ static NSString  *videoPlacementID  = @"9924001";
         XCTAssertNotNil(device);
         XCTAssertNil(keywords); // no keywords passed unless set in the targeting
 
-
-        // Device Id Start
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
-        NSString *idfa = deviceId[@"idfa"];
-        XCTAssertNotNil(idfa);
-        XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
-
+        
+        if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+            if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                // Device Id Start
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNotNil(deviceId);
+                NSString *idfa = deviceId[@"idfa"];
+                XCTAssertNotNil(idfa);
+                XCTAssertEqualObjects(idfa, @"00000000-0000-0000-0000-000000000000");
+            }else{
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNil(deviceId);
+            }
+#endif
+        }else{
+            // Device Id Start
+            NSDictionary *deviceId = device[@"device_id"];
+            XCTAssertNotNil(deviceId);
+            NSString *idfa = deviceId[@"idfa"];
+            XCTAssertNotNil(idfa);
+        }
+        
         //
         [expectation fulfill];
     });
@@ -461,12 +538,6 @@ static NSString  *videoPlacementID  = @"9924001";
                        // Tags
                        XCTAssertEqual(tags.count, 1);
                        NSDictionary *tag = [tags firstObject];
-                       
-                       // externalUid
-                       NSString *externalUid = user[@"external_uid"];
-                       XCTAssertNotNil(externalUid);
-                       XCTAssertEqualObjects(externalUid, @"AppNexus");
-                       
                        
                        NSDictionary *video = tag[@"video"];
                        XCTAssertNotNil(video);
@@ -538,7 +609,7 @@ static NSString  *videoPlacementID  = @"9924001";
 }
 
 - (void)testUTRequestWithMultipleCustomKeywordsValues
-{    
+{
     TestANUniversalFetcher  *adFetcher = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     
     [adFetcher addCustomKeywordWithKey:@"state" value:@"NY"];
@@ -679,8 +750,27 @@ static NSString  *videoPlacementID  = @"9924001";
         NSDictionary *device = jsonDict[@"device"];
         XCTAssertNotNil(device);
         // Device Id Start
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
+        
+        
+        if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+            if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                // Device Id Start
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNotNil(deviceId);
+                
+            }else{
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNil(deviceId);
+            }
+#endif
+        }else{
+            // Device Id Start
+            NSDictionary *deviceId = device[@"device_id"];
+            XCTAssertNotNil(deviceId);
+        }
+        
+        
         
         [expectation fulfill];
     });
@@ -763,8 +853,24 @@ static NSString  *videoPlacementID  = @"9924001";
         NSDictionary *jsonDict = (NSDictionary *)jsonObject;
         NSDictionary *device = jsonDict[@"device"];
         XCTAssertNotNil(device);
-        NSDictionary *deviceId = device[@"device_id"];
-        XCTAssertNotNil(deviceId);
+        
+        if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+            if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                // Device Id Start
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNotNil(deviceId);
+                
+            }else{
+                NSDictionary *deviceId = device[@"device_id"];
+                XCTAssertNil(deviceId);
+            }
+#endif
+        }else{
+            // Device Id Start
+            NSDictionary *deviceId = device[@"device_id"];
+            XCTAssertNotNil(deviceId);
+        }
         [expectation fulfill];
     });
 
