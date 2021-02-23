@@ -86,7 +86,6 @@
 
 @property (nonatomic) ANBaseUrlConfig *baseUrlConfig;
 @property (nonatomic, readwrite, strong, nonnull) NSString *sdkVersion;
-//@property (nonatomic, readwrite, assign) BOOL *countImpressionOn1PxRendering;
 @end
 
 

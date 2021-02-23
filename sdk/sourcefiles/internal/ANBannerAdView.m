@@ -149,8 +149,6 @@ static NSString *const kANInline        = @"inline";
     //
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
     
-    
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTimerSentNotification:) name:@"kHandleTimerSentNotification" object:nil];
 }
 
 - (void)awakeFromNib {
@@ -844,7 +842,7 @@ static NSString *const kANInline        = @"inline";
 #pragma mark - Check if on screen & fire impression trackers
 
 - (void) handle1SecTimerSentNotification {
-    if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering && self.impressionURLs != nil){
+    if(self.impressionURLs != nil){
         CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
     
         ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
@@ -855,22 +853,6 @@ static NSString *const kANInline        = @"inline";
             [self fireTrackerAndOMID];
             //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
             ANRealTimer.sharedInstance.timerDelegate = nil;
-            NSLog(@"Timer notification received");
-        }
-    }
-}
-
-- (void) handleTimerSentNotification:(NSNotification *) notification {
-    if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering && self.impressionURLs != nil){
-        CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
-    
-        ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
-        
-        if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
-            ANLogDebug(@"Impression tracker fired on 1px rendering");
-            //Fire impression tracker here
-            [self fireTrackerAndOMID];
-            NSLog(@"Timer notification received");
         }
     }
 }
