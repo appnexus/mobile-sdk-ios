@@ -18,20 +18,23 @@
 
 @implementation ANRealTimer
 
-+ (instancetype)sharedManager {
++ (instancetype)sharedInstance {
     static ANRealTimer *manager;
     static dispatch_once_t managerToken;
     dispatch_once(&managerToken, ^{
         manager = [[ANRealTimer alloc] init];
-        [manager scheduleTimer];
     });
     return manager;
+}
+
++ (void) scheduleTimer {
+    [[self sharedInstance] scheduleTimer];
 }
 
 - (void) scheduleTimer {
     if(_viewabilityTimer == nil){
     __weak ANRealTimer *weakSelf = self;
-    _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
+    _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusCheckViewableFrequency
                                                                      block:^ {
             ANRealTimer *strongSelf = weakSelf;
                                                                         
@@ -42,27 +45,18 @@
     }
 }
 
-+ (void) addListenerObject: (id) adObject {
-    [[self sharedManager] addListenerObject:nil];
-}
 
-+(void) removeListenerObject: (id) adObject {
-    
-}
-
-- (void) addListenerObject: (id) adObject {
-    
-}
 
 -(void) notifyListenerObjects {
-    NSLog(@"Notifications pushed");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"kHandleTimerSentNotification"
-                                                        object:nil
-                                                      userInfo:nil];
-    //ANPostNotifications(@"kHandleTimerSentNotification", nil, nil);
+    if([self.timerDelegate respondsToSelector:@selector(handle1SecTimerSentNotification)]){
+        ANLogInfo(@"Notifications pushed from time\
+                  ");
+        
+        [self.timerDelegate handle1SecTimerSentNotification];
+    }else {
+        ANLogError(@"no delegate subscription found");
+    }
     
 }
-
-
 
 @end

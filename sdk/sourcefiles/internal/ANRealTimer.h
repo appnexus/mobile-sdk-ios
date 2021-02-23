@@ -7,15 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ANLogging.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@protocol  ANRealTimerDelegate<NSObject>
 
-@interface ANRealTimer : NSObject
-
-+ (instancetype)sharedManager;
-+ (void) addListenerObject: (id) adObject;
-+ (void) removeListenerObject: (id) adObject;
+- (void)handle1SecTimerSentNotification;
 
 @end
 
-NS_ASSUME_NONNULL_END
+@interface ANRealTimer : NSObject
+
+@property (nonatomic, readwrite, weak)  id<ANRealTimerDelegate> timerDelegate;
+
++ (instancetype) sharedInstance;
+
++ (void) scheduleTimer;
+
+@end
+
+
+

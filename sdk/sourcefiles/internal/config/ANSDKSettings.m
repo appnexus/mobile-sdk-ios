@@ -157,7 +157,7 @@
 
 -(void) setCountImpressionOn1PxRendering:(BOOL)countImpressionOn1PxRendering {
     if(countImpressionOn1PxRendering){
-        [ANRealTimer sharedManager];
+        [ANRealTimer scheduleTimer];
     }
     __countImpressionOn1PxRendering = countImpressionOn1PxRendering;
 }
