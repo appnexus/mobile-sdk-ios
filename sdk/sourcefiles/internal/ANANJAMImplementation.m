@@ -19,6 +19,10 @@
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
 
+// Minimum MARID refresh interval set via ANJAM in Seconds.
+//
+#define kANMinimumMRAIDRefreshFrequencyInSeconds 0.1
+
 NSString *const kANCallMayDeepLink = @"MayDeepLink";
 NSString *const kANCallDeepLink = @"DeepLink";
 NSString *const kANCallExternalBrowser = @"ExternalBrowser";
@@ -174,7 +178,15 @@ NSString *const kANKeyCaller = @"caller";
 
 + (void)callSetMraidRefreshFrequency:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *milliseconds = [query valueForKey:@"ms"];
-    controller.checkViewableTimeInterval = [milliseconds doubleValue] / 1000;
+    double refreshFrequencyinSeconds = [milliseconds doubleValue] / 1000;
+    if (refreshFrequencyinSeconds < kANMinimumMRAIDRefreshFrequencyInSeconds)
+    {
+        controller.checkViewableTimeInterval = kANMinimumMRAIDRefreshFrequencyInSeconds;
+        ANLogWarn(@"setMraidRefreshFrequency called with value %f, setMraidRefreshFrequency set to minimum allowed value %f.",
+                  refreshFrequencyinSeconds, kANMinimumMRAIDRefreshFrequencyInSeconds );
+    } else {
+        controller.checkViewableTimeInterval = refreshFrequencyinSeconds;
+    }
 }
 
 // Send the result back to JS

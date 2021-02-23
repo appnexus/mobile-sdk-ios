@@ -24,7 +24,10 @@
 #import "ANGDPRSettings.h"
 #import "ANUSPrivacySettings.h"
 #import "ANOMIDImplementation.h"
-
+#import "ANExternalUserId.h"
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+    #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
 
 static NSString *const   kTestUUID              = @"0000-000-000-00";
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
@@ -60,6 +63,8 @@ static NSString  *placementID  = @"9924001";
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
     ANSDKSettings.sharedInstance.geoOverrideCountryCode = nil;
     ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
+    ANSDKSettings.sharedInstance.publisherUserId = nil;
+    ANSDKSettings.sharedInstance.externalUserIdArray = nil;
     
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
@@ -667,8 +672,6 @@ static NSString  *placementID  = @"9924001";
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 
-
-
 - (void)testUTRequestForOMIDSignalEnableBannerAd
 {
     [self setUpOMIDTestCaseForAd:@[ @(ANAllowedMediaTypeBanner) ] andEnableOMID:YES];
@@ -844,5 +847,184 @@ static NSString  *placementID  = @"9924001";
     }
     
 }
+
+
+
+- (void)testUTRequestPublisherUserIDS
+{
+    
+    ANSDKSettings.sharedInstance.publisherUserId = @"foobar-publisherfirstpartyid"; // This value should be seen in UT Request body
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    
+    //publisherFirstPartyID should be used instead of externalUid.
+    // If both publisherFirstPartyID and externalUid are set, publisherFirstPartyID will override externalUID
+    adFetcher.externalUid     = @"AppNexus"; // This value should not be seen in UT Request body.
+    
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *userDict = jsonDict[@"user"];
+        XCTAssertNotNil(userDict);
+        
+        NSString *puhlisherUserId = userDict[@"external_uid"];
+        XCTAssertNotNil(puhlisherUserId);
+        XCTAssertEqualObjects(puhlisherUserId, @"foobar-publisherfirstpartyid");
+        
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    
+}
+
+- (void)testUTRequestExternalUserIds
+{
+//    ANSDKSettings.sharedInstance.externalUserIds=@{
+//        ANExternalUserIdNetId : @"999888777",
+//        ANExternalUserIdLiveRamp : @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg",
+//        ANExternalUserIdTheTradeDesk : @"00000111-91b1-49b2-ae37-17a8173dc36f",
+//        ANExternalUserIdCriteo : @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"
+//    };
+    
+    NSMutableArray<ANExternalUserId *>  *tempExternalUserIdArray  = [[NSMutableArray<ANExternalUserId *> alloc] init];
+    
+    ANExternalUserId *netIdUser = [ANExternalUserId alloc];
+    netIdUser.source = ANExternalUserIdSourceNetId;
+    netIdUser.userId = @"999888777";
+    
+    ANExternalUserId *tradeDeskUser = [ANExternalUserId alloc];
+    tradeDeskUser.source = ANExternalUserIdSourceTheTradeDesk;
+    tradeDeskUser.userId = @"00000111-91b1-49b2-ae37-17a8173dc36f";
+    
+    [tempExternalUserIdArray addObject:[[ANExternalUserId alloc] initWithSource:ANExternalUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
+    [tempExternalUserIdArray addObject:[[ANExternalUserId alloc] initWithSource:ANExternalUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
+    
+    [tempExternalUserIdArray addObject:netIdUser];
+    [tempExternalUserIdArray addObject:tradeDeskUser];
+    
+    ANSDKSettings.sharedInstance.externalUserIdArray = tempExternalUserIdArray;
+    
+    
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+   
+    XCTestExpectation       *netIDExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *liveRampExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *tradeDeskExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *criteoExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSArray *eidsArray = jsonDict[@"eids"];
+        NSDictionary *eidDictionary = jsonDict[@"eids"];
+        
+        if (@available(iOS 14, *)) {
+        #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+                if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                    XCTAssertEqual(eidDictionary.count, 4 );
+                    
+                    NSUInteger count = [eidsArray count];
+                    for (NSUInteger index = 0; index < count ; index++) {
+                        TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
+                        if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
+                            [criteoExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
+                            [netIDExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
+                            [liveRampExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
+                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
+                            [tradeDeskExpectation fulfill];
+                        }
+                    }
+                }else {
+                    
+                    XCTAssertNil(eidDictionary );
+                    [tradeDeskExpectation fulfill];
+                    [criteoExpectation fulfill];
+                    [netIDExpectation fulfill];
+                    [liveRampExpectation fulfill];
+
+                    }
+        #endif
+            }else{
+                XCTAssertEqual(eidDictionary.count, 4 );
+                
+                NSUInteger count = [eidsArray count];
+                for (NSUInteger index = 0; index < count ; index++) {
+                    TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
+                    if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
+                        [criteoExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
+                        [netIDExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
+                        [liveRampExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
+                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
+                        [tradeDeskExpectation fulfill];
+                    }
+                }
+    }
+        
+
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    
+}
+
+
 
 @end

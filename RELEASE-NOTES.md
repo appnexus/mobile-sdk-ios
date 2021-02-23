@@ -1,3 +1,12 @@
+## 7.10
+### New Feature
++ MS-4659, MS-4674 Added support for User Id from external sources(Criteo, NetID, LiverRamp, The Trade Desk) (https://wiki.xandr.com/x/7IW1Bg)
++ MS-4657 Changes to support AppTrackingTransparency (https://wiki.xandr.com/x/3Ie1Bg)
+### Improvements/Bug Fixes
++ MS-4671 Added minimum threshold of 100ms for callSetMraidRefreshFrequency
+### Deprecated API
++ externalUid property in ANAdProtocol has been deprecated, use publisherUserId in ANSDKSettings instead (https://wiki.xandr.com/x/7IW1Bg).
+
 ## 7.9
 ### New Feature
 + MS-4388 Support to disable passing device IDs in bid requests
