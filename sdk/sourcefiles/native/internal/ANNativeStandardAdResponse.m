@@ -23,11 +23,11 @@
 #import "ANTrackerManager.h"
 #import "ANOMIDImplementation.h"
 #import "ANSDKSettings.h"
+#import "ANRealTimer.h"
 
 
 
-
-@interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate>
+@interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate, ANRealTimerDelegate>
 
 @property (nonatomic, readwrite, strong) NSDate *dateCreated;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
@@ -111,31 +111,29 @@
 
 - (void)setupViewabilityTracker
 {
-    __weak ANNativeStandardAdResponse *weakSelf = self;
-    NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
-                                                                  / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
-    self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
-    ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
-    
-    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
-                                                                 block:^ {
-                                                                     ANNativeStandardAdResponse *strongSelf = weakSelf;
-        if(ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
-            [strongSelf checkIfViewIs1pxOnScreen];
-        } else {
-            [strongSelf checkIfIABViewable];
-        }
-                                                                     
-                                                                    
-                                                                 }
-                                                               repeats:YES];
+    if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
+        __weak ANNativeStandardAdResponse *weakSelf = self;
+        NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+                                                                      / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
+        self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
+        ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
+        
+        self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
+                                                                     block:^ {
+                                                                         ANNativeStandardAdResponse *strongSelf = weakSelf;
+            
+                [strongSelf checkIfIABViewable];
+            } repeats:YES];
+    } else {
+        ANRealTimer.sharedInstance.timerDelegate = self;
+    }
 }
 
 - (void) checkIfViewIs1pxOnScreen {
     CGRect updatedVisibleInViewRectangle = [self.viewForTracking an_visibleInViewRectangle];
     
     ANLogInfo(@"Punnaghai visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
-    if(updatedVisibleInViewRectangle.origin.x > 0 && updatedVisibleInViewRectangle.origin.y > 0){
+    if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
         [self trackImpression];
     }
     
@@ -157,6 +155,7 @@
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
         self.impressionHasBeenTracked = YES;
+        ANRealTimer.sharedInstance.timerDelegate = nil;
     }
 }
 
@@ -170,6 +169,12 @@
     }
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
+    }
+}
+
+- (void) handle1SecTimerSentNotification {
+    if(!self.impressionHasBeenTracked){
+        [self checkIfViewIs1pxOnScreen];
     }
 }
 

@@ -34,7 +34,7 @@
 - (void) scheduleTimer {
     if(_viewabilityTimer == nil){
     __weak ANRealTimer *weakSelf = self;
-    _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusCheckViewableFrequency
+    _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
                                                                      block:^ {
             ANRealTimer *strongSelf = weakSelf;
                                                                         
@@ -56,6 +56,10 @@
     }else {
         ANLogError(@"no delegate subscription found");
     }
+    
+}
+
+-(void) notifyNativeListenerObject {
     
 }
 

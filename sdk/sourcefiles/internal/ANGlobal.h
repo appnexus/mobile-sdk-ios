@@ -46,7 +46,6 @@
 #define kAppNexusNativeAdImageDownloadTimeoutInterval 10.0
 #define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
-#define kAppNexusCheckViewableFrequency 1.0
 
 #define kANAdSize1x1 CGSizeMake(1,1)
 
