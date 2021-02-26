@@ -71,7 +71,7 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
         
         
         
-        let unmuteStaticText = webViewsQuery/*@START_MENU_TOKEN@*/.staticTexts["unmute"]/*[[".otherElements[\"ebBannerIFrame_23227072_3747381026391887\"].staticTexts[\"unmute\"]",".staticTexts[\"unmute\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let unmuteStaticText = webViewsQuery.staticTexts["unmute"]
         XCTAssertEqual(unmuteStaticText.exists, true)
         unmuteStaticText.tap()
         

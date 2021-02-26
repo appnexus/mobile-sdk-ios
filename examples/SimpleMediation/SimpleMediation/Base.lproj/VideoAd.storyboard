@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fvE-EP-FOj">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Video Ad View Controller-->
+        <scene sceneID="mct-4M-xKI">
+            <objects>
+                <viewController id="fvE-EP-FOj" customClass="VideoAdViewController" customModule="SimpleMediation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nEX-nn-9Vm"/>
+                        <viewControllerLayoutGuide type="bottom" id="DXb-fc-Cdx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iMS-lr-r0d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="E79-wu-Lh3">
+                                <rect key="frame" x="20" y="329" width="374" height="508"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CSF-Mc-RBW">
+                                <rect key="frame" x="20" y="69" width="374" height="250"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9r-yb-DKc">
+                                        <rect key="frame" x="156.5" y="74" width="61" height="102"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                        <state key="normal" title="▶">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playButton_Touch:" destination="fvE-EP-FOj" eventType="touchUpInside" id="BM8-74-yRi"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="H9r-yb-DKc" firstAttribute="centerY" secondItem="CSF-Mc-RBW" secondAttribute="centerY" id="fpT-0n-PDG"/>
+                                    <constraint firstItem="H9r-yb-DKc" firstAttribute="centerX" secondItem="CSF-Mc-RBW" secondAttribute="centerX" id="o21-f3-1Mp"/>
+                                    <constraint firstItem="H9r-yb-DKc" firstAttribute="top" secondItem="CSF-Mc-RBW" secondAttribute="top" constant="74" id="rT1-96-5gW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="CSF-Mc-RBW" secondAttribute="trailing" id="NUq-x9-Pms"/>
+                            <constraint firstItem="E79-wu-Lh3" firstAttribute="top" secondItem="CSF-Mc-RBW" secondAttribute="bottom" constant="10" id="P1n-sT-GER"/>
+                            <constraint firstItem="E79-wu-Lh3" firstAttribute="trailing" secondItem="CSF-Mc-RBW" secondAttribute="trailing" id="WtI-z5-Tsr"/>
+                            <constraint firstItem="DXb-fc-Cdx" firstAttribute="top" secondItem="E79-wu-Lh3" secondAttribute="bottom" constant="25" id="ajZ-VL-ZKv"/>
+                            <constraint firstItem="CSF-Mc-RBW" firstAttribute="leading" secondItem="iMS-lr-r0d" secondAttribute="leadingMargin" id="cZg-hH-rya"/>
+                            <constraint firstItem="E79-wu-Lh3" firstAttribute="leading" secondItem="CSF-Mc-RBW" secondAttribute="leading" id="iNQ-uY-0cy"/>
+                            <constraint firstItem="CSF-Mc-RBW" firstAttribute="top" secondItem="nEX-nn-9Vm" secondAttribute="bottom" constant="25" id="r7Z-0T-FVW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="d2I-DF-fU0"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NxK-i3-WRt"/>
+                    <connections>
+                        <outlet property="logTextView" destination="E79-wu-Lh3" id="X9i-En-za1"/>
+                        <outlet property="playButton" destination="H9r-yb-DKc" id="fcj-QM-udb"/>
+                        <outlet property="videoView" destination="CSF-Mc-RBW" id="eFL-ND-Jhq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o07-XN-A4S" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3568.115942028986" y="829.6875"/>
+        </scene>
+    </scenes>
+</document>
