@@ -1,0 +1,1016 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5660E923BE39AF0088EB36 /* AppDelegate.swift */; };
+		0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5660EF23BE39AF0088EB36 /* Main.storyboard */; };
+		0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E5660F223BE39B10088EB36 /* Assets.xcassets */; };
+		0E5670A3240D04BB0006B158 /* FacebookBannerAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */; };
+		0E5670A4240D04BB0006B158 /* FacebookInterstitialAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */; };
+		0E5B043E23BF4EED00DEBACE /* VideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */; };
+		0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B043F23BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift */; };
+		0E82E4CF245CC33500EC19E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E82E4CE245CC33500EC19E1 /* AppDelegate.swift */; };
+		0E82E4D3245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E82E4D2245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift */; };
+		0E82E4D6245CC33500EC19E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E82E4D4245CC33500EC19E1 /* Main.storyboard */; };
+		0E82E4D8245CC33600EC19E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E82E4D7245CC33600EC19E1 /* Assets.xcassets */; };
+		0E82E4DB245CC33600EC19E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E82E4D9245CC33600EC19E1 /* LaunchScreen.storyboard */; };
+		0E82E4E0245CC34D00EC19E1 /* FacebookCSRNativeBanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E56709F240D04BB0006B158 /* FacebookCSRNativeBanner.storyboard */; };
+		0E82E4E1245CC34D00EC19E1 /* FacebookCSRNativeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B045023BF652C00DEBACE /* FacebookCSRNativeBanner.swift */; };
+		0E82E4E4245CC6B600EC19E1 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04323FD6EB300D0C060 /* Toast.swift */; };
+		0E82E508245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82E504245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m */; };
+		0E82E509245CD27C00EC19E1 /* ANFBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82E505245CD27C00EC19E1 /* ANFBSettings.m */; };
+		0EE0D04023FD6D1D00D0C060 /* VideoAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D03E23FD6D1D00D0C060 /* VideoAd.storyboard */; };
+		0EE0D04523FD6EB300D0C060 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04323FD6EB300D0C060 /* Toast.swift */; };
+		0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D04623FD6EEC00D0C060 /* LaunchScreen.storyboard */; };
+		0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */; };
+		0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */; };
+		0EE0D04F23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */; };
+		0EE0D05023FD728A00D0C060 /* FacebookBannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */; };
+		0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */; };
+		0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */; };
+		0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D06023FD764800D0C060 /* AdMobDFPNativeAd.storyboard */; };
+		0EE0D06523FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D06123FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard */; };
+		0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D06223FD764800D0C060 /* AdMobDFPNativeViewController.swift */; };
+		0EE0D06723FD764800D0C060 /* AdmobDFPBannerAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D06323FD764800D0C060 /* AdmobDFPBannerAd.storyboard */; };
+		0EE0D06A23FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D06823FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard */; };
+		0EE0D06B23FD7C1300D0C060 /* SmartAdBannerAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D06923FD7C1300D0C060 /* SmartAdBannerAd.storyboard */; };
+		0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09223FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m */; };
+		0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */; };
+		0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */; };
+		0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */; };
+		0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */; };
+		0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */; };
+		0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */; };
+		0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */; };
+		0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */; };
+		0EE0D0CC23FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */; };
+		0EE0D0CD23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */; };
+		0EE0D0CE23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */; };
+		0EE0D0D423FD7ECE00D0C060 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */; };
+		5377DBB872736776143319CD /* libPods-SimpleMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */; };
+		FCC64C9425A7353F006E5A54 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; };
+		FCC64C9525A7353F006E5A54 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCC64C9625A7354C006E5A54 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */; };
+		FCC64C9725A7354C006E5A54 /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCC64CB225A739DE006E5A54 /* FacebookNative.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */; };
+		FCC64CB325A739DE006E5A54 /* FacebookNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */; };
+		FD5B5E40BF0E1B733147D46F /* libPods-SimpleCSR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E82E4F3245CCA5600EC19E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
+		0E82E4F5245CCA5600EC19E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0E56610923BE3A530088EB36 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FCC64C9525A7353F006E5A54 /* AppNexusSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCC64C9825A7354D006E5A54 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FCC64C9725A7354C006E5A54 /* AppNexusNativeSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0E246167240E7B57004B9BC4 /* SimpleMediation-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SimpleMediation-Bridging-Header.h"; sourceTree = "<group>"; };
+		0E5660E623BE39AF0088EB36 /* SimpleMediation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleMediation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E5660E923BE39AF0088EB36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E5660F023BE39AF0088EB36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E5660F223BE39B10088EB36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E5660F723BE39B10088EB36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E56709F240D04BB0006B158 /* FacebookCSRNativeBanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookCSRNativeBanner.storyboard; sourceTree = "<group>"; };
+		0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookBannerAd.storyboard; sourceTree = "<group>"; };
+		0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookInterstitialAd.storyboard; sourceTree = "<group>"; };
+		0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdViewController.swift; sourceTree = "<group>"; };
+		0E5B043F23BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMediationAdTypeListViewController.swift; sourceTree = "<group>"; };
+		0E5B045023BF652C00DEBACE /* FacebookCSRNativeBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookCSRNativeBanner.swift; sourceTree = "<group>"; };
+		0E82E4CC245CC33500EC19E1 /* SimpleCSR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleCSR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E82E4CE245CC33500EC19E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E82E4D2245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCSRAdTypeListViewController.swift; sourceTree = "<group>"; };
+		0E82E4D5245CC33500EC19E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E82E4D7245CC33600EC19E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E82E4DA245CC33600EC19E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0E82E4DC245CC33600EC19E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E82E4E7245CC74E00EC19E1 /* SimpleCSR-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SimpleCSR-Bridging-Header.h"; sourceTree = "<group>"; };
+		0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
+		0E82E504245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterCSRNativeBannerFacebook.m; sourceTree = "<group>"; };
+		0E82E505245CD27C00EC19E1 /* ANFBSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFBSettings.m; sourceTree = "<group>"; };
+		0E82E506245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterCSRNativeBannerFacebook.h; sourceTree = "<group>"; };
+		0E82E507245CD27C00EC19E1 /* ANFBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFBSettings.h; sourceTree = "<group>"; };
+		0EE0D03F23FD6D1D00D0C060 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SimpleMediation/Base.lproj/VideoAd.storyboard; sourceTree = SOURCE_ROOT; };
+		0EE0D04323FD6EB300D0C060 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		0EE0D04723FD6EEC00D0C060 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SimpleMediation/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobDFPBannerAdViewController.swift; sourceTree = "<group>"; };
+		0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdmobDFPInterstitialAdViewController.swift; sourceTree = "<group>"; };
+		0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookInterstitialAdViewController.swift; sourceTree = "<group>"; };
+		0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookBannerAdViewController.swift; sourceTree = "<group>"; };
+		0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartAdBannerAdViewController.swift; sourceTree = "<group>"; };
+		0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartAdInterstitialAdViewController.swift; sourceTree = "<group>"; };
+		0EE0D06023FD764800D0C060 /* AdMobDFPNativeAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdMobDFPNativeAd.storyboard; sourceTree = "<group>"; };
+		0EE0D06123FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdmobDFPInterstitialAd.storyboard; sourceTree = "<group>"; };
+		0EE0D06223FD764800D0C060 /* AdMobDFPNativeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdMobDFPNativeViewController.swift; sourceTree = "<group>"; };
+		0EE0D06323FD764800D0C060 /* AdmobDFPBannerAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdmobDFPBannerAd.storyboard; sourceTree = "<group>"; };
+		0EE0D06823FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SmartAdInterstitialAd.storyboard; sourceTree = "<group>"; };
+		0EE0D06923FD7C1300D0C060 /* SmartAdBannerAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SmartAdBannerAd.storyboard; sourceTree = "<group>"; };
+		0EE0D09223FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSmartAd.m; sourceTree = "<group>"; };
+		0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterSmartAdBase.m; sourceTree = "<group>"; };
+		0EE0D09423FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialSmartAd.h; sourceTree = "<group>"; };
+		0EE0D09523FD7E0100D0C060 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
+		0EE0D09623FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSmartAd.h; sourceTree = "<group>"; };
+		0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialSmartAd.m; sourceTree = "<group>"; };
+		0EE0D09923FD7E0100D0C060 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
+		0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialDFP.m; sourceTree = "<group>"; };
+		0EE0D09B23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
+		0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeAdMob.m; sourceTree = "<group>"; };
+		0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
+		0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
+		0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
+		0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
+		0EE0D0A123FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialDFP.h; sourceTree = "<group>"; };
+		0EE0D0A223FD7E0100D0C060 /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
+		0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
+		0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
+		0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialFacebook.m; sourceTree = "<group>"; };
+		0EE0D0A723FD7E0100D0C060 /* ANAdAdapterBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerFacebook.h; sourceTree = "<group>"; };
+		0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
+		0EE0D0A923FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialFacebook.h; sourceTree = "<group>"; };
+		0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerFacebook.m; sourceTree = "<group>"; };
+		0EE0D0AB23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
+		0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
+		2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleCSR.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E9D464632CE623986E47C03 /* Pods-SimpleMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.release.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.release.xcconfig"; sourceTree = "<group>"; };
+		92D9B61421003C0822F05D3F /* Pods-SimpleCSR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCSR.debug.xcconfig"; path = "Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR.debug.xcconfig"; sourceTree = "<group>"; };
+		941E857F252A95374E5394AF /* Pods-SimpleMediation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.debug.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.debug.xcconfig"; sourceTree = "<group>"; };
+		DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleMediation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8136949A8662F8B5D433773 /* Pods-SimpleCSR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCSR.release.xcconfig"; path = "Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR.release.xcconfig"; sourceTree = "<group>"; };
+		FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookNative.storyboard; sourceTree = "<group>"; };
+		FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookNativeViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E5660E323BE39AF0088EB36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCC64C9425A7353F006E5A54 /* AppNexusSDK.framework in Frameworks */,
+				5377DBB872736776143319CD /* libPods-SimpleMediation.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E82E4C9245CC33500EC19E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCC64C9625A7354C006E5A54 /* AppNexusNativeSDK.framework in Frameworks */,
+				FD5B5E40BF0E1B733147D46F /* libPods-SimpleCSR.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E5660DD23BE39AF0088EB36 = {
+			isa = PBXGroup;
+			children = (
+				0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */,
+				0E5660E823BE39AF0088EB36 /* SimpleMediation */,
+				0E82E4CD245CC33500EC19E1 /* SimpleCSR */,
+				0E5660E723BE39AF0088EB36 /* Products */,
+				D727BB3B00EB1882B9FF6E82 /* Pods */,
+				FCC64C9125A7353F006E5A54 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0E5660E723BE39AF0088EB36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E5660E623BE39AF0088EB36 /* SimpleMediation.app */,
+				0E82E4CC245CC33500EC19E1 /* SimpleCSR.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E5660E823BE39AF0088EB36 /* SimpleMediation */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D03C23FD6CB400D0C060 /* MediationViewController */,
+				0E5B044423BF641300DEBACE /* NavigationViewController */,
+				0E56613B23BF2F120088EB36 /* SupportFiles */,
+			);
+			path = SimpleMediation;
+			sourceTree = "<group>";
+		};
+		0E56613B23BF2F120088EB36 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				0E5660F723BE39B10088EB36 /* Info.plist */,
+				0E5660F223BE39B10088EB36 /* Assets.xcassets */,
+				0EE0D04123FD6EB300D0C060 /* SupportingFiles */,
+			);
+			name = SupportFiles;
+			sourceTree = "<group>";
+		};
+		0E5B044423BF641300DEBACE /* NavigationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0E5660EF23BE39AF0088EB36 /* Main.storyboard */,
+				0E5B043F23BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift */,
+			);
+			path = NavigationViewController;
+			sourceTree = "<group>";
+		};
+		0E82E4CD245CC33500EC19E1 /* SimpleCSR */ = {
+			isa = PBXGroup;
+			children = (
+				0E82E4E2245CC38000EC19E1 /* SupportingFile */,
+				0EFC4C97245CC28C008FE3C6 /* CSRViewController */,
+			);
+			path = SimpleCSR;
+			sourceTree = "<group>";
+		};
+		0E82E4E2245CC38000EC19E1 /* SupportingFile */ = {
+			isa = PBXGroup;
+			children = (
+				0E82E4D7245CC33600EC19E1 /* Assets.xcassets */,
+				0E82E4DC245CC33600EC19E1 /* Info.plist */,
+				0E82E4D9245CC33600EC19E1 /* LaunchScreen.storyboard */,
+				0E82E4D4245CC33500EC19E1 /* Main.storyboard */,
+				0E82E4CE245CC33500EC19E1 /* AppDelegate.swift */,
+				0E82E4D2245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift */,
+				0E82E4E7245CC74E00EC19E1 /* SimpleCSR-Bridging-Header.h */,
+				0E82E502245CD27C00EC19E1 /* csr */,
+			);
+			path = SupportingFile;
+			sourceTree = "<group>";
+		};
+		0E82E4EF245CCA5600EC19E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
+				0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E82E502245CD27C00EC19E1 /* csr */ = {
+			isa = PBXGroup;
+			children = (
+				0E82E503245CD27C00EC19E1 /* Facebook */,
+			);
+			name = csr;
+			path = ../../../../csr;
+			sourceTree = "<group>";
+		};
+		0E82E503245CD27C00EC19E1 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				0E82E504245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m */,
+				0E82E505245CD27C00EC19E1 /* ANFBSettings.m */,
+				0E82E506245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.h */,
+				0E82E507245CD27C00EC19E1 /* ANFBSettings.h */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		0EE0D03723FD6C8E00D0C060 /* SmartAd */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */,
+				0EE0D06923FD7C1300D0C060 /* SmartAdBannerAd.storyboard */,
+				0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */,
+				0EE0D06823FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard */,
+			);
+			path = SmartAd;
+			sourceTree = "<group>";
+		};
+		0EE0D03923FD6C8E00D0C060 /* Admob */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */,
+				0EE0D06323FD764800D0C060 /* AdmobDFPBannerAd.storyboard */,
+				0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */,
+				0EE0D06123FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard */,
+				0EE0D06223FD764800D0C060 /* AdMobDFPNativeViewController.swift */,
+				0EE0D06023FD764800D0C060 /* AdMobDFPNativeAd.storyboard */,
+				0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */,
+			);
+			path = Admob;
+			sourceTree = "<group>";
+		};
+		0EE0D03A23FD6C8E00D0C060 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */,
+				FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */,
+				0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */,
+				0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */,
+				0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */,
+				0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		0EE0D03C23FD6CB400D0C060 /* MediationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D03923FD6C8E00D0C060 /* Admob */,
+				0EE0D03A23FD6C8E00D0C060 /* Facebook */,
+				0EE0D03723FD6C8E00D0C060 /* SmartAd */,
+				0EE0D03D23FD6CE200D0C060 /* VideoAd */,
+			);
+			path = MediationViewController;
+			sourceTree = "<group>";
+		};
+		0EE0D03D23FD6CE200D0C060 /* VideoAd */ = {
+			isa = PBXGroup;
+			children = (
+				0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */,
+				0EE0D03E23FD6D1D00D0C060 /* VideoAd.storyboard */,
+			);
+			path = VideoAd;
+			sourceTree = "<group>";
+		};
+		0EE0D04123FD6EB300D0C060 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				0E246167240E7B57004B9BC4 /* SimpleMediation-Bridging-Header.h */,
+				0EE0D07123FD7E0100D0C060 /* mediatedviews */,
+				0E5660E923BE39AF0088EB36 /* AppDelegate.swift */,
+				0EE0D04623FD6EEC00D0C060 /* LaunchScreen.storyboard */,
+				0EE0D04323FD6EB300D0C060 /* Toast.swift */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		0EE0D07123FD7E0100D0C060 /* mediatedviews */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D09123FD7E0100D0C060 /* SmartAd */,
+				0EE0D09823FD7E0100D0C060 /* GoogleAdMob */,
+				0EE0D0A523FD7E0100D0C060 /* Facebook */,
+			);
+			name = mediatedviews;
+			path = ../../../../mediation/mediatedviews;
+			sourceTree = "<group>";
+		};
+		0EE0D09123FD7E0100D0C060 /* SmartAd */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D09223FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m */,
+				0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */,
+				0EE0D09423FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.h */,
+				0EE0D09523FD7E0100D0C060 /* ANAdAdapterSmartAdBase.h */,
+				0EE0D09623FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.h */,
+				0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */,
+			);
+			path = SmartAd;
+			sourceTree = "<group>";
+		};
+		0EE0D09823FD7E0100D0C060 /* GoogleAdMob */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D09923FD7E0100D0C060 /* ANAdAdapterBannerAdMob.h */,
+				0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */,
+				0EE0D09B23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.h */,
+				0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */,
+				0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */,
+				0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */,
+				0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */,
+				0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */,
+				0EE0D0A123FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.h */,
+				0EE0D0A223FD7E0100D0C060 /* ANAdAdapterNativeAdMob.h */,
+				0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */,
+				0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */,
+			);
+			path = GoogleAdMob;
+			sourceTree = "<group>";
+		};
+		0EE0D0A523FD7E0100D0C060 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */,
+				0EE0D0A723FD7E0100D0C060 /* ANAdAdapterBannerFacebook.h */,
+				0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */,
+				0EE0D0A923FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.h */,
+				0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */,
+				0EE0D0AB23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.h */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		0EFC4C97245CC28C008FE3C6 /* CSRViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0EFC4C9A245CC29B008FE3C6 /* Facebook */,
+			);
+			path = CSRViewController;
+			sourceTree = "<group>";
+		};
+		0EFC4C9A245CC29B008FE3C6 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				0E56709F240D04BB0006B158 /* FacebookCSRNativeBanner.storyboard */,
+				0E5B045023BF652C00DEBACE /* FacebookCSRNativeBanner.swift */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		D727BB3B00EB1882B9FF6E82 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				92D9B61421003C0822F05D3F /* Pods-SimpleCSR.debug.xcconfig */,
+				F8136949A8662F8B5D433773 /* Pods-SimpleCSR.release.xcconfig */,
+				941E857F252A95374E5394AF /* Pods-SimpleMediation.debug.xcconfig */,
+				7E9D464632CE623986E47C03 /* Pods-SimpleMediation.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FCC64C9125A7353F006E5A54 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */,
+				DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E5660E523BE39AF0088EB36 /* SimpleMediation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E5660FA23BE39B10088EB36 /* Build configuration list for PBXNativeTarget "SimpleMediation" */;
+			buildPhases = (
+				E4427E3807B201AD8D491461 /* [CP] Check Pods Manifest.lock */,
+				0E5660E223BE39AF0088EB36 /* Sources */,
+				0E5660E323BE39AF0088EB36 /* Frameworks */,
+				0E5660E423BE39AF0088EB36 /* Resources */,
+				0E56610923BE3A530088EB36 /* Embed Frameworks */,
+				52AAF64888926C19958E7F92 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleMediation;
+			productName = SimpleMediation;
+			productReference = 0E5660E623BE39AF0088EB36 /* SimpleMediation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E82E4CB245CC33500EC19E1 /* SimpleCSR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E82E4DD245CC33600EC19E1 /* Build configuration list for PBXNativeTarget "SimpleCSR" */;
+			buildPhases = (
+				21D4B301EAB5EB374171B026 /* [CP] Check Pods Manifest.lock */,
+				0E82E4C8245CC33500EC19E1 /* Sources */,
+				0E82E4C9245CC33500EC19E1 /* Frameworks */,
+				0E82E4CA245CC33500EC19E1 /* Resources */,
+				FCC64C9825A7354D006E5A54 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleCSR;
+			productName = SimpleCSR;
+			productReference = 0E82E4CC245CC33500EC19E1 /* SimpleCSR.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E5660DE23BE39AF0088EB36 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = Xandr;
+				TargetAttributes = {
+					0E5660E523BE39AF0088EB36 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					0E82E4CB245CC33500EC19E1 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+				};
+			};
+			buildConfigurationList = 0E5660E123BE39AF0088EB36 /* Build configuration list for PBXProject "SimpleMediation" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0E5660DD23BE39AF0088EB36;
+			productRefGroup = 0E5660E723BE39AF0088EB36 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0E82E4EF245CCA5600EC19E1 /* Products */;
+					ProjectRef = 0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				0E5660E523BE39AF0088EB36 /* SimpleMediation */,
+				0E82E4CB245CC33500EC19E1 /* SimpleCSR */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusSDK.framework;
+			remoteRef = 0E82E4F3245CCA5600EC19E1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeSDK.framework;
+			remoteRef = 0E82E4F5245CCA5600EC19E1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0E5660E423BE39AF0088EB36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EE0D06B23FD7C1300D0C060 /* SmartAdBannerAd.storyboard in Resources */,
+				0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */,
+				0EE0D06723FD764800D0C060 /* AdmobDFPBannerAd.storyboard in Resources */,
+				0EE0D06A23FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard in Resources */,
+				0EE0D0D423FD7ECE00D0C060 /* UnifiedNativeAdView.xib in Resources */,
+				0EE0D04023FD6D1D00D0C060 /* VideoAd.storyboard in Resources */,
+				0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */,
+				0EE0D06523FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard in Resources */,
+				0E5670A4240D04BB0006B158 /* FacebookInterstitialAd.storyboard in Resources */,
+				0E5670A3240D04BB0006B158 /* FacebookBannerAd.storyboard in Resources */,
+				0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */,
+				FCC64CB225A739DE006E5A54 /* FacebookNative.storyboard in Resources */,
+				0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E82E4CA245CC33500EC19E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E82E4DB245CC33600EC19E1 /* LaunchScreen.storyboard in Resources */,
+				0E82E4E0245CC34D00EC19E1 /* FacebookCSRNativeBanner.storyboard in Resources */,
+				0E82E4D8245CC33600EC19E1 /* Assets.xcassets in Resources */,
+				0E82E4D6245CC33500EC19E1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		21D4B301EAB5EB374171B026 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SimpleCSR-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52AAF64888926C19958E7F92 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4427E3807B201AD8D491461 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SimpleMediation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E5660E223BE39AF0088EB36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */,
+				FCC64CB325A739DE006E5A54 /* FacebookNativeViewController.swift in Sources */,
+				0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */,
+				0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */,
+				0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
+				0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */,
+				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
+				0EE0D0CC23FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m in Sources */,
+				0E5B043E23BF4EED00DEBACE /* VideoAdViewController.swift in Sources */,
+				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
+				0EE0D05023FD728A00D0C060 /* FacebookBannerAdViewController.swift in Sources */,
+				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
+				0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */,
+				0EE0D04F23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift in Sources */,
+				0EE0D0CD23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m in Sources */,
+				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
+				0EE0D04523FD6EB300D0C060 /* Toast.swift in Sources */,
+				0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */,
+				0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */,
+				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
+				0EE0D0CE23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m in Sources */,
+				0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */,
+				0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E82E4C8245CC33500EC19E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E82E4D3245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift in Sources */,
+				0E82E508245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
+				0E82E509245CD27C00EC19E1 /* ANFBSettings.m in Sources */,
+				0E82E4E1245CC34D00EC19E1 /* FacebookCSRNativeBanner.swift in Sources */,
+				0E82E4E4245CC6B600EC19E1 /* Toast.swift in Sources */,
+				0E82E4CF245CC33500EC19E1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0E5660EF23BE39AF0088EB36 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E5660F023BE39AF0088EB36 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0E82E4D4245CC33500EC19E1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E82E4D5245CC33500EC19E1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0E82E4D9245CC33600EC19E1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E82E4DA245CC33600EC19E1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		0EE0D03E23FD6D1D00D0C060 /* VideoAd.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0EE0D03F23FD6D1D00D0C060 /* Base */,
+			);
+			name = VideoAd.storyboard;
+			sourceTree = "<group>";
+		};
+		0EE0D04623FD6EEC00D0C060 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0EE0D04723FD6EEC00D0C060 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0E5660F823BE39B10088EB36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0E5660F923BE39B10088EB36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0E5660FB23BE39B10088EB36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 941E857F252A95374E5394AF /* Pods-SimpleMediation.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9TBTYSQH6V;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk\"/**",
+					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk/FacebookSDK\"/**",
+				);
+				INFOPLIST_FILE = SimpleMediation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.SimpleMediation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SimpleMediation/SupportingFiles/SimpleMediation-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E5660FC23BE39B10088EB36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E9D464632CE623986E47C03 /* Pods-SimpleMediation.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9TBTYSQH6V;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk\"/**",
+					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk/FacebookSDK\"/**",
+				);
+				INFOPLIST_FILE = SimpleMediation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.SimpleMediation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SimpleMediation/SupportingFiles/SimpleMediation-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0E82E4DE245CC33600EC19E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92D9B61421003C0822F05D3F /* Pods-SimpleCSR.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				INFOPLIST_FILE = SimpleCSR/SupportingFile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.SimpleCSR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SimpleCSR/SupportingFile/SimpleCSR-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E82E4DF245CC33600EC19E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8136949A8662F8B5D433773 /* Pods-SimpleCSR.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				INFOPLIST_FILE = SimpleCSR/SupportingFile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.SimpleCSR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SimpleCSR/SupportingFile/SimpleCSR-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E5660E123BE39AF0088EB36 /* Build configuration list for PBXProject "SimpleMediation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E5660F823BE39B10088EB36 /* Debug */,
+				0E5660F923BE39B10088EB36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E5660FA23BE39B10088EB36 /* Build configuration list for PBXNativeTarget "SimpleMediation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E5660FB23BE39B10088EB36 /* Debug */,
+				0E5660FC23BE39B10088EB36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E82E4DD245CC33600EC19E1 /* Build configuration list for PBXNativeTarget "SimpleCSR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E82E4DE245CC33600EC19E1 /* Debug */,
+				0E82E4DF245CC33600EC19E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0E5660DE23BE39AF0088EB36 /* Project object */;
+}
