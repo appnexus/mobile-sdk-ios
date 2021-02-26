@@ -1,0 +1,38 @@
+{
+    "version": "0.0.1",
+    "tags": [
+        {
+            "tag_id": 9887537,
+            "auction_id": "4584035484591692222",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?e=wqT_3QLRBqBRAwAAAwDWAAUBCM7AsNUFEL6z_sbG__DOPxio2pHdrJ_hhhYqNgkAAAkCABEJBywAABkAAACA61HgPyEREgApEQkAMREb8GMwsb7bBDi-B0C-B0gAUABY7_U-YABokUB4AIABAZIBA1VTRJgBAaABAagBAbABALgBAMABAMgBAtABANgBAOABAPABAIoCO3VmKCdhJywgMTA4NTgwOSwgMTUyMTIyOTkwMik7AR0wcicsIDY1NTg4NzE2LDIeAPCNkgL5ASFHRGc4UmdqOTNyQUdFT3lib3g4WUFDRHY5VDR3QURnQVFBUkl2Z2RRc2I3YkJGZ0FZUGdCYUFCd0pIalNSNEFCU29nQjBrZVFBUUdZQVFHZ0FRR29BUU93QVFDNUFTbUxpSU1BQU9BX3dRRXBpNGlEQUFEZ1A4a0JkdDhpWHZYeTB6X1pBUUFBQQEDJFBBXzRBRUE5UUUBDixBbUFJQW9BSUF0UUkFEAB2DQiId0FJQXlBSUE0QUlBNkFJQS1BSUFnQU1Ca0FNQW1BTUJxQVAF0Jh1Z01SWkdWbVlYVnNkQ05UU1U0eE9qTTFOakkumgI5IThRelJHd2oFLBH8KDdfVS1JQVFvQURvYjwAiNgC6AfgAsfTAeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwAQQkbmV4dXMtc2RrLQER8LppZDczNjg2OTgzM4ADAYgDAZADAJgDF6ADAaoDAMADrALIAwDSAygIABIkZWNjZDk2MmYtZTA3Ny00MDA2LTlkNWYtZGRlNmEyM2ZjM2Ew2AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjKYBACiBAkxMC4xNC44LjGoBOhksgQOCAAQARisAiD6ATAAOAK4BADABADIBADSBBFkZWZhdWx0I1NJTjE6MzU2MtoEAggA4AQA8ATsm6MfggUJFbkgiAUBmAUAoAX_EQEYAcAFAMkFAAUBFPA_0gUJCQULYAAAANgFAeAFAfAFAfoFBAgAEACQBgGYBgA.&s=be77947eeb499e8d243abcae8af36bb8fb1e24e8&referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833",
+            "timeout_ms": 10000,
+            "ad_profile_id": 27079,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "video",
+                    "notify_url": "http://sin1-mobile.adnxs.com/vast_track/v2?info=YwAAAAMArgAFAQlOIKxaAAAAABG-md9o_MOdPxlOIKxaAAAAACDsm6MfKAAwvgc4vgdA1q4xSJn7hwFQsb7bBFgBYgItLWgBcAF4AIABAIgBAJABrAKYAfoBoAEAqAHsm6Mf&event_type=1",
+                    "usersync_url": "http%3A%2F%2Facdn.adnxs.com%2Fib%2Fstatic%2Fusersync%2Fv4%2Fasync_usersync.html",
+                    "buyer_member_id": 958,
+                    "creative_id": 65588716,
+                    "media_type_id": 4,
+                    "media_subtype_id": 64,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "video": {
+                            "player_width": 300,
+                            "player_height": 250,
+                            "duration_ms": 145000,
+                            "playback_methods": [
+                                "unknown"
+                            ],
+                            "frameworks": [],
+                            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><VAST version=\"2.0\"><Ad id=\"109314244\"><InLine><AdSystem>adnxs</AdSystem><AdTitle><![CDATA[VfE_html5.mp4]]></AdTitle><Error><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=4&test=1&error_code=[ERRORCODE]]]></Error><Impression id=\"adnxs\"><![CDATA[https://nym1-mobile.adnxs.com/it?test=1&e=wqT_3QLmAqBmAQAAAwDWAAUBCMqIluAFELuOjt6jm5DPMRjwp_eP8bqj_HYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfC3MKPO7AY4vgdAvgdIAFDEgZA0WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQPAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYACAAKAAwADgCuAQAwAQAyAQA2gQCCADgBADwBACCBRtjb20uYXBwbmV4dXMuQXBwTgEJUFNES0FwcIgFAZgFAKAFAMAFAMkFAAUBFPA_0gUJCQULoAAAANgFAOAFAPAFAPoFBAgAEACQBgCYBgC4BgDBBgAAAAAAAAAAyAYA&s=64d58013059b30ef7c21eddc92587b7c9ede368a]]></Impression><Creatives><Creative id=\"103631\" AdID=\"109314244\"><Linear><Duration>00:00:00</Duration><TrackingEvents><Tracking event=\"start\"><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=2&test=1]]></Tracking><Tracking event=\"skip\"><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=3&test=1]]></Tracking><Tracking event=\"firstQuartile\"><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=5&test=1]]></Tracking><Tracking event=\"midpoint\"><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=6&test=1]]></Tracking><Tracking event=\"thirdQuartile\"><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=7&test=1]]></Tracking><Tracking event=\"complete\"><![CDATA[https://nym1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlKhAVcAAAAABE7h8M72kCeMRlKhAVcAAAAACDEgZA0KAAwvgc4vgdAvpEySKSDiwFQo87sBlgAYgItLWgAcAB4AIABAIgBAJABAJgBAKABAKgBxIGQNA..&s=33217ea4c5fab400965d7d294257c7d37e468bcf&event_type=8&test=1]]></Tracking></TrackingEvents><VideoClicks><ClickThrough><![CDATA[https://www.appnexus.com]]></ClickThrough><ClickTracking id=\"adnxs\"><![CDATA[https://nym1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADuHwzvaQJ4x8NP9EdeN-HZKhAVcAAAAACMn2wC-AwAAvgMAAAAAAADEAIQGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAwMAAAAAAAEAeQ6YFwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/]]></ClickTracking></VideoClicks><MediaFiles><MediaFile id=\"1138776\" delivery=\"progressive\" type=\"video/webm\" width=\"640\" height=\"360\" scalable=\"true\" bitrate=\"682\" maintainAspectRatio=\"true\"><![CDATA[https://vcdn.adnxs.com/p/creative-video/3f/d2/e7/24/3fd2e724-8957-4b01-b02b-016da21552cf/3fd2e724-8957-4b01-b02b-016da21552cf_640_360_682k.webm]]></MediaFile><MediaFile id=\"1138777\" delivery=\"progressive\" type=\"video/x-flv\" width=\"640\" height=\"360\" scalable=\"true\" bitrate=\"682\" maintainAspectRatio=\"true\"><![CDATA[https://vcdn.adnxs.com/p/creative-video/3f/d2/e7/24/3fd2e724-8957-4b01-b02b-016da21552cf/3fd2e724-8957-4b01-b02b-016da21552cf_640_360_682k.flv]]></MediaFile><MediaFile id=\"1138778\" delivery=\"progressive\" type=\"video/mp4\" width=\"640\" height=\"360\" scalable=\"true\" bitrate=\"682\" maintainAspectRatio=\"true\"><![CDATA[https://vcdn.adnxs.com/p/creative-video/3f/d2/e7/24/3fd2e724-8957-4b01-b02b-016da21552cf/3fd2e724-8957-4b01-b02b-016da21552cf_640_360_682k.mp4]]></MediaFile><MediaFile id=\"1138779\" delivery=\"progressive\" type=\"video/mp4\" width=\"640\" height=\"360\" scalable=\"true\" bitrate=\"682\" maintainAspectRatio=\"true\"><![CDATA[https://vcdn.adnxs.com/p/creative-video/3f/d2/e7/24/3fd2e724-8957-4b01-b02b-016da21552cf/3fd2e724-8957-4b01-b02b-016da21552cf.mp4]]></MediaFile></MediaFiles></Linear></Creative></Creatives></InLine></Ad></VAST>"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
