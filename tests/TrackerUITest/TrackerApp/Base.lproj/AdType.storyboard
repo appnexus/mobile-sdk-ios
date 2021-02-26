@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="djH-zL-XO5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="djH-zL-XO5">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,9 +30,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Open View Controller"/>
-                                                    <connections>
-                                                        <action selector="bannerAdAction:" destination="LGj-e7-gB6" eventType="touchUpInside" id="p7t-BU-lpV"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -91,9 +88,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Banner"/>
-                                                    <connections>
-                                                        <action selector="bannerAdAction:" destination="yag-8j-twH" eventType="touchUpInside" id="JpO-sl-F90"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -109,9 +103,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Banner Native"/>
-                                                    <connections>
-                                                        <action selector="bannerNativeAdAction:" destination="yag-8j-twH" eventType="touchUpInside" id="MEe-yc-Jq4"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -127,9 +118,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Banner Native Renderer"/>
-                                                    <connections>
-                                                        <action selector="bannerNativeRendererAdAction:" destination="yag-8j-twH" eventType="touchUpInside" id="Amu-QH-qgq"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -145,9 +133,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Banner Video"/>
-                                                    <connections>
-                                                        <action selector="bannerVideoAction:" destination="yag-8j-twH" eventType="touchUpInside" id="S3E-mx-lgx"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -163,9 +148,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Interstitial"/>
-                                                    <connections>
-                                                        <action selector="bannerInterstitialAdAction:" destination="yag-8j-twH" eventType="touchUpInside" id="kWQ-Rm-xvz"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -181,9 +163,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Native"/>
-                                                    <connections>
-                                                        <action selector="nativeAdAction:" destination="yag-8j-twH" eventType="touchUpInside" id="nQq-cB-ZqL"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -199,9 +178,6 @@
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Video"/>
-                                                    <connections>
-                                                        <action selector="videoAdAction:" destination="yag-8j-twH" eventType="touchUpInside" id="fSB-1z-YPz"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
