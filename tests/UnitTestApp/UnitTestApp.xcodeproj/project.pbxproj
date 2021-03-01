@@ -424,6 +424,7 @@
 		4FE5D818248A223400B86BDA /* testMARCombinationAllRTB.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3D3F2523C4D2CD00BCBE14 /* testMARCombinationAllRTB.json */; };
 		4FF9B85E23AC0C3E00A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
 		4FF9B85F23AC0CE000A9EB56 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */; };
+		600A4D3125ED574A0085F722 /* ANRealTimerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 600A4D3025ED574A0085F722 /* ANRealTimerTestCase.m */; };
 		607BB64523F32852002A0F57 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */; };
 		607BB64723F32860002A0F57 /* testMARCombinationTwoRTBNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E2B4BAC23C4AD6E002AFBD8 /* testMARCombinationTwoRTBNative.json */; };
 		607BB64823F32936002A0F57 /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE19922008124002B5F5F /* ANNativeAdRequest+ANTest.m */; };
@@ -1072,6 +1073,7 @@
 		4FE4DB08237B42F2005B5BCF /* MARHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MARHelper.h; sourceTree = "<group>"; };
 		4FF9B85A23AC0C3D00A9EB56 /* TestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGlobal.h; sourceTree = "<group>"; };
 		4FF9B85C23AC0C3E00A9EB56 /* TestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGlobal.m; sourceTree = "<group>"; };
+		600A4D3025ED574A0085F722 /* ANRealTimerTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANRealTimerTestCase.m; sourceTree = "<group>"; };
 		60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsTestCase.m; sourceTree = "<group>"; };
 		60F8A7FC23280A630030D53D /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
 		60F8A80523280EC10030D53D /* ANJAMDispatchAppEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMDispatchAppEventResponse.json; sourceTree = "<group>"; };
@@ -1798,6 +1800,7 @@
 				0EEFE1AE220089FB002B5F5F /* MediationCallbacksTests.m */,
 				0E336C2C2461FB000033C76F /* NoNetworkAdFailTestCase.m */,
 				0EEFE190220080DE002B5F5F /* OutstreamVideoAdClassObjectFromUTResponseTests.m */,
+				600A4D3025ED574A0085F722 /* ANRealTimerTestCase.m */,
 			);
 			path = FunctionalTests;
 			sourceTree = "<group>";
@@ -2801,6 +2804,7 @@
 				0E81279C23C88D810045D788 /* ANSSMMediationAdViewController+ANTest.m in Sources */,
 				0E8C97D021FF32EC005D1F0E /* ANTestGlobal.m in Sources */,
 				0E3FE351245999220096A978 /* ANTimeTracker.m in Sources */,
+				600A4D3125ED574A0085F722 /* ANRealTimerTestCase.m in Sources */,
 				0E8C97A621FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
 				0EEFE1602200715C002B5F5F /* ANTrackerManagerTestCase.m in Sources */,
 				0EEFE1DD22008E6D002B5F5F /* ANUniversalAdFetcher+ANTest.m in Sources */,

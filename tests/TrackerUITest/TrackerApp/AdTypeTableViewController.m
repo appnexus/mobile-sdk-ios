@@ -78,7 +78,6 @@
     else if( [[NSProcessInfo processInfo].arguments containsObject:VideoViewabilityTrackerTest]){
         [self openViewController:@"VideoAdViewabilityTrackerTestVC"];
     }
-    
 }
 
 // navigation to desire viewController using storyboard Name & ViewController's Identifier

@@ -65,7 +65,6 @@
     }else {
         ANLogError(@"no delegate subscription found");
     }
-    
 }
 
 @end
