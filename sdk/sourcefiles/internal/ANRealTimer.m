@@ -91,6 +91,12 @@
     
     [self.timerDelegates removeObject:delegate];
     
+    //if no delegates found then the timer can be stopped & added again if a new delegate is added
+    if(self.timerDelegates.count <= 0){
+        [self.viewabilityTimer invalidate];
+        self.viewabilityTimer = nil;
+    }
+    
     return YES;
 }
 
