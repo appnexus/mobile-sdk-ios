@@ -22,6 +22,8 @@
 @interface ANRealTimer()
 
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
+@property (nonatomic, readwrite, strong)  NSMutableArray<id<ANRealTimerDelegate>> *timerDelegates;
+
 
 @end
 
@@ -32,12 +34,21 @@
     static dispatch_once_t managerToken;
     dispatch_once(&managerToken, ^{
         manager = [[ANRealTimer alloc] init];
+        manager.timerDelegates = [[NSMutableArray alloc] init];
     });
     return manager;
 }
 
 + (void) scheduleTimer {
-    [[self sharedInstance] scheduleTimer];
+    [self sharedInstance];
+}
+
++ (BOOL)addDelegate:(nonnull id<ANRealTimerDelegate>)delegate {
+    return [[self sharedInstance] addDelegate:delegate];
+}
+
++ (BOOL)removeDelegate:(nonnull id<ANRealTimerDelegate>)delegate {
+    return [[self sharedInstance] removeDelegate:delegate];
 }
 
 - (void) scheduleTimer {
@@ -54,15 +65,47 @@
     }
 }
 
+- (BOOL)addDelegate:(nonnull id<ANRealTimerDelegate>)delegate {
+    
+    if(![delegate conformsToProtocol:@protocol(ANRealTimerDelegate)]){
+        ANLogError(@"FAILED to add delegate, delegate does not confront to protocol");
+        return NO;
+    }
+    if([self.timerDelegates containsObject:delegate]){
+        ANLogWarn(@"Delegate already added");
+        return YES;
+    }
+    if(self.viewabilityTimer == nil){
+        [self scheduleTimer];
+    }
+    [self.timerDelegates addObject:delegate];
+    return YES;
+    
+}
 
+- (BOOL)removeDelegate:(nonnull id<ANRealTimerDelegate>)delegate {
+    if(![delegate conformsToProtocol:@protocol(ANRealTimerDelegate)]){
+        ANLogError(@"FAILED to remove delegate, delegate does not confront to protocol");
+        return NO;
+    }
+    
+    [self.timerDelegates removeObject:delegate];
+    
+    return YES;
+}
 
 -(void) notifyListenerObjects {
-    if([self.timerDelegate respondsToSelector:@selector(handle1SecTimerSentNotification)]){
-        ANLogInfo(@"Notifications pushed from time\
-                  ");
-        
-        [self.timerDelegate handle1SecTimerSentNotification];
-    }else {
+    if(self.timerDelegates.count > 0) {
+        for (id<ANRealTimerDelegate> delegate in self.timerDelegates) {
+            if([delegate respondsToSelector:@selector(handle1SecTimerSentNotification)]){
+                ANLogInfo(@"Notifications pushed from time\
+                          ");
+                
+                [delegate handle1SecTimerSentNotification];
+            }
+        }
+    }
+    else {
         ANLogError(@"no delegate subscription found");
     }
 }

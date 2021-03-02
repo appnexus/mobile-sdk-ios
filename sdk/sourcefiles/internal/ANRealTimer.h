@@ -23,11 +23,9 @@
 
 @interface ANRealTimer : NSObject
 
-@property (nonatomic, readwrite, weak)  id<ANRealTimerDelegate> timerDelegate;
++ (BOOL)addDelegate:(nonnull id<ANRealTimerDelegate>)delegate;
 
-+ (instancetype) sharedInstance;
-
-+ (void) scheduleTimer;
++ (BOOL)removeDelegate:(nonnull id<ANRealTimerDelegate>)delegate;
 
 @end
 

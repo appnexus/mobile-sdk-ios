@@ -155,9 +155,6 @@
 }
 
 -(void) setCountImpressionOn1PxRendering:(BOOL)countImpressionOn1PxRendering {
-    if(countImpressionOn1PxRendering){
-        [ANRealTimer scheduleTimer];
-    }
     __countImpressionOn1PxRendering = countImpressionOn1PxRendering;
 }
 

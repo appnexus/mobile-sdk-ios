@@ -125,7 +125,7 @@
                 [strongSelf checkIfIABViewable];
             } repeats:YES];
     } else {
-        ANRealTimer.sharedInstance.timerDelegate = self;
+        [ANRealTimer addDelegate:self];
     }
 }
 
@@ -155,7 +155,7 @@
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
         self.impressionHasBeenTracked = YES;
-        ANRealTimer.sharedInstance.timerDelegate = nil;
+        [ANRealTimer removeDelegate:self];
     }
 }
 

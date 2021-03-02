@@ -565,8 +565,8 @@ static NSString *const kANInline        = @"inline";
         return;
     }
 
-    ANRealTimer.sharedInstance.timerDelegate = self;
-
+    [ANRealTimer addDelegate:self];
+   
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
     if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
@@ -852,7 +852,7 @@ static NSString *const kANInline        = @"inline";
             //Fire impression tracker here
             [self fireTrackerAndOMID];
             //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
-            ANRealTimer.sharedInstance.timerDelegate = nil;
+            [ANRealTimer removeDelegate:self];
         }
     }
 }
