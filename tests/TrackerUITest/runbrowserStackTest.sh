@@ -1,18 +1,21 @@
-echo "" | sudo -S chown -R `whoami` ~/.npm
-echo "" | sudo chown -R `whoami` /usr/local/lib/node_modules
+#echo "" | sudo -S chown -R `whoami` ~/.npm
+#echo "" | sudo chown -R `whoami` /usr/local/lib/node_modules
 
-export PATH=/usr/local/bin:$PATH
+#export PATH=/usr/local/bin:$PATH
 
+#git -C "$(brew --repo homebrew/core)" fetch --unshallow
 
-
+#brew update
 # Update homebrew recipes
-brew install jq
+
+#brew install jq
+
+#curl -s http://api.open-notify.org/iss-now.json | jq .timestamp
 
 
-curl -s http://api.open-notify.org/iss-now.json | jq .timestamp
+pwd
 
-
-
+#cd tests/TrackerUITest
 ## Build the project
 xcodebuild -project TrackerApp.xcodeproj -scheme TrackerApp -archivePath ./automationbuild/output/TrackerApp.xcarchive archive
 ##
@@ -91,6 +94,8 @@ echo "buildIdTrackerTest==> $buildIdTrackerTest"
 
 
 
+# remove automationbuild Directory
+#rm -rf automationbuild
 
 
 
@@ -126,5 +131,13 @@ done
 #testViewabilityTestsResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | json status
 echo "Test Result OMID Tracker.......$testViewabilityTestsResult\n";
 
-# remove automationbuild Directory
-rm -rf automationbuild
+
+if [ $testViewabilityTestsResult != "passed" ] ; then
+    exit 1
+fi
+
+
+if [ $testTrackerTestResult != "passed" ] ; then
+    exit 1
+fi
+
