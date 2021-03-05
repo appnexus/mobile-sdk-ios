@@ -24,6 +24,7 @@
 		0E877ABF23FEA40900DC962F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E877ABE23FEA40900DC962F /* Assets.xcassets */; };
 		0E877AC223FEA40900DC962F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E877AC023FEA40900DC962F /* LaunchScreen.storyboard */; };
 		0E877AC523FEA40900DC962F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E877AC423FEA40900DC962F /* main.m */; };
+		600A4D3E25F2844B0085F722 /* ScrollView in Resources */ = {isa = PBXBuildFile; fileRef = 600A4D3C25F2844B0085F722 /* ScrollView */; };
 		FC1DFE9B2590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFE972590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.m */; };
 		FC1DFE9C2590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC1DFE992590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.storyboard */; };
 		FC1DFEB22590E7EF008AE0EB /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEB12590E7EF008AE0EB /* ANVerificationScriptResource+ANTest.m */; };
@@ -161,6 +162,7 @@
 		0E877AC123FEA40900DC962F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E877AC323FEA40900DC962F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E877AC423FEA40900DC962F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		600A4D3C25F2844B0085F722 /* ScrollView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ScrollView; sourceTree = "<group>"; };
 		FC1C6D14253F787E00781272 /* MARBannerAdTrackerTestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARBannerAdTrackerTestVC.m; sourceTree = "<group>"; };
 		FC1DFE972590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialAdViewabilityTrackerTestVC.m; sourceTree = "<group>"; };
 		FC1DFE982590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialAdViewabilityTrackerTestVC.h; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 		FC7BCF2D2588F5FA00739FC1 /* ImpressionTracker */ = {
 			isa = PBXGroup;
 			children = (
+				600A4D3C25F2844B0085F722 /* ScrollView */,
 				0E49158324065963003B7CC2 /* BannerAd */,
 				0E49159724065E84003B7CC2 /* InterstitialAd */,
 				0E49156524065911003B7CC2 /* MultiAdRequest */,
@@ -744,6 +747,7 @@
 				FC7BCF40258905DB00739FC1 /* OMID_BannerAd.json in Resources */,
 				0E49159224065963003B7CC2 /* NativeAdTrackerTestVC.storyboard in Resources */,
 				FC7BCF5B258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.storyboard in Resources */,
+				600A4D3E25F2844B0085F722 /* ScrollView in Resources */,
 				FC1DFEB92590E8C7008AE0EB /* BannerNativeAdViewabilityTrackerTestVC.storyboard in Resources */,
 				FC8FE6E525483AE000971E2A /* UnifiedNativeAdView.xib in Resources */,
 				0E49158D24065963003B7CC2 /* VideoAdTrackerTestVC.storyboard in Resources */,
