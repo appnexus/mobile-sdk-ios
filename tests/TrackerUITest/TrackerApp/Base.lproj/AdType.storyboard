@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="djH-zL-XO5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="djH-zL-XO5">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -261,44 +261,6 @@
                                                     <state key="normal" title="MultiAd Request-NativeRenderer"/>
                                                 </button>
                                             </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="36" id="Wjg-42-ZFg">
-                                        <rect key="frame" x="0.0" y="386" width="414" height="36"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wjg-42-ZFg" id="dc3-9B-Nd2">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYt-6M-zRr">
-                                                    <rect key="frame" x="31" y="6" width="363" height="30"/>
-                                                    <state key="normal" title="Scroll View Banner"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="SYt-6M-zRr" firstAttribute="trailing" secondItem="dc3-9B-Nd2" secondAttribute="trailingMargin" id="d3W-0e-S53"/>
-                                                <constraint firstItem="SYt-6M-zRr" firstAttribute="leading" secondItem="dc3-9B-Nd2" secondAttribute="leadingMargin" constant="11" id="dEk-qL-Hr1"/>
-                                                <constraint firstItem="SYt-6M-zRr" firstAttribute="top" secondItem="dc3-9B-Nd2" secondAttribute="topMargin" constant="-5" id="koA-EG-ZWw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="36" id="7Ek-Xg-pfb">
-                                        <rect key="frame" x="0.0" y="422" width="414" height="36"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ek-Xg-pfb" id="5cV-xC-Bjj">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E56-BI-GTq">
-                                                    <rect key="frame" x="31" y="6" width="363" height="30"/>
-                                                    <state key="normal" title="Scroll View Native"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="E56-BI-GTq" firstAttribute="top" secondItem="5cV-xC-Bjj" secondAttribute="topMargin" constant="-5" id="JfQ-yO-tIj"/>
-                                                <constraint firstItem="E56-BI-GTq" firstAttribute="leading" secondItem="5cV-xC-Bjj" secondAttribute="leadingMargin" constant="11" id="jHC-cO-S75"/>
-                                                <constraint firstItem="E56-BI-GTq" firstAttribute="trailing" secondItem="5cV-xC-Bjj" secondAttribute="trailingMargin" id="wx8-Uw-vjh"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

@@ -37,6 +37,9 @@
         [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     }
 
+
+    
+    
     // Open BannerNativeVideoTrackerTestVC if arguments contain the BannerAd, BannerNativeAd, BannerVideoAd or BannerNativeRenderer Ad for Impression and Click Tracker
     if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest] || [[NSProcessInfo processInfo].arguments containsObject:BannerNativeImpressionClickTrackerTest] || [[NSProcessInfo processInfo].arguments containsObject:BannerNativeRendererImpressionClickTrackerTest] || [[NSProcessInfo processInfo].arguments containsObject:BannerVideoImpressionClickTrackerTest] ) {
         [self openViewController:@"BannerNativeVideoTrackerTestVC"];
@@ -77,6 +80,8 @@
     // Open VideoAdViewabilityTrackerTestVC if arguments contain the Video Ad for Viewability Tracker [OMID]
     else if( [[NSProcessInfo processInfo].arguments containsObject:VideoViewabilityTrackerTest]){
         [self openViewController:@"VideoAdViewabilityTrackerTestVC"];
+    }else if( [[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest]){
+        [self openViewController:@"ScrollViewController"];
     }
 }
 
