@@ -383,7 +383,7 @@ static NSString *const kANInline        = @"inline";
 {
     if(self.impressionURLs != nil) {
         //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or there was no urls in the response
-        ANLogDebug(@" Impression tracker fired on render");
+        ANLogDebug(@"Impression tracker fired");
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         self.impressionURLs = nil;
     }
@@ -537,8 +537,6 @@ static NSString *const kANInline        = @"inline";
     id  adObject         = response.adObject;
     id  adObjectHandler  = response.adObjectHandler;
 
-    BOOL  trackersShouldBeFired  = NO;
-
     NSError  *error  = nil;
 
 
@@ -617,11 +615,11 @@ static NSString *const kANInline        = @"inline";
                 // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
                 //   but only when the AdUnit is not lazy.
                 //
-                if (!response.isLazy  && !ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
-                    if(self.window || self.countImpressionOnAdReceived) {
-                        trackersShouldBeFired = YES;
-                    }
+                if(!response.isLazy && self.valueOfHowImpressionBeFired == ONAdRendered && self.window){
+                    //fire impression tracker
+                    [self fireTrackerAndOMID];
                 }
+
             }
         }
 
@@ -638,10 +636,6 @@ static NSString *const kANInline        = @"inline";
             [self lazyAdDidReceiveAd:self];
             return;
 
-        } else {
-            if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
-                trackersShouldBeFired = YES;
-            }
         }
 
 
@@ -675,9 +669,6 @@ static NSString *const kANInline        = @"inline";
             }
         }
 
-        if (trackersShouldBeFired) {
-            [self fireTrackerAndOMID];
-        }
         [self adDidReceiveAd:self];
 
 
@@ -826,6 +817,14 @@ static NSString *const kANInline        = @"inline";
     return self.countImpressionOnAdReceived;
 }
 
+- (ANIMPRESSIONFIRING) valueOfHowImpressionBeFired {
+    if (self.countImpressionOnAdReceived){
+        return ONADReceived;
+    } else if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
+        return  On1PxViewed;
+    }
+    return ONAdRendered;
+}
 
 #pragma mark - UIView observer methods.
 
@@ -833,7 +832,8 @@ static NSString *const kANInline        = @"inline";
 {
     if (self.contentView && (_adResponseInfo.adType == ANAdTypeBanner))
     {
-        if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
+        if(self.valueOfHowImpressionBeFired == ONAdRendered){
+            ANLogDebug(@"Impression tracker fired on render");
             [self fireTrackerAndOMID];
         }
     }

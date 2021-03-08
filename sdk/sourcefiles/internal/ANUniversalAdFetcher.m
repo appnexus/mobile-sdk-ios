@@ -338,6 +338,8 @@
     CGSize  sizeOfWebview  = [self getWebViewSizeForCreativeWidth: standardAd.width
                                                         andHeight: standardAd.height];
 
+    [self fireImpressionTrackersEarly:standardAd];
+    
     //
     if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyLoad)] && [self.delegate valueOfEnableLazyLoad])
     {
@@ -354,9 +356,6 @@
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
-    } else {
-        [self fireImpressionTrackersEarly:standardAd];
-        
     }
 }
 
@@ -423,9 +422,10 @@
 
 - (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
     //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
-    BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
-    if(countImpressionOnAdReceived){
-        ANLogDebug(@"Impression URL fired when we have a valid ad & the view is created");
+    ANIMPRESSIONFIRING howImpressionFired = [self.delegate respondsToSelector:@selector(valueOfHowImpressionBeFired)] && [self.delegate valueOfHowImpressionBeFired];
+    
+    if(howImpressionFired == ONADReceived){
+        ANLogDebug(@"Impression tracker fired on ad received %@", ad.impressionUrls.firstObject);
         [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
         ad.impressionUrls = nil;
         
