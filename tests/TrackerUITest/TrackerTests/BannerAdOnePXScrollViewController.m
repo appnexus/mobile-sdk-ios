@@ -47,6 +47,25 @@
      
 }
 
+/*
+ testNativeImpressionTrackerTestAd: To test the impression tracker is fired by the Banner Ad.
+ */
+- (void)testNativeImpressionTracker1PXTestAd {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:NativeImpression1PxTrackerTest];
+    [app launch];
+
+    XCUIElement *impressionTrackerNotFired = app.staticTexts[@"Not Fired"];
+    [self waitForElementToAppear:impressionTrackerNotFired  withTimeout:8];;
+    XCTAssertTrue(impressionTrackerNotFired.exists);
+
+    XCUIElement *impressionTracker = app.staticTexts[@"ImpressionTracker"];
+    [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout];;
+    XCTAssertTrue(impressionTracker.exists);
+
+     
+}
+
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }

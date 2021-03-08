@@ -82,6 +82,8 @@
         [self openViewController:@"VideoAdViewabilityTrackerTestVC"];
     }else if( [[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest]){
         [self openViewController:@"ScrollViewController"];
+    } else if( [[NSProcessInfo processInfo].arguments containsObject:NativeImpression1PxTrackerTest]){
+        [self openViewController:@"ScrollViewController"];
     }
 }
 

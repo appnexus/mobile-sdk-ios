@@ -10,16 +10,16 @@
 #import "ContentCell.h"
 #import <AppNexusSDK/AppNexusSDK.h>
 #import "Constant.h"
-//#import "ANBannerAdView.h"
-//#import "ANLogManager.h"
-//#import "ANSDKSettings.h"
 #import "ANStubManager.h"
 #import "ANHTTPStubbingManager.h"
 #import <TrackerApp-Swift.h>
+#import "ANNativeAdView.h"
 
-@interface ScrollViewController ()<UITableViewDataSource,UITableViewDelegate,ANBannerAdViewDelegate>
+@interface ScrollViewController ()<UITableViewDataSource,UITableViewDelegate,ANBannerAdViewDelegate, ANNativeAdRequestDelegate,ANNativeAdDelegate>
 
 @property (strong, nonatomic)  ANBannerAdView      *bannerAd10;
+@property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest;
+@property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse;
 @end
 
 @implementation ScrollViewController
@@ -40,10 +40,24 @@
     }
     [self registerEventListener];
     
-    if(self.bannerAd10 == nil){
-        self.bannerAd10 = [self createBannerAd];
-        [self.bannerAd10 loadAd];
+    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
+        if(self.bannerAd10 == nil){
+            self.bannerAd10 = [self createBannerAd];
+            [self.bannerAd10 loadAd];
+        }
+        
+    } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpressionClickTrackerTest]){
+        self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
+        self.nativeAdRequest.placementId = NativePlacementId;
+        self.nativeAdRequest.forceCreativeId = NativeForceCreativeId;
+        self.nativeAdRequest.gender = ANGenderMale;
+        self.nativeAdRequest.shouldLoadIconImage = YES;
+        self.nativeAdRequest.shouldLoadMainImage = YES;
+        self.nativeAdRequest.delegate = self;
+        [self.nativeAdRequest loadAd];
     }
+    
+    
 
 }
 //  registerEventListener is used to register for tracking the URL fired by Application(or SDK)
@@ -57,16 +71,17 @@
                                                object:nil];
 }
 -(void)prepareStubbing{
-    
-    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
-        self.title = @"BannerAd";
-    }
     [[ANStubManager sharedInstance] disableStubbing];
     [[ANStubManager sharedInstance] enableStubbing];
-    [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAd"];
-
+    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
+        self.title = @"BannerAd";
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAd"];
+        
+    } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpressionClickTrackerTest]){
+        self.title = @"NativeAd";
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBNativeAd"];
+    }
 }
-
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -125,6 +140,39 @@
 - (void)ad:(id)ad requestFailedWithError:(NSError *)error{
     NSLog(@"requestFailedWithError %@:",error);
     
+}
+
+- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
+    // (code which loads the view)
+    self.nativeAdResponse = response;
+    
+    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle mainBundle]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    ANNativeAdView *nativeAdView = [array firstObject];
+    nativeAdView.titleLabel.text = self.nativeAdResponse.title;
+    nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
+    nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
+    nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
+    nativeAdView.sponsoredLabel.text = self.nativeAdResponse.sponsoredBy;
+    
+    nativeAdView.callToActionButton.accessibilityIdentifier = @"clickElements";
+
+    
+    [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+    self.nativeAdResponse.delegate = self;
+    self.nativeAdResponse.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
+    
+    [self.view addSubview:nativeAdView];
+    
+    [self.nativeAdResponse registerViewForTracking:nativeAdView
+                   withRootViewController:self
+                           clickableViews:@[nativeAdView.callToActionButton,nativeAdView.mainImageView]
+                                    error:nil];
+    
+}
+
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {
+    NSLog(@"Ad request Failed With Error");
 }
 
 
