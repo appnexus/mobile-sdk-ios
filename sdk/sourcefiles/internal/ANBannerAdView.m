@@ -813,10 +813,6 @@ static NSString *const kANInline        = @"inline";
     return  self.isLazySecondPassThroughAdUnit;
 }
 
-- (BOOL) valueOfCountImpressionOnAdReceived {
-    return self.countImpressionOnAdReceived;
-}
-
 - (ANIMPRESSIONFIRING) valueOfHowImpressionBeFired {
     if (self.countImpressionOnAdReceived){
         return ONADReceived;
