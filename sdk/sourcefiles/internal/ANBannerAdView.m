@@ -843,7 +843,7 @@ static NSString *const kANInline        = @"inline";
     
         ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
         
-        if(updatedVisibleInViewRectangle.size.width > 0 || updatedVisibleInViewRectangle.size.height > 0){
+        if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
             ANLogDebug(@"Impression tracker fired on 1px rendering");
             //Fire impression tracker here
             [self fireTrackerAndOMID];
