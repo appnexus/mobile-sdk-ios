@@ -80,11 +80,9 @@
     // Open VideoAdViewabilityTrackerTestVC if arguments contain the Video Ad for Viewability Tracker [OMID]
     else if( [[NSProcessInfo processInfo].arguments containsObject:VideoViewabilityTrackerTest]){
         [self openViewController:@"VideoAdViewabilityTrackerTestVC"];
-    }else if( [[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest]){
+    }else if( [[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest] || [[NSProcessInfo processInfo].arguments containsObject:NativeImpression1PxTrackerTest]){
         [self openViewController:@"ScrollViewController"];
-    } else if( [[NSProcessInfo processInfo].arguments containsObject:NativeImpression1PxTrackerTest]){
-        [self openViewController:@"ScrollViewController"];
-    }
+    } 
 }
 
 // navigation to desire viewController using storyboard Name & ViewController's Identifier

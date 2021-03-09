@@ -40,13 +40,13 @@
     }
     [self registerEventListener];
     
-    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
+    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest]) {
         if(self.bannerAd10 == nil){
             self.bannerAd10 = [self createBannerAd];
             [self.bannerAd10 loadAd];
         }
         
-    } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpressionClickTrackerTest]){
+    } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpression1PxTrackerTest]){
         self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
         self.nativeAdRequest.placementId = NativePlacementId;
         self.nativeAdRequest.forceCreativeId = NativeForceCreativeId;
@@ -73,12 +73,10 @@
 -(void)prepareStubbing{
     [[ANStubManager sharedInstance] disableStubbing];
     [[ANStubManager sharedInstance] enableStubbing];
-    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
-        self.title = @"BannerAd";
+    if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest]) {
         [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAd"];
         
-    } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpressionClickTrackerTest]){
-        self.title = @"NativeAd";
+    } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpression1PxTrackerTest]){
         [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBNativeAd"];
     }
 }
@@ -144,31 +142,30 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
     // (code which loads the view)
-    self.nativeAdResponse = response;
-    
-    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle mainBundle]];
-    NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    ANNativeAdView *nativeAdView = [array firstObject];
-    nativeAdView.titleLabel.text = self.nativeAdResponse.title;
-    nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
-    nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
-    nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
-    nativeAdView.sponsoredLabel.text = self.nativeAdResponse.sponsoredBy;
-    
-    nativeAdView.callToActionButton.accessibilityIdentifier = @"clickElements";
-
-    
-    [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
-    self.nativeAdResponse.delegate = self;
-    self.nativeAdResponse.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
-    
-    [self.view addSubview:nativeAdView];
-    
-    [self.nativeAdResponse registerViewForTracking:nativeAdView
-                   withRootViewController:self
-                           clickableViews:@[nativeAdView.callToActionButton,nativeAdView.mainImageView]
-                                    error:nil];
-    
+        self.nativeAdResponse = response;
+        UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle mainBundle]];
+        NSArray *array = [adNib instantiateWithOwner:self options:nil];
+        ANNativeAdView *nativeAdView = [array firstObject];
+        nativeAdView.titleLabel.text = self.nativeAdResponse.title;
+        nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
+        nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
+        nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
+        nativeAdView.sponsoredLabel.text = self.nativeAdResponse.sponsoredBy;
+        
+        nativeAdView.callToActionButton.accessibilityIdentifier = @"clickElements";
+        [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+        self.nativeAdResponse.delegate = self;
+        self.nativeAdResponse.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
+        [self.nativeAdResponse registerViewForTracking:nativeAdView
+                       withRootViewController:self
+                               clickableViews:@[nativeAdView.callToActionButton,nativeAdView.mainImageView]
+                                        error:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            self.title = @"Not Fired";
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.view addSubview:nativeAdView];
+            });
+        });
 }
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {

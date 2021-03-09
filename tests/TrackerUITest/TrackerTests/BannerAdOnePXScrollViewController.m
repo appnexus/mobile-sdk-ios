@@ -56,7 +56,7 @@
     [app launch];
 
     XCUIElement *impressionTrackerNotFired = app.staticTexts[@"Not Fired"];
-    [self waitForElementToAppear:impressionTrackerNotFired  withTimeout:8];;
+    [self waitForElementToAppear:impressionTrackerNotFired  withTimeout:15];;
     XCTAssertTrue(impressionTrackerNotFired.exists);
 
     XCUIElement *impressionTracker = app.staticTexts[@"ImpressionTracker"];
