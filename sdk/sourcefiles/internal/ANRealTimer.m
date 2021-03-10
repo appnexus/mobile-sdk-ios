@@ -102,7 +102,8 @@
 
 -(void) notifyListenerObjects {
     if(self.timerDelegates.count > 0) {
-        for (id<ANRealTimerDelegate> delegate in self.timerDelegates) {
+        for (int i=0; i< self.timerDelegates.count; i++){
+            id<ANRealTimerDelegate> delegate = self.timerDelegates[i];
             if([delegate respondsToSelector:@selector(handle1SecTimerSentNotification)]){
                 ANLogInfo(@"Notifications pushed from time\
                           ");
