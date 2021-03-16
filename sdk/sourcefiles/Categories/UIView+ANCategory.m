@@ -141,6 +141,7 @@
     return exposedPrecentage;
 }
 
+//Provide a visible rectangle in more of the position within the view along with the width & height.eg (81.0,430.0,300.0,250.0)
 - (CGRect)an_visibleInViewRectangle{
     CGRect visibleRectangle =  CGRectMake(0,0,0,0);
     if(self.an_isViewable){
