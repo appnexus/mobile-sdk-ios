@@ -422,9 +422,9 @@
 
 - (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
     //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
-    ANIMPRESSIONFIRING howImpressionFired = [self.delegate respondsToSelector:@selector(valueOfHowImpressionBeFired)] && [self.delegate valueOfHowImpressionBeFired];
+    ANImpressionFiring howImpressionFired = [self.delegate respondsToSelector:@selector(valueOfHowImpressionBeFired)] && [self.delegate valueOfHowImpressionBeFired];
     
-    if(howImpressionFired == ONADReceived){
+    if(howImpressionFired == ANAdReceived){
         ANLogDebug(@"Impression tracker fired on ad received %@", ad.impressionUrls.firstObject);
         [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
         ad.impressionUrls = nil;

@@ -19,10 +19,10 @@
 #import "ANAdProtocol.h"
 #import "ANAdFetcherResponse.h"
 
-typedef NS_ENUM(NSUInteger, ANIMPRESSIONFIRING) {
-    ONADReceived,
-    On1PxViewed,
-    ONAdRendered
+typedef NS_ENUM(NSUInteger, ANImpressionFiring) {
+    ANAdReceived,
+    AN1PxViewed,
+    ANAdRendered
 };
 
 // NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the
@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, ANIMPRESSIONFIRING) {
 
 - (BOOL)valueOfEnableLazyLoad;
 - (BOOL)valueOfIsLazySecondPassThroughAdUnit;
-- (ANIMPRESSIONFIRING) valueOfHowImpressionBeFired;
+- (ANImpressionFiring) valueOfHowImpressionBeFired;
 
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
