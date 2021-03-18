@@ -520,7 +520,7 @@ UIInterfaceOrientation ANStatusBarOrientation()
 }
 
 + (void) setWebViewCookie:(nonnull WKWebView*)webView{
-    if([ANGDPRSettings canAccessDeviceData]){
+    if([ANGDPRSettings canAccessDeviceData] && !ANSDKSettings.sharedInstance.doNotTrack){
          
          for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
              // Skip cookies that will break our script

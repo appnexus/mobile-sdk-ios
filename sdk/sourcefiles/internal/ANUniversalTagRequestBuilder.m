@@ -578,6 +578,10 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     }else if ([self.adFetcherDelegate externalUid]) {
         userDict[@"external_uid"] = [self.adFetcherDelegate externalUid];
     }
+    
+    if ([[ANSDKSettings sharedInstance] doNotTrack]) {
+        userDict[@"dnt"] = [NSNumber numberWithBool:YES];
+    }
 
     return [userDict copy];
 }
@@ -708,7 +712,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary<NSString *, id> *)deviceId
 {
-    if([ANGDPRSettings canAccessDeviceData] && ANAdvertisingTrackingEnabled()){
+    if([ANGDPRSettings canAccessDeviceData] && ANAdvertisingTrackingEnabled() && !ANSDKSettings.sharedInstance.doNotTrack){
         return [self fetchAdvertisingIdentifier];
     }
     

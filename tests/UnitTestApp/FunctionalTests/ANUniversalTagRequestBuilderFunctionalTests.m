@@ -1025,6 +1025,78 @@ static NSString  *placementID  = @"9924001";
     
 }
 
+- (void)testUTRequestDoNotTrackYES
+{
+    
+    ANSDKSettings.sharedInstance.doNotTrack = YES; // This value should be seen as true in UT Request body
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    
+    
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *userDict = jsonDict[@"user"];
+        XCTAssertNotNil(userDict);
+        
+        BOOL dntValue = userDict[@"dnt"];
+        XCTAssertTrue(dntValue);
+        
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    
+}
+
+- (void)testUTRequestDoNotTrackNO
+{
+    
+    ANSDKSettings.sharedInstance.doNotTrack = NO; // When set to NO, dnt param should not be sent in ad request
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    
+    
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *userDict = jsonDict[@"user"];
+        XCTAssertNotNil(userDict);
+        
+        XCTAssertFalse([userDict objectForKey:@"dnt"]);
+        
+        
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    
+}
+
 
 
 @end
