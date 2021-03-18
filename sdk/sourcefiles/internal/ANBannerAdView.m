@@ -818,6 +818,8 @@ static NSString *const kANInline        = @"inline";
         return ANAdReceived;
     } else if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
         return  AN1PxViewed;
+    } else if (self.enableLazyLoad) {
+        return ANLazyLoad;
     }
     return ANAdRendered;
 }

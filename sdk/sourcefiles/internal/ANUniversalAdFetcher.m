@@ -423,8 +423,8 @@
 - (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
     //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
     ANImpressionFiring howImpressionFired = [self.delegate respondsToSelector:@selector(valueOfHowImpressionBeFired)] && [self.delegate valueOfHowImpressionBeFired];
-    
-    if(howImpressionFired == ANAdReceived){
+    //fire impression when we receive the ad or if lazy load is enabled
+    if(howImpressionFired == ANAdReceived || howImpressionFired == ANLazyLoad){
         ANLogDebug(@"Impression tracker fired on ad received %@", ad.impressionUrls.firstObject);
         [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
         ad.impressionUrls = nil;

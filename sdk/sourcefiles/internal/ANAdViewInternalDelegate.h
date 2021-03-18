@@ -22,6 +22,7 @@
 typedef NS_ENUM(NSUInteger, ANImpressionFiring) {
     ANAdReceived,
     AN1PxViewed,
+    ANLazyLoad,
     ANAdRendered
 };
 
