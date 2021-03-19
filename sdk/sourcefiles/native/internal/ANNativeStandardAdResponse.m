@@ -132,7 +132,7 @@
 - (void) checkIfViewIs1pxOnScreen {
     CGRect updatedVisibleInViewRectangle = [self.viewForTracking an_visibleInViewRectangle];
     
-    ANLogInfo(@"Punnaghai visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
+    ANLogInfo(@"visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
     if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
         [self trackImpression];
     }
