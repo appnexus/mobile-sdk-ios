@@ -562,8 +562,10 @@ static NSString *const kANInline        = @"inline";
 
         return;
     }
-
-    [ANRealTimer addDelegate:self];
+    
+    if(self.valueOfHowImpressionBeFired == AN1PxViewed){
+        [ANRealTimer addDelegate:self];
+    }
    
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
