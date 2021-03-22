@@ -844,8 +844,7 @@ static NSString *const kANInline        = @"inline";
 #pragma mark - Check if on screen & fire impression trackers
 
 - (void) handle1SecTimerSentNotification {
-    if(self.impressionURLs != nil){
-        CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
+    CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
     
         ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
         
@@ -856,7 +855,6 @@ static NSString *const kANInline        = @"inline";
             //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
             [ANRealTimer removeDelegate:self];
         }
-    }
 }
 
 
