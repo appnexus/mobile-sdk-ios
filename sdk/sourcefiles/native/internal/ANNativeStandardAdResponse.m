@@ -134,6 +134,7 @@
     
     ANLogInfo(@"visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
     if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
+        ANLogInfo(@"Impression tracker fired when 1px native on screen");
         [self trackImpression];
     }
     

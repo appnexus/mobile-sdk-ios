@@ -563,7 +563,8 @@ static NSString *const kANInline        = @"inline";
         return;
     }
     
-    if(self.valueOfHowImpressionBeFired == AN1PxViewed && ![adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]){
+    //Check if its banner only & not native or native renderer
+    if(self.valueOfHowImpressionBeFired == AN1PxViewed && ![adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] && ![adObject isKindOfClass:[ANNativeAdResponse class]]){
         //Add delegate only for banner. Native renderer will be taken care in ANNativeStandardAdResponse
         [ANRealTimer addDelegate:self];
     }
