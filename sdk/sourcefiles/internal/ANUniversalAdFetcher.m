@@ -338,7 +338,6 @@
     CGSize  sizeOfWebview  = [self getWebViewSizeForCreativeWidth: standardAd.width
                                                         andHeight: standardAd.height];
 
-    [self fireImpressionTrackersEarly:standardAd];
     
     //
     if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyLoad)] && [self.delegate valueOfEnableLazyLoad])
@@ -575,9 +574,16 @@
                                                         videoXML: webviewContent ];
 
     } else {
+        
+        ANStandardAd  *standardAd  = (ANStandardAd *)self.adObjectHandler;
+
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: webviewSize
                                                             HTML: webviewContent
                                                   webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]] ];
+        
+        [self fireImpressionTrackersEarly:standardAd];
+        
+        
     }
 
     if (!self.adView)
@@ -610,7 +616,8 @@
     //
     [self restartAutoRefreshTimer];
     [self startAutoRefreshTimer];
-
+    
+    
     return  [self allocateAndSetWebviewWithSize: sizeOfWebview
                                         content: lazyStandardAd.content
                                   isXMLForVideo: NO ];

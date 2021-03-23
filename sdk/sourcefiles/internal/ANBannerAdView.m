@@ -564,9 +564,20 @@ static NSString *const kANInline        = @"inline";
     }
     
     //Check if its banner only & not native or native renderer
-    if(self.valueOfHowImpressionBeFired == AN1PxViewed && ![adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] && ![adObject isKindOfClass:[ANNativeAdResponse class]]){
-        //Add delegate only for banner. Native renderer will be taken care in ANNativeStandardAdResponse
-        [ANRealTimer addDelegate:self];
+    if(self.valueOfHowImpressionBeFired == AN1PxViewed){
+        BOOL shouldAddDelegate = TRUE;
+        
+        if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] || [adObject isKindOfClass:[ANNativeAdResponse class]]){
+            shouldAddDelegate = FALSE;
+        }
+        
+        if(response.isLazy == NO && self.isLazySecondPassThroughAdUnit == YES){
+            shouldAddDelegate = TRUE;
+        }
+        
+        if(shouldAddDelegate){
+            [ANRealTimer addDelegate:self];
+        }
     }
    
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
@@ -598,6 +609,8 @@ static NSString *const kANInline        = @"inline";
     //
     if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
     {
+        self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+        
         if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
         {
             NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
@@ -614,7 +627,7 @@ static NSString *const kANInline        = @"inline";
 
             if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
-                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+                
 
                 // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
                 //   but only when the AdUnit is not lazy.
@@ -646,6 +659,10 @@ static NSString *const kANInline        = @"inline";
         // Handle AdUnit that is NOT lazy loaded.
         //
         self.contentView = adObject;
+        
+        if(self.isLazySecondPassThroughAdUnit && self.valueOfHowImpressionBeFired == ANLazyLoad){
+           [self fireTrackerAndOMID];
+        }
 
         if ((_adResponseInfo.adType == ANAdTypeBanner) || (_adResponseInfo.adType == ANAdTypeVideo))
         {
