@@ -49,6 +49,7 @@ limitations under the License.
     self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
                                                   placementId:@"16392991"
                                                        adSize:CGSizeMake(300, 250)];
+
     self.bannerAdView.delegate = self;
 }
 
@@ -77,6 +78,21 @@ limitations under the License.
 //Test impression tracker is fired when countImpressionOnAdReceived is YES and banner is not on Window.
 - (void)testImpressionRecorded {
     [self.bannerAdView setCountImpressionOnAdReceived:YES];
+    [self.bannerAdView loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:60
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.bannerAdView.adResponseInfo.adType, ANAdTypeBanner);
+    [XCTestCase delayForTimeInterval:3.0];
+    XCTAssertTrue(self.impressionurlWasFired);
+}
+
+- (void)test1PxImpressionRecorded {
+    ANSDKSettings.sharedInstance.countImpressionOn1PxRendering = YES;
+    //[self.bannerAdView setCountImpressionOnAdReceived:YES];
+    [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
     [self.bannerAdView loadAd];
     self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:60

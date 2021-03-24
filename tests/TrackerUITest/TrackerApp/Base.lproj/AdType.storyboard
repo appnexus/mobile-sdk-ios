@@ -84,12 +84,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwA-81-f2Y">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwA-81-f2Y">
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Banner"/>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bwA-81-f2Y" firstAttribute="top" secondItem="Z9R-Yt-WVT" secondAttribute="topMargin" constant="-5" id="Ekg-qG-01Q"/>
+                                                <constraint firstItem="bwA-81-f2Y" firstAttribute="leading" secondItem="Z9R-Yt-WVT" secondAttribute="leadingMargin" constant="11" id="ZSG-N0-KF1"/>
+                                                <constraint firstItem="bwA-81-f2Y" firstAttribute="trailing" secondItem="Z9R-Yt-WVT" secondAttribute="trailingMargin" id="ddD-wS-Fsy"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="36" id="Js0-e8-NkZ">
@@ -174,12 +178,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql2-5a-q3c">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql2-5a-q3c">
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Video"/>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ql2-5a-q3c" firstAttribute="top" secondItem="H3m-ah-yHz" secondAttribute="topMargin" constant="-5" id="3wS-gp-9L8"/>
+                                                <constraint firstItem="ql2-5a-q3c" firstAttribute="trailing" secondItem="H3m-ah-yHz" secondAttribute="trailingMargin" id="BjE-AX-7UC"/>
+                                                <constraint firstItem="ql2-5a-q3c" firstAttribute="leading" secondItem="H3m-ah-yHz" secondAttribute="leadingMargin" constant="11" id="IAL-Ox-85A"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="36" id="fJ3-8E-nRP">
@@ -204,12 +212,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGj-Ow-hgw">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGj-Ow-hgw">
                                                     <rect key="frame" x="31" y="6" width="363" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="MultiAd Request-Native"/>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="oGj-Ow-hgw" firstAttribute="trailing" secondItem="Ma7-Bp-2Hj" secondAttribute="trailingMargin" id="UGM-V4-Xb3"/>
+                                                <constraint firstItem="oGj-Ow-hgw" firstAttribute="top" secondItem="Ma7-Bp-2Hj" secondAttribute="topMargin" constant="-5" id="ZaB-MU-1sa"/>
+                                                <constraint firstItem="oGj-Ow-hgw" firstAttribute="leading" secondItem="Ma7-Bp-2Hj" secondAttribute="leadingMargin" constant="11" id="cj2-fc-20y"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="36" id="hWJ-jp-z9A">

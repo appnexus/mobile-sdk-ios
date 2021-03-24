@@ -22,11 +22,12 @@
 #import "UIView+ANCategory.h"
 #import "ANTrackerManager.h"
 #import "ANOMIDImplementation.h"
+#import "ANSDKSettings.h"
+#import "ANRealTimer.h"
 
 
 
-
-@interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate>
+@interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate, ANRealTimerDelegate>
 
 @property (nonatomic, readwrite, strong) NSDate *dateCreated;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
@@ -110,21 +111,36 @@
 
 - (void)setupViewabilityTracker
 {
-    __weak ANNativeStandardAdResponse *weakSelf = self;
-    NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
-                                                                  / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
-    self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
-    ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
-    
-    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
-                                                                 block:^ {
-                                                                     ANNativeStandardAdResponse *strongSelf = weakSelf;
-                                                                     [strongSelf checkViewability];
-                                                                 }
-                                                               repeats:YES];
+    if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
+        __weak ANNativeStandardAdResponse *weakSelf = self;
+        NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+                                                                      / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
+        self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
+        ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
+        
+        self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
+                                                                     block:^ {
+                                                                         ANNativeStandardAdResponse *strongSelf = weakSelf;
+            
+                [strongSelf checkIfIABViewable];
+            } repeats:YES];
+    } else {
+        [ANRealTimer addDelegate:self];
+    }
 }
 
-- (void)checkViewability {
+- (void) checkIfViewIs1pxOnScreen {
+    CGRect updatedVisibleInViewRectangle = [self.viewForTracking an_visibleInViewRectangle];
+    
+    ANLogInfo(@"visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
+    if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
+        ANLogInfo(@"Impression tracker fired when 1px native on screen");
+        [self trackImpression];
+    }
+    
+}
+
+- (void)checkIfIABViewable {
     self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
     BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
     ANLogDebug(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
@@ -140,6 +156,7 @@
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
         self.impressionHasBeenTracked = YES;
+        [ANRealTimer removeDelegate:self];
     }
 }
 
@@ -153,6 +170,12 @@
     }
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
+    }
+}
+
+- (void) handle1SecTimerSentNotification {
+    if(!self.impressionHasBeenTracked){
+        [self checkIfViewIs1pxOnScreen];
     }
 }
 

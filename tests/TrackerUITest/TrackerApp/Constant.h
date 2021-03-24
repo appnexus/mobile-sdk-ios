@@ -59,6 +59,8 @@
 #define MARBannerImpressionClickTrackerTest @"MARBannerImpressionClickTrackerTest"
 #define MARNativeImpressionClickTrackerTest @"MARNativeImpressionClickTrackerTest"
 #define MARBannerNativeRendererImpressionClickTrackerTest @"MARBannerNativeRendererImpressionClickTrackerTest"
+#define BannerImpression1PxTrackerTest @"BannerImpression1PxTrackerTest"
+#define NativeImpression1PxTrackerTest @"NativeImpression1PxTrackerTest"
 
 /**
  Constant used to run testcase and track URL for OMID Tracker
