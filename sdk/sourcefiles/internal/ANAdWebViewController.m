@@ -53,6 +53,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)    ANWebView      *webView;
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
+@property (nonatomic, readwrite, strong)  WKNavigation *firstNavigation;
 
 @property (nonatomic, readwrite, strong)                        NSTimer     *viewabilityTimer;
 @property (nonatomic, readwrite, assign, getter=isViewable)     BOOL         viewable;
@@ -170,7 +171,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
             if (!strongSelf)  {
                 return;
             }
-            [strongSelf.webView loadHTMLString:htmlToLoad baseURL:base];
+            strongSelf.firstNavigation = [strongSelf.webView loadHTMLString:htmlToLoad baseURL:base];
         });
     });
     
@@ -314,7 +315,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    [self processWebViewDidFinishLoad];
+    if (navigation == self.firstNavigation) {
+        [self processWebViewDidFinishLoad];
+    }
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -526,6 +529,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     if (!self.completedFirstLoad)
     {
         self.completedFirstLoad = YES;
+        self.firstNavigation = nil;
         // If it is VAST ad then donot call didCompleteFirstLoadFromWebViewController videoAdReady will call it later.
         if ([self.videoXML length] > 0)
         {
