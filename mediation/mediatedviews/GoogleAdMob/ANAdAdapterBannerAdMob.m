@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterBannerAdMob.h"
 #import "ANAdAdapterBaseDFP.h"
-
 @interface ANAdAdapterBannerAdMob ()
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
@@ -56,20 +55,19 @@
         UIApplication *application = [UIApplication sharedApplication];
         BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
         if(orientationIsPortrait) {
-            gadAdSize = kGADAdSizeSmartBannerPortrait;
+            gadAdSize = GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(size.width);
         } else {
-            gadAdSize = kGADAdSizeSmartBannerLandscape;
+            gadAdSize = GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(size.height);
         }
     } else {
         gadAdSize = GADAdSizeFromCGSize(size);
     }
     self.bannerView = [[GADBannerView alloc] initWithAdSize:gadAdSize];
     
-	self.bannerView.adUnitID = idString;
-	
-	self.bannerView.rootViewController = rootViewController;
-	self.bannerView.delegate = self;
-	[self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
+    self.bannerView.adUnitID = idString;
+    self.bannerView.rootViewController = rootViewController;
+    self.bannerView.delegate = self;
+    [self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
 }
 
 - (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
@@ -95,83 +93,34 @@
 
 #pragma mark GADBannerViewDelegate
 
-- (void)adViewDidReceiveAd:(GADBannerView *)view
+- (void)bannerViewDidReceiveAd:(nonnull GADBannerView *)bannerView
 {
     ANLogDebug(@"AdMob banner did load");
-	[self.delegate didLoadBannerAd:view];
+    [self.delegate didLoadBannerAd:bannerView];
 }
-
-- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
+- (void)bannerView:(nonnull GADBannerView *)bannerView didFailToReceiveAdWithError:(nonnull NSError *)error
 {
     ANLogDebug(@"AdMob banner failed to load with error: %@", error);
-    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
-    
-    switch (error.code) {
-        case kGADErrorInvalidRequest:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorNoFill:
-            code = ANAdResponseCode.UNABLE_TO_FILL;
-            break;
-        case kGADErrorNetworkError:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorServerError:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorOSVersionTooLow:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorTimeout:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorAdAlreadyUsed:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorMediationDataError:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorMediationAdapterError:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorMediationInvalidAdSize:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorInternalError:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorInvalidArgument:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        default:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-    }
-    
- 	[self.delegate didFailToLoadAd:code];
+    [self.delegate didFailToLoadAd:[ANAdAdapterBaseDFP responseCodeFromRequestError:error]];
 }
 
-- (void)adViewWillPresentScreen:(GADBannerView *)adView {
+- (void)bannerViewWillPresentScreen:(nonnull GADBannerView *)bannerView{
     [self.delegate willPresentAd];
 }
 
-- (void)adViewWillDismissScreen:(GADBannerView *)adView {
+- (void)bannerViewWillDismissScreen:(nonnull GADBannerView *)bannerView {
     [self.delegate willCloseAd];
 }
 
-- (void)adViewDidDismissScreen:(GADBannerView *)adView {
+- (void)bannerViewDidDismissScreen:(nonnull GADBannerView *)bannerView {
     [self.delegate didCloseAd];
-}
-
-- (void)adViewWillLeaveApplication:(GADBannerView *)adView {
-    [self.delegate willLeaveApplication];
 }
 
 - (void)dealloc
 {
     ANLogDebug(@"AdMob banner being destroyed");
-	self.bannerView.delegate = nil;
-	self.bannerView = nil;
+    self.bannerView.delegate = nil;
+    self.bannerView = nil;
 }
 
 @end

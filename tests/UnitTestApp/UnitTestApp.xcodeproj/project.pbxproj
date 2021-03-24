@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -486,7 +486,6 @@
 		FC4C72D224FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72D124FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json */; };
 		FC4C72D424FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72D324FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json */; };
 		FC4C72D624FEFD8500379108 /* ANAdResponseCSM_BannerFail.json in Resources */ = {isa = PBXBuildFile; fileRef = FC4C72D524FEFD8500379108 /* ANAdResponseCSM_BannerFail.json */; };
-		FC4C72E324FF02B800379108 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4C72E224FF02B800379108 /* GoogleMobileAds.framework */; };
 		FC4E6F2924E9779E003F2381 /* ReleaseTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4E6F2824E9779E003F2381 /* ReleaseTestAppTests.m */; };
 		FC4E6F3124E977AE003F2381 /* AdPerformanceStatsBannerAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6636022458A9EC008FB3FB /* AdPerformanceStatsBannerAdTestCase.m */; };
 		FC4E6F3224E977BA003F2381 /* AdPerformanceStatsBannerNativeRendererAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6636162458D04C008FB3FB /* AdPerformanceStatsBannerNativeRendererAdTestCase.m */; };
@@ -547,6 +546,12 @@
 		FC871DA325BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; };
 		FC871DA425BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; };
 		FCBF0CD624D1E3CC00EA4474 /* ANGlobal+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */; };
+		FCC235D525F12709004A5467 /* GoogleMobileAds.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */; };
+		FCC2362625F12A17004A5467 /* nanopb.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361C25F12A17004A5467 /* nanopb.xcframework */; };
+		FCC2362925F12A17004A5467 /* UserMessagingPlatform.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361D25F12A17004A5467 /* UserMessagingPlatform.xcframework */; };
+		FCC2362C25F12A17004A5467 /* PromisesObjC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361E25F12A17004A5467 /* PromisesObjC.xcframework */; };
+		FCC2362F25F12A17004A5467 /* GoogleAppMeasurement.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */; };
+		FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */; };
 		FCE9649224EA5FBC002FA163 /* HTTPCookieTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4B24BF1AE100614011 /* HTTPCookieTestCase.m */; };
 		FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */; };
 /* End PBXBuildFile section */
@@ -1110,12 +1115,17 @@
 		FC4C72D124FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_NativeFail.json; sourceTree = "<group>"; };
 		FC4C72D324FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_BannerFail.json; sourceTree = "<group>"; };
 		FC4C72D524FEFD8500379108 /* ANAdResponseCSM_BannerFail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseCSM_BannerFail.json; sourceTree = "<group>"; };
-		FC4C72E224FF02B800379108 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		FC4E6F2624E9779E003F2381 /* AppReleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppReleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4E6F2824E9779E003F2381 /* ReleaseTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseTestAppTests.m; sourceTree = "<group>"; };
 		FC4E6F2A24E9779E003F2381 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = mediationsdk/FacebookSDK/FBAudienceNetwork.framework; sourceTree = SOURCE_ROOT; };
 		FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANGlobal+ANTest.m"; sourceTree = "<group>"; };
+		FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleMobileAds.xcframework; sourceTree = "<group>"; };
+		FCC2361C25F12A17004A5467 /* nanopb.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nanopb.xcframework; sourceTree = "<group>"; };
+		FCC2361D25F12A17004A5467 /* UserMessagingPlatform.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = UserMessagingPlatform.xcframework; sourceTree = "<group>"; };
+		FCC2361E25F12A17004A5467 /* PromisesObjC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PromisesObjC.xcframework; sourceTree = "<group>"; };
+		FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleAppMeasurement.xcframework; sourceTree = "<group>"; };
+		FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleUtilities.xcframework; sourceTree = "<group>"; };
 		FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITrafficSourceCodeAndExtInvCode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1141,8 +1151,11 @@
 			files = (
 				0E8C981A21FF36F6005D1F0E /* Accounts.framework in Frameworks */,
 				0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */,
+				FCC2362625F12A17004A5467 /* nanopb.xcframework in Frameworks */,
 				0E6B7E4822D8DE49005D069E /* AppNexusSDK.framework in Frameworks */,
 				0ED159DF2236B53000D56022 /* AssetsLibrary.framework in Frameworks */,
+				FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */,
+				FCC2362C25F12A17004A5467 /* PromisesObjC.xcframework in Frameworks */,
 				0E56C6F321F8AF0300ADE6E1 /* AudioToolbox.framework in Frameworks */,
 				0E56C6F521F8AF0A00ADE6E1 /* AVFoundation.framework in Frameworks */,
 				0E56C6F721F8AF0D00ADE6E1 /* AVKit.framework in Frameworks */,
@@ -1160,17 +1173,19 @@
 				0E56C6FF21F8AF2200ADE6E1 /* Foundation.framework in Frameworks */,
 				0E56C70321F8AF2D00ADE6E1 /* GameKit.framework in Frameworks */,
 				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
-				FC4C72E324FF02B800379108 /* GoogleMobileAds.framework in Frameworks */,
+				FCC2362925F12A17004A5467 /* UserMessagingPlatform.xcframework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
 				00B5CB6E25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
 				0ED159E92236B55B00D56022 /* libsqlite3.tbd in Frameworks */,
 				0ED159EB2236B56100D56022 /* libxml2.tbd in Frameworks */,
 				0ED159ED2236B56700D56022 /* libz.tbd in Frameworks */,
+				FCC2362F25F12A17004A5467 /* GoogleAppMeasurement.xcframework in Frameworks */,
 				0E56C70121F8AF2700ADE6E1 /* MediaPlayer.framework in Frameworks */,
 				0E56C70521F8AF3200ADE6E1 /* MessageUI.framework in Frameworks */,
 				0E56C70721F8AF3700ADE6E1 /* MobileCoreServices.framework in Frameworks */,
 				0E56C70921F8AF3B00ADE6E1 /* PassKit.framework in Frameworks */,
+				FCC235D525F12709004A5467 /* GoogleMobileAds.xcframework in Frameworks */,
 				0E56C70B21F8AF3E00ADE6E1 /* QuartzCore.framework in Frameworks */,
 				0ED159EF2236B56B00D56022 /* SafariServices.framework in Frameworks */,
 				0E56C70D21F8AF4200ADE6E1 /* Security.framework in Frameworks */,
@@ -1310,7 +1325,12 @@
 		0E54378722DCB92B00301AEF /* GoogleAdMobSDK */ = {
 			isa = PBXGroup;
 			children = (
-				FC4C72E224FF02B800379108 /* GoogleMobileAds.framework */,
+				FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */,
+				FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */,
+				FCC2361C25F12A17004A5467 /* nanopb.xcframework */,
+				FCC2361E25F12A17004A5467 /* PromisesObjC.xcframework */,
+				FCC2361D25F12A17004A5467 /* UserMessagingPlatform.xcframework */,
+				FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */,
 			);
 			path = GoogleAdMobSDK;
 			sourceTree = "<group>";
@@ -3047,7 +3067,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3080,7 +3100,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3241,10 +3261,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3281,6 +3301,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
@@ -3319,11 +3340,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3354,11 +3375,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3389,12 +3410,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"\"$(SRCROOT)/mediationsdk/FacebookSDK\"",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
-					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3422,12 +3442,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../examples/AppNexusSDKApp/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
 					"\"$(SRCROOT)/mediationsdk/FacebookSDK\"",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
-					"$(PROJECT_DIR)/mediationsdk/FacebookSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3454,10 +3473,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3487,10 +3506,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/mediatedsdk/GoogleAdMobSDK",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
-					"$(PROJECT_DIR)/mediationsdk/GoogleAdMobSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3520,6 +3539,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk\"/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3548,6 +3568,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk\"/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

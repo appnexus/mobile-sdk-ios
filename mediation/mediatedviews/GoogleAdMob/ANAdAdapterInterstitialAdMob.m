@@ -18,7 +18,8 @@
 
 @interface ANAdAdapterInterstitialAdMob ()
 
-@property (nonatomic, readwrite, strong) GADInterstitial *interstitialAd;
+//@property (nonatomic, readwrite, strong) GADInterstitial *interstitialAd;
+@property(nonatomic, strong) GADInterstitialAd *interstitialAd;
 
 @end
 
@@ -32,108 +33,59 @@
                        targetingParameters:(nullable ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting AdMob interstitial");
-	self.interstitialAd = [[GADInterstitial alloc] initWithAdUnitID:idString];
-	self.interstitialAd.delegate = self;
-    [self.interstitialAd loadRequest:
-     [self createRequestFromTargetingParameters:targetingParameters]];
+    GADRequest *request = [GADRequest request];
+    [GADInterstitialAd loadWithAdUnitID:idString
+                                request:request
+                      completionHandler:^(GADInterstitialAd *ad, NSError *error) {
+      if (error) {
+        ANLogError(@"Failed to load interstitial ad with error: %@", [error localizedDescription]);
+          [self.delegate didFailToLoadAd:[ANAdAdapterBaseDFP responseCodeFromRequestError:error]];
+          return;
+      }
+      ANLogDebug(@"AdMob interstitial did load");
+      [self.delegate didLoadInterstitialAd:self];
+      self.interstitialAd = ad;
+      self.interstitialAd.fullScreenContentDelegate = self;
+    }];
+     [self createRequestFromTargetingParameters:targetingParameters];
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController
 {
-    if (!self.interstitialAd.isReady || self.interstitialAd.hasBeenUsed) {
+    if (self.interstitialAd && [self.interstitialAd
+                                canPresentFromRootViewController:viewController
+                                error:nil]) {
+        ANLogDebug(@"Showing AdMob interstitial");
+        [self.interstitialAd presentFromRootViewController:viewController];
+    } else {
         ANLogDebug(@"AdMob interstitial was unavailable");
         [self.delegate failedToDisplayAd];
         return;
     }
-
-    ANLogDebug(@"Showing AdMob interstitial");
-	[self.interstitialAd presentFromRootViewController:viewController];
-}
-
-- (BOOL)isReady {
-    return self.interstitialAd.isReady;
 }
 
 - (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
     return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
 }
 
-#pragma mark GADInterstitialDelegate
+#pragma mark GADFullScreenContentDelegate
 
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-    ANLogDebug(@"AdMob interstitial did load");
-	[self.delegate didLoadInterstitialAd:self];
-}
-
-- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
-{
-    ANLogDebug(@"AdMob interstitial failed to load with error: %@", error);
-    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
-    
-    switch (error.code) {
-        case kGADErrorInvalidRequest:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorNoFill:
-            code = ANAdResponseCode.UNABLE_TO_FILL;
-            break;
-        case kGADErrorNetworkError:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorServerError:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorOSVersionTooLow:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorTimeout:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorAdAlreadyUsed:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorMediationDataError:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorMediationAdapterError:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorMediationInvalidAdSize:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorInternalError:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorInvalidArgument:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        default:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-    }
-    
-    [self.delegate didFailToLoadAd:code];
-}
-
-- (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
-    [self.delegate willPresentAd];
-}
-
-- (void)interstitialDidFailToPresentScreen:(nonnull GADInterstitial *)ad{
+- (void)ad:(nonnull id<GADFullScreenPresentingAd>)ad didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
     [self.delegate failedToDisplayAd];
 }
 
-- (void)interstitialWillDismissScreen:(GADInterstitial *)ad {
-    [self.delegate willCloseAd];
+- (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+    [self.delegate willPresentAd];
 }
 
-- (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
+- (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+    [self.delegate willCloseAd];
+    ANLogDebug(@"AdMob interstitial did close");
     [self.delegate didCloseAd];
 }
 
-- (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
-    [self.delegate willLeaveApplication];
+- (void)adDidRecordImpression:(nonnull id<GADFullScreenPresentingAd>)ad{
+    ANLogDebug(@"AdMob interstitial impression recorded");
 }
 
 @end

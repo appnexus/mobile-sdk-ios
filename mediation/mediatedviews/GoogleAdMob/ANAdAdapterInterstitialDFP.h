@@ -21,6 +21,6 @@
 #endif
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface ANAdAdapterInterstitialDFP : NSObject <ANCustomAdapterInterstitial, GADInterstitialDelegate>
+@interface ANAdAdapterInterstitialDFP : NSObject <ANCustomAdapterInterstitial, GADFullScreenContentDelegate>
 
 @end

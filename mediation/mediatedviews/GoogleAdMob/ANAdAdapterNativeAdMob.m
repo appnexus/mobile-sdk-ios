@@ -22,11 +22,11 @@
 #import "ANProxyViewController.h"
 #endif
 
-@interface ANAdAdapterNativeAdMob () <GADUnifiedNativeAdLoaderDelegate, GADUnifiedNativeAdDelegate>
+@interface ANAdAdapterNativeAdMob () <GADNativeAdLoaderDelegate, GADNativeAdDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
 @property (nonatomic) ANProxyViewController *proxyViewController;
-@property (nonatomic) GADUnifiedNativeAd *nativeAd;
+@property (nonatomic) GADNativeAd *nativeAd;
 
 @end
 
@@ -54,7 +54,7 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitId
                                              rootViewController:(UIViewController *)self.proxyViewController
-                                                        adTypes:@[kGADAdLoaderAdTypeUnifiedNative]
+                                                        adTypes:@[kGADAdLoaderAdTypeNative]
                                                         options:@[]];
     self.nativeAdLoader.delegate = self;
     [self.nativeAdLoader loadRequest:[ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters]];
@@ -67,11 +67,11 @@
     self.proxyViewController.rootViewController = rvc;
     self.proxyViewController.adView = view;
     if (self.nativeAd) {
-        if ([view isKindOfClass:[GADUnifiedNativeAdView class]]) {
-            GADUnifiedNativeAdView *nativeContentAdView = (GADUnifiedNativeAdView *)view;
+        if ([view isKindOfClass:[GADNativeAdView class]]) {
+            GADNativeAdView *nativeContentAdView = (GADNativeAdView *)view;
             [nativeContentAdView setNativeAd:self.nativeAd];
         } else {
-            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADUnifiedNativeAdView");
+            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADNativeAdView");
         }
         return;
     }
@@ -79,16 +79,15 @@
 
 #pragma mark - GADAdLoaderDelegate
 
-- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(GADRequestError *)error {
+- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(NSError *)error {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANLogError(@"Error loading Google native ad: %@", error);
-    ANAdResponseCode *code = [ANAdAdapterBaseDFP responseCodeFromRequestError:error];
-    [self.requestDelegate didFailToLoadNativeAd:code];
+    [self.requestDelegate didFailToLoadNativeAd:[ANAdAdapterBaseDFP responseCodeFromRequestError:error]];
 }
 
 #pragma mark - GADNativeAppInstallAdLoaderDelegate
 
-- (void)adLoader:(GADAdLoader *)adLoader didReceiveUnifiedNativeAd:(GADUnifiedNativeAd *)nativeAd
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeAd:(GADNativeAd *)nativeAd
 {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeAd = nativeAd;
