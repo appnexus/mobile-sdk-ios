@@ -34,7 +34,7 @@
 
 - (void)testSetTimerFor1Sec{
    ANSDKSettings.sharedInstance.countImpressionOn1PxRendering = YES;
-   ANRealTimer.sharedInstance.timerDelegate = self;
+   [ANRealTimer addDelegate:self];
     
    self.loadAdSuccesfulException = [self expectationWithDescription:@"Timer Exception"];
    
@@ -45,7 +45,7 @@
 
 - (void)handle1SecTimerSentNotification { 
     self.oneSecTimerNotification = YES;
-    ANRealTimer.sharedInstance.timerDelegate = nil;
+    [ANRealTimer removeDelegate:self];
     [self.loadAdSuccesfulException fulfill];
 }
 
