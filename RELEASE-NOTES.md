@@ -1,3 +1,10 @@
+## 7.11
+### Improvements/Bug Fixes
++ MS-4714 Added improvement for Ad Expiry events for Native Ads.
++ MS-4685 Added  API to disable tracking cookies during auction.
+### Mediation partner updates
++ MS-4656 Upgraded Google AdMob SDK from v7.69.0 to v8.0.0
+
 ## 7.10
 ### New Feature
 + MS-4659, MS-4674 Added support for User Id from external sources(Criteo, NetID, LiverRamp, The Trade Desk) (https://wiki.xandr.com/x/7IW1Bg)
