@@ -23,7 +23,7 @@
 
 
 NSString *const  videoContent  = @"https://acdn.adnxs.com/mobile/video_test/content/Scenario.mp4";
-NSString *const placementId = @"19212468";
+NSString *const placementId = @"17058950";
 
 
 
@@ -74,7 +74,6 @@ NSString *const placementId = @"19212468";
     
     [self setupContentPlayer];
     self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
-//    self.videoAd = [[ANInstreamVideoAd alloc] initWithMemberId:958 inventoryCode:@"trucksmash"];
     [self.videoAd loadAdWithDelegate:self];
     self.videoAd.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
 

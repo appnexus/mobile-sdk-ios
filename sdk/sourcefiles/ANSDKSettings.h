@@ -97,6 +97,19 @@ An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in
 */
 @property (nonatomic, readwrite) BOOL disableIDFAUsage;
 
+/**
+ Specify if impression should be counted when the creative is loaded & viewable on screen.
+ This feature is disabled by default.
+ */
+@property (nonatomic, readwrite, assign) BOOL countImpressionOn1PxRendering;
+
+
+/**
+ Do not track flag. Set this to YES if you have information in the app about user opt out and want to disable tracking cookies for this auction.
+ Default value  is set to NO.
+*/
+@property (nonatomic, readwrite) BOOL doNotTrack;
+
 
 /**
  Specifies a string that corresponds to the Publishers  User ID for current application user.

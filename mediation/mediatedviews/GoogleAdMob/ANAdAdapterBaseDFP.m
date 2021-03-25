@@ -24,10 +24,10 @@
     return  [[self class] completeAdRequest:request fromTargetingParameters:targetingParameters];
 }
 
-+ (DFPRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
++ (GAMRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    DFPRequest  *dfpRequest  = [DFPRequest request];
-    return  (DFPRequest *)[[self class] completeAdRequest:dfpRequest fromTargetingParameters:targetingParameters];
+    GAMRequest  *dfpRequest  = [GAMRequest request];
+    return  (GAMRequest *)[[self class] completeAdRequest:dfpRequest fromTargetingParameters:targetingParameters];
 }
 
 + (GADRequest *)completeAdRequest: (GADRequest *)gadRequest
@@ -67,44 +67,53 @@
 }
 
 
-+ (ANAdResponseCode *)responseCodeFromRequestError:(GADRequestError *)error {
++ (ANAdResponseCode *)responseCodeFromRequestError:(NSError *)error {
     ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
     
     switch (error.code) {
-        case kGADErrorInvalidRequest:
+        case GADErrorInvalidRequest:
             code = ANAdResponseCode.INVALID_REQUEST;
             break;
-        case kGADErrorNoFill:
+        case GADErrorNoFill:
             code = ANAdResponseCode.UNABLE_TO_FILL;
             break;
-        case kGADErrorNetworkError:
+        case GADErrorNetworkError:
             code = ANAdResponseCode.NETWORK_ERROR;
             break;
-        case kGADErrorServerError:
+        case GADErrorServerError:
             code = ANAdResponseCode.NETWORK_ERROR;
             break;
-        case kGADErrorOSVersionTooLow:
+        case GADErrorOSVersionTooLow:
             code = ANAdResponseCode.INTERNAL_ERROR;
             break;
-        case kGADErrorTimeout:
+        case GADErrorTimeout:
             code = ANAdResponseCode.NETWORK_ERROR;
             break;
-        case kGADErrorAdAlreadyUsed:
+        case GADErrorAdAlreadyUsed:
             code = ANAdResponseCode.INTERNAL_ERROR;
             break;
-        case kGADErrorMediationDataError:
+        case GADErrorMediationDataError:
             code = ANAdResponseCode.INVALID_REQUEST;
             break;
-        case kGADErrorMediationAdapterError:
+        case GADErrorMediationAdapterError:
             code = ANAdResponseCode.INTERNAL_ERROR;
             break;
-        case kGADErrorMediationInvalidAdSize:
+        case GADErrorMediationInvalidAdSize:
             code = ANAdResponseCode.INVALID_REQUEST;
             break;
-        case kGADErrorInternalError:
+        case GADErrorInternalError:
             code = ANAdResponseCode.INTERNAL_ERROR;
             break;
-        case kGADErrorInvalidArgument:
+        case GADErrorInvalidArgument:
+            code = ANAdResponseCode.INTERNAL_ERROR;
+            break;
+        case GADErrorReceivedInvalidResponse:
+            code = ANAdResponseCode.INTERNAL_ERROR;
+            break;
+        case GADErrorMediationNoFill:
+            code = ANAdResponseCode.INTERNAL_ERROR;
+            break;
+        case GADErrorApplicationIdentifierMissing:
             code = ANAdResponseCode.INVALID_REQUEST;
             break;
         default:

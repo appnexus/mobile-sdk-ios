@@ -65,6 +65,8 @@
                                   adUnitId:(nullable NSString *)idString
                        targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
 - (void)presentFromViewController:(nullable UIViewController *)viewController;
+
+@optional
 - (BOOL)isReady;
 
 @property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;

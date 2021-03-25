@@ -338,6 +338,7 @@
     CGSize  sizeOfWebview  = [self getWebViewSizeForCreativeWidth: standardAd.width
                                                         andHeight: standardAd.height];
 
+    
     //
     if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyLoad)] && [self.delegate valueOfEnableLazyLoad])
     {
@@ -354,9 +355,6 @@
 
     if (!returnValue) {
         ANLogError(@"FAILED to allocate self.adView.");
-    } else {
-        [self fireImpressionTrackersEarly:standardAd];
-        
     }
 }
 
@@ -423,12 +421,16 @@
 
 - (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
     //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
-    BOOL  countImpressionOnAdReceived  = [self.delegate respondsToSelector:@selector(valueOfCountImpressionOnAdReceived)] && [self.delegate valueOfCountImpressionOnAdReceived];
-    if(countImpressionOnAdReceived){
-        ANLogDebug(@"Impression URL fired when we have a valid ad & the view is created");
-        [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
-        ad.impressionUrls = nil;
+    
+    if ([self.delegate respondsToSelector:@selector(valueOfHowImpressionBeFired)]){
+        ANImpressionFiring howImpressionFired =  [self.delegate valueOfHowImpressionBeFired];
+        //fire impression when we receive the ad or if lazy load is enabled
+        if(howImpressionFired == ANAdReceived || howImpressionFired == ANLazyLoad){
+            ANLogDebug(@"Impression tracker fired on ad received %@", ad.impressionUrls.firstObject);
+            [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
+            ad.impressionUrls = nil;
         
+        }
     }
 }
 
@@ -572,9 +574,16 @@
                                                         videoXML: webviewContent ];
 
     } else {
+        
+        ANStandardAd  *standardAd  = (ANStandardAd *)self.adObjectHandler;
+
         self.adView = [[ANMRAIDContainerView alloc] initWithSize: webviewSize
                                                             HTML: webviewContent
                                                   webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]] ];
+        
+        [self fireImpressionTrackersEarly:standardAd];
+        
+        
     }
 
     if (!self.adView)
@@ -607,7 +616,8 @@
     //
     [self restartAutoRefreshTimer];
     [self startAutoRefreshTimer];
-
+    
+    
     return  [self allocateAndSetWebviewWithSize: sizeOfWebview
                                         content: lazyStandardAd.content
                                   isXMLForVideo: NO ];

@@ -27,6 +27,7 @@ NSString * const  kANNativeCSRObject                                   = @"CSRAd
 NSInteger  const  kANNativeFacebookAdAboutToExpire                    = 3600;
 NSInteger  const  kANNativeRTBAdAboutToExpire                         = 21600;
 NSInteger  const  kANNativeRTBAdAboutToExpireForMember_11217          = 300;
+NSInteger  const  kANNativeRTBAdAboutToExpireForMember_12085          = 600;
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
@@ -333,6 +334,8 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
         timeInterval =  kANNativeFacebookAdAboutToExpire - self.aboutToExpireInterval;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 ){
         timeInterval = kANNativeRTBAdAboutToExpireForMember_11217 - self.aboutToExpireInterval;
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 ){
+        timeInterval = kANNativeRTBAdAboutToExpireForMember_12085 - self.aboutToExpireInterval;
     }else{
         timeInterval =  kANNativeRTBAdAboutToExpire - self.aboutToExpireInterval;
     }
@@ -391,6 +394,9 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
         return;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_11217 ){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 11217");
+        return;
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_12085 ){
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 10 minutes for RTB & member 12085");
         return;
     }else if(aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpire){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 6 hours");

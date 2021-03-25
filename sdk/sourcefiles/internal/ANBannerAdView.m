@@ -16,11 +16,11 @@
 #import "ANBannerAdView.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANMRAIDContainerView.h"
-
+#import "ANSDKSettings.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "ANTrackerManager.h"
-
+#import "ANRealTimer.h"
 #import "UIView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
@@ -55,7 +55,7 @@ static NSString *const kANInline        = @"inline";
 
 #pragma mark -
 
-@interface ANBannerAdView() <ANBannerAdViewInternalDelegate>
+@interface ANBannerAdView() <ANBannerAdViewInternalDelegate, ANRealTimerDelegate>
 
 @property (nonatomic, readwrite, strong)  UIView  *contentView;
 
@@ -148,6 +148,7 @@ static NSString *const kANInline        = @"inline";
 
     //
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
+    
 }
 
 - (void)awakeFromNib {
@@ -382,7 +383,7 @@ static NSString *const kANInline        = @"inline";
 {
     if(self.impressionURLs != nil) {
         //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or there was no urls in the response
-        ANLogDebug(@"Impression URL fired when adview is attaching to window");
+        ANLogDebug(@"Impression tracker fired");
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
         self.impressionURLs = nil;
     }
@@ -536,8 +537,6 @@ static NSString *const kANInline        = @"inline";
     id  adObject         = response.adObject;
     id  adObjectHandler  = response.adObjectHandler;
 
-    BOOL  trackersShouldBeFired  = NO;
-
     NSError  *error  = nil;
 
 
@@ -563,8 +562,24 @@ static NSString *const kANInline        = @"inline";
 
         return;
     }
-
-
+    
+    //Check if its banner only & not native or native renderer
+    if(self.valueOfHowImpressionBeFired == AN1PxViewed){
+        BOOL shouldAddDelegate = TRUE;
+        
+        if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] || [adObject isKindOfClass:[ANNativeAdResponse class]]){
+            shouldAddDelegate = FALSE;
+        }
+        
+        if(response.isLazy == NO && self.isLazySecondPassThroughAdUnit == YES){
+            shouldAddDelegate = TRUE;
+        }
+        
+        if(shouldAddDelegate){
+            [ANRealTimer addDelegate:self];
+        }
+    }
+   
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
     if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
@@ -594,6 +609,8 @@ static NSString *const kANInline        = @"inline";
     //
     if ([adObject isKindOfClass:[UIView class]] || response.isLazy)
     {
+        self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+        
         if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
         {
             NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
@@ -610,14 +627,16 @@ static NSString *const kANInline        = @"inline";
 
             if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
-                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
+                
 
                 // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
                 //   but only when the AdUnit is not lazy.
                 //
-                if (!response.isLazy  &&  (self.window || self.countImpressionOnAdReceived)) {
-                    trackersShouldBeFired = YES;
+                if(!response.isLazy && self.valueOfHowImpressionBeFired == ANAdRendered && self.window){
+                    //fire impression tracker
+                    [self fireTrackerAndOMID];
                 }
+
             }
         }
 
@@ -634,14 +653,16 @@ static NSString *const kANInline        = @"inline";
             [self lazyAdDidReceiveAd:self];
             return;
 
-        } else {
-            trackersShouldBeFired = YES;
         }
 
 
         // Handle AdUnit that is NOT lazy loaded.
         //
         self.contentView = adObject;
+        
+        if(self.isLazySecondPassThroughAdUnit && self.valueOfHowImpressionBeFired == ANLazyLoad){
+           [self fireTrackerAndOMID];
+        }
 
         if ((_adResponseInfo.adType == ANAdTypeBanner) || (_adResponseInfo.adType == ANAdTypeVideo))
         {
@@ -669,9 +690,6 @@ static NSString *const kANInline        = @"inline";
             }
         }
 
-        if (trackersShouldBeFired) {
-            [self fireTrackerAndOMID];
-        }
         [self adDidReceiveAd:self];
 
 
@@ -816,10 +834,16 @@ static NSString *const kANInline        = @"inline";
     return  self.isLazySecondPassThroughAdUnit;
 }
 
-- (BOOL) valueOfCountImpressionOnAdReceived {
-    return self.countImpressionOnAdReceived;
+- (ANImpressionFiring) valueOfHowImpressionBeFired {
+    if (self.countImpressionOnAdReceived){
+        return ANAdReceived;
+    } else if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
+        return  AN1PxViewed;
+    } else if (self.enableLazyLoad) {
+        return ANLazyLoad;
+    }
+    return ANAdRendered;
 }
-
 
 #pragma mark - UIView observer methods.
 
@@ -827,8 +851,27 @@ static NSString *const kANInline        = @"inline";
 {
     if (self.contentView && (_adResponseInfo.adType == ANAdTypeBanner))
     {
-        [self fireTrackerAndOMID];
+        if(self.valueOfHowImpressionBeFired == ANAdRendered){
+            ANLogDebug(@"Impression tracker fired on render");
+            [self fireTrackerAndOMID];
+        }
     }
+}
+
+#pragma mark - Check if on screen & fire impression trackers
+
+- (void) handle1SecTimerSentNotification {
+    CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
+    
+        ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
+        
+        if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
+            ANLogDebug(@"Impression tracker fired on 1px rendering");
+            //Fire impression tracker here
+            [self fireTrackerAndOMID];
+            //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
+            [ANRealTimer removeDelegate:self];
+        }
 }
 
 

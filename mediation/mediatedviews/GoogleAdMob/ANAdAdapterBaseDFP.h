@@ -29,8 +29,7 @@
 @interface ANAdAdapterBaseDFP : NSObject
 
 + (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
-+ (DFPRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
-
-+ (ANAdResponseCode *)responseCodeFromRequestError:(GADRequestError *)error;
++ (GAMRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
++ (ANAdResponseCode *)responseCodeFromRequestError:(NSError *)error;
 
 @end

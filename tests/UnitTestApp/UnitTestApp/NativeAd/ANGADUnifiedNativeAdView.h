@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import <GoogleMobileAds/GoogleMobileAds.h>
-
-@interface ANGADUnifiedNativeAdView : GADUnifiedNativeAdView
+@import GoogleMobileAds;
+@interface ANGADUnifiedNativeAdView : GADNativeAdView
 
 @end

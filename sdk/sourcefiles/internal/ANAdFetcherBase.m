@@ -80,7 +80,7 @@
 
 - (void)cookieSync:(NSHTTPURLResponse *)response
 {
-    if([ANGDPRSettings canAccessDeviceData]){
+    if([ANGDPRSettings canAccessDeviceData] && !ANSDKSettings.sharedInstance.doNotTrack){
         NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[response URL]];
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:cookies forURL:[response URL] mainDocumentURL:nil];
     }
@@ -126,7 +126,7 @@
     }
     
     
-    if([ANGDPRSettings canAccessDeviceData]){
+    if([ANGDPRSettings canAccessDeviceData] && !ANSDKSettings.sharedInstance.doNotTrack){
         NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl];
         NSURL                *URL             = [NSURL URLWithString:urlString];
         NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:URL];

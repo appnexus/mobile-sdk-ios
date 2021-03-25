@@ -45,8 +45,8 @@ static CGFloat const kANTotalRetries = 10;
 
 @interface ANAdAdapterBannerDFP ()
 
-@property (nonatomic, readwrite, strong)  DFPBannerView  *dfpBanner;
-@property (nonatomic, readwrite, strong)  DFPRequest     *dfpRequest;
+@property (nonatomic, readwrite, strong)  GAMBannerView  *dfpBanner;
+@property (nonatomic, readwrite, strong)  GAMRequest     *dfpRequest;
 @property (nonatomic, readwrite)          BOOL            secondPriceIsHigher;
 @property (nonatomic, readwrite)          BOOL            secondPriceAvailable;
 @property (nonatomic, retain) NSTimer *timer;
@@ -79,16 +79,14 @@ static CGFloat const kANTotalRetries = 10;
         UIApplication *application = [UIApplication sharedApplication];
         BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
         if(orientationIsPortrait) {
-            gadAdSize = kGADAdSizeSmartBannerPortrait;
+            gadAdSize = GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(size.width);
         } else {
-            gadAdSize = kGADAdSizeSmartBannerLandscape;
+            gadAdSize = GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(size.height);
         }
     } else {
         gadAdSize = GADAdSizeFromCGSize(size);
     }
 
-
-    //
     self.dfpRequest  = [ANAdAdapterBaseDFP dfpRequestFromTargetingParameters:targetingParameters ];
     self.secondPriceAvailable     = NO;
     if (ssparam.secondPrice) {
@@ -103,9 +101,7 @@ static CGFloat const kANTotalRetries = 10;
         }
     }
 
-
-    //
-    self.dfpBanner = [[DFPBannerView alloc] initWithAdSize:gadAdSize];
+    self.dfpBanner = [[GAMBannerView alloc] initWithAdSize:gadAdSize];
     self.dfpBanner.adUnitID = idString;
     self.dfpBanner.rootViewController = rootViewController;
     self.dfpBanner.delegate = self;
@@ -154,8 +150,7 @@ static CGFloat const kANTotalRetries = 10;
 }
 
 #pragma mark - GADBannerViewDelegate
-
-- (void)adViewDidReceiveAd:(DFPBannerView *)view
+- (void)bannerViewDidReceiveAd:(GAMBannerView *)bannerView
 {
     ANLogDebug(@"DFP banner did load");
     if (!self.secondPriceAvailable) {
@@ -165,69 +160,29 @@ static CGFloat const kANTotalRetries = 10;
     }
 }
 
-- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
-{
+- (void)bannerView:(nonnull GADBannerView *)bannerView didFailToReceiveAdWithError:(nonnull NSError *)error{
     ANLogDebug(@"DFP banner failed to load with error: %@", [error localizedDescription]);
-    ANAdResponseCode *code = ANAdResponseCode.INTERNAL_ERROR;
-    
-    switch (error.code) {
-        case kGADErrorInvalidRequest:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorNoFill:
-            code = ANAdResponseCode.UNABLE_TO_FILL;
-            break;
-        case kGADErrorNetworkError:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorServerError:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorOSVersionTooLow:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorTimeout:
-            code = ANAdResponseCode.NETWORK_ERROR;
-            break;
-        case kGADErrorAdAlreadyUsed:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorMediationDataError:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorMediationAdapterError:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorMediationInvalidAdSize:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        case kGADErrorInternalError:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-        case kGADErrorInvalidArgument:
-            code = ANAdResponseCode.INVALID_REQUEST;
-            break;
-        default:
-            code = ANAdResponseCode.INTERNAL_ERROR;
-            break;
-    }
     [self.timer invalidate];
-    [self.delegate didFailToLoadAd:code];
+    [self.delegate didFailToLoadAd:[ANAdAdapterBaseDFP responseCodeFromRequestError:error]];
 }
 
-- (void)adViewWillPresentScreen:(DFPBannerView *)adView {
+- (void)bannerViewDidRecordImpression:(nonnull GADBannerView *)bannerView{
+    ANLogDebug(@"DFP banner impression recorded");
+}
+
+- (void)bannerViewWillPresentScreen:(GAMBannerView *)adView {
     [self.delegate willPresentAd];
 }
 
-- (void)adViewWillDismissScreen:(DFPBannerView *)adView {
+- (void)bannerViewWillDismissScreen:(nonnull GADBannerView *)bannerView {
     [self.delegate willCloseAd];
 }
 
-- (void)adViewDidDismissScreen:(DFPBannerView *)adView {
+- (void)bannerViewDidDismissScreen:(nonnull GADBannerView *)bannerView {
     [self.delegate didCloseAd];
 }
 
-- (void)adViewWillLeaveApplication:(DFPBannerView *)adView {
+- (void)adViewWillLeaveApplication:(GAMBannerView *)adView {
     [self.delegate willLeaveApplication];
 }
 
@@ -238,12 +193,9 @@ static CGFloat const kANTotalRetries = 10;
 	self.dfpBanner = nil;
 }
 
-
-
-
 #pragma mark - GADAppEventDelegate
 
-- (void)        adView: (DFPBannerView *)banner
+- (void)        adView: (GAMBannerView *)banner
     didReceiveAppEvent: (NSString *)name
               withInfo: (NSString *)info
 {
