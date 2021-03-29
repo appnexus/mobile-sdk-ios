@@ -38,6 +38,11 @@
 @property (nonatomic, copy, nullable) BOOL (^shouldConstrainToSuperview)(NSValue* _Nonnull);
 
 /**
+ If YES the SDK will enable auto playing videos with sound. Defaults to NO.
+ */
+@property (nonatomic) BOOL enableAutoplayWithSound;
+
+/**
  * Set false to block Location popup asked by Creative, Also notify creative that User denied the request for location.
  * Set True continue the default behaviour.
  * locationEnabledForCreative is turned on by default.

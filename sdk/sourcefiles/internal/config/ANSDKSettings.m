@@ -105,6 +105,7 @@
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
         sdkSettings.countImpressionOn1PxRendering = NO;
+        sdkSettings.enableAutoplayWithSound = NO;
     });
     return sdkSettings;
 }
