@@ -19,7 +19,8 @@
 
 @interface NativeAdViewController () <ANNativeAdRequestDelegate,ANNativeAdDelegate>
 @property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest;
-@property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse;
+//@property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse;
+@property (nonatomic,readwrite,strong) ANNativeAdView *nativeAdView;
 @end
 
 @implementation NativeAdViewController
@@ -31,6 +32,11 @@
 
     [ANLogManager setANLogLevel:ANLogLevelAll];
    
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
     self.nativeAdRequest.placementId = @"17058950";
     self.nativeAdRequest.gender = ANGenderMale;
@@ -38,30 +44,40 @@
     self.nativeAdRequest.shouldLoadMainImage = YES;
     self.nativeAdRequest.delegate = self;
     [self.nativeAdRequest loadAd];
+    
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //self.nativeAdRequest = nil;
+    //self.nativeAdResponse = nil;
+    self.nativeAdView = nil;
+    
 }
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
     // (code which loads the view)
-    self.nativeAdResponse = response;
+    ANNativeAdResponse *nativeAdResponse = response;
     
     UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle mainBundle]];
     NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    ANNativeAdView *nativeAdView = [array firstObject];
-    nativeAdView.titleLabel.text = self.nativeAdResponse.title;
-    nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
-    nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
-    nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
-    nativeAdView.sponsoredLabel.text = self.nativeAdResponse.sponsoredBy;
+    self.nativeAdView = [array firstObject];
+    self.nativeAdView.nativeResponse = response;
+//    self.nativeAdView.titleLabel.text = self.nativeAdResponse.title;
+//    self.nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
+//    self.nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
+//    self.nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
+//    self.nativeAdView.sponsoredLabel.text = self.nativeAdResponse.sponsoredBy;
     
-    [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
-    self.nativeAdResponse.delegate = self;
-    self.nativeAdResponse.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
+//    [self.nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+    nativeAdResponse.delegate = self;
+    nativeAdResponse.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
     
-    [self.view addSubview:nativeAdView];
+    [self.view addSubview:self.nativeAdView];
     
-    [self.nativeAdResponse registerViewForTracking:nativeAdView
+    [nativeAdResponse registerViewForTracking:self.nativeAdView
                    withRootViewController:self
-                           clickableViews:@[nativeAdView.callToActionButton,nativeAdView.mainImageView]
+                           clickableViews:@[self.nativeAdView.callToActionButton,self.nativeAdView.mainImageView]
                                     error:nil];
     
 }
