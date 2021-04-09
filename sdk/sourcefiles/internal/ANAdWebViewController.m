@@ -193,7 +193,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
     
     _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
-    
+    self.firstNavigation = _webView.navigation;
     [self loadWebViewWithUserScripts];
     
     UIWindow  *currentWindow  = [ANGlobal getKeyWindow];
@@ -236,6 +236,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 //+ (NSString *)prependScriptsToHTML:(NSString *)html {
 //    return [NSString stringWithFormat:@"%@%@%@", [[self class] anjamHTML], [[self class] mraidHTML], html];
 //}
+
 
 #pragma mark - configure WKWebView
  
@@ -526,6 +527,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 
 - (void)processWebViewDidFinishLoad
 {
+    
     if (!self.completedFirstLoad)
     {
         self.completedFirstLoad = YES;
