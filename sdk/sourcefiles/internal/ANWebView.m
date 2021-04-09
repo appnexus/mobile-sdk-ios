@@ -158,7 +158,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
 
         if (@available(iOS 10.0, *)) {
             configuration.requiresUserActionForMediaPlayback = NO;
-            configuration.mediaTypesRequiringUserActionForPlayback = ANSDKSettings.sharedInstance.enableAutoplayWithSound ?  WKAudiovisualMediaTypeNone : WKAudiovisualMediaTypeAudio;
+            configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
         } else {
             // configuration.allowsInlineMediaPlayback = YES is not respected
             // on iPhone on WebKit versions shipped with iOS 9 and below, the
