@@ -33,4 +33,7 @@
 
 + (ANWebView *) fetchWebView;
 + (void) prepareWebView;
+
+@property (nonatomic, readwrite, strong)  WKNavigation *navigation;
+
 @end

@@ -51,7 +51,7 @@ NSInteger  const  kANNativeRTBAdAboutToExpireForMember_12085          = 600;
 
 @interface ANNativeAdResponse()
 
-@property (nonatomic, readwrite, strong) UIView *viewForTracking;
+@property (nonatomic, readwrite, weak) UIView *viewForTracking;
 @property (nonatomic, readwrite, strong) NSMutableArray *gestureRecognizerRecords;
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;

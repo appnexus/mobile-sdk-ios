@@ -21,7 +21,7 @@
 @interface ANNativeAdResponse (PrivateMethods)
 
 @property (nonatomic, readonly, weak) UIViewController *rootViewController;
-@property (nonatomic, readonly, strong) UIView *viewForTracking;
+@property (nonatomic, readonly, weak) UIView *viewForTracking;
 @property (nonatomic, readonly, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 @property (nonatomic, readonly, strong) NSString *nativeRenderingUrl;

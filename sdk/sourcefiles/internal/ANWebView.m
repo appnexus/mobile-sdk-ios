@@ -96,7 +96,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
         if (!self)  { return nil; }
 
         NSURLRequest    *request  = [NSURLRequest requestWithURL:URL];
-        [self loadRequest:request];
+        self.navigation = [self loadRequest:request];
         
         return self;
     }
