@@ -632,11 +632,11 @@ static NSString *const kANInline        = @"inline";
                 // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
                 //   but only when the AdUnit is not lazy.
                 //
-                if(!response.isLazy && self.valueOfHowImpressionBeFired == ANAdRendered && self.window){
+                if((!response.isLazy && self.valueOfHowImpressionBeFired == ANAdRendered && self.window) || self.valueOfHowImpressionBeFired == ANAdReceived){
+                    self.contentView = adObject;
                     //fire impression tracker
                     [self fireTrackerAndOMID];
                 }
-
             }
         }
 
@@ -658,8 +658,10 @@ static NSString *const kANInline        = @"inline";
 
         // Handle AdUnit that is NOT lazy loaded.
         //
-        self.contentView = adObject;
-        
+        if(self.contentView == nil){
+            self.contentView = adObject;
+        }
+
         if(self.isLazySecondPassThroughAdUnit && self.valueOfHowImpressionBeFired == ANLazyLoad){
            [self fireTrackerAndOMID];
         }
@@ -876,4 +878,3 @@ static NSString *const kANInline        = @"inline";
 
 
 @end
-
