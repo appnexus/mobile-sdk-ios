@@ -1,3 +1,12 @@
+## 7.12
+### Improvements/Bug Fixes
++ MS-4719 Disabled autoplay for HTML5 Banner Video Ads
++ MS-4731 Fixed issue with OutStream Video that was preventing videos from playing
++ MS-4730 Fixed issue with OMID Tracker not firing for BannerAds in some cases
++ MS-4704 Added support for OMID containerGeometry and onScreenContainerGeometry for Instream & OutStream Video Ads
++ MS-4727 Added support for custom assets in Native Assembly Renderer
++ MS-4729 Removed strong reference on views to avoid cyclic reference for NativeAds
+
 ## 7.11
 ### Improvements/Bug Fixes
 + MS-4714 Added improvement for Ad Expiry events for Native Ads.
