@@ -34,6 +34,8 @@
 + (ANWebView *) fetchWebView;
 + (void) prepareWebView;
 
++ (WKUserScript *)omidScript;
+
 @property (nonatomic, readwrite, strong)  WKNavigation *navigation;
 
 @end
