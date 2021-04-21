@@ -25,6 +25,8 @@ WKUserScript  *anjamScript = nil;
 
 WKUserScript *mraidScript = nil;
 
+WKUserScript *omidScript = nil;
+
 WKWebViewConfiguration  *configuration = nil;
 
 NSMutableArray<ANWebView *> *webViewQueue;
@@ -138,7 +140,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
     
         [controller addUserScript:self.class.anjamScript];
         [controller addUserScript:self.class.mraidScript];
-    
+        
     }
     
     
@@ -221,6 +223,12 @@ NSMutableArray<ANWebView *> *webViewQueue;
                                                        injectionTime: WKUserScriptInjectionTimeAtDocumentStart
                                                     forMainFrameOnly: YES];
     }
+    if(omidScript == nil){
+        omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
+           injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
+        forMainFrameOnly: YES];
+    }
+    
     if(configuration == nil){
         [self addDefaultWebViewConfiguration];
     }
@@ -233,6 +241,10 @@ NSMutableArray<ANWebView *> *webViewQueue;
 
 + (WKUserScript *)anjamScript {
     return anjamScript;
+}
+
++ (WKUserScript *)omidScript {
+    return omidScript;
 }
 
 +(nonnull WKWebViewConfiguration *) webConfiguration {

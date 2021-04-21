@@ -260,12 +260,10 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
     if(!self.configuration.isVASTVideoAd){
         
-        WKUserScript* omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
-           injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-        forMainFrameOnly: YES];
+        if(![controller.userScripts containsObject:[ANWebView omidScript]]){
+            [controller addUserScript:[ANWebView omidScript]];
+        }
         
-        
-        [controller addUserScript:omidScript];
     }
     
     if (self.configuration.scrollingEnabled) {
