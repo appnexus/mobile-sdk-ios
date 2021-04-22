@@ -144,10 +144,12 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     NSError *sessError;
     OMIDAppnexusAdSession *omidAdSession = [[OMIDAppnexusAdSession alloc] initWithConfiguration:config
                                                                                adSessionContext:context error:&sessError];
-    
-    // Set the view on which to track viewability
-    omidAdSession.mainAdView = view;
-    
+    @try {
+        // Set the view on which to track viewability
+        omidAdSession.mainAdView = view;
+    } @catch (NSException *ex) {
+        ANLogError(@"Attempt to add view failed");
+    }
     // Start session
     [omidAdSession start];
     return omidAdSession;
