@@ -1,3 +1,8 @@
+## 7.13
+### New Feature
++ MS-4693 Added support for Cookieless domain requests
++ MS-4618 Fixed issue where the OMID SDK was causing high CPU usage for certain Ad formats - Github issue #57
+
 ## 7.12
 ### Improvements/Bug Fixes
 + MS-4719 Disabled autoplay for HTML5 Banner Video Ads
