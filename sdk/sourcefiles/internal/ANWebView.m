@@ -225,7 +225,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
     }
     if(omidScript == nil){
         omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
-           injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
+           injectionTime: WKUserScriptInjectionTimeAtDocumentStart
         forMainFrameOnly: YES];
     }
     
