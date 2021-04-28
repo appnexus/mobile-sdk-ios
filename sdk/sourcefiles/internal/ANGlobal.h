@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.12"
+#define AN_SDK_VERSION                  @"7.13"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -126,7 +126,7 @@ void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo);
 CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
-NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
+NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
 CGRect ANStatusBarFrame(void);
@@ -156,4 +156,7 @@ UIInterfaceOrientation ANStatusBarOrientation(void);
 + (nullable NSMutableURLRequest *) adServerRequestURL;
 
 + (void) setWebViewCookie:(nonnull WKWebView*)webView;
+
++ (void) setANCookieToRequest:(nonnull NSMutableURLRequest *)request;
+
 @end

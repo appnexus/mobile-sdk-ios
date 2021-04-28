@@ -122,4 +122,12 @@ An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in
  */
 @property (nonatomic, readwrite, strong, nullable) NSArray<ANExternalUserId *>  *externalUserIdArray;
 
+/**
+ Disable usage of  ib.adnxs-simple.com.
+ If YES,  SDK will make all requests to the approriate domain based on user consent and need for cookies.
+ If NO,  SDK will make all requests to mediation.adnxs.com domain.
+ Default is YES.
+ */
+@property (nonatomic) BOOL useAdnxsSimpleDomain DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases. This is introduced just a fail safe kill switch for initial rollout. No Alternative.");
+
 @end

@@ -126,14 +126,7 @@
     }
     
     
-    if([ANGDPRSettings canAccessDeviceData] && !ANSDKSettings.sharedInstance.doNotTrack){
-        NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl];
-        NSURL                *URL             = [NSURL URLWithString:urlString];
-        NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:URL];
-        NSDictionary *cookieHeaders;
-        cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies];
-        [request setAllHTTPHeaderFields:cookieHeaders];
-    }
+    [ANGlobal setANCookieToRequest:request];
     
     if(ANSDKSettings.sharedInstance.enableTestMode){
         [request setValue:@"1" forHTTPHeaderField:@"X-Is-Test"];

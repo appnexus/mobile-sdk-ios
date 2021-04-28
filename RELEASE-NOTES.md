@@ -1,3 +1,8 @@
+## 7.13
+### New Feature
++ MS-4693 Added support for Cookieless domain requests
++ MS-4618 Fixed issue where the OMID SDK was causing high CPU usage for certain Ad formats - Github issue #57
+
 ## 7.12
 ### Improvements/Bug Fixes
 + MS-4719 Disabled autoplay for HTML5 Banner Video Ads
@@ -11,6 +16,7 @@
 ### Improvements/Bug Fixes
 + MS-4714 Added improvement for Ad Expiry events for Native Ads.
 + MS-4685 Added  API to disable tracking cookies during auction.
++ (Github PR #61) Fixed race condition where ads load blank occasionally.
 ### Mediation partner updates
 + MS-4656 Upgraded Google AdMob SDK from v7.69.0 to v8.0.0
 
@@ -31,6 +37,7 @@
 + MS-4664 Upgraded Facebook SDK from v6.2.0 to v6.2.1
 ### Improvements/Bug Fixes
 + MS-3911 Fetch SDK Version Dynamically in ad request
++ MS-4633 Moved User-Agent/WebView caching from load() to ANSDKSettings.optionalSDKInitialization()
 
 
 ## 7.8

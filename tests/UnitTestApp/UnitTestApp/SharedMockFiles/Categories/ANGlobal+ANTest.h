@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ANGlobal (ANTest)
 
-+ (void) constructAdServerRequestURL;
++ (void) constructAdServerRequestURLAndWarmup;
 
 @end
 

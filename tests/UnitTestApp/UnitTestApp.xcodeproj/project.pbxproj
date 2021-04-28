@@ -251,8 +251,6 @@
 		0EA5DE5024C045C000614011 /* ANHTTPCookieStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4F24C045C000614011 /* ANHTTPCookieStorage.m */; };
 		0EA5DE5124C0504900614011 /* ANHTTPCookieStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4F24C045C000614011 /* ANHTTPCookieStorage.m */; };
 		0EA5DE5324C0601800614011 /* ANHTTPCookieStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4F24C045C000614011 /* ANHTTPCookieStorage.m */; };
-		0EA5DE5624C0719F00614011 /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972D21FF32EB005D1F0E /* ANAdWebViewController+ANTest.m */; };
-		0EA5DE5824C071A900614011 /* ANVideoAdPlayer+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4701952237B441005CFFAC /* ANVideoAdPlayer+Test.m */; };
 		0EB24C1322CBD242008E927F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1222CBD242008E927F /* AppDelegate.m */; };
 		0EB24C1622CBD242008E927F /* NativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1522CBD242008E927F /* NativeViewController.m */; };
 		0EB24C1922CBD242008E927F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1722CBD242008E927F /* Main.storyboard */; };
@@ -1151,11 +1149,8 @@
 			files = (
 				0E8C981A21FF36F6005D1F0E /* Accounts.framework in Frameworks */,
 				0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */,
-				FCC2362625F12A17004A5467 /* nanopb.xcframework in Frameworks */,
 				0E6B7E4822D8DE49005D069E /* AppNexusSDK.framework in Frameworks */,
 				0ED159DF2236B53000D56022 /* AssetsLibrary.framework in Frameworks */,
-				FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */,
-				FCC2362C25F12A17004A5467 /* PromisesObjC.xcframework in Frameworks */,
 				0E56C6F321F8AF0300ADE6E1 /* AudioToolbox.framework in Frameworks */,
 				0E56C6F521F8AF0A00ADE6E1 /* AVFoundation.framework in Frameworks */,
 				0E56C6F721F8AF0D00ADE6E1 /* AVKit.framework in Frameworks */,
@@ -1164,28 +1159,30 @@
 				0ED159F72236B82200D56022 /* CoreBluetooth.framework in Frameworks */,
 				0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
-				FC871DA225BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */,
 				0ED159E12236B53B00D56022 /* CoreMedia.framework in Frameworks */,
 				0ED159E32236B54100D56022 /* CoreMotion.framework in Frameworks */,
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
 				0ED159DB2236B52800D56022 /* EventKit.framework in Frameworks */,
 				0ED159DD2236B52C00D56022 /* EventKitUI.framework in Frameworks */,
+				FC871DA225BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */,
+				00B5CB6E25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Frameworks */,
 				0E56C6FF21F8AF2200ADE6E1 /* Foundation.framework in Frameworks */,
 				0E56C70321F8AF2D00ADE6E1 /* GameKit.framework in Frameworks */,
 				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
-				FCC2362925F12A17004A5467 /* UserMessagingPlatform.xcframework in Frameworks */,
+				FCC2362F25F12A17004A5467 /* GoogleAppMeasurement.xcframework in Frameworks */,
+				FCC235D525F12709004A5467 /* GoogleMobileAds.xcframework in Frameworks */,
+				FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
-				00B5CB6E25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
 				0ED159E92236B55B00D56022 /* libsqlite3.tbd in Frameworks */,
 				0ED159EB2236B56100D56022 /* libxml2.tbd in Frameworks */,
 				0ED159ED2236B56700D56022 /* libz.tbd in Frameworks */,
-				FCC2362F25F12A17004A5467 /* GoogleAppMeasurement.xcframework in Frameworks */,
 				0E56C70121F8AF2700ADE6E1 /* MediaPlayer.framework in Frameworks */,
 				0E56C70521F8AF3200ADE6E1 /* MessageUI.framework in Frameworks */,
 				0E56C70721F8AF3700ADE6E1 /* MobileCoreServices.framework in Frameworks */,
+				FCC2362625F12A17004A5467 /* nanopb.xcframework in Frameworks */,
 				0E56C70921F8AF3B00ADE6E1 /* PassKit.framework in Frameworks */,
-				FCC235D525F12709004A5467 /* GoogleMobileAds.xcframework in Frameworks */,
+				FCC2362C25F12A17004A5467 /* PromisesObjC.xcframework in Frameworks */,
 				0E56C70B21F8AF3E00ADE6E1 /* QuartzCore.framework in Frameworks */,
 				0ED159EF2236B56B00D56022 /* SafariServices.framework in Frameworks */,
 				0E56C70D21F8AF4200ADE6E1 /* Security.framework in Frameworks */,
@@ -1193,6 +1190,7 @@
 				0E56C71121F8AF4C00ADE6E1 /* StoreKit.framework in Frameworks */,
 				0E56C71321F8AF5200ADE6E1 /* SystemConfiguration.framework in Frameworks */,
 				0E56C71521F8AF5600ADE6E1 /* UIKit.framework in Frameworks */,
+				FCC2362925F12A17004A5467 /* UserMessagingPlatform.xcframework in Frameworks */,
 				0E56C71721F8AF5A00ADE6E1 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1201,8 +1199,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC871DA325BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */,
 				0E6B7E4722D8DE0B005D069E /* AppNexusSDK.framework in Frameworks */,
+				FC871DA325BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */,
 				0E8C97D121FF3342005D1F0E /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1211,8 +1209,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC871DA425BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */,
 				0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */,
+				FC871DA425BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */,
 				0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1256,9 +1254,9 @@
 		0E3FE34E245999100096A978 /* TimeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				0EBE63EE24B8478700BD661A /* AdPerformanceStatsReport.m */,
 				0E3FE34F245999220096A978 /* ANTimeTracker.h */,
 				0E3FE350245999220096A978 /* ANTimeTracker.m */,
-				0EBE63EE24B8478700BD661A /* AdPerformanceStatsReport.m */,
 			);
 			path = TimeTracker;
 			sourceTree = "<group>";
@@ -1326,11 +1324,11 @@
 			isa = PBXGroup;
 			children = (
 				FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */,
+				FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */,
 				FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */,
 				FCC2361C25F12A17004A5467 /* nanopb.xcframework */,
 				FCC2361E25F12A17004A5467 /* PromisesObjC.xcframework */,
 				FCC2361D25F12A17004A5467 /* UserMessagingPlatform.xcframework */,
-				FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */,
 			);
 			path = GoogleAdMobSDK;
 			sourceTree = "<group>";
@@ -1734,7 +1732,6 @@
 		0EC17C5021F72EA300F0F6AF /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */,
 				0E5529B22419203A00D50C51 /* CSR */,
 				0E642D52244E6098009084E0 /* ANAdMediationTimeoutTestcase.m */,
 				38904C4324E1309B00A472CC /* ANAdResponseCodeTestCase.m */,
@@ -1746,6 +1743,7 @@
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
 				0E8C983221FF41B1005D1F0E /* ANMediationAdViewControllerTestCase.m */,
 				0E8C982A21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m */,
+				FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */,
 				0E8C981C21FF3987005D1F0E /* ANReachabilityTestCase.m */,
 				0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */,
 				0ED02EB7234B32460090A241 /* ANSDKSettingsTestCase.m */,
@@ -1806,6 +1804,7 @@
 				979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */,
 				38E70DAA250BAA5500232652 /* ANOMIDSessionFinishBannerHTMLTest.m */,
 				0EEFE1632200717E002B5F5F /* ANPublicAPITestCase.m */,
+				600A4D3025ED574A0085F722 /* ANRealTimerTestCase.m */,
 				0EEFE1B022008A0A002B5F5F /* ANSecondPriceDFPTestCase.m */,
 				0EEFE15F2200715C002B5F5F /* ANTrackerManagerTestCase.m */,
 				0EEFE15D2200706A002B5F5F /* ANUniversalTagRequestBuilderFunctionalTests.m */,
@@ -1820,7 +1819,6 @@
 				0EEFE1AE220089FB002B5F5F /* MediationCallbacksTests.m */,
 				0E336C2C2461FB000033C76F /* NoNetworkAdFailTestCase.m */,
 				0EEFE190220080DE002B5F5F /* OutstreamVideoAdClassObjectFromUTResponseTests.m */,
-				600A4D3025ED574A0085F722 /* ANRealTimerTestCase.m */,
 			);
 			path = FunctionalTests;
 			sourceTree = "<group>";
@@ -1828,8 +1826,8 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
+				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1846,11 +1844,11 @@
 		0ED6434D243233F9006B2A2E /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */,
 				0E516FEE243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.h */,
 				0E516FED243F9DCA00B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m */,
 				0ED64351243233F9006B2A2E /* ANFBSettings.h */,
 				0ED6434F243233F9006B2A2E /* ANFBSettings.m */,
+				FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -2612,7 +2610,6 @@
 			files = (
 				0E960B6C245B92510070EAF3 /* AdPerformanceStatsNativeOnlyMARAdTestCase.m in Sources */,
 				0EECFD2124659C8800AC90F7 /* ANAdFetcherBase+ANTest.m in Sources */,
-				0EA5DE5624C0719F00614011 /* ANAdWebViewController+ANTest.m in Sources */,
 				0EA5DE5124C0504900614011 /* ANHTTPCookieStorage.m in Sources */,
 				0EB24C5722CBD770008E927F /* ANHTTPStubURLProtocol.m in Sources */,
 				0EB24C4F22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m in Sources */,
@@ -2621,7 +2618,6 @@
 				0E8E8357245B8E18008F6CAC /* ANTimeTracker.m in Sources */,
 				0EB24C5822CBD770008E927F /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				0EB24C5622CBD770008E927F /* ANURLConnectionStub.m in Sources */,
-				0EA5DE5824C071A900614011 /* ANVideoAdPlayer+Test.m in Sources */,
 				0EB24C5322CBD5CB008E927F /* NativeSDKTestAppTests.m in Sources */,
 				0EB24C5922CBD77B008E927F /* NSObject+Swizzling.m in Sources */,
 				0E960B6E245B92790070EAF3 /* PerformanceStatsNativeOnlyNativeAdTestCase.m in Sources */,
@@ -2718,6 +2714,7 @@
 				4FE5D816248A21AD00B86BDA /* ANNativeAdRequest+ANTest.m in Sources */,
 				0E6612C322CA736300DDC5CD /* ANNativeAdView.m in Sources */,
 				0E8C982B21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m in Sources */,
+				FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */,
 				60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */,
 				0E54523223336BC300C7EC93 /* ANReachability+ANTest.m in Sources */,
 				0E8C981D21FF3987005D1F0E /* ANReachabilityTestCase.m in Sources */,
@@ -2732,7 +2729,6 @@
 				0E8C97A221FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				973B23B1238D2C7000717D67 /* ANUSPrivacySettingsTestCase.m in Sources */,
 				979EA146223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m in Sources */,
-				FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */,
 				97E3447B2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m in Sources */,
 				60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */,
 				4F78CD8324A5262800196E1B /* LazyLoadFeatureTests.m in Sources */,
@@ -2820,11 +2816,11 @@
 				0E336C3F246346DB0033C76F /* ANNativeRenderingViewController+ANTest.m in Sources */,
 				0EEFE1642200717E002B5F5F /* ANPublicAPITestCase.m in Sources */,
 				0E8C97C721FF32EC005D1F0E /* ANReachability+ANTest.m in Sources */,
+				600A4D3125ED574A0085F722 /* ANRealTimerTestCase.m in Sources */,
 				0EEFE1B122008A0A002B5F5F /* ANSecondPriceDFPTestCase.m in Sources */,
 				0E81279C23C88D810045D788 /* ANSSMMediationAdViewController+ANTest.m in Sources */,
 				0E8C97D021FF32EC005D1F0E /* ANTestGlobal.m in Sources */,
 				0E3FE351245999220096A978 /* ANTimeTracker.m in Sources */,
-				600A4D3125ED574A0085F722 /* ANRealTimerTestCase.m in Sources */,
 				0E8C97A621FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
 				0EEFE1602200715C002B5F5F /* ANTrackerManagerTestCase.m in Sources */,
 				0EEFE1DD22008E6D002B5F5F /* ANUniversalAdFetcher+ANTest.m in Sources */,
@@ -2884,6 +2880,7 @@
 				FC4E6F3724E977CB003F2381 /* AdPerformanceStatsInterstitialAdTestCase.m in Sources */,
 				FC4E6F3824E977D0003F2381 /* AdPerformanceStatsMARAdTestCase.m in Sources */,
 				FC4E6F3A24E977D4003F2381 /* AdPerformanceStatsNativeAdTestCase.m in Sources */,
+				FC2B2987252DE10A00B5E72A /* AdPerformanceStatsReport.m in Sources */,
 				FC4E6F3C24E977DA003F2381 /* AdPerformanceStatsVideoAdTestCase.m in Sources */,
 				FC4E6F4D24E978F3003F2381 /* ANAdFetcherBase+ANTest.m in Sources */,
 				FC4E6F3D24E977EA003F2381 /* ANAdOMIDViewablityTestCase.m in Sources */,
@@ -2898,7 +2895,6 @@
 				389A7479250BACC10075AB70 /* ANBannerVideoAdOMIDRemoveAllFriendlyObstructionTestcase.m in Sources */,
 				389A7478250BACBC0075AB70 /* ANBannerVideoAdOMIDRemoveFriendlyObstructionTestcase.m in Sources */,
 				FC4E6F6D24E99767003F2381 /* ANGlobal+ANTest.m in Sources */,
-				FC2B2987252DE10A00B5E72A /* AdPerformanceStatsReport.m in Sources */,
 				FC4E6F4824E9789E003F2381 /* ANHTTPStubURLProtocol.m in Sources */,
 				FC4E6F5224E97935003F2381 /* ANInstreamVideoAd+Test.m in Sources */,
 				389A7477250BACB70075AB70 /* ANInstreamVideoAdOMIDRemoveAllFriendlyObstructionTestcase.m in Sources */,

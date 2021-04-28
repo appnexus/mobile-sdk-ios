@@ -21,6 +21,7 @@
 #import "ANBaseUrlConfig.h"
 #import "ANWebView.h"
 #import "ANLogging.h"
+#import "ANGDPRSettings.h"
 
 
 @interface ANBaseUrlConfig : NSObject
@@ -40,10 +41,16 @@
 }
 
 - (NSString *)webViewBaseUrl {
+    if((ANSDKSettings.sharedInstance.useAdnxsSimpleDomain == YES) && (ANGDPRSettings.canAccessDeviceData == NO || ANSDKSettings.sharedInstance.doNotTrack == YES)){
+        return @"https://ib.adnxs-simple.com/";
+    }
     return @"https://mediation.adnxs.com/";
 }
 
 -(NSString *) utAdRequestBaseUrl {
+    if((ANSDKSettings.sharedInstance.useAdnxsSimpleDomain == YES) && (ANGDPRSettings.canAccessDeviceData == NO || ANSDKSettings.sharedInstance.doNotTrack == YES)){
+        return @"https://ib.adnxs-simple.com/ut/v3";
+    }
     return @"https://mediation.adnxs.com/ut/v3";
 }
 
@@ -105,6 +112,7 @@
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
         sdkSettings.countImpressionOn1PxRendering = NO;
+        sdkSettings.useAdnxsSimpleDomain = YES;
     });
     return sdkSettings;
 }
