@@ -65,6 +65,7 @@ static NSString  *placementID  = @"9924001";
     ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
     ANSDKSettings.sharedInstance.publisherUserId = nil;
     ANSDKSettings.sharedInstance.externalUserIdArray = nil;
+    ANSDKSettings.sharedInstance.doNotTrack = NO; // Reset Donot Track to default value
     
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
@@ -79,6 +80,7 @@ static NSString  *placementID  = @"9924001";
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTAssertTrue([[request.URL absoluteString] isEqualToString:@"https://ib.adnxs-simple.com/ut/v3"], @"Expected Cookieless ib.adnxs-simple.com domain when GDPR set to true");
     
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
@@ -156,7 +158,7 @@ static NSString  *placementID  = @"9924001";
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    
+    XCTAssertTrue([[request.URL absoluteString] isEqualToString:@"https://mediation.adnxs.com/ut/v3"], @"Expected mediation.adnxs.com domain when GDPR does not apply");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
                    ^{
@@ -1034,7 +1036,7 @@ static NSString  *placementID  = @"9924001";
     
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    
+    XCTAssertTrue([[request.URL absoluteString] isEqualToString:@"https://ib.adnxs-simple.com/ut/v3"], @"Expected Cookieless ib.adnxs-simple.com domain when doNotTrack set to true");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
                    ^{
@@ -1070,7 +1072,7 @@ static NSString  *placementID  = @"9924001";
     
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    
+    XCTAssertTrue([[request.URL absoluteString] isEqualToString:@"https://mediation.adnxs.com/ut/v3"], @"Expected mediation.adnxs.com domain when doNotTrack is NO");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
                    ^{

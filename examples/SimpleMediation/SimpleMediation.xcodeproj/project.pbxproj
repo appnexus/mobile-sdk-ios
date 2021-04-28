@@ -205,20 +205,20 @@
 		0E5660DD23BE39AF0088EB36 = {
 			isa = PBXGroup;
 			children = (
-				0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */,
-				0E5660E823BE39AF0088EB36 /* SimpleMediation */,
-				0E82E4CD245CC33500EC19E1 /* SimpleCSR */,
-				0E5660E723BE39AF0088EB36 /* Products */,
-				D727BB3B00EB1882B9FF6E82 /* Pods */,
 				FCC64C9125A7353F006E5A54 /* Frameworks */,
+				D727BB3B00EB1882B9FF6E82 /* Pods */,
+				0E5660E723BE39AF0088EB36 /* Products */,
+				0E82E4CD245CC33500EC19E1 /* SimpleCSR */,
+				0E5660E823BE39AF0088EB36 /* SimpleMediation */,
+				0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
 		0E5660E723BE39AF0088EB36 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E5660E623BE39AF0088EB36 /* SimpleMediation.app */,
 				0E82E4CC245CC33500EC19E1 /* SimpleCSR.app */,
+				0E5660E623BE39AF0088EB36 /* SimpleMediation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,9 +236,9 @@
 		0E56613B23BF2F120088EB36 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				0E5660F723BE39B10088EB36 /* Info.plist */,
-				0E5660F223BE39B10088EB36 /* Assets.xcassets */,
 				0EE0D04123FD6EB300D0C060 /* SupportingFiles */,
+				0E5660F223BE39B10088EB36 /* Assets.xcassets */,
+				0E5660F723BE39B10088EB36 /* Info.plist */,
 			);
 			name = SupportFiles;
 			sourceTree = "<group>";
@@ -255,8 +255,8 @@
 		0E82E4CD245CC33500EC19E1 /* SimpleCSR */ = {
 			isa = PBXGroup;
 			children = (
-				0E82E4E2245CC38000EC19E1 /* SupportingFile */,
 				0EFC4C97245CC28C008FE3C6 /* CSRViewController */,
+				0E82E4E2245CC38000EC19E1 /* SupportingFile */,
 			);
 			path = SimpleCSR;
 			sourceTree = "<group>";
@@ -264,14 +264,14 @@
 		0E82E4E2245CC38000EC19E1 /* SupportingFile */ = {
 			isa = PBXGroup;
 			children = (
+				0E82E502245CD27C00EC19E1 /* csr */,
+				0E82E4CE245CC33500EC19E1 /* AppDelegate.swift */,
 				0E82E4D7245CC33600EC19E1 /* Assets.xcassets */,
 				0E82E4DC245CC33600EC19E1 /* Info.plist */,
 				0E82E4D9245CC33600EC19E1 /* LaunchScreen.storyboard */,
 				0E82E4D4245CC33500EC19E1 /* Main.storyboard */,
-				0E82E4CE245CC33500EC19E1 /* AppDelegate.swift */,
-				0E82E4D2245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift */,
 				0E82E4E7245CC74E00EC19E1 /* SimpleCSR-Bridging-Header.h */,
-				0E82E502245CD27C00EC19E1 /* csr */,
+				0E82E4D2245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift */,
 			);
 			path = SupportingFile;
 			sourceTree = "<group>";
@@ -279,8 +279,8 @@
 		0E82E4EF245CCA5600EC19E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
 				0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */,
+				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,10 +297,10 @@
 		0E82E503245CD27C00EC19E1 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				0E82E504245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m */,
-				0E82E505245CD27C00EC19E1 /* ANFBSettings.m */,
 				0E82E506245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.h */,
+				0E82E504245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m */,
 				0E82E507245CD27C00EC19E1 /* ANFBSettings.h */,
+				0E82E505245CD27C00EC19E1 /* ANFBSettings.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -308,10 +308,10 @@
 		0EE0D03723FD6C8E00D0C060 /* SmartAd */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */,
 				0EE0D06923FD7C1300D0C060 /* SmartAdBannerAd.storyboard */,
-				0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */,
+				0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */,
 				0EE0D06823FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard */,
+				0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */,
 			);
 			path = SmartAd;
 			sourceTree = "<group>";
@@ -319,12 +319,12 @@
 		0EE0D03923FD6C8E00D0C060 /* Admob */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */,
 				0EE0D06323FD764800D0C060 /* AdmobDFPBannerAd.storyboard */,
-				0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */,
+				0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */,
 				0EE0D06123FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard */,
-				0EE0D06223FD764800D0C060 /* AdMobDFPNativeViewController.swift */,
+				0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */,
 				0EE0D06023FD764800D0C060 /* AdMobDFPNativeAd.storyboard */,
+				0EE0D06223FD764800D0C060 /* AdMobDFPNativeViewController.swift */,
 				0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */,
 			);
 			path = Admob;
@@ -333,12 +333,12 @@
 		0EE0D03A23FD6C8E00D0C060 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */,
-				FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */,
 				0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */,
 				0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */,
 				0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */,
 				0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */,
+				FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */,
+				FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -357,8 +357,8 @@
 		0EE0D03D23FD6CE200D0C060 /* VideoAd */ = {
 			isa = PBXGroup;
 			children = (
-				0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */,
 				0EE0D03E23FD6D1D00D0C060 /* VideoAd.storyboard */,
+				0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */,
 			);
 			path = VideoAd;
 			sourceTree = "<group>";
@@ -366,10 +366,10 @@
 		0EE0D04123FD6EB300D0C060 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				0E246167240E7B57004B9BC4 /* SimpleMediation-Bridging-Header.h */,
 				0EE0D07123FD7E0100D0C060 /* mediatedviews */,
 				0E5660E923BE39AF0088EB36 /* AppDelegate.swift */,
 				0EE0D04623FD6EEC00D0C060 /* LaunchScreen.storyboard */,
+				0E246167240E7B57004B9BC4 /* SimpleMediation-Bridging-Header.h */,
 				0EE0D04323FD6EB300D0C060 /* Toast.swift */,
 			);
 			path = SupportingFiles;
@@ -378,9 +378,9 @@
 		0EE0D07123FD7E0100D0C060 /* mediatedviews */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D09123FD7E0100D0C060 /* SmartAd */,
-				0EE0D09823FD7E0100D0C060 /* GoogleAdMob */,
 				0EE0D0A523FD7E0100D0C060 /* Facebook */,
+				0EE0D09823FD7E0100D0C060 /* GoogleAdMob */,
+				0EE0D09123FD7E0100D0C060 /* SmartAd */,
 			);
 			name = mediatedviews;
 			path = ../../../../mediation/mediatedviews;
@@ -389,12 +389,12 @@
 		0EE0D09123FD7E0100D0C060 /* SmartAd */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D09223FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m */,
-				0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */,
-				0EE0D09423FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.h */,
-				0EE0D09523FD7E0100D0C060 /* ANAdAdapterSmartAdBase.h */,
 				0EE0D09623FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.h */,
+				0EE0D09223FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m */,
+				0EE0D09423FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.h */,
 				0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */,
+				0EE0D09523FD7E0100D0C060 /* ANAdAdapterSmartAdBase.h */,
+				0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */,
 			);
 			path = SmartAd;
 			sourceTree = "<group>";
@@ -403,17 +403,17 @@
 			isa = PBXGroup;
 			children = (
 				0EE0D09923FD7E0100D0C060 /* ANAdAdapterBannerAdMob.h */,
-				0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */,
-				0EE0D09B23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.h */,
-				0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */,
-				0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */,
-				0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */,
 				0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */,
+				0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */,
+				0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */,
+				0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */,
+				0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */,
+				0EE0D09B23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.h */,
 				0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */,
 				0EE0D0A123FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.h */,
+				0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */,
 				0EE0D0A223FD7E0100D0C060 /* ANAdAdapterNativeAdMob.h */,
-				0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */,
-				0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */,
+				0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */,
 			);
 			path = GoogleAdMob;
 			sourceTree = "<group>";
@@ -421,12 +421,12 @@
 		0EE0D0A523FD7E0100D0C060 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */,
 				0EE0D0A723FD7E0100D0C060 /* ANAdAdapterBannerFacebook.h */,
-				0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */,
-				0EE0D0A923FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.h */,
 				0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */,
+				0EE0D0A923FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.h */,
+				0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */,
 				0EE0D0AB23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.h */,
+				0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -575,19 +575,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE0D06B23FD7C1300D0C060 /* SmartAdBannerAd.storyboard in Resources */,
-				0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */,
 				0EE0D06723FD764800D0C060 /* AdmobDFPBannerAd.storyboard in Resources */,
+				0EE0D06523FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard in Resources */,
+				0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */,
+				0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */,
+				0E5670A3240D04BB0006B158 /* FacebookBannerAd.storyboard in Resources */,
+				0E5670A4240D04BB0006B158 /* FacebookInterstitialAd.storyboard in Resources */,
+				FCC64CB225A739DE006E5A54 /* FacebookNative.storyboard in Resources */,
+				0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */,
+				0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */,
+				0EE0D06B23FD7C1300D0C060 /* SmartAdBannerAd.storyboard in Resources */,
 				0EE0D06A23FD7C1300D0C060 /* SmartAdInterstitialAd.storyboard in Resources */,
 				0EE0D0D423FD7ECE00D0C060 /* UnifiedNativeAdView.xib in Resources */,
 				0EE0D04023FD6D1D00D0C060 /* VideoAd.storyboard in Resources */,
-				0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */,
-				0EE0D06523FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard in Resources */,
-				0E5670A4240D04BB0006B158 /* FacebookInterstitialAd.storyboard in Resources */,
-				0E5670A3240D04BB0006B158 /* FacebookBannerAd.storyboard in Resources */,
-				0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */,
-				FCC64CB225A739DE006E5A54 /* FacebookNative.storyboard in Resources */,
-				0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,9 +595,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E82E4DB245CC33600EC19E1 /* LaunchScreen.storyboard in Resources */,
-				0E82E4E0245CC34D00EC19E1 /* FacebookCSRNativeBanner.storyboard in Resources */,
 				0E82E4D8245CC33600EC19E1 /* Assets.xcassets in Resources */,
+				0E82E4E0245CC34D00EC19E1 /* FacebookCSRNativeBanner.storyboard in Resources */,
+				0E82E4DB245CC33600EC19E1 /* LaunchScreen.storyboard in Resources */,
 				0E82E4D6245CC33500EC19E1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,30 +673,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */,
-				FCC64CB325A739DE006E5A54 /* FacebookNativeViewController.swift in Sources */,
-				0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */,
-				0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */,
-				0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */,
-				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
-				0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */,
-				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
-				0EE0D0CC23FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m in Sources */,
-				0E5B043E23BF4EED00DEBACE /* VideoAdViewController.swift in Sources */,
-				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
-				0EE0D05023FD728A00D0C060 /* FacebookBannerAdViewController.swift in Sources */,
-				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
-				0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */,
-				0EE0D04F23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift in Sources */,
-				0EE0D0CD23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m in Sources */,
-				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
-				0EE0D04523FD6EB300D0C060 /* Toast.swift in Sources */,
-				0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */,
-				0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */,
-				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
-				0EE0D0CE23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m in Sources */,
-				0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */,
 				0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */,
+				0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */,
+				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
+				0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */,
+				0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */,
+				0EE0D0CE23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m in Sources */,
+				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
+				0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */,
+				0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */,
+				0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				0EE0D0CC23FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m in Sources */,
+				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
+				0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */,
+				0EE0D0CD23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m in Sources */,
+				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
+				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
+				0EE0D05023FD728A00D0C060 /* FacebookBannerAdViewController.swift in Sources */,
+				0EE0D04F23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift in Sources */,
+				FCC64CB325A739DE006E5A54 /* FacebookNativeViewController.swift in Sources */,
+				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
+				0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */,
+				0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */,
+				0EE0D04523FD6EB300D0C060 /* Toast.swift in Sources */,
+				0E5B043E23BF4EED00DEBACE /* VideoAdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,12 +704,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E82E4D3245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift in Sources */,
 				0E82E508245CD27C00EC19E1 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
 				0E82E509245CD27C00EC19E1 /* ANFBSettings.m in Sources */,
-				0E82E4E1245CC34D00EC19E1 /* FacebookCSRNativeBanner.swift in Sources */,
-				0E82E4E4245CC6B600EC19E1 /* Toast.swift in Sources */,
 				0E82E4CF245CC33500EC19E1 /* AppDelegate.swift in Sources */,
+				0E82E4E1245CC34D00EC19E1 /* FacebookCSRNativeBanner.swift in Sources */,
+				0E82E4D3245CC33500EC19E1 /* SimpleCSRAdTypeListViewController.swift in Sources */,
+				0E82E4E4245CC6B600EC19E1 /* Toast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

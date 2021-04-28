@@ -38,7 +38,8 @@ NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey               
 NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
 NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                             = @"kANUniversalAdFetcherAdResponseKey";
 
-NSMutableURLRequest  *utMutableRequest = nil;
+NSMutableURLRequest  *utDefaultDomainMutableRequest = nil;
+NSMutableURLRequest  *utSimpleDomainMutableRequest = nil;
 
 NSString *anUserAgent = nil;
 WKWebView  *webViewForUserAgent = nil;
@@ -276,7 +277,7 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     return screenBounds;
 }
 
-NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
+NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
@@ -338,26 +339,48 @@ UIInterfaceOrientation ANStatusBarOrientation()
 
 @implementation ANGlobal
 
+
 +(nullable NSMutableURLRequest *) adServerRequestURL {
-    if(utMutableRequest == nil){
-        [ANGlobal constructAdServerRequestURL];
+    if([ANGDPRSettings canAccessDeviceData] && !ANSDKSettings.sharedInstance.doNotTrack){
+        if(utDefaultDomainMutableRequest == nil){
+            utDefaultDomainMutableRequest =  [ANGlobal constructAdServerRequestURLAndWarmup];
+        }
+        return utDefaultDomainMutableRequest;
+    }else{
+        if(utSimpleDomainMutableRequest == nil){
+            utSimpleDomainMutableRequest =  [ANGlobal constructAdServerRequestURLAndWarmup];
+        }
+        return utSimpleDomainMutableRequest;
     }
-    return utMutableRequest;
 }
 
-+ (void) constructAdServerRequestURL {
++ (NSMutableURLRequest *) constructAdServerRequestURLAndWarmup {
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURL                *URL             = [NSURL URLWithString:urlString];
     
-    utMutableRequest = (NSMutableURLRequest *)ANBasicRequestWithURL(URL);
-    [utMutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [utMutableRequest setHTTPMethod:@"POST"];
-    
-    [ANHTTPNetworkSession startTaskWithHttpRequest:utMutableRequest];
+    NSMutableURLRequest *request = (NSMutableURLRequest *)ANBasicRequestWithURL(URL);
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    [ANGlobal performWarmUpRequest: [request copy]];// Always perform warmup request on a copy. This makes sure any properties applied below donot get carried forward.
+    return request;
 }
 
+// Performs a warmup request.
+// This makes consecutive requests to that domain from SDK faster.
++ (void) performWarmUpRequest:(NSMutableURLRequest *) warmupRequest{
+    [warmupRequest setHTTPShouldHandleCookies:false]; // Cookies should not be allowed for Warmup request.
+    [ANHTTPNetworkSession startTaskWithHttpRequest:warmupRequest];
+}
+
+
 + (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
-    [utMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
+    if(utDefaultDomainMutableRequest!=nil){
+        [utDefaultDomainMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
+    }
+    
+    if(utSimpleDomainMutableRequest!=nil){
+        [utSimpleDomainMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
 }
 
@@ -536,4 +559,19 @@ UIInterfaceOrientation ANStatusBarOrientation()
          }
      }
 }
+
++ (void) setANCookieToRequest:(nonnull NSMutableURLRequest *)request {
+    if([ANGDPRSettings canAccessDeviceData] && !ANSDKSettings.sharedInstance.doNotTrack){
+        [request setHTTPShouldHandleCookies:true];
+        NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl];
+        NSURL                *URL             = [NSURL URLWithString:urlString];
+        NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:URL];
+        NSDictionary *cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies];
+        [request setAllHTTPHeaderFields:cookieHeaders];
+    }else{
+        [request setHTTPShouldHandleCookies:false];
+    }
+}
+
+
 @end

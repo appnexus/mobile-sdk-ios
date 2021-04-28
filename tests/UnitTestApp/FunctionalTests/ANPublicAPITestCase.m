@@ -41,6 +41,7 @@
 
 - (void)setUp {
     [super setUp];
+    [[ANSDKSettings sharedInstance] optionalSDKInitialization];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];

@@ -18,6 +18,8 @@
 #import "ANTrackerInfo.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANGDPRSettings.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 #import "NSTimer+ANCategory.h"
 
@@ -107,9 +109,13 @@
 
     [arrayWithURLs enumerateObjectsUsingBlock:^(NSString *URL, NSUInteger idx, BOOL *stop)
     {
+        
+        NSMutableURLRequest  *request    = ANBasicRequestWithURL([NSURL URLWithString:URL]);
+        [ANGlobal setANCookieToRequest:request];
+        
         __weak ANTrackerManager  *weakSelf  = self;
-
-        [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL([NSURL URLWithString:URL])
+        
+        [[[NSURLSession sharedSession] dataTaskWithRequest: request
                                          completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
                                             {
                                                 if (error) {
@@ -165,8 +171,10 @@
     [trackerArrayCopy enumerateObjectsUsingBlock:^(ANTrackerInfo *info, NSUInteger idx, BOOL *stop) 
         {
             if (info.isExpired)  { return; }
-
-            [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL([NSURL URLWithString:info.URL])
+            NSMutableURLRequest  *retryrequest    = ANBasicRequestWithURL([NSURL URLWithString:info.URL]);
+            [ANGlobal setANCookieToRequest:retryrequest];
+        
+            [[[NSURLSession sharedSession] dataTaskWithRequest:retryrequest
                                              completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
                                                 {
                                                     if (error) 

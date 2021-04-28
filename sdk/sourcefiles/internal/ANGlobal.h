@@ -126,7 +126,7 @@ void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo);
 CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
-NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
+NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
 CGRect ANStatusBarFrame(void);
@@ -156,4 +156,7 @@ UIInterfaceOrientation ANStatusBarOrientation(void);
 + (nullable NSMutableURLRequest *) adServerRequestURL;
 
 + (void) setWebViewCookie:(nonnull WKWebView*)webView;
+
++ (void) setANCookieToRequest:(nonnull NSMutableURLRequest *)request;
+
 @end
