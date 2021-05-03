@@ -120,7 +120,7 @@
     [self.bannerSuperView addSubview:self.banner];
     
     self.loadAdShouldResizeAdToFitContainerExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
                                  }];
@@ -156,7 +156,7 @@
     [self.bannerSuperView addSubview:self.banner];
     
     self.loadAdShouldResizeAdToFitContainerExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
                                  }];

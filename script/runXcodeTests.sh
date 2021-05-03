@@ -148,7 +148,7 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 STATIC_LIST_OF_SCHEMES="
     #AppNexusNativeSDK
     #AppNexusSDK
-    #NativeSDKTestApp
+    NativeSDKTestApp
     UnitTestApp
 "
 
@@ -179,10 +179,10 @@ STATIC_LIST_OF_VERSIONS_AND_DEVICES="
     #13.4,iPhone_8_Plus
     #13.4.1,iPhone_6s
     #13.4.1,iPhone_7
-    13.4.1,iPhone_8
+    #13.4.1,iPhone_8
     #13.4.1,iPhone_8_Plus
     #13.4.1,iPhone_SE
-    13.4.1,iPhone_11
+    #13.4.1,iPhone_11
     #13.4.1,iPhone_11_Pro
     #13.4.1,iPhone_11_Pro_Max
     #13.5,iPhone_11
@@ -191,6 +191,8 @@ STATIC_LIST_OF_VERSIONS_AND_DEVICES="
     #13.5,iPhone_8
     #13.5,iPhone_8_Plus
     #13.5,iPhone_SE
+    14.4,iPhone_11
+    14.4,iPhone_12
 "
 
 

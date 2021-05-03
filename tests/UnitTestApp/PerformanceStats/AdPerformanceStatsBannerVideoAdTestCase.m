@@ -33,7 +33,6 @@
 @implementation AdPerformanceStatsBannerVideoAdTestCase
 
 - (void)setUp {
-    [self clearAd];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -69,7 +68,7 @@
     self.bannerAd = [[ANBannerAdView alloc] initWithFrame:frame
                                               placementId:placement
                                                    adSize:size];
-    self.bannerAd.forceCreativeId = 182192610;
+    self.bannerAd.forceCreativeId = 182434863;
     self.bannerAd.autoRefreshInterval = 0;
     self.bannerAd.delegate = self;
     self.bannerAd.shouldAllowVideoDemand = YES;
@@ -91,7 +90,7 @@
     [[ANTimeTracker sharedInstance] setTimeAt:PERFORMANCESTATSRTBAD_FIRST_REQUEST];
     
     self.firstLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];
@@ -104,7 +103,7 @@
     
     
     self.secondLoadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];

@@ -13,8 +13,6 @@
  limitations under the License.
  */
 #import <XCTest/XCTest.h>
-
-#import <XCTest/XCTest.h>
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "TestANUniversalFetcher.h"
@@ -31,7 +29,7 @@
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
     #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
-static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
+static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 30.0;
 static NSString  *PlacementID  = @"9924001";
 
 static const NSInteger UNABLE_TO_FILL = 2 ;
@@ -58,8 +56,6 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 @property (nonatomic, strong) XCTestExpectation *CSRAdInvalidRequestErrorExpectation;
 @property (nonatomic, strong) XCTestExpectation *CSRAdServerErrorExpectation;
 @property (nonatomic, strong) XCTestExpectation *CSRAdInternalErrorExpectation;
-@property (nonatomic, strong) XCTestExpectation *CSRAdWillExpireExpectation;
-@property (nonatomic, strong) XCTestExpectation *CSRAdDidExpireExpectation;
 
 @property (nonatomic) NSString *testcase;
 @property (nonatomic) UIView *nativeView;
@@ -72,22 +68,12 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 - (void)setUp {
     [super setUp];
     
-    [self clearObject];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
-    
-    self.nativeRequest = [[ANNativeAdRequest alloc] init];
-    self.nativeRequest.delegate =            self;
-    
-    
     [SDKValidationURLProtocol setDelegate:self];
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
-    
-    self.nativeView=[[UIView alloc]initWithFrame:CGRectMake(0, 100, 300, 250)];
-    
-    
 }
 
 - (void)tearDown {
@@ -102,7 +88,6 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
-    
     // Clear all expectations for next test
     self.CSRAdDidReceivedExpectation = nil;
     self.CSRAdFiredImpressionTrackerExpectation = nil;
@@ -116,17 +101,17 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     self.CSRAdInvalidRequestErrorExpectation = nil;
     self.CSRAdServerErrorExpectation = nil;
     self.CSRAdInternalErrorExpectation = nil;
+    self.nativeView = nil;
+    self.nativeRequest.delegate = nil;
     self.nativeRequest = nil;
+    self.nativeResponse.delegate = nil;
     self.nativeResponse = nil;
-    [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
-    for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
-        [additionalView removeFromSuperview];
-    }
+    [SDKValidationURLProtocol setDelegate:nil];
+    [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
 }
 
 - (void)testUTRequestWithAudienceNetwork
 {
-    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:200];
     TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
@@ -150,6 +135,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
         [expectation fulfill];
     });
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
 }
 
 
@@ -343,13 +329,15 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
         
         [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
 }
 
 
 
 - (void)testCSRBannerNativeDidReceived
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeDidReceived";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
     self.CSRAdDidReceivedExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
@@ -366,6 +354,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRAdFiredImpressionTracker
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"CSRAdFiredImpressionTrackerExpectation";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
     self.CSRAdFiredImpressionTrackerExpectation = [self expectationWithDescription:@"Didn't receive Impression Tracker event"];
@@ -379,6 +369,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRAdFiredOMIDTracker
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"CSRAdFiredOMIDTrackerExpectation";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
     self.CSRAdFiredOMIDTrackerExpectation = [self expectationWithDescription:@"Didn't receive OMID Tracker event"];
@@ -392,6 +384,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRAdFiredClickTracker
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"CSRAdFiredClickTrackerExpectation";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
     self.CSRAdFiredClickTrackerExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
@@ -406,6 +400,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithNetworkError
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithNetworkError";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1000"];
     self.CSRAdNetWorkErrorExpectation = [self expectationWithDescription:@"Didn't receive network error"];
@@ -419,6 +415,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithUnableToFill
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithUnableToFill";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1001"];
     self.CSRAdUnableToFillErrorExpectation = [self expectationWithDescription:@"Didn't receive unable to fill error"];
@@ -432,6 +430,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithLoadTooFrequently
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithLoadTooFrequently";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1002"];
     self.CSRAdLoadTooFrequentlyErrorExpectation = [self expectationWithDescription:@"Didn't receive load too frequently"];
@@ -445,6 +445,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithDisplayFormatMismatch
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithDisplayFormatMismatch";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1011"];
     self.CSRAdDisplayFormatMismatchErrorExpectation = [self expectationWithDescription:@"Didn't receive display format mismatch"];
@@ -458,6 +460,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithSDKVersionUnsupported
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithSDKVersionUnsupported";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1012"];
     self.CSRAdSDKVersionUnsupportedErrorExpectation = [self expectationWithDescription:@"Didn't receive sdk version unsupported"];
@@ -471,6 +475,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithInvalidRequest
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithInvalidRequest";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_1203"];
     self.CSRAdInvalidRequestErrorExpectation = [self expectationWithDescription:@"Didn't receive invalid request"];
@@ -484,6 +490,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithServerError
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithServerError";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_2000"];
     self.CSRAdServerErrorExpectation = [self expectationWithDescription:@"Didn't receive server error"];
@@ -497,6 +505,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testCSRBannerNativeWithInternalError
 {
+    self.nativeRequest = [[ANNativeAdRequest alloc] init];
+    self.nativeRequest.delegate = self;
     self.testcase = @"testCSRBannerNativeWithInternalError";
     [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native_withError_Default"];
     self.CSRAdInternalErrorExpectation = [self expectationWithDescription:@"Didn't receive internal error"];
@@ -508,77 +518,13 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     
 }
 
-
-- (void)testCSRAdWillExpireWithSettingAboutToExpireTimeIntervalGreaterThanUpperValue
-{
-    self.testcase = @"CSRAdWillExpireExpectation";
-    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
-    
-    [[ANSDKSettings sharedInstance] setNativeAdAboutToExpireInterval:4000];
-
-    self.CSRAdWillExpireExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
-    [self.nativeRequest loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    XCTAssertEqual(ANSDKSettings.sharedInstance.nativeAdAboutToExpireInterval, 4000);
-    XCTAssertEqual(self.nativeResponse.aboutToExpireInterval, 60);
-
-    
-}
-
-
-
-- (void)testCSRAdWillExpireWithoutSettingAboutToExpireTimeInterval
-{
-    self.testcase = @"CSRAdWillExpireExpectation";
-    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
-
-    [[ANSDKSettings sharedInstance] setNativeAdAboutToExpireInterval:0];
-
-    self.CSRAdWillExpireExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
-    [self.nativeRequest loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    XCTAssertEqual([ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval, 60);
-    XCTAssertEqual(self.nativeResponse.aboutToExpireInterval, 60);
-
-    
-}
-
-- (void)testCSRAdWillExpire
-{
-    self.testcase = @"CSRAdWillExpireExpectation";
-    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
-    [[ANSDKSettings sharedInstance] setNativeAdAboutToExpireInterval:30];
-
-    self.CSRAdWillExpireExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
-    [self.nativeRequest loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-        
-    }];
-    
-    self.CSRAdDidExpireExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-     [self waitForExpectationsWithTimeout:3 * kAppNexusRequestTimeoutInterval
-                                  handler:nil];
-    
-    XCTAssertEqual([ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval, self.nativeResponse.aboutToExpireInterval);
-
-}
-
 #pragma mark - ANAdDelegate
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
+    self.nativeView=[[UIView alloc]initWithFrame:CGRectMake(0, 100, 300, 250)];
     self.nativeResponse = (ANNativeAdResponse *)response;
     self.nativeResponse.delegate = self;
-    [self.CSRAdDidReceivedExpectation fulfill];
     
     ANAdAdapterCSRNativeBannerFacebook *fbNativeBanner = (ANAdAdapterCSRNativeBannerFacebook *)response.customElements[kANNativeCSRObject];
     
@@ -589,19 +535,11 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
                      withRootViewController:self
                               iconImageView:imageview];
     
+    [self.CSRAdDidReceivedExpectation fulfill];
+    self.CSRAdDidReceivedExpectation = nil;
+    
     
 }
-
-- (void)adDidExpire:(nonnull id)response {
-    NSLog(@"adDidExpire");
-    [self.CSRAdDidExpireExpectation fulfill];
-}
-
-- (void)adWillExpire:(nonnull id)response {
-    NSLog(@"adWillExpire");
-    [self.CSRAdWillExpireExpectation fulfill];
-}
-
 
 - (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
 {
@@ -685,7 +623,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
         // Only assert if it has been setup to assert.
         [self.CSRAdFiredImpressionTrackerExpectation fulfill];
         
-    }else if ( self.CSRAdFiredOMIDTrackerExpectation && [response containsString:@"http://iabtechlab.com:66/sendMessage?msg="]) {
+    }else if ( self.CSRAdFiredOMIDTrackerExpectation && [response containsString:@"https://complianceomsdk.iabtechlab.com/omsdk/sendmessage?msg="]) {
         // Only assert if it has been setup to assert.
         [self.CSRAdFiredOMIDTrackerExpectation fulfill];
         

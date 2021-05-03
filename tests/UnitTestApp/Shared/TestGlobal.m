@@ -24,9 +24,9 @@ limitations under the License.
 NSTimeInterval  kWaitQuarterSecond  = 0.25;
 NSTimeInterval  kWaitOneSecond      = 1;
 NSTimeInterval  kWaitTwoSeconds     = 2;
-NSTimeInterval  kWaitShort          = 5;
-NSTimeInterval  kWaitLong           = 10;
-NSTimeInterval  kWaitVeryLong       = 15;
+NSTimeInterval  kWaitShort          = 10;
+NSTimeInterval  kWaitLong           = 20;
+NSTimeInterval  kWaitVeryLong       = 30;
 
 
 

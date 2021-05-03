@@ -60,6 +60,8 @@
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
         [additionalView removeFromSuperview];
     }
+    [SDKValidationURLProtocol setDelegate:nil];
+    [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
 }
 
 #pragma mark - Test methods.

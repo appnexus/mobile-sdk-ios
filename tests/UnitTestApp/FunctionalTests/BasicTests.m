@@ -25,7 +25,7 @@
 
 @implementation BasicTests
 
-float const BASIC_TEST_TIMEOUT = 10.0;
+float const BASIC_TEST_TIMEOUT = 60.0;
 
 - (void)setUp {
     [super setUp];

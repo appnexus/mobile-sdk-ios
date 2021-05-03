@@ -60,7 +60,7 @@
 
 - (void)setUp {
     [super setUp];
-    [ANLogManager setANLogLevel:ANLogLevelAll];
+
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];
@@ -72,6 +72,7 @@
 - (void)tearDown {
     [super tearDown];
 
+    self.adRequest.delegate = nil;
     self.adRequest = nil;
     self.delegateCallbackExpectation = nil;
     self.successfulAdCall = NO;
@@ -206,7 +207,7 @@
     
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:nil];
     self.requestExpectation = nil;
     

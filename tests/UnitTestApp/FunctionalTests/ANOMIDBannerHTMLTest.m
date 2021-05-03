@@ -93,6 +93,10 @@
     self.bannerAdView.delegate = nil;
     self.bannerAdView.appEventDelegate = nil;
     self.bannerAdView = nil;
+    [self.interstitial removeFromSuperview];
+    self.interstitial.delegate = nil;
+    self.interstitial.appEventDelegate = nil;
+    self.interstitial = nil;
     [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
 
@@ -103,10 +107,9 @@
     self.OMID100PercentViewableExpectation = nil;
     self.OMIDImpressionEventExpectation = nil;
     self.OMIDAdSessionIDUpdateExpectaion = nil;
+    self.OMIDMediaTypeExpectation = nil;
     self.adSessionIdForFirstAd = @"";
     self.adSessionIdForSecondAd = @"";
-    self.interstitial = nil;
-    self.OMIDMediaTypeExpectation = nil;
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -335,6 +338,7 @@
 
         if ([data containsString:@"impressionType"] && [data containsString:@"viewable"] && [data containsString:@"mediaType"] && [data containsString:@"display"] &&  [data containsString:@"creativeType"] && [data containsString:@"htmlDisplay"] && self.OMIDMediaTypeExpectation) {
                [self.OMIDMediaTypeExpectation fulfill];
+               self.OMIDMediaTypeExpectation = nil;
            }
         
         if (self.OMIDSupportedExpecation && [data containsString:@"OmidSupported[true]"]) {

@@ -38,7 +38,7 @@
     
    self.loadAdSuccesfulException = [self expectationWithDescription:@"Timer Exception"];
    
-   [self waitForExpectationsWithTimeout:1 handler:nil];
+   [self waitForExpectationsWithTimeout:10 handler:nil];
    XCTAssertTrue(self.oneSecTimerNotification);
     
 }

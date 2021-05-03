@@ -107,7 +107,7 @@
     XCTAssertEqual(self.totalAdCount, self.mar.countOfAdUnits);
     
     
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
         
     }];
@@ -176,7 +176,7 @@
 
     [self.mar load];
     self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
     XCTAssertTrue(self.receiveAdSuccess);

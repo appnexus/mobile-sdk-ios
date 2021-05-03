@@ -56,7 +56,7 @@
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
     [self.adRequest setPlacementId:placement];
-
+    self.adRequest.forceCreativeId = 142877136;
     
     
 }

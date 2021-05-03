@@ -90,6 +90,7 @@
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    [SDKValidationURLProtocol setDelegate:nil];
     [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
     [self.bannerAdView removeFromSuperview];
     [self.friendlyObstruction removeFromSuperview];

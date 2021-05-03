@@ -396,6 +396,7 @@
 		38A8E169248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1000.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A8E161248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_1000.json */; };
 		38A8E16A248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1011.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A8E162248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_1011.json */; };
 		38A8E16B248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_2000.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A8E163248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_2000.json */; };
+		38AD997B26315DFF008A529C /* ANCSRNativeTimeExpireTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AD997A26315DFF008A529C /* ANCSRNativeTimeExpireTests.m */; };
 		38B3C2DE250E218900CFECBD /* ANBannerAdViewTransitionsFadeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B3C2DD250E218900CFECBD /* ANBannerAdViewTransitionsFadeTestCase.m */; };
 		38B3C2E1250E23B300CFECBD /* ANJAMCustomKeywordsResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B3C2E0250E23B300CFECBD /* ANJAMCustomKeywordsResponseTestCase.m */; };
 		38E70DA7250BA90B00232652 /* ANBannerNativeRenderingOMIDTrackingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E70DA6250BA90B00232652 /* ANBannerNativeRenderingOMIDTrackingTestCase.m */; };
@@ -598,6 +599,13 @@
 			remoteInfo = AppNexusNativeSDK;
 		};
 		0EEAF626229BC8BD0008CAC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EC17C2A21F72D1700F0F6AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EC17C3121F72D1700F0F6AF;
+			remoteInfo = UnitTestApp;
+		};
+		38E8F3F1263985BA00B4A84D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0EC17C2A21F72D1700F0F6AF /* Project object */;
 			proxyType = 1;
@@ -1048,6 +1056,7 @@
 		38A8E161248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_1000.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native_withError_1000.json; sourceTree = "<group>"; };
 		38A8E162248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_1011.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native_withError_1011.json; sourceTree = "<group>"; };
 		38A8E163248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_2000.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CSR_Facebook_Banner_Native_withError_2000.json; sourceTree = "<group>"; };
+		38AD997A26315DFF008A529C /* ANCSRNativeTimeExpireTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCSRNativeTimeExpireTests.m; sourceTree = "<group>"; };
 		38B3C2DD250E218900CFECBD /* ANBannerAdViewTransitionsFadeTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTransitionsFadeTestCase.m; sourceTree = "<group>"; };
 		38B3C2E0250E23B300CFECBD /* ANJAMCustomKeywordsResponseTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANJAMCustomKeywordsResponseTestCase.m; sourceTree = "<group>"; };
 		38E70D96250BA53C00232652 /* ANBannerAdOMIDViewablityPercent100TestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdOMIDViewablityPercent100TestCase.m; sourceTree = "<group>"; };
@@ -1337,6 +1346,7 @@
 			isa = PBXGroup;
 			children = (
 				0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */,
+				38AD997A26315DFF008A529C /* ANCSRNativeTimeExpireTests.m */,
 			);
 			path = CSR;
 			sourceTree = "<group>";
@@ -2143,6 +2153,7 @@
 			);
 			dependencies = (
 				0EB24C2822CBD243008E927F /* PBXTargetDependency */,
+				38E8F3F2263985BA00B4A84D /* PBXTargetDependency */,
 			);
 			name = NativeSDKTestAppTests;
 			productName = NativeSDKTestAppTests;
@@ -2773,6 +2784,7 @@
 				0EEFE193220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m in Sources */,
 				38E70DA7250BA90B00232652 /* ANBannerNativeRenderingOMIDTrackingTestCase.m in Sources */,
 				FC4E6F5B24E97B57003F2381 /* ANBannerNativeRenderingTestCase.m in Sources */,
+				38AD997B26315DFF008A529C /* ANCSRNativeTimeExpireTests.m in Sources */,
 				0EEFE1B322008A11002B5F5F /* ANBannerNativeTestCase.m in Sources */,
 				0EEFE18F220080D6002B5F5F /* ANBannerVideoAutoRefreshAdViewTestCase.m in Sources */,
 				0EEFE1882200762B002B5F5F /* ANBaseTestCase.m in Sources */,
@@ -2958,6 +2970,11 @@
 			target = 0EC17C3121F72D1700F0F6AF /* UnitTestApp */;
 			targetProxy = 0EEAF626229BC8BD0008CAC9 /* PBXContainerItemProxy */;
 		};
+		38E8F3F2263985BA00B4A84D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0EC17C3121F72D1700F0F6AF /* UnitTestApp */;
+			targetProxy = 38E8F3F1263985BA00B4A84D /* PBXContainerItemProxy */;
+		};
 		FC4E6F2C24E9779E003F2381 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0EC17C3121F72D1700F0F6AF /* UnitTestApp */;
@@ -3060,6 +3077,7 @@
 		0EB24C2F22CBD243008E927F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
@@ -3093,6 +3111,7 @@
 		0EB24C3022CBD243008E927F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;

@@ -71,6 +71,7 @@ limitations under the License.
 
 - (void)setUp
 {
+    [super setUp];
     self.adUnitsForTest  = [[MARAdUnits alloc] initWithDelegate:self];
 
     self.adUnitsForTest.banner.shouldServePublicServiceAnnouncements = NO;
@@ -93,6 +94,7 @@ limitations under the License.
 
 - (void)tearDown
 {
+    [super tearDown];
     [self clearCounters];
 }
 
@@ -160,6 +162,8 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    
+    [self clearCounters];
 }
 
 - (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
@@ -172,7 +176,6 @@ TMARK();
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
                                                    adUnits: self.adUnitsForTest.banner, nil];
-    [self clearCounters];
 
     [banner setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
     [self.mar load];
@@ -212,6 +215,8 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    
+    [self clearCounters];
 }
 
 - (void)testBannerAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
@@ -263,6 +268,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 
@@ -307,6 +313,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testInterstitialAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
@@ -319,13 +326,12 @@ TMARK();
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
                                                    adUnits: self.adUnitsForTest.interstitial, nil];
-    [self clearCounters];
 
     [interstitial setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
     [self.mar load];
 
     self.expectationAdUnitLoadResponseOrFailure = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadResponseOrFailure"];
-    [self waitForExpectationsWithTimeout:kWaitLong handler:nil];
+    [self waitForExpectationsWithTimeout:2* kWaitVeryLong handler:nil];
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenAllIsCorrect]);
@@ -359,6 +365,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testInterstitialAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
@@ -410,6 +417,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
@@ -453,6 +461,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
@@ -465,7 +474,6 @@ TMARK();
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
                                                    adUnits: self.adUnitsForTest.instreamVideo, nil];
-    [self clearCounters];
 
     [instreamVideo setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
     [self.mar load];
@@ -505,6 +513,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testVideoAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
@@ -556,6 +565,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses + self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testNativeAdUnitForDefaultTagIDResponseViaNobidWithoutMAR
@@ -599,6 +609,7 @@ TMARK();
 
     XCTAssertEqual(self.AdUnit_countOfReceiveFailures, 1);
     XCTAssertTrue([self.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
+    [self clearCounters];
 }
 
 - (void)testNativeAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedByMAR
@@ -611,7 +622,6 @@ TMARK();
     self.mar  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDDefault
                                                   delegate: self
                                                    adUnits: self.adUnitsForTest.native, nil];
-    [self clearCounters];
 
     [native setInventoryCode:self.inventoryCodeWithNobidGood memberId:self.adUnitsForTest.memberIDDefault];
     [self.mar load];
@@ -656,6 +666,7 @@ TMARK();
     } else {
         XCTAssertTrue([self.nativeResponse.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
     }
+    [self clearCounters];
 }
 
 - (void)testNativeAdUnitForDefaultTagIDResponseViaNobidWithMARLoadedIndepdently
@@ -717,6 +728,7 @@ TMARK();
     } else {
         XCTAssertTrue([self.nativeResponse.adResponseInfo.placementId isEqualToString:self.placementIDNobidResponseWhenInventoryCodeIsWrongAndPublisherIDIsDefined]);
     }
+    [self clearCounters];
 }
 
 

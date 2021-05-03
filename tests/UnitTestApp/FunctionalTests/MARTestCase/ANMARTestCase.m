@@ -397,7 +397,7 @@
     self.videoAd2.utRequestUUIDString = @"2";
 
     self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
     XCTAssertTrue(self.receiveAdSuccess);

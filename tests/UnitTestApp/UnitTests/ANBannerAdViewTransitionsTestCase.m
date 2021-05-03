@@ -85,7 +85,7 @@
     // Adding first content view
     UIView *catContentView = [self catContentView];
     [bannerAdView setContentView:catContentView];
-    [XCTestCase delayForTimeInterval:bannerAdView.transitionDuration + 0.1];
+    [XCTestCase delayForTimeInterval:bannerAdView.transitionDuration + 2.0f];
     XCTAssert([bannerAdView.transitionInProgress boolValue] == NO);
     XCTAssert([bannerAdView.subviews count] == 1);
     XCTAssert([bannerAdView.subviews firstObject] == catContentView);
@@ -93,7 +93,7 @@
     // Adding second content view
     UIView *dogContentView = [self dogContentView];
     [bannerAdView setContentView:dogContentView];
-    [XCTestCase delayForTimeInterval:bannerAdView.transitionDuration + 0.1];
+    [XCTestCase delayForTimeInterval:bannerAdView.transitionDuration + 2.0f];
     XCTAssert([bannerAdView.transitionInProgress boolValue] == NO);
     XCTAssert([[bannerAdView subviews] count] == 1);
     XCTAssert([bannerAdView.subviews firstObject] == dogContentView);

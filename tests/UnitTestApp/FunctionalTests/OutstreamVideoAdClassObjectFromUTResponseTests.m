@@ -22,11 +22,10 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
-#import "ANUniversalTagRequestBuilder.h"
 
 static NSString         *outstreamVideoPlacementID  = @"12534678";
 
-@interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase< ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation, 
+@interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase< ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
                                                                         ANVideoAdPlayerDelegate, ANAdProtocolVideo,
                                                                         ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement
                                                                       >
@@ -169,7 +168,6 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     return  delegateReturnDictionary;
 }
 
-
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
     //EMPTY
 }
@@ -263,6 +261,10 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 @synthesize inventoryCode;
 @synthesize minDuration;
 @synthesize landingPageLoadsInBackground;
-
+@synthesize extInvCode;
+@synthesize trafficSourceCode;
+@synthesize adType;
+@synthesize clickThroughAction;
+@synthesize forceCreativeId;
 
 @end

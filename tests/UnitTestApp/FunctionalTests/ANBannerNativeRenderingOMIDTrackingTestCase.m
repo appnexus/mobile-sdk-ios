@@ -122,7 +122,8 @@
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    [SDKValidationURLProtocol setDelegate:nil];
+    [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
 
 
 }
@@ -162,7 +163,7 @@
     [self waitForExpectations:@[self.expectationRequest, self.expectationResponse] timeout:600];
 
     // Delay added to allow OMID Event to fire
-    [XCTestCase delayForTimeInterval:20];
+    [XCTestCase delayForTimeInterval:40];
     XCTAssertTrue([self.requestData containsString:@"OmidSupported"]);
     XCTAssertTrue([self.requestData containsString:@"true"]);
     XCTAssertTrue([self.requestData containsString:@"sessionStart"]);
