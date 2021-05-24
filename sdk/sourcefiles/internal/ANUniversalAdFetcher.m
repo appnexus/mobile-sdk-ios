@@ -517,12 +517,10 @@
 
 - (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (nonnull ANVideoAdPlayer *)adVideo
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
             [self processFinalResponse:adFetcherResponse];
         });
-    });
 }
 
 - (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoAdProcessor didFailVideoProcessing: (nonnull NSError *)error

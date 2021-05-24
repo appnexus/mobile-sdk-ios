@@ -165,7 +165,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     [self loadWebViewWithUserScripts];
     
     __weak ANAdWebViewController  *weakSelf  = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong ANAdWebViewController  *strongSelf  = weakSelf;
             if (!strongSelf)  {
@@ -173,7 +172,6 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
             }
             strongSelf.firstNavigation = [strongSelf.webView loadHTMLString:htmlToLoad baseURL:base];
         });
-    });
     
     return self;
 }
