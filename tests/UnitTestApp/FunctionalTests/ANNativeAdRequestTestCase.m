@@ -665,6 +665,57 @@
 }
 
 
+
+- (void)testNativeSDKRTBClickURLAd {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertEqualObjects(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"url"], @"http://www.appnexus.com");
+    
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"click_trackers"]);
+    
+    
+
+}
+
+
+- (void)testNativeSDKRTBClickURLNilAd {
+    [self stubRequestWithResponse:@"appnexus_standard_response_link"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"]);
+
+}
+
+
+
+
+- (void)testNativeSDKRTBClickFallbackURLAd {
+    [self stubRequestWithResponse:@"appnexus_standard_response_clickfallbackurl"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertEqualObjects(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"fallback_url"],@"https://xandr.com");
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"click_trackers"]);
+}
+
+
+- (void)testNativeSDKRTBClickFallbackURLNotFound {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"fallback_url"]);
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"click_trackers"]);
+
+}
+
 #pragma mark - Helper methods.
 
 - (void)validateGenericNativeAdObject {

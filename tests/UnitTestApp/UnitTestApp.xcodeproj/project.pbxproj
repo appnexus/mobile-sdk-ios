@@ -544,6 +544,7 @@
 		FC871DA225BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; };
 		FC871DA325BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; };
 		FC871DA425BB038F003144BC /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */; };
+		FCB2FA942636F1120004F84E /* appnexus_standard_response_clickfallbackurl.json in Resources */ = {isa = PBXBuildFile; fileRef = FCB2FA872636EECB0004F84E /* appnexus_standard_response_clickfallbackurl.json */; };
 		FCBF0CD624D1E3CC00EA4474 /* ANGlobal+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */; };
 		FCC235D525F12709004A5467 /* GoogleMobileAds.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */; };
 		FCC2362625F12A17004A5467 /* nanopb.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361C25F12A17004A5467 /* nanopb.xcframework */; };
@@ -553,6 +554,7 @@
 		FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */; };
 		FCE9649224EA5FBC002FA163 /* HTTPCookieTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4B24BF1AE100614011 /* HTTPCookieTestCase.m */; };
 		FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */; };
+		FCFDC62B263976E800959312 /* appnexus_standard_response_link.json in Resources */ = {isa = PBXBuildFile; fileRef = FCFDC629263976E800959312 /* appnexus_standard_response_link.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1126,6 +1128,7 @@
 		FC4E6F2824E9779E003F2381 /* ReleaseTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseTestAppTests.m; sourceTree = "<group>"; };
 		FC4E6F2A24E9779E003F2381 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = mediationsdk/FacebookSDK/FBAudienceNetwork.framework; sourceTree = SOURCE_ROOT; };
+		FCB2FA872636EECB0004F84E /* appnexus_standard_response_clickfallbackurl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = appnexus_standard_response_clickfallbackurl.json; sourceTree = "<group>"; };
 		FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANGlobal+ANTest.m"; sourceTree = "<group>"; };
 		FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleMobileAds.xcframework; sourceTree = "<group>"; };
 		FCC2361C25F12A17004A5467 /* nanopb.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nanopb.xcframework; sourceTree = "<group>"; };
@@ -1134,6 +1137,7 @@
 		FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleAppMeasurement.xcframework; sourceTree = "<group>"; };
 		FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleUtilities.xcframework; sourceTree = "<group>"; };
 		FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITrafficSourceCodeAndExtInvCode.m; sourceTree = "<group>"; };
+		FCFDC629263976E800959312 /* appnexus_standard_response_link.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response_link.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1238,8 +1242,10 @@
 		0E3F32D123CE68E300CA830D /* NativeResponses */ = {
 			isa = PBXGroup;
 			children = (
+				FCFDC629263976E800959312 /* appnexus_standard_response_link.json */,
 				0E3F32DF23CE68E300CA830D /* appnexus_multiple_trackers.json */,
 				0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */,
+				FCB2FA872636EECB0004F84E /* appnexus_standard_response_clickfallbackurl.json */,
 				0E3F32E123CE68E300CA830D /* bannerNative_basic_banner.json */,
 				0E3F32E023CE68E300CA830D /* bannerNative_native_mediation.json */,
 				0E3F32E323CE68E300CA830D /* custom_adapter_fb_mediated_response.json */,
@@ -2453,6 +2459,7 @@
 				97FFD0532372DA7900412B20 /* ANAdResponseCSM_Banner.json in Resources */,
 				FC4C72D624FEFD8500379108 /* ANAdResponseCSM_BannerFail.json in Resources */,
 				97FFD0522372DA7900412B20 /* ANAdResponseRTB_Banner.json in Resources */,
+				FCFDC62B263976E800959312 /* appnexus_standard_response_link.json in Resources */,
 				FC4C72D424FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json in Resources */,
 				97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */,
 				FC4C72D224FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json in Resources */,
@@ -2506,6 +2513,7 @@
 				0E3F32EE23CE68E300CA830D /* nativeResponse1.json in Resources */,
 				0E3F32EA23CE68E300CA830D /* nativeResponse2.json in Resources */,
 				0E3F32F423CE68E300CA830D /* nativeResponseWithoutImpTrackers.json in Resources */,
+				FCB2FA942636F1120004F84E /* appnexus_standard_response_clickfallbackurl.json in Resources */,
 				0E3F32F023CE68E300CA830D /* no_ads_ok_response.json in Resources */,
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
 				979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */,
