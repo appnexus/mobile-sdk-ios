@@ -328,9 +328,21 @@ BOOL ANStatusBarHidden(){
 UIInterfaceOrientation ANStatusBarOrientation()
 {
     UIInterfaceOrientation statusBarOrientation;
+    
     if (@available(iOS 13.0, *)) {
-        statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
-    }else {
+        // On application launch, the value of [UIApplication sharedApplication].windows is nil, in this case, the [ANGlobal getKeyWindow] returns the nil, then it picks device Orientation based screen size.
+
+        if([ANGlobal getKeyWindow] != nil){
+            statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
+        }else{
+            CGSize screenSize = [UIScreen mainScreen].bounds.size;
+            if (screenSize.height < screenSize.width) {
+                statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+            }else{
+                statusBarOrientation = UIInterfaceOrientationPortrait;
+            }
+        }
+    }else{
         statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     }
     return statusBarOrientation;
