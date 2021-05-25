@@ -63,7 +63,7 @@
 - (void)setUp {
     [super setUp];
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    ANSetNotificationsEnabled(YES);
+    [ANLogManager setNotificationsEnabled:YES];
 
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
@@ -110,6 +110,7 @@
     self.OMIDMediaTypeExpectation = nil;
     self.adSessionIdForFirstAd = @"";
     self.adSessionIdForSecondAd = @"";
+    [ANLogManager setNotificationsEnabled:NO];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

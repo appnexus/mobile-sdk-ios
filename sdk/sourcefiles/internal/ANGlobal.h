@@ -122,7 +122,7 @@ NSString *__nullable ANConvertToNSString(id __nullable value);
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *__nullable ANMRAIDBundlePath(void);
 BOOL ANHasHttpPrefix(NSString  * __nonnull url);
-void ANSetNotificationsEnabled(BOOL enabled);
+
 void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo);
 CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);

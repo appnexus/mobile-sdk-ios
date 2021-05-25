@@ -47,4 +47,15 @@ typedef NS_ENUM(NSUInteger, ANLogLevel) {
  */
 + (void)setANLogLevel:(ANLogLevel)level;
 
+/**
+ Enable  to subscribe for Notifications
+ */
++ (void)setNotificationsEnabled:(BOOL )enabled;
+
+/**
+  Get Notification Status
+ */
++ (BOOL)isNotificationsEnabled;
+
+
 @end

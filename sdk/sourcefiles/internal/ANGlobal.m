@@ -209,14 +209,8 @@ BOOL ANHasHttpPrefix(NSString * __nonnull url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
 }
 
-static BOOL notificationsEnabled = NO;
-
-void ANSetNotificationsEnabled(BOOL enabled) {
-    notificationsEnabled = enabled;
-}
-
 void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo) {
-    if (notificationsEnabled) {
+    if ([ANLogManager isNotificationsEnabled]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                             object:object
                                                           userInfo:userInfo];
