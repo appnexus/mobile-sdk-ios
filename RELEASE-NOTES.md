@@ -1,10 +1,11 @@
 ## 7.14
 ### New Feature
-* MS-4761 Added API to subscribe for SDK logs notifications for Ad request for debugging/troubleshoot purposes.
+* MS-4761 Added a new API to enable subscription to SDK logs for debugging/troubleshooting purposes. https://docs.xandr.com/bundle/mobile-sdk/page/configure-sdk-logging-on-ios.html
+* MS-4711 Exposed API in Custom element to support clickUrl and clickFallbackUrl for Native Ad. https://docs.xandr.com/bundle/mobile-sdk/page/show-native-ads-on-ios.html
 ### Improvements/Bug Fixes
-* MS-4711 Exposed API in Custom element to support clickUrl and clickFallbackUrl for Native Ad (https://wiki.xandr.com/x/ppkFB).
-* MS-4753 Resolved the crash happening to Unknown Orientation on App Launch.
-* MS-4769 Removed Dispatch Async called twice. 
+* MS-4753 Resolved a stability issue in Interstitial Ad due to [UIApplication.windows] being nil during Application launch 
+* MS-4769 Removed duplicate calls to dispatch_async function from a couple of places
+
 
 ## 7.13
 ### New Feature
