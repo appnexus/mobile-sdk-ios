@@ -60,7 +60,7 @@
 
 - (void)setUp {
     [super setUp];
-    [ANLogManager setANLogLevel:ANLogLevelAll];
+
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];
@@ -72,6 +72,7 @@
 - (void)tearDown {
     [super tearDown];
 
+    self.adRequest.delegate = nil;
     self.adRequest = nil;
     self.delegateCallbackExpectation = nil;
     self.successfulAdCall = NO;
@@ -206,7 +207,7 @@
     
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:4 * kAppNexusRequestTimeoutInterval
                                  handler:nil];
     self.requestExpectation = nil;
     
@@ -663,6 +664,57 @@
     
 }
 
+
+
+- (void)testNativeSDKRTBClickURLAd {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertEqualObjects(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"url"], @"http://www.appnexus.com");
+    
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"click_trackers"]);
+    
+    
+
+}
+
+
+- (void)testNativeSDKRTBClickURLNilAd {
+    [self stubRequestWithResponse:@"appnexus_standard_response_link"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"]);
+
+}
+
+
+
+
+- (void)testNativeSDKRTBClickFallbackURLAd {
+    [self stubRequestWithResponse:@"appnexus_standard_response_clickfallbackurl"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertEqualObjects(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"fallback_url"],@"https://xandr.com");
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"click_trackers"]);
+}
+
+
+- (void)testNativeSDKRTBClickFallbackURLNotFound {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"fallback_url"]);
+    XCTAssertNil(self.adResponseInfo.customElements[@"ELEMENT"][@"link"][@"click_trackers"]);
+
+}
 
 #pragma mark - Helper methods.
 

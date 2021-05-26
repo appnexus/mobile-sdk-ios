@@ -209,14 +209,8 @@ BOOL ANHasHttpPrefix(NSString * __nonnull url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
 }
 
-static BOOL notificationsEnabled = NO;
-
-void ANSetNotificationsEnabled(BOOL enabled) {
-    notificationsEnabled = enabled;
-}
-
 void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo) {
-    if (notificationsEnabled) {
+    if ([ANLogManager isNotificationsEnabled]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                             object:object
                                                           userInfo:userInfo];
@@ -328,9 +322,21 @@ BOOL ANStatusBarHidden(){
 UIInterfaceOrientation ANStatusBarOrientation()
 {
     UIInterfaceOrientation statusBarOrientation;
+    
     if (@available(iOS 13.0, *)) {
-        statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
-    }else {
+        // On application launch, the value of [UIApplication sharedApplication].windows is nil, in this case, the [ANGlobal getKeyWindow] returns the nil, then it picks device Orientation based screen size.
+
+        if([ANGlobal getKeyWindow] != nil){
+            statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
+        }else{
+            CGSize screenSize = [UIScreen mainScreen].bounds.size;
+            if (screenSize.height < screenSize.width) {
+                statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+            }else{
+                statusBarOrientation = UIInterfaceOrientationPortrait;
+            }
+        }
+    }else{
         statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     }
     return statusBarOrientation;

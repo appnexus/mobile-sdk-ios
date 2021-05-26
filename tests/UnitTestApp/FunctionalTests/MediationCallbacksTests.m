@@ -19,7 +19,7 @@
 #import "ANAdResponseInfo.h"
 
 
-float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
+float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 20.0;   // seconds
 
 
 
@@ -57,6 +57,9 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
     
     _adLoadedMultiple = NO;
     _adFailedMultiple = NO;
+    self.adDidLoadCalled = NO;
+    self.adFailedToLoadCalled = NO;
+    [self clearTest];
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
@@ -68,7 +71,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
 - (void)test17
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kFauxMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterTimeout" ]] ];
-    [ANMockMediationAdapterTimeout setTimeout:MEDIATION_CALLBACKS_TESTS_TIMEOUT - 2];
+    [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval - 2];
 
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
@@ -85,7 +88,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
 - (void)test19Timeout
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterTimeout" ]]];
-    [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
+    [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval * 2];
 
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
@@ -146,7 +149,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
 
     XCTAssertEqual(didLoadValue, self.adDidLoadCalled, @"callback adDidLoad should be %d", didLoadValue);
     XCTAssertEqual((BOOL)!didLoadValue, self.adFailedToLoadCalled, @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
-
+    
     XCTAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
     XCTAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
 }

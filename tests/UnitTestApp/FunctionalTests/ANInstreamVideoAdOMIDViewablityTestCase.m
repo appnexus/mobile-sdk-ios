@@ -1,11 +1,11 @@
 /*   Copyright 2020 APPNEXUS INC
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,35 +62,30 @@ static NSString   *placementID      = @"12534678";
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
     [NSURLProtocol wk_registerScheme:@"http"];
     [NSURLProtocol wk_registerScheme:@"https"];
-    
+
     self.percentViewableFulfilled = NO;
     self.removeFriendlyObstruction = NO;
-    
+
     self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
-    
-    
+
+
 }
 
 - (void)tearDown {
     [super tearDown];
-    [self.instreamVideoAd removeFromSuperview];
-    self.instreamVideoAd = nil;
-    [self.banner removeFromSuperview];
-    self.banner.delegate = nil;
-    self.banner.appEventDelegate = nil;
-    self.banner = nil;
-    
+
     self.videoView = nil;
     self.friendlyObstruction = nil;
-    
+
     self.OMID100PercentViewableExpectation = nil;
     self.OMID0PercentViewableExpectation = nil;
     self.OMIDRemoveFriendlyObstructionExpectation = nil;
-    
+
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
+    [SDKValidationURLProtocol setDelegate:nil];
     [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
     [NSURLProtocol wk_unregisterScheme:@"http"];
     [NSURLProtocol wk_unregisterScheme:@"https"];
@@ -108,26 +103,26 @@ static NSString   *placementID      = @"12534678";
 {
     [self setupBannerVideoAd];
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
+    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
-    
+
     [self.banner loadAd];
-    
+
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
-        
+
     }];
-    
+
 }
 
 
 - (void)testOMIDInstreamVideoViewablePercent100
 {
     [self setupInstreamVideoAd];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
+    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
     [self.instreamVideoAd loadAdWithDelegate:self];
@@ -137,14 +132,14 @@ static NSString   *placementID      = @"12534678";
     [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
     }];
-    
+
 }
 
 
 - (void)testOMIDBannerVideoViewablePercentZero
 {
     [self setupBannerVideoAd];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
+    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
 
     self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
@@ -152,32 +147,32 @@ static NSString   *placementID      = @"12534678";
     self.percentViewableFulfilled = NO;
 
     [self.banner loadAd];
-    
+
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
-        
+
     }];
-    
+
 }
 
 
 - (void)testOMIDInstreamVideoViewablePercentZero
 {
-    
+
     [self setupInstreamVideoAd];
-    [self stubRequestWithResponse:@"OMID_VideoResponse"];
-    
+    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+
     self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
     self.removeFriendlyObstruction = YES;
     self.percentViewableFulfilled = NO;
     [self.instreamVideoAd loadAdWithDelegate:self];
 
-    
+
     [self waitForExpectationsWithTimeout: kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
-        
+
     }];
-    
+
 }
 
 
@@ -190,7 +185,7 @@ static NSString   *placementID      = @"12534678";
     self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
                                             placementId:placementID
                                                  adSize:CGSizeMake(300, 250)];
-    self.banner.accessibilityLabel = @"AdView";
+  //  self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowVideoDemand =  YES;
@@ -233,16 +228,16 @@ static NSString   *placementID      = @"12534678";
         self.videoView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
         [self.videoView setBackgroundColor:[UIColor yellowColor]];
         [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.videoView];
-        
-        
+
+
         [self.instreamVideoAd playAdWithContainer:self.videoView withDelegate:self];
-        
-        
-        
+
+
+
         [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
-        
-        
-        
+
+
+
     }
 }
 
@@ -253,28 +248,28 @@ static NSString   *placementID      = @"12534678";
 #pragma mark - ANInstreamVideoAdPlayDelegate.
 
 - (void)adDidComplete:(nonnull id<ANAdProtocol>)ad withState:(ANInstreamVideoPlaybackStateType)state {
-    
+
 }
 
 
 # pragma mark - Intercept HTTP Request Callback
 
 - (void)didReceiveIABResponse:(NSString *)response {
-    
+
     NSLog(@"OMID response %@",response);
     if ([response containsString:@"percentageInView"] && [response containsString:@"100"] && !self.percentViewableFulfilled) {
         self.percentViewableFulfilled = YES;
         [self.OMID100PercentViewableExpectation fulfill];
-        
+
     }
 
     if ([response containsString:@"percentageInView"] && [response containsString:@"0"] && self.removeFriendlyObstruction) {
         self.removeFriendlyObstruction = NO;
         [self.OMID0PercentViewableExpectation fulfill];
     }
-    
-    
-    
+
+
+
 }
 
 

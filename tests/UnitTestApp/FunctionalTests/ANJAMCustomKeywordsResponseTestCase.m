@@ -31,8 +31,6 @@
 @interface ANJAMCustomKeywordsResponseTestCase : XCTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) ANBannerAdView *adView;
 @property (nonatomic, strong) XCTestExpectation *customKeywordsExpectation;
-
-@property (nonatomic, strong) UIWebView *recordEventDelegateView;
 @end
 
 
@@ -65,7 +63,6 @@
     self.adView.appEventDelegate = nil;
     self.adView = nil;
     self.customKeywordsExpectation = nil;
-    self.recordEventDelegateView = nil;
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
       }
@@ -84,9 +81,7 @@
     [self.adView addCustomKeywordWithKey:@"randomkey" value:@"randomvalue"];
     self.adView.autoRefreshInterval =  0;
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:6 * kAppNexusRequestTimeoutInterval handler:nil];
-    self.customKeywordsExpectation = nil;
-    [self tearDown];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval handler:nil];
 }
 
 

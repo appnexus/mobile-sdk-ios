@@ -17,6 +17,7 @@
 
 static ANLogLevel  ANLOG_LEVEL  = ANLogLevelWarn;   //ANLogLevelAll
 
+static BOOL notificationsEnabled = NO;
 
 
 @implementation ANLogManager
@@ -27,6 +28,14 @@ static ANLogLevel  ANLOG_LEVEL  = ANLogLevelWarn;   //ANLogLevelAll
 
 + (void)setANLogLevel:(ANLogLevel)level {
     ANLOG_LEVEL = level;
+}
+
++ (void)setNotificationsEnabled:(BOOL )enabled{
+    notificationsEnabled = enabled;
+}
+
++ (BOOL)isNotificationsEnabled{
+    return notificationsEnabled;
 }
 
 @end

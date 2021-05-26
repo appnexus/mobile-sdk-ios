@@ -26,8 +26,8 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANAdWebViewController+ANTest.h"
 
-#define  MRAID_TESTS_TIMEOUT        10.0
-#define  MRAID_TESTS_DEFAULT_DELAY  1.5
+#define  MRAID_TESTS_TIMEOUT        60.0
+#define  MRAID_TESTS_DEFAULT_DELAY  6.0
 
 
 
@@ -92,6 +92,8 @@
    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
    [[ANHTTPStubbingManager sharedStubbingManager] disable];
    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+   self.webView = nil;
+   self.standardAdView = nil;
    self.banner.delegate = nil;
    self.banner.appEventDelegate = nil;
    [self.banner removeFromSuperview];
@@ -1488,63 +1490,63 @@
    
    [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(expectedOriginX, expectedOriginY) withSize:CGSizeMake(320.0f, 50.0f)];
    
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    ANAdWebViewController  *webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
    
    expectedOriginY = expectedHeight/2;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
    
    expectedOriginY = expectedHeight - 50;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
    
    expectedOriginY = expectedHeight - 40;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 80);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 40)));
    
    expectedOriginY = expectedHeight - 30;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 60);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 30)));
    
    expectedOriginY = expectedHeight - 20;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 40);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 20)));
    
    expectedOriginY = expectedHeight - 10;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 20);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 10)));
    
    expectedOriginY = expectedHeight;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 0);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 0, 0)));
    
    expectedOriginY = expectedHeight/5;
    [self updatePositionOfBanner:expectedOriginY];
-   [XCTestCase delayForTimeInterval:1];
+   [self delay:3];
    webViewController  = self.standardAdView.webViewController;
    XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
    XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
@@ -1554,18 +1556,11 @@
 
 - (void)clearTest
 {
-    self.webView = nil;
-    self.standardAdView = nil;
-
     [self removeBannerFromSuperview];
 
     if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     }
-
-   for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
-         [additionalView removeFromSuperview];
-     }
     [super clearTest];
 }
 
@@ -1739,33 +1734,33 @@
 }
 
 - (NSString *)getState {
-    return [self mraidNativeCall:@"getState()" withDelay:0];
+    return [self mraidNativeCall:@"getState()" withDelay:3];
 }
 
 - (NSString *)isViewable {
-    return [self mraidNativeCall:@"isViewable()" withDelay:0];
+    return [self mraidNativeCall:@"isViewable()" withDelay:3];
 }
 
 - (CGPoint)getScreenSize {
-    return CGPointMake([[self mraidNativeCall:@"getScreenSize()[\"width\"]" withDelay:0] floatValue], [[self mraidNativeCall:@"getScreenSize()[\"height\"]" withDelay:0] floatValue]);
+    return CGPointMake([[self mraidNativeCall:@"getScreenSize()[\"width\"]" withDelay:3] floatValue], [[self mraidNativeCall:@"getScreenSize()[\"height\"]" withDelay:3] floatValue]);
 }
 
 - (CGPoint)getMaxSize {
-    return CGPointMake([[self mraidNativeCall:@"getMaxSize()[\"width\"]" withDelay:0] floatValue], [[self mraidNativeCall:@"getMaxSize()[\"height\"]" withDelay:0] floatValue]);
+    return CGPointMake([[self mraidNativeCall:@"getMaxSize()[\"width\"]" withDelay:3] floatValue], [[self mraidNativeCall:@"getMaxSize()[\"height\"]" withDelay:3] floatValue]);
 }
 
 - (CGRect)getCurrentPosition {
-    return CGRectMake([[self mraidNativeCall:@"getCurrentPosition()[\"x\"]" withDelay:0] floatValue],
-                      [[self mraidNativeCall:@"getCurrentPosition()[\"y\"]" withDelay:0] floatValue],
-                      [[self mraidNativeCall:@"getCurrentPosition()[\"width\"]" withDelay:0] floatValue],
-                      [[self mraidNativeCall:@"getCurrentPosition()[\"height\"]" withDelay:0] floatValue]);
+    return CGRectMake([[self mraidNativeCall:@"getCurrentPosition()[\"x\"]" withDelay:3] floatValue],
+                      [[self mraidNativeCall:@"getCurrentPosition()[\"y\"]" withDelay:3] floatValue],
+                      [[self mraidNativeCall:@"getCurrentPosition()[\"width\"]" withDelay:3] floatValue],
+                      [[self mraidNativeCall:@"getCurrentPosition()[\"height\"]" withDelay:3] floatValue]);
 }
 
 - (CGRect)getDefaultPosition {
-    return CGRectMake([[self mraidNativeCall:@"getDefaultPosition()[\"x\"]" withDelay:0] floatValue],
-                      [[self mraidNativeCall:@"getDefaultPosition()[\"y\"]" withDelay:0] floatValue],
-                      [[self mraidNativeCall:@"getDefaultPosition()[\"width\"]" withDelay:0] floatValue],
-                      [[self mraidNativeCall:@"getDefaultPosition()[\"height\"]" withDelay:0] floatValue]);
+    return CGRectMake([[self mraidNativeCall:@"getDefaultPosition()[\"x\"]" withDelay:3] floatValue],
+                      [[self mraidNativeCall:@"getDefaultPosition()[\"y\"]" withDelay:3] floatValue],
+                      [[self mraidNativeCall:@"getDefaultPosition()[\"width\"]" withDelay:3] floatValue],
+                      [[self mraidNativeCall:@"getDefaultPosition()[\"height\"]" withDelay:3] floatValue]);
 }
 
 - (void)setOrientationPropertiesWithAllowOrientationChange:(BOOL)changeAllowed forceOrientation:(NSString *)orientation {
@@ -1774,40 +1769,40 @@
 }
 
 - (CGSize)getExpandPropertiesSize {
-    return CGSizeMake([[self mraidNativeCall:@"getExpandProperties()[\"width\"]" withDelay:0] floatValue], [[self mraidNativeCall:@"getExpandProperties()[\"height\"]" withDelay:0] floatValue]);
+    return CGSizeMake([[self mraidNativeCall:@"getExpandProperties()[\"width\"]" withDelay:3] floatValue], [[self mraidNativeCall:@"getExpandProperties()[\"height\"]" withDelay:3] floatValue]);
 }
 
 - (NSString *)getExpandPropertiesUseCustomClose { // want to test actual response against being "undefined"
-    return [self mraidNativeCall:@"getExpandProperties()[\"useCustomClose\"]" withDelay:0];
+    return [self mraidNativeCall:@"getExpandProperties()[\"useCustomClose\"]" withDelay:3];
 }
 
 - (NSString *)getExpandPropertiesIsModal { // want to validate actual response against being "undefined"
-    return [self mraidNativeCall:@"getExpandProperties()[\"isModal\"]" withDelay:0];
+    return [self mraidNativeCall:@"getExpandProperties()[\"isModal\"]" withDelay:3];
 }
 
 - (NSString *)getExpandPropertiesWidth {
-    return [self mraidNativeCall:@"getExpandProperties()[\"width\"]" withDelay:0];
+    return [self mraidNativeCall:@"getExpandProperties()[\"width\"]" withDelay:3];
 }
 
 - (NSString *)getExpandPropertiesHeight {
-    return [self mraidNativeCall:@"getExpandProperties()[\"height\"]" withDelay:0];
+    return [self mraidNativeCall:@"getExpandProperties()[\"height\"]" withDelay:3];
 }
 
 - (void)setExpandPropertiesExpandToSize:(CGSize)size useCustomClose:(BOOL)useCustomClose setModal:(BOOL)isModal {
     [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({width:%f, height: %f, useCustomClose: %@, isModal: %@});", size.width, size.height,
-                           useCustomClose ? @"true":@"false", isModal ? @"true":@"false"] withDelay:0];
+                           useCustomClose ? @"true":@"false", isModal ? @"true":@"false"] withDelay:3];
 }
     
 - (void)setExpandPropertiesExpandToSize:(CGSize)size {
-    [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({width:%f, height: %f});", size.width, size.height] withDelay:0];
+    [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({width:%f, height: %f});", size.width, size.height] withDelay:3];
 }
 
 - (void)setExpandPropertiesEmpty {
-    [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({});"] withDelay:0];
+    [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({});"] withDelay:3];
 }
 
 - (void)setResizePropertiesEmpty {
-    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({});"] withDelay:0];
+    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({});"] withDelay:3];
 }
 
 - (void)setResizePropertiesResizeToSize:(CGSize)size
@@ -1816,44 +1811,44 @@
                          allowOffscreen:(BOOL)allowOffscreen {
     NSString *offscreen = allowOffscreen ? @"true" : @"false";
     [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f, offsetX: %f, offsetY: %f, customClosePosition: '%@', allowOffscreen: %@});",
-                           size.width, size.height, offset.x, offset.y, position, offscreen] withDelay:0];
+                           size.width, size.height, offset.x, offset.y, position, offscreen] withDelay:3];
     
 }
 
 - (void)setResizePropertiesResizeToSize:(CGSize)size withOffset:(CGPoint)offset {
-    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f, offsetX: %f, offsetY: %f});", size.width, size.height, offset.x, offset.y] withDelay:0];
+    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f, offsetX: %f, offsetY: %f});", size.width, size.height, offset.x, offset.y] withDelay:3];
 }
 
 - (void)setResizePropertiesResizeToSize:(CGSize)size {
-    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f});", size.width, size.height] withDelay:0];
+    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f});", size.width, size.height] withDelay:3];
 }
 
 - (NSString *)getResizePropertiesWidth {
-    return [self mraidNativeCall:@"getResizeProperties()[\"width\"]" withDelay:0];
+    return [self mraidNativeCall:@"getResizeProperties()[\"width\"]" withDelay:3];
 }
 
 - (NSString *)getResizePropertiesHeight {
-    return [self mraidNativeCall:@"getResizeProperties()[\"height\"]" withDelay:0];
+    return [self mraidNativeCall:@"getResizeProperties()[\"height\"]" withDelay:3];
 }
 
 - (NSString *)getResizePropertiesOffsetX {
-    return [self mraidNativeCall:@"getResizeProperties()[\"offsetX\"]" withDelay:0];
+    return [self mraidNativeCall:@"getResizeProperties()[\"offsetX\"]" withDelay:3];
 }
 
 - (NSString *)getResizePropertiesOffsetY {
-    return [self mraidNativeCall:@"getResizeProperties()[\"offsetY\"]" withDelay:0];
+    return [self mraidNativeCall:@"getResizeProperties()[\"offsetY\"]" withDelay:3];
 }
 
 - (NSString *)getResizePropertiesCustomClosePosition {
-    return [self mraidNativeCall:@"getResizeProperties()[\"customClosePosition\"]" withDelay:0];
+    return [self mraidNativeCall:@"getResizeProperties()[\"customClosePosition\"]" withDelay:3];
 }
 
 - (NSString *)getResizePropertiesAllowOffscreen {
-    return [self mraidNativeCall:@"getResizeProperties()[\"allowOffscreen\"]" withDelay:0];
+    return [self mraidNativeCall:@"getResizeProperties()[\"allowOffscreen\"]" withDelay:3];
 }
 
 - (BOOL)supports:(NSString *)feature {
-    return [[self mraidNativeCall:[NSString stringWithFormat:@"supports('%@')", feature] withDelay:0] boolValue];
+    return [[self mraidNativeCall:[NSString stringWithFormat:@"supports('%@')", feature] withDelay:3] boolValue];
 }
 
 - (NSString *)evaluateJavascript:(NSString *)javascript {

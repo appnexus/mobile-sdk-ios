@@ -30,7 +30,7 @@
 #endif
 
 static NSString *const   kTestUUID              = @"0000-000-000-00";
-static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
+static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 40.0;
 
 static NSString  *placementID  = @"9924001";
 

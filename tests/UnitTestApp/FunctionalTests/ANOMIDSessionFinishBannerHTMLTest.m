@@ -41,8 +41,8 @@
 - (void)setUp {
     [super setUp];
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    ANSetNotificationsEnabled(YES);
-
+    [ANLogManager setNotificationsEnabled:YES];
+    
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
@@ -69,6 +69,7 @@
     self.bannerAdView = nil;
     [[ANGlobal getKeyWindow].rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
+    [ANLogManager setNotificationsEnabled:NO];
 
     // Clear all expectations for next test
     self.OMIDSessionFinishEventExpectation = nil;

@@ -151,7 +151,7 @@
     #if TARGET_IPHONE_SIMULATOR
     [self stubRequestWithResponse:@"ANJAMRecordEventResponse"];
     self.recordEventExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
-    ANSetNotificationsEnabled(YES);
+    [ANLogManager setNotificationsEnabled:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receivedLog:)
                                                  name:kANLoggingNotification
@@ -162,7 +162,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kANLoggingNotification
                                                   object:nil];
-    ANSetNotificationsEnabled(NO);
+    [ANLogManager setNotificationsEnabled:NO];
+
     #endif
     [self tearDown];
 }

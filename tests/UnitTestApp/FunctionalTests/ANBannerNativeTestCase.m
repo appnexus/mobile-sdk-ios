@@ -60,7 +60,7 @@
     TESTTRACE();
     [super setUp];
     
-    self.timeoutForImpbusRequest = 10.0;
+    self.timeoutForImpbusRequest = 20.0;
 
     self.foundNativeStandardAdResponseObject = NO;
     self.foundNativeMediatedAdResponseObject = NO;
@@ -465,7 +465,6 @@
 {
     TESTTRACE();
 
-    XCTAssertTrue(NO);
     [self.expectationResponse fulfill];
 }
 

@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.13"
+#define AN_SDK_VERSION                  @"7.14"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -122,7 +122,7 @@ NSString *__nullable ANConvertToNSString(id __nullable value);
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *__nullable ANMRAIDBundlePath(void);
 BOOL ANHasHttpPrefix(NSString  * __nonnull url);
-void ANSetNotificationsEnabled(BOOL enabled);
+
 void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo);
 CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);

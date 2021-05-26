@@ -143,7 +143,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 
 
-
 #pragma mark -
 
 @implementation ANUniversalTagAdServerResponse
@@ -687,8 +686,19 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     
     NSMutableDictionary *nativeAd = [nativeRTBObject mutableCopy];
     [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeImpTrackArray];
+
+    // Converted nativeAdLink as Mutable Dictionary
+    NSMutableDictionary *nativeAdLink = [nativeAd[kANUniversalTagAdServerResponseKeyNativeLink]  mutableCopy];
+
+    // Remove click Trackers from nativeAd's Link
+    [nativeAdLink removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeClickTrackArray];
+    // Remove link from nativeAd
     [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeLink];
+    // Remove javascript trackers from nativeAd
     [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeJavascriptTrackers];
+    // Re-add nativeAdLink into nativeAd without tracker
+    [nativeAd setValue:nativeAdLink forKey:kANUniversalTagAdServerResponseKeyNativeLink];
+
     NSDictionary *nativeJSON = @{ kANNativeElementObject : [nativeAd copy]};
     return nativeJSON;
 }
@@ -726,7 +736,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     if([nativeRTBObject isKindOfClass:[NSDictionary class]]){
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
 
-        NSDictionary *nativeJson  =  [self nativeJson:nativeRTBObject];
+        NSDictionary *nativeJson = [self nativeJson:nativeRTBObject];
         if(nativeJson){
             nativeAd.customElements = nativeJson;
         }
