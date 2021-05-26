@@ -1,3 +1,12 @@
+## 7.14
+### New Feature
+* MS-4761 Added a new API to enable subscription to SDK logs for debugging/troubleshooting purposes. https://docs.xandr.com/bundle/mobile-sdk/page/configure-sdk-logging-on-ios.html
+* MS-4711 Exposed API in Custom element to support clickUrl and clickFallbackUrl for Native Ad. https://docs.xandr.com/bundle/mobile-sdk/page/show-native-ads-on-ios.html
+### Improvements/Bug Fixes
+* MS-4753 Resolved a stability issue in Interstitial Ad due to [UIApplication.windows] being nil during Application launch 
+* MS-4769 Removed duplicate calls to dispatch_async function from a couple of places
+
+
 ## 7.13
 ### New Feature
 + MS-4693 Added support for Cookieless domain requests
