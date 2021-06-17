@@ -21,7 +21,8 @@ typedef NS_ENUM(NSUInteger, ANExternalUserIdSource) {
     ANExternalUserIdSourceLiveRamp,
     ANExternalUserIdSourceNetId,
     ANExternalUserIdSourceCriteo,
-    ANExternalUserIdSourceTheTradeDesk
+    ANExternalUserIdSourceTheTradeDesk,
+    ANExternalUserIdSourceUID2
 };
 
 

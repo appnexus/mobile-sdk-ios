@@ -813,6 +813,13 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
                                                  @"rti_partner"      : @"TDID"
                                              } ];
                 break;
+            case ANExternalUserIdSourceUID2:
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"uidapi.com",
+                                                 @"id"          : externaluserId.userId,
+                                                 @"rti_partner"      : @"UID2"
+                                             } ];
+                break;
         }
     }
     //

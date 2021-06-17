@@ -911,11 +911,16 @@ static NSString  *placementID  = @"9924001";
     tradeDeskUser.source = ANExternalUserIdSourceTheTradeDesk;
     tradeDeskUser.userId = @"00000111-91b1-49b2-ae37-17a8173dc36f";
     
+    ANExternalUserId *uid2User = [ANExternalUserId alloc];
+    uid2User.source = ANExternalUserIdSourceUID2;
+    uid2User.userId = @"uid2_3948249329482ok";
+    
     [tempExternalUserIdArray addObject:[[ANExternalUserId alloc] initWithSource:ANExternalUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
     [tempExternalUserIdArray addObject:[[ANExternalUserId alloc] initWithSource:ANExternalUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
     
     [tempExternalUserIdArray addObject:netIdUser];
     [tempExternalUserIdArray addObject:tradeDeskUser];
+    [tempExternalUserIdArray addObject:uid2User];
     
     ANSDKSettings.sharedInstance.externalUserIdArray = tempExternalUserIdArray;
     
@@ -927,6 +932,7 @@ static NSString  *placementID  = @"9924001";
     XCTestExpectation       *liveRampExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     XCTestExpectation       *tradeDeskExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     XCTestExpectation       *criteoExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *uid2Expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
@@ -945,9 +951,10 @@ static NSString  *placementID  = @"9924001";
         NSDictionary *eidDictionary = jsonDict[@"eids"];
         
         if (@available(iOS 14, *)) {
+            // External UIDs should be sent in /ut/v3 request only when  ATT Tracking status is authorized
         #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
                 if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
-                    XCTAssertEqual(eidDictionary.count, 4 );
+                    XCTAssertEqual(eidDictionary.count, 5 );
                     
                     NSUInteger count = [eidsArray count];
                     for (NSUInteger index = 0; index < count ; index++) {
@@ -976,6 +983,12 @@ static NSString  *placementID  = @"9924001";
                             XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
                             [tradeDeskExpectation fulfill];
                         }
+                        if([eidsArray[index][@"source"] isEqualToString: @"uidapi.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"uidapi.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"uid2_3948249329482ok");
+                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
+                            [uid2Expectation fulfill];
+                        }
                     }
                 }else {
                     
@@ -984,11 +997,12 @@ static NSString  *placementID  = @"9924001";
                     [criteoExpectation fulfill];
                     [netIDExpectation fulfill];
                     [liveRampExpectation fulfill];
+                    [uid2Expectation fulfill];
 
                     }
         #endif
             }else{
-                XCTAssertEqual(eidDictionary.count, 4 );
+                XCTAssertEqual(eidDictionary.count, 5 );
                 
                 NSUInteger count = [eidsArray count];
                 for (NSUInteger index = 0; index < count ; index++) {
@@ -1016,6 +1030,13 @@ static NSString  *placementID  = @"9924001";
                         XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
                         XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
                         [tradeDeskExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"uidapi.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"uidapi.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"uid2_3948249329482ok");
+                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
+                        [uid2Expectation fulfill];
                     }
                 }
     }

@@ -1242,10 +1242,10 @@
 		0E3F32D123CE68E300CA830D /* NativeResponses */ = {
 			isa = PBXGroup;
 			children = (
-				FCFDC629263976E800959312 /* appnexus_standard_response_link.json */,
 				0E3F32DF23CE68E300CA830D /* appnexus_multiple_trackers.json */,
 				0E3F32DD23CE68E300CA830D /* appnexus_standard_response.json */,
 				FCB2FA872636EECB0004F84E /* appnexus_standard_response_clickfallbackurl.json */,
+				FCFDC629263976E800959312 /* appnexus_standard_response_link.json */,
 				0E3F32E123CE68E300CA830D /* bannerNative_basic_banner.json */,
 				0E3F32E023CE68E300CA830D /* bannerNative_native_mediation.json */,
 				0E3F32E323CE68E300CA830D /* custom_adapter_fb_mediated_response.json */,
@@ -1351,8 +1351,8 @@
 		0E5529AF2419202900D50C51 /* CSR */ = {
 			isa = PBXGroup;
 			children = (
-				0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */,
 				38AD997A26315DFF008A529C /* ANCSRNativeTimeExpireTests.m */,
+				0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */,
 			);
 			path = CSR;
 			sourceTree = "<group>";
@@ -1711,11 +1711,11 @@
 		0EC17C3321F72D1700F0F6AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC4E6F2624E9779E003F2381 /* PerformanceAndOMIDTest.xctest */,
 				0EC17C5D21F72EC500F0F6AF /* FunctionalTests.xctest */,
 				0EEAF621229BC8BD0008CAC9 /* FunctionalUITests.xctest */,
 				0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */,
 				0EB24C2622CBD243008E927F /* NativeSDKTestAppTests.xctest */,
+				FC4E6F2624E9779E003F2381 /* PerformanceAndOMIDTest.xctest */,
 				0EC17C3221F72D1700F0F6AF /* UnitTestApp.app */,
 				0EC17C4F21F72EA300F0F6AF /* UnitTests.xctest */,
 			);
@@ -1842,8 +1842,8 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
+				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2459,7 +2459,6 @@
 				97FFD0532372DA7900412B20 /* ANAdResponseCSM_Banner.json in Resources */,
 				FC4C72D624FEFD8500379108 /* ANAdResponseCSM_BannerFail.json in Resources */,
 				97FFD0522372DA7900412B20 /* ANAdResponseRTB_Banner.json in Resources */,
-				FCFDC62B263976E800959312 /* appnexus_standard_response_link.json in Resources */,
 				FC4C72D424FEFCAE00379108 /* ANAdResponseRTB_BannerFail.json in Resources */,
 				97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */,
 				FC4C72D224FEFC1C00379108 /* ANAdResponseRTB_NativeFail.json in Resources */,
@@ -2482,6 +2481,8 @@
 				0E1D14B522784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
 				0E3F32F123CE68E300CA830D /* appnexus_multiple_trackers.json in Resources */,
 				0ECDA6292406DC7F000E134D /* appnexus_standard_response.json in Resources */,
+				FCB2FA942636F1120004F84E /* appnexus_standard_response_clickfallbackurl.json in Resources */,
+				FCFDC62B263976E800959312 /* appnexus_standard_response_link.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0E3F32F323CE68E300CA830D /* bannerNative_basic_banner.json in Resources */,
@@ -2513,7 +2514,6 @@
 				0E3F32EE23CE68E300CA830D /* nativeResponse1.json in Resources */,
 				0E3F32EA23CE68E300CA830D /* nativeResponse2.json in Resources */,
 				0E3F32F423CE68E300CA830D /* nativeResponseWithoutImpTrackers.json in Resources */,
-				FCB2FA942636F1120004F84E /* appnexus_standard_response_clickfallbackurl.json in Resources */,
 				0E3F32F023CE68E300CA830D /* no_ads_ok_response.json in Resources */,
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
 				979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */,
@@ -2792,10 +2792,10 @@
 				0EEFE193220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m in Sources */,
 				38E70DA7250BA90B00232652 /* ANBannerNativeRenderingOMIDTrackingTestCase.m in Sources */,
 				FC4E6F5B24E97B57003F2381 /* ANBannerNativeRenderingTestCase.m in Sources */,
-				38AD997B26315DFF008A529C /* ANCSRNativeTimeExpireTests.m in Sources */,
 				0EEFE1B322008A11002B5F5F /* ANBannerNativeTestCase.m in Sources */,
 				0EEFE18F220080D6002B5F5F /* ANBannerVideoAutoRefreshAdViewTestCase.m in Sources */,
 				0EEFE1882200762B002B5F5F /* ANBaseTestCase.m in Sources */,
+				38AD997B26315DFF008A529C /* ANCSRNativeTimeExpireTests.m in Sources */,
 				FC4E6F5324E97966003F2381 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */,
 				0ED6435524323402006B2A2E /* ANFBSettings.m in Sources */,
 				FCBF0CD624D1E3CC00EA4474 /* ANGlobal+ANTest.m in Sources */,
@@ -2904,6 +2904,7 @@
 				FC4E6F3C24E977DA003F2381 /* AdPerformanceStatsVideoAdTestCase.m in Sources */,
 				FC4E6F4D24E978F3003F2381 /* ANAdFetcherBase+ANTest.m in Sources */,
 				FC4E6F3D24E977EA003F2381 /* ANAdOMIDViewablityTestCase.m in Sources */,
+				FC45C02A264FE16B0042D09B /* ANAdView+ANTest.m in Sources */,
 				FC4E6F4B24E978C9003F2381 /* ANAdWebViewController+ANTest.m in Sources */,
 				389A7473250BAC850075AB70 /* ANBannerAdOMIDViewablityPercent100LaterTestCase.m in Sources */,
 				389A7472250BAC800075AB70 /* ANBannerAdOMIDViewablityPercent100TestCase.m in Sources */,
@@ -2914,7 +2915,6 @@
 				389A7479250BACC10075AB70 /* ANBannerVideoAdOMIDRemoveAllFriendlyObstructionTestcase.m in Sources */,
 				389A7478250BACBC0075AB70 /* ANBannerVideoAdOMIDRemoveFriendlyObstructionTestcase.m in Sources */,
 				FC4E6F6D24E99767003F2381 /* ANGlobal+ANTest.m in Sources */,
-				FC45C02A264FE16B0042D09B /* ANAdView+ANTest.m in Sources */,
 				FC4E6F4824E9789E003F2381 /* ANHTTPStubURLProtocol.m in Sources */,
 				FC4E6F5224E97935003F2381 /* ANInstreamVideoAd+Test.m in Sources */,
 				389A7477250BACB70075AB70 /* ANInstreamVideoAdOMIDRemoveAllFriendlyObstructionTestcase.m in Sources */,
