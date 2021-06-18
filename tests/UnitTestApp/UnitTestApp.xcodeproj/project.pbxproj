@@ -1130,6 +1130,7 @@
 		FC871DA125BB038F003144BC /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = mediationsdk/FacebookSDK/FBAudienceNetwork.framework; sourceTree = SOURCE_ROOT; };
 		FCB2FA872636EECB0004F84E /* appnexus_standard_response_clickfallbackurl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = appnexus_standard_response_clickfallbackurl.json; sourceTree = "<group>"; };
 		FCBF0CD524D1E3CC00EA4474 /* ANGlobal+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANGlobal+ANTest.m"; sourceTree = "<group>"; };
+		FCBFE8CD267C72EF0089C4DF /* ANMultiAdRequest+PrivateMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANMultiAdRequest+PrivateMethod.h"; sourceTree = "<group>"; };
 		FCC235C225F125DF004A5467 /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleMobileAds.xcframework; sourceTree = "<group>"; };
 		FCC2361C25F12A17004A5467 /* nanopb.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nanopb.xcframework; sourceTree = "<group>"; };
 		FCC2361D25F12A17004A5467 /* UserMessagingPlatform.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = UserMessagingPlatform.xcframework; sourceTree = "<group>"; };
@@ -1556,6 +1557,7 @@
 		0E8C971121FF32EB005D1F0E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				FCBFE8CD267C72EF0089C4DF /* ANMultiAdRequest+PrivateMethod.h */,
 				0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */,
 				0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */,
 				0E336C47246372140033C76F /* ANAdFetcherBase+ANTest.h */,

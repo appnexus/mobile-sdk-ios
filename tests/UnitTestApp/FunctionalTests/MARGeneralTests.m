@@ -19,7 +19,7 @@
 #import "ANHTTPStubbingManager.h"
 
 #import "ANMultiAdRequest.h"
-#import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANMultiAdRequest+PrivateMethod.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANInterstitialAd+ANTest.h"
@@ -74,6 +74,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 
 @property (nonatomic, readwrite)  NSUInteger  countOfRequestedAdUnits;
 
+@property (nonatomic, strong, readwrite, nullable)  XCTestExpectation  *expectationAdUnitLoadStop;
 
 @end
 
@@ -116,7 +117,8 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     
     self.expectationMARLoadCompletionOrFailure = nil;
     self.expectationAdUnitLoadResponseOrFailure = nil;
-    
+    self.expectationAdUnitLoadStop = nil;
+
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
@@ -250,6 +252,40 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     XCTAssertEqual(self.MAR_countOfCompletionSuccesses, 1);
     XCTAssertEqual(self.AdUnit_countOfReceiveSuccesses, self.countOfRequestedAdUnits);
      
+}
+- (void)testFetchAndStopMARAd
+{
+    TMARK();
+    [self stubRequestWithResponse:@"testMARCombinationAllRTB"];
+    
+    
+    self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
+                                                 delegate: self
+                                                  adUnits: self.adUnitsForTest.bannerBanner,
+                self.adUnitsForTest.bannerPlusNative,
+                self.adUnitsForTest.bannerPlusVideo, nil ];
+    self.countOfRequestedAdUnits  = 3;
+    
+    self.adUnitsForTest.bannerBanner.utRequestUUIDString = @"1";
+       self.adUnitsForTest.bannerPlusNative.utRequestUUIDString = @"2";
+       self.adUnitsForTest.bannerPlusVideo.utRequestUUIDString = @"3";
+
+    [self.mar load];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.expectationAdUnitLoadStop fulfill];
+        self.expectationAdUnitLoadStop = nil;
+    });
+    
+    self.expectationAdUnitLoadStop = [self expectationWithDescription:@"EXPECTATION: expectationAdUnitLoadStop"];
+    [self waitForExpectationsWithTimeout:6 * kAppNexusRequestTimeoutInterval handler:nil];
+
+    XCTAssertNotNil(self.mar);
+    XCTAssertNotNil(self.mar.adFetcher);
+    XCTAssertTrue(self.mar.adFetcher.isFetcherLoading);
+    [self.mar stop];
+    XCTAssertFalse(self.mar.adFetcher.isFetcherLoading);
+
 }
 
 - (void)testLoadThenReLoad
@@ -763,6 +799,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 - (void)multiAdRequest:(nonnull ANMultiAdRequest *)mar  didFailWithError:(NSError *)error
 {
     TMARKMESSAGE(@"%@", error.userInfo);
+
     [self.expectationMARLoadCompletionOrFailure fulfill];
     self.expectationMARLoadCompletionOrFailure = nil;
     self.MAR_countOfCompletionFailures += 1;

@@ -60,7 +60,6 @@ limitations under the License.
 @property (nonatomic, readonly)  NSUInteger  countOfAdUnits;
 
 
-
 /**
  * Initializer for ANMultiAdRequest.  This method takes all essential arguments and returns a new instance on success.
  *
@@ -145,5 +144,10 @@ limitations under the License.
  * Load all encapsulated AdUnits via a single UTv3 Request to the Impression Bus.
  */
 - (BOOL)load;
+
+/**
+ * To stop Multi Ad Request, before the request is completed.
+*/
+- (void)stop;
 
 @end
