@@ -29,6 +29,8 @@
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
     #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
+
+#import "ANFBSettings.h"
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 30.0;
 static NSString  *PlacementID  = @"9924001";
 
@@ -108,6 +110,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     self.nativeResponse = nil;
     [SDKValidationURLProtocol setDelegate:nil];
     [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
+    [ANFBSettings setFBAudienceNetworkInitialize:NO];
 }
 
 - (void)testUTRequestWithAudienceNetwork
@@ -141,6 +144,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testUTRequestWithtpuids
 {
+    
+    [ANFBSettings setFBAudienceNetworkInitialize:YES];
     TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
     
     NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
@@ -174,6 +179,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)testUTRequestForCSR
 {
+    [ANFBSettings setFBAudienceNetworkInitialize:YES];
+
     TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
     
     NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
