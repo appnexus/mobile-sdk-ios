@@ -27,6 +27,8 @@
 
 + (nullable NSNumber *) getConsentRequired;
 
++ (nonnull NSArray *) getGoogleACMConsentArray;
+
 + (void) setPurposeConsents :(nonnull NSString *) purposeConsents;
 
 + (nullable NSString *) getDeviceAccessConsent;

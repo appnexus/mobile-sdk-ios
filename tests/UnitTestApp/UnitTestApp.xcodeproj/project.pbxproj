@@ -1557,7 +1557,6 @@
 		0E8C971121FF32EB005D1F0E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				FCBFE8CD267C72EF0089C4DF /* ANMultiAdRequest+PrivateMethod.h */,
 				0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */,
 				0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */,
 				0E336C47246372140033C76F /* ANAdFetcherBase+ANTest.h */,
@@ -1575,6 +1574,7 @@
 				0E8C972421FF32EB005D1F0E /* ANInterstitialAd+ANTest.m */,
 				0E430043243D08400070BB1E /* ANMRAIDContainerView+ANTest.h */,
 				0E430044243D08400070BB1E /* ANMRAIDContainerView+ANTest.m */,
+				FCBFE8CD267C72EF0089C4DF /* ANMultiAdRequest+PrivateMethod.h */,
 				0E8C971A21FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.h */,
 				0E8C972721FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m */,
 				0E516FE5243E6F1500B5E744 /* ANNativeAdResponse+ANTest.h */,

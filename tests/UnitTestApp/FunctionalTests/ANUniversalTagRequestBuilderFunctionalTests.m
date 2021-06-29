@@ -60,6 +60,7 @@ static NSString  *placementID  = @"9924001";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_AddtlConsent"];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
     ANSDKSettings.sharedInstance.geoOverrideCountryCode = nil;
     ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
@@ -99,10 +100,11 @@ static NSString  *placementID  = @"9924001";
                        
                        NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
                        XCTAssertNotNil(gdpr_consent);
-                       XCTAssertEqual(gdpr_consent.count, 2);
+                       XCTAssertEqual(gdpr_consent.count, 3);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
                        XCTAssertTrue(gdpr_consent[@"consent_required"]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
+                       XCTAssertNotNil(gdpr_consent[@"addtl_consent"]);
                        [expectation fulfill];
                    });
     
@@ -135,7 +137,7 @@ static NSString  *placementID  = @"9924001";
                        
                        NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
                        XCTAssertNotNil(gdpr_consent);
-                       XCTAssertEqual(gdpr_consent.count, 2);
+                       XCTAssertEqual(gdpr_consent.count, 3);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
                        XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
@@ -208,7 +210,7 @@ static NSString  *placementID  = @"9924001";
                       
                        NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
                        XCTAssertNotNil(gdpr_consent);
-                       XCTAssertEqual(gdpr_consent.count, 2);
+                       XCTAssertEqual(gdpr_consent.count, 3);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
                        XCTAssertTrue(gdpr_consent[@"consent_required"]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
@@ -246,7 +248,7 @@ static NSString  *placementID  = @"9924001";
                       
                        NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
                        XCTAssertNotNil(gdpr_consent);
-                       XCTAssertEqual(gdpr_consent.count, 2);
+                       XCTAssertEqual(gdpr_consent.count, 3);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
                        XCTAssertTrue(gdpr_consent[@"consent_required"]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
@@ -284,7 +286,7 @@ static NSString  *placementID  = @"9924001";
                        
                        NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
                        XCTAssertNotNil(gdpr_consent);
-                       XCTAssertEqual(gdpr_consent.count, 2);
+                       XCTAssertEqual(gdpr_consent.count, 3);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
                        XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
@@ -321,10 +323,97 @@ static NSString  *placementID  = @"9924001";
                        
                        NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
                        XCTAssertNotNil(gdpr_consent);
-                       XCTAssertEqual(gdpr_consent.count, 2);
+                       XCTAssertEqual(gdpr_consent.count, 3);
                        XCTAssertNotNil(gdpr_consent[@"consent_required"]);
                        XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
                        XCTAssertNotNil(gdpr_consent[@"consent_string"]);
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+/**
+* Test addtl_consent in /ut request body
+ */
+- (void)testGoogleACMConsentString
+{
+     [ANGDPRSettings  reset];
+    [[NSUserDefaults standardUserDefaults] setObject:@"1~7.12.35.62.66.70.89.93.108" forKey:@"IABTCF_AddtlConsent"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"IABTCF_gdprApplies"];
+    
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       
+                       NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
+                       XCTAssertNotNil(gdpr_consent);
+                       XCTAssertEqual(gdpr_consent.count, 3);
+                       XCTAssertNotNil(gdpr_consent[@"consent_required"]);
+                       XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
+                       XCTAssertNotNil(gdpr_consent[@"consent_string"]);
+                       XCTAssertNotNil(gdpr_consent[@"addtl_consent"]);
+                       NSArray *array = @[@7,@12,@35,@62,@66,@70,@89,@93,@108];
+                       XCTAssertTrue([gdpr_consent[@"addtl_consent"] isEqualToArray:array]);
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+
+/**
+* Test invalid addtl_consent in /ut request body
+ */
+- (void)testInvalidGoogleACMConsentString
+{
+     [ANGDPRSettings  reset];
+    [[NSUserDefaults standardUserDefaults] setObject:@"12367" forKey:@"IABTCF_AddtlConsent"]; // Invalid Additional consent string
+    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"IABTCF_gdprApplies"];
+    
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       
+                       NSDictionary *gdpr_consent = jsonDict[@"gdpr_consent"];
+                       XCTAssertNotNil(gdpr_consent);
+                       XCTAssertEqual(gdpr_consent.count, 3);
+                       XCTAssertNotNil(gdpr_consent[@"consent_required"]);
+                       XCTAssertTrue([gdpr_consent[@"consent_required"] isEqualToNumber:[NSNumber numberWithBool:NO]]);
+                       XCTAssertNotNil(gdpr_consent[@"consent_string"]);
+                       XCTAssertNotNil(gdpr_consent[@"addtl_consent"]);
+                       NSArray *array = @[];
+                       XCTAssertTrue([gdpr_consent[@"addtl_consent"] isEqualToArray:array]);
                        [expectation fulfill];
                    });
     

@@ -836,14 +836,15 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary *)getGDPRConsentObject
 {
-    NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
     NSNumber  *gdprRequired  = [ANGDPRSettings getConsentRequired];
-    
     if (gdprRequired != nil)
     {
+        NSString  *gdprConsent   = [ANGDPRSettings getConsentString];
+        NSArray  *additionalConsentArray   = [ANGDPRSettings getGoogleACMConsentArray];
         return  @{
                     @"consent_required"  : [NSNumber numberWithBool:gdprRequired.boolValue],
-                    @"consent_string"    : gdprConsent
+                    @"consent_string"    : gdprConsent,
+                    @"addtl_consent"    : additionalConsentArray
                  };
 
     } else {
