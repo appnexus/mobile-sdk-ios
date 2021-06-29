@@ -362,7 +362,7 @@ static NSString   *placementID      = @"12534678";
         self.OMIDGeomentryChangeExpectation = nil;
     }
     
-    if (self.OMIDVersionExpectation && [response containsString:@"1.3.7-Appnexus"] && [response containsString:@"libraryVersion"]) {
+    if (self.OMIDVersionExpectation && [response containsString:@"1.3.20-Appnexus"] && [response containsString:@"libraryVersion"]) {
           // Only assert if it has been setup to assert.
           [self.OMIDVersionExpectation fulfill];
         self.OMIDVersionExpectation = nil;

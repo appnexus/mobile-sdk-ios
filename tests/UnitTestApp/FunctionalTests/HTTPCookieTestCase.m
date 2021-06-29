@@ -77,7 +77,7 @@
     self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(50 , 50 , 300,250)
                                             placementId:BANNER_PLACEMENT
                                                  adSize:CGSizeMake(300 , 250)];
-    self.banner.forceCreativeId = 223272198;
+    self.banner.forceCreativeId = 182434863;
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;

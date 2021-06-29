@@ -21,6 +21,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ANFBSettings : NSObject
 + (NSString *)getBidderToken;
+
+/**
+ Set setFBAudienceNetworkInitialize to YES if Audience Network SDK is initialized, getBidderToken will return the FB BidderToken if setFBAudienceNetworkInitialize is set to YES else nil.
+ */
++ (void)setFBAudienceNetworkInitialize:(BOOL)initialized;
+
+/**
+  Verify the Audience Network SDK is initialized
+ */
++ (BOOL)isFBAudienceNetworkInitialized;
+
+
+
 @end
 
 

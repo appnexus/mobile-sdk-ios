@@ -14,6 +14,7 @@
  */
 
 #import "ANGDPRSettings.h"
+#import "ANLogging.h"
 
 NSString * const  ANGDPR_ConsentString = @"ANGDPR_ConsentString";
 NSString * const  ANGDPR_ConsentRequired = @"ANGDPR_ConsentRequired";
@@ -27,6 +28,9 @@ NSString * const  ANIABTCF_PurposeConsents = @"IABTCF_PurposeConsents";
 //TCF 1.1 variables
 NSString * const  ANIABConsent_ConsentString = @"IABConsent_ConsentString";
 NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
+
+// Google ACM consent parameter
+NSString * const  ANIABTCF_ADDTL_CONSENT = @"IABTCF_AddtlConsent";
 
 
 
@@ -101,6 +105,34 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
         
     }
     return hasConsent;
+}
+
+  // pull Google Ad Tech Provider (ATP) IDs ids from the Addtional Consent(AC)string and convert them to JSONArray of integers.
+  // for example if addtlConsentString = '1~7.12.35.62.66.70.89.93.108', then we need to return [7,12,35,62,66,70,89,93,108] this is the format impbus understands.
++ (nonnull NSArray *) getGoogleACMConsentArray{
+    NSString* addtlConsentString = [[NSUserDefaults standardUserDefaults] stringForKey:ANIABTCF_ADDTL_CONSENT];
+    NSMutableArray *consentedATPIntegerArray = [NSMutableArray array];
+    
+    // Only if a valid Additional consent string is present proceed further.
+    // The string has to start with 1~ (we support only version 1 of the ACM spec)
+    if(addtlConsentString && addtlConsentString.length >2 && [addtlConsentString hasPrefix:@"1~"]){
+        // From https://support.google.com/admanager/answer/9681920
+        // An AC string contains the following three components:
+        // Part 1: A specification version number, such as "1"
+        // Part 2: A separator symbol "~"
+        // Part 3: A dot-separated list of user-consented Google Ad Tech Provider (ATP) IDs. Example: "1.35.41.101"
+        // For example, the AC string 1~1.35.41.101 means that the user has consented to ATPs with IDs 1, 35, 41 and 101, and the string is created using the format defined in the v1.0 specification.
+        @try {
+            NSArray *parsedACString = [addtlConsentString componentsSeparatedByString:@"~"];
+            NSArray *consentedATPStringArray = [parsedACString[1] componentsSeparatedByString:@"."];
+            for ( int i = 0; i < consentedATPStringArray.count; ++i ){
+                [consentedATPIntegerArray addObject:[NSNumber numberWithInt:[consentedATPStringArray[i] intValue]]];
+            }
+        } @catch (NSException *ex) {
+            ANLogError(@"Exception while processing Google addtlConsentString");
+        }
+    }
+    return consentedATPIntegerArray;
 }
 
 /**

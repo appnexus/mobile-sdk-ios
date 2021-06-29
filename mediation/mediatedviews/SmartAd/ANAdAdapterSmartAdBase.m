@@ -22,7 +22,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // The configure method should never be called more than once
-        [[SASConfiguration sharedInstance] configureWithSiteId:siteId baseURL:SMARTAD_BASEURL];
+        [[SASConfiguration sharedInstance] configureWithSiteId:siteId];
     });
 }
 

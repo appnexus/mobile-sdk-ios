@@ -157,7 +157,7 @@
     [self stubRequestWithResponse:@"NativeAsssemblyRendererOMID_Native_RTBResponse"];
     [self initBannerNativeRenderingAd:YES NativeRendering:YES];
 
-    self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+//    self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self.multiFormatAd loadAd];
     [self waitForExpectations:@[self.expectationRequest, self.expectationResponse] timeout:600];
@@ -178,7 +178,7 @@
     XCTAssertTrue([self.requestData containsString:@"viewable"]);
     XCTAssertTrue([self.requestData containsString:@"mediaType"]);
     XCTAssertTrue([self.requestData containsString:@"display"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.7-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
     self.expectationForOmidSessionFinish = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self.multiFormatAd removeFromSuperview];

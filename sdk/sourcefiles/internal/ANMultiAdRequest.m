@@ -463,6 +463,11 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     
 }
 
+- (void)stop
+{
+    [self.adFetcher stopAdLoad];
+}
+
 #pragma mark - Getters/Setters.
 
 - (NSUInteger)countOfAdUnits

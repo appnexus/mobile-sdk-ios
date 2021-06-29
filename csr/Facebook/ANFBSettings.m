@@ -16,9 +16,23 @@ limitations under the License.
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 #import "ANFBSettings.h"
 
+static BOOL initializeAudienceNetworkAds = NO;
+
 @implementation ANFBSettings
 
 + (NSString *)getBidderToken{
-    return [FBAdSettings bidderToken];
+    if(initializeAudienceNetworkAds){
+        return [FBAdSettings bidderToken];
+    }
+    return nil;
 }
+
++ (void)setFBAudienceNetworkInitialize:(BOOL )initialized{
+    initializeAudienceNetworkAds = initialized;
+}
+
++ (BOOL)isFBAudienceNetworkInitialized{
+    return initializeAudienceNetworkAds;
+}
+
 @end
