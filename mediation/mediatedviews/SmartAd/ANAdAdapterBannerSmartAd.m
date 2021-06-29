@@ -73,10 +73,4 @@
     ANLogTrace(@"");
 }
     
--(BOOL)bannerView:(SASAdView *)bannerView shouldHandleURL:(NSURL *)URL {
-    ANLogTrace(@"");
-    [self.delegate adWasClicked];
-    return YES;
-}
-    
 @end

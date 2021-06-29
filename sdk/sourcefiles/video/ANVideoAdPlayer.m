@@ -24,6 +24,8 @@
 #import "ANVideoPlayerSettings.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
 #import "ANAdResponseCode.h"
+#import "WKWebView+ANCategory.h"
+
 static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>

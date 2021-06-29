@@ -78,8 +78,12 @@
     [self.delegate willPresentAd];
 }
 
-- (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+-(void) adWillDismissFullScreenContent:(id<GADFullScreenPresentingAd>)ad{
+    ANLogDebug(@"AdMob interstitial will close");
     [self.delegate willCloseAd];
+}
+
+- (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
     ANLogDebug(@"AdMob interstitial did close");
     [self.delegate didCloseAd];
 }

@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-#import <OMSDK_Appnexus/OMIDImports.h>
+@import OMSDK_Appnexus;
 
 #pragma mark - Constants
 

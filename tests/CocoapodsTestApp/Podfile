@@ -1,0 +1,13 @@
+
+# Define a global platform for your project.
+platform :ios, '9.0'
+
+MOBILE_SDK_IOS       = "../../"
+
+use_frameworks!
+
+target 'CocoapodsTestApp' do
+  pod 'AppNexusSDK/GoogleAdapter', :path => "#{MOBILE_SDK_IOS}"
+  pod 'AppNexusSDK/SmartAdAdapter', :path => "#{MOBILE_SDK_IOS}"
+  pod 'AppNexusSDK/FacebookAdapter', :path => "#{MOBILE_SDK_IOS}"
+end

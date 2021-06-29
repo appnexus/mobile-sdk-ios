@@ -347,7 +347,7 @@
             [self.OMIDSupportedExpecation fulfill];
         }
         
-        if (self.OMIDVersionExpectation && [data containsString:@"1.3.7-Appnexus"] && [data containsString:@"libraryVersion"]) {
+        if (self.OMIDVersionExpectation && [data containsString:@"1.3.20-Appnexus"] && [data containsString:@"libraryVersion"]) {
             // Only assert if it has been setup to assert.
             [self.OMIDVersionExpectation fulfill];
         }

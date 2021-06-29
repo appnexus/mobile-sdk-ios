@@ -134,6 +134,9 @@ NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) {
 }
 
 NSBundle *__nonnull ANResourcesBundle() {
+#ifdef SWIFT_PACKAGE
+    return SWIFTPM_MODULE_BUNDLE;
+#else
     static dispatch_once_t resBundleToken;
     static NSBundle *resBundle;
     static ANGlobal *globalInstance;
@@ -142,6 +145,7 @@ NSBundle *__nonnull ANResourcesBundle() {
         resBundle = [NSBundle bundleForClass:[globalInstance class]];
     });
     return resBundle;
+#endif
 }
 
 NSString *__nullable ANPathForANResource(NSString *__nullable name, NSString *__nullable type) {

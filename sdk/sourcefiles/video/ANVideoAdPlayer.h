@@ -16,9 +16,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WKWebView+ANCategory.h"
 #import "ANAdConstants.h"
-#import <OMSDK_Appnexus/OMIDImports.h>
+@import OMSDK_Appnexus;
 
 #import "ANAdResponseInfo.h"
 

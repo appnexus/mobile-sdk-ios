@@ -23,8 +23,8 @@
                     "client_initiated_ad_counting": true,
                     "rtb": {
                         "video": {
-                            "player_width": 320,
-                            "player_height": 50,
+                            "player_width": 300,
+                            "player_height": 250,
                             "duration_ms": 32000,
                             "playback_methods": [
                                 "auto_play_sound_off"

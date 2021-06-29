@@ -76,10 +76,4 @@
     [self.delegate didCloseAd];
 }
 
-- (BOOL)interstitialManager:(SASInterstitialManager *)manager shouldHandleURL:(NSURL *)URL {
-    ANLogTrace(@"");
-    [self.delegate adWasClicked];
-    return YES;
-}
-
 @end

@@ -14,7 +14,7 @@
  */
 
 #import "ANNativeAdResponse.h"
-#import <OMSDK_Appnexus/OMIDImports.h>
+@import OMSDK_Appnexus;
 
 #import "ANVerificationScriptResource.h"
 

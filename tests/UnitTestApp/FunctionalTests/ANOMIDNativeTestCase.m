@@ -87,7 +87,7 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.7-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
 
 }
@@ -112,7 +112,7 @@
     XCTAssertTrue([self.requestData containsString:@"mediaType"]);
     XCTAssertTrue([self.requestData containsString:@"display"]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.7-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
 
     [self.adResponseInfo unregisterViewFromTracking];
