@@ -1,7 +1,7 @@
 # Output directory name
-OUTDIR="AppNexusSDKXCFramework"
-# Scheme name
-SCHEMENAME="AppNexusSDK"
+OUTDIR=$1+"Framework"
+# Scheme name AppNexusSDK OR AppNexusNativeSDK
+SCHEMENAME=$1
 # for iPhones
 OD_DEVICE="iphoneos"
 # for simulator
