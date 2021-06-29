@@ -3,15 +3,15 @@
 + MS-4749 Added support for Unified ID 2.0 (UID2) [https://wiki.xandr.com/x/7IW1Bg]
 + MS-4760 Added support for Google Additional Consent field
 + MS-4772 Added a new API in ANMultiAdRequest to stop the Ad Request [https://wiki.xandr.com/x/sLA9Bg]
-+ MS-4558 Added support for Swift Package Manager for SDK integration
-+ MS-4784 Added XCFramework support for SDK integration
++ MS-4558 Added support for Swift Package Manager for SDK integration [https://wiki.xandr.com/x/kAAPBg]
++ MS-4784 Added XCFramework support for SDK integration [https://wiki.xandr.com/x/kAAPBg]
 ### Mediation partner updates
 + MS-4778 Upgraded Google Play Services Ads SDK from 8.0.0 to 8.5.0
 + MS-4780 Upgraded Facebook SDK from 6.2.1 to 6.5.0
 + MS-4782 Upgraded Smart Ad Server SDK from 7.8.0 to 7.10.1
 ### Improvements/Bug Fixes
 + MS-4766 Updated Open Measurement SDK to v1.3.20
-+ MS-4777 Added initialization check before fetching Bidder Token from Facebook SDK
++ MS-4777 Added initialization check before fetching Bidder Token from Facebook SDK [https://wiki.xandr.com/x/C4RlBg]
 
 ## 7.14
 ### New Feature
