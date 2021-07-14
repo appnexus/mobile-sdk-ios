@@ -57,6 +57,35 @@
 		FC7BCF5A258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7BCF57258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.m */; };
 		FC7BCF5B258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC7BCF59258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.storyboard */; };
 		FC7BCF66258BC31300739FC1 /* OMID_VideoAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC7BCF65258BC31300739FC1 /* OMID_VideoAd.json */; };
+		FC80EFF8269F42C700BFF0C7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80EFF7269F42C700BFF0C7 /* SceneDelegate.swift */; };
+		FC80EFFA269F42C700BFF0C7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80EFF9269F42C700BFF0C7 /* ViewController.swift */; };
+		FC80EFFD269F42C700BFF0C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC80EFFB269F42C700BFF0C7 /* Main.storyboard */; };
+		FC80EFFF269F42C900BFF0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC80EFFE269F42C900BFF0C7 /* Assets.xcassets */; };
+		FC80F002269F42C900BFF0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC80F000269F42C900BFF0C7 /* LaunchScreen.storyboard */; };
+		FC80F00D269F42C900BFF0C7 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F00C269F42C900BFF0C7 /* IntegrationTests.swift */; };
+		FC80F037269F4BD000BFF0C7 /* VideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02C269F4BD000BFF0C7 /* VideoAdViewController.swift */; };
+		FC80F038269F4BD000BFF0C7 /* BannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02D269F4BD000BFF0C7 /* BannerAdViewController.swift */; };
+		FC80F039269F4BD000BFF0C7 /* BannerVideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02E269F4BD000BFF0C7 /* BannerVideoAdViewController.swift */; };
+		FC80F03A269F4BD000BFF0C7 /* BannerNativeAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02F269F4BD000BFF0C7 /* BannerNativeAdViewController.swift */; };
+		FC80F03B269F4BD000BFF0C7 /* InterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F030269F4BD000BFF0C7 /* InterstitialAdViewController.swift */; };
+		FC80F03C269F4BD000BFF0C7 /* NativeAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F031269F4BD000BFF0C7 /* NativeAdViewController.swift */; };
+		FC80F03D269F4BD000BFF0C7 /* AdObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F033269F4BD000BFF0C7 /* AdObjectModel.swift */; };
+		FC80F03E269F4BD000BFF0C7 /* TestCaseConstent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F034269F4BD000BFF0C7 /* TestCaseConstent.swift */; };
+		FC80F03F269F4BD000BFF0C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F035269F4BD000BFF0C7 /* AppDelegate.swift */; };
+		FC80F040269F4BD000BFF0C7 /* UITestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F036269F4BD000BFF0C7 /* UITestViewController.swift */; };
+		FC80F049269F4C3A00BFF0C7 /* PlacementTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC80F047269F4C3A00BFF0C7 /* PlacementTest.storyboard */; };
+		FC80F063269F4C9300BFF0C7 /* ANInterstitialAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F056269F4C9200BFF0C7 /* ANInterstitialAdViewTests.swift */; };
+		FC80F064269F4C9300BFF0C7 /* VideoAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F058269F4C9200BFF0C7 /* VideoAdTests.swift */; };
+		FC80F065269F4C9300BFF0C7 /* ANBannerAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F05A269F4C9200BFF0C7 /* ANBannerAdViewTests.swift */; };
+		FC80F066269F4C9300BFF0C7 /* ANNativeAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F05C269F4C9200BFF0C7 /* ANNativeAdViewTests.swift */; };
+		FC80F067269F4C9300BFF0C7 /* PlacementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F05D269F4C9200BFF0C7 /* PlacementTests.swift */; };
+		FC80F068269F4C9300BFF0C7 /* ANBannerVideoAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F05F269F4C9200BFF0C7 /* ANBannerVideoAdViewTests.swift */; };
+		FC80F069269F4C9300BFF0C7 /* XCGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F060269F4C9300BFF0C7 /* XCGlobal.swift */; };
+		FC80F06A269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F062269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift */; };
+		FC80F0A4269F4E1E00BFF0C7 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; };
+		FC80F0A5269F4E1E00BFF0C7 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FC80F0AB269F521200BFF0C7 /* AdObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F033269F4BD000BFF0C7 /* AdObjectModel.swift */; };
+		FC80F0B0269F521500BFF0C7 /* TestCaseConstent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F034269F4BD000BFF0C7 /* TestCaseConstent.swift */; };
 		FC85ACF8258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC85ACF5258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m */; };
 		FC85ACF9258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC85ACF7258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.storyboard */; };
 		FC8FE6E525483AE000971E2A /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC8FE6E225483AE000971E2A /* UnifiedNativeAdView.xib */; };
@@ -109,6 +138,20 @@
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
 		};
+		FC80F009269F42C900BFF0C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E877AA723FEA40700DC962F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC80EFF2269F42C700BFF0C7;
+			remoteInfo = Integration;
+		};
+		FC80F014269F42CA00BFF0C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E877AA723FEA40700DC962F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC80EFF2269F42C700BFF0C7;
+			remoteInfo = Integration;
+		};
 		FCE7E8B22593C9C100801E27 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E877AA723FEA40700DC962F /* Project object */;
@@ -133,6 +176,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FC77572D25374EB400400FE7 /* AppNexusSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F0A6269F4E1E00BFF0C7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FC80F0A5269F4E1E00BFF0C7 /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +283,39 @@
 		FC7BCF58258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerVideoAdViewabilityTrackerTestVC.h; sourceTree = "<group>"; };
 		FC7BCF59258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BannerVideoAdViewabilityTrackerTestVC.storyboard; sourceTree = "<group>"; };
 		FC7BCF65258BC31300739FC1 /* OMID_VideoAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_VideoAd.json; sourceTree = "<group>"; };
+		FC80EFF3269F42C700BFF0C7 /* Integration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integration.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC80EFF7269F42C700BFF0C7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FC80EFF9269F42C700BFF0C7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FC80EFFC269F42C700BFF0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FC80EFFE269F42C900BFF0C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FC80F001269F42C900BFF0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FC80F003269F42C900BFF0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC80F00C269F42C900BFF0C7 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		FC80F00E269F42C900BFF0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC80F019269F42CA00BFF0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC80F029269F4BD000BFF0C7 /* UITestApp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITestApp-Bridging-Header.h"; path = "UITestApp/UITestApp-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		FC80F02C269F4BD000BFF0C7 /* VideoAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdViewController.swift; sourceTree = "<group>"; };
+		FC80F02D269F4BD000BFF0C7 /* BannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdViewController.swift; sourceTree = "<group>"; };
+		FC80F02E269F4BD000BFF0C7 /* BannerVideoAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerVideoAdViewController.swift; sourceTree = "<group>"; };
+		FC80F02F269F4BD000BFF0C7 /* BannerNativeAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerNativeAdViewController.swift; sourceTree = "<group>"; };
+		FC80F030269F4BD000BFF0C7 /* InterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdViewController.swift; sourceTree = "<group>"; };
+		FC80F031269F4BD000BFF0C7 /* NativeAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewController.swift; sourceTree = "<group>"; };
+		FC80F033269F4BD000BFF0C7 /* AdObjectModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdObjectModel.swift; sourceTree = "<group>"; };
+		FC80F034269F4BD000BFF0C7 /* TestCaseConstent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCaseConstent.swift; sourceTree = "<group>"; };
+		FC80F035269F4BD000BFF0C7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FC80F036269F4BD000BFF0C7 /* UITestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITestViewController.swift; path = UITestApp/UITestViewController.swift; sourceTree = SOURCE_ROOT; };
+		FC80F048269F4C3A00BFF0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PlacementTest.storyboard; sourceTree = "<group>"; };
+		FC80F054269F4C9200BFF0C7 /* IntegrationUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IntegrationUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		FC80F056269F4C9200BFF0C7 /* ANInterstitialAdViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANInterstitialAdViewTests.swift; sourceTree = "<group>"; };
+		FC80F058269F4C9200BFF0C7 /* VideoAdTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdTests.swift; sourceTree = "<group>"; };
+		FC80F05A269F4C9200BFF0C7 /* ANBannerAdViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANBannerAdViewTests.swift; sourceTree = "<group>"; };
+		FC80F05C269F4C9200BFF0C7 /* ANNativeAdViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANNativeAdViewTests.swift; sourceTree = "<group>"; };
+		FC80F05D269F4C9200BFF0C7 /* PlacementTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacementTests.swift; sourceTree = "<group>"; };
+		FC80F05F269F4C9200BFF0C7 /* ANBannerVideoAdViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANBannerVideoAdViewTests.swift; sourceTree = "<group>"; };
+		FC80F060269F4C9300BFF0C7 /* XCGlobal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCGlobal.swift; sourceTree = "<group>"; };
+		FC80F062269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANBannerNativeAdViewTests.swift; sourceTree = "<group>"; };
 		FC85ACE7258D0C5200A64F7D /* BannerVideoViewabilityTrackerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerVideoViewabilityTrackerTests.m; sourceTree = "<group>"; };
 		FC85ACEE258D198900A64F7D /* VideoViewabilityTrackerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewabilityTrackerTests.m; sourceTree = "<group>"; };
 		FC85ACF5258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoAdViewabilityTrackerTestVC.m; sourceTree = "<group>"; };
@@ -263,6 +350,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC77572C25374EB400400FE7 /* AppNexusSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80EFF0269F42C700BFF0C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC80F0A4269F4E1E00BFF0C7 /* AppNexusSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F005269F42C900BFF0C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F010269F42C900BFF0C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +462,9 @@
 		0E877AA623FEA40700DC962F = {
 			isa = PBXGroup;
 			children = (
+				FC80EFF4269F42C700BFF0C7 /* Integration */,
+				FC80F00B269F42C900BFF0C7 /* IntegrationTests */,
+				FC80F016269F42CA00BFF0C7 /* IntegrationUITests */,
 				0EE0577F23FED62F00D61405 /* Frameworks */,
 				0E877AB023FEA40700DC962F /* Products */,
 				0E877AB123FEA40700DC962F /* TrackerApp */,
@@ -368,6 +480,9 @@
 				0E877AAF23FEA40700DC962F /* TrackerApp.app */,
 				FCE7E8BE2593C9D700801E27 /* TrackerTests.xctest */,
 				FCE7E8AD2593C9C100801E27 /* ViewabilityTests.xctest */,
+				FC80EFF3269F42C700BFF0C7 /* Integration.app */,
+				FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */,
+				FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -440,8 +555,8 @@
 		FC77571D25374E7000400FE7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC77572425374E7000400FE7 /* AppNexusNativeSDK.framework */,
 				FC77572225374E7000400FE7 /* AppNexusSDK.framework */,
+				FC77572425374E7000400FE7 /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -553,6 +668,131 @@
 			path = ViewabilityBannerVideoAd;
 			sourceTree = "<group>";
 		};
+		FC80EFF4269F42C700BFF0C7 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F02A269F4BD000BFF0C7 /* AdsViewController */,
+				FC80F032269F4BD000BFF0C7 /* GlobalClasses */,
+				FC80F029269F4BD000BFF0C7 /* UITestApp-Bridging-Header.h */,
+				FC80F036269F4BD000BFF0C7 /* UITestViewController.swift */,
+				FC80EFF7269F42C700BFF0C7 /* SceneDelegate.swift */,
+				FC80EFF9269F42C700BFF0C7 /* ViewController.swift */,
+				FC80EFFB269F42C700BFF0C7 /* Main.storyboard */,
+				FC80F047269F4C3A00BFF0C7 /* PlacementTest.storyboard */,
+				FC80EFFE269F42C900BFF0C7 /* Assets.xcassets */,
+				FC80F000269F42C900BFF0C7 /* LaunchScreen.storyboard */,
+				FC80F003269F42C900BFF0C7 /* Info.plist */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		FC80F00B269F42C900BFF0C7 /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F00C269F42C900BFF0C7 /* IntegrationTests.swift */,
+				FC80F00E269F42C900BFF0C7 /* Info.plist */,
+			);
+			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
+		FC80F016269F42CA00BFF0C7 /* IntegrationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F059269F4C9200BFF0C7 /* BannerAdTests */,
+				FC80F061269F4C9300BFF0C7 /* BannerNativeAdTests */,
+				FC80F05E269F4C9200BFF0C7 /* BannerVideoAdTests */,
+				FC80F055269F4C9200BFF0C7 /* InterstitialAdTests */,
+				FC80F05B269F4C9200BFF0C7 /* NativeAdTests */,
+				FC80F05D269F4C9200BFF0C7 /* PlacementTests.swift */,
+				FC80F057269F4C9200BFF0C7 /* VideoAdTests */,
+				FC80F060269F4C9300BFF0C7 /* XCGlobal.swift */,
+				FC80F019269F42CA00BFF0C7 /* Info.plist */,
+				FC80F054269F4C9200BFF0C7 /* IntegrationUITests-Bridging-Header.h */,
+			);
+			path = IntegrationUITests;
+			sourceTree = "<group>";
+		};
+		FC80F02A269F4BD000BFF0C7 /* AdsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F02B269F4BD000BFF0C7 /* PlacementTest */,
+			);
+			name = AdsViewController;
+			path = UITestApp/AdsViewController;
+			sourceTree = SOURCE_ROOT;
+		};
+		FC80F02B269F4BD000BFF0C7 /* PlacementTest */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F02C269F4BD000BFF0C7 /* VideoAdViewController.swift */,
+				FC80F02D269F4BD000BFF0C7 /* BannerAdViewController.swift */,
+				FC80F02E269F4BD000BFF0C7 /* BannerVideoAdViewController.swift */,
+				FC80F02F269F4BD000BFF0C7 /* BannerNativeAdViewController.swift */,
+				FC80F030269F4BD000BFF0C7 /* InterstitialAdViewController.swift */,
+				FC80F031269F4BD000BFF0C7 /* NativeAdViewController.swift */,
+			);
+			path = PlacementTest;
+			sourceTree = "<group>";
+		};
+		FC80F032269F4BD000BFF0C7 /* GlobalClasses */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F033269F4BD000BFF0C7 /* AdObjectModel.swift */,
+				FC80F034269F4BD000BFF0C7 /* TestCaseConstent.swift */,
+				FC80F035269F4BD000BFF0C7 /* AppDelegate.swift */,
+			);
+			name = GlobalClasses;
+			path = UITestApp/GlobalClasses;
+			sourceTree = SOURCE_ROOT;
+		};
+		FC80F055269F4C9200BFF0C7 /* InterstitialAdTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F056269F4C9200BFF0C7 /* ANInterstitialAdViewTests.swift */,
+			);
+			path = InterstitialAdTests;
+			sourceTree = "<group>";
+		};
+		FC80F057269F4C9200BFF0C7 /* VideoAdTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F058269F4C9200BFF0C7 /* VideoAdTests.swift */,
+			);
+			path = VideoAdTests;
+			sourceTree = "<group>";
+		};
+		FC80F059269F4C9200BFF0C7 /* BannerAdTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F05A269F4C9200BFF0C7 /* ANBannerAdViewTests.swift */,
+			);
+			path = BannerAdTests;
+			sourceTree = "<group>";
+		};
+		FC80F05B269F4C9200BFF0C7 /* NativeAdTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F05C269F4C9200BFF0C7 /* ANNativeAdViewTests.swift */,
+			);
+			path = NativeAdTests;
+			sourceTree = "<group>";
+		};
+		FC80F05E269F4C9200BFF0C7 /* BannerVideoAdTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F05F269F4C9200BFF0C7 /* ANBannerVideoAdViewTests.swift */,
+			);
+			path = BannerVideoAdTests;
+			sourceTree = "<group>";
+		};
+		FC80F061269F4C9300BFF0C7 /* BannerNativeAdTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC80F062269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift */,
+			);
+			path = BannerNativeAdTests;
+			sourceTree = "<group>";
+		};
 		FC85ACF4258D19C100A64F7D /* ViewabilityVideoAd */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,6 +884,60 @@
 			productReference = 0E877AAF23FEA40700DC962F /* TrackerApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FC80EFF2269F42C700BFF0C7 /* Integration */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC80F021269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "Integration" */;
+			buildPhases = (
+				FC80EFEF269F42C700BFF0C7 /* Sources */,
+				FC80EFF0269F42C700BFF0C7 /* Frameworks */,
+				FC80EFF1269F42C700BFF0C7 /* Resources */,
+				FC80F0A6269F4E1E00BFF0C7 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Integration;
+			productName = Integration;
+			productReference = FC80EFF3269F42C700BFF0C7 /* Integration.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FC80F007269F42C900BFF0C7 /* IntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC80F022269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationTests" */;
+			buildPhases = (
+				FC80F004269F42C900BFF0C7 /* Sources */,
+				FC80F005269F42C900BFF0C7 /* Frameworks */,
+				FC80F006269F42C900BFF0C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC80F00A269F42C900BFF0C7 /* PBXTargetDependency */,
+			);
+			name = IntegrationTests;
+			productName = IntegrationTests;
+			productReference = FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FC80F012269F42C900BFF0C7 /* IntegrationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC80F023269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationUITests" */;
+			buildPhases = (
+				FC80F00F269F42C900BFF0C7 /* Sources */,
+				FC80F010269F42C900BFF0C7 /* Frameworks */,
+				FC80F011269F42C900BFF0C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC80F015269F42CA00BFF0C7 /* PBXTargetDependency */,
+			);
+			name = IntegrationUITests;
+			productName = IntegrationUITests;
+			productReference = FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		FCE7E8AC2593C9C100801E27 /* ViewabilityTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCE7E8B42593C9C100801E27 /* Build configuration list for PBXNativeTarget "ViewabilityTests" */;
@@ -686,12 +980,25 @@
 		0E877AA723FEA40700DC962F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Xandr;
 				TargetAttributes = {
 					0E877AAE23FEA40700DC962F = {
 						CreatedOnToolsVersion = 11.3;
 						LastSwiftMigration = 1200;
+					};
+					FC80EFF2269F42C700BFF0C7 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					FC80F007269F42C900BFF0C7 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = FC80EFF2269F42C700BFF0C7;
+					};
+					FC80F012269F42C900BFF0C7 = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+						TestTargetID = FC80EFF2269F42C700BFF0C7;
 					};
 					FCE7E8AC2593C9C100801E27 = {
 						CreatedOnToolsVersion = 12.1;
@@ -725,6 +1032,9 @@
 				0E877AAE23FEA40700DC962F /* TrackerApp */,
 				FCE7E8AC2593C9C100801E27 /* ViewabilityTests */,
 				FCE7E8BD2593C9D700801E27 /* TrackerTests */,
+				FC80EFF2269F42C700BFF0C7 /* Integration */,
+				FC80F007269F42C900BFF0C7 /* IntegrationTests */,
+				FC80F012269F42C900BFF0C7 /* IntegrationUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -777,6 +1087,31 @@
 				FC8FE6E525483AE000971E2A /* UnifiedNativeAdView.xib in Resources */,
 				0E49158D24065963003B7CC2 /* VideoAdTrackerTestVC.storyboard in Resources */,
 				FC85ACF9258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80EFF1269F42C700BFF0C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC80F049269F4C3A00BFF0C7 /* PlacementTest.storyboard in Resources */,
+				FC80F002269F42C900BFF0C7 /* LaunchScreen.storyboard in Resources */,
+				FC80EFFF269F42C900BFF0C7 /* Assets.xcassets in Resources */,
+				FC80EFFD269F42C700BFF0C7 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F006269F42C900BFF0C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F011269F42C900BFF0C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +1172,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC80EFEF269F42C700BFF0C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC80F03F269F4BD000BFF0C7 /* AppDelegate.swift in Sources */,
+				FC80EFFA269F42C700BFF0C7 /* ViewController.swift in Sources */,
+				FC80F03C269F4BD000BFF0C7 /* NativeAdViewController.swift in Sources */,
+				FC80F03B269F4BD000BFF0C7 /* InterstitialAdViewController.swift in Sources */,
+				FC80F038269F4BD000BFF0C7 /* BannerAdViewController.swift in Sources */,
+				FC80F037269F4BD000BFF0C7 /* VideoAdViewController.swift in Sources */,
+				FC80F039269F4BD000BFF0C7 /* BannerVideoAdViewController.swift in Sources */,
+				FC80F040269F4BD000BFF0C7 /* UITestViewController.swift in Sources */,
+				FC80EFF8269F42C700BFF0C7 /* SceneDelegate.swift in Sources */,
+				FC80F03A269F4BD000BFF0C7 /* BannerNativeAdViewController.swift in Sources */,
+				FC80F03E269F4BD000BFF0C7 /* TestCaseConstent.swift in Sources */,
+				FC80F03D269F4BD000BFF0C7 /* AdObjectModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F004269F42C900BFF0C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC80F00D269F42C900BFF0C7 /* IntegrationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC80F00F269F42C900BFF0C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC80F064269F4C9300BFF0C7 /* VideoAdTests.swift in Sources */,
+				FC80F06A269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift in Sources */,
+				FC80F066269F4C9300BFF0C7 /* ANNativeAdViewTests.swift in Sources */,
+				FC80F0B0269F521500BFF0C7 /* TestCaseConstent.swift in Sources */,
+				FC80F069269F4C9300BFF0C7 /* XCGlobal.swift in Sources */,
+				FC80F068269F4C9300BFF0C7 /* ANBannerVideoAdViewTests.swift in Sources */,
+				FC80F063269F4C9300BFF0C7 /* ANInterstitialAdViewTests.swift in Sources */,
+				FC80F065269F4C9300BFF0C7 /* ANBannerAdViewTests.swift in Sources */,
+				FC80F067269F4C9300BFF0C7 /* PlacementTests.swift in Sources */,
+				FC80F0AB269F521200BFF0C7 /* AdObjectModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCE7E8A92593C9C100801E27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -876,6 +1255,16 @@
 			name = AppNexusSDK;
 			targetProxy = FC75564E253D773A00C2C518 /* PBXContainerItemProxy */;
 		};
+		FC80F00A269F42C900BFF0C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FC80EFF2269F42C700BFF0C7 /* Integration */;
+			targetProxy = FC80F009269F42C900BFF0C7 /* PBXContainerItemProxy */;
+		};
+		FC80F015269F42CA00BFF0C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FC80EFF2269F42C700BFF0C7 /* Integration */;
+			targetProxy = FC80F014269F42CA00BFF0C7 /* PBXContainerItemProxy */;
+		};
 		FCE7E8B32593C9C100801E27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0E877AAE23FEA40700DC962F /* TrackerApp */;
@@ -903,6 +1292,30 @@
 				0E877AC123FEA40900DC962F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FC80EFFB269F42C700BFF0C7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FC80EFFC269F42C700BFF0C7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FC80F000269F42C900BFF0C7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FC80F001269F42C900BFF0C7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FC80F047269F4C3A00BFF0C7 /* PlacementTest.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FC80F048269F4C3A00BFF0C7 /* Base */,
+			);
+			name = PlacementTest.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1107,6 +1520,152 @@
 			};
 			name = Release;
 		};
+		FC80F01A269F42CA00BFF0C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Integration/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.Integration;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FC80F01B269F42CA00BFF0C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Integration/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.Integration;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FC80F01C269F42CA00BFF0C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = IntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integration.app/Integration";
+			};
+			name = Debug;
+		};
+		FC80F01D269F42CA00BFF0C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = IntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integration.app/Integration";
+			};
+			name = Release;
+		};
+		FC80F01E269F42CA00BFF0C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = IntegrationUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Integration;
+			};
+			name = Debug;
+		};
+		FC80F01F269F42CA00BFF0C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = IntegrationUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Integration;
+			};
+			name = Release;
+		};
 		FCE7E8B52593C9C100801E27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1208,6 +1767,33 @@
 			buildConfigurations = (
 				0E877AC923FEA40900DC962F /* Debug */,
 				0E877ACA23FEA40900DC962F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC80F021269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "Integration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC80F01A269F42CA00BFF0C7 /* Debug */,
+				FC80F01B269F42CA00BFF0C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC80F022269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC80F01C269F42CA00BFF0C7 /* Debug */,
+				FC80F01D269F42CA00BFF0C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC80F023269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC80F01E269F42CA00BFF0C7 /* Debug */,
+				FC80F01F269F42CA00BFF0C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
