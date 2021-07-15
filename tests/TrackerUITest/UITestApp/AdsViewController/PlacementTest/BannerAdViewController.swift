@@ -57,4 +57,7 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate {
             self.view.addSubview(banner)
         }
     }
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
+        print("requestFailedWithError \(error)")
+    }
 }
