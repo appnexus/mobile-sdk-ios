@@ -1,3 +1,7 @@
+## 7.15.1
+### Improvements/Bug Fixes
++ MS-4818 Fixed Swift package manager installation error [Github issue #67]
+
 ## 7.15
 ### New Feature
 + MS-4749 Added support for Unified ID 2.0 (UID2) [https://wiki.xandr.com/x/7IW1Bg]
