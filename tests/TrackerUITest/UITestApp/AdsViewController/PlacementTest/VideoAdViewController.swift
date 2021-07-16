@@ -18,9 +18,8 @@ import UIKit
 import AppNexusSDK
 
 class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate , ANInstreamVideoAdPlayDelegate {
-    func adDidReceiveAd(_ ad: Any) {
         
-    }
+   
     
     
     let videoContent = "https://acdn.adnxs.com/mobile/video_test/content/Scenario.mp4"
@@ -50,6 +49,7 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate , 
             if let placement = videoAdObject?.adObject.placement{
                 self.videoAd = ANInstreamVideoAd(placementId: placement)
                 self.videoAd.clickThroughAction = ANClickThroughAction.returnURL
+                self.videoAd.forceCreativeId = 162035356
                 setupContentPlayer()
                 self.videoContentPlayer.pause()
                 self.videoAd.load(with: self)
@@ -57,7 +57,7 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate , 
         }
     }
     
-    func adDidReceiveAd(_ ad: ANAdProtocol) {
+    func adDidReceiveAd(_ ad: Any) {
         videoContentPlayer.pause()
         videoAd.center = self.view.center
         videoAd.play(withContainer: self.view, with: self)

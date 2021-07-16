@@ -33,85 +33,7 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
-    func testVPAIDBannerVideo() {
 
-
-        
-        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo, placement: "19065996")
-        
-        let bannerAdObject  =  BannerAdObject(isVideo: true, isNative: false, enableNativeRendering : nil  ,height: "250", width: "300", autoRefreshInterval: 60, adObject: adObject)
-        
-        let bannerAdObjectString =  AdObjectModel.encodeBannerObject(adObject: bannerAdObject)
-        
-        
-        let app = XCUIApplication()
-        app.launchArguments.append(PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo)
-        app.launchArguments.append(bannerAdObjectString)
-        app.launch()
-        
-        let webViewsQuery = app.webViews.element(boundBy: 0)
-
-        wait(for: webViewsQuery, timeout: 15)
-
-        let customInteractionStaticText = webViewsQuery.staticTexts["custom interaction"]
-        XCTAssertEqual(customInteractionStaticText.exists, true)
-        customInteractionStaticText.tap()
-        
-        let pauseStaticText = webViewsQuery/*@START_MENU_TOKEN@*/.staticTexts["pause"]/*[[".otherElements[\"ebBannerIFrame_23227072_3747381026391887\"].staticTexts[\"pause\"]",".staticTexts[\"pause\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        XCTAssertEqual(pauseStaticText.exists, true)
-        pauseStaticText.tap()
-        
-        let adStaticText = webViewsQuery.staticTexts["Ad"]
-        XCTAssertEqual(adStaticText.exists, true)
-        
-        
-        let adDuration = webViewsQuery.staticTexts["0:17"]
-        XCTAssertEqual(adDuration.exists, true)
-        
-        
-        
-        let unmuteStaticText = webViewsQuery.staticTexts["unmute"]
-        XCTAssertEqual(unmuteStaticText.exists, true)
-        unmuteStaticText.tap()
-        
-        let muteStaticText = webViewsQuery/*@START_MENU_TOKEN@*/.staticTexts["mute"]/*[[".otherElements[\"ebBannerIFrame_23227072_3747381026391887\"].staticTexts[\"mute\"]",".staticTexts[\"mute\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        XCTAssertEqual(muteStaticText.exists, true)
-        muteStaticText.tap()
-      
-        let clickthroughStaticText = webViewsQuery.staticTexts["clickthrough"]
-        XCTAssertEqual(clickthroughStaticText.exists, true)
-        clickthroughStaticText.tap()
-        app.toolbars["Toolbar"].buttons["OK"].tap()
-        
-        wait(2)
-
-        let unmuteButton = webViewsQuery.buttons[" Unmute"]
-        XCTAssertEqual(unmuteButton.exists, true)
-        unmuteButton.tap()
-        wait(2)
-        
-        let muteButton = webViewsQuery.buttons[" Mute"]
-        XCTAssertEqual(muteButton.exists, true)
-        muteButton.tap()
-        wait(2)
-        
-        let fullscreenButton =  webViewsQuery.buttons[" Fullscreen"]
-        XCTAssertEqual(fullscreenButton.exists, true)
-        fullscreenButton.tap()
-        wait(2)
-        
-        let skipAdButton = webViewsQuery.staticTexts["skip ad"]
-        XCTAssertEqual(skipAdButton.exists, true)
-        
-        let nonFullscreenButton = webViewsQuery.buttons[" Non-Fullscreen"]
-        XCTAssertEqual(nonFullscreenButton.exists, true)
-        nonFullscreenButton.tap()
-        print(webViewsQuery.debugDescription)
-        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo)
-        wait(2)
-    }
-    
     func testBannerVideo() {
         
 
@@ -129,15 +51,15 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
 
         let webViewsQuery = app.webViews
 
-        let webview = webViewsQuery.otherElements["2 minutes 48 seconds"]
+        let webview = webViewsQuery.firstMatch
         
-        wait(for: webview, timeout: 15)
+        wait(for: webview, timeout: 25)
        
         wait(2)
 
         XCTAssertEqual(webview.exists, true)
 
-        let adDuration = webViewsQuery.staticTexts["2:48"]
+        let adDuration = webViewsQuery.staticTexts["1:06"]
         XCTAssertEqual(adDuration.exists, true)
 
         
@@ -168,10 +90,10 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
         XCTAssertEqual(skipButton.exists, false)
         wait(2)
 
-        let adLearnMoreStaticText = webViewsQuery.staticTexts["Ad - Learn More"]
-        XCTAssertEqual(adLearnMoreStaticText.exists, true)
-        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerVideoAd.testBannerVideo)
-        wait(2)
+//        let adLearnMoreStaticText = webViewsQuery.staticTexts["Ad - Learn More"]
+//        XCTAssertEqual(adLearnMoreStaticText.exists, true)
+//        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerVideoAd.testBannerVideo)
+//        wait(2)
     }
 }
 

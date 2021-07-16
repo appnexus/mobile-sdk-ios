@@ -63,6 +63,7 @@ class BannerVideoAdViewController: UIViewController  , ANBannerAdViewDelegate {
                 let size = CGSize(width: 1, height: 1)
                 banner = ANBannerAdView(frame: CGRect(x: centerX-width/2, y: centerY-height/2, width: width, height: height), placementId: placement)
                 banner.adSize = size
+                banner.forceCreativeId = 162035356
                 banner.delegate=self
                 banner.accessibilityIdentifier = bannerAdObject?.adObject.accessibilityIdentifier
                 banner.shouldAllowVideoDemand = bannerAdObject!.isVideo

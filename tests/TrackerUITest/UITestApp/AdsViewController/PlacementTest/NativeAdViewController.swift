@@ -53,7 +53,7 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate, ANNa
             
         viewNative.isHidden = true
         nativeAdRequest = ANNativeAdRequest()
-        
+        nativeAdRequest.forceCreativeId = 154679174
         nativeAdRequest.placementId = nativeAdObject?.adObject.placement
             nativeAdRequest.shouldLoadIconImage = (nativeAdObject?.shouldLoadIconImage)!
             nativeAdRequest.shouldLoadMainImage = (nativeAdObject?.shouldLoadMainImage)!

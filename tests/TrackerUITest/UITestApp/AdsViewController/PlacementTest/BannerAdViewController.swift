@@ -44,6 +44,13 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate {
             let centerY = self.view.frame.size.height/2
             
             banner = ANBannerAdView(frame: CGRect(x: centerX - width/2, y: centerY - height/2, width: width, height: height), placementId: bannerAdObject.adObject.placement)
+            if(height == 50){
+                banner.forceCreativeId =  162038237
+            }else{
+                banner.forceCreativeId =  162037707
+            }
+            
+            
             banner.adSize = size
             banner.accessibilityIdentifier = bannerAdObject.adObject.accessibilityIdentifier
             banner.delegate=self

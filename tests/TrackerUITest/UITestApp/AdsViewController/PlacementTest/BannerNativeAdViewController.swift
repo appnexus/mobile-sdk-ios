@@ -79,6 +79,7 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
             let banner = ANBannerAdView(frame: rect, placementId: placement , adSize: size)
             banner.rootViewController = self
             banner.autoRefreshInterval = 60
+            banner.forceCreativeId = 154679174
             banner.delegate = self
             if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering)  {
                 guard let enableNativeRendering = bannerAdObject.enableNativeRendering else {  print("enableNativeRendering not found");   return  }

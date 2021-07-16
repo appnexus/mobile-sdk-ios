@@ -88,7 +88,7 @@ class ANBannerAdViewTests: XCTestCase, ANBannerAdViewDelegate {
     
         // Asserts Ad Elemnts once ad Did Receive
         let webViewsQuery = app.webViews.element(boundBy: 0)
-        wait(for: webViewsQuery, timeout: 10)
+        wait(for: webViewsQuery, timeout: 50)
         XCUIScreen.main.screenshot()
 
         let webViewsSizeText = app.staticTexts["Size = 300 x 250"]

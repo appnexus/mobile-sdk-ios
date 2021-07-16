@@ -47,42 +47,42 @@ class ANBannerNativeAdViewTests: XCTestCase, ANBannerAdViewDelegate {
         app.launch()
         
         
-        let element = app.otherElements.containing(.navigationBar, identifier:"Banner Native Ad").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+    
         
-        wait(for: element, timeout: 20)
+        let nativeTitle = app.staticTexts["Vision Mind Stone"]
         
-        element.tap()
-        
-        
-        let nativeTitle = app.staticTexts["NativeAd UI Test"]
+        wait(for: nativeTitle, timeout: 20)
+
         XCTAssertEqual(nativeTitle.exists, true)
-        
-        let nativeBody = app.staticTexts["Spot testing is working using UI test"]
+
+        let nativeBody = app.staticTexts["Super Hero"]
         XCTAssertEqual(nativeBody.exists, true)
         
-        let nativeSponsored = app.staticTexts["UITestApp"]
+        let nativeSponsored = app.staticTexts["Abhishek Sharma"]
         XCTAssertEqual(nativeSponsored.exists, true)
         
-        let icon_image = element.children(matching: .image).element(boundBy: 0)
-        XCTAssertEqual(icon_image.exists, true)
-        XCTAssertGreaterThan(icon_image.frame.size.width, 40)
-        XCTAssertGreaterThan(icon_image.frame.size.height, 40)
-        
-        let main_image = element.children(matching: .image).element(boundBy: 1)
-        XCTAssertEqual(main_image.exists, true)
-        XCTAssertGreaterThan(main_image.frame.size.width, 200)
-        XCTAssertGreaterThan(main_image.frame.size.height, 200)
+//        let icon_image = app.children(matching: .image).element(boundBy: 0)
+//        XCTAssertEqual(icon_image.exists, true)
+//        XCTAssertGreaterThan(icon_image.frame.size.width, 40)
+//        XCTAssertGreaterThan(icon_image.frame.size.height, 40)
+//
+//        let main_image = app.children(matching: .image).element(boundBy: 1)
+//        XCTAssertEqual(main_image.exists, true)
+//        XCTAssertGreaterThan(main_image.frame.size.width, 200)
+//        XCTAssertGreaterThan(main_image.frame.size.height, 200)
         
         wait(2)
         
-        let nativeClickButton = app.buttons["ANNativeAdViewCallToAction"]
-        XCTAssertEqual(nativeClickButton.exists, true)
+//        let nativeClickButton = app.buttons["Click to see"]
+//        XCTAssertEqual(nativeClickButton.exists, true)
         XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerNativeAd.testRTBBannerNative)
         wait(2)
+        
     }
     
 
-    
+ /*
+ //Will Activeate with a new Placement
     func testRTBBannerNativeRendering() {
         
         let adObject = AdObject(adType: "Banner", accessibilityIdentifier: PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering, placement: "19065996")
@@ -109,7 +109,8 @@ class ANBannerNativeAdViewTests: XCTestCase, ANBannerAdViewDelegate {
         wait(2)
     }
  
-}
+ */
 
+}
 
 
