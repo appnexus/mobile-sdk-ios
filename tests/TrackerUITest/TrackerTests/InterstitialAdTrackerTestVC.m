@@ -68,8 +68,8 @@
     XCTAssertTrue(clickTracker.exists);
      */
 
-}
-*/
+//}
+
 
 /**
   Wait n amount of time for XCUIElement to appear on the screen
