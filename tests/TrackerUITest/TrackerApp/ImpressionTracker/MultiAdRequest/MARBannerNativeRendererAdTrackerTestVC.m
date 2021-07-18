@@ -16,7 +16,7 @@
 #import "MARBannerNativeRendererAdTrackerTestVC.h"
 #import <AppNexusSDK/AppNexusSDK.h>
 #import "ANStubManager.h"
-#import <TrackerApp-Swift.h>
+#import <Integration-Swift.h>
 #import "ANHTTPStubbingManager.h"
 #import "Constant.h"
 @interface MARBannerNativeRendererAdTrackerTestVC () <ANMultiAdRequestDelegate  , ANBannerAdViewDelegate ,  ANInstreamVideoAdPlayDelegate , ANInterstitialAdDelegate , ANNativeAdRequestDelegate , ANNativeAdDelegate  , ANInstreamVideoAdLoadDelegate>

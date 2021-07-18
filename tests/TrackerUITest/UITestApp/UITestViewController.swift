@@ -15,7 +15,6 @@
 
 
 import UIKit
-
 class UITestViewController: UIViewController {
     
     
@@ -27,6 +26,11 @@ class UITestViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
+        ANHTTPStubbingManager.shared().disable()
+        ANHTTPStubbingManager.shared().removeAllStubs()
+        ANStubManager.sharedInstance().enableStubbing()
+        ANStubManager.sharedInstance().disableStubbing()
+        
             let placementTestStoryboard =  UIStoryboard(name: PlacementTestConstants.PlacementTest, bundle: nil)
             if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerAd.testRTBBanner320x50) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerAd.testRTBBanner300x250) {
                 let bannerAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerAdViewController") as! BannerAdViewController
@@ -54,7 +58,27 @@ class UITestViewController: UIViewController {
                 
             }
             
+        if ProcessInfo.processInfo.arguments.contains(BannerImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(BannerNativeImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(BannerNativeRendererImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(BannerVideoImpressionClickTrackerTest) {
+            self.openViewController("BannerNativeVideoTrackerTestVC")
+        }
+        if ProcessInfo.processInfo.arguments.contains(InterstitialImpressionClickTrackerTest) {
+            self.openViewController("InterstitialAdTrackerTestVC")
+        } else if ProcessInfo.processInfo.arguments.contains(VideoImpressionClickTrackerTest) {
+            self.openViewController("VideoAdTrackerTestVC")
+        } else if ProcessInfo.processInfo.arguments.contains(NativeImpressionClickTrackerTest) {
+            self.openViewController("NativeAdTrackerTestVC")
+        }else if ProcessInfo.processInfo.arguments.contains(MARBannerImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(MARNativeImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(MARBannerNativeRendererImpressionClickTrackerTest) {
+            self.openViewController("MARBannerNativeRendererAdTrackerTestVC")
+        }
             
+    }
+    func openViewController(_ viewController: String) {
+        let sb = UIStoryboard(name: viewController, bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: viewController)
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: true)
+
     }
     
 }
+

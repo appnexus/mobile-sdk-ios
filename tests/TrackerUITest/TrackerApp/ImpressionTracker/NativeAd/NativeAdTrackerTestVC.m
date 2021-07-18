@@ -17,7 +17,7 @@
 #import <AppNexusSDK/AppNexusSDK.h>
 #import "ANNativeAdView.h"
 #import "ANStubManager.h"
-#import <TrackerApp-Swift.h>
+#import <Integration-Swift.h>
 #import "Constant.h"
 #import "ANHTTPStubbingManager.h"
 

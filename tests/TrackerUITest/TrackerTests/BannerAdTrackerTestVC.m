@@ -43,7 +43,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:BannerImpressionClickTrackerTest];
     [app launch];
     XCUIElement *impressionTracker = app.staticTexts[@"ImpressionTracker"];
-    [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout];;
+    [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout*20];;
     XCTAssertTrue(impressionTracker.exists);
 }
 /*

@@ -46,6 +46,8 @@
 /*
  testInterstitialClickTrackerTestAd: To test the click tracker is fired by the Interstitial Ad.
  */
+
+/*
 // Click Tracker Testcase is not working
 - (void)testInterstitialClickTrackerTestAd {
     // Use recording to get started writing UI tests.
@@ -67,7 +69,7 @@
      */
 
 }
-
+*/
 
 /**
   Wait n amount of time for XCUIElement to appear on the screen

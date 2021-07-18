@@ -9,16 +9,11 @@
 /* Begin PBXBuildFile section */
 		0E49155C24065546003B7CC2 /* AdType.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49155A24065546003B7CC2 /* AdType.storyboard */; };
 		0E49157624065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49156724065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.storyboard */; };
-		0E49157724065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49156824065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.m */; };
-		0E49158C24065963003B7CC2 /* VideoAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49158024065963003B7CC2 /* VideoAdTrackerTestVC.m */; };
 		0E49158D24065963003B7CC2 /* VideoAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158224065963003B7CC2 /* VideoAdTrackerTestVC.storyboard */; };
 		0E49158E24065963003B7CC2 /* BannerNativeVideoTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158424065963003B7CC2 /* BannerNativeVideoTrackerTestVC.storyboard */; };
-		0E49158F24065963003B7CC2 /* BannerNativeVideoTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49158524065963003B7CC2 /* BannerNativeVideoTrackerTestVC.m */; };
-		0E49159024065963003B7CC2 /* NativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49158824065963003B7CC2 /* NativeAdTrackerTestVC.m */; };
 		0E49159124065963003B7CC2 /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158924065963003B7CC2 /* ANNativeAdView.xib */; };
 		0E49159224065963003B7CC2 /* NativeAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158B24065963003B7CC2 /* NativeAdTrackerTestVC.storyboard */; };
 		0E49159524065ABF003B7CC2 /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49159324065ABF003B7CC2 /* ANNativeAdView.m */; };
-		0E49159B24065E84003B7CC2 /* InterstitialAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49159824065E84003B7CC2 /* InterstitialAdTrackerTestVC.m */; };
 		0E49159C24065E84003B7CC2 /* InterstitialAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49159924065E84003B7CC2 /* InterstitialAdTrackerTestVC.storyboard */; };
 		0E877AB423FEA40700DC962F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E877AB323FEA40700DC962F /* AppDelegate.m */; };
 		0E877ABF23FEA40900DC962F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E877ABE23FEA40900DC962F /* Assets.xcassets */; };
@@ -40,6 +35,66 @@
 		FC1F3817253D5799006DD370 /* RTBBannerVideoAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F3810253D5799006DD370 /* RTBBannerVideoAd.json */; };
 		FC1F3818253D5799006DD370 /* RTBBannerAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F3811253D5799006DD370 /* RTBBannerAd.json */; };
 		FC1F3819253D5799006DD370 /* RTBInterstitialAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F3812253D5799006DD370 /* RTBInterstitialAd.json */; };
+		FC56481126A4A33A0043FBB1 /* BannerNativeVideoTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49158524065963003B7CC2 /* BannerNativeVideoTrackerTestVC.m */; };
+		FC56482626A4A3E40043FBB1 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; };
+		FC56482726A4A3E40043FBB1 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FC56483D26A4A4CD0043FBB1 /* NSURLProtocol+WebKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB2469B2539B4FB00600B3D /* NSURLProtocol+WebKitSupport.swift */; };
+		FC56483E26A4A4CD0043FBB1 /* AuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB2469D2539B4FB00600B3D /* AuthenticationChallengeSender.swift */; };
+		FC56483F26A4A4CD0043FBB1 /* WebKitURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB2469C2539B4FB00600B3D /* WebKitURLProtocol.swift */; };
+		FC5648B526A4A6760043FBB1 /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEB12590E7EF008AE0EB /* ANVerificationScriptResource+ANTest.m */; };
+		FC5648CC26A4A6DF0043FBB1 /* BannerVideoAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755691253EC4BC00C2C518 /* BannerVideoAdTrackerTestVC.m */; };
+		FC5648CD26A4A6DF0043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA5D432541841300240D74 /* MARBannerNativeRendererAdTrackerTestVC.m */; };
+		FC5648CE26A4A6E00043FBB1 /* NativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755685253D9E8D00C2C518 /* NativeAdTrackerTestVC.m */; };
+		FC5648CF26A4A6E00043FBB1 /* VideoAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755695253EC6B800C2C518 /* VideoAdTrackerTestVC.m */; };
+		FC5648D026A4A6E00043FBB1 /* MARNativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA5D3E2541759A00240D74 /* MARNativeAdTrackerTestVC.m */; };
+		FC5648D126A4A6E00043FBB1 /* BannerNativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755680253D960B00C2C518 /* BannerNativeAdTrackerTestVC.m */; };
+		FC5648D226A4A6E00043FBB1 /* BannerAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC75568B253DAFE000C2C518 /* BannerAdTrackerTestVC.m */; };
+		FC5648D326A4A6E00043FBB1 /* BannerAdOnePXScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87B925F2933300E9B117 /* BannerAdOnePXScrollViewController.m */; };
+		FC5648D426A4A6E00043FBB1 /* MARBannerAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1C6D14253F787E00781272 /* MARBannerAdTrackerTestVC.m */; };
+		FC5648D526A4A6E00043FBB1 /* InterstitialAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC75568E253DC80C00C2C518 /* InterstitialAdTrackerTestVC.m */; };
+		FC5648D626A4A6E00043FBB1 /* BannerNativeRendererAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC75567B253D78EF00C2C518 /* BannerNativeRendererAdTrackerTestVC.m */; };
+		FC56491126A4A9310043FBB1 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77574025374EFB00400FE7 /* ANHTTPStubURLProtocol.m */; };
+		FC56491226A4A9310043FBB1 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573325374EFB00400FE7 /* NSURLRequest+HTTPBodyTesting.m */; };
+		FC56491326A4A9310043FBB1 /* ANHTTPCookieStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573B25374EFB00400FE7 /* ANHTTPCookieStorage.m */; };
+		FC56491426A4A9310043FBB1 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77574325374EFB00400FE7 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
+		FC56491526A4A9310043FBB1 /* ANStubManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573525374EFB00400FE7 /* ANStubManager.m */; };
+		FC56491626A4A9310043FBB1 /* ANGlobal+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573725374EFB00400FE7 /* ANGlobal+ANTest.m */; };
+		FC56491726A4A9310043FBB1 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77574125374EFB00400FE7 /* NSObject+Swizzling.m */; };
+		FC56491826A4A9310043FBB1 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573925374EFB00400FE7 /* ANHTTPStubbingManager.m */; };
+		FC56491926A4A9310043FBB1 /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573E25374EFB00400FE7 /* ANURLConnectionStub.m */; };
+		FC56493426A4AD8A0043FBB1 /* AdType.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49155A24065546003B7CC2 /* AdType.storyboard */; };
+		FC56493926A4AED50043FBB1 /* BannerNativeVideoTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158424065963003B7CC2 /* BannerNativeVideoTrackerTestVC.storyboard */; };
+		FC56493A26A4AED50043FBB1 /* InterstitialAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49159924065E84003B7CC2 /* InterstitialAdTrackerTestVC.storyboard */; };
+		FC56493B26A4AED50043FBB1 /* VideoAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158224065963003B7CC2 /* VideoAdTrackerTestVC.storyboard */; };
+		FC56493C26A4AED50043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49156724065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.storyboard */; };
+		FC56493D26A4AED50043FBB1 /* NativeAdTrackerTestVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158B24065963003B7CC2 /* NativeAdTrackerTestVC.storyboard */; };
+		FC56493E26A4AED50043FBB1 /* ScrollViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCDE87AF25F28CA300E9B117 /* ScrollViewController.storyboard */; };
+		FC56494326A4AFB70043FBB1 /* RTBBannerNativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F380E253D5799006DD370 /* RTBBannerNativeAd.json */; };
+		FC56494426A4AFB70043FBB1 /* RTBBannerAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F3811253D5799006DD370 /* RTBBannerAd.json */; };
+		FC56494526A4AFB70043FBB1 /* RTBVideoAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F380C253D5799006DD370 /* RTBVideoAd.json */; };
+		FC56494626A4AFB70043FBB1 /* RTBBannerVideoAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F3810253D5799006DD370 /* RTBBannerVideoAd.json */; };
+		FC56494726A4AFB70043FBB1 /* RTBBannerNativeRendererAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F380D253D5799006DD370 /* RTBBannerNativeRendererAd.json */; };
+		FC56494826A4AFB70043FBB1 /* RTBNativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F380F253D5799006DD370 /* RTBNativeAd.json */; };
+		FC56494926A4AFB70043FBB1 /* RTBInterstitialAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC1F3812253D5799006DD370 /* RTBInterstitialAd.json */; };
+		FC56494E26A4AFBC0043FBB1 /* OMID_BannerAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC7BCF3F258905DB00739FC1 /* OMID_BannerAd.json */; };
+		FC56494F26A4AFBC0043FBB1 /* OMID_VideoAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FC7BCF65258BC31300739FC1 /* OMID_VideoAd.json */; };
+		FC56495426A4B3DF0043FBB1 /* NSURLProtocol+WKWebViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEC42591229F008AE0EB /* NSURLProtocol+WKWebViewSupport.m */; };
+		FC56495926A4B3E10043FBB1 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEC92591229F008AE0EB /* NSURLSessionConfiguration+ANProtocols.m */; };
+		FC56495E26A4B3E40043FBB1 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEC72591229F008AE0EB /* SDKValidationURLProtocol.m */; };
+		FC56496326A4B5E20043FBB1 /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49159324065ABF003B7CC2 /* ANNativeAdView.m */; };
+		FC56496426A4B5E20043FBB1 /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E49158924065963003B7CC2 /* ANNativeAdView.xib */; };
+		FC56496926A4BB780043FBB1 /* InterstitialAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49159824065E84003B7CC2 /* InterstitialAdTrackerTestVC.m */; };
+		FC56496E26A4BCB10043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49156824065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.m */; };
+		FC56497326A4BD850043FBB1 /* NativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49158824065963003B7CC2 /* NativeAdTrackerTestVC.m */; };
+		FC56497826A4BD910043FBB1 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC8FE6E225483AE000971E2A /* UnifiedNativeAdView.xib */; };
+		FC56498626A4BE050043FBB1 /* VideoAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E49158024065963003B7CC2 /* VideoAdTrackerTestVC.m */; };
+		FC564A1B26A4C6340043FBB1 /* BannerNativeViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEEA25922617008AE0EB /* BannerNativeViewabilityTrackerTests.m */; };
+		FC564A1C26A4C6340043FBB1 /* VideoViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC85ACEE258D198900A64F7D /* VideoViewabilityTrackerTests.m */; };
+		FC564A1D26A4C6340043FBB1 /* NativeViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEF025922D79008AE0EB /* NativeViewabilityTrackerTests.m */; };
+		FC564A1E26A4C6340043FBB1 /* BannerViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7BCF212588ED3400739FC1 /* BannerViewabilityTrackerTests.m */; };
+		FC564A1F26A4C6340043FBB1 /* BannerVideoViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC85ACE7258D0C5200A64F7D /* BannerVideoViewabilityTrackerTests.m */; };
+		FC564A2026A4C6340043FBB1 /* InterstitialViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEA92590DC8F008AE0EB /* InterstitialViewabilityTrackerTests.m */; };
+		FC564A2426A4C66B0043FBB1 /* Constant.h in Sources */ = {isa = PBXBuildFile; fileRef = FCE7E9012593CC7700801E27 /* Constant.h */; };
 		FC77572C25374EB400400FE7 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; };
 		FC77572D25374EB400400FE7 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FC77575D25374EFB00400FE7 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FC77573325374EFB00400FE7 /* NSURLRequest+HTTPBodyTesting.m */; };
@@ -82,8 +137,6 @@
 		FC80F068269F4C9300BFF0C7 /* ANBannerVideoAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F05F269F4C9200BFF0C7 /* ANBannerVideoAdViewTests.swift */; };
 		FC80F069269F4C9300BFF0C7 /* XCGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F060269F4C9300BFF0C7 /* XCGlobal.swift */; };
 		FC80F06A269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F062269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift */; };
-		FC80F0A4269F4E1E00BFF0C7 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; };
-		FC80F0A5269F4E1E00BFF0C7 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FC77572225374E7000400FE7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FC80F0AB269F521200BFF0C7 /* AdObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F033269F4BD000BFF0C7 /* AdObjectModel.swift */; };
 		FC80F0B0269F521500BFF0C7 /* TestCaseConstent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F034269F4BD000BFF0C7 /* TestCaseConstent.swift */; };
 		FC85ACF8258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC85ACF5258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m */; };
@@ -97,23 +150,6 @@
 		FCDE87B425F28CA300E9B117 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AD25F28CA300E9B117 /* ScrollViewController.m */; };
 		FCDE87B525F28CA300E9B117 /* BannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AE25F28CA300E9B117 /* BannerCell.m */; };
 		FCDE87B625F28CA300E9B117 /* ScrollViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCDE87AF25F28CA300E9B117 /* ScrollViewController.storyboard */; };
-		FCDE87BA25F2933300E9B117 /* BannerAdOnePXScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87B925F2933300E9B117 /* BannerAdOnePXScrollViewController.m */; };
-		FCE7E8CC2593C9E300801E27 /* InterstitialViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEA92590DC8F008AE0EB /* InterstitialViewabilityTrackerTests.m */; };
-		FCE7E8CD2593C9E300801E27 /* BannerViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7BCF212588ED3400739FC1 /* BannerViewabilityTrackerTests.m */; };
-		FCE7E8CE2593C9E300801E27 /* BannerNativeViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEEA25922617008AE0EB /* BannerNativeViewabilityTrackerTests.m */; };
-		FCE7E8CF2593C9E300801E27 /* NativeViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1DFEF025922D79008AE0EB /* NativeViewabilityTrackerTests.m */; };
-		FCE7E8D02593C9E300801E27 /* VideoViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC85ACEE258D198900A64F7D /* VideoViewabilityTrackerTests.m */; };
-		FCE7E8D12593C9E300801E27 /* BannerVideoViewabilityTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC85ACE7258D0C5200A64F7D /* BannerVideoViewabilityTrackerTests.m */; };
-		FCE7E8DA2593C9ED00801E27 /* BannerAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC75568B253DAFE000C2C518 /* BannerAdTrackerTestVC.m */; };
-		FCE7E8DB2593C9ED00801E27 /* BannerNativeRendererAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC75567B253D78EF00C2C518 /* BannerNativeRendererAdTrackerTestVC.m */; };
-		FCE7E8DC2593C9ED00801E27 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA5D432541841300240D74 /* MARBannerNativeRendererAdTrackerTestVC.m */; };
-		FCE7E8DD2593C9ED00801E27 /* MARNativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA5D3E2541759A00240D74 /* MARNativeAdTrackerTestVC.m */; };
-		FCE7E8DE2593C9ED00801E27 /* NativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755685253D9E8D00C2C518 /* NativeAdTrackerTestVC.m */; };
-		FCE7E8E02593C9ED00801E27 /* BannerNativeAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755680253D960B00C2C518 /* BannerNativeAdTrackerTestVC.m */; };
-		FCE7E8E12593C9ED00801E27 /* BannerVideoAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755691253EC4BC00C2C518 /* BannerVideoAdTrackerTestVC.m */; };
-		FCE7E8E32593C9ED00801E27 /* InterstitialAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC75568E253DC80C00C2C518 /* InterstitialAdTrackerTestVC.m */; };
-		FCE7E8E42593C9ED00801E27 /* VideoAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC755695253EC6B800C2C518 /* VideoAdTrackerTestVC.m */; };
-		FCE7E8E62593C9ED00801E27 /* MARBannerAdTrackerTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1C6D14253F787E00781272 /* MARBannerAdTrackerTestVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,13 +188,6 @@
 			remoteGlobalIDString = FC80EFF2269F42C700BFF0C7;
 			remoteInfo = Integration;
 		};
-		FCE7E8B22593C9C100801E27 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E877AA723FEA40700DC962F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0E877AAE23FEA40700DC962F;
-			remoteInfo = TrackerApp;
-		};
 		FCE7E8C32593C9D700801E27 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E877AA723FEA40700DC962F /* Project object */;
@@ -180,13 +209,13 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FC80F0A6269F4E1E00BFF0C7 /* Embed Frameworks */ = {
+		FC56482826A4A3E40043FBB1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FC80F0A5269F4E1E00BFF0C7 /* AppNexusSDK.framework in Embed Frameworks */,
+				FC56482726A4A3E40043FBB1 /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,11 +364,10 @@
 		FCDE87B125F28CA300E9B117 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
 		FCDE87B225F28CA300E9B117 /* BannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerCell.h; sourceTree = "<group>"; };
 		FCDE87B925F2933300E9B117 /* BannerAdOnePXScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerAdOnePXScrollViewController.m; sourceTree = "<group>"; };
-		FCE7E8AD2593C9C100801E27 /* ViewabilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewabilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE7E8B12593C9C100801E27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCE7E8BE2593C9D700801E27 /* TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE7E8C22593C9D700801E27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCE7E9012593CC7700801E27 /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		FCE7E9012593CC7700801E27 /* Constant.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = Constant.h; sourceTree = "<group>"; };
 		FCFA5D3E2541759A00240D74 /* MARNativeAdTrackerTestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARNativeAdTrackerTestVC.m; sourceTree = "<group>"; };
 		FCFA5D432541841300240D74 /* MARBannerNativeRendererAdTrackerTestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARBannerNativeRendererAdTrackerTestVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -357,7 +385,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC80F0A4269F4E1E00BFF0C7 /* AppNexusSDK.framework in Frameworks */,
+				FC56482626A4A3E40043FBB1 /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,13 +397,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC80F010269F42C900BFF0C7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FCE7E8AA2593C9C100801E27 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -479,7 +500,6 @@
 			children = (
 				0E877AAF23FEA40700DC962F /* TrackerApp.app */,
 				FCE7E8BE2593C9D700801E27 /* TrackerTests.xctest */,
-				FCE7E8AD2593C9C100801E27 /* ViewabilityTests.xctest */,
 				FC80EFF3269F42C700BFF0C7 /* Integration.app */,
 				FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */,
 				FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */,
@@ -891,7 +911,7 @@
 				FC80EFEF269F42C700BFF0C7 /* Sources */,
 				FC80EFF0269F42C700BFF0C7 /* Frameworks */,
 				FC80EFF1269F42C700BFF0C7 /* Resources */,
-				FC80F0A6269F4E1E00BFF0C7 /* Embed Frameworks */,
+				FC56482826A4A3E40043FBB1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -938,24 +958,6 @@
 			productReference = FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		FCE7E8AC2593C9C100801E27 /* ViewabilityTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FCE7E8B42593C9C100801E27 /* Build configuration list for PBXNativeTarget "ViewabilityTests" */;
-			buildPhases = (
-				FCE7E8A92593C9C100801E27 /* Sources */,
-				FCE7E8AA2593C9C100801E27 /* Frameworks */,
-				FCE7E8AB2593C9C100801E27 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FCE7E8B32593C9C100801E27 /* PBXTargetDependency */,
-			);
-			name = ViewabilityTests;
-			productName = ViewabilityTests;
-			productReference = FCE7E8AD2593C9C100801E27 /* ViewabilityTests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		FCE7E8BD2593C9D700801E27 /* TrackerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCE7E8C52593C9D700801E27 /* Build configuration list for PBXNativeTarget "TrackerTests" */;
@@ -1000,10 +1002,6 @@
 						LastSwiftMigration = 1240;
 						TestTargetID = FC80EFF2269F42C700BFF0C7;
 					};
-					FCE7E8AC2593C9C100801E27 = {
-						CreatedOnToolsVersion = 12.1;
-						TestTargetID = 0E877AAE23FEA40700DC962F;
-					};
 					FCE7E8BD2593C9D700801E27 = {
 						CreatedOnToolsVersion = 12.1;
 						TestTargetID = 0E877AAE23FEA40700DC962F;
@@ -1030,7 +1028,6 @@
 			projectRoot = "";
 			targets = (
 				0E877AAE23FEA40700DC962F /* TrackerApp */,
-				FCE7E8AC2593C9C100801E27 /* ViewabilityTests */,
 				FCE7E8BD2593C9D700801E27 /* TrackerTests */,
 				FC80EFF2269F42C700BFF0C7 /* Integration */,
 				FC80F007269F42C900BFF0C7 /* IntegrationTests */,
@@ -1094,10 +1091,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC56494326A4AFB70043FBB1 /* RTBBannerNativeAd.json in Resources */,
+				FC56494E26A4AFBC0043FBB1 /* OMID_BannerAd.json in Resources */,
+				FC56494826A4AFB70043FBB1 /* RTBNativeAd.json in Resources */,
+				FC56494426A4AFB70043FBB1 /* RTBBannerAd.json in Resources */,
+				FC56493D26A4AED50043FBB1 /* NativeAdTrackerTestVC.storyboard in Resources */,
 				FC80F049269F4C3A00BFF0C7 /* PlacementTest.storyboard in Resources */,
 				FC80F002269F42C900BFF0C7 /* LaunchScreen.storyboard in Resources */,
+				FC56494526A4AFB70043FBB1 /* RTBVideoAd.json in Resources */,
+				FC56493A26A4AED50043FBB1 /* InterstitialAdTrackerTestVC.storyboard in Resources */,
+				FC56494726A4AFB70043FBB1 /* RTBBannerNativeRendererAd.json in Resources */,
 				FC80EFFF269F42C900BFF0C7 /* Assets.xcassets in Resources */,
+				FC56493926A4AED50043FBB1 /* BannerNativeVideoTrackerTestVC.storyboard in Resources */,
+				FC56494926A4AFB70043FBB1 /* RTBInterstitialAd.json in Resources */,
+				FC56494F26A4AFBC0043FBB1 /* OMID_VideoAd.json in Resources */,
+				FC56496426A4B5E20043FBB1 /* ANNativeAdView.xib in Resources */,
+				FC56497826A4BD910043FBB1 /* UnifiedNativeAdView.xib in Resources */,
+				FC56494626A4AFB70043FBB1 /* RTBBannerVideoAd.json in Resources */,
+				FC56493C26A4AED50043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.storyboard in Resources */,
 				FC80EFFD269F42C700BFF0C7 /* Main.storyboard in Resources */,
+				FC56493E26A4AED50043FBB1 /* ScrollViewController.storyboard in Resources */,
+				FC56493426A4AD8A0043FBB1 /* AdType.storyboard in Resources */,
+				FC56493B26A4AED50043FBB1 /* VideoAdTrackerTestVC.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1109,13 +1124,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC80F011269F42C900BFF0C7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FCE7E8AB2593C9C100801E27 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1151,14 +1159,10 @@
 				FC7BCF3A2588FC4E00739FC1 /* BannerAdViewabilityTrackerTestVC.m in Sources */,
 				FCDE87B525F28CA300E9B117 /* BannerCell.m in Sources */,
 				FC1DFEBA2590E8C7008AE0EB /* BannerNativeAdViewabilityTrackerTestVC.m in Sources */,
-				0E49158F24065963003B7CC2 /* BannerNativeVideoTrackerTestVC.m in Sources */,
 				FC7BCF5A258B9F8700739FC1 /* BannerVideoAdViewabilityTrackerTestVC.m in Sources */,
 				FCDE87B325F28CA300E9B117 /* ContentCell.m in Sources */,
-				0E49159B24065E84003B7CC2 /* InterstitialAdTrackerTestVC.m in Sources */,
 				FC1DFE9B2590DA62008AE0EB /* InterstitialAdViewabilityTrackerTestVC.m in Sources */,
 				0E877AC523FEA40900DC962F /* main.m in Sources */,
-				0E49157724065911003B7CC2 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */,
-				0E49159024065963003B7CC2 /* NativeAdTrackerTestVC.m in Sources */,
 				FC77576425374EFB00400FE7 /* NSObject+Swizzling.m in Sources */,
 				FCB2469F2539B4FB00600B3D /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				FC1DFECA2591229F008AE0EB /* NSURLProtocol+WKWebViewSupport.m in Sources */,
@@ -1166,7 +1170,6 @@
 				FC1DFECC2591229F008AE0EB /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
 				FCDE87B425F28CA300E9B117 /* ScrollViewController.m in Sources */,
 				FC1DFECB2591229F008AE0EB /* SDKValidationURLProtocol.m in Sources */,
-				0E49158C24065963003B7CC2 /* VideoAdTrackerTestVC.m in Sources */,
 				FC85ACF8258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m in Sources */,
 				FCB246A02539B4FB00600B3D /* WebKitURLProtocol.swift in Sources */,
 			);
@@ -1177,17 +1180,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC80F03F269F4BD000BFF0C7 /* AppDelegate.swift in Sources */,
+				FC56496E26A4BCB10043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */,
+				FC56496326A4B5E20043FBB1 /* ANNativeAdView.m in Sources */,
+				FC56495926A4B3E10043FBB1 /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
 				FC80EFFA269F42C700BFF0C7 /* ViewController.swift in Sources */,
+				FC56491426A4A9310043FBB1 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				FC56495E26A4B3E40043FBB1 /* SDKValidationURLProtocol.m in Sources */,
+				FC56491126A4A9310043FBB1 /* ANHTTPStubURLProtocol.m in Sources */,
 				FC80F03C269F4BD000BFF0C7 /* NativeAdViewController.swift in Sources */,
 				FC80F03B269F4BD000BFF0C7 /* InterstitialAdViewController.swift in Sources */,
+				FC56497326A4BD850043FBB1 /* NativeAdTrackerTestVC.m in Sources */,
+				FC56483E26A4A4CD0043FBB1 /* AuthenticationChallengeSender.swift in Sources */,
+				FC56491326A4A9310043FBB1 /* ANHTTPCookieStorage.m in Sources */,
 				FC80F038269F4BD000BFF0C7 /* BannerAdViewController.swift in Sources */,
+				FC56491826A4A9310043FBB1 /* ANHTTPStubbingManager.m in Sources */,
 				FC80F037269F4BD000BFF0C7 /* VideoAdViewController.swift in Sources */,
+				FC56491626A4A9310043FBB1 /* ANGlobal+ANTest.m in Sources */,
+				FC56483D26A4A4CD0043FBB1 /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				FC80F039269F4BD000BFF0C7 /* BannerVideoAdViewController.swift in Sources */,
+				FC56491526A4A9310043FBB1 /* ANStubManager.m in Sources */,
+				FC56498626A4BE050043FBB1 /* VideoAdTrackerTestVC.m in Sources */,
 				FC80F040269F4BD000BFF0C7 /* UITestViewController.swift in Sources */,
+				FC56496926A4BB780043FBB1 /* InterstitialAdTrackerTestVC.m in Sources */,
+				FC56495426A4B3DF0043FBB1 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				FC80EFF8269F42C700BFF0C7 /* SceneDelegate.swift in Sources */,
 				FC80F03A269F4BD000BFF0C7 /* BannerNativeAdViewController.swift in Sources */,
+				FC56491926A4A9310043FBB1 /* ANURLConnectionStub.m in Sources */,
+				FC56491226A4A9310043FBB1 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				FC80F03E269F4BD000BFF0C7 /* TestCaseConstent.swift in Sources */,
+				FC56491726A4A9310043FBB1 /* NSObject+Swizzling.m in Sources */,
+				FC56483F26A4A4CD0043FBB1 /* WebKitURLProtocol.swift in Sources */,
 				FC80F03D269F4BD000BFF0C7 /* AdObjectModel.swift in Sources */,
+				FC56481126A4A33A0043FBB1 /* BannerNativeVideoTrackerTestVC.m in Sources */,
+				FC5648B526A4A6760043FBB1 /* ANVerificationScriptResource+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1203,29 +1228,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5648D026A4A6E00043FBB1 /* MARNativeAdTrackerTestVC.m in Sources */,
+				FC5648CE26A4A6E00043FBB1 /* NativeAdTrackerTestVC.m in Sources */,
 				FC80F064269F4C9300BFF0C7 /* VideoAdTests.swift in Sources */,
+				FC5648D226A4A6E00043FBB1 /* BannerAdTrackerTestVC.m in Sources */,
 				FC80F06A269F4C9300BFF0C7 /* ANBannerNativeAdViewTests.swift in Sources */,
+				FC5648D326A4A6E00043FBB1 /* BannerAdOnePXScrollViewController.m in Sources */,
+				FC5648D626A4A6E00043FBB1 /* BannerNativeRendererAdTrackerTestVC.m in Sources */,
 				FC80F066269F4C9300BFF0C7 /* ANNativeAdViewTests.swift in Sources */,
+				FC5648CF26A4A6E00043FBB1 /* VideoAdTrackerTestVC.m in Sources */,
 				FC80F0B0269F521500BFF0C7 /* TestCaseConstent.swift in Sources */,
 				FC80F069269F4C9300BFF0C7 /* XCGlobal.swift in Sources */,
+				FC5648D526A4A6E00043FBB1 /* InterstitialAdTrackerTestVC.m in Sources */,
+				FC5648CD26A4A6DF0043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */,
 				FC80F068269F4C9300BFF0C7 /* ANBannerVideoAdViewTests.swift in Sources */,
 				FC80F063269F4C9300BFF0C7 /* ANInterstitialAdViewTests.swift in Sources */,
 				FC80F065269F4C9300BFF0C7 /* ANBannerAdViewTests.swift in Sources */,
 				FC80F067269F4C9300BFF0C7 /* PlacementTests.swift in Sources */,
 				FC80F0AB269F521200BFF0C7 /* AdObjectModel.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FCE7E8A92593C9C100801E27 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FCE7E8CE2593C9E300801E27 /* BannerNativeViewabilityTrackerTests.m in Sources */,
-				FCE7E8D12593C9E300801E27 /* BannerVideoViewabilityTrackerTests.m in Sources */,
-				FCE7E8CD2593C9E300801E27 /* BannerViewabilityTrackerTests.m in Sources */,
-				FCE7E8CC2593C9E300801E27 /* InterstitialViewabilityTrackerTests.m in Sources */,
-				FCE7E8CF2593C9E300801E27 /* NativeViewabilityTrackerTests.m in Sources */,
-				FCE7E8D02593C9E300801E27 /* VideoViewabilityTrackerTests.m in Sources */,
+				FC5648CC26A4A6DF0043FBB1 /* BannerVideoAdTrackerTestVC.m in Sources */,
+				FC5648D426A4A6E00043FBB1 /* MARBannerAdTrackerTestVC.m in Sources */,
+				FC5648D126A4A6E00043FBB1 /* BannerNativeAdTrackerTestVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,17 +1256,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCDE87BA25F2933300E9B117 /* BannerAdOnePXScrollViewController.m in Sources */,
-				FCE7E8DA2593C9ED00801E27 /* BannerAdTrackerTestVC.m in Sources */,
-				FCE7E8E02593C9ED00801E27 /* BannerNativeAdTrackerTestVC.m in Sources */,
-				FCE7E8DB2593C9ED00801E27 /* BannerNativeRendererAdTrackerTestVC.m in Sources */,
-				FCE7E8E12593C9ED00801E27 /* BannerVideoAdTrackerTestVC.m in Sources */,
-				FCE7E8E32593C9ED00801E27 /* InterstitialAdTrackerTestVC.m in Sources */,
-				FCE7E8E62593C9ED00801E27 /* MARBannerAdTrackerTestVC.m in Sources */,
-				FCE7E8DC2593C9ED00801E27 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */,
-				FCE7E8DD2593C9ED00801E27 /* MARNativeAdTrackerTestVC.m in Sources */,
-				FCE7E8DE2593C9ED00801E27 /* NativeAdTrackerTestVC.m in Sources */,
-				FCE7E8E42593C9ED00801E27 /* VideoAdTrackerTestVC.m in Sources */,
+				FC564A1F26A4C6340043FBB1 /* BannerVideoViewabilityTrackerTests.m in Sources */,
+				FC564A2426A4C66B0043FBB1 /* Constant.h in Sources */,
+				FC564A1E26A4C6340043FBB1 /* BannerViewabilityTrackerTests.m in Sources */,
+				FC564A2026A4C6340043FBB1 /* InterstitialViewabilityTrackerTests.m in Sources */,
+				FC564A1C26A4C6340043FBB1 /* VideoViewabilityTrackerTests.m in Sources */,
+				FC564A1D26A4C6340043FBB1 /* NativeViewabilityTrackerTests.m in Sources */,
+				FC564A1B26A4C6340043FBB1 /* BannerNativeViewabilityTrackerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1264,11 +1283,6 @@
 			isa = PBXTargetDependency;
 			target = FC80EFF2269F42C700BFF0C7 /* Integration */;
 			targetProxy = FC80F014269F42CA00BFF0C7 /* PBXContainerItemProxy */;
-		};
-		FCE7E8B32593C9C100801E27 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0E877AAE23FEA40700DC962F /* TrackerApp */;
-			targetProxy = FCE7E8B22593C9C100801E27 /* PBXContainerItemProxy */;
 		};
 		FCE7E8C42593C9D700801E27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1445,23 +1459,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/HelpingLibrary",
-					"$(PROJECT_DIR)",
-					"\"$(SRCROOT)/TrackerTest/CSM\"",
-					"$(PROJECT_DIR)/TrackerTest/CSM",
-					"\"$(SRCROOT)/../../sdk\"",
-					"$(PROJECT_DIR)/TrackerApp/CSM",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/Categories\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
+					"\"$(SRCROOT)/HelpingLibrary/Stubbing\"",
+					"\"$(SRCROOT)/TrackerApp\"",
 				);
 				INFOPLIST_FILE = TrackerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1487,23 +1492,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/HelpingLibrary",
-					"$(PROJECT_DIR)",
-					"\"$(SRCROOT)/TrackerTest/CSM\"",
-					"$(PROJECT_DIR)/TrackerTest/CSM",
-					"\"$(SRCROOT)/../../sdk\"",
-					"$(PROJECT_DIR)/TrackerApp/CSM",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/Categories\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
+					"\"$(SRCROOT)/HelpingLibrary/Stubbing\"",
+					"\"$(SRCROOT)/TrackerApp\"",
 				);
 				INFOPLIST_FILE = TrackerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1527,6 +1523,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"/**",
+					"\"$(SRCROOT)/HelpingLibrary/Stubbing\"/**",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
+				);
 				INFOPLIST_FILE = Integration/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1550,6 +1554,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"/**",
+					"\"$(SRCROOT)/HelpingLibrary/Stubbing\"/**",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
+				);
 				INFOPLIST_FILE = Integration/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1623,6 +1635,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"/**";
 				INFOPLIST_FILE = IntegrationUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1648,6 +1661,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"/**";
 				INFOPLIST_FILE = IntegrationUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1663,48 +1677,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Integration;
-			};
-			name = Release;
-		};
-		FCE7E8B52593C9C100801E27 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
-				INFOPLIST_FILE = ViewabilityTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xandr.-.ViewabilityTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TrackerApp;
-			};
-			name = Debug;
-		};
-		FCE7E8B62593C9C100801E27 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
-				INFOPLIST_FILE = ViewabilityTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xandr.-.ViewabilityTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TrackerApp;
 			};
 			name = Release;
 		};
@@ -1794,15 +1766,6 @@
 			buildConfigurations = (
 				FC80F01E269F42CA00BFF0C7 /* Debug */,
 				FC80F01F269F42CA00BFF0C7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FCE7E8B42593C9C100801E27 /* Build configuration list for PBXNativeTarget "ViewabilityTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FCE7E8B52593C9C100801E27 /* Debug */,
-				FCE7E8B62593C9C100801E27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
