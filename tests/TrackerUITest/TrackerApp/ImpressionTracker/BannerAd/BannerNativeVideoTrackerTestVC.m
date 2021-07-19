@@ -82,7 +82,6 @@
     self.banner.delegate = self;
     self.banner.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
     self.banner.accessibilityIdentifier = @"bannerAdElements";
-    [self.view addSubview:self.banner];
     self.banner.shouldServePublicServiceAnnouncements = NO;
     self.banner.autoRefreshInterval = 0;
     [self.banner loadAd];
@@ -149,6 +148,8 @@
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+    
+    [self.view addSubview:self.banner];
 }
 
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{
