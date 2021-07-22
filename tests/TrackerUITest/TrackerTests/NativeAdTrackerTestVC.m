@@ -52,7 +52,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:NativeImpressionClickTrackerTest];
     [app launch];
     XCUIElement *nativerenderercampaignClickButton = app.buttons[@"clickElements"] ;
-    [self waitForElementToAppear:nativerenderercampaignClickButton  withTimeout:8];;
+    [self waitForElementToAppear:nativerenderercampaignClickButton  withTimeout:18];;
     [nativerenderercampaignClickButton tap];
     XCUIElement *clickActionOK =  app/*@START_MENU_TOKEN@*/.toolbars[@"Toolbar"]/*[[".otherElements[@\"In App Browser\"].toolbars[@\"Toolbar\"]",".toolbars[@\"Toolbar\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[@"OK"] ;
     [self waitForElementToAppear:clickActionOK withTimeout:ClickTrackerTimeout];

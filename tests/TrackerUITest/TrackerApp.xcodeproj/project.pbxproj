@@ -117,7 +117,6 @@
 		FC80EFFD269F42C700BFF0C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC80EFFB269F42C700BFF0C7 /* Main.storyboard */; };
 		FC80EFFF269F42C900BFF0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC80EFFE269F42C900BFF0C7 /* Assets.xcassets */; };
 		FC80F002269F42C900BFF0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC80F000269F42C900BFF0C7 /* LaunchScreen.storyboard */; };
-		FC80F00D269F42C900BFF0C7 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F00C269F42C900BFF0C7 /* IntegrationTests.swift */; };
 		FC80F037269F4BD000BFF0C7 /* VideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02C269F4BD000BFF0C7 /* VideoAdViewController.swift */; };
 		FC80F038269F4BD000BFF0C7 /* BannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02D269F4BD000BFF0C7 /* BannerAdViewController.swift */; };
 		FC80F039269F4BD000BFF0C7 /* BannerVideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC80F02E269F4BD000BFF0C7 /* BannerVideoAdViewController.swift */; };
@@ -145,9 +144,13 @@
 		FCB2469F2539B4FB00600B3D /* NSURLProtocol+WebKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB2469B2539B4FB00600B3D /* NSURLProtocol+WebKitSupport.swift */; };
 		FCB246A02539B4FB00600B3D /* WebKitURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB2469C2539B4FB00600B3D /* WebKitURLProtocol.swift */; };
 		FCB246A12539B4FB00600B3D /* AuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB2469D2539B4FB00600B3D /* AuthenticationChallengeSender.swift */; };
+		FCB408D626A5C20500D20A9B /* RTBBannerAdTracker.json in Resources */ = {isa = PBXBuildFile; fileRef = FCB408D426A5C20500D20A9B /* RTBBannerAdTracker.json */; };
+		FCB408D726A5C20500D20A9B /* RTBBannerAdTracker.json in Resources */ = {isa = PBXBuildFile; fileRef = FCB408D426A5C20500D20A9B /* RTBBannerAdTracker.json */; };
+		FCB408DB26A5C92400D20A9B /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AD25F28CA300E9B117 /* ScrollViewController.m */; };
+		FCB408E226A5CAED00D20A9B /* ContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AC25F28CA300E9B117 /* ContentCell.m */; };
+		FCB408E626A5CB5600D20A9B /* BannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AE25F28CA300E9B117 /* BannerCell.m */; };
 		FCCB89C725AE352D0029E24E /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = FCCB89C625AE352D0029E24E /* readme.md */; };
 		FCDE87B325F28CA300E9B117 /* ContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AC25F28CA300E9B117 /* ContentCell.m */; };
-		FCDE87B425F28CA300E9B117 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AD25F28CA300E9B117 /* ScrollViewController.m */; };
 		FCDE87B525F28CA300E9B117 /* BannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDE87AE25F28CA300E9B117 /* BannerCell.m */; };
 		FCDE87B625F28CA300E9B117 /* ScrollViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCDE87AF25F28CA300E9B117 /* ScrollViewController.storyboard */; };
 /* End PBXBuildFile section */
@@ -173,13 +176,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
-		};
-		FC80F009269F42C900BFF0C7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E877AA723FEA40700DC962F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FC80EFF2269F42C700BFF0C7;
-			remoteInfo = Integration;
 		};
 		FC80F014269F42CA00BFF0C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -319,9 +315,6 @@
 		FC80EFFE269F42C900BFF0C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC80F001269F42C900BFF0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC80F003269F42C900BFF0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC80F00C269F42C900BFF0C7 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
-		FC80F00E269F42C900BFF0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC80F019269F42CA00BFF0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC80F029269F4BD000BFF0C7 /* UITestApp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITestApp-Bridging-Header.h"; path = "UITestApp/UITestApp-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
@@ -355,6 +348,7 @@
 		FCB2469C2539B4FB00600B3D /* WebKitURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebKitURLProtocol.swift; sourceTree = "<group>"; };
 		FCB2469D2539B4FB00600B3D /* AuthenticationChallengeSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeSender.swift; sourceTree = "<group>"; };
 		FCB2469E2539B4FB00600B3D /* TrackerTest-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TrackerTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		FCB408D426A5C20500D20A9B /* RTBBannerAdTracker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RTBBannerAdTracker.json; sourceTree = "<group>"; };
 		FCCB89C625AE352D0029E24E /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		FCDE87AC25F28CA300E9B117 /* ContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentCell.m; sourceTree = "<group>"; };
 		FCDE87AD25F28CA300E9B117 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
@@ -386,13 +380,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC56482626A4A3E40043FBB1 /* AppNexusSDK.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC80F005269F42C900BFF0C7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,7 +471,6 @@
 			isa = PBXGroup;
 			children = (
 				FC80EFF4269F42C700BFF0C7 /* Integration */,
-				FC80F00B269F42C900BFF0C7 /* IntegrationTests */,
 				FC80F016269F42CA00BFF0C7 /* IntegrationUITests */,
 				0EE0577F23FED62F00D61405 /* Frameworks */,
 				0E877AB023FEA40700DC962F /* Products */,
@@ -501,7 +487,6 @@
 				0E877AAF23FEA40700DC962F /* TrackerApp.app */,
 				FCE7E8BE2593C9D700801E27 /* TrackerTests.xctest */,
 				FC80EFF3269F42C700BFF0C7 /* Integration.app */,
-				FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */,
 				FC80F013269F42C900BFF0C7 /* IntegrationUITests.xctest */,
 			);
 			name = Products;
@@ -597,6 +582,7 @@
 		FC77573025374EFB00400FE7 /* StubResponse */ = {
 			isa = PBXGroup;
 			children = (
+				FCB408D426A5C20500D20A9B /* RTBBannerAdTracker.json */,
 				FC1F3811253D5799006DD370 /* RTBBannerAd.json */,
 				FC1F380E253D5799006DD370 /* RTBBannerNativeAd.json */,
 				FC1F380D253D5799006DD370 /* RTBBannerNativeRendererAd.json */,
@@ -704,15 +690,6 @@
 				FC80F003269F42C900BFF0C7 /* Info.plist */,
 			);
 			path = Integration;
-			sourceTree = "<group>";
-		};
-		FC80F00B269F42C900BFF0C7 /* IntegrationTests */ = {
-			isa = PBXGroup;
-			children = (
-				FC80F00C269F42C900BFF0C7 /* IntegrationTests.swift */,
-				FC80F00E269F42C900BFF0C7 /* Info.plist */,
-			);
-			path = IntegrationTests;
 			sourceTree = "<group>";
 		};
 		FC80F016269F42CA00BFF0C7 /* IntegrationUITests */ = {
@@ -922,24 +899,6 @@
 			productReference = FC80EFF3269F42C700BFF0C7 /* Integration.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FC80F007269F42C900BFF0C7 /* IntegrationTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FC80F022269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationTests" */;
-			buildPhases = (
-				FC80F004269F42C900BFF0C7 /* Sources */,
-				FC80F005269F42C900BFF0C7 /* Frameworks */,
-				FC80F006269F42C900BFF0C7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FC80F00A269F42C900BFF0C7 /* PBXTargetDependency */,
-			);
-			name = IntegrationTests;
-			productName = IntegrationTests;
-			productReference = FC80F008269F42C900BFF0C7 /* IntegrationTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		FC80F012269F42C900BFF0C7 /* IntegrationUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC80F023269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationUITests" */;
@@ -993,10 +952,6 @@
 					FC80EFF2269F42C700BFF0C7 = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					FC80F007269F42C900BFF0C7 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = FC80EFF2269F42C700BFF0C7;
-					};
 					FC80F012269F42C900BFF0C7 = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1240;
@@ -1030,7 +985,6 @@
 				0E877AAE23FEA40700DC962F /* TrackerApp */,
 				FCE7E8BD2593C9D700801E27 /* TrackerTests */,
 				FC80EFF2269F42C700BFF0C7 /* Integration */,
-				FC80F007269F42C900BFF0C7 /* IntegrationTests */,
 				FC80F012269F42C900BFF0C7 /* IntegrationUITests */,
 			);
 		};
@@ -1061,6 +1015,7 @@
 				0E49155C24065546003B7CC2 /* AdType.storyboard in Resources */,
 				0E49159124065963003B7CC2 /* ANNativeAdView.xib in Resources */,
 				0E877ABF23FEA40900DC962F /* Assets.xcassets in Resources */,
+				FCB408D626A5C20500D20A9B /* RTBBannerAdTracker.json in Resources */,
 				FC7BCF3B2588FC4E00739FC1 /* BannerAdViewabilityTrackerTestVC.storyboard in Resources */,
 				FC1DFEB92590E8C7008AE0EB /* BannerNativeAdViewabilityTrackerTestVC.storyboard in Resources */,
 				0E49158E24065963003B7CC2 /* BannerNativeVideoTrackerTestVC.storyboard in Resources */,
@@ -1107,19 +1062,13 @@
 				FC56494F26A4AFBC0043FBB1 /* OMID_VideoAd.json in Resources */,
 				FC56496426A4B5E20043FBB1 /* ANNativeAdView.xib in Resources */,
 				FC56497826A4BD910043FBB1 /* UnifiedNativeAdView.xib in Resources */,
+				FCB408D726A5C20500D20A9B /* RTBBannerAdTracker.json in Resources */,
 				FC56494626A4AFB70043FBB1 /* RTBBannerVideoAd.json in Resources */,
 				FC56493C26A4AED50043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.storyboard in Resources */,
 				FC80EFFD269F42C700BFF0C7 /* Main.storyboard in Resources */,
 				FC56493E26A4AED50043FBB1 /* ScrollViewController.storyboard in Resources */,
 				FC56493426A4AD8A0043FBB1 /* AdType.storyboard in Resources */,
 				FC56493B26A4AED50043FBB1 /* VideoAdTrackerTestVC.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC80F006269F42C900BFF0C7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,7 +1117,6 @@
 				FC1DFECA2591229F008AE0EB /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				FC77575D25374EFB00400FE7 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				FC1DFECC2591229F008AE0EB /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
-				FCDE87B425F28CA300E9B117 /* ScrollViewController.m in Sources */,
 				FC1DFECB2591229F008AE0EB /* SDKValidationURLProtocol.m in Sources */,
 				FC85ACF8258D19C100A64F7D /* VideoAdViewabilityTrackerTestVC.m in Sources */,
 				FCB246A02539B4FB00600B3D /* WebKitURLProtocol.swift in Sources */,
@@ -1179,6 +1127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCB408DB26A5C92400D20A9B /* ScrollViewController.m in Sources */,
 				FC80F03F269F4BD000BFF0C7 /* AppDelegate.swift in Sources */,
 				FC56496E26A4BCB10043FBB1 /* MARBannerNativeRendererAdTrackerTestVC.m in Sources */,
 				FC56496326A4B5E20043FBB1 /* ANNativeAdView.m in Sources */,
@@ -1206,6 +1155,7 @@
 				FC80EFF8269F42C700BFF0C7 /* SceneDelegate.swift in Sources */,
 				FC80F03A269F4BD000BFF0C7 /* BannerNativeAdViewController.swift in Sources */,
 				FC56491926A4A9310043FBB1 /* ANURLConnectionStub.m in Sources */,
+				FCB408E626A5CB5600D20A9B /* BannerCell.m in Sources */,
 				FC56491226A4A9310043FBB1 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				FC80F03E269F4BD000BFF0C7 /* TestCaseConstent.swift in Sources */,
 				FC56491726A4A9310043FBB1 /* NSObject+Swizzling.m in Sources */,
@@ -1213,14 +1163,7 @@
 				FC80F03D269F4BD000BFF0C7 /* AdObjectModel.swift in Sources */,
 				FC56481126A4A33A0043FBB1 /* BannerNativeVideoTrackerTestVC.m in Sources */,
 				FC5648B526A4A6760043FBB1 /* ANVerificationScriptResource+ANTest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC80F004269F42C900BFF0C7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FC80F00D269F42C900BFF0C7 /* IntegrationTests.swift in Sources */,
+				FCB408E226A5CAED00D20A9B /* ContentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,11 +1216,6 @@
 			isa = PBXTargetDependency;
 			name = AppNexusSDK;
 			targetProxy = FC75564E253D773A00C2C518 /* PBXContainerItemProxy */;
-		};
-		FC80F00A269F42C900BFF0C7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FC80EFF2269F42C700BFF0C7 /* Integration */;
-			targetProxy = FC80F009269F42C900BFF0C7 /* PBXContainerItemProxy */;
 		};
 		FC80F015269F42CA00BFF0C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1455,6 +1393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1488,6 +1427,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1521,8 +1461,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
@@ -1552,8 +1494,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
@@ -1578,63 +1522,15 @@
 			};
 			name = Release;
 		};
-		FC80F01C269F42CA00BFF0C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IntegrationTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integration.app/Integration";
-			};
-			name = Debug;
-		};
-		FC80F01D269F42CA00BFF0C7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IntegrationTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integration.app/Integration";
-			};
-			name = Release;
-		};
 		FC80F01E269F42CA00BFF0C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"/**";
 				INFOPLIST_FILE = IntegrationUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
@@ -1644,6 +1540,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationUITests;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
@@ -1658,9 +1555,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"/**";
 				INFOPLIST_FILE = IntegrationUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
@@ -1670,6 +1569,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.IntegrationUITests;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "IntegrationUITests/IntegrationUITests-Bridging-Header.h";
@@ -1684,6 +1584,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
@@ -1695,6 +1596,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xandr.-.TrackerTests";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TrackerApp;
@@ -1705,6 +1607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
@@ -1716,6 +1619,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xandr.-.TrackerTests";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TrackerApp;
@@ -1748,15 +1652,6 @@
 			buildConfigurations = (
 				FC80F01A269F42CA00BFF0C7 /* Debug */,
 				FC80F01B269F42CA00BFF0C7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FC80F022269F42CA00BFF0C7 /* Build configuration list for PBXNativeTarget "IntegrationTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FC80F01C269F42CA00BFF0C7 /* Debug */,
-				FC80F01D269F42CA00BFF0C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

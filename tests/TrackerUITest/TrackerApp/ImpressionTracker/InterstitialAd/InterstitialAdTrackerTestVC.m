@@ -88,7 +88,7 @@
     [[ANStubManager sharedInstance] disableStubbing];
     [[ANStubManager sharedInstance] enableStubbing];
     if ([[NSProcessInfo processInfo].arguments containsObject:InterstitialImpressionClickTrackerTest]){
-        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBInterstitialAd"];
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAdTracker"];
     }
 }
 

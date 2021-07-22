@@ -136,7 +136,7 @@
     
     // Select Stub Response based on Selected UI testcase
     if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
-        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAd"];
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAdTracker"];
     }else if ([[NSProcessInfo processInfo].arguments containsObject:BannerNativeImpressionClickTrackerTest]) {
         [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerNativeAd"];
     }else if([[NSProcessInfo processInfo].arguments containsObject:BannerNativeRendererImpressionClickTrackerTest]){

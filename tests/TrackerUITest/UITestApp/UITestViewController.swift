@@ -70,7 +70,10 @@ class UITestViewController: UIViewController {
         }else if ProcessInfo.processInfo.arguments.contains(MARBannerImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(MARNativeImpressionClickTrackerTest) || ProcessInfo.processInfo.arguments.contains(MARBannerNativeRendererImpressionClickTrackerTest) {
             self.openViewController("MARBannerNativeRendererAdTrackerTestVC")
         }
-            
+        else if ProcessInfo.processInfo.arguments.contains(BannerImpression1PxTrackerTest) || ProcessInfo.processInfo.arguments.contains(NativeImpression1PxTrackerTest) {
+            self.openViewController("ScrollViewController")
+        }
+        
     }
     func openViewController(_ viewController: String) {
         let sb = UIStoryboard(name: viewController, bundle: nil)

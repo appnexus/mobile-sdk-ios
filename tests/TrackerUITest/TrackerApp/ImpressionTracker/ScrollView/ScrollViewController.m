@@ -12,7 +12,7 @@
 #import "Constant.h"
 #import "ANStubManager.h"
 #import "ANHTTPStubbingManager.h"
-#import <TrackerApp-Swift.h>
+#import <Integration-Swift.h>
 #import "ANNativeAdView.h"
 
 @interface ScrollViewController ()<UITableViewDataSource,UITableViewDelegate,ANBannerAdViewDelegate, ANNativeAdRequestDelegate,ANNativeAdDelegate>
@@ -74,7 +74,7 @@
     [[ANStubManager sharedInstance] disableStubbing];
     [[ANStubManager sharedInstance] enableStubbing];
     if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpression1PxTrackerTest]) {
-        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAd"];
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAdTracker"];
         
     } else if ([[NSProcessInfo processInfo].arguments containsObject:NativeImpression1PxTrackerTest]){
         [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBNativeAd"];
@@ -162,7 +162,7 @@
                                         error:nil];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             self.title = @"Not Fired";
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self.view addSubview:nativeAdView];
             });
         });
