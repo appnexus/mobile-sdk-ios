@@ -8,7 +8,7 @@
 #brew update
 # Update homebrew recipes
 
-#brew install jq
+brew install jq
 
 #curl -s http://api.open-notify.org/iss-now.json | jq .timestamp
 
