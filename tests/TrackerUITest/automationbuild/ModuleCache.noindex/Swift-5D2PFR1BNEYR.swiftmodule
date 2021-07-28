@@ -1,0 +1,12 @@
+---
+path:            '/Applications/XcodeXII.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Swift.swiftmodule/armv7.swiftmodule'
+dependencies:
+  - mtime:           1597244406000000000
+    path:            '/Applications/XcodeXII.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/Swift.swiftmodule/armv7.swiftmodule'
+    size:            9795804
+  - mtime:           1593255169000000000
+    path:            'usr/lib/swift/Swift.swiftmodule/armv7.swiftinterface'
+    size:            1430807
+    sdk_relative:    true
+version:         1
+...
