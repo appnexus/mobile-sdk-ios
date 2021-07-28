@@ -28,6 +28,7 @@ let package = Package(
             path: "sdk/sourcefiles",
             exclude: [
                 "Resources/Info.plist",
+                "Viewability/OMSDK_Appnexus.xcframework"
             ],
             resources: [
                 .process("Resources")
