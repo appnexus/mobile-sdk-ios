@@ -89,22 +89,22 @@ echo "buildIdTrackerTest==> $buildIdTrackerTest"
 
 
 echo "buildIdTrackerTest ab ==> $buildIdTrackerTest"
-#
-## Wait for testcase result Tracker Tests
-#testTrackerTestResult="running"
-#if [ $testTrackerTestResult == "running" ] ; then result=true; else result=false; fi
-#while $result; do sleep 1; testTrackerTestResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | jq '.status' | tr -d \");
-#
-#if [ $testTrackerTestResult == "running" ] ; then result=true; else result=false; fi
-#echo "Please wait.......\n";
-#sleep 60
-#done
-##testTrackerTestResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | json status
-#echo "Test Result Impression & Click Tracker.......$testTrackerTestResult\n";
-#
-#
-#
-#if [ $testTrackerTestResult != "passed" ] ; then
-#    exit 1
-#fi
-#
+
+# Wait for testcase result Tracker Tests
+testTrackerTestResult="running"
+if [ $testTrackerTestResult == "running" ] ; then result=true; else result=false; fi
+while $result; do sleep 1; testTrackerTestResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | jq '.status' | tr -d \");
+
+if [ $testTrackerTestResult == "running" ] ; then result=true; else result=false; fi
+echo "Please wait.......\n";
+sleep 60
+done
+#testTrackerTestResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | json status
+echo "Test Result Impression & Click Tracker.......$testTrackerTestResult\n";
+
+
+
+if [ $testTrackerTestResult != "passed" ] ; then
+    exit 1
+fi
+
