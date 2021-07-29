@@ -157,7 +157,7 @@ echo testTarget
 echo "====>"
 
 # ...do something interesting...
-if [ "$testTarget" = "trackertest" ] ; then
+if [ "$testTarget" == "trackertest" ] ; then
    STATIC_LIST_OF_SCHEMES="
         NativeSDKTestApp
         UnitTestApp
