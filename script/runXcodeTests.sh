@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 # runXcodeTests.sh
@@ -146,14 +147,26 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 # Hardcoded Xcode schemes.
 #
 STATIC_LIST_OF_SCHEMES="
-    #AppNexusNativeSDK
-    #AppNexusSDK
-    NativeSDKTestApp
-    UnitTestApp
-    TrackerApp
-    Integration
+    AppNexusNativeSDK
+    AppNexusSDK
 "
 
+testTarget=$1
+echo " Test 1====>"
+echo testTarget
+echo "====>"
+
+# ...do something interesting...
+if [ "$testTarget" = "trackertest" ] ; then
+   STATIC_LIST_OF_SCHEMES="
+        NativeSDKTestApp
+        UnitTestApp
+    "
+fi
+
+echo "Test 2====>"
+echo "$STATIC_LIST_OF_SCHEMES"
+echo "====>"
 
 #
 # Hardcoded Xcode device models and versios.
