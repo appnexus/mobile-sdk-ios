@@ -150,6 +150,8 @@ STATIC_LIST_OF_SCHEMES="
     #AppNexusSDK
     NativeSDKTestApp
     UnitTestApp
+    TrackerApp
+    Integration
 "
 
 
