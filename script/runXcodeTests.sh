@@ -151,7 +151,7 @@ STATIC_LIST_OF_SCHEMES="
     AppNexusSDK
 "
 
-testTarget=$1
+testTarget=$6
 echo " Test 1====>"
 echo $testTarget
 echo "====>"
