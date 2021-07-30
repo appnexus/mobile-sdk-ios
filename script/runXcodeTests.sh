@@ -151,7 +151,7 @@ STATIC_LIST_OF_SCHEMES="
     UnitTestApp
 "
 
-testTarget=$6
+testTarget=$2
 echo " Test 1====>"
 echo $testTarget
 echo "====>"
