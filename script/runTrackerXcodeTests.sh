@@ -147,10 +147,9 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 # Hardcoded Xcode schemes.
 #
 STATIC_LIST_OF_SCHEMES="
-    NativeSDKTestApp
-    UnitTestApp
+    TrackerApp
+    Integration
 "
-
 #
 # Hardcoded Xcode device models and versios.
 # See Xcode Preferences > Components to download additional entries.
