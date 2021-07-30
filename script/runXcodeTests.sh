@@ -147,8 +147,8 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 # Hardcoded Xcode schemes.
 #
 STATIC_LIST_OF_SCHEMES="
-    AppNexusNativeSDK
-    AppNexusSDK
+    NativeSDKTestApp
+    UnitTestApp
 "
 
 testTarget=$6
@@ -159,8 +159,8 @@ echo "====>"
 # ...do something interesting...
 if [ "$testTarget" == "trackertest" ] ; then
    STATIC_LIST_OF_SCHEMES="
-        NativeSDKTestApp
-        UnitTestApp
+        TrackerApp
+        Integration
     "
 fi
 
