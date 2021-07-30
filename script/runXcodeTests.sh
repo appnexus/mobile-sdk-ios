@@ -153,7 +153,7 @@ STATIC_LIST_OF_SCHEMES="
 
 testTarget=$1
 echo " Test 1====>"
-echo testTarget
+echo $testTarget
 echo "====>"
 
 # ...do something interesting...
