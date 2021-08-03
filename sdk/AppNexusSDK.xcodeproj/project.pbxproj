@@ -611,10 +611,10 @@
 				4F7332861FC35D5A00A206A2 /* AVFoundation.framework in Frameworks */,
 				4F7332821FC35BBD00A206A2 /* AVKit.framework in Frameworks */,
 				8AFC04611A2E74C800BEA485 /* CoreGraphics.framework in Frameworks */,
-				FC72CC5526653B960040ED24 /* OMSDK_Appnexus.xcframework in Frameworks */,
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
+				FC72CC5526653B960040ED24 /* OMSDK_Appnexus.xcframework in Frameworks */,
 				8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */,
 				8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */,
 				8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */,
@@ -637,9 +637,9 @@
 		00D6B04320D1BAB9007A3439 /* Viewability */ = {
 			isa = PBXGroup;
 			children = (
-				FC72CC5426653B3D0040ED24 /* OMSDK_Appnexus.xcframework */,
 				00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */,
 				00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */,
+				FC72CC5426653B3D0040ED24 /* OMSDK_Appnexus.xcframework */,
 			);
 			path = Viewability;
 			sourceTree = "<group>";
@@ -662,10 +662,10 @@
 		0ECF32CD22D792EC007DB185 /* sourcefiles */ = {
 			isa = PBXGroup;
 			children = (
-				FCDB11CC2683AD220034E752 /* public-headers */,
 				ECE4EA95194B768A0069D934 /* Categories */,
 				8AD6189D1981C11F00AC0780 /* internal */,
 				0ECF32CC22D792B9007DB185 /* native */,
+				FCDB11CC2683AD220034E752 /* public-headers */,
 				ECE4EACA194B768A0069D934 /* Resources */,
 				609732FB1E42EAFF0061EC0A /* video */,
 				00D6B04320D1BAB9007A3439 /* Viewability */,
@@ -1004,14 +1004,8 @@
 				3850566924DAD12F00D4B54D /* ANAdResponseCode.h */,
 				9706554D232B93A200D484D4 /* ANAdResponseInfo.h */,
 				ECE4EA8E194B768A0069D934 /* ANAdView.h */,
-				0E3E3E61241FB73500823D66 /* ANCSRNativeAdResponse.h */,
-				8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */,
-				8A35B89619FEB5EC0016C81F /* ANNativeAdRequest.h */,
-				8A35B89919FEB8A40016C81F /* ANNativeAdResponse.h */,
-				8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */,
-				8A35B8A219FEBEBD0016C81F /* ANNativeCustomAdapter.h */,
-				8AB8762D1A0994310022D9A5 /* ANNativeMediatedAdResponse.h */,
 				ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */,
+				0E3E3E61241FB73500823D66 /* ANCSRNativeAdResponse.h */,
 				ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */,
 				00C4919225DF043100609E49 /* ANExternalUserId.h */,
 				0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */,
@@ -1021,6 +1015,12 @@
 				8AD618B61981C11F00AC0780 /* ANLogging.h */,
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
 				4F61C690231F0C0C00678DB8 /* ANMultiAdRequest.h */,
+				8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */,
+				8A35B89619FEB5EC0016C81F /* ANNativeAdRequest.h */,
+				8A35B89919FEB8A40016C81F /* ANNativeAdResponse.h */,
+				8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */,
+				8A35B8A219FEBEBD0016C81F /* ANNativeCustomAdapter.h */,
+				8AB8762D1A0994310022D9A5 /* ANNativeMediatedAdResponse.h */,
 				8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */,
 				8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,

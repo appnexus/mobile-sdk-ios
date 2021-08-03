@@ -630,7 +630,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
         // Only assert if it has been setup to assert.
         [self.CSRAdFiredImpressionTrackerExpectation fulfill];
         
-    }else if ( self.CSRAdFiredOMIDTrackerExpectation && [response containsString:@"https://complianceomsdk.iabtechlab.com/omsdk/sendmessage?msg="]) {
+    }else if ( self.CSRAdFiredOMIDTrackerExpectation && [response containsString:@"https://mobile.devnxs.net/omsdk/sendmessage?msg="]) {
         // Only assert if it has been setup to assert.
         [self.CSRAdFiredOMIDTrackerExpectation fulfill];
         
