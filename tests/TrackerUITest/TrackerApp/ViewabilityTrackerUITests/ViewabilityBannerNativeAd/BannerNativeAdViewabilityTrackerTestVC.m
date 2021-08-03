@@ -357,6 +357,7 @@
         }
     }
     
+    
     else if([response containsString:@"percentageInView%22%3A1"] || [response containsString:@"percentageInView%22%3A2"] || [response containsString:@"percentageInView%22%3A3"] || [response containsString:@"percentageInView%22%3A4"] ||[response containsString:@"percentageInView%22%3A5"] || [response containsString:@"percentageInView%22%3A6"] || [response containsString:@"percentageInView%22%3A7"] ||[response containsString:@"percentageInView%22%3A8"] || [response containsString:@"percentageInView%22%3A9"]){
         if([self.uiTestList containsObject:@"OmidPercentageInView100"]){
             [self.eventList addObject:@"percentageInView=MoreThan0"];

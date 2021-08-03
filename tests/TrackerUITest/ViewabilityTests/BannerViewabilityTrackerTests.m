@@ -121,7 +121,7 @@ testBannerOMIDEventSupportedIsYes: To test the OMID is supported tracker is fire
 
     [app launch];
     
-    XCUIElement *  result = app.tables.staticTexts[@"version=1.0.2-dev"];
+    XCUIElement *  result = app.tables.staticTexts[@"version="];
     [self waitForElementToAppear:result  withTimeout:60];
 
 }

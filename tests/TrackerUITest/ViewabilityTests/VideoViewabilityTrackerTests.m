@@ -295,7 +295,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:VideoViewabilityTrackerTest];
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"SupportedIsYes"];
     [app launch];
-    XCUIElement *  result = app.tables.staticTexts[@"version=1.0.2-dev"];
+    XCUIElement *  result = app.tables.staticTexts[@"version="];
     [self waitForElementToAppear:result  withTimeout:40];
     result = app.tables.staticTexts[@"supported=yes"];
     [self waitForElementToAppear:result  withTimeout:8];

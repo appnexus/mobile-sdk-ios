@@ -1412,11 +1412,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"/**",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
-					"\"$(SRCROOT)/HelpingLibrary/Stubbing\"",
-					"\"$(SRCROOT)/TrackerApp\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"/**",
 				);
 				INFOPLIST_FILE = TrackerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1449,11 +1447,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/public-headers\"/**",
 					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
-					"\"$(SRCROOT)/HelpingLibrary/Stubbing\"",
-					"\"$(SRCROOT)/TrackerApp\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"/**",
 				);
 				INFOPLIST_FILE = TrackerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1603,6 +1599,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TrackerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1627,6 +1624,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TrackerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

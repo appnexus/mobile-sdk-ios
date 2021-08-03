@@ -150,9 +150,9 @@
         NSLog(@"absoluteURLText -> %@",absoluteURLText);
         
         
-        if([absoluteURLText containsString:@"version=1.0.2-dev"]){
+        if([absoluteURLText containsString:@"version="]){
             if( [[NSProcessInfo processInfo].arguments containsObject:@"SupportedIsYes"]){
-                [self.eventList addObject:@"version=1.0.2-dev"];
+                [self.eventList addObject:@"version="];
             }
         }else  if([absoluteURLText containsString:@"supported=yes"]){
             if( [[NSProcessInfo processInfo].arguments containsObject:@"SupportedIsYes"]){
