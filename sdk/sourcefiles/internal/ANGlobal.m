@@ -482,7 +482,6 @@ UIInterfaceOrientation ANStatusBarOrientation()
     if(customUserAgent && customUserAgent.length != 0){
         ANLogDebug(@"userAgent=%@", customUserAgent);
         anUserAgent = customUserAgent;
-        
     }
     
     if (!anUserAgent) {
@@ -499,6 +498,7 @@ UIInterfaceOrientation ANStatusBarOrientation()
                                       completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
                  {
                     if (error != nil) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentFailedToChangeNotification" object:nil userInfo:nil];
                         ANLogError(@"%@ error: %@", NSStringFromSelector(_cmd), error);
                     } else if ([userAgentString isKindOfClass:NSString.class]) {
                         ANLogDebug(@"userAgentString=%@", userAgentString);
@@ -506,28 +506,22 @@ UIInterfaceOrientation ANStatusBarOrientation()
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
                         @synchronized (self) {
                             userAgentQueryIsActive = NO;
-                            
                         }
                     }
                     webViewForUserAgent = nil;
                 }];
-                
-
             });
-            
         }
-        //
         ANLogDebug(@"userAgent=%@", anUserAgent);
-        
     }
 }
+
     
 + (NSString *) userAgent {
     if(anUserAgent == nil){
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
-           
         [ANGlobal getUserAgent];
-    }
+    } 
     return anUserAgent;
 }
 

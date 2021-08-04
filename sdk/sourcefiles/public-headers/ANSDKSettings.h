@@ -14,11 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-
-
 #import "ANExternalUserId.h"
 
-
+typedef void (^sdkInitCompletion)(BOOL);
 
 @interface ANSDKSettings : NSObject
 
@@ -73,8 +71,7 @@ Get AppNexus SDK Version
 
 + (nonnull instancetype)sharedInstance;
 
-- (void) optionalSDKInitialization;
-
+-(void) optionalSDKInitialization: (sdkInitCompletion _Nullable)success;
 
 /**
    An AppNexus nativeAdAboutToExpireInterval. A nativeAdAboutToExpireInterval is a numeric value that is used to notify before ad is about to expire. Default value of aboutToExpireTimeInterval is 60(second).

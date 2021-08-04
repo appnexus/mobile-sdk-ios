@@ -25,7 +25,7 @@
 
 
 @interface ANBaseUrlConfig : NSObject
-    //EMPTY
+//EMPTY
 @end
 
 
@@ -134,13 +134,37 @@
 // However, MobileSDK does maintain state, some of which can be initialized early in the app lifecycle in order to save cycles later.
 //
 // Optionally call this method early in the app lifecycle.  For example in [AppDelegate application:didFinishLaunchingWithOptions:].
-//
-- (void) optionalSDKInitialization
+
+- (void) optionalSDKInitialization:(sdkInitCompletion _Nullable)success
 {
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANCarrierObserver shared];
     [ANGlobal adServerRequestURL];
     [ANWebView prepareWebView];
+    
+    if ([ANGlobal userAgent] == nil) {
+        NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"kUserAgentDidChangeNotification"
+                                                          object:nil
+                                                           queue:queue
+                                                      usingBlock:^(NSNotification *notification) {
+            success(YES);
+            [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+            [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentFailedToChangeNotification"];
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"kUserAgentFailedToChangeNotification"
+                                                          object:nil
+                                                           queue:queue
+                                                      usingBlock:^(NSNotification *notification) {
+            success(NO);
+            [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+            [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentFailedToChangeNotification"];
+        }];
+    } else {
+        success(YES);
+    }
 }
 
 -(void)setNativeAdAboutToExpireInterval:(NSInteger)nativeAdAboutToExpireInterval{

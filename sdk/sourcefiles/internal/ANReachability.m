@@ -179,7 +179,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             returnValue = YES;
         }
     }
-    
     return returnValue;
 }
 

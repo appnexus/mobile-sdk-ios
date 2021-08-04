@@ -18,12 +18,10 @@ import AppNexusSDK
 
 class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate , ANNativeAdDelegate {
     
-    
-    
-    
     var nativeAdRequest: ANNativeAdRequest?
     var nativeAdResponse: ANNativeAdResponse?
     var indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
