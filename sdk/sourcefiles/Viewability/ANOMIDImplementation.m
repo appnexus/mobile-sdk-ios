@@ -58,13 +58,13 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
         
         // This Creates / updates a partner for each new activation of OMID SDK
         self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
-                                                   versionString: [[ANSDKSettings sharedInstance] sdkVersion]];
+                                                   versionString: AN_SDK_VERSION];
     }
     
     // IF partener is nil create partner
     if(!self.partner){
         self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
-                                                   versionString: [[ANSDKSettings sharedInstance] sdkVersion]];
+                                                   versionString: AN_SDK_VERSION];
     }
     
     // If OMID JS is empty fetch OMIDJS.
