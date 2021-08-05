@@ -55,7 +55,7 @@ static NSString   *inventoryCode    = @"trucksmash";
 - (void)setUp
 {
     [super setUp];
-    [[ANSDKSettings sharedInstance] optionalSDKInitialization];
+    [[ANSDKSettings sharedInstance] optionalSDKInitialization:nil];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 
