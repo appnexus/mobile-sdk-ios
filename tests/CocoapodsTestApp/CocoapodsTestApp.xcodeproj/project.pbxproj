@@ -85,9 +85,9 @@
 			children = (
 				FCBE2A1B265C329700E111C9 /* CocoapodsTestApp */,
 				FCBE2A3D265C329800E111C9 /* CocoapodsTestAppUITests */,
-				FCBE2A1A265C329700E111C9 /* Products */,
-				962992FBFCA746AB601E861E /* Pods */,
 				4A8C9539472C2A9501ABAB61 /* Frameworks */,
+				962992FBFCA746AB601E861E /* Pods */,
+				FCBE2A1A265C329700E111C9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,12 +104,12 @@
 			isa = PBXGroup;
 			children = (
 				FCBE2A1C265C329700E111C9 /* AppDelegate.swift */,
+				FCBE2A25265C329800E111C9 /* Assets.xcassets */,
+				FCBE2A2A265C329800E111C9 /* Info.plist */,
+				FCBE2A27265C329800E111C9 /* LaunchScreen.storyboard */,
+				FCBE2A22265C329700E111C9 /* Main.storyboard */,
 				FCBE2A1E265C329700E111C9 /* SceneDelegate.swift */,
 				FCBE2A20265C329700E111C9 /* ViewController.swift */,
-				FCBE2A22265C329700E111C9 /* Main.storyboard */,
-				FCBE2A25265C329800E111C9 /* Assets.xcassets */,
-				FCBE2A27265C329800E111C9 /* LaunchScreen.storyboard */,
-				FCBE2A2A265C329800E111C9 /* Info.plist */,
 			);
 			path = CocoapodsTestApp;
 			sourceTree = "<group>";
@@ -206,8 +206,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCBE2A29265C329800E111C9 /* LaunchScreen.storyboard in Resources */,
 				FCBE2A26265C329800E111C9 /* Assets.xcassets in Resources */,
+				FCBE2A29265C329800E111C9 /* LaunchScreen.storyboard in Resources */,
 				FCBE2A24265C329700E111C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,9 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCBE2A21265C329700E111C9 /* ViewController.swift in Sources */,
 				FCBE2A1D265C329700E111C9 /* AppDelegate.swift in Sources */,
 				FCBE2A1F265C329700E111C9 /* SceneDelegate.swift in Sources */,
+				FCBE2A21265C329700E111C9 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

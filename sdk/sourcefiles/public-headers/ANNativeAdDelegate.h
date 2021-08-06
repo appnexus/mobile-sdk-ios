@@ -21,7 +21,7 @@
  * Defines all the callbacks for a native view registered
  * with an ANNativeAdResponse.
  */
-@protocol ANNativeAdDelegate <NSObject>   // This is the ANNativeAd Response Delegate.
+@protocol ANNativeAdDelegate <NSObject>  
 
 @optional
 /*!

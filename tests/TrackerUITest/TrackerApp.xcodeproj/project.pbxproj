@@ -1041,15 +1041,7 @@
 					"\"$(SRCROOT)/../../sdk\"",
 					"$(PROJECT_DIR)/TrackerApp/CSM",
 				);
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/Categories\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles\"/**";
 				INFOPLIST_FILE = TrackerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1083,15 +1075,7 @@
 					"\"$(SRCROOT)/../../sdk\"",
 					"$(PROJECT_DIR)/TrackerApp/CSM",
 				);
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/native/internal\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"",
-					"\"$(SRCROOT)/../../sdk/sourcefiles/Categories\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles\"/**";
 				INFOPLIST_FILE = TrackerApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -191,11 +191,11 @@
         NSLog(@"absoluteURLText -> %@",absoluteURLText);
         
         
-        if([absoluteURLText containsString:@"https://complianceomsdk.iabtechlab.com/omsdk/sendmessage?version=1.0.2-dev"]){
+        if([absoluteURLText containsString:@"https://mobile.devnxs.net/omsdk/sendmessage?version=1.0.2-dev"]){
             if( [self.uiTestList containsObject:@"VersionEvent"]){
                 [self.eventList addObject:@"version=1.0.2-dev"];
             }
-        }else  if([absoluteURLText containsString:@"https://complianceomsdk.iabtechlab.com/omsdk/sendmessage?supported=yes"]){
+        }else  if([absoluteURLText containsString:@"https://mobile.devnxs.net/omsdk/sendmessage?supported=yes"]){
             
             if( [self.uiTestList containsObject:@"SupportedIsYes"]){
                 [self.eventList addObject:@"supported=yes"];

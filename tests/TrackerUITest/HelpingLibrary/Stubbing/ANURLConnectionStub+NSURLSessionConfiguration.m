@@ -65,7 +65,7 @@ static NSURLSessionConfiguration* ANHTTPStubs_ephemeralSessionConfiguration(id s
     
     // Recreated network session and mutable request after http stubbing is enabled.
     [[ANHTTPNetworkSession sharedInstance]setAdServerSession:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:[ANHTTPNetworkSession sharedInstance] delegateQueue:nil]];
-    [ANGlobal constructAdServerRequestURL];
+    [ANGlobal constructAdServerRequestURLAndWarmup];
 }
 
 @end
