@@ -1,9 +1,9 @@
 ## 7.16.0
 ### Bug Fixes/Changes
 ##### Fixed:
-+ MS-4820 SDK version warning for Swift Package Manager [Github #68]
++ MS-4820 SDK version warning for Swift Package Manager (Github #68)
 ##### Changed:
-+ MS-4802 SDK version warning while integrating the SDK via Swift Package Manager [https://wiki.xandr.com/x/YAMHC]
++ MS-4802 ANSDKSettings.optionalSDKInitialization API (https://wiki.xandr.com/x/YAMHC)
 
 
 ## 7.15.1
