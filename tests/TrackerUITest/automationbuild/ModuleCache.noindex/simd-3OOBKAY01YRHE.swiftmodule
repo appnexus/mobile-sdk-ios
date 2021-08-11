@@ -1,0 +1,24 @@
+---
+path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/14.5/simd.swiftmodule/armv7-apple-ios.swiftmodule'
+dependencies:
+  - mtime:           1622232680000000000
+    path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/prebuilt-modules/14.5/simd.swiftmodule/armv7-apple-ios.swiftmodule'
+    size:            564844
+  - mtime:           1615880556000000000
+    path:            'usr/lib/swift/Swift.swiftmodule/armv7-apple-ios.swiftinterface'
+    size:            1519705
+    sdk_relative:    true
+  - mtime:           1615880555000000000
+    path:            'usr/include/Darwin.apinotes'
+    size:            1133
+    sdk_relative:    true
+  - mtime:           1615880555000000000
+    path:            'usr/lib/swift/Darwin.swiftmodule/armv7-apple-ios.swiftinterface'
+    size:            24390
+    sdk_relative:    true
+  - mtime:           1615880556000000000
+    path:            'usr/lib/swift/simd.swiftmodule/armv7-apple-ios.swiftinterface'
+    size:            127282
+    sdk_relative:    true
+version:         1
+...

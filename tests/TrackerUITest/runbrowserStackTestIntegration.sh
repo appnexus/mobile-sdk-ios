@@ -1,4 +1,4 @@
-echo "M0bil35DK" | sudo -S chown -R `whoami` ~/.npm
+#echo "M0bil35DK" | sudo -S chown -R `whoami` ~/.npm
 #echo "M0bil35DK" | sudo chown -R `whoami` /usr/local/lib/node_modules
 
 #export PATH=/usr/local/bin:$PATH
