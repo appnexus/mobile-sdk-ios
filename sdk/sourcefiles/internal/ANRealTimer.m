@@ -17,12 +17,12 @@
 #import "NSTimer+ANCategory.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-
+#import "NSPointerArray+ANCategory.h"
 
 @interface ANRealTimer()
 
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
-@property (nonatomic, readwrite, strong)  NSMutableArray<id<ANRealTimerDelegate>> *timerDelegates;
+@property (nonatomic, readwrite, strong)  NSPointerArray *timerDelegates;
 
 
 @end
@@ -34,7 +34,7 @@
     static dispatch_once_t managerToken;
     dispatch_once(&managerToken, ^{
         manager = [[ANRealTimer alloc] init];
-        manager.timerDelegates = [[NSMutableArray alloc] init];
+        manager.timerDelegates = [NSPointerArray weakObjectsPointerArray];
     });
     return manager;
 }
@@ -103,10 +103,10 @@
 -(void) notifyListenerObjects {
     if(self.timerDelegates.count > 0) {
         for (int i=0; i< self.timerDelegates.count; i++){
-            id<ANRealTimerDelegate> delegate = self.timerDelegates[i];
+            
+            id<ANRealTimerDelegate> delegate = [self.timerDelegates objectAtIndex:i];
             if([delegate respondsToSelector:@selector(handle1SecTimerSentNotification)]){
-                ANLogInfo(@"Notifications pushed from time\
-                          ");
+                ANLogInfo(@"Notifications pushed from time");
                 
                 [delegate handle1SecTimerSentNotification];
             }
