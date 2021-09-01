@@ -408,7 +408,7 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 55 minutes for RTB & member 12317");
         return;
     } else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 9642 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_9642 ){
-        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 12085");
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 9642");
         return;
     }else if(aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpire){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 6 hours");
