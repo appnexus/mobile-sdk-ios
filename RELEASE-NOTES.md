@@ -1,3 +1,11 @@
+## 7.17.0
+### New Features:
++ MS-4839 TTL SDK expiry listener logic for Index Exchange
++ MS-4841 TTL SDK expiry listener logic for for InMobi
+### Bug Fixes:
++ MS-4849 Use retain instead of assign Github #69
++ MS-4828 Memory leak related to 1 pixel tracking
+
 ## 7.16.0
 ### Bug Fixes/Changes
 ##### Fixed:
