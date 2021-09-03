@@ -28,6 +28,8 @@ NSInteger  const  kANNativeFacebookAdAboutToExpire                    = 3600;
 NSInteger  const  kANNativeRTBAdAboutToExpire                         = 21600;
 NSInteger  const  kANNativeRTBAdAboutToExpireForMember_11217          = 300;
 NSInteger  const  kANNativeRTBAdAboutToExpireForMember_12085          = 600;
+NSInteger  const  kANNativeRTBAdAboutToExpireForMember_12317          = 3300; //InMobi
+NSInteger  const  kANNativeRTBAdAboutToExpireForMember_9642           = 300; //Index (ix)
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
@@ -336,6 +338,10 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
         timeInterval = kANNativeRTBAdAboutToExpireForMember_11217 - self.aboutToExpireInterval;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 ){
         timeInterval = kANNativeRTBAdAboutToExpireForMember_12085 - self.aboutToExpireInterval;
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12317 ){
+        timeInterval = kANNativeRTBAdAboutToExpireForMember_12317 - self.aboutToExpireInterval;
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 9642 ){
+        timeInterval = kANNativeRTBAdAboutToExpireForMember_9642 - self.aboutToExpireInterval;
     }else{
         timeInterval =  kANNativeRTBAdAboutToExpire - self.aboutToExpireInterval;
     }
@@ -397,6 +403,12 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
         return;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_12085 ){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 10 minutes for RTB & member 12085");
+        return;
+    }  else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12317 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_12317 ){
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 55 minutes for RTB & member 12317");
+        return;
+    } else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 9642 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_9642 ){
+        ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 9642");
         return;
     }else if(aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpire){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 6 hours");
