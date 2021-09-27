@@ -53,6 +53,11 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creat
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRendererUrl = @"renderer_url";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsBuyerMemberId = @"buyer_member_id";
 
+
+static NSString *const kANUniversalTagAdServerResponseKeyAdsCPM = @"cpm";
+static NSString *const kANUniversalTagAdServerResponseKeyAdsCPMPublisherCurrency = @"cpm_publisher_currency";
+static NSString *const kANUniversalTagAdServerResponseKeyAdsPublisherCurrencyCode = @"publisher_currency_code";
+
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCSMObject = @"csm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRTBObject = @"rtb";
@@ -260,6 +265,26 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          {
            memberId  = [[NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsBuyerMemberId]] integerValue];
          }
+        
+        NSNumber *cpm  = @0.0;
+        if(adObject[kANUniversalTagAdServerResponseKeyAdsCPM] != nil)
+        {
+            cpm  = [NSNumber numberWithFloat:[adObject[kANUniversalTagAdServerResponseKeyAdsCPM] floatValue]];
+        }
+        
+        NSNumber *cpmPublisherCurrency  = @0.0;
+        if(adObject[kANUniversalTagAdServerResponseKeyAdsCPMPublisherCurrency] != nil)
+        {
+            cpmPublisherCurrency  = [NSNumber numberWithFloat:[adObject[kANUniversalTagAdServerResponseKeyAdsCPMPublisherCurrency] floatValue]];
+        }
+        
+        NSString *publisherCurrencyCode  = @"";
+        if(adObject[kANUniversalTagAdServerResponseKeyAdsPublisherCurrencyCode] != nil)
+        {
+            publisherCurrencyCode  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsPublisherCurrencyCode]];
+        }
+         
+        
         NSString *auctionId  = @"";
         if(tag[kANUniversalTagAdServerResponseKeyAdsAuctionId] != nil)
         {
@@ -274,6 +299,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          adResponseInfo.contentSource = contentSource;
          adResponseInfo.memberId = memberId;
          adResponseInfo.auctionId = auctionId;
+         adResponseInfo.cpm = cpm;
+         adResponseInfo.cpmPublisherCurrency = cpmPublisherCurrency;
+         adResponseInfo.publisherCurrencyCode = publisherCurrencyCode;
 
         ANVerificationScriptResource *omidVerificationScriptResource;
         if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){

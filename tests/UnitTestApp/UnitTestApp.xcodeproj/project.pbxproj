@@ -552,6 +552,7 @@
 		FCC2362C25F12A17004A5467 /* PromisesObjC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361E25F12A17004A5467 /* PromisesObjC.xcframework */; };
 		FCC2362F25F12A17004A5467 /* GoogleAppMeasurement.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */; };
 		FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */; };
+		FCE115CE26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCE115CC26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json */; };
 		FCE9649224EA5FBC002FA163 /* HTTPCookieTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5DE4B24BF1AE100614011 /* HTTPCookieTestCase.m */; };
 		FCF5362024EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */; };
 		FCFDC62B263976E800959312 /* appnexus_standard_response_link.json in Resources */ = {isa = PBXBuildFile; fileRef = FCFDC629263976E800959312 /* appnexus_standard_response_link.json */; };
@@ -1137,6 +1138,7 @@
 		FCC2361E25F12A17004A5467 /* PromisesObjC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PromisesObjC.xcframework; sourceTree = "<group>"; };
 		FCC2361F25F12A17004A5467 /* GoogleAppMeasurement.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleAppMeasurement.xcframework; sourceTree = "<group>"; };
 		FCC2362025F12A17004A5467 /* GoogleUtilities.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleUtilities.xcframework; sourceTree = "<group>"; };
+		FCE115CC26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CpmPublisherCurrencyBannerObjectResponse.json; sourceTree = "<group>"; };
 		FCF5361E24EEB3EA0058A3A2 /* ANPublicAPITrafficSourceCodeAndExtInvCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITrafficSourceCodeAndExtInvCode.m; sourceTree = "<group>"; };
 		FCFDC629263976E800959312 /* appnexus_standard_response_link.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response_link.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1844,8 +1846,8 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
+				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1940,6 +1942,7 @@
 				0EEFE1A62200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json */,
 				0ED15A1B2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json */,
 				0E642D56244E63FE009084E0 /* csm_bannerad.json */,
+				FCE115CC26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json */,
 				0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */,
 				3812956A24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json */,
 				38A8E161248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_1000.json */,
@@ -2498,6 +2501,7 @@
 				38A8E168248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1001.json in Resources */,
 				38A8E164248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json in Resources */,
 				38A8E16A248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1011.json in Resources */,
+				FCE115CE26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				38A8E165248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1012.json in Resources */,
 				38A8E166248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1203.json in Resources */,
 				38A8E16B248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_2000.json in Resources */,

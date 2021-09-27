@@ -254,6 +254,53 @@ limitations under the License.
 
 }
 
+
+- (void) testAdResponseWithBannerAdWithBid
+{
+    [self setupBannerAd];
+    self.banner.shouldAllowVideoDemand = YES;
+    [self.banner setAdSize:CGSizeMake(300, 250)];
+    [self stubRequestWithResponse:@"CpmPublisherCurrencyBannerObjectResponse"];
+    [self.banner loadAd];
+    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"308555277");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"22170885");
+    XCTAssertTrue(self.banner.adResponseInfo.memberId == 10094);
+    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.contentSource, @"rtb");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.cpm, [NSNumber numberWithFloat:[@(0.5) floatValue]]);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.cpmPublisherCurrency, [NSNumber numberWithFloat:[@(0.5) floatValue]]);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.publisherCurrencyCode, @"$");
+    
+}
+
+- (void) testAdResponseWithBannerAdWithoutBid
+{
+    
+    [self setupBannerAd];
+    self.banner.shouldAllowVideoDemand = YES;
+    [self.banner setAdSize:CGSizeMake(300, 250)];
+    [self stubRequestWithResponse:@"ANAdResponseRTB_Banner"];
+    [self.banner loadAd];
+    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+        
+    }];
+    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"163051950");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.placementId, @"16392991");
+    XCTAssertTrue(self.banner.adResponseInfo.memberId == 10094);
+    XCTAssertTrue(self.banner.adResponseInfo.adType == ANAdTypeBanner);
+    XCTAssertNotEqualObjects(self.banner.adResponseInfo.cpm, @(0.500000));
+    XCTAssertNotEqualObjects(self.banner.adResponseInfo.cpmPublisherCurrency, @(0.500000));
+    XCTAssertNotEqualObjects(self.banner.adResponseInfo.publisherCurrencyCode, @"$");
+    
+}
+
 - (void) testAdResponseWithBannerVideoAdFailToLoadAd
 {
     [self setupBannerAd];
