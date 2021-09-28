@@ -108,6 +108,7 @@
         sdkSettings.enableOpenMeasurement = YES;
         sdkSettings.enableTestMode = NO;
         sdkSettings.disableIDFAUsage = NO;
+        sdkSettings.disableIDFVUsage = NO;
         sdkSettings.doNotTrack = NO;
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;

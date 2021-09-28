@@ -577,6 +577,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         userDict[@"external_uid"] = publisherUserId;
     }else if ([self.adFetcherDelegate externalUid]) {
         userDict[@"external_uid"] = [self.adFetcherDelegate externalUid];
+    }else if (!ANAdvertisingTrackingEnabled()){
+        // Pass IDFV as external_uid when there is no Publisher First Party Id and IDFA
+        NSString *idfv = ANIdentifierForVendor();
+        if (idfv) {
+            userDict[@"external_uid"] = idfv;
+        }
     }
     
     if ([[ANSDKSettings sharedInstance] doNotTrack]) {
