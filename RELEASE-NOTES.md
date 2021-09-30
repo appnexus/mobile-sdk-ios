@@ -1,7 +1,7 @@
 ## 7.18.0
 ### New Features:
 + MS-4710 Make bid price available as part of AdResponseInfo [https://wiki.xandr.com/x/YIBKC].
-+ MS-4759 Automatically pass Identifier for Vendors (IDFV) in Ad request.
++ MS-4759 Automatically pass Identifier for Vendors (IDFV) in Ad request. [https://wiki.xandr.com/x/7IW1Bg]
 
 ## 7.17.0
 ### New Features:
