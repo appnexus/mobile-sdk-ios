@@ -57,5 +57,20 @@
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *auctionId;
 
+/**
+ An AppNexus CPM. A CPM is BidPrice.
+ */
+@property (nonatomic, readwrite, strong, nullable) NSNumber *cpm;
+
+/**
+ An AppNexus Publisher Currency Price.CPM Publisher Currency of bidPrice
+ */
+@property (nonatomic, readwrite, strong, nullable) NSNumber *cpmPublisherCurrency;
+
+/**
+ An AppNexus Currency Code. A Publisher Currency Code of bidPrice
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *publisherCurrencyCode;
+
 @end
 

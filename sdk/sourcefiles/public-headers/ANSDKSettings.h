@@ -94,6 +94,12 @@ An AppNexus disableIDFAUsage  is a boolean value which exclude the IDFA field in
 */
 @property (nonatomic, readwrite) BOOL disableIDFAUsage;
 
+
+/**
+An AppNexus disableIDFVUsage  is a boolean value which exclude the IDFV field in ad request. Default value of disableIDFVUsage is set to NO and IDFV will be used in cases where both IDFA and Publisher First Party ID are not present for a given ad request.
+*/
+@property (nonatomic, readwrite) BOOL disableIDFVUsage;
+
 /**
  Specify if impression should be counted when the creative is loaded & viewable on screen.
  This feature is disabled by default.

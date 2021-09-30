@@ -110,6 +110,19 @@ NSString *__nullable ANAdvertisingIdentifier() {
     return advertisingIdentifier;
 }
 
+
+NSString *__nullable ANIdentifierForVendor() {
+    if (ANSDKSettings.sharedInstance.disableIDFVUsage) { return nil; }
+    NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if (idfv) {
+        ANLogInfo(@"idfv = %@", idfv);
+    } else {
+        ANLogWarn(@"No IDFV retrieved.");
+    }
+    return idfv;
+}
+
+
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {
     return NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
 }

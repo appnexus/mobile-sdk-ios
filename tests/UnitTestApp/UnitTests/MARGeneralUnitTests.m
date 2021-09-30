@@ -62,6 +62,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
 TMARK();
     [self clearCountsAndExpectations];
     self.adUnitsForTest = [[MARAdUnits alloc] initWithDelegate:self];
+    ANSDKSettings.sharedInstance.disableIDFVUsage = YES;
 
 }
 
@@ -77,6 +78,7 @@ TMARK();
 - (void)tearDown
 {
     [self clearCountsAndExpectations];
+    ANSDKSettings.sharedInstance.disableIDFVUsage = NO; // Reset to default in Teardown
 }
 
 

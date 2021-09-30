@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.17.0"
+#define AN_SDK_VERSION                  @"7.18.0"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -113,6 +113,7 @@ BOOL ANIsFirstLaunch(void);
 
 NSString * __nonnull ANUUID(void);
 NSString *__nullable ANAdvertisingIdentifier(void);
+NSString *__nullable ANIdentifierForVendor(void);
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key);
 NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);

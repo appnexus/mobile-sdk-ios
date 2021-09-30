@@ -52,6 +52,7 @@ static NSString  *videoPlacementID  = @"9924001";
     [super tearDown];
     [ANGDPRSettings reset];
     [ANSDKSettings sharedInstance].disableIDFAUsage  = NO;
+    [ANSDKSettings sharedInstance].disableIDFVUsage  = NO;
 }
 
 
@@ -874,6 +875,111 @@ static NSString  *videoPlacementID  = @"9924001";
         [expectation fulfill];
     });
 
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+
+/**
+ Tests To verify : disableIDFVUsage
+ 1) If disableIDFVUsage is set to default value(No) then the IDFV should be automatically be set as external_uid in /ut/v3 if there is no IDFA present and no Publisher first party ID set by the user.
+ 2) If disableIDFVUsage is set to default value(No) and if IDFA is present in the request then we should not set IDFV automatically as external_uid.
+ */
+- (void)testUTRequestDisableIDFVUsageDefault
+{
+    
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [ANGDPRSettings setPurposeConsents:@"1010"];
+
+    //
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *user = jsonDict[@"user"];
+        XCTAssertNotNil(user);
+
+            //ANAdvertisingTrackingEnabled is TRUE if ATTrackingManagerAuthorizationStatusAuthorized.
+            if(ANAdvertisingTrackingEnabled()){
+                
+                // in cases where IDFA is present IDFV should not be automatically set as external_uid
+                NSString *external_uid = user[@"external_uid"];
+                XCTAssertNil(external_uid);
+            }else{
+                // in cases where IDFA is absent IDFV should be automatically set as external_uid is there is not publisher set external_uid(first party id)
+                NSString *external_uid = user[@"external_uid"];
+                XCTAssertNotNil(external_uid);
+                NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+                XCTAssertTrue([idfv isEqualToString:external_uid]);
+            }
+        [expectation fulfill];
+    });
+
+    //
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+
+
+/**
+ Tests To verify : disableIDFVUsage set to YES
+ If disableIDFVUsage is set to YES then the IDFV should not be automatically be set as external_uid in /ut/v3 for all cases.
+ */
+- (void)testUTRequestDisableIDFVUsageYES
+{
+    
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    ANSDKSettings.sharedInstance.disableIDFVUsage = YES;
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
+
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [ANGDPRSettings setPurposeConsents:@"1010"];
+
+    //
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
+    ^{
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+
+        // JSON foundation.
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *user = jsonDict[@"user"];
+        XCTAssertNotNil(user);
+        
+        
+        //If disableIDFVUsage is set to YES then the IDFV should not be automatically be set as external_uid in /ut/v3 for all cases.
+        NSString *external_uid = user[@"external_uid"];
+        XCTAssertNil(external_uid);
+ 
+        
+        
+        [expectation fulfill];
+    });
+
+    //
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 
