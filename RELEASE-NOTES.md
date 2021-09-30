@@ -1,7 +1,12 @@
+## 7.18.0
+### New Features:
++ MS-4710 Make bid price available as part of AdResponseInfo [https://wiki.xandr.com/x/YIBKC].
++ MS-4759 Automatically pass Identifier for Vendors (IDFV) in Ad request.
+
 ## 7.17.0
 ### New Features:
 + MS-4839 TTL SDK expiry listener logic for Index Exchange
-+ MS-4841 TTL SDK expiry listener logic for for InMobi
++ MS-4841 TTL SDK expiry listener logic for InMobi
 ### Bug Fixes:
 + MS-4849 Use retain instead of assign Github #69
 + MS-4828 Memory leak related to 1 pixel tracking
