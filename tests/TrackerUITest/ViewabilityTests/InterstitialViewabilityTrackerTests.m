@@ -110,7 +110,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"VersionEvent"];
     [app launch];
     
-    XCUIElement *  result = app.tables.staticTexts[@"version=1.0.2-dev"];
+    XCUIElement *  result = app.tables.staticTexts[@"version="];
     [self waitForElementToAppear:result  withTimeout:30];
 
 }

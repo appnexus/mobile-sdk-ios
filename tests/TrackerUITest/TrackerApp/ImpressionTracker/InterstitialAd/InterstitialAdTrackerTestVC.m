@@ -14,9 +14,9 @@
  */
 
 #import "InterstitialAdTrackerTestVC.h"
-#import <AppNexusSDK/AppNexusSDK.h>
+@import AppNexusSDK;
 #import "ANStubManager.h"
-#import <TrackerApp-Swift.h>
+#import <Integration-Swift.h>
 #import "Constant.h"
 #import "ANHTTPStubbingManager.h"
 
@@ -88,7 +88,7 @@
     [[ANStubManager sharedInstance] disableStubbing];
     [[ANStubManager sharedInstance] enableStubbing];
     if ([[NSProcessInfo processInfo].arguments containsObject:InterstitialImpressionClickTrackerTest]){
-        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBInterstitialAd"];
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAdTracker"];
     }
 }
 

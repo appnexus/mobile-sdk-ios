@@ -83,7 +83,7 @@
 /**
  List of possible URL that can be fired during impression events
  */
-#define impressionTrackerURLRTB  [NSArray arrayWithObjects: @"https://sin1-mobile.adnxs.com/it?",@"http://nym1-ib.adnxs.com/it?",@"https://nym1-mobile.adnxs.com/it?",@"https://sin3-ib.adnxs.com/it?",@"https://nym1-ib.adnxs.com/vevent?an_audit=0",@"https://nym1-ib.adnxs.com/it?an_audit=0",nil]
+#define impressionTrackerURLRTB  [NSArray arrayWithObjects: @"https://sin1-mobile.adnxs.com/it?",@"http://nym1-ib.adnxs.com/it?",@"https://nym1-mobile.adnxs.com/it?",@"https://sin3-ib.adnxs.com/it?",@"https://nym1-ib.adnxs.com/vevent?an_audit=0",@"https://nym1-ib.adnxs.com/it?an_audit=0",@"https://nym2-tr.adnxs.com/it",nil]
 
 /**
  Test case will wait for 25 Second  for Click Tracker

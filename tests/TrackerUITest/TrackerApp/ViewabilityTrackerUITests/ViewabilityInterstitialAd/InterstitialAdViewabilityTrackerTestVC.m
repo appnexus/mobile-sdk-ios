@@ -135,12 +135,11 @@
         NSLog(@"absoluteURLText -> %@",absoluteURLText);
         
         
-        if([absoluteURLText containsString:@"https://mobile.devnxs.net/omsdk/sendmessage?version=1.0.2-dev"]){
+        if([absoluteURLText containsString:@"sendmessage?version="]){
             if( [self.uiTestList containsObject:@"VersionEvent"]){
-                [self.eventList addObject:@"version=1.0.2-dev"];
+                [self.eventList addObject:@"version="];
             }
-        }else  if([absoluteURLText containsString:@"https://mobile.devnxs.net/omsdk/sendmessage?supported=yes"]){
-            
+        }else  if([absoluteURLText containsString:@"sendmessage?supported=yes"]){            
             if( [self.uiTestList containsObject:@"SupportedIsYes"]){
                 [self.eventList addObject:@"supported=yes"];
             }

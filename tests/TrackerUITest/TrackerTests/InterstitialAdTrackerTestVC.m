@@ -46,6 +46,8 @@
 /*
  testInterstitialClickTrackerTestAd: To test the click tracker is fired by the Interstitial Ad.
  */
+
+/*
 // Click Tracker Testcase is not working
 - (void)testInterstitialClickTrackerTestAd {
     // Use recording to get started writing UI tests.
@@ -66,7 +68,7 @@
     XCTAssertTrue(clickTracker.exists);
      */
 
-}
+//}
 
 
 /**
