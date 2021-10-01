@@ -160,7 +160,7 @@
 //    self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self.multiFormatAd loadAd];
-    [self waitForExpectations:@[self.expectationRequest, self.expectationResponse] timeout:600];
+    [self waitForExpectations:@[ self.expectationResponse] timeout:600];
 
     // Delay added to allow OMID Event to fire
     [XCTestCase delayForTimeInterval:40];
@@ -180,10 +180,18 @@
     XCTAssertTrue([self.requestData containsString:@"display"]);
     XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
-    self.expectationForOmidSessionFinish = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self.multiFormatAd removeFromSuperview];
     self.multiFormatAd = nil;
-    [self waitForExpectations:@[self.expectationForOmidSessionFinish] timeout:600];
+    
+    self.expectationForOmidSessionFinish = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        XCTAssertTrue([self.requestData containsString:@"sessionFinish"]);
+        [self.expectationForOmidSessionFinish fulfill];
+
+    });
+    
+    [self waitForExpectations:@[self.expectationForOmidSessionFinish] timeout:50];
+
 }
 
 
@@ -234,9 +242,10 @@
 # pragma mark - Intercept HTTP Request Callback
 
 - (void)didReceiveIABResponse:(NSString *)response {
-    if ([response containsString:@"sessionFinish"] && self.expectationForOmidSessionFinish) {
+    if ([response containsString:@"sessionFinish"]) {
         [self.expectationForOmidSessionFinish fulfill];
     }
+    NSLog(@"self.requestData ===> %@",self.requestData);
     [self.requestData appendString:response];
 }
 
