@@ -1,10 +1,6 @@
 Appnexus iOS SDK
 =====================
 
-```
-Upcoming change: Native impression counting methodology will follow the count-on-render methodology that is used for banner creatives - an impression will fire as soon as the native advertisement renders, regardless of its viewability, or length of time on the screen. This will ensure greater accuracy and better deliverability, thus improving overall yield.
-```
-
 
 See the documentation on our wiki here: http://wiki.appnexus.com/x/dhAtAw
 
