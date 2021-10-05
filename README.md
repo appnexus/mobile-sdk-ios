@@ -2,8 +2,7 @@ Appnexus iOS SDK
 =====================
 
 ```
-MobileSDK v6.0 will be a breaking change and requires existing users who wish to upgrade from previous versions 
-to follow our release notes for details https://github.com/appnexus/mobile-sdk-ios/releases/tag/6.0
+Upcoming change: Native impression counting methodology will follow the count-on-render methodology that is used for banner creatives - an impression will fire as soon as the native advertisement renders, regardless of its viewability, or length of time on the screen. This will ensure greater accuracy and better deliverability, thus improving overall yield.
 ```
 
 
