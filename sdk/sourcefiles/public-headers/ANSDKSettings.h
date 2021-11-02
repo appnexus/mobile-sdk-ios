@@ -25,6 +25,13 @@ typedef void (^sdkInitCompletion)(BOOL);
  */
 @property (nonatomic) BOOL HTTPSEnabled DEPRECATED_MSG_ATTRIBUTE("All network calls are secure. HTTPSEnabled property is deprecated.");
 
+
+/**
+ If YES, the SDK will allow to perfrom Open-Measurement Optimization  for viewability and verification measurement for ads served. Default is YES.
+ */
+@property (nonatomic, readwrite) BOOL enableOMIDOptimization;
+
+
 /**
  If YES, the SDK will allow to support Open-Measurement for viewability and verification measurement for ads served. Default is YES.
  */
