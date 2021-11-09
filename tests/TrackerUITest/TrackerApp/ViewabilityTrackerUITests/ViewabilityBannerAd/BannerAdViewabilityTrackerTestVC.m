@@ -57,6 +57,13 @@
     //  registerEventListener is used to register for tracking the URL fired by Application(or SDK)
     [self registerEventListener];
     
+    if( [self.uiTestList containsObject:@"EnableOMIDOptimization"]){
+        ANSDKSettings.sharedInstance.enableOMIDOptimization = true;
+    }else{
+        ANSDKSettings.sharedInstance.enableOMIDOptimization = false;
+    }
+
+    
     int adWidth  = 300;
     int adHeight = 250;
     
@@ -119,12 +126,23 @@
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
     // To Hide add after 2 second so that we can track the Viewablity zero
-    [NSTimer scheduledTimerWithTimeInterval:2.0
-                                     target:self
-                                   selector:@selector(hideShowAdAction)
-                                   userInfo:nil
-                                    repeats:NO];
     
+    if(ANSDKSettings.sharedInstance.enableOMIDOptimization){
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (5 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+         
+            self.banner.frame = CGRectMake(-300, -300, self.banner.frame.size.width, self.banner.frame.size.height);
+            
+        });
+    }else{
+        [NSTimer scheduledTimerWithTimeInterval:2.0
+                                         target:self
+                                       selector:@selector(hideShowAdAction)
+                                       userInfo:nil
+                                        repeats:NO];
+        
+    }
+
 
 }
 
@@ -269,6 +287,13 @@
         
         
         else  if([absoluteURLText containsString:@"type=sessionFinish&data=undefined"]){
+        
+            if(ANSDKSettings.sharedInstance.enableOMIDOptimization){
+                [self.eventList addObject:@"EnableOMIDOptimization"];
+                [self.eventList addObject:@"type=sessionFinish"];
+                self.tableView.hidden = NO;
+                [self.tableView reloadData];
+            }
             if( [self.uiTestList containsObject:@"SessionFinish"]){
                 [self.eventList addObject:@"type=sessionFinish"];
             }

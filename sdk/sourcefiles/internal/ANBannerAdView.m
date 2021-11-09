@@ -878,7 +878,7 @@ static NSString *const kANInline        = @"inline";
         //Fire impression tracker here
         [self fireTrackerAndOMID];
         //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
-        if([ANSDKSettings sharedInstance].enableOMIDOptimization){
+        if(![ANSDKSettings sharedInstance].enableOMIDOptimization){
             [ANRealTimer removeDelegate:self];
         }
     }
