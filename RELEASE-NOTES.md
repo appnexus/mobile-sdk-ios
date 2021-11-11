@@ -1,3 +1,7 @@
+## 7.19.0
+### Improvement/Bug Fixes
++ MS-4884 Improved impression tracking methodology for Native Ads, trackers to be fired on render 
+
 ## 7.18.0
 ### New Features:
 + MS-4710 Make bid price available as part of AdResponseInfo [https://wiki.xandr.com/x/YIBKC].
