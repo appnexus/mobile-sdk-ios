@@ -871,7 +871,6 @@ static NSString *const kANInline        = @"inline";
     CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
     
     ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
-    NSLog(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
     
     if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0 && self.impressionURLs != nil && self.valueOfHowImpressionBeFired == AN1PxViewed){
         ANLogDebug(@"Impression tracker fired on 1px rendering");
