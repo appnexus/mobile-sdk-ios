@@ -14,10 +14,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <TrackerApp-Swift.h>
+#import <Integration-Swift.h>
 #import "BannerNativeVideoTrackerTestVC.h"
-#import "ANBannerAdView.h"
-#import "ANGlobal.h"
+//#import "ANBannerAdView.h"
+@import AppNexusSDK;
 #import "ANStubManager.h"
 #import "ANNativeAdView.h"
 #import "Constant.h"
@@ -82,7 +82,6 @@
     self.banner.delegate = self;
     self.banner.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
     self.banner.accessibilityIdentifier = @"bannerAdElements";
-    [self.view addSubview:self.banner];
     self.banner.shouldServePublicServiceAnnouncements = NO;
     self.banner.autoRefreshInterval = 0;
     [self.banner loadAd];
@@ -137,7 +136,7 @@
     
     // Select Stub Response based on Selected UI testcase
     if ([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTest]) {
-        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAd"];
+        [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerAdTracker"];
     }else if ([[NSProcessInfo processInfo].arguments containsObject:BannerNativeImpressionClickTrackerTest]) {
         [[ANStubManager sharedInstance] stubRequestWithResponse:@"RTBBannerNativeAd"];
     }else if([[NSProcessInfo processInfo].arguments containsObject:BannerNativeRendererImpressionClickTrackerTest]){
@@ -149,6 +148,8 @@
 
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
+    
+    [self.view addSubview:self.banner];
 }
 
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{

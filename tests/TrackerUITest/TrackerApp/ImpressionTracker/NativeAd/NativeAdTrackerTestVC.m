@@ -14,10 +14,10 @@
  */
 
 #import "NativeAdTrackerTestVC.h"
-#import <AppNexusSDK/AppNexusSDK.h>
+@import AppNexusSDK;
 #import "ANNativeAdView.h"
 #import "ANStubManager.h"
-#import <TrackerApp-Swift.h>
+#import <Integration-Swift.h>
 #import "Constant.h"
 #import "ANHTTPStubbingManager.h"
 

@@ -12,7 +12,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-
+#import <UnitTestApp-Swift.h>
 #import <XCTest/XCTest.h>
 #import "XCTestCase+ANCategory.h"
 #import "SDKValidationURLProtocol.h"
@@ -69,7 +69,7 @@ static NSString   *placementID      = @"12534678";
     self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
 
-
+    [self registerEventListener];
 }
 
 - (void)tearDown {
@@ -103,14 +103,14 @@ static NSString   *placementID      = @"12534678";
 {
     [self setupBannerVideoAd];
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
-    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
 
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
 
     [self.banner loadAd];
 
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval * 30
                                  handler:^(NSError *error) {
 
     }];
@@ -121,7 +121,7 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDInstreamVideoViewablePercent100
 {
     [self setupInstreamVideoAd];
-    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
 
     self.OMID100PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 100% event"];
     self.percentViewableFulfilled = NO;
@@ -139,7 +139,7 @@ static NSString   *placementID      = @"12534678";
 - (void)testOMIDBannerVideoViewablePercentZero
 {
     [self setupBannerVideoAd];
-    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
     [self.banner addOpenMeasurementFriendlyObstruction:self.friendlyObstruction];
 
     self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
@@ -160,7 +160,7 @@ static NSString   *placementID      = @"12534678";
 {
 
     [self setupInstreamVideoAd];
-    [self stubRequestWithResponse:@"OMID_Video_TestResponse"];
+    [self stubRequestWithResponse:@"OMID_VideoResponse"];
 
     self.OMID0PercentViewableExpectation = [self expectationWithDescription:@"Didn't receive OMID view 0% event"];
     self.removeFriendlyObstruction = YES;
@@ -272,5 +272,40 @@ static NSString   *placementID      = @"12534678";
 
 }
 
+
+//  registerEventListener is used to register for tracking the URL fired by Application(or SDK)
+-(void)registerEventListener{
+    [NSURLProtocol registerClass:[WebKitURLProtocol class]];
+    [NSURLProtocol wk_registerWithScheme:@"https"];
+    [NSURLProtocol wk_registerWithScheme:@"http"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNetworkLog:)
+                                                 name:@"didReceiveURLResponse"
+                                               object:nil];
+}
+
+# pragma mark - Ad Server Response Stubbing
+
+// updateNetworkLog: Will return event in fire of URL from Application(or SDK)
+- (void) updateNetworkLog:(NSNotification *) notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    NSURLResponse *response = [userInfo objectForKey:@"response"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *absoluteURLText = [response.URL.absoluteURL absoluteString];
+        NSLog(@"absoluteURLText -> %@",absoluteURLText);
+        if ([absoluteURLText containsString:@"percentageInView"] && [absoluteURLText containsString:@"100"] && !self.percentViewableFulfilled) {
+            self.percentViewableFulfilled = YES;
+            [self.OMID100PercentViewableExpectation fulfill];
+
+        }
+
+        if ([absoluteURLText containsString:@"percentageInView"] && [absoluteURLText containsString:@"0"] && self.removeFriendlyObstruction) {
+            self.removeFriendlyObstruction = NO;
+            [self.OMID0PercentViewableExpectation fulfill];
+        }
+     
+    });
+}
 
 @end

@@ -46,7 +46,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"SessionFinish"];
     [app launch];
     XCUIElement *result = app.tables.staticTexts[@"type=sessionFinish"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
 }
 /*
  testBannerVideoAdOMIDQuartileEvent: Verify OMID Quartile event.
@@ -58,7 +58,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"QuartileEvent"];
     [app launch];
     XCUIElement *result = app.tables.staticTexts[@"type=firstQuartile"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     result = app.tables.staticTexts[@"type=midpoint"];
     [self waitForElementToAppear:result  withTimeout:8];
     result = app.tables.staticTexts[@"type=thirdQuartile"];
@@ -82,7 +82,7 @@
     [app launch];
     
     XCUIElement *result = app.tables.staticTexts[@"sessionStart"];
-    [self waitForElementToAppear:result  withTimeout:38];
+    [self waitForElementToAppear:result  withTimeout:60];
     result = app.tables.staticTexts[@"partnerName=Appnexus"];
     [self waitForElementToAppear:result  withTimeout:8];
     result = app.tables.staticTexts[@"omidImplementer=omsdk"];
@@ -121,10 +121,10 @@
     [app launch];
     XCUIElementQuery *webViewsQuery = app.webViews;
     XCUIElement *unmute  = webViewsQuery.buttons[@" Unmute"];
-    [self waitForElementToAppear:unmute  withTimeout:10];
+    [self waitForElementToAppear:unmute  withTimeout:30];
     [unmute tap];
     XCUIElement *mute  =  webViewsQuery.buttons[@" Mute"];
-    [self waitForElementToAppear:mute  withTimeout:10];
+    [self waitForElementToAppear:mute  withTimeout:30];
     [mute tap];
     sleep(5);
     [XCUIDevice sharedDevice].orientation = UIDeviceOrientationLandscapeLeft;
@@ -167,10 +167,10 @@
     
     XCUIElementQuery *webViewsQuery = app.webViews.webViews.webViews;
     XCUIElement *fullscreen  =  webViewsQuery.buttons[@" Fullscreen"];
-    [self waitForElementToAppear:fullscreen  withTimeout:10];;
+    [self waitForElementToAppear:fullscreen  withTimeout:30];;
     [fullscreen tap];
     XCUIElement *nonfullscreen  =  webViewsQuery.buttons[@" Non-Fullscreen"];
-    [self waitForElementToAppear:nonfullscreen  withTimeout:10];;
+    [self waitForElementToAppear:nonfullscreen  withTimeout:30];;
     [nonfullscreen tap];
     sleep(5);
     
@@ -179,7 +179,7 @@
     
     [XCUIDevice sharedDevice].orientation = UIDeviceOrientationPortrait;
     XCUIElement *  result = app.tables.staticTexts[@"type=playerStateChange state=fullscreen"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     result = app.tables.staticTexts[@"type=playerStateChange state=normal"];
     [self waitForElementToAppear:result  withTimeout:8];
     
@@ -200,7 +200,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:BannerVideoViewabilityTrackerTest];
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"SupportedIsYes"];
     [app launch];
-    XCUIElement *  result = app.tables.staticTexts[@"version=1.0.2-dev"];
+    XCUIElement *  result = app.tables.staticTexts[@"version="];
     [self waitForElementToAppear:result  withTimeout:40];
     result = app.tables.staticTexts[@"supported=yes"];
     [self waitForElementToAppear:result  withTimeout:8];
@@ -215,7 +215,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"OMIDBeginToRenderer"];
     [app launch];
     XCUIElement *  result = app.tables.staticTexts[@"type=loaded"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     
     
     result = app.tables.staticTexts[@"skippable=false"];
@@ -273,7 +273,7 @@
     [app launch];
 
     XCUIElement *  result = app.tables.staticTexts[@"percentageInView=0"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     
     result = app.tables.staticTexts[@"percentageInView=100"];
     [self waitForElementToAppear:result  withTimeout:8];

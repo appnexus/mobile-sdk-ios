@@ -179,7 +179,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"SessionFinish"];
     [app launch];
     XCUIElement *result = app.tables.staticTexts[@"type=sessionFinish"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
 }
 /*
  testVideoAdOMIDQuartileEvent: Verify OMID Quartile event.
@@ -191,7 +191,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"QuartileEvent"];
     [app launch];
     XCUIElement *result = app.tables.staticTexts[@"type=firstQuartile"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     result = app.tables.staticTexts[@"type=midpoint"];
     [self waitForElementToAppear:result  withTimeout:8];
     result = app.tables.staticTexts[@"type=thirdQuartile"];
@@ -215,7 +215,7 @@
     [app launch];
     
     XCUIElement *result = app.tables.staticTexts[@"sessionStart"];
-    [self waitForElementToAppear:result  withTimeout:38];
+    [self waitForElementToAppear:result  withTimeout:60];
     result = app.tables.staticTexts[@"partnerName=Appnexus"];
     [self waitForElementToAppear:result  withTimeout:8];
     result = app.tables.staticTexts[@"omidImplementer=omsdk"];
@@ -248,17 +248,20 @@
  testVideoAdOMIDVolumeChange: Verify OMID Volume Change.
  */
 - (void)testVideoAdOMIDVolumeChange {
+    
+    
+    
     XCUIApplication *app = [[XCUIApplication alloc] init];
     app.launchArguments = [app.launchArguments arrayByAddingObject:VideoViewabilityTrackerTest];
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"OMIDVolumeChange"];
     [app launch];
     XCUIElementQuery *webViewsQuery = app.webViews;
     XCUIElement *mute  =  webViewsQuery.buttons[@" Mute"];
-    [self waitForElementToAppear:mute  withTimeout:10];
+    [self waitForElementToAppear:mute  withTimeout:30];
     [mute tap];
-    
+
     XCUIElement *unmute  = webViewsQuery.buttons[@" Unmute"];
-    [self waitForElementToAppear:unmute  withTimeout:10];
+    [self waitForElementToAppear:unmute  withTimeout:30];
     [unmute tap];
    
     sleep(5);
@@ -295,7 +298,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:VideoViewabilityTrackerTest];
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"SupportedIsYes"];
     [app launch];
-    XCUIElement *  result = app.tables.staticTexts[@"version=1.0.2-dev"];
+    XCUIElement *  result = app.tables.staticTexts[@"version="];
     [self waitForElementToAppear:result  withTimeout:40];
     result = app.tables.staticTexts[@"supported=yes"];
     [self waitForElementToAppear:result  withTimeout:8];
@@ -377,7 +380,7 @@
  
     
     XCUIElement *  result = app.tables.staticTexts[@"percentageInView=0"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     
     result = app.tables.staticTexts[@"percentageInView=100"];
     [self waitForElementToAppear:result  withTimeout:8];

@@ -34,8 +34,6 @@
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *inAppBrowser;
 
-@property (nonatomic, readwrite, assign) NSUInteger viewabilityValue;
-@property (nonatomic, readwrite, assign) NSUInteger targetViewabilityValue;
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
 @property (nonatomic, readwrite, assign) BOOL impressionHasBeenTracked;
 
@@ -111,21 +109,20 @@
 
 - (void)setupViewabilityTracker
 {
-    if(!ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
-        __weak ANNativeStandardAdResponse *weakSelf = self;
-        NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
-                                                                      / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
-        self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
-        ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
-        
-        self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
-                                                                     block:^ {
-                                                                         ANNativeStandardAdResponse *strongSelf = weakSelf;
-            
-                [strongSelf checkIfIABViewable];
-            } repeats:YES];
-    } else {
+    if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
         [ANRealTimer addDelegate:self];
+    } else {
+        if(self.viewForTracking.window) {
+            [self trackImpression];
+        } else {
+            __weak ANNativeStandardAdResponse *weakSelf = self;
+
+            self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
+                                                                         block:^ {
+                                                                             ANNativeStandardAdResponse *strongSelf = weakSelf;
+                    [strongSelf checkIfIABViewable];
+                } repeats:YES];
+        }
     }
 }
 
@@ -137,15 +134,11 @@
         ANLogInfo(@"Impression tracker fired when 1px native on screen");
         [self trackImpression];
     }
-    
+
 }
 
 - (void)checkIfIABViewable {
-    self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
-    BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
-    ANLogDebug(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
-    
-    if (isIABViewable) {
+    if (self.viewForTracking.window) {
         [self trackImpression];
     }
 }
@@ -188,7 +181,6 @@
 {
     [self fireClickTrackers];
 
-    //
     if (ANClickThroughActionReturnURL == self.clickThroughAction)
     {
         [self adWasClickedWithURL:[self.clickURL absoluteString] fallbackURL:[self.clickFallbackURL absoluteString]];
@@ -296,4 +288,3 @@
 }
 
 @end
-

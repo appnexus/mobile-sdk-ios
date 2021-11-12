@@ -150,18 +150,24 @@
         NSLog(@"absoluteURLText -> %@",absoluteURLText);
         
         
-        if([absoluteURLText containsString:@"version=1.0.2-dev"]){
+        if([absoluteURLText containsString:@"version="]){
             if( [[NSProcessInfo processInfo].arguments containsObject:@"SupportedIsYes"]){
-                [self.eventList addObject:@"version=1.0.2-dev"];
+                [self.eventList addObject:@"version="];
             }
         }else  if([absoluteURLText containsString:@"supported=yes"]){
             if( [[NSProcessInfo processInfo].arguments containsObject:@"SupportedIsYes"]){
                 [self.eventList addObject:@"supported=yes"];
             }
             
-        }else  if([absoluteURLText containsString:@"type=sessionStart&data%5Bcontext%5D%5BapiVersion%5D=1.0&data%5Bcontext%5D%5BaccessMode%5D=limited&data%5Bcontext%5D%5Benvironment%5D=app&data%5Bcontext%5D%5BomidJsInfo%5D%5BomidImplementer%5D=omsdk&data%5Bcontext%5D%5BomidJsInfo%5D%5BserviceVersion%5D=1.3.7-iab2228&data%5Bcontext%5D%5BomidJsInfo%5D%5BsessionClientVersion%5D=1.3.7-iab2228&data%5Bcontext%5D%5BomidJsInfo%5D%5BpartnerName%5D=Appnexus"]){
-            
-            
+        
+    }else  if([absoluteURLText containsString:@"type=sessionStart"] ||
+              [absoluteURLText containsString:@"apiVersion%5D=1"] ||
+              [absoluteURLText containsString:@"accessMode%5D=limited"] ||
+              [absoluteURLText containsString:@"environment%5D=app"] ||
+              [absoluteURLText containsString:@"omidJsInfo%5D%5BomidImplementer%5D=omsdk"] ||
+              [absoluteURLText containsString:@"serviceVersion"] ||
+              [absoluteURLText containsString:@"partnerName%5D=Appnexus"]){
+
             
             if( [[NSProcessInfo processInfo].arguments containsObject:@"SessionStart"]){
                 
@@ -236,7 +242,7 @@
         }
         
         
-        else  if([absoluteURLText containsString:@"type=volumeChange"] && [absoluteURLText containsString:@"videoPlayerVolume%5D=0"]){
+        else  if([absoluteURLText containsString:@"type=volumeChange"] || [absoluteURLText containsString:@"videoPlayerVolume%5D=0"]){
 
             if( [[NSProcessInfo processInfo].arguments containsObject:@"OMIDVolumeChange"]){
                 [self.eventList addObject:@"type=volumeChange"];
@@ -268,7 +274,7 @@
                 [self.eventList addObject:@"type=resume"];
             }
         }
-        else  if([absoluteURLText containsString:@"percentageInView%5D=100"]){
+        else  if([absoluteURLText containsString:@"percentageInView"] || [absoluteURLText containsString:@"100"]){
             if( [[NSProcessInfo processInfo].arguments containsObject:@"OmidPercentageInView"]){
                 
                 [self.eventList addObject:@"percentageInView=100"];

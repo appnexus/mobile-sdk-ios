@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 # runXcodeTests.sh
@@ -146,12 +147,9 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 # Hardcoded Xcode schemes.
 #
 STATIC_LIST_OF_SCHEMES="
-    #AppNexusNativeSDK
-    #AppNexusSDK
     NativeSDKTestApp
     UnitTestApp
 "
-
 
 #
 # Hardcoded Xcode device models and versios.
@@ -217,6 +215,7 @@ TEST_RESULT_CURRENT_FILE=
 TEST_RESULT_CURRENT_FILE_PREFIX="buildAndTest--"
 
 EXPECTED_FAILED_NUMBER=0
+CURRENT_TOTAL_FAIL=0
 
 #
 PROJECT=
@@ -271,7 +270,10 @@ runXcodebuild()   # <scheme> <iosVersion> <deviceModel>
   cat $TEST_RESULT_CURRENT_FILE | egrep '^(Test Suite|[     ]+Executed)'  >$TEST_RESULT_TEMP
   cat $TEST_RESULT_CURRENT_FILE | egrep -v '===' | $XCPRETTY -r html -o $TEST_RESULT_DIRECTORY_PRETTY/${IOSVERSION},${DEVICEMODEL}--${SCHEME}.html
   
-  EXPECTED_FAILED_NUMBER=$(cat $TEST_RESULT_TEMP | egrep -c "'All tests' failed")
+#  EXPECTED_FAILED_NUMBER=$(cat $TEST_RESULT_TEMP | egrep -c "'All tests' failed")
+  CURRENT_TOTAL_FAIL=$(cat $TEST_RESULT_TEMP | egrep -c "'All tests' failed")
+  EXPECTED_FAILED_NUMBER_TEMP=$EXPECTED_FAILED_NUMBER
+  EXPECTED_FAILED_NUMBER=$(( $EXPECTED_FAILED_NUMBER_TEMP + $CURRENT_TOTAL_FAIL ))
 
   cat $TEST_RESULT_TEMP  >>$TEST_RESULT_LOG
   rm $TEST_RESULT_TEMP
@@ -709,7 +711,7 @@ do
 done  #VERSIONS_AND_DEVICES
 
 
-
+log "#------- ALL FAILED TESTCASE Count $EXPECTED_FAILED_NUMBER"
 #
 if [ "$EXPECTED_FAILED_NUMBER" -gt "0" ];then
   log "#------- FOUND FAILED TESTCASES"

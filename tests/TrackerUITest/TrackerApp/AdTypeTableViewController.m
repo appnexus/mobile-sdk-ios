@@ -60,7 +60,8 @@
     else if( [[NSProcessInfo processInfo].arguments containsObject:MARBannerImpressionClickTrackerTest] ||  [[NSProcessInfo processInfo].arguments containsObject:MARNativeImpressionClickTrackerTest] ||[[NSProcessInfo processInfo].arguments containsObject:MARBannerNativeRendererImpressionClickTrackerTest]  ){
         [self openViewController:@"MARBannerNativeRendererAdTrackerTestVC"];
     }
-        
+     
+    
     // Open BannerAdViewabilityTrackerTestVC if arguments contain the Banner Ad for Viewability Tracker [OMID]
     if( [[NSProcessInfo processInfo].arguments containsObject:BannerViewabilityTrackerTest]){
         [self openViewController:@"BannerAdViewabilityTrackerTestVC"];
