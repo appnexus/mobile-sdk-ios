@@ -56,6 +56,8 @@
 #define InterstitialImpressionClickTrackerTest @"InterstitialImpressionClickTrackerTest"
 #define VideoImpressionClickTrackerTest @"VideoImpressionClickTrackerTest"
 #define NativeImpressionClickTrackerTest @"NativeImpressionClickTrackerTest"
+#define NativeMultiClickTrackerTest @"NativeMultiClickTrackerTest"
+#define NativeMultiImpressionTrackerTest @"NativeMultiImpressionTrackerTest"
 #define MARBannerImpressionClickTrackerTest @"MARBannerImpressionClickTrackerTest"
 #define MARNativeImpressionClickTrackerTest @"MARNativeImpressionClickTrackerTest"
 #define MARBannerNativeRendererImpressionClickTrackerTest @"MARBannerNativeRendererImpressionClickTrackerTest"

@@ -26,6 +26,7 @@
 @property (nonatomic,readwrite,strong) ANNativeAdResponse *nativeAdResponse;
 @property (weak, nonatomic) IBOutlet UILabel *impressionTracker;
 @property (weak, nonatomic) IBOutlet UILabel *clickTracker;
+@property (nonatomic,readwrite) int impressionCount;
 
 @end
 
@@ -35,6 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Native Ad";
+    
+    self.impressionCount = 0;
     //  MockTestcase is enabled(set to 1) prepare stubbing with mock response else disable stubbing
     if(MockTestcase){
         [self prepareStubbing];
@@ -128,14 +131,52 @@
         for (NSString* url in impressionTrackerURLRTB){
              if([absoluteURLText containsString:url]){
                  self.impressionTracker.text  = @"ImpressionTracker";
+                 self.impressionCount = self.impressionCount + 1;
              }
          }
+        
+        if([[NSProcessInfo processInfo].arguments containsObject:NativeMultiImpressionTrackerTest] ){
+            if([absoluteURLText containsString:@"https://www.xandr.com/webappng/sites/xandr/dashboard?siteurl=xandr"]){
+                self.impressionCount = self.impressionCount + 1;
+            }else if([absoluteURLText containsString:@"https://www.xandr.com/about/"]){
+                self.impressionCount = self.impressionCount + 1;
+            }
+         
+        }
+        
+        if(self.impressionCount == 3 && [[NSProcessInfo processInfo].arguments containsObject:NativeMultiImpressionTrackerTest]){
+         
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (10 * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+             
+                self.impressionTracker.text  = @"MultiImpressionTracker";
+
+            });
+            
+            
+        }
+       
+        
         // Loop for Click Tracker and match with the returned URL if matched set the label to ClickTracker.
          for (NSString* url in clickTrackerURLRTB){
              if([absoluteURLText containsString:url]){
                  self.clickTracker.text  = @"ClickTracker";
+                 self.impressionCount = self.impressionCount + 1;
              }
          }
+        
+        
+        if(self.impressionCount == 3 && [[NSProcessInfo processInfo].arguments containsObject:NativeMultiClickTrackerTest]){
+            
+            
+               dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (10 * NSEC_PER_SEC));
+               dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                
+                   self.impressionTracker.text  = @"MultiClickTracker";
+
+               });
+               
+        }
         
     });
 }
