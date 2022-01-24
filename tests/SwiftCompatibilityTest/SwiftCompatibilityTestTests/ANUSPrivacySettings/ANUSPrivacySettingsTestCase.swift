@@ -31,7 +31,7 @@ class ANUSPrivacySettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         banner = nil
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         ANHTTPStubbingManager.shared().enable()
         ANHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         ANHTTPStubbingManager.shared().broadcastRequests = true
@@ -100,7 +100,7 @@ class ANUSPrivacySettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
         stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
-        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+        waitForExpectations(timeout: timeoutForImpbusRequest*2, handler: nil)
         if let privacyString = jsonRequestBody["us_privacy"] as? String {
             XCTAssertNotNil(privacyString)
             XCTAssertEqual(privacyString, "1yn")
@@ -133,9 +133,13 @@ class ANUSPrivacySettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     // MARK: - ANAdDelegate
     func adDidReceiveAd(_ ad: Any) {
         loadAdSuccesfulException?.fulfill()
+        loadAdSuccesfulException = nil;
+
     }
     
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         loadAdSuccesfulException?.fulfill()
+        loadAdSuccesfulException = nil;
+
     }
 }

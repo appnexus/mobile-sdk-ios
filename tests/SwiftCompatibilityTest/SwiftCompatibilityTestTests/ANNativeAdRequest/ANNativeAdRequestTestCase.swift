@@ -135,12 +135,24 @@ class ANNativeAdRequestTestCase: XCTestCase, ANNativeAdRequestDelegate {
         adResponse = response
         successfulAdCall = true
         delegateCallbackExpectation?.fulfill()
+        delegateCallbackExpectation = nil;
+
     }
     
     func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error) {
         adRequestError = error
         successfulAdCall = false
         delegateCallbackExpectation?.fulfill()
+        delegateCallbackExpectation = nil;
+
+    }
+    
+    func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error, with adResponseInfo: ANAdResponseInfo?) {
+        adRequestError = error
+        successfulAdCall = false
+        delegateCallbackExpectation?.fulfill()
+        delegateCallbackExpectation = nil;
+
     }
     
     // MARK: - Stubbing

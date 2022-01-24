@@ -23,24 +23,24 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
     var expectationLoadVideoAd: XCTestExpectation!
     var request: URLRequest!
     var jsonRequestBody = [String : Any]()
-    
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
+
         ANHTTPStubbingManager.shared().enable()
         ANHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         ANHTTPStubbingManager.shared().broadcastRequests = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.requestCompleted(_:)), name: NSNotification.Name.anhttpStubURLProtocolRequestDidLoad, object: nil)
         request = nil
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
         instreamVideoAd = nil
         expectationLoadVideoAd = nil
-        
+
         ANHTTPStubbingManager.shared().disable()
         ANHTTPStubbingManager.shared().removeAllStubs()
         ANHTTPStubbingManager.shared().broadcastRequests = false
@@ -57,7 +57,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
             jsonRequestBody = ANHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: request) as! [String : Any]
         }
     }
-    
+
     // MARK: - Test methods.
     //Test video duration of InstreamVideoAd
     func test_TC32_AdDuration() {
@@ -67,7 +67,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         let duration = instreamVideoAd.getDuration()
         XCTAssertNotEqual(duration, 0)
     }
-    
+
     //Test without setting the video duration of InstreamVideoAd
     func test_TC33_AdDurationNotSet() {
         initializeInstreamVideoWithNoProperties()
@@ -75,10 +75,10 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         let duration = instreamVideoAd.getDuration()
         XCTAssertEqual(duration, 0)
     }
-    
+
     //Test vast url content of InstreamVideoAd
     func test_TC34_VastCreativeURL() {
-        
+
         initializeInstreamVideoWithAllProperties()
         print("reached here")
         XCTAssertNotNil(instreamVideoAd)
@@ -88,7 +88,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         XCTAssertNotNil(vastcreativeTag)
         XCTAssertEqual(vastcreativeTag, "http://sampletag.com")
     }
-    
+
     //Test without setting vast url content of InstreamVideoAd
     func test_TC35_VastCreativeValuesNotSet() {
         initializeInstreamVideoWithNoProperties()
@@ -96,10 +96,10 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         let vastcreativeTag = instreamVideoAd.getVastURL()
         XCTAssertEqual(vastcreativeTag?.count, 0)
     }
-    
+
     //Test vast xml content of InstreamVideoAd
     func test_TC36_VastCreativeXML() {
-        
+
         initializeInstreamVideoWithAllProperties()
         XCTAssertNotNil(instreamVideoAd)
         let vastcreativeXMLTag = instreamVideoAd.getVastXML()
@@ -108,7 +108,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         XCTAssertNotNil(vastcreativeXMLTag)
         XCTAssertEqual(vastcreativeXMLTag, "http://sampletag.com")
     }
-    
+
     //Test without setting the vast xml content of InstreamVideoAd
     func test_TC37_VastCreativeXMLValuesNotSet() {
         initializeInstreamVideoWithNoProperties()
@@ -116,7 +116,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         let vastcreativeXMLTag = instreamVideoAd.getVastXML()
         XCTAssertEqual(vastcreativeXMLTag?.count, 0)
     }
-    
+
     //Test creative tag of InstreamVideoAd
     func test_TC38_CreativeTag() {
         initializeInstreamVideoWithAllProperties()
@@ -126,7 +126,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         XCTAssertNotNil(creativeTag)
         XCTAssertEqual(creativeTag, "http://sampletag.com")
     }
-    
+
     //Test without setting the creative tag of InstreamVideoAd
     func test_TC39_CreativeValuesNotSet() {
         initializeInstreamVideoWithNoProperties()
@@ -142,7 +142,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         let duration = instreamVideoAd.getPlayElapsedTime()
         XCTAssertNotEqual(duration, 0)
     }
-    
+
     //Test creative tag of InstreamVideoAd
     func test_TC63_CustomKeywordsAdded() {
         instreamVideoAd = ANInstreamVideoAd(placementId: "12534678")
@@ -161,7 +161,7 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
             XCTAssertEqual(value, "123456789")
         }
     }
-    
+
     // MARK: - Helper methods.
     func initializeInstreamVideoWithAllProperties() {
         instreamVideoAd = ANInstreamVideoAd()
@@ -170,14 +170,14 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         instreamVideoAd.adPlayer.creativeURL = "http://sampletag.com"
         instreamVideoAd.adPlayer.vastURLContent = "http://sampletag.com"
         instreamVideoAd.adPlayer.vastXMLContent = "http://sampletag.com"
-        
+
     }
-    
+
     func initializeInstreamVideoWithNoProperties() {
         instreamVideoAd = ANInstreamVideoAd()
         instreamVideoAd.adPlayer = ANVideoAdPlayer()
     }
-    
+
     // MARK: - Stubbing
     func stubRequestWithResponse(_ responseName: String?) {
         let currentBundle = Bundle(for: type(of: self))
@@ -186,24 +186,26 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
         requestStub.requestURL = ANSDKSettings.sharedInstance().baseUrlConfig.utAdRequestBaseUrl()
         requestStub.responseCode = 200
         requestStub.responseBody = baseResponse
-        
+
         ANHTTPStubbingManager.shared().add(requestStub)
     }
-    
+
     @objc func fulfillExpectation(_ expectation: XCTestExpectation?) {
         expectation?.fulfill()
     }
-    
+
     func waitForTimeInterval(_ delay: TimeInterval) {
         let expectation: XCTestExpectation = self.expectation(description: "wait")
         perform(#selector(self.fulfillExpectation(_:)), with: expectation, afterDelay: delay)
-        
+
         waitForExpectations(timeout: TimeInterval(delay + 1), handler: nil)
     }
-    
+
     // MARK: - ANInstreamVideoAdLoadDelegate.
-    func adDidReceiveAd(_ ad: ANAdProtocol) {
+    func adDidReceiveAd(_ ad: Any) {
         expectationLoadVideoAd.fulfill()
+        expectationLoadVideoAd = nil;
+
     }
     func ad(_ ad: ANAdProtocol, requestFailedWithError error: Error) {
         print(error.localizedDescription)

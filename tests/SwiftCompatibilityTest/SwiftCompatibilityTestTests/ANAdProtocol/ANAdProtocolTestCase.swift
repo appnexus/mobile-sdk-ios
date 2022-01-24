@@ -19,7 +19,7 @@ import XCTest
 import AppNexusSDK
 
 class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
-    
+
     var banner : ANBannerAdView!
     weak var expectationRequest: XCTestExpectation?
     weak var expectationResponse: XCTestExpectation?
@@ -33,19 +33,20 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
     let kAppNexusNewYorkHorizontalAccuracy: CGFloat = 150
     var request: URLRequest!
     var jsonRequestBody = [String : Any]()
-    
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         banner = nil
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         ANHTTPStubbingManager.shared().enable()
+        ANSDKSettings.sharedInstance().httpsEnabled = true
         ANHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         ANHTTPStubbingManager.shared().broadcastRequests = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.requestCompleted(_:)), name: NSNotification.Name.anhttpStubURLProtocolRequestDidLoad, object: nil)
         request = nil
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
@@ -57,7 +58,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         expectationRequest = nil
         expectationResponse = nil
     }
-    
+
     func requestCompleted(_ notification: Notification?) {
         if (expectationRequest != nil) {
             expectationRequest?.fulfill()
@@ -71,14 +72,14 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             jsonRequestBody = ANHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: request) as! [String : Any]
         }
     }
-    
+
     //MARK:- Test Methods
     //Test to verify Placement ID by comparing it with JSON request.
     func test_TC1_InitializeWithPlacementID() {
 
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -88,15 +89,15 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         {
             XCTAssertEqual(id, Int(placementID))
         }
-        
+
     }
-    
+
     //Test to verify Member ID and Inventory Code by comparing them with JSON request.
     func test_TC2_InitializeWithMemberIDAndCode() {
-        
+
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -113,13 +114,13 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             XCTAssertEqual(id, inventoryCode)
         }
     }
-    
+
     // Test Location by comparing  with JSON request.
     func test_TC3_LocationInBanner() {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = ANLocation.getWithLatitude(kAppNexusNewYorkLocationLatitudeFull, longitude: kAppNexusNewYorkLocationLongitudeFull, timestamp: Date(), horizontalAccuracy: kAppNexusNewYorkHorizontalAccuracy)
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -144,13 +145,13 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             }
         }
     }
-    
+
     // Test Reserve price by comparing  with JSON request.
     func test_TC4_ReservePriceInBanner() {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.reserve = 100.0
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -160,13 +161,13 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             XCTAssertEqual(banner.reserve , reserve)
         }
     }
-    
+
     // Test Age by comparing them with JSON request.
     func test_TC5_AgeInBanner() {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.age = "25"
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -179,16 +180,16 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             else{
                 XCTAssertTrue(false)
             }
-            
+
         }
     }
-    
+
     // Test Gender by comparing with JSON request.
     func test_TC6_GenderInBanner() {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.gender = .male
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -204,7 +205,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.externalUid = "AppNexus"
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         expectationRequest = expectation(description: "\(#function)")
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
@@ -213,7 +214,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         {
             XCTAssertTrue(banner.externalUid == id)
         }
-        
+
     }
     //Test Ad Type of the passed banner object is Native
     func test_TC8_AdTypeValueInNative() {
@@ -228,7 +229,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         waitForExpectations(timeout: timeoutForImpbusRequest*2, handler: nil)
         XCTAssertTrue(ANAdType.native.rawValue == banner.adType.rawValue)
     }
-    
+
     //Test Ad Type of the passed banner object is Banner
     func test_TC9_AdTypeValueInBanner() {
         stubRequestWithResponse("bannerNative_basic_banner")
@@ -241,7 +242,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
         XCTAssertTrue(ANAdType.banner.rawValue == banner.adType.rawValue)
     }
-    
+
     //Test browser settings are passed in banner native object by verifying with JSON response
     func test_TC10_BrowserSettingsArePassedToNativeAdObject() {
         stubRequestWithResponse("appnexus_standard_response")
@@ -256,7 +257,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         XCTAssertEqual(banner.clickThroughAction, nativeAd?.clickThroughAction)
         XCTAssertEqual(banner.landingPageLoadsInBackground, nativeAd?.landingPageLoadsInBackground)
     }
-    
+
     // Test PSAs value by comparing it with JSON request.
     func test_TC11_ShouldServePublicServiceAnnouncements() {
         stubRequestWithResponse("appnexus_standard_response")
@@ -273,10 +274,10 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             XCTAssertFalse(id)
         }
     }
-    
+
     //Test to verify RendererId by comparing it with JSON request.
     func test_TC62_BannerNativeVideoUsingRendererIdObject() {
-        
+
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), memberId: memberID, inventoryCode: inventoryCode, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.setAllowNativeDemand(true, withRendererId: 127)
@@ -291,27 +292,49 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
 
     // MARK: - Stubbing
     func stubRequestWithResponse(_ responseName: String?) {
-        let currentBundle = Bundle(for: type(of: self))
-        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
-        let requestStub = ANURLConnectionStub()
-        requestStub.requestURL = ANSDKSettings.sharedInstance().baseUrlConfig.utAdRequestBaseUrl()
-        requestStub.responseCode = 200
-        requestStub.responseBody = baseResponse
-        
-        ANHTTPStubbingManager.shared().add(requestStub)
+
+//
+//        let path = Bundle.main.path(forResource: responseName, ofType: "json")
+//        let baseResponse = try! String(contentsOfFile: path!).data(using: .utf8)!
+
+
+//        if let bundlePath = Bundle.main.path(forResource: responseName, ofType: "json"),
+//           let jsonData = try! String(contentsOfFile: bundlePath).data(using: .utf8){
+            let currentBundle = Bundle(for: type(of: self))
+            let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
+            let requestStub = ANURLConnectionStub()
+            requestStub.requestURL = ANSDKSettings.sharedInstance().baseUrlConfig.utAdRequestBaseUrl()
+            requestStub.responseCode = 200
+            requestStub.responseBody = baseResponse
+
+            ANHTTPStubbingManager.shared().add(requestStub)
+
+//        }
+
+//        let currentBundle = Bundle(for: type(of: self))
+//        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
+//        let requestStub = ANURLConnectionStub()
+//        requestStub.requestURL = ANSDKSettings.sharedInstance().baseUrlConfig.utAdRequestBaseUrl()
+//        requestStub.responseCode = 200
+//        requestStub.responseBody = baseResponse
+//
+//        ANHTTPStubbingManager.shared().add(requestStub)
+//
+
+
     }
-    
+
     @objc func fulfillExpectation(_ expectation: XCTestExpectation?) {
         expectation?.fulfill()
     }
-    
+
     func waitForTimeInterval(_ delay: TimeInterval) {
         let expectation: XCTestExpectation = self.expectation(description: "wait")
         perform(#selector(self.fulfillExpectation(_:)), with: expectation, afterDelay: delay)
-        
+
         waitForExpectations(timeout: TimeInterval(delay + 1), handler: nil)
     }
-    
+
     // MARK: - ANAdDelegate
     func adDidReceiveAd(_ ad: Any) {
         XCTAssertNotNil(ad)
@@ -320,7 +343,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         }
 
     }
-    
+
     func ad(_ loadInstance: Any, didReceiveNativeAd responseInstance: Any) {
         XCTAssertNotNil(loadInstance)
         XCTAssertNotNil(responseInstance)
@@ -333,7 +356,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
             expectationResponse?.fulfill()
         }
     }
-    
+
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         expectationResponse?.fulfill()
         XCTAssertTrue(false)

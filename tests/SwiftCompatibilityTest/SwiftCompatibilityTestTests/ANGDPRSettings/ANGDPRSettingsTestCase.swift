@@ -18,7 +18,7 @@
 import XCTest
 import AppNexusSDK
 
-class ANGDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
+class AN_GDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     
     var banner : ANBannerAdView!
     weak var loadAdSuccesfulException : XCTestExpectation?
@@ -31,7 +31,7 @@ class ANGDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         banner = nil
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         ANHTTPStubbingManager.shared().enable()
         ANHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         ANHTTPStubbingManager.shared().broadcastRequests = true
@@ -48,15 +48,18 @@ class ANGDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
         ANSDKSettings.sharedInstance().httpsEnabled = false
         NotificationCenter.default.removeObserver(self)
         self.loadAdSuccesfulException = nil
+        banner = nil
+        request = nil
     }
     
     func requestCompleted(_ notification: Notification?) {
-        var incomingRequest = notification?.userInfo![kANHTTPStubURLProtocolRequest] as? URLRequest
+        let incomingRequest = notification?.userInfo![kANHTTPStubURLProtocolRequest] as? URLRequest
         let requestString = incomingRequest?.url?.absoluteString
         let searchString = ANSDKSettings.sharedInstance().baseUrlConfig.utAdRequestBaseUrl()
-        if request == nil && requestString?.range(of:searchString!) != nil{
-            request = notification!.userInfo![kANHTTPStubURLProtocolRequest] as! URLRequest
-            jsonRequestBody = ANHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: request) as! [String : Any]
+        if request == nil && requestString?.range(of:searchString!) != nil {
+            request = notification!.userInfo![kANHTTPStubURLProtocolRequest] as? URLRequest
+//            jsonRequestBody = ANHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: request) as? NSDictionary as! [String : Any]
+            
         }
     }
     
@@ -106,6 +109,7 @@ class ANGDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
         ANGDPRSettings.reset()
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
+        self.banner.shouldAllowVideoDemand = true
         stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
@@ -117,7 +121,7 @@ class ANGDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     func test_TC61_ANGDPRSettingsRequestContentType() {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -152,9 +156,12 @@ class ANGDPRSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     // MARK: - ANAdDelegate
     func adDidReceiveAd(_ ad: Any) {
         loadAdSuccesfulException?.fulfill()
+        loadAdSuccesfulException = nil;
     }
     
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         loadAdSuccesfulException?.fulfill()
+        loadAdSuccesfulException = nil;
+
     }
 }

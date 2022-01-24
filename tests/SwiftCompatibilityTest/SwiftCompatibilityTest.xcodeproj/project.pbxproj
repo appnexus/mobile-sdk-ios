@@ -7,91 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E1C95F123263F65004D4F2E /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */; };
-		0E70611022DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608622DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
-		0E70611122DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608722DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json */; };
-		0E70611222DE297700EF2A91 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608822DE297700EF2A91 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */; };
-		0E70611322DE297700EF2A91 /* SuccessfulMRAIDResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608922DE297700EF2A91 /* SuccessfulMRAIDResponse.json */; };
-		0E70611422DE297700EF2A91 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608A22DE297700EF2A91 /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
-		0E70611522DE297700EF2A91 /* appnexus_mock_mediation_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608B22DE297700EF2A91 /* appnexus_mock_mediation_response.json */; };
-		0E70611622DE297700EF2A91 /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608C22DE297700EF2A91 /* native_videoResponse.json */; };
-		0E70611722DE297700EF2A91 /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608D22DE297700EF2A91 /* OMID_TestResponse.json */; };
-		0E70611822DE297700EF2A91 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608E22DE297700EF2A91 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
-		0E70611922DE297700EF2A91 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608F22DE297700EF2A91 /* OMID_Native_RTBResponse.json */; };
-		0E70611A22DE297700EF2A91 /* SecondPriceForDFPParamIsUnset.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609022DE297700EF2A91 /* SecondPriceForDFPParamIsUnset.json */; };
-		0E70611B22DE297700EF2A91 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609122DE297700EF2A91 /* SuccessfulOutstreamBannerVideoResponse.json */; };
-		0E70611C22DE297700EF2A91 /* custom_adapter_to_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609222DE297700EF2A91 /* custom_adapter_to_standard_response.json */; };
-		0E70611D22DE297700EF2A91 /* SuccessfulMRAIDListenerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609322DE297700EF2A91 /* SuccessfulMRAIDListenerResponse.json */; };
-		0E70611E22DE297700EF2A91 /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609422DE297700EF2A91 /* appnexus_bannerNative_rendering.json */; };
-		0E70611F22DE297700EF2A91 /* OMID_Native_CSMResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609522DE297700EF2A91 /* OMID_Native_CSMResponse.json */; };
-		0E70612022DE297700EF2A91 /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609622DE297700EF2A91 /* SuccessfulMediationResponse.json */; };
-		0E70612122DE297700EF2A91 /* SuccessfulANRTBVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609722DE297700EF2A91 /* SuccessfulANRTBVideoAdResponse.json */; };
-		0E70612222DE297700EF2A91 /* SuccessfulOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609822DE297700EF2A91 /* SuccessfulOutstreamVideoResponse.json */; };
-		0E70612322DE297700EF2A91 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609922DE297700EF2A91 /* appnexus_bannerNative_renderingInvalidURL.json */; };
-		0E70612422DE297700EF2A91 /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609A22DE297700EF2A91 /* SuccessfulRTBShouldResizeAdToFitContainer.json */; };
-		0E70612522DE297700EF2A91 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609B22DE297700EF2A91 /* BaseMediationSingleNetworkResponse.json */; };
-		0E70612622DE297700EF2A91 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609C22DE297700EF2A91 /* appnexus_standard_response.json */; };
-		0E70612722DE297700EF2A91 /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609D22DE297700EF2A91 /* SuccessfulVerticalVideoAdResponse.json */; };
-		0E70612822DE297700EF2A91 /* bannerNative_native_mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609E22DE297700EF2A91 /* bannerNative_native_mediation.json */; };
-		0E70612922DE297700EF2A91 /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70609F22DE297700EF2A91 /* SuccessfulSquareInstreamVideoAdResponse.json */; };
-		0E70612A22DE297700EF2A91 /* SecondPriceForDFPSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A022DE297700EF2A91 /* SecondPriceForDFPSuccess.json */; };
-		0E70612B22DE297700EF2A91 /* bannerNative_basic_banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A122DE297700EF2A91 /* bannerNative_basic_banner.json */; };
-		0E70612C22DE297700EF2A91 /* nativeResponseWithoutImpTrackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A222DE297700EF2A91 /* nativeResponseWithoutImpTrackers.json */; };
-		0E70612E22DE297700EF2A91 /* BannerMediationFailRTBVideoSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A422DE297700EF2A91 /* BannerMediationFailRTBVideoSuccess.json */; };
-		0E70612F22DE297700EF2A91 /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A522DE297700EF2A91 /* SuccessfulNativeStandardAdResponse.json */; };
-		0E70613022DE297700EF2A91 /* dogSelfie@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A722DE297700EF2A91 /* dogSelfie@2x.jpg */; };
-		0E70613122DE297700EF2A91 /* GreyWhiteCat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A822DE297700EF2A91 /* GreyWhiteCat.jpg */; };
-		0E70613222DE297700EF2A91 /* GreyWhiteCat@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060A922DE297700EF2A91 /* GreyWhiteCat@2x.jpg */; };
-		0E70613322DE297700EF2A91 /* dogSelfie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060AA22DE297700EF2A91 /* dogSelfie.jpg */; };
-		0E70613422DE297700EF2A91 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060AE22DE297700EF2A91 /* SDKValidationURLProtocol.m */; };
-		0E70613522DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060AF22DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.m */; };
-		0E70613622DE297700EF2A91 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060B222DE297700EF2A91 /* ANMRAIDTestResponses.m */; };
-		0E70613722DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060B422DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.m */; };
-		0E70613822DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060B522DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
-		0E70613922DE297700EF2A91 /* ANMockMediationAdapterTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060BA22DE297700EF2A91 /* ANMockMediationAdapterTimeout.m */; };
-		0E70613A22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060BB22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.m */; };
-		0E70613B22DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060BD22DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.m */; };
-		0E70613C22DE297700EF2A91 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E7060BE22DE297700EF2A91 /* Default-568h@2x.png */; };
-		0E70613D22DE297700EF2A91 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060C222DE297700EF2A91 /* ANHTTPStubbingManager.m */; };
-		0E70613E22DE297700EF2A91 /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060C322DE297700EF2A91 /* ANURLConnectionStub.m */; };
-		0E70613F22DE297700EF2A91 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060C422DE297700EF2A91 /* ANHTTPStubURLProtocol.m */; };
-		0E70614022DE297700EF2A91 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060C522DE297700EF2A91 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
-		0E70614122DE297700EF2A91 /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060C922DE297700EF2A91 /* ANTrackerManager+ANTest.m */; };
-		0E70614222DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060CA22DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.m */; };
-		0E70614322DE297700EF2A91 /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060CB22DE297700EF2A91 /* XCTestCase+ANBannerAdView.m */; };
-		0E70614422DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060CE22DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.m */; };
-		0E70614522DE297700EF2A91 /* XCTestCase+ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060CF22DE297700EF2A91 /* XCTestCase+ANAdResponse.m */; };
-		0E70614622DE297700EF2A91 /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060D222DE297700EF2A91 /* ANBannerAdView+ANTest.m */; };
-		0E70614722DE297700EF2A91 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060DA22DE297700EF2A91 /* XCTestCase+ANCategory.m */; };
-		0E70614822DE297700EF2A91 /* ANInterstitialAd+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060DB22DE297700EF2A91 /* ANInterstitialAd+ANTest.m */; };
-		0E70614922DE297700EF2A91 /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060DC22DE297700EF2A91 /* ANAdView+ANTest.m */; };
-		0E70614A22DE297700EF2A91 /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060DD22DE297700EF2A91 /* UIApplication+ANTest.m */; };
-		0E70614B22DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060DE22DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
-		0E70614C22DE297700EF2A91 /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060E022DE297700EF2A91 /* ANVerificationScriptResource+ANTest.m */; };
-		0E70614D22DE297700EF2A91 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060E322DE297700EF2A91 /* ANReachability+ANTest.m */; };
-		0E70614E22DE297700EF2A91 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060E422DE297700EF2A91 /* NSObject+Swizzling.m */; };
-		0E70614F22DE297700EF2A91 /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060E522DE297700EF2A91 /* ANAdWebViewController+ANTest.m */; };
-		0E70615022DE297700EF2A91 /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060E622DE297700EF2A91 /* ANTestGlobal.m */; };
-		0E70615122DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060EA22DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.m */; };
-		0E70615222DE297700EF2A91 /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060EE22DE297700EF2A91 /* ANBaseTestCase.m */; };
-		0E70615322DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060EF22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.m */; };
-		0E70615422DE297700EF2A91 /* XCTestCase+ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060F022DE297700EF2A91 /* XCTestCase+ANMediatedAd.m */; };
-		0E70615522DE297700EF2A91 /* TestANUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060F222DE297700EF2A91 /* TestANUniversalFetcher.m */; };
-		0E70615622DE297700EF2A91 /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060F422DE297700EF2A91 /* ANTestResponses.m */; };
-		0E70615722DE297700EF2A91 /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060F822DE297700EF2A91 /* ANFailedMultiple.m */; };
-		0E70615822DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060F922DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.m */; };
-		0E70615922DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7060FF22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */; };
-		0E70615A22DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610022DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.m */; };
-		0E70615B22DE297700EF2A91 /* ANAdAdapterBannerNetworkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610122DE297700EF2A91 /* ANAdAdapterBannerNetworkError.m */; };
-		0E70615C22DE297700EF2A91 /* ANAdAdapterBannerSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610522DE297700EF2A91 /* ANAdAdapterBannerSuccessful.m */; };
-		0E70615D22DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610622DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.m */; };
-		0E70615E22DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610722DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.m */; };
-		0E70615F22DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610822DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */; };
-		0E70616022DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610922DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.m */; };
-		0E70616122DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610A22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
-		0E70616222DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610B22DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.m */; };
-		0E70616322DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E70610F22DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m */; };
 		971E8D5F2146C0C600B66AE8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B942140309E00234B9A /* ViewController.swift */; };
 		97355D2F21620BB200AF423B /* ANAdProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97355D2E21620BB200AF423B /* ANAdProtocolTestCase.swift */; };
 		973B23BC238D863000717D67 /* ANUSPrivacySettingsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B23BB238D863000717D67 /* ANUSPrivacySettingsTestCase.swift */; };
@@ -110,7 +25,6 @@
 		97B06B982140309E00234B9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B06B962140309E00234B9A /* Main.storyboard */; };
 		97B06B9A2140309F00234B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97B06B992140309F00234B9A /* Assets.xcassets */; };
 		97B06B9D2140309F00234B9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B06B9B2140309F00234B9A /* LaunchScreen.storyboard */; };
-		97BB4137222405A5002B4EE5 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 97BB4136222405A5002B4EE5 /* SuccessfulStandardAdFromRTBObjectResponse.json */; };
 		97EC9619214A79750007681A /* ANInstreamVideoAdTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC9618214A79750007681A /* ANInstreamVideoAdTestCase.swift */; };
 		97EC9628214A7A580007681A /* ANInstreamVideoAd+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC961A214A7A560007681A /* ANInstreamVideoAd+Test.m */; };
 		97EC9629214A7A580007681A /* ANVideoAdPlayer+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC9625214A7A560007681A /* ANVideoAdPlayer+Test.m */; };
@@ -142,36 +56,143 @@
 		97FFF31C214036F3008599A4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF31B214036F3008599A4 /* SystemConfiguration.framework */; };
 		97FFF31E214036FB008599A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF31D214036FA008599A4 /* UIKit.framework */; };
 		97FFF3222140370D008599A4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF3212140370D008599A4 /* WebKit.framework */; };
+		FCCC9F9B278C8DF500B342D3 /* TestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCC9F99278C8DF500B342D3 /* TestGlobal.m */; };
+		FCCC9FC8278C923000B342D3 /* OMID_Native_CSMResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FA8278C922C00B342D3 /* OMID_Native_CSMResponse.json */; };
+		FCCC9FC9278C923000B342D3 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FA9278C922C00B342D3 /* appnexus_standard_response.json */; };
+		FCCC9FCA278C923000B342D3 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAA278C922D00B342D3 /* OMID_Native_RTBResponse.json */; };
+		FCCC9FCB278C923000B342D3 /* SuccessfulMRAIDResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAB278C922D00B342D3 /* SuccessfulMRAIDResponse.json */; };
+		FCCC9FCC278C923000B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAC278C922D00B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
+		FCCC9FCD278C923000B342D3 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAD278C922D00B342D3 /* SuccessfulOutstreamBannerVideoResponse.json */; };
+		FCCC9FCE278C923000B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAE278C922D00B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json */; };
+		FCCC9FCF278C923000B342D3 /* nativeResponseWithoutImpTrackers.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAF278C922D00B342D3 /* nativeResponseWithoutImpTrackers.json */; };
+		FCCC9FD0278C923000B342D3 /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB0278C922D00B342D3 /* OMID_TestResponse.json */; };
+		FCCC9FD1278C923000B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB1278C922D00B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json */; };
+		FCCC9FD2278C923000B342D3 /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB2278C922D00B342D3 /* SuccessfulVerticalVideoAdResponse.json */; };
+		FCCC9FD3278C923000B342D3 /* SecondPriceForDFPSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB3278C922D00B342D3 /* SecondPriceForDFPSuccess.json */; };
+		FCCC9FD4278C923000B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB4278C922D00B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json */; };
+		FCCC9FD5278C923000B342D3 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB5278C922D00B342D3 /* SuccessfulInstreamVideoAdResponse.json */; };
+		FCCC9FD6278C923000B342D3 /* SuccessfulOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB6278C922E00B342D3 /* SuccessfulOutstreamVideoResponse.json */; };
+		FCCC9FD7278C923000B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB7278C922E00B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
+		FCCC9FD8278C923000B342D3 /* custom_adapter_to_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB8278C922E00B342D3 /* custom_adapter_to_standard_response.json */; };
+		FCCC9FD9278C923000B342D3 /* SecondPriceForDFPParamIsUnset.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB9278C922F00B342D3 /* SecondPriceForDFPParamIsUnset.json */; };
+		FCCC9FDA278C923000B342D3 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBA278C922F00B342D3 /* BaseMediationSingleNetworkResponse.json */; };
+		FCCC9FDB278C923000B342D3 /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBB278C922F00B342D3 /* native_videoResponse.json */; };
+		FCCC9FDC278C923000B342D3 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBC278C922F00B342D3 /* appnexus_bannerNative_renderingInvalidURL.json */; };
+		FCCC9FDD278C923000B342D3 /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBD278C922F00B342D3 /* appnexus_bannerNative_rendering.json */; };
+		FCCC9FDE278C923000B342D3 /* BannerMediationFailRTBVideoSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBE278C922F00B342D3 /* BannerMediationFailRTBVideoSuccess.json */; };
+		FCCC9FDF278C923000B342D3 /* bannerNative_basic_banner.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBF278C922F00B342D3 /* bannerNative_basic_banner.json */; };
+		FCCC9FE0278C923000B342D3 /* appnexus_mock_mediation_response.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC0278C922F00B342D3 /* appnexus_mock_mediation_response.json */; };
+		FCCC9FE1278C923000B342D3 /* SuccessfulMRAIDListenerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC1278C922F00B342D3 /* SuccessfulMRAIDListenerResponse.json */; };
+		FCCC9FE2278C923000B342D3 /* bannerNative_native_mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC2278C922F00B342D3 /* bannerNative_native_mediation.json */; };
+		FCCC9FE3278C923000B342D3 /* SuccessfulANRTBVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC3278C922F00B342D3 /* SuccessfulANRTBVideoAdResponse.json */; };
+		FCCC9FE4278C923000B342D3 /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC4278C922F00B342D3 /* SuccessfulMediationResponse.json */; };
+		FCCC9FE5278C923000B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC5278C922F00B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
+		FCCC9FE6278C923000B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC6278C922F00B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */; };
+		FCCC9FE7278C923000B342D3 /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC7278C923000B342D3 /* SuccessfulNativeStandardAdResponse.json */; };
+		FCCC9FE8278C925C00B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB1278C922D00B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json */; };
+		FCCC9FE9278C925C00B342D3 /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB0278C922D00B342D3 /* OMID_TestResponse.json */; };
+		FCCC9FEA278C925C00B342D3 /* SecondPriceForDFPSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB3278C922D00B342D3 /* SecondPriceForDFPSuccess.json */; };
+		FCCC9FEB278C925C00B342D3 /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FA9278C922C00B342D3 /* appnexus_standard_response.json */; };
+		FCCC9FEC278C925C00B342D3 /* nativeResponseWithoutImpTrackers.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAF278C922D00B342D3 /* nativeResponseWithoutImpTrackers.json */; };
+		FCCC9FED278C925C00B342D3 /* SuccessfulMRAIDResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAB278C922D00B342D3 /* SuccessfulMRAIDResponse.json */; };
+		FCCC9FEE278C925C00B342D3 /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC7278C923000B342D3 /* SuccessfulNativeStandardAdResponse.json */; };
+		FCCC9FEF278C925C00B342D3 /* SecondPriceForDFPParamIsUnset.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB9278C922F00B342D3 /* SecondPriceForDFPParamIsUnset.json */; };
+		FCCC9FF0278C925C00B342D3 /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC4278C922F00B342D3 /* SuccessfulMediationResponse.json */; };
+		FCCC9FF1278C925C00B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC6278C922F00B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */; };
+		FCCC9FF2278C925C00B342D3 /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB5278C922D00B342D3 /* SuccessfulInstreamVideoAdResponse.json */; };
+		FCCC9FF3278C925C00B342D3 /* SuccessfulOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB6278C922E00B342D3 /* SuccessfulOutstreamVideoResponse.json */; };
+		FCCC9FF4278C925C00B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAC278C922D00B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
+		FCCC9FF5278C925C00B342D3 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAA278C922D00B342D3 /* OMID_Native_RTBResponse.json */; };
+		FCCC9FF6278C925C00B342D3 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAD278C922D00B342D3 /* SuccessfulOutstreamBannerVideoResponse.json */; };
+		FCCC9FF7278C925C00B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC5278C922F00B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
+		FCCC9FF8278C925C00B342D3 /* SuccessfulANRTBVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC3278C922F00B342D3 /* SuccessfulANRTBVideoAdResponse.json */; };
+		FCCC9FF9278C925C00B342D3 /* bannerNative_native_mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC2278C922F00B342D3 /* bannerNative_native_mediation.json */; };
+		FCCC9FFA278C925C00B342D3 /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBB278C922F00B342D3 /* native_videoResponse.json */; };
+		FCCC9FFB278C925C00B342D3 /* OMID_Native_CSMResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FA8278C922C00B342D3 /* OMID_Native_CSMResponse.json */; };
+		FCCC9FFC278C925C00B342D3 /* SuccessfulMRAIDListenerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC1278C922F00B342D3 /* SuccessfulMRAIDListenerResponse.json */; };
+		FCCC9FFD278C925C00B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB4278C922D00B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json */; };
+		FCCC9FFE278C925C00B342D3 /* custom_adapter_to_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB8278C922E00B342D3 /* custom_adapter_to_standard_response.json */; };
+		FCCC9FFF278C925C00B342D3 /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB2278C922D00B342D3 /* SuccessfulVerticalVideoAdResponse.json */; };
+		FCCCA000278C925C00B342D3 /* appnexus_mock_mediation_response.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FC0278C922F00B342D3 /* appnexus_mock_mediation_response.json */; };
+		FCCCA001278C925C00B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FAE278C922D00B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json */; };
+		FCCCA002278C925C00B342D3 /* bannerNative_basic_banner.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBF278C922F00B342D3 /* bannerNative_basic_banner.json */; };
+		FCCCA003278C925C00B342D3 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBA278C922F00B342D3 /* BaseMediationSingleNetworkResponse.json */; };
+		FCCCA004278C925C00B342D3 /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBD278C922F00B342D3 /* appnexus_bannerNative_rendering.json */; };
+		FCCCA005278C925C00B342D3 /* BannerMediationFailRTBVideoSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBE278C922F00B342D3 /* BannerMediationFailRTBVideoSuccess.json */; };
+		FCCCA006278C925C00B342D3 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FBC278C922F00B342D3 /* appnexus_bannerNative_renderingInvalidURL.json */; };
+		FCCCA007278C925C00B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCCC9FB7278C922E00B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
+		FCCCA05C278C94ED00B342D3 /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA009278C94E800B342D3 /* ANTrackerManager+ANTest.m */; };
+		FCCCA05D278C94ED00B342D3 /* ANMockMediationAdapterTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA00B278C94E800B342D3 /* ANMockMediationAdapterTimeout.m */; };
+		FCCCA05E278C94ED00B342D3 /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA00C278C94E800B342D3 /* ANMockMediationAdapterLoadThenFail.m */; };
+		FCCCA05F278C94ED00B342D3 /* ANMockMediationAdapterSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA00D278C94E800B342D3 /* ANMockMediationAdapterSuccessfulBanner.m */; };
+		FCCCA060278C94ED00B342D3 /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA00F278C94E800B342D3 /* ANBannerAdView+ANTest.m */; };
+		FCCCA061278C94ED00B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA010278C94E800B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
+		FCCCA062278C94ED00B342D3 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA012278C94E900B342D3 /* ANMRAIDTestResponses.m */; };
+		FCCCA063278C94ED00B342D3 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA015278C94E900B342D3 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
+		FCCCA064278C94ED00B342D3 /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA016278C94E900B342D3 /* ANTestGlobal.m */; };
+		FCCCA065278C94ED00B342D3 /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA01C278C94E900B342D3 /* ANFailedMultiple.m */; };
+		FCCCA066278C94ED00B342D3 /* ANAdAdapterBannerNoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA01D278C94E900B342D3 /* ANAdAdapterBannerNoDelegate.m */; };
+		FCCCA067278C94ED00B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA023278C94E900B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */; };
+		FCCCA068278C94ED00B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA024278C94E900B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.m */; };
+		FCCCA069278C94ED00B342D3 /* ANAdAdapterBannerNetworkError.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA025278C94E900B342D3 /* ANAdAdapterBannerNetworkError.m */; };
+		FCCCA06A278C94ED00B342D3 /* ANAdAdapterBannerSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA029278C94E900B342D3 /* ANAdAdapterBannerSuccessful.m */; };
+		FCCCA06B278C94ED00B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA02A278C94E900B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.m */; };
+		FCCCA06C278C94ED00B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA02B278C94E900B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.m */; };
+		FCCCA06D278C94ED00B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA02C278C94E900B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */; };
+		FCCCA06E278C94ED00B342D3 /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA02D278C94E900B342D3 /* ANLoadAndHitOtherCallbacks.m */; };
+		FCCCA06F278C94ED00B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA02E278C94E900B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
+		FCCCA070278C94ED00B342D3 /* ANAdAdapterBannerNoRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA02F278C94E900B342D3 /* ANAdAdapterBannerNoRequestMethod.m */; };
+		FCCCA071278C94ED00B342D3 /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA033278C94E900B342D3 /* ANAdAdapterBannerUnableToFill.m */; };
+		FCCCA072278C94ED00B342D3 /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA034278C94E900B342D3 /* ANVerificationScriptResource+ANTest.m */; };
+		FCCCA073278C94ED00B342D3 /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA035278C94EB00B342D3 /* UIApplication+ANTest.m */; };
+		FCCCA074278C94ED00B342D3 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA036278C94EB00B342D3 /* ANHTTPStubbingManager.m */; };
+		FCCCA075278C94ED00B342D3 /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA037278C94EB00B342D3 /* ANAdWebViewController+ANTest.m */; };
+		FCCCA076278C94ED00B342D3 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA03A278C94EB00B342D3 /* SDKValidationURLProtocol.m */; };
+		FCCCA077278C94ED00B342D3 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA03C278C94EB00B342D3 /* NSObject+Swizzling.m */; };
+		FCCCA078278C94ED00B342D3 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA03E278C94EB00B342D3 /* ANReachability+ANTest.m */; };
+		FCCCA079278C94ED00B342D3 /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA041278C94EB00B342D3 /* ANAdView+ANTest.m */; };
+		FCCCA07A278C94ED00B342D3 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA045278C94EC00B342D3 /* XCTestCase+ANCategory.m */; };
+		FCCCA07B278C94ED00B342D3 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA046278C94EC00B342D3 /* ANHTTPStubURLProtocol.m */; };
+		FCCCA07C278C94ED00B342D3 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA049278C94EC00B342D3 /* NSURLSessionConfiguration+ANProtocols.m */; };
+		FCCCA07D278C94ED00B342D3 /* ANInterstitialAd+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA04A278C94EC00B342D3 /* ANInterstitialAd+ANTest.m */; };
+		FCCCA07E278C94ED00B342D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA04B278C94EC00B342D3 /* NSURLRequest+HTTPBodyTesting.m */; };
+		FCCCA07F278C94ED00B342D3 /* ANMockMediationAdapterLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA04C278C94EC00B342D3 /* ANMockMediationAdapterLoadedMultiple.m */; };
+		FCCCA080278C94ED00B342D3 /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA04E278C94EC00B342D3 /* XCTestCase+ANBannerAdView.m */; };
+		FCCCA081278C94ED00B342D3 /* NSURLProtocol+WKWebViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA054278C94ED00B342D3 /* NSURLProtocol+WKWebViewSupport.m */; };
+		FCCCA082278C94ED00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA056278C94ED00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
+		FCCCA083278C94ED00B342D3 /* XCTestCase+ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA059278C94ED00B342D3 /* XCTestCase+ANAdResponse.m */; };
+		FCCCA084278C94ED00B342D3 /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA05A278C94ED00B342D3 /* ANUniversalAdFetcher+ANTest.m */; };
+		FCCCA085278C94ED00B342D3 /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA05B278C94ED00B342D3 /* ANURLConnectionStub.m */; };
+		FCCCA092278C950800B342D3 /* ANMockMediationAdapterSuccessfulNative.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA086278C950700B342D3 /* ANMockMediationAdapterSuccessfulNative.m */; };
+		FCCCA093278C950800B342D3 /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA087278C950700B342D3 /* ANMockMediationAdapterBannerNeverCalled.m */; };
+		FCCCA095278C950800B342D3 /* XCTestCase+ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA08C278C950700B342D3 /* XCTestCase+ANMediatedAd.m */; };
+		FCCCA096278C950800B342D3 /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA08E278C950800B342D3 /* ANTestResponses.m */; };
+		FCCCA0B7278CAABC00B342D3 /* ANHTTPCookieStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCCA0B6278CAABC00B342D3 /* ANHTTPCookieStorage.m */; };
+		FCCCA0B8278CAFB300B342D3 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCCA0AF278CA3CB00B342D3 /* AppNexusSDK.framework */; };
+		FCCCA0B9278CAFB300B342D3 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FCCCA0AF278CA3CB00B342D3 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0E1C95F223263F65004D4F2E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
-			remoteInfo = AppNexusSDK;
-		};
-		0E70608022DE293F00EF2A91 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
-			remoteInfo = AppNexusSDK;
-		};
-		0E70608222DE293F00EF2A91 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F5731AFD228B43570012B134;
-			remoteInfo = AppNexusNativeSDK;
-		};
 		97B06BA42140309F00234B9A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97B06B872140309E00234B9A /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 97B06B8E2140309E00234B9A;
 			remoteInfo = SwiftCompatibilityTest;
+		};
+		FCCCA0AE278CA3CB00B342D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCCCA0A9278CA3CB00B342D3 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
+		FCCCA0B0278CA3CB00B342D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCCCA0A9278CA3CB00B342D3 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -182,7 +203,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0E1C95F123263F65004D4F2E /* AppNexusSDK.framework in Embed Frameworks */,
+				FCCCA0B9278CAFB300B342D3 /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -190,136 +211,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
-		0E70608622DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json; sourceTree = "<group>"; };
-		0E70608722DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulInstreamVideoAdResponse.json; sourceTree = "<group>"; };
-		0E70608822DE297700EF2A91 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulAllowMagicSizeBannerObjectResponse.json; sourceTree = "<group>"; };
-		0E70608922DE297700EF2A91 /* SuccessfulMRAIDResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDResponse.json; sourceTree = "<group>"; };
-		0E70608A22DE297700EF2A91 /* SuccessfulLocationCreativeForBannerAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulLocationCreativeForBannerAdResponse.json; sourceTree = "<group>"; };
-		0E70608B22DE297700EF2A91 /* appnexus_mock_mediation_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_mock_mediation_response.json; sourceTree = "<group>"; };
-		0E70608C22DE297700EF2A91 /* native_videoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = native_videoResponse.json; sourceTree = "<group>"; };
-		0E70608D22DE297700EF2A91 /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
-		0E70608E22DE297700EF2A91 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAsssemblyRendererOMID_Native_RTBResponse.json; sourceTree = "<group>"; };
-		0E70608F22DE297700EF2A91 /* OMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_RTBResponse.json; sourceTree = "<group>"; };
-		0E70609022DE297700EF2A91 /* SecondPriceForDFPParamIsUnset.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPParamIsUnset.json; sourceTree = "<group>"; };
-		0E70609122DE297700EF2A91 /* SuccessfulOutstreamBannerVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamBannerVideoResponse.json; sourceTree = "<group>"; };
-		0E70609222DE297700EF2A91 /* custom_adapter_to_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_to_standard_response.json; sourceTree = "<group>"; };
-		0E70609322DE297700EF2A91 /* SuccessfulMRAIDListenerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDListenerResponse.json; sourceTree = "<group>"; };
-		0E70609422DE297700EF2A91 /* appnexus_bannerNative_rendering.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_rendering.json; sourceTree = "<group>"; };
-		0E70609522DE297700EF2A91 /* OMID_Native_CSMResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_CSMResponse.json; sourceTree = "<group>"; };
-		0E70609622DE297700EF2A91 /* SuccessfulMediationResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMediationResponse.json; sourceTree = "<group>"; };
-		0E70609722DE297700EF2A91 /* SuccessfulANRTBVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdResponse.json; sourceTree = "<group>"; };
-		0E70609822DE297700EF2A91 /* SuccessfulOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamVideoResponse.json; sourceTree = "<group>"; };
-		0E70609922DE297700EF2A91 /* appnexus_bannerNative_renderingInvalidURL.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_renderingInvalidURL.json; sourceTree = "<group>"; };
-		0E70609A22DE297700EF2A91 /* SuccessfulRTBShouldResizeAdToFitContainer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulRTBShouldResizeAdToFitContainer.json; sourceTree = "<group>"; };
-		0E70609B22DE297700EF2A91 /* BaseMediationSingleNetworkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseMediationSingleNetworkResponse.json; sourceTree = "<group>"; };
-		0E70609C22DE297700EF2A91 /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
-		0E70609D22DE297700EF2A91 /* SuccessfulVerticalVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulVerticalVideoAdResponse.json; sourceTree = "<group>"; };
-		0E70609E22DE297700EF2A91 /* bannerNative_native_mediation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_native_mediation.json; sourceTree = "<group>"; };
-		0E70609F22DE297700EF2A91 /* SuccessfulSquareInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulSquareInstreamVideoAdResponse.json; sourceTree = "<group>"; };
-		0E7060A022DE297700EF2A91 /* SecondPriceForDFPSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPSuccess.json; sourceTree = "<group>"; };
-		0E7060A122DE297700EF2A91 /* bannerNative_basic_banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_basic_banner.json; sourceTree = "<group>"; };
-		0E7060A222DE297700EF2A91 /* nativeResponseWithoutImpTrackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponseWithoutImpTrackers.json; sourceTree = "<group>"; };
-		0E7060A422DE297700EF2A91 /* BannerMediationFailRTBVideoSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BannerMediationFailRTBVideoSuccess.json; sourceTree = "<group>"; };
-		0E7060A522DE297700EF2A91 /* SuccessfulNativeStandardAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulNativeStandardAdResponse.json; sourceTree = "<group>"; };
-		0E7060A722DE297700EF2A91 /* dogSelfie@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dogSelfie@2x.jpg"; sourceTree = "<group>"; };
-		0E7060A822DE297700EF2A91 /* GreyWhiteCat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GreyWhiteCat.jpg; sourceTree = "<group>"; };
-		0E7060A922DE297700EF2A91 /* GreyWhiteCat@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "GreyWhiteCat@2x.jpg"; sourceTree = "<group>"; };
-		0E7060AA22DE297700EF2A91 /* dogSelfie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dogSelfie.jpg; sourceTree = "<group>"; };
-		0E7060AC22DE297700EF2A91 /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
-		0E7060AD22DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
-		0E7060AE22DE297700EF2A91 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
-		0E7060AF22DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+ANProtocols.m"; sourceTree = "<group>"; };
-		0E7060B022DE297700EF2A91 /* ANTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestGlobal.h; sourceTree = "<group>"; };
-		0E7060B222DE297700EF2A91 /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
-		0E7060B322DE297700EF2A91 /* ANMockMediationAdapterTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterTimeout.h; sourceTree = "<group>"; };
-		0E7060B422DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadThenFail.m; sourceTree = "<group>"; };
-		0E7060B522DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
-		0E7060B622DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulBanner.h; sourceTree = "<group>"; };
-		0E7060B722DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadedMultiple.h; sourceTree = "<group>"; };
-		0E7060B822DE297700EF2A91 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
-		0E7060B922DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadThenFail.h; sourceTree = "<group>"; };
-		0E7060BA22DE297700EF2A91 /* ANMockMediationAdapterTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterTimeout.m; sourceTree = "<group>"; };
-		0E7060BB22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulBanner.m; sourceTree = "<group>"; };
-		0E7060BC22DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
-		0E7060BD22DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadedMultiple.m; sourceTree = "<group>"; };
-		0E7060BE22DE297700EF2A91 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		0E7060C022DE297700EF2A91 /* ANURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANURLConnectionStub.h; sourceTree = "<group>"; };
-		0E7060C122DE297700EF2A91 /* ANHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubURLProtocol.h; sourceTree = "<group>"; };
-		0E7060C222DE297700EF2A91 /* ANHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubbingManager.m; sourceTree = "<group>"; };
-		0E7060C322DE297700EF2A91 /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
-		0E7060C422DE297700EF2A91 /* ANHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubURLProtocol.m; sourceTree = "<group>"; };
-		0E7060C522DE297700EF2A91 /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
-		0E7060C622DE297700EF2A91 /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
-		0E7060C822DE297700EF2A91 /* XCTestCase+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANCategory.h"; sourceTree = "<group>"; };
-		0E7060C922DE297700EF2A91 /* ANTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANTrackerManager+ANTest.m"; sourceTree = "<group>"; };
-		0E7060CA22DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
-		0E7060CB22DE297700EF2A91 /* XCTestCase+ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANBannerAdView.m"; sourceTree = "<group>"; };
-		0E7060CC22DE297700EF2A91 /* ANAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+ANTest.h"; sourceTree = "<group>"; };
-		0E7060CD22DE297700EF2A91 /* ANInterstitialAd+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInterstitialAd+ANTest.h"; sourceTree = "<group>"; };
-		0E7060CE22DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANUniversalAdFetcher+ANTest.m"; sourceTree = "<group>"; };
-		0E7060CF22DE297700EF2A91 /* XCTestCase+ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANAdResponse.m"; sourceTree = "<group>"; };
-		0E7060D022DE297700EF2A91 /* ANVerificationScriptResource+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANVerificationScriptResource+ANTest.h"; sourceTree = "<group>"; };
-		0E7060D122DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
-		0E7060D222DE297700EF2A91 /* ANBannerAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANTest.m"; sourceTree = "<group>"; };
-		0E7060D322DE297700EF2A91 /* UIApplication+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+ANTest.h"; sourceTree = "<group>"; };
-		0E7060D422DE297700EF2A91 /* ANAdWebViewController+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdWebViewController+ANTest.h"; sourceTree = "<group>"; };
-		0E7060D522DE297700EF2A91 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
-		0E7060D622DE297700EF2A91 /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
-		0E7060D722DE297700EF2A91 /* XCTestCase+ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANBannerAdView.h"; sourceTree = "<group>"; };
-		0E7060D822DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
-		0E7060D922DE297700EF2A91 /* ANTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANTrackerManager+ANTest.h"; sourceTree = "<group>"; };
-		0E7060DA22DE297700EF2A91 /* XCTestCase+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANCategory.m"; sourceTree = "<group>"; };
-		0E7060DB22DE297700EF2A91 /* ANInterstitialAd+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANInterstitialAd+ANTest.m"; sourceTree = "<group>"; };
-		0E7060DC22DE297700EF2A91 /* ANAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdView+ANTest.m"; sourceTree = "<group>"; };
-		0E7060DD22DE297700EF2A91 /* UIApplication+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ANTest.m"; sourceTree = "<group>"; };
-		0E7060DE22DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
-		0E7060DF22DE297700EF2A91 /* ANBannerAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANTest.h"; sourceTree = "<group>"; };
-		0E7060E022DE297700EF2A91 /* ANVerificationScriptResource+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVerificationScriptResource+ANTest.m"; sourceTree = "<group>"; };
-		0E7060E122DE297700EF2A91 /* XCTestCase+ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANAdResponse.h"; sourceTree = "<group>"; };
-		0E7060E222DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANUniversalAdFetcher+ANTest.h"; sourceTree = "<group>"; };
-		0E7060E322DE297700EF2A91 /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
-		0E7060E422DE297700EF2A91 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
-		0E7060E522DE297700EF2A91 /* ANAdWebViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdWebViewController+ANTest.m"; sourceTree = "<group>"; };
-		0E7060E622DE297700EF2A91 /* ANTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestGlobal.m; sourceTree = "<group>"; };
-		0E7060E922DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulNative.h; sourceTree = "<group>"; };
-		0E7060EA22DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNeverCalled.m; sourceTree = "<group>"; };
-		0E7060EB22DE297700EF2A91 /* XCTestCase+ANMediatedAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANMediatedAd.h"; sourceTree = "<group>"; };
-		0E7060EC22DE297700EF2A91 /* TestANUniversalFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestANUniversalFetcher.h; sourceTree = "<group>"; };
-		0E7060ED22DE297700EF2A91 /* ANTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestResponses.h; sourceTree = "<group>"; };
-		0E7060EE22DE297700EF2A91 /* ANBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseTestCase.m; sourceTree = "<group>"; };
-		0E7060EF22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulNative.m; sourceTree = "<group>"; };
-		0E7060F022DE297700EF2A91 /* XCTestCase+ANMediatedAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANMediatedAd.m"; sourceTree = "<group>"; };
-		0E7060F122DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
-		0E7060F222DE297700EF2A91 /* TestANUniversalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestANUniversalFetcher.m; sourceTree = "<group>"; };
-		0E7060F322DE297700EF2A91 /* ANBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseTestCase.h; sourceTree = "<group>"; };
-		0E7060F422DE297700EF2A91 /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
-		0E7060F622DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMultipleSuccessCallbacks.h; sourceTree = "<group>"; };
-		0E7060F722DE297700EF2A91 /* ANAdAdapterBannerSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSuccessful.h; sourceTree = "<group>"; };
-		0E7060F822DE297700EF2A91 /* ANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailedMultiple.m; sourceTree = "<group>"; };
-		0E7060F922DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoDelegate.m; sourceTree = "<group>"; };
-		0E7060FA22DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoRequestMethod.h; sourceTree = "<group>"; };
-		0E7060FB22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFillThenSuccessful.h; sourceTree = "<group>"; };
-		0E7060FC22DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerTimeoutThenSuccessful.h; sourceTree = "<group>"; };
-		0E7060FD22DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSuccessfulThenUnableToFill.h; sourceTree = "<group>"; };
-		0E7060FE22DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
-		0E7060FF22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m; sourceTree = "<group>"; };
-		0E70610022DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMultipleFailureCallbacks.m; sourceTree = "<group>"; };
-		0E70610122DE297700EF2A91 /* ANAdAdapterBannerNetworkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNetworkError.m; sourceTree = "<group>"; };
-		0E70610222DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFill.h; sourceTree = "<group>"; };
-		0E70610322DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoDelegate.h; sourceTree = "<group>"; };
-		0E70610422DE297700EF2A91 /* ANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailedMultiple.h; sourceTree = "<group>"; };
-		0E70610522DE297700EF2A91 /* ANAdAdapterBannerSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSuccessful.m; sourceTree = "<group>"; };
-		0E70610622DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMultipleSuccessCallbacks.m; sourceTree = "<group>"; };
-		0E70610722DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerTimeoutThenSuccessful.m; sourceTree = "<group>"; };
-		0E70610822DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSuccessfulThenUnableToFill.m; sourceTree = "<group>"; };
-		0E70610922DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
-		0E70610A22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFillThenSuccessful.m; sourceTree = "<group>"; };
-		0E70610B22DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoRequestMethod.m; sourceTree = "<group>"; };
-		0E70610C22DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMultipleFailureCallbacks.h; sourceTree = "<group>"; };
-		0E70610D22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h; sourceTree = "<group>"; };
-		0E70610E22DE297700EF2A91 /* ANAdAdapterBannerNetworkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNetworkError.h; sourceTree = "<group>"; };
-		0E70610F22DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFill.m; sourceTree = "<group>"; };
 		97355D2E21620BB200AF423B /* ANAdProtocolTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANAdProtocolTestCase.swift; sourceTree = "<group>"; };
 		973B23BB238D863000717D67 /* ANUSPrivacySettingsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANUSPrivacySettingsTestCase.swift; sourceTree = "<group>"; };
 		976304CC2141165900ACA477 /* ANBannerAdTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANBannerAdTestCase.swift; sourceTree = "<group>"; };
@@ -344,7 +235,6 @@
 		97B06BA92140309F00234B9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97B2233421B9657F00DBC982 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		97B2233621B9658500DBC982 /* libGoogleMobileAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleMobileAds.a; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/libGoogleMobileAds.a; sourceTree = "<group>"; };
-		97BB4136222405A5002B4EE5 /* SuccessfulStandardAdFromRTBObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulStandardAdFromRTBObjectResponse.json; sourceTree = "<group>"; };
 		97EC9618214A79750007681A /* ANInstreamVideoAdTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANInstreamVideoAdTestCase.swift; sourceTree = "<group>"; };
 		97EC961A214A7A560007681A /* ANInstreamVideoAd+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANInstreamVideoAd+Test.m"; sourceTree = "<group>"; };
 		97EC9625214A7A560007681A /* ANVideoAdPlayer+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVideoAdPlayer+Test.m"; sourceTree = "<group>"; };
@@ -391,6 +281,135 @@
 		97FFF31D214036FA008599A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		97FFF31F21403707008599A4 /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VungleSDK.framework; path = ../mediation/mediatedviews/Vungle/VungleSDK/VungleSDK.framework; sourceTree = "<group>"; };
 		97FFF3212140370D008599A4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		FCCC9F99278C8DF500B342D3 /* TestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGlobal.m; sourceTree = "<group>"; };
+		FCCC9F9A278C8DF500B342D3 /* TestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGlobal.h; sourceTree = "<group>"; };
+		FCCC9FA8278C922C00B342D3 /* OMID_Native_CSMResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_CSMResponse.json; sourceTree = "<group>"; };
+		FCCC9FA9278C922C00B342D3 /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
+		FCCC9FAA278C922D00B342D3 /* OMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_RTBResponse.json; sourceTree = "<group>"; };
+		FCCC9FAB278C922D00B342D3 /* SuccessfulMRAIDResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDResponse.json; sourceTree = "<group>"; };
+		FCCC9FAC278C922D00B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAsssemblyRendererOMID_Native_RTBResponse.json; sourceTree = "<group>"; };
+		FCCC9FAD278C922D00B342D3 /* SuccessfulOutstreamBannerVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamBannerVideoResponse.json; sourceTree = "<group>"; };
+		FCCC9FAE278C922D00B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulSquareInstreamVideoAdResponse.json; sourceTree = "<group>"; };
+		FCCC9FAF278C922D00B342D3 /* nativeResponseWithoutImpTrackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponseWithoutImpTrackers.json; sourceTree = "<group>"; };
+		FCCC9FB0278C922D00B342D3 /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
+		FCCC9FB1278C922D00B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulStandardAdFromRTBObjectResponse.json; sourceTree = "<group>"; };
+		FCCC9FB2278C922D00B342D3 /* SuccessfulVerticalVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulVerticalVideoAdResponse.json; sourceTree = "<group>"; };
+		FCCC9FB3278C922D00B342D3 /* SecondPriceForDFPSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPSuccess.json; sourceTree = "<group>"; };
+		FCCC9FB4278C922D00B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulRTBShouldResizeAdToFitContainer.json; sourceTree = "<group>"; };
+		FCCC9FB5278C922D00B342D3 /* SuccessfulInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulInstreamVideoAdResponse.json; sourceTree = "<group>"; };
+		FCCC9FB6278C922E00B342D3 /* SuccessfulOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamVideoResponse.json; sourceTree = "<group>"; };
+		FCCC9FB7278C922E00B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json; sourceTree = "<group>"; };
+		FCCC9FB8278C922E00B342D3 /* custom_adapter_to_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_to_standard_response.json; sourceTree = "<group>"; };
+		FCCC9FB9278C922F00B342D3 /* SecondPriceForDFPParamIsUnset.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPParamIsUnset.json; sourceTree = "<group>"; };
+		FCCC9FBA278C922F00B342D3 /* BaseMediationSingleNetworkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseMediationSingleNetworkResponse.json; sourceTree = "<group>"; };
+		FCCC9FBB278C922F00B342D3 /* native_videoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = native_videoResponse.json; sourceTree = "<group>"; };
+		FCCC9FBC278C922F00B342D3 /* appnexus_bannerNative_renderingInvalidURL.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_renderingInvalidURL.json; sourceTree = "<group>"; };
+		FCCC9FBD278C922F00B342D3 /* appnexus_bannerNative_rendering.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_rendering.json; sourceTree = "<group>"; };
+		FCCC9FBE278C922F00B342D3 /* BannerMediationFailRTBVideoSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BannerMediationFailRTBVideoSuccess.json; sourceTree = "<group>"; };
+		FCCC9FBF278C922F00B342D3 /* bannerNative_basic_banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_basic_banner.json; sourceTree = "<group>"; };
+		FCCC9FC0278C922F00B342D3 /* appnexus_mock_mediation_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_mock_mediation_response.json; sourceTree = "<group>"; };
+		FCCC9FC1278C922F00B342D3 /* SuccessfulMRAIDListenerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDListenerResponse.json; sourceTree = "<group>"; };
+		FCCC9FC2278C922F00B342D3 /* bannerNative_native_mediation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_native_mediation.json; sourceTree = "<group>"; };
+		FCCC9FC3278C922F00B342D3 /* SuccessfulANRTBVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdResponse.json; sourceTree = "<group>"; };
+		FCCC9FC4278C922F00B342D3 /* SuccessfulMediationResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMediationResponse.json; sourceTree = "<group>"; };
+		FCCC9FC5278C922F00B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulLocationCreativeForBannerAdResponse.json; sourceTree = "<group>"; };
+		FCCC9FC6278C922F00B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulAllowMagicSizeBannerObjectResponse.json; sourceTree = "<group>"; };
+		FCCC9FC7278C923000B342D3 /* SuccessfulNativeStandardAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulNativeStandardAdResponse.json; sourceTree = "<group>"; };
+		FCCCA008278C94E800B342D3 /* ANTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestGlobal.h; sourceTree = "<group>"; };
+		FCCCA009278C94E800B342D3 /* ANTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANTrackerManager+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA00A278C94E800B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		FCCCA00B278C94E800B342D3 /* ANMockMediationAdapterTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterTimeout.m; sourceTree = "<group>"; };
+		FCCCA00C278C94E800B342D3 /* ANMockMediationAdapterLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadThenFail.m; sourceTree = "<group>"; };
+		FCCCA00D278C94E800B342D3 /* ANMockMediationAdapterSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulBanner.m; sourceTree = "<group>"; };
+		FCCCA00E278C94E800B342D3 /* UIApplication+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA00F278C94E800B342D3 /* ANBannerAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA010278C94E800B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		FCCCA011278C94E900B342D3 /* ANMockMediationAdapterLoadedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadedMultiple.h; sourceTree = "<group>"; };
+		FCCCA012278C94E900B342D3 /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
+		FCCCA013278C94E900B342D3 /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
+		FCCCA014278C94E900B342D3 /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA015278C94E900B342D3 /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		FCCCA016278C94E900B342D3 /* ANTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestGlobal.m; sourceTree = "<group>"; };
+		FCCCA017278C94E900B342D3 /* XCTestCase+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANCategory.h"; sourceTree = "<group>"; };
+		FCCCA018278C94E900B342D3 /* ANHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubURLProtocol.h; sourceTree = "<group>"; };
+		FCCCA01A278C94E900B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMultipleSuccessCallbacks.h; sourceTree = "<group>"; };
+		FCCCA01B278C94E900B342D3 /* ANAdAdapterBannerSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSuccessful.h; sourceTree = "<group>"; };
+		FCCCA01C278C94E900B342D3 /* ANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailedMultiple.m; sourceTree = "<group>"; };
+		FCCCA01D278C94E900B342D3 /* ANAdAdapterBannerNoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoDelegate.m; sourceTree = "<group>"; };
+		FCCCA01E278C94E900B342D3 /* ANAdAdapterBannerNoRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoRequestMethod.h; sourceTree = "<group>"; };
+		FCCCA01F278C94E900B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFillThenSuccessful.h; sourceTree = "<group>"; };
+		FCCCA020278C94E900B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerTimeoutThenSuccessful.h; sourceTree = "<group>"; };
+		FCCCA021278C94E900B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSuccessfulThenUnableToFill.h; sourceTree = "<group>"; };
+		FCCCA022278C94E900B342D3 /* ANLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		FCCCA023278C94E900B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m; sourceTree = "<group>"; };
+		FCCCA024278C94E900B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMultipleFailureCallbacks.m; sourceTree = "<group>"; };
+		FCCCA025278C94E900B342D3 /* ANAdAdapterBannerNetworkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNetworkError.m; sourceTree = "<group>"; };
+		FCCCA026278C94E900B342D3 /* ANAdAdapterBannerUnableToFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFill.h; sourceTree = "<group>"; };
+		FCCCA027278C94E900B342D3 /* ANAdAdapterBannerNoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoDelegate.h; sourceTree = "<group>"; };
+		FCCCA028278C94E900B342D3 /* ANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailedMultiple.h; sourceTree = "<group>"; };
+		FCCCA029278C94E900B342D3 /* ANAdAdapterBannerSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSuccessful.m; sourceTree = "<group>"; };
+		FCCCA02A278C94E900B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMultipleSuccessCallbacks.m; sourceTree = "<group>"; };
+		FCCCA02B278C94E900B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerTimeoutThenSuccessful.m; sourceTree = "<group>"; };
+		FCCCA02C278C94E900B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSuccessfulThenUnableToFill.m; sourceTree = "<group>"; };
+		FCCCA02D278C94E900B342D3 /* ANLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		FCCCA02E278C94E900B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFillThenSuccessful.m; sourceTree = "<group>"; };
+		FCCCA02F278C94E900B342D3 /* ANAdAdapterBannerNoRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoRequestMethod.m; sourceTree = "<group>"; };
+		FCCCA030278C94E900B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMultipleFailureCallbacks.h; sourceTree = "<group>"; };
+		FCCCA031278C94E900B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h; sourceTree = "<group>"; };
+		FCCCA032278C94E900B342D3 /* ANAdAdapterBannerNetworkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNetworkError.h; sourceTree = "<group>"; };
+		FCCCA033278C94E900B342D3 /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFill.m; sourceTree = "<group>"; };
+		FCCCA034278C94E900B342D3 /* ANVerificationScriptResource+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVerificationScriptResource+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA035278C94EB00B342D3 /* UIApplication+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA036278C94EB00B342D3 /* ANHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubbingManager.m; sourceTree = "<group>"; };
+		FCCCA037278C94EB00B342D3 /* ANAdWebViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdWebViewController+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA038278C94EB00B342D3 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
+		FCCCA039278C94EB00B342D3 /* ANMockMediationAdapterLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadThenFail.h; sourceTree = "<group>"; };
+		FCCCA03A278C94EB00B342D3 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
+		FCCCA03B278C94EB00B342D3 /* XCTestCase+ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANBannerAdView.h"; sourceTree = "<group>"; };
+		FCCCA03C278C94EB00B342D3 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
+		FCCCA03D278C94EB00B342D3 /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
+		FCCCA03E278C94EB00B342D3 /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA03F278C94EB00B342D3 /* ANInterstitialAd+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInterstitialAd+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA040278C94EB00B342D3 /* ANAdWebViewController+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdWebViewController+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA041278C94EB00B342D3 /* ANAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdView+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA042278C94EB00B342D3 /* ANMockMediationAdapterTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterTimeout.h; sourceTree = "<group>"; };
+		FCCCA043278C94EC00B342D3 /* ANURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANURLConnectionStub.h; sourceTree = "<group>"; };
+		FCCCA044278C94EC00B342D3 /* XCTestCase+ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANAdResponse.h"; sourceTree = "<group>"; };
+		FCCCA045278C94EC00B342D3 /* XCTestCase+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANCategory.m"; sourceTree = "<group>"; };
+		FCCCA046278C94EC00B342D3 /* ANHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		FCCCA047278C94EC00B342D3 /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
+		FCCCA048278C94EC00B342D3 /* ANMockMediationAdapterSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulBanner.h; sourceTree = "<group>"; };
+		FCCCA049278C94EC00B342D3 /* NSURLSessionConfiguration+ANProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+ANProtocols.m"; sourceTree = "<group>"; };
+		FCCCA04A278C94EC00B342D3 /* ANInterstitialAd+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANInterstitialAd+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA04B278C94EC00B342D3 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		FCCCA04C278C94EC00B342D3 /* ANMockMediationAdapterLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadedMultiple.m; sourceTree = "<group>"; };
+		FCCCA04D278C94EC00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
+		FCCCA04E278C94EC00B342D3 /* XCTestCase+ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANBannerAdView.m"; sourceTree = "<group>"; };
+		FCCCA04F278C94EC00B342D3 /* NSURLProtocol+WKWebViewSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebViewSupport.h"; sourceTree = "<group>"; };
+		FCCCA050278C94EC00B342D3 /* ANBannerAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA051278C94EC00B342D3 /* ANUniversalAdFetcher+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANUniversalAdFetcher+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA052278C94EC00B342D3 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		FCCCA053278C94EC00B342D3 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
+		FCCCA054278C94ED00B342D3 /* NSURLProtocol+WKWebViewSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebViewSupport.m"; sourceTree = "<group>"; };
+		FCCCA055278C94ED00B342D3 /* ANTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANTrackerManager+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA056278C94ED00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
+		FCCCA057278C94ED00B342D3 /* ANVerificationScriptResource+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANVerificationScriptResource+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA058278C94ED00B342D3 /* ANAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+ANTest.h"; sourceTree = "<group>"; };
+		FCCCA059278C94ED00B342D3 /* XCTestCase+ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANAdResponse.m"; sourceTree = "<group>"; };
+		FCCCA05A278C94ED00B342D3 /* ANUniversalAdFetcher+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANUniversalAdFetcher+ANTest.m"; sourceTree = "<group>"; };
+		FCCCA05B278C94ED00B342D3 /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
+		FCCCA086278C950700B342D3 /* ANMockMediationAdapterSuccessfulNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulNative.m; sourceTree = "<group>"; };
+		FCCCA087278C950700B342D3 /* ANMockMediationAdapterBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNeverCalled.m; sourceTree = "<group>"; };
+		FCCCA089278C950700B342D3 /* XCTestCase+ANMediatedAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANMediatedAd.h"; sourceTree = "<group>"; };
+		FCCCA08C278C950700B342D3 /* XCTestCase+ANMediatedAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANMediatedAd.m"; sourceTree = "<group>"; };
+		FCCCA08D278C950700B342D3 /* ANMockMediationAdapterSuccessfulNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulNative.h; sourceTree = "<group>"; };
+		FCCCA08E278C950800B342D3 /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
+		FCCCA08F278C950800B342D3 /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
+		FCCCA090278C950800B342D3 /* ANTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestResponses.h; sourceTree = "<group>"; };
+		FCCCA0A7278CA1AC00B342D3 /* ANNativeAdRequest+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+PrivateMethods.h"; sourceTree = "<group>"; };
+		FCCCA0A9278CA3CB00B342D3 /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
+		FCCCA0B5278CAABC00B342D3 /* ANHTTPCookieStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPCookieStorage.h; sourceTree = "<group>"; };
+		FCCCA0B6278CAABC00B342D3 /* ANHTTPCookieStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPCookieStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,8 +419,6 @@
 			files = (
 				97FFF2BF214034C7008599A4 /* Accounts.framework in Frameworks */,
 				97FFF2C3214034DF008599A4 /* AdSupport.framework in Frameworks */,
-				0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */,
-				0E1C95F023263F65004D4F2E /* AppNexusSDK.framework in Frameworks */,
 				97FFF2C7214034F5008599A4 /* AssetsLibrary.framework in Frameworks */,
 				97FFF2C9214034FC008599A4 /* AudioToolbox.framework in Frameworks */,
 				97FFF2CB21403503008599A4 /* AVFoundation.framework in Frameworks */,
@@ -419,6 +436,7 @@
 				979082D621BE9AFE00E6F5FF /* GLKit.framework in Frameworks */,
 				97FFF2E32140357A008599A4 /* JavaScriptCore.framework in Frameworks */,
 				97FFF2F8214035F7008599A4 /* libc++.tbd in Frameworks */,
+				FCCCA0B8278CAFB300B342D3 /* AppNexusSDK.framework in Frameworks */,
 				97FFF30421403679008599A4 /* libsqlite3.tbd in Frameworks */,
 				97FFF30621403685008599A4 /* libxml2.tbd in Frameworks */,
 				97FFF30821403691008599A4 /* libz.1.2.5.tbd in Frameworks */,
@@ -446,224 +464,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E70607922DE293F00EF2A91 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */,
-				0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		0E70608422DE297700EF2A91 /* SharedMockFiles */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060C722DE297700EF2A91 /* Categories */,
-				0E7060B122DE297700EF2A91 /* MockMediationAdapters */,
-				0E7060A622DE297700EF2A91 /* Resources */,
-				0E7060AB22DE297700EF2A91 /* SDKValidationURL */,
-				0E7060BF22DE297700EF2A91 /* Stubbing */,
-				0E70608522DE297700EF2A91 /* StubResponse */,
-				0E7060B022DE297700EF2A91 /* ANTestGlobal.h */,
-				0E7060E622DE297700EF2A91 /* ANTestGlobal.m */,
-				0E7060BE22DE297700EF2A91 /* Default-568h@2x.png */,
-			);
-			name = SharedMockFiles;
-			path = ../../../UnitTestApp/UnitTestApp/SharedMockFiles;
-			sourceTree = "<group>";
-		};
-		0E70608522DE297700EF2A91 /* StubResponse */ = {
-			isa = PBXGroup;
-			children = (
-				0E70609422DE297700EF2A91 /* appnexus_bannerNative_rendering.json */,
-				0E70609922DE297700EF2A91 /* appnexus_bannerNative_renderingInvalidURL.json */,
-				0E70608B22DE297700EF2A91 /* appnexus_mock_mediation_response.json */,
-				0E70609C22DE297700EF2A91 /* appnexus_standard_response.json */,
-				0E7060A422DE297700EF2A91 /* BannerMediationFailRTBVideoSuccess.json */,
-				0E7060A122DE297700EF2A91 /* bannerNative_basic_banner.json */,
-				0E70609E22DE297700EF2A91 /* bannerNative_native_mediation.json */,
-				0E70609B22DE297700EF2A91 /* BaseMediationSingleNetworkResponse.json */,
-				0E70609222DE297700EF2A91 /* custom_adapter_to_standard_response.json */,
-				0E70608C22DE297700EF2A91 /* native_videoResponse.json */,
-				0E70608E22DE297700EF2A91 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */,
-				0E7060A222DE297700EF2A91 /* nativeResponseWithoutImpTrackers.json */,
-				0E70609522DE297700EF2A91 /* OMID_Native_CSMResponse.json */,
-				0E70608F22DE297700EF2A91 /* OMID_Native_RTBResponse.json */,
-				0E70608D22DE297700EF2A91 /* OMID_TestResponse.json */,
-				0E70609022DE297700EF2A91 /* SecondPriceForDFPParamIsUnset.json */,
-				0E7060A022DE297700EF2A91 /* SecondPriceForDFPSuccess.json */,
-				0E70608822DE297700EF2A91 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */,
-				0E70609722DE297700EF2A91 /* SuccessfulANRTBVideoAdResponse.json */,
-				0E70608622DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
-				0E70608722DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json */,
-				0E70608A22DE297700EF2A91 /* SuccessfulLocationCreativeForBannerAdResponse.json */,
-				0E70609622DE297700EF2A91 /* SuccessfulMediationResponse.json */,
-				0E70609322DE297700EF2A91 /* SuccessfulMRAIDListenerResponse.json */,
-				0E70608922DE297700EF2A91 /* SuccessfulMRAIDResponse.json */,
-				0E7060A522DE297700EF2A91 /* SuccessfulNativeStandardAdResponse.json */,
-				0E70609122DE297700EF2A91 /* SuccessfulOutstreamBannerVideoResponse.json */,
-				0E70609822DE297700EF2A91 /* SuccessfulOutstreamVideoResponse.json */,
-				0E70609A22DE297700EF2A91 /* SuccessfulRTBShouldResizeAdToFitContainer.json */,
-				0E70609F22DE297700EF2A91 /* SuccessfulSquareInstreamVideoAdResponse.json */,
-				0E70609D22DE297700EF2A91 /* SuccessfulVerticalVideoAdResponse.json */,
-			);
-			path = StubResponse;
-			sourceTree = "<group>";
-		};
-		0E7060A622DE297700EF2A91 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060AA22DE297700EF2A91 /* dogSelfie.jpg */,
-				0E7060A722DE297700EF2A91 /* dogSelfie@2x.jpg */,
-				0E7060A822DE297700EF2A91 /* GreyWhiteCat.jpg */,
-				0E7060A922DE297700EF2A91 /* GreyWhiteCat@2x.jpg */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		0E7060AB22DE297700EF2A91 /* SDKValidationURL */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060AD22DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.h */,
-				0E7060AF22DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.m */,
-				0E7060AC22DE297700EF2A91 /* SDKValidationURLProtocol.h */,
-				0E7060AE22DE297700EF2A91 /* SDKValidationURLProtocol.m */,
-			);
-			path = SDKValidationURL;
-			sourceTree = "<group>";
-		};
-		0E7060B122DE297700EF2A91 /* MockMediationAdapters */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060BC22DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */,
-				0E7060B522DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */,
-				0E7060B722DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.h */,
-				0E7060BD22DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.m */,
-				0E7060B922DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.h */,
-				0E7060B422DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.m */,
-				0E7060B622DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.h */,
-				0E7060BB22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.m */,
-				0E7060B322DE297700EF2A91 /* ANMockMediationAdapterTimeout.h */,
-				0E7060BA22DE297700EF2A91 /* ANMockMediationAdapterTimeout.m */,
-				0E7060B822DE297700EF2A91 /* ANMRAIDTestResponses.h */,
-				0E7060B222DE297700EF2A91 /* ANMRAIDTestResponses.m */,
-			);
-			path = MockMediationAdapters;
-			sourceTree = "<group>";
-		};
-		0E7060BF22DE297700EF2A91 /* Stubbing */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060C622DE297700EF2A91 /* ANHTTPStubbingManager.h */,
-				0E7060C222DE297700EF2A91 /* ANHTTPStubbingManager.m */,
-				0E7060C122DE297700EF2A91 /* ANHTTPStubURLProtocol.h */,
-				0E7060C422DE297700EF2A91 /* ANHTTPStubURLProtocol.m */,
-				0E7060C522DE297700EF2A91 /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
-				0E7060C022DE297700EF2A91 /* ANURLConnectionStub.h */,
-				0E7060C322DE297700EF2A91 /* ANURLConnectionStub.m */,
-			);
-			path = Stubbing;
-			sourceTree = "<group>";
-		};
-		0E7060C722DE297700EF2A91 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060CC22DE297700EF2A91 /* ANAdView+ANTest.h */,
-				0E7060DC22DE297700EF2A91 /* ANAdView+ANTest.m */,
-				0E7060D422DE297700EF2A91 /* ANAdWebViewController+ANTest.h */,
-				0E7060E522DE297700EF2A91 /* ANAdWebViewController+ANTest.m */,
-				0E7060DF22DE297700EF2A91 /* ANBannerAdView+ANTest.h */,
-				0E7060D222DE297700EF2A91 /* ANBannerAdView+ANTest.m */,
-				0E7060CD22DE297700EF2A91 /* ANInterstitialAd+ANTest.h */,
-				0E7060DB22DE297700EF2A91 /* ANInterstitialAd+ANTest.m */,
-				0E7060D122DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
-				0E7060DE22DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
-				0E7060D622DE297700EF2A91 /* ANReachability+ANTest.h */,
-				0E7060E322DE297700EF2A91 /* ANReachability+ANTest.m */,
-				0E7060D922DE297700EF2A91 /* ANTrackerManager+ANTest.h */,
-				0E7060C922DE297700EF2A91 /* ANTrackerManager+ANTest.m */,
-				0E7060E222DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.h */,
-				0E7060CE22DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.m */,
-				0E7060D022DE297700EF2A91 /* ANVerificationScriptResource+ANTest.h */,
-				0E7060E022DE297700EF2A91 /* ANVerificationScriptResource+ANTest.m */,
-				0E7060D522DE297700EF2A91 /* NSObject+Swizzling.h */,
-				0E7060E422DE297700EF2A91 /* NSObject+Swizzling.m */,
-				0E7060D822DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.h */,
-				0E7060CA22DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.m */,
-				0E7060D322DE297700EF2A91 /* UIApplication+ANTest.h */,
-				0E7060DD22DE297700EF2A91 /* UIApplication+ANTest.m */,
-				0E7060E122DE297700EF2A91 /* XCTestCase+ANAdResponse.h */,
-				0E7060CF22DE297700EF2A91 /* XCTestCase+ANAdResponse.m */,
-				0E7060D722DE297700EF2A91 /* XCTestCase+ANBannerAdView.h */,
-				0E7060CB22DE297700EF2A91 /* XCTestCase+ANBannerAdView.m */,
-				0E7060C822DE297700EF2A91 /* XCTestCase+ANCategory.h */,
-				0E7060DA22DE297700EF2A91 /* XCTestCase+ANCategory.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		0E7060E722DE297700EF2A91 /* UnitMockFiles */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060F522DE297700EF2A91 /* BannerAdapter */,
-				0E7060E822DE297700EF2A91 /* UnitTestShared */,
-			);
-			name = UnitMockFiles;
-			path = ../../../UnitTestApp/UnitTestApp/UnitMockFiles;
-			sourceTree = "<group>";
-		};
-		0E7060E822DE297700EF2A91 /* UnitTestShared */ = {
-			isa = PBXGroup;
-			children = (
-				0E7060F322DE297700EF2A91 /* ANBaseTestCase.h */,
-				0E7060EE22DE297700EF2A91 /* ANBaseTestCase.m */,
-				0E7060F122DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.h */,
-				0E7060EA22DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.m */,
-				0E7060E922DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.h */,
-				0E7060EF22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.m */,
-				0E7060ED22DE297700EF2A91 /* ANTestResponses.h */,
-				0E7060F422DE297700EF2A91 /* ANTestResponses.m */,
-				0E7060EC22DE297700EF2A91 /* TestANUniversalFetcher.h */,
-				0E7060F222DE297700EF2A91 /* TestANUniversalFetcher.m */,
-				0E7060EB22DE297700EF2A91 /* XCTestCase+ANMediatedAd.h */,
-				0E7060F022DE297700EF2A91 /* XCTestCase+ANMediatedAd.m */,
-			);
-			path = UnitTestShared;
-			sourceTree = "<group>";
-		};
-		0E7060F522DE297700EF2A91 /* BannerAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				0E70610C22DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.h */,
-				0E70610022DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.m */,
-				0E7060F622DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.h */,
-				0E70610622DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.m */,
-				0E70610E22DE297700EF2A91 /* ANAdAdapterBannerNetworkError.h */,
-				0E70610122DE297700EF2A91 /* ANAdAdapterBannerNetworkError.m */,
-				0E70610322DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.h */,
-				0E7060F922DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.m */,
-				0E7060FA22DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.h */,
-				0E70610B22DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.m */,
-				0E7060F722DE297700EF2A91 /* ANAdAdapterBannerSuccessful.h */,
-				0E70610522DE297700EF2A91 /* ANAdAdapterBannerSuccessful.m */,
-				0E7060FD22DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */,
-				0E70610822DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */,
-				0E7060FC22DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.h */,
-				0E70610722DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.m */,
-				0E70610222DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.h */,
-				0E70610F22DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m */,
-				0E7060FB22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.h */,
-				0E70610A22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.m */,
-				0E70610D22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */,
-				0E7060FF22DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */,
-				0E70610422DE297700EF2A91 /* ANFailedMultiple.h */,
-				0E7060F822DE297700EF2A91 /* ANFailedMultiple.m */,
-				0E7060FE22DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.h */,
-				0E70610922DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.m */,
-			);
-			path = BannerAdapter;
-			sourceTree = "<group>";
-		};
 		97355D1921620B7200AF423B /* ANAdProtocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,8 +527,8 @@
 				97B06B902140309E00234B9A /* Products */,
 				97B06B912140309E00234B9A /* SwiftCompatibilityTest */,
 				97B06BA62140309F00234B9A /* SwiftCompatibilityTestTests */,
-				0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */,
 				97F9DEBA21CD429100AF75A1 /* SwiftCompatibilityTest-Bridging-Header.h */,
+				FCCCA0A9278CA3CB00B342D3 /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -757,6 +557,7 @@
 		97B06BA62140309F00234B9A /* SwiftCompatibilityTestTests */ = {
 			isa = PBXGroup;
 			children = (
+				FCCC9F98278C8DF500B342D3 /* cat */,
 				97355D1921620B7200AF423B /* ANAdProtocol */,
 				976304CB2141164600ACA477 /* ANBannerAdView */,
 				97717643215B9B7500985C39 /* ANGDPRSettings */,
@@ -775,6 +576,38 @@
 		97BB40D12223FA70002B4EE5 /* ResponseJSON */ = {
 			isa = PBXGroup;
 			children = (
+				FCCC9FBD278C922F00B342D3 /* appnexus_bannerNative_rendering.json */,
+				FCCC9FBC278C922F00B342D3 /* appnexus_bannerNative_renderingInvalidURL.json */,
+				FCCC9FC0278C922F00B342D3 /* appnexus_mock_mediation_response.json */,
+				FCCC9FA9278C922C00B342D3 /* appnexus_standard_response.json */,
+				FCCC9FBE278C922F00B342D3 /* BannerMediationFailRTBVideoSuccess.json */,
+				FCCC9FBF278C922F00B342D3 /* bannerNative_basic_banner.json */,
+				FCCC9FC2278C922F00B342D3 /* bannerNative_native_mediation.json */,
+				FCCC9FBA278C922F00B342D3 /* BaseMediationSingleNetworkResponse.json */,
+				FCCC9FB8278C922E00B342D3 /* custom_adapter_to_standard_response.json */,
+				FCCC9FBB278C922F00B342D3 /* native_videoResponse.json */,
+				FCCC9FAC278C922D00B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */,
+				FCCC9FAF278C922D00B342D3 /* nativeResponseWithoutImpTrackers.json */,
+				FCCC9FA8278C922C00B342D3 /* OMID_Native_CSMResponse.json */,
+				FCCC9FAA278C922D00B342D3 /* OMID_Native_RTBResponse.json */,
+				FCCC9FB0278C922D00B342D3 /* OMID_TestResponse.json */,
+				FCCC9FB9278C922F00B342D3 /* SecondPriceForDFPParamIsUnset.json */,
+				FCCC9FB3278C922D00B342D3 /* SecondPriceForDFPSuccess.json */,
+				FCCC9FC6278C922F00B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json */,
+				FCCC9FC3278C922F00B342D3 /* SuccessfulANRTBVideoAdResponse.json */,
+				FCCC9FB7278C922E00B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
+				FCCC9FB5278C922D00B342D3 /* SuccessfulInstreamVideoAdResponse.json */,
+				FCCC9FC5278C922F00B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json */,
+				FCCC9FC4278C922F00B342D3 /* SuccessfulMediationResponse.json */,
+				FCCC9FC1278C922F00B342D3 /* SuccessfulMRAIDListenerResponse.json */,
+				FCCC9FAB278C922D00B342D3 /* SuccessfulMRAIDResponse.json */,
+				FCCC9FC7278C923000B342D3 /* SuccessfulNativeStandardAdResponse.json */,
+				FCCC9FAD278C922D00B342D3 /* SuccessfulOutstreamBannerVideoResponse.json */,
+				FCCC9FB6278C922E00B342D3 /* SuccessfulOutstreamVideoResponse.json */,
+				FCCC9FB4278C922D00B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json */,
+				FCCC9FAE278C922D00B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json */,
+				FCCC9FB1278C922D00B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json */,
+				FCCC9FB2278C922D00B342D3 /* SuccessfulVerticalVideoAdResponse.json */,
 				97BB40D22223FAF0002B4EE5 /* NativeResponses */,
 				97BB40E62223FAF0002B4EE5 /* Responses */,
 			);
@@ -791,7 +624,6 @@
 		97BB40E62223FAF0002B4EE5 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				97BB4136222405A5002B4EE5 /* SuccessfulStandardAdFromRTBObjectResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -799,8 +631,6 @@
 		97EC9605214A793D0007681A /* ANInstreamVideoAd */ = {
 			isa = PBXGroup;
 			children = (
-				0E70608422DE297700EF2A91 /* SharedMockFiles */,
-				0E7060E722DE297700EF2A91 /* UnitMockFiles */,
 				97EC9626214A7A560007681A /* ANInstreamVideoAd+Test.h */,
 				97EC961A214A7A560007681A /* ANInstreamVideoAd+Test.m */,
 				97EC9618214A79750007681A /* ANInstreamVideoAdTestCase.swift */,
@@ -872,6 +702,126 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FCCC9F98278C8DF500B342D3 /* cat */ = {
+			isa = PBXGroup;
+			children = (
+				FCCCA0A7278CA1AC00B342D3 /* ANNativeAdRequest+PrivateMethods.h */,
+				FCCCA058278C94ED00B342D3 /* ANAdView+ANTest.h */,
+				FCCCA041278C94EB00B342D3 /* ANAdView+ANTest.m */,
+				FCCCA08F278C950800B342D3 /* ANMockMediationAdapterBannerNeverCalled.h */,
+				FCCCA087278C950700B342D3 /* ANMockMediationAdapterBannerNeverCalled.m */,
+				FCCCA08D278C950700B342D3 /* ANMockMediationAdapterSuccessfulNative.h */,
+				FCCCA086278C950700B342D3 /* ANMockMediationAdapterSuccessfulNative.m */,
+				FCCCA090278C950800B342D3 /* ANTestResponses.h */,
+				FCCCA08E278C950800B342D3 /* ANTestResponses.m */,
+				FCCCA089278C950700B342D3 /* XCTestCase+ANMediatedAd.h */,
+				FCCCA08C278C950700B342D3 /* XCTestCase+ANMediatedAd.m */,
+				FCCCA040278C94EB00B342D3 /* ANAdWebViewController+ANTest.h */,
+				FCCCA037278C94EB00B342D3 /* ANAdWebViewController+ANTest.m */,
+				FCCCA050278C94EC00B342D3 /* ANBannerAdView+ANTest.h */,
+				FCCCA00F278C94E800B342D3 /* ANBannerAdView+ANTest.m */,
+				FCCCA047278C94EC00B342D3 /* ANHTTPStubbingManager.h */,
+				FCCCA036278C94EB00B342D3 /* ANHTTPStubbingManager.m */,
+				FCCCA018278C94E900B342D3 /* ANHTTPStubURLProtocol.h */,
+				FCCCA046278C94EC00B342D3 /* ANHTTPStubURLProtocol.m */,
+				FCCCA03F278C94EB00B342D3 /* ANInterstitialAd+ANTest.h */,
+				FCCCA04A278C94EC00B342D3 /* ANInterstitialAd+ANTest.m */,
+				FCCCA00A278C94E800B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */,
+				FCCCA010278C94E800B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */,
+				FCCCA011278C94E900B342D3 /* ANMockMediationAdapterLoadedMultiple.h */,
+				FCCCA04C278C94EC00B342D3 /* ANMockMediationAdapterLoadedMultiple.m */,
+				FCCCA039278C94EB00B342D3 /* ANMockMediationAdapterLoadThenFail.h */,
+				FCCCA00C278C94E800B342D3 /* ANMockMediationAdapterLoadThenFail.m */,
+				FCCCA048278C94EC00B342D3 /* ANMockMediationAdapterSuccessfulBanner.h */,
+				FCCCA00D278C94E800B342D3 /* ANMockMediationAdapterSuccessfulBanner.m */,
+				FCCCA042278C94EB00B342D3 /* ANMockMediationAdapterTimeout.h */,
+				FCCCA00B278C94E800B342D3 /* ANMockMediationAdapterTimeout.m */,
+				FCCCA038278C94EB00B342D3 /* ANMRAIDTestResponses.h */,
+				FCCCA012278C94E900B342D3 /* ANMRAIDTestResponses.m */,
+				FCCCA04D278C94EC00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
+				FCCCA056278C94ED00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
+				FCCCA014278C94E900B342D3 /* ANReachability+ANTest.h */,
+				FCCCA03E278C94EB00B342D3 /* ANReachability+ANTest.m */,
+				FCCCA008278C94E800B342D3 /* ANTestGlobal.h */,
+				FCCCA016278C94E900B342D3 /* ANTestGlobal.m */,
+				FCCCA055278C94ED00B342D3 /* ANTrackerManager+ANTest.h */,
+				FCCCA009278C94E800B342D3 /* ANTrackerManager+ANTest.m */,
+				FCCCA051278C94EC00B342D3 /* ANUniversalAdFetcher+ANTest.h */,
+				FCCCA0B5278CAABC00B342D3 /* ANHTTPCookieStorage.h */,
+				FCCCA0B6278CAABC00B342D3 /* ANHTTPCookieStorage.m */,
+				FCCCA05A278C94ED00B342D3 /* ANUniversalAdFetcher+ANTest.m */,
+				FCCCA043278C94EC00B342D3 /* ANURLConnectionStub.h */,
+				FCCCA05B278C94ED00B342D3 /* ANURLConnectionStub.m */,
+				FCCCA015278C94E900B342D3 /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
+				FCCCA057278C94ED00B342D3 /* ANVerificationScriptResource+ANTest.h */,
+				FCCCA034278C94E900B342D3 /* ANVerificationScriptResource+ANTest.m */,
+				FCCCA019278C94E900B342D3 /* BannerAdapter */,
+				FCCCA053278C94EC00B342D3 /* NSObject+Swizzling.h */,
+				FCCCA03C278C94EB00B342D3 /* NSObject+Swizzling.m */,
+				FCCCA04F278C94EC00B342D3 /* NSURLProtocol+WKWebViewSupport.h */,
+				FCCCA054278C94ED00B342D3 /* NSURLProtocol+WKWebViewSupport.m */,
+				FCCCA052278C94EC00B342D3 /* NSURLRequest+HTTPBodyTesting.h */,
+				FCCCA04B278C94EC00B342D3 /* NSURLRequest+HTTPBodyTesting.m */,
+				FCCCA013278C94E900B342D3 /* NSURLSessionConfiguration+ANProtocols.h */,
+				FCCCA049278C94EC00B342D3 /* NSURLSessionConfiguration+ANProtocols.m */,
+				FCCCA03D278C94EB00B342D3 /* SDKValidationURLProtocol.h */,
+				FCCCA03A278C94EB00B342D3 /* SDKValidationURLProtocol.m */,
+				FCCCA00E278C94E800B342D3 /* UIApplication+ANTest.h */,
+				FCCCA035278C94EB00B342D3 /* UIApplication+ANTest.m */,
+				FCCCA044278C94EC00B342D3 /* XCTestCase+ANAdResponse.h */,
+				FCCCA059278C94ED00B342D3 /* XCTestCase+ANAdResponse.m */,
+				FCCCA03B278C94EB00B342D3 /* XCTestCase+ANBannerAdView.h */,
+				FCCCA04E278C94EC00B342D3 /* XCTestCase+ANBannerAdView.m */,
+				FCCCA017278C94E900B342D3 /* XCTestCase+ANCategory.h */,
+				FCCCA045278C94EC00B342D3 /* XCTestCase+ANCategory.m */,
+				FCCC9F99278C8DF500B342D3 /* TestGlobal.m */,
+				FCCC9F9A278C8DF500B342D3 /* TestGlobal.h */,
+			);
+			path = cat;
+			sourceTree = "<group>";
+		};
+		FCCCA019278C94E900B342D3 /* BannerAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				FCCCA01A278C94E900B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.h */,
+				FCCCA01B278C94E900B342D3 /* ANAdAdapterBannerSuccessful.h */,
+				FCCCA01C278C94E900B342D3 /* ANFailedMultiple.m */,
+				FCCCA01D278C94E900B342D3 /* ANAdAdapterBannerNoDelegate.m */,
+				FCCCA01E278C94E900B342D3 /* ANAdAdapterBannerNoRequestMethod.h */,
+				FCCCA01F278C94E900B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.h */,
+				FCCCA020278C94E900B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.h */,
+				FCCCA021278C94E900B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */,
+				FCCCA022278C94E900B342D3 /* ANLoadAndHitOtherCallbacks.h */,
+				FCCCA023278C94E900B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */,
+				FCCCA024278C94E900B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.m */,
+				FCCCA025278C94E900B342D3 /* ANAdAdapterBannerNetworkError.m */,
+				FCCCA026278C94E900B342D3 /* ANAdAdapterBannerUnableToFill.h */,
+				FCCCA027278C94E900B342D3 /* ANAdAdapterBannerNoDelegate.h */,
+				FCCCA028278C94E900B342D3 /* ANFailedMultiple.h */,
+				FCCCA029278C94E900B342D3 /* ANAdAdapterBannerSuccessful.m */,
+				FCCCA02A278C94E900B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.m */,
+				FCCCA02B278C94E900B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.m */,
+				FCCCA02C278C94E900B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */,
+				FCCCA02D278C94E900B342D3 /* ANLoadAndHitOtherCallbacks.m */,
+				FCCCA02E278C94E900B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.m */,
+				FCCCA02F278C94E900B342D3 /* ANAdAdapterBannerNoRequestMethod.m */,
+				FCCCA030278C94E900B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.h */,
+				FCCCA031278C94E900B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */,
+				FCCCA032278C94E900B342D3 /* ANAdAdapterBannerNetworkError.h */,
+				FCCCA033278C94E900B342D3 /* ANAdAdapterBannerUnableToFill.m */,
+			);
+			path = BannerAdapter;
+			sourceTree = "<group>";
+		};
+		FCCCA0AA278CA3CB00B342D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FCCCA0AF278CA3CB00B342D3 /* AppNexusSDK.framework */,
+				FCCCA0B1278CA3CB00B342D3 /* AppNexusNativeSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -887,7 +837,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0E1C95F323263F65004D4F2E /* PBXTargetDependency */,
 			);
 			name = SwiftCompatibilityTest;
 			productName = SwiftCompatibilityTest;
@@ -946,8 +895,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 0E70607922DE293F00EF2A91 /* Products */;
-					ProjectRef = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
+					ProductGroup = FCCCA0AA278CA3CB00B342D3 /* Products */;
+					ProjectRef = FCCCA0A9278CA3CB00B342D3 /* AppNexusSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -959,18 +908,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */ = {
+		FCCCA0AF278CA3CB00B342D3 /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AppNexusSDK.framework;
-			remoteRef = 0E70608022DE293F00EF2A91 /* PBXContainerItemProxy */;
+			remoteRef = FCCCA0AE278CA3CB00B342D3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */ = {
+		FCCCA0B1278CA3CB00B342D3 /* AppNexusNativeSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AppNexusNativeSDK.framework;
-			remoteRef = 0E70608222DE293F00EF2A91 /* PBXContainerItemProxy */;
+			remoteRef = FCCCA0B0278CA3CB00B342D3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -980,9 +929,41 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCCC9FE9278C925C00B342D3 /* OMID_TestResponse.json in Resources */,
+				FCCC9FFD278C925C00B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */,
+				FCCC9FF4278C925C00B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */,
+				FCCC9FEF278C925C00B342D3 /* SecondPriceForDFPParamIsUnset.json in Resources */,
+				FCCC9FFA278C925C00B342D3 /* native_videoResponse.json in Resources */,
+				FCCC9FF5278C925C00B342D3 /* OMID_Native_RTBResponse.json in Resources */,
 				97B06B9A2140309F00234B9A /* Assets.xcassets in Resources */,
+				FCCC9FFE278C925C00B342D3 /* custom_adapter_to_standard_response.json in Resources */,
+				FCCC9FEB278C925C00B342D3 /* appnexus_standard_response.json in Resources */,
+				FCCCA004278C925C00B342D3 /* appnexus_bannerNative_rendering.json in Resources */,
+				FCCCA003278C925C00B342D3 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				FCCCA006278C925C00B342D3 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
+				FCCC9FF3278C925C00B342D3 /* SuccessfulOutstreamVideoResponse.json in Resources */,
+				FCCC9FF6278C925C00B342D3 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */,
+				FCCC9FF9278C925C00B342D3 /* bannerNative_native_mediation.json in Resources */,
+				FCCCA005278C925C00B342D3 /* BannerMediationFailRTBVideoSuccess.json in Resources */,
+				FCCC9FED278C925C00B342D3 /* SuccessfulMRAIDResponse.json in Resources */,
+				FCCC9FEA278C925C00B342D3 /* SecondPriceForDFPSuccess.json in Resources */,
+				FCCC9FF0278C925C00B342D3 /* SuccessfulMediationResponse.json in Resources */,
+				FCCC9FEE278C925C00B342D3 /* SuccessfulNativeStandardAdResponse.json in Resources */,
+				FCCCA001278C925C00B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */,
+				FCCCA007278C925C00B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
+				FCCC9FEC278C925C00B342D3 /* nativeResponseWithoutImpTrackers.json in Resources */,
+				FCCC9FFB278C925C00B342D3 /* OMID_Native_CSMResponse.json in Resources */,
 				97B06B9D2140309F00234B9A /* LaunchScreen.storyboard in Resources */,
+				FCCC9FE8278C925C00B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
 				97B06B982140309E00234B9A /* Main.storyboard in Resources */,
+				FCCCA000278C925C00B342D3 /* appnexus_mock_mediation_response.json in Resources */,
+				FCCC9FF2278C925C00B342D3 /* SuccessfulInstreamVideoAdResponse.json in Resources */,
+				FCCC9FFF278C925C00B342D3 /* SuccessfulVerticalVideoAdResponse.json in Resources */,
+				FCCC9FF8278C925C00B342D3 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
+				FCCC9FF7278C925C00B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
+				FCCCA002278C925C00B342D3 /* bannerNative_basic_banner.json in Resources */,
+				FCCC9FFC278C925C00B342D3 /* SuccessfulMRAIDListenerResponse.json in Resources */,
+				FCCC9FF1278C925C00B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -990,43 +971,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E70611E22DE297700EF2A91 /* appnexus_bannerNative_rendering.json in Resources */,
-				0E70612322DE297700EF2A91 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
-				0E70611522DE297700EF2A91 /* appnexus_mock_mediation_response.json in Resources */,
-				0E70612622DE297700EF2A91 /* appnexus_standard_response.json in Resources */,
-				0E70612E22DE297700EF2A91 /* BannerMediationFailRTBVideoSuccess.json in Resources */,
-				0E70612B22DE297700EF2A91 /* bannerNative_basic_banner.json in Resources */,
-				0E70612822DE297700EF2A91 /* bannerNative_native_mediation.json in Resources */,
-				0E70612522DE297700EF2A91 /* BaseMediationSingleNetworkResponse.json in Resources */,
-				0E70611C22DE297700EF2A91 /* custom_adapter_to_standard_response.json in Resources */,
-				0E70613C22DE297700EF2A91 /* Default-568h@2x.png in Resources */,
-				0E70613322DE297700EF2A91 /* dogSelfie.jpg in Resources */,
-				0E70613022DE297700EF2A91 /* dogSelfie@2x.jpg in Resources */,
-				0E70613122DE297700EF2A91 /* GreyWhiteCat.jpg in Resources */,
-				0E70613222DE297700EF2A91 /* GreyWhiteCat@2x.jpg in Resources */,
-				0E70611622DE297700EF2A91 /* native_videoResponse.json in Resources */,
-				0E70611822DE297700EF2A91 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */,
-				0E70612C22DE297700EF2A91 /* nativeResponseWithoutImpTrackers.json in Resources */,
-				0E70611F22DE297700EF2A91 /* OMID_Native_CSMResponse.json in Resources */,
-				0E70611922DE297700EF2A91 /* OMID_Native_RTBResponse.json in Resources */,
-				0E70611722DE297700EF2A91 /* OMID_TestResponse.json in Resources */,
-				0E70611A22DE297700EF2A91 /* SecondPriceForDFPParamIsUnset.json in Resources */,
-				0E70612A22DE297700EF2A91 /* SecondPriceForDFPSuccess.json in Resources */,
-				0E70611222DE297700EF2A91 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
-				0E70612122DE297700EF2A91 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
-				0E70611022DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
-				0E70611122DE297700EF2A91 /* SuccessfulInstreamVideoAdResponse.json in Resources */,
-				0E70611422DE297700EF2A91 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
-				0E70612022DE297700EF2A91 /* SuccessfulMediationResponse.json in Resources */,
-				0E70611D22DE297700EF2A91 /* SuccessfulMRAIDListenerResponse.json in Resources */,
-				0E70611322DE297700EF2A91 /* SuccessfulMRAIDResponse.json in Resources */,
-				0E70612F22DE297700EF2A91 /* SuccessfulNativeStandardAdResponse.json in Resources */,
-				0E70611B22DE297700EF2A91 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */,
-				0E70612222DE297700EF2A91 /* SuccessfulOutstreamVideoResponse.json in Resources */,
-				0E70612422DE297700EF2A91 /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */,
-				0E70612922DE297700EF2A91 /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */,
-				97BB4137222405A5002B4EE5 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
-				0E70612722DE297700EF2A91 /* SuccessfulVerticalVideoAdResponse.json in Resources */,
+				FCCC9FD7278C923000B342D3 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
+				FCCC9FDB278C923000B342D3 /* native_videoResponse.json in Resources */,
+				FCCC9FCA278C923000B342D3 /* OMID_Native_RTBResponse.json in Resources */,
+				FCCC9FDD278C923000B342D3 /* appnexus_bannerNative_rendering.json in Resources */,
+				FCCC9FD2278C923000B342D3 /* SuccessfulVerticalVideoAdResponse.json in Resources */,
+				FCCC9FCB278C923000B342D3 /* SuccessfulMRAIDResponse.json in Resources */,
+				FCCC9FE6278C923000B342D3 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
+				FCCC9FC9278C923000B342D3 /* appnexus_standard_response.json in Resources */,
+				FCCC9FDA278C923000B342D3 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				FCCC9FC8278C923000B342D3 /* OMID_Native_CSMResponse.json in Resources */,
+				FCCC9FCD278C923000B342D3 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */,
+				FCCC9FD5278C923000B342D3 /* SuccessfulInstreamVideoAdResponse.json in Resources */,
+				FCCC9FE0278C923000B342D3 /* appnexus_mock_mediation_response.json in Resources */,
+				FCCC9FD4278C923000B342D3 /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */,
+				FCCC9FCC278C923000B342D3 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */,
+				FCCC9FDF278C923000B342D3 /* bannerNative_basic_banner.json in Resources */,
+				FCCC9FE3278C923000B342D3 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
+				FCCC9FDC278C923000B342D3 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
+				FCCC9FD9278C923000B342D3 /* SecondPriceForDFPParamIsUnset.json in Resources */,
+				FCCC9FCF278C923000B342D3 /* nativeResponseWithoutImpTrackers.json in Resources */,
+				FCCC9FE7278C923000B342D3 /* SuccessfulNativeStandardAdResponse.json in Resources */,
+				FCCC9FCE278C923000B342D3 /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */,
+				FCCC9FE1278C923000B342D3 /* SuccessfulMRAIDListenerResponse.json in Resources */,
+				FCCC9FD8278C923000B342D3 /* custom_adapter_to_standard_response.json in Resources */,
+				FCCC9FE5278C923000B342D3 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
+				FCCC9FD1278C923000B342D3 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
+				FCCC9FD0278C923000B342D3 /* OMID_TestResponse.json in Resources */,
+				FCCC9FD3278C923000B342D3 /* SecondPriceForDFPSuccess.json in Resources */,
+				FCCC9FE4278C923000B342D3 /* SuccessfulMediationResponse.json in Resources */,
+				FCCC9FD6278C923000B342D3 /* SuccessfulOutstreamVideoResponse.json in Resources */,
+				FCCC9FE2278C923000B342D3 /* bannerNative_native_mediation.json in Resources */,
+				FCCC9FDE278C923000B342D3 /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1046,75 +1022,71 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E70615A22DE297700EF2A91 /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
-				0E70615D22DE297700EF2A91 /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
-				0E70615B22DE297700EF2A91 /* ANAdAdapterBannerNetworkError.m in Sources */,
-				0E70615822DE297700EF2A91 /* ANAdAdapterBannerNoDelegate.m in Sources */,
-				0E70616222DE297700EF2A91 /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
-				0E70615C22DE297700EF2A91 /* ANAdAdapterBannerSuccessful.m in Sources */,
-				0E70615F22DE297700EF2A91 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
-				0E70615E22DE297700EF2A91 /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
-				0E70616322DE297700EF2A91 /* ANAdAdapterBannerUnableToFill.m in Sources */,
-				0E70616122DE297700EF2A91 /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
-				0E70615922DE297700EF2A91 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
+				FCCCA07B278C94ED00B342D3 /* ANHTTPStubURLProtocol.m in Sources */,
+				FCCCA067278C94ED00B342D3 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
+				FCCCA07A278C94ED00B342D3 /* XCTestCase+ANCategory.m in Sources */,
+				FCCCA072278C94ED00B342D3 /* ANVerificationScriptResource+ANTest.m in Sources */,
 				97355D2F21620BB200AF423B /* ANAdProtocolTestCase.swift in Sources */,
-				0E70614922DE297700EF2A91 /* ANAdView+ANTest.m in Sources */,
-				0E70614F22DE297700EF2A91 /* ANAdWebViewController+ANTest.m in Sources */,
+				FCCCA092278C950800B342D3 /* ANMockMediationAdapterSuccessfulNative.m in Sources */,
+				FCCCA077278C94ED00B342D3 /* NSObject+Swizzling.m in Sources */,
+				FCCCA0B7278CAABC00B342D3 /* ANHTTPCookieStorage.m in Sources */,
+				FCCC9F9B278C8DF500B342D3 /* TestGlobal.m in Sources */,
+				FCCCA075278C94ED00B342D3 /* ANAdWebViewController+ANTest.m in Sources */,
+				FCCCA06F278C94ED00B342D3 /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
+				FCCCA073278C94ED00B342D3 /* UIApplication+ANTest.m in Sources */,
+				FCCCA068278C94ED00B342D3 /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
+				FCCCA076278C94ED00B342D3 /* SDKValidationURLProtocol.m in Sources */,
 				976304CD2141165900ACA477 /* ANBannerAdTestCase.swift in Sources */,
-				0E70614622DE297700EF2A91 /* ANBannerAdView+ANTest.m in Sources */,
-				0E70615222DE297700EF2A91 /* ANBaseTestCase.m in Sources */,
-				0E70615722DE297700EF2A91 /* ANFailedMultiple.m in Sources */,
+				FCCCA070278C94ED00B342D3 /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
+				FCCCA05D278C94ED00B342D3 /* ANMockMediationAdapterTimeout.m in Sources */,
 				97717645215B9B9700985C39 /* ANGDPRSettingsTestCase.swift in Sources */,
-				0E70613D22DE297700EF2A91 /* ANHTTPStubbingManager.m in Sources */,
-				0E70613F22DE297700EF2A91 /* ANHTTPStubURLProtocol.m in Sources */,
+				FCCCA063278C94ED00B342D3 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				FCCCA082278C94ED00B342D3 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				FCCCA078278C94ED00B342D3 /* ANReachability+ANTest.m in Sources */,
 				97EC9628214A7A580007681A /* ANInstreamVideoAd+Test.m in Sources */,
 				97EC9619214A79750007681A /* ANInstreamVideoAdTestCase.swift in Sources */,
-				0E70614822DE297700EF2A91 /* ANInterstitialAd+ANTest.m in Sources */,
+				FCCCA083278C94ED00B342D3 /* XCTestCase+ANAdResponse.m in Sources */,
+				FCCCA05E278C94ED00B342D3 /* ANMockMediationAdapterLoadThenFail.m in Sources */,
+				FCCCA069278C94ED00B342D3 /* ANAdAdapterBannerNetworkError.m in Sources */,
+				FCCCA05C278C94ED00B342D3 /* ANTrackerManager+ANTest.m in Sources */,
+				FCCCA060278C94ED00B342D3 /* ANBannerAdView+ANTest.m in Sources */,
+				FCCCA093278C950800B342D3 /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
+				FCCCA095278C950800B342D3 /* XCTestCase+ANMediatedAd.m in Sources */,
+				FCCCA06B278C94ED00B342D3 /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
+				FCCCA06C278C94ED00B342D3 /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
+				FCCCA085278C94ED00B342D3 /* ANURLConnectionStub.m in Sources */,
+				FCCCA07F278C94ED00B342D3 /* ANMockMediationAdapterLoadedMultiple.m in Sources */,
 				97EF0F062142D3A1008B1E21 /* ANInterstitialAdTestCase.swift in Sources */,
-				0E70616022DE297700EF2A91 /* ANLoadAndHitOtherCallbacks.m in Sources */,
+				FCCCA084278C94ED00B342D3 /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				97717642215B855F00985C39 /* ANLocationTestCase.swift in Sources */,
-				0E70615122DE297700EF2A91 /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
-				0E70613822DE297700EF2A91 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */,
-				0E70613B22DE297700EF2A91 /* ANMockMediationAdapterLoadedMultiple.m in Sources */,
-				0E70613722DE297700EF2A91 /* ANMockMediationAdapterLoadThenFail.m in Sources */,
-				0E70613A22DE297700EF2A91 /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
-				0E70615322DE297700EF2A91 /* ANMockMediationAdapterSuccessfulNative.m in Sources */,
-				0E70613922DE297700EF2A91 /* ANMockMediationAdapterTimeout.m in Sources */,
-				0E70613622DE297700EF2A91 /* ANMRAIDTestResponses.m in Sources */,
-				0E70614B22DE297700EF2A91 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				FCCCA080278C94ED00B342D3 /* XCTestCase+ANBannerAdView.m in Sources */,
 				976C41AA214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift in Sources */,
-				0E70614D22DE297700EF2A91 /* ANReachability+ANTest.m in Sources */,
+				FCCCA061278C94ED00B342D3 /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */,
+				FCCCA081278C94ED00B342D3 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				978CF4D2215A57090031EA8F /* ANSDKSettingsTestCase.swift in Sources */,
-				0E70615022DE297700EF2A91 /* ANTestGlobal.m in Sources */,
-				0E70615622DE297700EF2A91 /* ANTestResponses.m in Sources */,
-				0E70614122DE297700EF2A91 /* ANTrackerManager+ANTest.m in Sources */,
-				0E70614422DE297700EF2A91 /* ANUniversalAdFetcher+ANTest.m in Sources */,
-				0E70614022DE297700EF2A91 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
-				0E70613E22DE297700EF2A91 /* ANURLConnectionStub.m in Sources */,
+				FCCCA05F278C94ED00B342D3 /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
+				FCCCA071278C94ED00B342D3 /* ANAdAdapterBannerUnableToFill.m in Sources */,
+				FCCCA074278C94ED00B342D3 /* ANHTTPStubbingManager.m in Sources */,
+				FCCCA065278C94ED00B342D3 /* ANFailedMultiple.m in Sources */,
+				FCCCA079278C94ED00B342D3 /* ANAdView+ANTest.m in Sources */,
+				FCCCA07D278C94ED00B342D3 /* ANInterstitialAd+ANTest.m in Sources */,
+				FCCCA06D278C94ED00B342D3 /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
 				973B23BC238D863000717D67 /* ANUSPrivacySettingsTestCase.swift in Sources */,
-				0E70614C22DE297700EF2A91 /* ANVerificationScriptResource+ANTest.m in Sources */,
+				FCCCA07E278C94ED00B342D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				FCCCA06E278C94ED00B342D3 /* ANLoadAndHitOtherCallbacks.m in Sources */,
+				FCCCA064278C94ED00B342D3 /* ANTestGlobal.m in Sources */,
 				97EC9629214A7A580007681A /* ANVideoAdPlayer+Test.m in Sources */,
-				0E70614E22DE297700EF2A91 /* NSObject+Swizzling.m in Sources */,
-				0E70614222DE297700EF2A91 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
-				0E70613522DE297700EF2A91 /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
-				0E70613422DE297700EF2A91 /* SDKValidationURLProtocol.m in Sources */,
-				0E70615522DE297700EF2A91 /* TestANUniversalFetcher.m in Sources */,
-				0E70614A22DE297700EF2A91 /* UIApplication+ANTest.m in Sources */,
-				0E70614522DE297700EF2A91 /* XCTestCase+ANAdResponse.m in Sources */,
-				0E70614322DE297700EF2A91 /* XCTestCase+ANBannerAdView.m in Sources */,
-				0E70614722DE297700EF2A91 /* XCTestCase+ANCategory.m in Sources */,
-				0E70615422DE297700EF2A91 /* XCTestCase+ANMediatedAd.m in Sources */,
+				FCCCA096278C950800B342D3 /* ANTestResponses.m in Sources */,
+				FCCCA066278C94ED00B342D3 /* ANAdAdapterBannerNoDelegate.m in Sources */,
+				FCCCA062278C94ED00B342D3 /* ANMRAIDTestResponses.m in Sources */,
+				FCCCA07C278C94ED00B342D3 /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
+				FCCCA06A278C94ED00B342D3 /* ANAdAdapterBannerSuccessful.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0E1C95F323263F65004D4F2E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppNexusSDK;
-			targetProxy = 0E1C95F223263F65004D4F2E /* PBXContainerItemProxy */;
-		};
 		97B06BA52140309F00234B9A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 97B06B8E2140309E00234B9A /* SwiftCompatibilityTest */;
@@ -1267,7 +1239,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2VZ6F2R3Z8;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../sdk\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../sdk/**",
@@ -1287,10 +1262,10 @@
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1303,7 +1278,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2VZ6F2R3Z8;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../sdk\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../sdk/**",
@@ -1324,9 +1302,9 @@
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1345,6 +1323,8 @@
 					"\"$(SRCROOT)/../UnitTestApp/UnitTestApp/SharedMockFiles\"",
 					"\"$(SRCROOT)/../UnitTestApp/UnitTestApp/UnitMockFiles\"",
 					"\"$(SRCROOT)/../../sdk/sourcefiles\"/**",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"/**",
+					"\"$(SRCROOT)/SwiftCompatibilityTestTests/cat\"/**",
 				);
 				INFOPLIST_FILE = SwiftCompatibilityTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1354,7 +1334,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
-				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)-Tests";
+				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/SwiftCompatibilityTest-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
@@ -1378,6 +1358,8 @@
 					"\"$(SRCROOT)/../UnitTestApp/UnitTestApp/SharedMockFiles\"",
 					"\"$(SRCROOT)/../UnitTestApp/UnitTestApp/UnitMockFiles\"",
 					"\"$(SRCROOT)/../../sdk/sourcefiles\"/**",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/config\"/**",
+					"\"$(SRCROOT)/SwiftCompatibilityTestTests/cat\"/**",
 				);
 				INFOPLIST_FILE = SwiftCompatibilityTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1387,7 +1369,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
-				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)-Tests";
+				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/SwiftCompatibilityTest-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
