@@ -49,6 +49,7 @@ static NSString *const kANAdType        = @"adType";
 static NSString *const kANBannerWidth   = @"width";
 static NSString *const kANBannerHeight  = @"height";
 static NSString *const kANInline        = @"inline";
+static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 
 
@@ -859,6 +860,22 @@ static NSString *const kANInline        = @"inline";
         }
     }
 }
+
+
+-(void) willMoveToSuperview:(UIView *)newSuperview {
+    if(!newSuperview && _adResponseInfo.adType == ANAdTypeNative && self.nativeAdResponse != nil){
+        [self.nativeAdResponse unregisterViewFromTracking];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            [super willMoveToSuperview:newSuperview];
+            self.nativeAdResponse = nil;
+        });
+    }
+    else{
+        [super willMoveToSuperview:newSuperview];
+    }
+}
+
 
 #pragma mark - Check if on screen & fire impression trackers
 

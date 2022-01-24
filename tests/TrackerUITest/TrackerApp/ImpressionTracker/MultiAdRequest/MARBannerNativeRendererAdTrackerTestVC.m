@@ -77,7 +77,7 @@
         [self.marAdRequest addAdUnit:[self createNativeAd]];
         self.nativeAdView.hidden = NO;
     }else if ([[NSProcessInfo processInfo].arguments containsObject:MARBannerNativeRendererImpressionClickTrackerTest]){
-        [self.marAdRequest addAdUnit:[self createBannerAd:self.bannerAdView andPlacementId:BannerNativeRendererPlacementId]];
+        [self.marAdRequest addAdUnit:[self createBannerAd:self.bannerAdView andPlacementId:MARPlacementId]];
         self.bannerAd.shouldAllowNativeDemand = YES;
         self.bannerAd.shouldAllowBannerDemand = NO;
         self.bannerAd.enableNativeRendering = YES;
