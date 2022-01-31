@@ -20,6 +20,9 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate , ANN
     
     var nativeAdRequest: ANNativeAdRequest?
     var nativeAdResponse: ANNativeAdResponse?
+    var anNativeAdView: ANNativeAdView?
+
+    
     var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
@@ -42,18 +45,18 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate , ANN
         self.nativeAdResponse = response
         let adNib = UINib(nibName: "ANNativeAdView", bundle: Bundle.main)
         let array = adNib.instantiate(withOwner: self, options: nil)
-        let nativeAdView = array.first as? ANNativeAdView
-        nativeAdView?.titleLabel.text = nativeAdResponse?.title
-        nativeAdView?.bodyLabel.text = nativeAdResponse?.body
-        nativeAdView?.iconImageView.image = nativeAdResponse?.iconImage
-        nativeAdView?.mainImageView.image = nativeAdResponse?.mainImage
-        nativeAdView?.sponsoredLabel.text = nativeAdResponse?.sponsoredBy
-        nativeAdView?.callToActionButton.setTitle(nativeAdResponse?.callToAction, for: .normal)
+        anNativeAdView = array.first as? ANNativeAdView
+        anNativeAdView?.titleLabel.text = nativeAdResponse?.title
+        anNativeAdView?.bodyLabel.text = nativeAdResponse?.body
+        anNativeAdView?.iconImageView.image = nativeAdResponse?.iconImage
+        anNativeAdView?.mainImageView.image = nativeAdResponse?.mainImage
+        anNativeAdView?.sponsoredLabel.text = nativeAdResponse?.sponsoredBy
+        anNativeAdView?.callToActionButton.setTitle(nativeAdResponse?.callToAction, for: .normal)
         nativeAdResponse?.delegate = self
         nativeAdResponse?.clickThroughAction = ANClickThroughAction.openSDKBrowser
-        view.addSubview(nativeAdView!)
+        view.addSubview(anNativeAdView!)
         do {
-            try nativeAdResponse?.registerView(forTracking: nativeAdView!, withRootViewController: self, clickableViews: [nativeAdView?.callToActionButton! as Any, nativeAdView?.mainImageView! as Any])
+            try nativeAdResponse?.registerView(forTracking: anNativeAdView!, withRootViewController: self, clickableViews: [self.anNativeAdView?.callToActionButton! as Any, self.anNativeAdView?.mainImageView! as Any])
         } catch {
             print("Failed to registerView for Tracking")
         }        
@@ -98,6 +101,12 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate , ANN
     
     func adWillLeaveApplication(_ response: Any) {
         print("adWillLeaveApplication")
+    }
+    
+    
+    @IBAction func hideAds(_ sender: Any) {
+        self.anNativeAdView?.removeFromSuperview()
+        
     }
 }
 

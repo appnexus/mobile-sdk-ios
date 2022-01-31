@@ -387,6 +387,24 @@
     
 }
 
+
+///*
+// testVideoEnableOMIDOptimization: To test the OMID is session finish get called after 100% Viewable
+// */
+//- (void)testVideoEnableOMIDOptimization {
+//    // Use recording to get started writing UI tests.
+//    // Use XCTAssert and related functions to verify your tests produce the correct results.
+//    XCUIApplication *app = [[XCUIApplication alloc] init];
+//    app.launchArguments = [app.launchArguments arrayByAddingObject:VideoViewabilityTrackerTest];
+//    app.launchArguments = [app.launchArguments arrayByAddingObject:@"EnableOMIDOptimization"];
+//    [app launch];
+//    XCUIElement * result = app.tables.staticTexts[@"type=sessionFinish"];
+//    [self waitForElementToAppear:result  withTimeout:20];
+//    XCUIElement * enableOMIDOptimization = app.tables.staticTexts[@"EnableOMIDOptimization"];
+//    [self waitForElementToAppear:enableOMIDOptimization  withTimeout:10];
+//
+//}
+
 - (void)wait:(NSUInteger)interval {
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"wait"];
