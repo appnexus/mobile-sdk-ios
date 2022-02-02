@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.19.0"
+#define AN_SDK_VERSION                  @"7.20.0"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
