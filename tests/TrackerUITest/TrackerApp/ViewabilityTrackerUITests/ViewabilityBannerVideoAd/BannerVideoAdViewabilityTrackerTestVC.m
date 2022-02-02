@@ -42,9 +42,16 @@
     
     [super viewDidLoad];
     
+    
     // store the list of argument passed  by UI test by UI Test
     self.uiTestList = [NSProcessInfo processInfo].arguments;
     
+    if( [self.uiTestList containsObject:@"EnableOMIDOptimization"]){
+        ANSDKSettings.sharedInstance.enableOMIDOptimization = true;
+    }else{
+        ANSDKSettings.sharedInstance.enableOMIDOptimization = false;
+    }
+
     //  MockTestcase is enabled(set to 1) prepare stubbing with mock response else disable stubbing
     if(MockTestcase){
         [self prepareStubbing];
@@ -126,11 +133,23 @@
 - (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
     // To Hide add after 2 second so that we can track the Viewablity zero
-    [NSTimer scheduledTimerWithTimeInterval:2.0
-                                     target:self
-                                   selector:@selector(hideShowAdAction)
-                                   userInfo:nil
-                                    repeats:NO];
+    
+    if(ANSDKSettings.sharedInstance.enableOMIDOptimization){
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (5 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+         
+            self.banner.frame = CGRectMake(-300, -300, self.banner.frame.size.width, self.banner.frame.size.height);
+            
+        });
+    }else{
+        [NSTimer scheduledTimerWithTimeInterval:2.0
+                                         target:self
+                                       selector:@selector(hideShowAdAction)
+                                       userInfo:nil
+                                        repeats:NO];
+        
+    }
+
 }
 
 // To Hide/Show add after 2 second so that we can track the Viewablity 0% & 100%
@@ -348,6 +367,13 @@
             
         }
         else  if([absoluteURLText containsString:@"type=sessionFinish&data=undefined"]){
+            
+            if(ANSDKSettings.sharedInstance.enableOMIDOptimization){
+                [self.eventList addObject:@"EnableOMIDOptimization"];
+                [self.eventList addObject:@"type=sessionFinish"];
+                
+            }
+            
             if( [[NSProcessInfo processInfo].arguments containsObject:@"SessionFinish"]){
                 [self.eventList addObject:@"type=sessionFinish"];
             }

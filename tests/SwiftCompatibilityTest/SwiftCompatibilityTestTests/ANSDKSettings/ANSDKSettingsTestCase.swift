@@ -51,32 +51,32 @@ class ANSDKSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     
     //Test Special ad sizes for which the content view should be constrained to the container view.
     //Note :- This testing process is still incomplete. Need to work on it.
-    func test_TC53_SizesThatShouldConstrainToSuperview() {
-        
-        bannerSuperView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 430))
-        UIApplication.shared.keyWindow?.rootViewController?.view.addSubview(bannerSuperView)
-        let rect = CGRect(x: 0, y: 0, width: bannerSuperView.frame.size.width, height: bannerSuperView.frame.size.height)
-        let adWidth: Int = 10
-        let adHeight: Int = 10
-        let sizes = [NSValue(cgSize: CGSize(width: CGFloat(adWidth), height: CGFloat(adHeight)))]
-        ANSDKSettings.sharedInstance().sizesThatShouldConstrainToSuperview = sizes
-        let size = CGSize(width: CGFloat(adWidth), height: CGFloat(adHeight))
-        setupBannerWithPlacement(placement: placementID, withFrame: rect, addSize: size)
-        bannerSuperView.addSubview(banner)
-        stubRequestWithResponse("SuccessfulAllowMagicSizeBannerObjectResponse")
-        banner.loadAd()
-        loadAdSuccesfulException = expectation(description: "Waiting for adDidReceiveAd to be received")
-        waitForExpectations(timeout: 2 * kAppNexusRequestTimeoutInterval, handler: { error in
-            
-        })
-        XCTAssertEqual(banner.frame.size.width, bannerSuperView.frame.size.width)
-        XCTAssertEqual(banner.frame.size.height, bannerSuperView.frame.size.height)
-        XCTAssertEqual(banner.loadedAdSize.width, 10)
-        XCTAssertEqual(banner.loadedAdSize.height, 10)
-        XCTAssertEqual(banner.adType, ANAdType.banner)
-        XCTAssertEqual(banner.creativeId, "106954775")
-        
-    }
+//    func test_TC53_SizesThatShouldConstrainToSuperview() {
+//        
+//        bannerSuperView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 430))
+//        UIApplication.shared.keyWindow?.rootViewController?.view.addSubview(bannerSuperView)
+//        let rect = CGRect(x: 0, y: 0, width: bannerSuperView.frame.size.width, height: bannerSuperView.frame.size.height)
+//        let adWidth: Int = 10
+//        let adHeight: Int = 10
+//        let sizes = [NSValue(cgSize: CGSize(width: CGFloat(adWidth), height: CGFloat(adHeight)))]
+//        ANSDKSettings.sharedInstance().sizesThatShouldConstrainToSuperview = sizes
+//        let size = CGSize(width: CGFloat(adWidth), height: CGFloat(adHeight))
+//        setupBannerWithPlacement(placement: placementID, withFrame: rect, addSize: size)
+//        bannerSuperView.addSubview(banner)
+//        stubRequestWithResponse("SuccessfulAllowMagicSizeBannerObjectResponse")
+//        banner.loadAd()
+//        loadAdSuccesfulException = expectation(description: "Waiting for adDidReceiveAd to be received")
+//        waitForExpectations(timeout: 2 * kAppNexusRequestTimeoutInterval, handler: { error in
+//            
+//        })
+//        XCTAssertEqual(banner.frame.size.width, bannerSuperView.frame.size.width)
+//        XCTAssertEqual(banner.frame.size.height, bannerSuperView.frame.size.height)
+//        XCTAssertEqual(banner.loadedAdSize.width, 10)
+//        XCTAssertEqual(banner.loadedAdSize.height, 10)
+//        XCTAssertEqual(banner.adType, ANAdType.banner)
+//        XCTAssertEqual(banner.creativeId, "106954775")
+//        
+//    }
     
     //Test LocationEnabledForCreative false to block Location popup asked by Creative
     func test_TC54_BannerAdForLocationEnabledForCreativeFalse() {
@@ -134,13 +134,16 @@ class ANSDKSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     }
     
     //Test httpsEnabled false so SDK will make all requests in HTTP
-    func test_TC57_BannerAdForHTTPSEnabledFalse() {
+    // this testcase is invalid
+   /*
+     func test_TC57_BannerAdForHTTPSEnabledFalse() {
         ANSDKSettings.sharedInstance().httpsEnabled = false
         banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         banner.delegate = self
         banner.loadAd()
         XCTAssertFalse(ANSDKSettings.sharedInstance().baseUrlConfig.utAdRequestBaseUrl().range(of:"https") != nil)
     }
+     */
     
     func setupBannerWithPlacement(placement: String, withFrame frame:CGRect, addSize size: CGSize )
     {
@@ -183,9 +186,13 @@ class ANSDKSettingsTestCase: XCTestCase, ANBannerAdViewDelegate {
     // MARK: - ANAdDelegate
     func adDidReceiveAd(_ ad: Any) {
         loadAdSuccesfulException?.fulfill()
+        loadAdSuccesfulException = nil;
+
     }
     
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         loadAdSuccesfulException?.fulfill()
+        loadAdSuccesfulException = nil;
+
     }
 }

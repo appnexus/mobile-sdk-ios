@@ -114,6 +114,7 @@
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
         sdkSettings.countImpressionOn1PxRendering = NO;
         sdkSettings.useAdnxsSimpleDomain = YES;
+        sdkSettings.enableOMIDOptimization = NO;
     });
     return sdkSettings;
 }

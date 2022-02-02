@@ -18,7 +18,7 @@
 import XCTest
 @testable import AppNexusSDK
 
-class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
+class AANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
     
     var banner : ANBannerAdView!
     var nativeAd: ANNativeAdResponse?
@@ -37,14 +37,14 @@ class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        ANGlobal.getUserAgent()
+        ANGlobal.userAgent()
         ANLogManager.setANLogLevel(ANLogLevel.all)
         banner = nil
         nativeAd = nil
         standardAd = nil
         expectationRequest = nil
         expectationResponse = nil
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         foundStandardAdResponseObject = false
         ANHTTPStubbingManager.shared().enable()        
         ANHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
@@ -62,6 +62,17 @@ class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
         ANSDKSettings.sharedInstance().httpsEnabled = false
         NotificationCenter.default.removeObserver(self)
         cleanupRootViewController()
+
+        banner = nil
+        nativeAd = nil
+        standardAd = nil
+        expectationRequest = nil
+        expectationResponse = nil
+        timeoutForImpbusRequest = 10.0
+        foundStandardAdResponseObject = false
+        
+        
+        
     }
     
     func requestCompleted(_ notification: Notification?) {
@@ -384,17 +395,23 @@ class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
             nativeAd = responseInstance as? ANNativeAdResponse
             foundStandardAdResponseObject = true
             expectationResponse?.fulfill()
+            expectationResponse = nil;
+
         }
         if (responseInstance is ANNativeMediatedAdResponse) {
             nativeAd = responseInstance as? ANNativeAdResponse
             foundStandardAdResponseObject = true
             expectationResponse?.fulfill()
+            expectationResponse = nil;
+
         }
     }
     
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         expectationResponse?.fulfill()
         XCTAssertTrue(false)
+        expectationResponse = nil;
+
     }
 
     

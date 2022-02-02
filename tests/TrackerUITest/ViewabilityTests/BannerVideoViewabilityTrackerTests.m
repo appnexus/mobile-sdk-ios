@@ -279,6 +279,24 @@
     [self waitForElementToAppear:result  withTimeout:8];
     
 }
+
+/*
+ testBannerEnableOMIDOptimization: To test the OMID is session finish get called after 100% Viewable
+ */
+- (void)testBannerVideoEnableOMIDOptimization {
+    // Use recording to get started writing UI tests.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerVideoViewabilityTrackerTest];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:@"EnableOMIDOptimization"];
+    [app launch];
+    XCUIElement * result = app.tables.staticTexts[@"type=sessionFinish"];
+    [self waitForElementToAppear:result  withTimeout:20];
+    XCUIElement * enableOMIDOptimization = app.tables.staticTexts[@"EnableOMIDOptimization"];
+    [self waitForElementToAppear:enableOMIDOptimization  withTimeout:10];
+
+}
+
 /**
   Wait n amount of time for XCUIElement to appear on the screen
   @param element : XCUIElement that's required to appear.

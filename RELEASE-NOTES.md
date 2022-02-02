@@ -1,3 +1,8 @@
+ ## 7.20.0
+### Improvement/Bug Fixes
++ MS-4952 Check navigationType when opening a URL [Github PR #73]
++ MS-4851 Improved OMSDK performance 
+
 ## 7.19.0
 ### Improvement/Bug Fixes
 + MS-4884 Improved impression tracking methodology for Native Ads, trackers to be fired on render 

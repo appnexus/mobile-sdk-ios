@@ -37,6 +37,7 @@
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
 @property (nonatomic, readwrite, assign) BOOL impressionHasBeenTracked;
 
+@property (nonatomic, readwrite)          BOOL  isAdVisible100Percent;
 @end
 
 
@@ -74,6 +75,8 @@
         _networkCode = ANNativeAdNetworkCodeAppNexus;
         _dateCreated = [NSDate date];
         _impressionHasBeenTracked = NO;
+        _isAdVisible100Percent    = NO;
+
     }
     return self;
 }
@@ -109,7 +112,8 @@
 
 - (void)setupViewabilityTracker
 {
-    if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering) {
+    
+    if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering || [ANSDKSettings sharedInstance].enableOMIDOptimization) {
         [ANRealTimer addDelegate:self];
     } else {
         if(self.viewForTracking.window) {
@@ -130,11 +134,24 @@
     CGRect updatedVisibleInViewRectangle = [self.viewForTracking an_visibleInViewRectangle];
     
     ANLogInfo(@"visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
-    if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
-        ANLogInfo(@"Impression tracker fired when 1px native on screen");
-        [self trackImpression];
+    if(!self.impressionHasBeenTracked){
+        if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
+            ANLogInfo(@"Impression tracker fired when 1px native on screen");
+            [self trackImpression];
+        }
     }
-
+    if([ANSDKSettings sharedInstance].enableOMIDOptimization){
+        if(updatedVisibleInViewRectangle.size.width == self.viewForTracking.frame.size.width && updatedVisibleInViewRectangle.size.height ==  self.viewForTracking.frame.size.height && !self.isAdVisible100Percent){
+            self.isAdVisible100Percent = YES;
+        }else  if(updatedVisibleInViewRectangle.size.width == 0 && updatedVisibleInViewRectangle.size.height == 0 && self.isAdVisible100Percent){
+            if (self.omidAdSession != nil){
+                [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
+                [ANRealTimer removeDelegate:self];
+                
+                
+            }
+        }
+    }
 }
 
 - (void)checkIfIABViewable {
@@ -149,7 +166,9 @@
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
         self.impressionHasBeenTracked = YES;
-        [ANRealTimer removeDelegate:self];
+        if(![ANSDKSettings sharedInstance].enableOMIDOptimization){
+            [ANRealTimer removeDelegate:self];
+        }
     }
 }
 
@@ -167,9 +186,7 @@
 }
 
 - (void) handle1SecTimerSentNotification {
-    if(!self.impressionHasBeenTracked){
-        [self checkIfViewIs1pxOnScreen];
-    }
+    [self checkIfViewIs1pxOnScreen];
 }
 
 

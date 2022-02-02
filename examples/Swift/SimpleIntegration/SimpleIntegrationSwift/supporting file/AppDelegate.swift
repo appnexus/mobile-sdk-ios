@@ -15,7 +15,7 @@ limitations under the License.
 
 
 import UIKit
-
+import AppNexusSDK
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        ANSDKSettings.sharedInstance().enableOMIDOptimization = true
         return true
     }
 }

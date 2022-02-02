@@ -18,7 +18,7 @@
 import XCTest
 import AppNexusSDK
 
-class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
+class AANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
     
     let kAppNexusNewYorkLocationLatitudeFull: CGFloat = 40.7418474
     let kAppNexusNewYorkLocationLongitudeFull: CGFloat = -73.99096229999998
@@ -42,7 +42,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         banner = nil
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         ANHTTPStubbingManager.shared().enable()
         ANHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         ANHTTPStubbingManager.shared().broadcastRequests = true
@@ -59,6 +59,9 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         ANSDKSettings.sharedInstance().httpsEnabled = false
         NotificationCenter.default.removeObserver(self)
         self.loadAdSuccesfulException = nil
+        request = nil
+        banner = nil
+
     }
     func requestCompleted(_ notification: Notification?) {
         var incomingRequest = notification?.userInfo![kANHTTPStubURLProtocolRequest] as? URLRequest
@@ -76,7 +79,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -97,7 +100,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -117,7 +120,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -138,10 +141,10 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
-        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+        waitForExpectations(timeout: timeoutForImpbusRequest*2, handler: nil)
         if let deviceDic = jsonRequestBody["device"] as? [String : Any]
         {
             XCTAssertNil(location)
@@ -165,7 +168,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -186,7 +189,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -213,7 +216,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -240,7 +243,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -267,7 +270,7 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
         self.banner = ANBannerAdView.init(frame: CGRect(x: 0, y: 0, width: 300, height: 250), placementId: placementID, adSize: CGSize(width: 300, height: 250))
         self.banner.delegate = self
         self.banner.location = location
-        stubRequestWithResponse("SuccessfulInstreamVideoAdResponse")
+        stubRequestWithResponse("SuccessfulLocationCreativeForBannerAdResponse")
         loadAdSuccesfulException = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -314,10 +317,14 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
     func adDidReceiveAd(_ ad: Any) {
         loadAdSuccesfulException?.fulfill()
         XCTAssertNotNil(ad)
+        loadAdSuccesfulException = nil;
+
     }
     
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         loadAdSuccesfulException?.fulfill()
         XCTAssertTrue(false)
+        loadAdSuccesfulException = nil;
+
     }
 }

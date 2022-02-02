@@ -44,6 +44,8 @@
     
 }
 
+
+
 /*
  testNativeClickTrackerTestAd: To test the click tracker is fired by the Native Ad.
  */
@@ -74,6 +76,45 @@
     NSPredicate *exists = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:exists evaluatedWithObject:element handler:nil];
     [self waitForExpectationsWithTimeout:timeout handler:nil];
+}
+
+
+/*
+ testNativeImpressionTrackerTestAd: To test the impression tracker is fired by the Native Ad.
+ */
+- (void)testNativeMultipleImpressionTrackerTestAd {
+    // Use recording to get started writing UI tests.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:NativeImpressionClickTrackerTest];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:NativeMultiImpressionTrackerTest];
+    [app launch];
+    XCUIElement *impressionTracker = app.staticTexts[@"MultiImpressionTracker"];
+    [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout*2];;
+    XCTAssertTrue(impressionTracker.exists);
+
+    
+}
+
+
+
+/*
+ testNativeImpressionTrackerTestAd: To test the impression tracker is fired by the Native Ad.
+ */
+- (void)testNativeMultipleClickTrackerTestAd {
+    // Use recording to get started writing UI tests.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:NativeImpressionClickTrackerTest];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:NativeMultiClickTrackerTest];
+    [app launch];
+    XCUIElement *clickTracker = app.staticTexts[@"MultiClickTracker"];
+    [self waitForElementToAppear:clickTracker  withTimeout:ImpressionTrackerTimeout*2];;
+    XCTAssertTrue(clickTracker.exists);
+
+    
 }
 
 @end

@@ -34,6 +34,7 @@
 #import "ANAdConstants.h"
 #import "NSObject+Swizzling.h"
 #import "ANAdView+ANTest.h"
+#import "ANAdFetcherBase+PrivateMethods.h"
 #import <objc/runtime.h>
 #import "ANAdWebViewController+ANTest.h"
 #import "ANAdWebViewController+ANTest.h"

@@ -1,0 +1,53 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 13255429,
+            "auction_id": "8259810910900556837",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL4AqB4AQAAAwDWAAUBCI3iht8FEKWo_sCtyK_Qchi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDgMIWGqQY4vgdAvgdIAFAAWABgAGgAeACAAQCKAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAqAQAsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCADgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAekU8D_SBQkJAQoBAaDYBQDgBQDwBQD6BQQIABAAkAYAmAYAuAYAwQYAAAAAAADwv8gGANAGAA..&s=5bb484f386ca7e4f0d1453f47c5d3d60c238d9d5",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 958,
+                    "creative_id": 111796070,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/s/145/trk.js#v;tv=native1-18h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;ab=10;cid=1;tag_id=13255429;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Ftest%3D1%26e%3DwqT_3QL8AqB8AQAAAwDWAAUBCI3iht8FEKWo_sCtyK_Qchi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANoEAggB4AQB8AQA-gQSCQAAAECW5EJAEQAAAMACml7AggUbY29tLmFwcG5leHVzLkFwcE5leHVzU0RLQXBwiAUBmAUAoAUAwAUAyQUAAAAAAADwP9IFCQkAAAEMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.%26s%3Da93a4d40c153b9e16ad1a70a5faac5daef3d9978;ts=1541517581;cet=0;cecb=\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "AppNexusSDKApp",
+                            "desc": "Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+                            "sponsored": "AppNexus Sponsored",
+                            "ctatext": "Call-to-Action",
+                            "icon": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/17/3d/33/81/173d3381-9364-4b4a-8303-da65cae1c6f0.png",
+                                "width": 600,
+                                "height": 600
+                            },
+                            "main_img": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/64/3a/13/fc/643a13fc-290d-40a2-b1f8-e8a8161234e5.png",
+                                "width": 278,
+                                "height": 181
+                            },
+                            "link": {
+                                "url": "http://www.appnexus.com",
+                                "click_trackers": [
+                                    "http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWUH9hCvqByNSaARb5ciyYNseFbAAAAAAVDygC-AwAAvgMAAAAAAABm36kGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEANg2PmwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
+                                ]
+                            },
+                            "id": 111796070,
+                            "desc2": "Additional Desc2"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

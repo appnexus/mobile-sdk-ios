@@ -36,7 +36,10 @@
 #define NativePlacementId @"19213468"
 #define BannerNativeRendererPlacementId @"20331545"
 #define VideoPlacementId @"19213468"
-#define InterstitialPlacementId @"19213468"
+#define InterstitialPlacementId @"17058950"
+#define MARPlacementId @"17058950"
+
+
 
 /**
  Set Creative Id for different type of Ad
@@ -56,6 +59,8 @@
 #define InterstitialImpressionClickTrackerTest @"InterstitialImpressionClickTrackerTest"
 #define VideoImpressionClickTrackerTest @"VideoImpressionClickTrackerTest"
 #define NativeImpressionClickTrackerTest @"NativeImpressionClickTrackerTest"
+#define NativeMultiClickTrackerTest @"NativeMultiClickTrackerTest"
+#define NativeMultiImpressionTrackerTest @"NativeMultiImpressionTrackerTest"
 #define MARBannerImpressionClickTrackerTest @"MARBannerImpressionClickTrackerTest"
 #define MARNativeImpressionClickTrackerTest @"MARNativeImpressionClickTrackerTest"
 #define MARBannerNativeRendererImpressionClickTrackerTest @"MARBannerNativeRendererImpressionClickTrackerTest"

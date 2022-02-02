@@ -35,7 +35,7 @@ class ANInterstitialAdTestCase: XCTestCase, ANInterstitialAdDelegate {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         didAdClose = false
         isReady = false
         isCloseDelay = false
@@ -212,6 +212,8 @@ class ANInterstitialAdTestCase: XCTestCase, ANInterstitialAdDelegate {
         if closeAdSuccesfulException != nil
         {
           closeAdSuccesfulException.fulfill()
+            closeAdSuccesfulException = nil;
+
         }
     }
     func ad(_ ad: Any, requestFailedWithError error: Error) {
@@ -219,6 +221,8 @@ class ANInterstitialAdTestCase: XCTestCase, ANInterstitialAdDelegate {
         if loadIsReadyException != nil {
              isReady = false
             loadIsReadyException.fulfill()
+            loadIsReadyException = nil;
+
         }
     }
 }

@@ -49,6 +49,7 @@ static NSString *const kANAdType        = @"adType";
 static NSString *const kANBannerWidth   = @"width";
 static NSString *const kANBannerHeight  = @"height";
 static NSString *const kANInline        = @"inline";
+static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 
 
@@ -68,6 +69,8 @@ static NSString *const kANInline        = @"inline";
 @property (nonatomic, strong)             ANNativeAdResponse  *nativeAdResponse;
 
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
+
+@property (nonatomic, readwrite)          BOOL  isAdVisible100Percent;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
@@ -145,6 +148,7 @@ static NSString *const kANInline        = @"inline";
     _enableLazyLoad                 = NO;
     _didBecomeLazyAdUnit            = NO;
     _isLazySecondPassThroughAdUnit  = NO;
+    _isAdVisible100Percent          = NO;
 
     //
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
@@ -578,8 +582,10 @@ static NSString *const kANInline        = @"inline";
         if(shouldAddDelegate){
             [ANRealTimer addDelegate:self];
         }
+    }else if([ANSDKSettings sharedInstance].enableOMIDOptimization){
+        [ANRealTimer addDelegate:self];
     }
-   
+    
     // Capture state for all AdUnits.  UNLESS this is the second pass of lazy AdUnit.
     //
     if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
@@ -860,20 +866,54 @@ static NSString *const kANInline        = @"inline";
     }
 }
 
+
+-(void) willMoveToSuperview:(UIView *)newSuperview {
+    if(!newSuperview && _adResponseInfo.adType == ANAdTypeNative && self.nativeAdResponse != nil){
+        [self.nativeAdResponse unregisterViewFromTracking];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            [super willMoveToSuperview:newSuperview];
+            self.nativeAdResponse = nil;
+        });
+    }
+    else{
+        [super willMoveToSuperview:newSuperview];
+    }
+}
+
+
 #pragma mark - Check if on screen & fire impression trackers
 
 - (void) handle1SecTimerSentNotification {
     CGRect updatedVisibleInViewRectangle = [self.contentView an_visibleInViewRectangle];
     
-        ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
-        
-        if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
-            ANLogDebug(@"Impression tracker fired on 1px rendering");
-            //Fire impression tracker here
-            [self fireTrackerAndOMID];
-            //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
+    ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
+    
+    if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0 && self.impressionURLs != nil && self.valueOfHowImpressionBeFired == AN1PxViewed){
+        ANLogDebug(@"Impression tracker fired on 1px rendering");
+        //Fire impression tracker here
+        [self fireTrackerAndOMID];
+        //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions
+        if(![ANSDKSettings sharedInstance].enableOMIDOptimization){
             [ANRealTimer removeDelegate:self];
         }
+    }
+    
+    if([ANSDKSettings sharedInstance].enableOMIDOptimization){
+        if(updatedVisibleInViewRectangle.size.width == self.loadedAdSize.width && updatedVisibleInViewRectangle.size.height == self.loadedAdSize.height && !self.isAdVisible100Percent){
+            self.isAdVisible100Percent = YES;
+        }else  if(updatedVisibleInViewRectangle.size.width == 0 && updatedVisibleInViewRectangle.size.height == 0 && self.isAdVisible100Percent){
+            if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+            {
+                ANMRAIDContainerView  *standardAdView  = (ANMRAIDContainerView *)self.contentView;
+                if (standardAdView.webViewController.omidAdSession != nil)
+                {
+                    [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:standardAdView.webViewController.omidAdSession];
+                    [ANRealTimer removeDelegate:self];
+                }
+            }
+        }
+    }
 }
 
 

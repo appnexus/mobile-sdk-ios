@@ -82,6 +82,15 @@
     CGRect rect = CGRectMake(originX, originY, adWidth, adHeight);
     CGSize size = CGSizeMake(adWidth, adHeight);
     
+    
+    if( [self.uiTestList containsObject:@"EnableOMIDOptimization"]){
+        ANSDKSettings.sharedInstance.enableOMIDOptimization = true;
+    }else{
+        ANSDKSettings.sharedInstance.enableOMIDOptimization = false;
+    }
+    
+    
+    
     // Prepair a banner Native ad view.
     if( [self.uiTestList containsObject:BannerNativeViewabilityTrackerTest] ||  [self.uiTestList containsObject:BannerNativeRendererViewabilityTrackerTest] ){
         
@@ -280,12 +289,22 @@
                                     clickableViews:@[self.nativeAdView.callToActionButton,self.nativeAdView.mainImageView]
                                              error:nil];
     
-    
-    [NSTimer scheduledTimerWithTimeInterval:2.0
-                                     target:self
-                                   selector:@selector(hideShowAdAction)
-                                   userInfo:nil
-                                    repeats:NO];
+    if(ANSDKSettings.sharedInstance.enableOMIDOptimization){
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (5 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+         
+            _nativeAdView.frame = CGRectMake(-600, -600, _nativeAdView.frame.size.width, _nativeAdView.frame.size.height);
+            
+        });
+    }
+    else{
+        [NSTimer scheduledTimerWithTimeInterval:2.0
+                                         target:self
+                                       selector:@selector(hideShowAdAction)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+
 }
 
 - (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error withAdResponseInfo:(nullable ANAdResponseInfo *)adResponseInfo {
@@ -366,7 +385,12 @@
     
     
     else if([response containsString:@"type%22%3A%22sessionFinish%22%7D"]){
-        
+        if(ANSDKSettings.sharedInstance.enableOMIDOptimization && [self.uiTestList containsObject:@"SessionFinish"]){
+            [self.eventList addObject:@"EnableOMIDOptimization"];
+            [self.eventList addObject:@"type=sessionFinish"];
+            self.tableView.hidden = NO;
+            [self.tableView reloadData];
+        }
         if([self.uiTestList containsObject:@"SessionFinish"]){
             [self.eventList addObject:@"type=sessionFinish"];
         }

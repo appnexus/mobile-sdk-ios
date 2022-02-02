@@ -33,7 +33,7 @@ class ANInterstitialAdViewTests: XCTestCase {
     func testRTBInterstitial() {
        
         
-        let adObject = AdObject(adType: "Interstitial", accessibilityIdentifier: PlacementTestConstants.InterstitialAd.testRTBInterstitial, placement: "19065996")
+        let adObject = AdObject(adType: "Interstitial", accessibilityIdentifier: PlacementTestConstants.InterstitialAd.testRTBInterstitial, placement: InterstitialPlacementId)
 
         let interstitialAdObject =  InterstitialAdObject(closeDelay: 5, adObject: adObject)
         
@@ -54,7 +54,7 @@ class ANInterstitialAdViewTests: XCTestCase {
         XCGlobal.screenshotWithTitle(title: PlacementTestConstants.InterstitialAd.testRTBInterstitial)
 
         XCTAssertEqual(interstitialAd.exists, true)
-        wait(10)
+        wait(30)
         let closeButton = app.buttons["interstitial flat closebox"]
         XCTAssertEqual(closeButton.exists, true)
         closeButton.tap()
