@@ -357,23 +357,13 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     if (self.completedFirstLoad) {
         if (ANHasHttpPrefix(URLScheme)) {
-            if (self.isMRAID) {
-                if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]
-                     || navigationAction.targetFrame == nil)
-                    && self.configuration.navigationTriggersDefaultBrowser) {
-                    [self.browserDelegate openDefaultBrowserWithURL:URL];
-                    decisionHandler(WKNavigationActionPolicyCancel);
-                    return;
-                }
-            } else {
-                if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]
-                     || navigationAction.navigationType == WKNavigationTypeLinkActivated
-                     || navigationAction.targetFrame == nil)
-                    && self.configuration.navigationTriggersDefaultBrowser) {
-                    [self.browserDelegate openDefaultBrowserWithURL:URL];
-                    decisionHandler(WKNavigationActionPolicyCancel);
-                    return;
-                }
+            if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]
+                 || navigationAction.navigationType == WKNavigationTypeLinkActivated
+                 || navigationAction.targetFrame == nil)
+                && self.configuration.navigationTriggersDefaultBrowser) {
+                [self.browserDelegate openDefaultBrowserWithURL:URL];
+                decisionHandler(WKNavigationActionPolicyCancel);
+                return;
             }
         } else if ([URLScheme isEqualToString:@"mraid"]) {
             [self handleMRAIDURL:URL];
