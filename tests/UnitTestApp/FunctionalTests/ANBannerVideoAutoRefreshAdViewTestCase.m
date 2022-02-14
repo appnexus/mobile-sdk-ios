@@ -99,7 +99,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.adType, ANAdTypeVideo);
+    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeVideo);
     XCTAssertNil(self.banner.universalAdFetcher.autoRefreshTimer);
 }
 
