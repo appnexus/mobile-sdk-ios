@@ -54,7 +54,7 @@
     [videoAd tap];
     [videoAd tap];
     XCUIElement *okButton  = app.toolbars[@"Toolbar"].buttons[@"OK"];
-    [self waitForElementToAppear:okButton withTimeout:ClickTrackerTimeout];
+    [self waitForElementToAppear:okButton withTimeout:ClickTrackerTimeout*2];
     [okButton tap];
     XCUIElement *clickTracker = app.staticTexts[@"ClickTracker"];
     [self waitForElementToAppear:clickTracker  withTimeout:ClickTrackerTimeout];;

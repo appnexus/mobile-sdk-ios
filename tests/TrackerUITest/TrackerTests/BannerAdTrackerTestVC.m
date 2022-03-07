@@ -56,9 +56,10 @@
     XCUIElement *bannerad = app.webViews.firstMatch;
     [self waitForElementToAppear:bannerad  withTimeout:ClickTrackerTimeout];;
     [bannerad tap];
+    [bannerad tap];
     sleep(10);
     XCUIElement *okButton  = app.toolbars[@"Toolbar"].buttons[@"OK"];
-    [self waitForElementToAppear:okButton withTimeout:ClickTrackerTimeout];
+    [self waitForElementToAppear:okButton withTimeout:ClickTrackerTimeout*2];
     [okButton tap];
     XCUIElement *clickTracker = app.staticTexts[@"ClickTracker"];
     [self waitForElementToAppear:clickTracker  withTimeout:ClickTrackerTimeout];;

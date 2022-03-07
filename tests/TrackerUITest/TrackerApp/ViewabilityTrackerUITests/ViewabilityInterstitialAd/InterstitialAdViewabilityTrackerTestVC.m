@@ -135,7 +135,7 @@
         NSLog(@"absoluteURLText -> %@",absoluteURLText);
         
         
-        if([absoluteURLText containsString:@"sendmessage?version="]){
+        if([absoluteURLText containsString:@"version="]){
             if( [self.uiTestList containsObject:@"VersionEvent"]){
                 [self.eventList addObject:@"version="];
             }

@@ -197,8 +197,8 @@
                 [self.eventList addObject:@"percentageInView=0"];
             }
             
-        }else  if([absoluteURLText containsString:@"type=loaded&data%5Bskippable%5D=true&data%5BautoPlay%5D=true&data%5Bposition%5D=In-Video&data%5BskipOffset%5D=0&data%5BimpressionType%5D=beginToRender&data%5BmediaType%5D=video&data%5BcreativeType%5D=video"]){
-            
+        }else  if([absoluteURLText containsString:@"type=loaded"]){
+//            &data%5Bskippable%5D=true&data%5BautoPlay%5D=true&data%5Bposition%5D=In-Video&data%5BskipOffset%5D=0&data%5BimpressionType%5D=beginToRender&data%5BmediaType%5D=video&data%5BcreativeType%5D=video
             
             
             if( [[NSProcessInfo processInfo].arguments containsObject:@"OMIDBeginToRenderer"]){
@@ -253,7 +253,9 @@
             
         }
         
-        else  if([absoluteURLText containsString:@"type=impression&data%5BimpressionType%5D=beginToRender&data%5BmediaType%5D=video&data%5BcreativeType%5D=video"]){
+        
+//        type=impression&data%5BimpressionType%5D=beginToRender&data%5BmediaType%5D=video&data%5BcreativeType%5D=video
+        else  if([absoluteURLText containsString:@"type=impression"]){
             if( [[NSProcessInfo processInfo].arguments containsObject:@"OMIDBeginToRenderer"]){
                 
                 [self.eventList addObject:@"type=impression"];

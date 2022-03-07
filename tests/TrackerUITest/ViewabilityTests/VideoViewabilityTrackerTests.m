@@ -160,7 +160,8 @@
    
     XCUIElementQuery *webViewsQuery = app.webViews.webViews.webViews;
     XCUIElement *skipAction  =  webViewsQuery.buttons[@"SKIP"];
-    [self waitForElementToAppear:skipAction  withTimeout:40];;
+    [self waitForElementToAppear:skipAction  withTimeout:40];
+    wait(200);
     [skipAction tap];
     XCUIElement *result = app.tables.staticTexts[@"type=skipped"];
     [self waitForElementToAppear:result  withTimeout:20];
@@ -301,7 +302,7 @@
     XCUIElement *  result = app.tables.staticTexts[@"version="];
     [self waitForElementToAppear:result  withTimeout:40];
     result = app.tables.staticTexts[@"supported=yes"];
-    [self waitForElementToAppear:result  withTimeout:8];
+    [self waitForElementToAppear:result  withTimeout:20];
     
 }
 
@@ -314,7 +315,7 @@
     app.launchArguments = [app.launchArguments arrayByAddingObject:@"OMIDBeginToRenderer"];
     [app launch];
     XCUIElement *  result = app.tables.staticTexts[@"type=loaded"];
-    [self waitForElementToAppear:result  withTimeout:40];
+    [self waitForElementToAppear:result  withTimeout:60];
     
     
     result = app.tables.staticTexts[@"skippable=true"];
