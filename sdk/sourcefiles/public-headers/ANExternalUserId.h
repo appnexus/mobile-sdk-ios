@@ -17,13 +17,13 @@
 /*
  *  Supported Third Party ID Sources
  * */
-typedef NS_ENUM(NSUInteger, ANExternalUserIdSource) {
+typedef NS_ENUM(NSUInteger, ANExternalUserIdSource)  {
     ANExternalUserIdSourceLiveRamp,
     ANExternalUserIdSourceNetId,
     ANExternalUserIdSourceCriteo,
     ANExternalUserIdSourceTheTradeDesk,
     ANExternalUserIdSourceUID2
-};
+}DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases.");
 
 
 
@@ -35,14 +35,14 @@ typedef NS_ENUM(NSUInteger, ANExternalUserIdSource) {
 /**
  Source of the External User Id
  */
-@property (nonatomic, readwrite)  ANExternalUserIdSource  source;
+@property (nonatomic, readwrite)  ANExternalUserIdSource  source DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases.");
 
 /**
  The User Id String
  */
-@property (nonatomic, readwrite, strong, nonnull) NSString *userId;
+@property (nonatomic, readwrite, strong, nonnull) NSString *userId DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases.");
 
 
-- (nullable instancetype)initWithSource:(ANExternalUserIdSource)source userId:(nonnull NSString *)userId;
+- (nullable instancetype)initWithSource:(ANExternalUserIdSource)source userId:(nonnull NSString *)userId DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases.");
 
 @end
