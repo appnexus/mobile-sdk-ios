@@ -8,6 +8,14 @@ echo "M0bil35DK" | sudo -S chown -R `whoami` ~/.npm
 #brew update
 # Update homebrew recipes
 
+# Ask the user for BrowserStack details before starting to run the tests.
+read -p 'Username: ' userName
+read -sp 'AccessKey: ' accessKey
+
+echo "\nThankyou BrowserStack tests will be run as user $userName"
+
+
+
 brew install jq
 
 #curl -s http://api.open-notify.org/iss-now.json | jq .timestamp
@@ -26,10 +34,6 @@ xcodebuild -exportArchive -archivePath ./automationbuild/output/TrackerApp.xcarc
 presentWorkingDirectory=$(pwd)
 echo "presentWorkingDirectory==> $presentWorkingDirectory"
 
-# Set Browser Stack userName & accessKey
-userName="mobilesdkteam1"
-accessKey="eAqGKNyysiKQmX1wDUQ4"
-
 # Add devices list
 #devices="\"iPhone 11 Pro-13\",\"iPhone XS-14\",\"iPhone 12-14\",\"iPhone 11-14\",\"iPhone XS-13\""
 devices="\"iPhone 12-14\""
@@ -37,8 +41,6 @@ devices="\"iPhone 12-14\""
 #[\"iPhone 11 Pro-13\",\"iPhone XS-14\",\"iPhone 12-14\",\"iPhone 11-14\",\"iPhone XS-13\"]
 ##devices=["iPhone 11 Pro-13","iPhone XS-14","iPhone 12-14","iPhone 11-14","iPhone XS-13"]
 echo " devcies==>$devices"
-
-#curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@/Users/abhisheksharma/Documents/AAAAMobileSDK/mobile-sdk-ios/tests/TrackerUITest/automationbuild/output/ipa/TrackerApp.ipa"
 
 # Upload IPA for browser Stack and get appurl
 appurl=$(curl -u "$userName:$accessKey" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@$presentWorkingDirectory/automationbuild/output/ipa/TrackerApp.ipa" | jq .app_url)
@@ -92,13 +94,12 @@ echo "buildIdTrackerTest ab ==> $buildIdTrackerTest"
 # Wait for testcase result Tracker Tests
 testTrackerTestResult="running"
 if [ $testTrackerTestResult == "running" ] ; then result=true; else result=false; fi
-while $result; do sleep 1; testTrackerTestResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | jq '.status' | tr -d \");
+while $result; do sleep 1; testTrackerTestResult=$(curl -u "$userName:$accessKey" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | jq '.status' | tr -d \");
 
 if [ $testTrackerTestResult == "running" ] ; then result=true; else result=false; fi
 echo "Please wait.......\n";
 sleep 60
 done
-#testTrackerTestResult=$(curl -u "mobilesdkteam1:eAqGKNyysiKQmX1wDUQ4" -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/v2/builds/$buildIdTrackerTest" | json status
 echo "Test Result Impression & Click Tracker.......$testTrackerTestResult\n";
 
 
@@ -106,4 +107,3 @@ echo "Test Result Impression & Click Tracker.......$testTrackerTestResult\n";
 if [ $testTrackerTestResult != "passed" ] ; then
     exit 1
 fi
-

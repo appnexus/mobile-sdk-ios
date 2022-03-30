@@ -20,7 +20,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANTimeTracker.h"
 
-#define  PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_SECOND_LOAD_TEST  1500
+#define  PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_SECOND_LOAD_TEST  2000
 
 @interface AdPerformanceStatsBannerVideoAdTestCase : XCTestCase <ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *bannerAd;

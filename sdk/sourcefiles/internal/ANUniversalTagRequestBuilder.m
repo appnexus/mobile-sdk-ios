@@ -785,12 +785,38 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSArray<NSDictionary<NSString *, NSString *> *> *)externalUserIds
 {
-    NSArray<ANExternalUserId *>  *externalUserIdArray  = [ANSDKSettings.sharedInstance externalUserIdArray];
-
-    if ([externalUserIdArray count] <= 0)  { return nil; }
-    //
+    
     NSMutableArray<NSDictionary<NSString *, NSString *> *>  *transformedeuidArray  = [[NSMutableArray<NSDictionary<NSString *, NSString *> *> alloc] init];
-
+    
+    // First use userIdArray if present
+    NSArray<ANUserId *>  *userIddArray  = [ANSDKSettings.sharedInstance userIdArray];
+    if ([userIddArray count] > 0)
+    {
+        for (ANUserId *userId in userIddArray)
+        {
+            if([userId.source isEqualToString:@"adserver.org"]){
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"adserver.org",
+                                                 @"id"          : userId.userId,
+                                                 @"rti_partner"      : @"TDID"
+                                             } ];
+            }else if ([userId.source isEqualToString:@"uidapi.com"]){
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : @"uidapi.com",
+                                                 @"id"          : userId.userId,
+                                                 @"rti_partner"      : @"UID2"
+                                             } ];
+            }else{
+                [transformedeuidArray addObject:@{
+                                                 @"source"      : userId.source,
+                                                 @"id"          : userId.userId
+                                             } ];
+                
+            }
+        }
+    }else{ // if userId is not present then use externalUserId
+    NSArray<ANExternalUserId *>  *externalUserIdArray  = [ANSDKSettings.sharedInstance externalUserIdArray];
+    if ([externalUserIdArray count] <= 0)  { return nil; }
     for (ANExternalUserId *externaluserId in externalUserIdArray)
     {
         switch (externaluserId.source) {
@@ -827,6 +853,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
                                              } ];
                 break;
         }
+    }
     }
     //
     return [transformedeuidArray copy];

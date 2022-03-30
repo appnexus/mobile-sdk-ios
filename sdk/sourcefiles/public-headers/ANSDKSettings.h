@@ -15,6 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ANExternalUserId.h"
+#import "ANUserId.h"
 
 typedef void (^sdkInitCompletion)(BOOL);
 
@@ -131,7 +132,13 @@ An AppNexus disableIDFVUsage  is a boolean value which exclude the IDFV field in
 /**
  A Dictionary containing objects that hold External UserId parameters.
  */
-@property (nonatomic, readwrite, strong, nullable) NSArray<ANExternalUserId *>  *externalUserIdArray;
+@property (nonatomic, readwrite, strong, nullable) NSArray<ANExternalUserId *>  *externalUserIdArray DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases. Use ANSDKSettings.userIdArray as alternative.");
+
+
+/**
+ A Dictionary containing objects that hold  UserId parameters.
+ */
+@property (nonatomic, readwrite, strong, nullable) NSArray<ANUserId *>  *userIdArray ;
 
 /**
  Disable usage of  ib.adnxs-simple.com.

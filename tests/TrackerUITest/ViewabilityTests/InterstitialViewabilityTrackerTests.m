@@ -111,7 +111,7 @@
     [app launch];
     
     XCUIElement *  result = app.tables.staticTexts[@"version="];
-    [self waitForElementToAppear:result  withTimeout:30];
+    [self waitForElementToAppear:result  withTimeout:40];
 
 }
 

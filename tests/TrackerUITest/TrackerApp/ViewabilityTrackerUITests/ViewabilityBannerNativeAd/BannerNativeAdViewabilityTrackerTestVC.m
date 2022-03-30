@@ -340,26 +340,31 @@
         }
         
         
-    }else if([response containsString:@"type%22%3A%22sessionStart"]){
+    }else if([response containsString:@"sessionStart"]){
         if([self.uiTestList containsObject:@"SessionStart"]){
             [self.eventList addObject:@"sessionStart"];
-            if([response containsString:@"accessMode%22%3A%22limited"]){
+            if([response containsString:@"limited"]){
+                //accessMode%22%3A%22
                 [self.eventList addObject:@"accessMode=limited"];
             }
-            if([response containsString:@"mediaType%22%3A%22display"]){
+            if([response containsString:@"mediaType"]){
+                //%22%3A%22display
                 [self.eventList addObject:@"mediaType=display"];
             }
-            if([response containsString:@"partnerName%22%3A%22Appnexus"]){
+//            partnerName%22%3A%22Appnexus
+            if([response containsString:@"Appnexus"]){
                 [self.eventList addObject:@"partnerName=Appnexus"];
             }
-            if([response containsString:@"creativeType%22%3A%22nativeDisplay"]){
+            //creativeType%22%3A%22nativeDisplay
+            if([response containsString:@"nativeDisplay"]){
                 [self.eventList addObject:@"creativeType=nativeDisplay"];
             }
  
         }
     }
     
-    else if ([response containsString:@"type%22%3A%22loaded%22%2C%22data%22%3A%7B%22impressionType%22%3A%22viewable%22%2C%22mediaType%22%3A%22display%22%2C%22creativeType%22%3A%22nativeDisplay%22%7D%7D"]){
+//    else if ([response containsString:@"type%22%3A%22loaded%22%2C%22data%22%3A%7B%22impressionType%22%3A%22viewable%22%2C%22mediaType%22%3A%22display%22%2C%22creativeType%22%3A%22nativeDisplay%22%7D%7D"]){
+        else if ([response containsString:@"viewable"]){
         if([self.uiTestList containsObject:@"TypeLoaded"]){
             [self.eventList addObject:@"type=loaded"];
             [self.eventList addObject:@"impressionType=viewable"];

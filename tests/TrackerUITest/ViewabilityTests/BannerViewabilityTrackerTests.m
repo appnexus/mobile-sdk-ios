@@ -169,20 +169,20 @@ testBannerOMIDEventSupportedIsYes: To test the OMID is supported tracker is fire
     [self waitForElementToAppear:result  withTimeout:30];
 }
 
-
-/*
- testBannerOMIDSessionFinish: To verify Session finish getting fired
- */
-- (void)testBannerOMIDSessionFinish {
-    // Use recording to get started writing UI tests.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerViewabilityTrackerTest];
-    app.launchArguments = [app.launchArguments arrayByAddingObject:@"SessionFinish"];
-    [app launch];
-    XCUIElement * result = app.tables.staticTexts[@"type=sessionFinish"];
-    [self waitForElementToAppear:result  withTimeout:60];
-}
+//
+///*
+// testBannerOMIDSessionFinish: To verify Session finish getting fired
+// */
+//- (void)testBannerOMIDSessionFinish {
+//    // Use recording to get started writing UI tests.
+//    // Use XCTAssert and related functions to verify your tests produce the correct results.
+//    XCUIApplication *app = [[XCUIApplication alloc] init];
+//    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerViewabilityTrackerTest];
+//    app.launchArguments = [app.launchArguments arrayByAddingObject:@"SessionFinish"];
+//    [app launch];
+//    XCUIElement * result = app.tables.staticTexts[@"type=sessionFinish"];
+//    [self waitForElementToAppear:result  withTimeout:60];
+//}
 
 
 /**

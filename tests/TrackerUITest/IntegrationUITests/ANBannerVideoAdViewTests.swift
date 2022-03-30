@@ -73,21 +73,21 @@ class ANBannerVideoAdViewTests: XCTestCase {
 //        wait(2)
 
         
-        let fullscreenButton =  webViewsQuery.buttons[" Fullscreen"]
-        XCTAssertEqual(fullscreenButton.exists, true)
-        fullscreenButton.tap()
-        wait(2)
+//        let fullscreenButton =  webViewsQuery.buttons[" Fullscreen"]
+//        XCTAssertEqual(fullscreenButton.exists, true)
+//        fullscreenButton.tap()
+//        wait(2)
     
-        let nonFullscreenButton = webViewsQuery.buttons[" Non-Fullscreen"]
-        XCTAssertEqual(nonFullscreenButton.exists, true)
-        nonFullscreenButton.tap()
-        print(webViewsQuery.debugDescription)
+//        let nonFullscreenButton = webViewsQuery.buttons[" Non-Fullscreen"]
+//        XCTAssertEqual(nonFullscreenButton.exists, true)
+//        nonFullscreenButton.tap()
+//        print(webViewsQuery.debugDescription)
 
         wait(2)
 
-        let skipButton = webViewsQuery.buttons[" Skip"]
-        XCTAssertEqual(skipButton.exists, false)
-        wait(2)
+//        let skipButton = webViewsQuery.buttons[" Skip"]
+//        XCTAssertEqual(skipButton.exists, false)
+//        wait(2)
 
 //        let adLearnMoreStaticText = webViewsQuery.staticTexts["Ad - Learn More"]
 //        XCTAssertEqual(adLearnMoreStaticText.exists, true)

@@ -74,51 +74,6 @@
 
 }
 
-
-- (void)testCSRAdWillExpireWithSettingAboutToExpireTimeIntervalGreaterThanUpperValue
-{
-    [[ANSDKSettings sharedInstance] setNativeAdAboutToExpireInterval:4000];
-    self.nativeRequest = [[ANNativeAdRequest alloc] init];
-    self.nativeRequest.delegate = self;
-    self.testcase = @"CSRAdWillExpireExpectation";
-    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
-
-    self.CSRAdWillExpireExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
-    [self.nativeRequest loadAd];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-
-    }];
-
-    XCTAssertEqual(ANSDKSettings.sharedInstance.nativeAdAboutToExpireInterval, 4000);
-    XCTAssertEqual(self.nativeResponse.aboutToExpireInterval, 60);
-
-
-}
-
-
-
-- (void)testCSRAdWillExpireWithoutSettingAboutToExpireTimeInterval
-{
-    [[ANSDKSettings sharedInstance] setNativeAdAboutToExpireInterval:0];
-    self.nativeRequest = [[ANNativeAdRequest alloc] init];
-    self.nativeRequest.delegate = self;
-    self.testcase = @"CSRAdWillExpireExpectation";
-    [self stubRequestWithResponse:@"CSR_Facebook_Banner_Native"];
-
-    self.CSRAdWillExpireExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
-    [self.nativeRequest loadAd];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-
-    }];
-
-    XCTAssertEqual([ANSDKSettings sharedInstance].nativeAdAboutToExpireInterval, 60);
-    XCTAssertEqual(self.nativeResponse.aboutToExpireInterval, 60);
-
-
-}
-
 - (void)testCSRAdWillExpireWithCustomSettings
 {
     [[ANSDKSettings sharedInstance] setNativeAdAboutToExpireInterval:10];
@@ -129,7 +84,7 @@
 
     self.CSRAdWillExpireExpectation = [self expectationWithDescription:@"Didn't receive Click Tracker event"];
     [self.nativeRequest loadAd];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval * 3
                                  handler:^(NSError *error) {
 
     }];

@@ -12,7 +12,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+/*
 
+ ## FOR SAME TESTCASE REVIEW ANOMIDNativeTestCase
+ 
+ 
 #import <XCTest/XCTest.h>
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -191,6 +195,7 @@
     });
     
     [self waitForExpectations:@[self.expectationForOmidSessionFinish] timeout:50];
+    self.requestData = nil;
 
 }
 
@@ -251,3 +256,4 @@
 
 
 @end
+*/

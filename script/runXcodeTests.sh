@@ -149,6 +149,7 @@ DYNAMIC_LIST_OF_VERSIONS_AND_DEVICES=
 STATIC_LIST_OF_SCHEMES="
     NativeSDKTestApp
     UnitTestApp
+    ExceptionalFunctionalApp
 "
 
 #

@@ -12,7 +12,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-
+/*
+ Removed and moved to UI TestApp
 #import <XCTest/XCTest.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -414,3 +415,4 @@
 }
 
 @end
+*/

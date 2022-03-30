@@ -114,6 +114,7 @@
 /*
  testBannerVideoAdOMIDVolumeChange: Verify OMID Volume Change.
  */
+
 - (void)testBannerVideoAdOMIDVolumeChange {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     app.launchArguments = [app.launchArguments arrayByAddingObject:BannerVideoViewabilityTrackerTest];
@@ -152,42 +153,42 @@
 /*
  testBannerVideoAdOMIDScreenEvent: Verify OMID Screen Events like Full Screen & Non Full Screen.
  */
-- (void)testBannerVideoAdOMIDScreenEvent {
-    // Use recording to get started writing UI tests.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-    
-    
-    
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    
-    
-    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerVideoViewabilityTrackerTest];
-    app.launchArguments = [app.launchArguments arrayByAddingObject:@"OMIDScreenEvent"];
-    [app launch];
-    
-    XCUIElementQuery *webViewsQuery = app.webViews.webViews.webViews;
-    XCUIElement *fullscreen  =  webViewsQuery.buttons[@" Fullscreen"];
-    [self waitForElementToAppear:fullscreen  withTimeout:30];;
-    [fullscreen tap];
-    XCUIElement *nonfullscreen  =  webViewsQuery.buttons[@" Non-Fullscreen"];
-    [self waitForElementToAppear:nonfullscreen  withTimeout:30];;
-    [nonfullscreen tap];
-    sleep(5);
-    
-    [XCUIDevice sharedDevice].orientation = UIDeviceOrientationLandscapeLeft;
-    sleep(5);
-    
-    [XCUIDevice sharedDevice].orientation = UIDeviceOrientationPortrait;
-    XCUIElement *  result = app.tables.staticTexts[@"type=playerStateChange state=fullscreen"];
-    [self waitForElementToAppear:result  withTimeout:60];
-    result = app.tables.staticTexts[@"type=playerStateChange state=normal"];
-    [self waitForElementToAppear:result  withTimeout:8];
-    
-    result = app.tables.staticTexts[@"type=pause"];
-    [self waitForElementToAppear:result  withTimeout:8];
-    
-    result = app.tables.staticTexts[@"type=resume"];
-}
+//- (void)testBannerVideoAdOMIDScreenEvent {
+//    // Use recording to get started writing UI tests.
+//    // Use XCTAssert and related functions to verify your tests produce the correct results.
+//    
+//    
+//    
+//    XCUIApplication *app = [[XCUIApplication alloc] init];
+//    
+//    
+//    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerVideoViewabilityTrackerTest];
+//    app.launchArguments = [app.launchArguments arrayByAddingObject:@"OMIDScreenEvent"];
+//    [app launch];
+//    
+//    XCUIElementQuery *webViewsQuery = app.webViews.webViews.webViews;
+//    XCUIElement *fullscreen  =  webViewsQuery.buttons[@" Fullscreen"];
+//    [self waitForElementToAppear:fullscreen  withTimeout:30];;
+//    [fullscreen tap];
+////    XCUIElement *nonfullscreen  =  webViewsQuery.buttons[@" Non-Fullscreen"];
+////    [self waitForElementToAppear:nonfullscreen  withTimeout:30];;
+////    [nonfullscreen tap];
+//    sleep(5);
+//    
+//    [XCUIDevice sharedDevice].orientation = UIDeviceOrientationLandscapeLeft;
+//    sleep(5);
+//    
+//    [XCUIDevice sharedDevice].orientation = UIDeviceOrientationPortrait;
+//    XCUIElement *  result = app.tables.staticTexts[@"type=playerStateChange state=fullscreen"];
+//    [self waitForElementToAppear:result  withTimeout:60];
+//    result = app.tables.staticTexts[@"type=playerStateChange state=normal"];
+//    [self waitForElementToAppear:result  withTimeout:8];
+//    
+//    result = app.tables.staticTexts[@"type=pause"];
+//    [self waitForElementToAppear:result  withTimeout:8];
+//    
+//    result = app.tables.staticTexts[@"type=resume"];
+//}
 
 
 /*

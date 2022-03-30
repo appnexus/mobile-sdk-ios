@@ -118,6 +118,7 @@
     [self.adResponseInfo unregisterViewFromTracking];
     [XCTestCase delayForTimeInterval:5];
     XCTAssertTrue([self.requestData containsString:@"sessionFinish"]);
+    self.requestData = nil;
 }
 
 
