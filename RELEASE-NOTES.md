@@ -1,4 +1,27 @@
- ## 7.20.0
+We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. If you are using any of the below API's  we request to migrate to their [support](https://help.xandr.com/s/login/)ed equivalent. If you have any questions reach out to Xandr support.
+
+| Class                   | Property(s) and Method(s)     |
+| ------------------------|----------- |
+| ANBannerAdView   | **Property** : externalUid, adType, nativeAdRendererId, creativeId <br>   **Method** : - (void)setAllowNativeDemand:(BOOL)nativeDemand withRendererId:(NSInteger)rendererId;
+| ANInterstitialAd   | **Property** :   externalUid, adType, creativeId
+| ANInstreamVideoAd   | **Property** :   externalUid, adType, creativeId
+| ANMultiAdRequest   | **Property** :   externalUid, adType, creativeId
+| ANExternalUserId   | **Property** :   source, userId  <br>    **Method** : - (nullable instancetype)initWithSource:(ANExternalUserIdSource)source userId:(nonnull NSString *)userId;
+| ANNativeAdRequest   | **Property** :   rendererId, adType, externalUid
+| ANNativeAdResponse   | **Property** :   creativeId
+| ANSDKSettings   | **Property** :     HTTPSEnabled, externalUserIdArray, useAdnxsSimpleDomain
+|  ANTargetingParameters   | **Property** :    externalUid
+
+
+## 7.21.0
+### Improvement/Bug Fixes
++MS-4954 Added support for passing Publisher/Extended User Id(s) via ANSDKSettings.userIdArray. [https://docs.xandr.com/bundle/mobile-sdk/page/user-id-s--mapping-on-ios.html]
+
+### Deprecated APIs
+`ANSDKSettings.externalUserIdArray` property and `ANExternalUserId` class are now deprecated, use the equivalent  `ANSDKSettings.userIdArray` property  and `ANUserId` class instead.
+
+
+## 7.20.0
 ### Improvement/Bug Fixes
 + MS-4952 Check navigationType when opening a URL [Github PR #73]
 + MS-4851 Improved OMSDK performance 
