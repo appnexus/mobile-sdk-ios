@@ -7,7 +7,7 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 | ANInstreamVideoAd   | **Property** :   externalUid, adType, creativeId
 | ANMultiAdRequest   | **Property** :   externalUid, adType, creativeId
 | ANExternalUserId   | **Property** :   source, userId  <br>    **Method** : - (nullable instancetype)initWithSource:(ANExternalUserIdSource)source userId:(nonnull NSString *)userId;
-| ANNativeAdRequest   | **Property** :   rendererId
+| ANNativeAdRequest   | **Property** :   rendererId, adType, externalUid
 | ANNativeAdResponse   | **Property** :   creativeId
 | ANSDKSettings   | **Property** :     HTTPSEnabled, externalUserIdArray, useAdnxsSimpleDomain
 |  ANTargetingParameters   | **Property** :    externalUid
