@@ -1,4 +1,8 @@
- ## 7.20.0
+## 7.21.0
+### Improvement/Bug Fixes
++ MS-4954 Remove setExternalUid method
+
+## 7.20.0
 ### Improvement/Bug Fixes
 + MS-4952 Check navigationType when opening a URL [Github PR #73]
 + MS-4851 Improved OMSDK performance 
