@@ -74,6 +74,10 @@
     else if( [[NSProcessInfo processInfo].arguments containsObject:NativeViewabilityTrackerTest] ||  [[NSProcessInfo processInfo].arguments containsObject:BannerNativeRendererViewabilityTrackerTest] || [[NSProcessInfo processInfo].arguments containsObject:BannerNativeViewabilityTrackerTest]  ){
         [self openViewController:@"BannerNativeAdViewabilityTrackerTestVC"];
     }
+    
+    else if( [[NSProcessInfo processInfo].arguments containsObject:NativeAdExpiry] ){
+        [self openViewController:@"NativeAdExpiryTestVC"];
+    }
     // Open BannerVideoAdViewabilityTrackerTestVC if arguments contain the BannerVideo Ad for Viewability Tracker [OMID]
     else if( [[NSProcessInfo processInfo].arguments containsObject:BannerVideoViewabilityTrackerTest]){
         [self openViewController:@"BannerVideoAdViewabilityTrackerTestVC"];
