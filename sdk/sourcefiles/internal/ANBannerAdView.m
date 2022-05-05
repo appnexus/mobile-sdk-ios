@@ -64,8 +64,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
-@property (nonatomic, readwrite)          NSInteger  nativeAdRendererId;
-
 @property (nonatomic, strong)             ANNativeAdResponse  *nativeAdResponse;
 
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
