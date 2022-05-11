@@ -44,13 +44,6 @@
         targetingParameters.customKeywords = dictWithoutContentUrl;
     }
 
-    ANLocation *location = targetingParameters.location;
-    if (location) {
-        [gadRequest setLocationWithLatitude:location.latitude
-                               longitude:location.longitude
-                                accuracy:location.horizontalAccuracy];
-    }
-
     GADExtras *extras = [[GADExtras alloc] init];
     NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
     if (!extrasDictionary) {
