@@ -49,7 +49,7 @@ DESC
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
     subspec.source_files = "mediation/mediatedviews/SmartAd/*.{h,m}"
     subspec.public_header_files = "mediation/mediatedviews/SmartAd/ANAdAdapterSmartAdBase.h"
-    subspec.dependency 'Smart-Display-SDK', '7.10.1'
+    subspec.dependency 'Smart-Display-SDK', '7.17.1'
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Smart-Display-SDK/**' }
   end
 
