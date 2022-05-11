@@ -45,14 +45,6 @@ DESC
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
   end 
 
-  s.subspec 'FacebookAdapter' do |subspec|
-    subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'FBAudienceNetwork', '6.5.0'
-    subspec.source_files         = "mediation/mediatedviews/Facebook/*.{h,m}"
-    subspec.public_header_files  = "mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h"
-    subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
-  end 
-
   s.subspec 'SmartAdAdapter' do |subspec|
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
     subspec.source_files = "mediation/mediatedviews/SmartAd/*.{h,m}"
