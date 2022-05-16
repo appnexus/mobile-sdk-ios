@@ -19,7 +19,7 @@
 #import <GoogleMobileAds/GADVideoController.h>
 #import <UIKit/UIKit.h>
 
-/// Native ad. To request this ad type, pass kGADAdLoaderAdTypeNative
+/// Native ad. To request this ad type, pass GADAdLoaderAdTypeNative
 /// (see GADAdLoaderAdTypes.h) to the |adTypes| parameter in GADAdLoader's initializer method. If
 /// you request this ad type, your delegate must conform to the GADNativeAdLoaderDelegate
 /// protocol.

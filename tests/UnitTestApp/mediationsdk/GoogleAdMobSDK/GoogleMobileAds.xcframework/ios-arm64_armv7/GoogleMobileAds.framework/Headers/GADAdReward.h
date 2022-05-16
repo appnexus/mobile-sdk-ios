@@ -20,8 +20,8 @@ typedef void (^GADUserDidEarnRewardHandler)(void);
 @property(nonatomic, readonly, nonnull) NSDecimalNumber *amount;
 
 /// Returns an initialized GADAdReward with the provided reward type and reward amount.
-- (nonnull instancetype)initWithRewardType:(nonnull NSString *)rewardType
-                              rewardAmount:(nonnull NSDecimalNumber *)rewardAmount
+- (nonnull instancetype)initWithRewardType:(nullable NSString *)rewardType
+                              rewardAmount:(nullable NSDecimalNumber *)rewardAmount
     NS_DESIGNATED_INITIALIZER;
 
 @end

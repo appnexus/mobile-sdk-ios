@@ -31,7 +31,7 @@
 
 #pragma mark - Banner parameters
 
-/// Requested banner ad size. The ad size is kGADAdSizeInvalid for non-banner requests.
+/// Requested banner ad size. The ad size is GADAdSizeInvalid for non-banner requests.
 @property(nonatomic, readonly) GADAdSize adSize;
 
 @end

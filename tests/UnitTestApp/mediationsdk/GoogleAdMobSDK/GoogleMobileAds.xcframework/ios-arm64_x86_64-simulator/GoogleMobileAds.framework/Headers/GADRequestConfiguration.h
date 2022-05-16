@@ -12,13 +12,16 @@
 typedef NSString *GADMaxAdContentRating NS_STRING_ENUM;
 
 /// Rating for content suitable for general audiences, including families.
-GAD_EXTERN GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingGeneral;
+extern GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingGeneral;
 /// Rating for content suitable for most audiences with parental guidance.
-GAD_EXTERN GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingParentalGuidance;
+extern GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingParentalGuidance;
 /// Rating for content suitable for teen and older audiences.
-GAD_EXTERN GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingTeen;
+extern GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingTeen;
 /// Rating for content suitable only for mature audiences.
-GAD_EXTERN GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingMatureAudience;
+extern GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingMatureAudience;
+
+/// Add this constant to the testDevices property's array to receive test ads on the simulator.
+extern NSString *_Nonnull const GADSimulatorID;
 
 /// Request configuration. The settings in this class will apply to all ad requests.
 @interface GADRequestConfiguration : NSObject
@@ -55,5 +58,9 @@ GAD_EXTERN GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingMatureAudie
 /// act on behalf of the owner of the app. You understand that abuse of this setting may result in
 /// termination of your Google account.
 - (void)tagForChildDirectedTreatment:(BOOL)childDirectedTreatment;
+
+/// Controls whether the Google Mobile Ads SDK Same App Key is enabled. The value set persists
+/// across app sessions. The key is enabled by default.
+- (void)setSameAppKeyEnabled:(BOOL)enabled;
 
 @end

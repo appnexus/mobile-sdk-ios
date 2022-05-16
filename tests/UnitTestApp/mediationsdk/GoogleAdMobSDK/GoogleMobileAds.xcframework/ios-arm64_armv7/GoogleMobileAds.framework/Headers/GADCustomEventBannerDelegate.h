@@ -17,6 +17,7 @@
 /// Otherwise, if enough time passed (several seconds) after the SDK called the requestBannerAd:
 /// method of your custom event, the mediation SDK will consider the request timed out, and move on
 /// to the next ad network.
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationBannerAdEventDelegate instead.")
 @protocol GADCustomEventBannerDelegate <NSObject>
 
 /// Your Custom Event object must call this when it receives or creates an ad view.
@@ -52,14 +53,15 @@
 /// gone away.
 - (void)customEventBannerDidDismissModal:(nonnull id<GADCustomEventBanner>)customEvent;
 
-/// Your Custom Event should call this method when a user action will result in App switching.
-- (void)customEventBannerWillLeaveApplication:(nonnull id<GADCustomEventBanner>)customEvent;
-
 #pragma mark Deprecated
 
 /// Deprecated. Use customEventBannerWasClicked:.
 - (void)customEventBanner:(nonnull id<GADCustomEventBanner>)customEvent
         clickDidOccurInAd:(nonnull UIView *)view
     GAD_DEPRECATED_MSG_ATTRIBUTE("Use customEventBannerWasClicked:.");
+
+/// Deprecated. No replacement.
+- (void)customEventBannerWillLeaveApplication:(nonnull id<GADCustomEventBanner>)customEvent
+    GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated. No replacement.");
 
 @end

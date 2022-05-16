@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 /// Subclasses should prefix their name with "GADMAdapter" example: GADMAdapterGoogleAdMobAds
-#define kGADMAdapterClassNamePrefix @"GADMAdapter"
+#define GADMAdapterClassNamePrefix @"GADMAdapter"
 
 /// Ad network adapter protocol.
 @protocol GADMAdNetworkAdapter <NSObject>

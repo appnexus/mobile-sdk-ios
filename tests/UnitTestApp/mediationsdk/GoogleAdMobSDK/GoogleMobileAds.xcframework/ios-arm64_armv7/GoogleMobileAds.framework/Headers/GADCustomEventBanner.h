@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 
 /// The banner custom event protocol. Your banner custom event handler must implement this protocol.
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationBannerAd and GADMediationAdapter instead.")
 @protocol GADCustomEventBanner <NSObject>
 
 /// Inform |delegate| with the custom event execution results to ensure mediation behaves correctly.

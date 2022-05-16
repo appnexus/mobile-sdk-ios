@@ -21,16 +21,19 @@
 @property(nonatomic, weak, nullable) id<GADVideoControllerDelegate> delegate;
 
 /// Mute or unmute video. Set to YES to mute the video. Set to NO to allow the video to play sound.
+/// Doesn't do anything if -customControlsEnabled returns NO.
 - (void)setMute:(BOOL)mute;
 
-/// Play the video. Doesn't do anything if the video is already playing.
+/// Play the video. Doesn't do anything if the video is already playing or if
+/// -customControlsEnabled returns NO.
 - (void)play;
 
-/// Pause the video. Doesn't do anything if the video is already paused.
+/// Pause the video. Doesn't do anything if the video is already paused or if
+/// -customControlsEnabled- returns NO.
 - (void)pause;
 
 /// Stops the video and displays the video's first frame. Call -play to resume playback at the start
-/// of the video. Contact your account manager to enable this feature.
+/// of the video. Doesn't do anything if -customControlsEnabled returns NO.
 - (void)stop;
 
 /// Indicates whether video custom controls (i.e. play/pause/mute/unmute) are enabled.

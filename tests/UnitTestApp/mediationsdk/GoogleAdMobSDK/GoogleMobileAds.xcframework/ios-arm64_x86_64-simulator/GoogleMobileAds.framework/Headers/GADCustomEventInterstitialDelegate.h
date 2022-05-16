@@ -16,6 +16,7 @@
 /// (several seconds) after the SDK called the requestInterstitialAdWithParameter: method of your
 /// custom event, the mediation SDK will consider the request timed out, and move on to the next ad
 /// network.
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationInterstitialAdEventDelegate instead.")
 @protocol GADCustomEventInterstitialDelegate <NSObject>
 
 /// Your Custom Event object must call this when it receives or creates an interstitial ad.
@@ -44,15 +45,16 @@
 /// Your Custom Event should call this when the interstitial has been dismissed.
 - (void)customEventInterstitialDidDismiss:(nonnull id<GADCustomEventInterstitial>)customEvent;
 
-/// Your Custom Event should call this method when a user action will result in app switching.
-- (void)customEventInterstitialWillLeaveApplication:
-    (nonnull id<GADCustomEventInterstitial>)customEvent;
-
 #pragma mark Deprecated
 
 /// Deprecated. Use customEventInterstitialDidReceiveAd:.
 - (void)customEventInterstitial:(nonnull id<GADCustomEventInterstitial>)customEvent
                    didReceiveAd:(nonnull NSObject *)ad
     GAD_DEPRECATED_MSG_ATTRIBUTE("Use customEventInterstitialDidReceiveAd:.");
+
+/// Deprecated. No replacement.
+- (void)customEventInterstitialWillLeaveApplication:
+    (nonnull id<GADCustomEventInterstitial>)customEvent
+    GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated. No replacement.");
 
 @end

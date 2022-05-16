@@ -12,6 +12,7 @@
 /// The delegate of the GADCustomEventNativeAd object must adopt the GADCustomEventNativeAdDelegate
 /// protocol. Methods in this protocol are used for native ad's custom event communication with the
 /// Google Mobile Ads SDK.
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationNativeAdEventDelegate instead.")
 @protocol GADCustomEventNativeAdDelegate <NSObject>
 
 /// Tells the delegate that the custom event ad request failed.
