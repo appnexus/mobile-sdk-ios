@@ -86,6 +86,7 @@
 
 - (void)adDidRecordImpression:(nonnull id<GADFullScreenPresentingAd>)ad{
     ANLogDebug(@"AdMob interstitial impression recorded");
+    [self.delegate adDidLogImpression];
 }
 
 @end

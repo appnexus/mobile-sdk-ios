@@ -27,6 +27,7 @@
 - (void)didPresentAd;
 - (void)willCloseAd;
 - (void)didCloseAd;
+- (void)adDidLogImpression;
 - (void)willLeaveApplication;
 @end
 

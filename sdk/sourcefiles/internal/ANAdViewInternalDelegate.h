@@ -49,6 +49,7 @@ typedef NS_ENUM(NSUInteger, ANImpressionFiring) {
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 
 - (void)adWasClicked;
+- (void)adDidLogImpression;
 - (void)adWillPresent;
 - (void)adDidPresent;
 - (void)adWillClose;

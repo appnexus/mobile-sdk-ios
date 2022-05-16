@@ -90,6 +90,7 @@
 
 - (void)adDidRecordImpression:(nonnull id<GADFullScreenPresentingAd>)ad{
     ANLogDebug(@"AdMob interstitial impression recorded");
+    [self.delegate adDidLogImpression];
 }
 
 // Tells the delegate that a click has been recorded for the ad.

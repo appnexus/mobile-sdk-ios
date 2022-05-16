@@ -340,6 +340,11 @@ Set the trafficSourceCode,  Specifies the third-party source of the impression.
 - (void)adWasClicked:(nonnull id)ad withURL:(nonnull NSString *)urlString;
 
 /**
+ Sent when the ad logs Impression
+ */
+- (void)adDidLogImpression:(nonnull id)ad;
+
+/**
  Sent when the ad view is about to close.
  */
 - (void)adWillClose:(nonnull id)ad;
