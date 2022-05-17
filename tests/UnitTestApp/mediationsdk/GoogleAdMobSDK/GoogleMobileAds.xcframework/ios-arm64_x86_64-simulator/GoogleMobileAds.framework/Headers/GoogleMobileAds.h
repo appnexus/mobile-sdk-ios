@@ -40,7 +40,6 @@ FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 #import <GoogleMobileAds/GADCustomNativeAd.h>
 #import <GoogleMobileAds/GADCustomNativeAdDelegate.h>
 #import <GoogleMobileAds/GADDebugOptionsViewController.h>
-#import <GoogleMobileAds/GADDelayedAdRenderingOptions.h>
 #import <GoogleMobileAds/GADDisplayAdMeasurement.h>
 #import <GoogleMobileAds/GADDynamicHeightSearchRequest.h>
 #import <GoogleMobileAds/GADExtras.h>
@@ -98,8 +97,6 @@ FOUNDATION_EXPORT const unsigned char GoogleMobileAdsVersionString[];
 #import <GoogleMobileAds/Mediation/GADMediationBannerAd.h>
 #import <GoogleMobileAds/Mediation/GADMediationInterstitialAd.h>
 #import <GoogleMobileAds/Mediation/GADMediationNativeAd.h>
-#import <GoogleMobileAds/Mediation/GADMediationNativeAdAssetIdentifiers.h>
-#import <GoogleMobileAds/Mediation/GADMediationRequestError.h>
 #import <GoogleMobileAds/Mediation/GADMediationRewardedAd.h>
 #import <GoogleMobileAds/Mediation/GADMediationServerConfiguration.h>
 #import <GoogleMobileAds/Mediation/GADVersionNumber.h>

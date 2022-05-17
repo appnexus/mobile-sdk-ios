@@ -67,7 +67,7 @@
  *  If rendererId is not set, the default is zero (0).
  *  A value of zero indicates that renderer_id will not be sent in the UT Request.
  */
-@property (nonatomic, readwrite)  NSInteger  rendererId DEPRECATED_MSG_ATTRIBUTE("rendererId is deprecated.");
+@property (nonatomic, readwrite)  NSInteger  rendererId;
 
 
 /*!

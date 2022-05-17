@@ -168,6 +168,7 @@ static CGFloat const kANTotalRetries = 10;
 
 - (void)bannerViewDidRecordImpression:(nonnull GADBannerView *)bannerView{
     ANLogDebug(@"DFP banner impression recorded");
+    [self.delegate adDidLogImpression];
 }
 
 - (void)bannerViewWillPresentScreen:(GAMBannerView *)adView {

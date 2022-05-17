@@ -610,6 +610,12 @@
     }
 }
 
+- (void)adDidLogImpression {
+    if ([self.delegate respondsToSelector:@selector(adDidLogImpression:)]) {
+        [self.delegate adDidLogImpression:self];
+    }
+}
+
 - (void)adWillPresent {
     if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.delegate adWillPresent:self];

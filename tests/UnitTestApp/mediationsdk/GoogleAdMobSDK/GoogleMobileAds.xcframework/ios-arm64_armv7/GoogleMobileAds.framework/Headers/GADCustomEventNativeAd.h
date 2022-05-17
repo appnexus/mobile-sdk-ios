@@ -12,6 +12,7 @@
 
 /// Native ad custom event protocol. Your native ad custom event handler class must conform to this
 /// protocol.
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationNativeAd and GADMediationAdapter instead.")
 @protocol GADCustomEventNativeAd <NSObject>
 
 /// Delegate object used for receiving custom native ad load request progress.

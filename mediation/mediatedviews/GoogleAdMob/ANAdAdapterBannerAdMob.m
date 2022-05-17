@@ -116,6 +116,15 @@
     [self.delegate didCloseAd];
 }
 
+- (void)bannerViewDidRecordImpression:(GADBannerView *)bannerView {
+    [self.delegate adDidLogImpression];
+}
+
+/* Tells the delegate that a click has been recorded for the ad. */
+- (void)bannerViewDidRecordClick:(nonnull GADBannerView *)bannerView{
+    [self.delegate adWasClicked];
+}
+
 - (void)dealloc
 {
     ANLogDebug(@"AdMob banner being destroyed");

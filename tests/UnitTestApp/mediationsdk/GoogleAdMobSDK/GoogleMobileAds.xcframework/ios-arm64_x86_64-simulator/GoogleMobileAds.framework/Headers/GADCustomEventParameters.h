@@ -11,4 +11,4 @@
 /// Key for getting the server parameter configured in AdMob when mediating to a custom event
 /// adapter.
 /// Example: NSString *serverParameter = connector.credentials[GADCustomEventParametersServer].
-GAD_EXTERN NSString *_Nonnull const GADCustomEventParametersServer;
+extern NSString *_Nonnull const GADCustomEventParametersServer;

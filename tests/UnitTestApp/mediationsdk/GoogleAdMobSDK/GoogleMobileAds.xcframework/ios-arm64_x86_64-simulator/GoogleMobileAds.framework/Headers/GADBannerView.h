@@ -42,7 +42,7 @@
 @property(nonatomic, weak, nullable) IBOutlet UIViewController *rootViewController;
 
 /// Required to set this banner view to a proper size. Never create your own GADAdSize directly.
-/// Use one of the predefined standard ad sizes (such as kGADAdSizeBanner), or create one using the
+/// Use one of the predefined standard ad sizes (such as GADAdSizeBanner), or create one using the
 /// GADAdSizeFromCGSize method. If not using mediation, then changing the adSize after an ad has
 /// been shown will cause a new request (for an ad of the new size) to be sent. If using mediation,
 /// then a new request may not be sent.

@@ -10,8 +10,6 @@
 		0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5660E923BE39AF0088EB36 /* AppDelegate.swift */; };
 		0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5660EF23BE39AF0088EB36 /* Main.storyboard */; };
 		0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E5660F223BE39B10088EB36 /* Assets.xcassets */; };
-		0E5670A3240D04BB0006B158 /* FacebookBannerAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */; };
-		0E5670A4240D04BB0006B158 /* FacebookInterstitialAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */; };
 		0E5B043E23BF4EED00DEBACE /* VideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */; };
 		0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B043F23BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift */; };
 		0E82E4CF245CC33500EC19E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E82E4CE245CC33500EC19E1 /* AppDelegate.swift */; };
@@ -29,8 +27,6 @@
 		0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D04623FD6EEC00D0C060 /* LaunchScreen.storyboard */; };
 		0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */; };
 		0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */; };
-		0EE0D04F23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */; };
-		0EE0D05023FD728A00D0C060 /* FacebookBannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */; };
 		0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */; };
 		0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */; };
 		0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D06023FD764800D0C060 /* AdMobDFPNativeAd.storyboard */; };
@@ -48,17 +44,12 @@
 		0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */; };
 		0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */; };
 		0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */; };
-		0EE0D0CC23FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */; };
-		0EE0D0CD23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */; };
-		0EE0D0CE23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */; };
 		0EE0D0D423FD7ECE00D0C060 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */; };
 		5377DBB872736776143319CD /* libPods-SimpleMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */; };
 		FCC64C9425A7353F006E5A54 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; };
 		FCC64C9525A7353F006E5A54 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCC64C9625A7354C006E5A54 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */; };
 		FCC64C9725A7354C006E5A54 /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCC64CB225A739DE006E5A54 /* FacebookNative.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */; };
-		FCC64CB325A739DE006E5A54 /* FacebookNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */; };
 		FD5B5E40BF0E1B733147D46F /* libPods-SimpleCSR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */; };
 /* End PBXBuildFile section */
 
@@ -112,8 +103,6 @@
 		0E5660F223BE39B10088EB36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E5660F723BE39B10088EB36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E56709F240D04BB0006B158 /* FacebookCSRNativeBanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookCSRNativeBanner.storyboard; sourceTree = "<group>"; };
-		0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookBannerAd.storyboard; sourceTree = "<group>"; };
-		0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookInterstitialAd.storyboard; sourceTree = "<group>"; };
 		0E5B043D23BF4EED00DEBACE /* VideoAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdViewController.swift; sourceTree = "<group>"; };
 		0E5B043F23BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMediationAdTypeListViewController.swift; sourceTree = "<group>"; };
 		0E5B045023BF652C00DEBACE /* FacebookCSRNativeBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookCSRNativeBanner.swift; sourceTree = "<group>"; };
@@ -135,8 +124,6 @@
 		0EE0D04723FD6EEC00D0C060 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SimpleMediation/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		0EE0D04923FD723800D0C060 /* AdmobDFPBannerAdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobDFPBannerAdViewController.swift; sourceTree = "<group>"; };
 		0EE0D04B23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdmobDFPInterstitialAdViewController.swift; sourceTree = "<group>"; };
-		0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookInterstitialAdViewController.swift; sourceTree = "<group>"; };
-		0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookBannerAdViewController.swift; sourceTree = "<group>"; };
 		0EE0D05923FD72A100D0C060 /* SmartAdBannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartAdBannerAdViewController.swift; sourceTree = "<group>"; };
 		0EE0D05A23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartAdInterstitialAdViewController.swift; sourceTree = "<group>"; };
 		0EE0D06023FD764800D0C060 /* AdMobDFPNativeAd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdMobDFPNativeAd.storyboard; sourceTree = "<group>"; };
@@ -163,12 +150,6 @@
 		0EE0D0A223FD7E0100D0C060 /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
 		0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
 		0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
-		0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialFacebook.m; sourceTree = "<group>"; };
-		0EE0D0A723FD7E0100D0C060 /* ANAdAdapterBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerFacebook.h; sourceTree = "<group>"; };
-		0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
-		0EE0D0A923FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialFacebook.h; sourceTree = "<group>"; };
-		0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerFacebook.m; sourceTree = "<group>"; };
-		0EE0D0AB23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
 		0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleCSR.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9D464632CE623986E47C03 /* Pods-SimpleMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.release.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,8 +157,6 @@
 		941E857F252A95374E5394AF /* Pods-SimpleMediation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.debug.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.debug.xcconfig"; sourceTree = "<group>"; };
 		DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleMediation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8136949A8662F8B5D433773 /* Pods-SimpleCSR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCSR.release.xcconfig"; path = "Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR.release.xcconfig"; sourceTree = "<group>"; };
-		FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FacebookNative.storyboard; sourceTree = "<group>"; };
-		FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookNativeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,8 +258,8 @@
 		0E82E4EF245CCA5600EC19E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */,
 				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
+				0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,24 +309,10 @@
 			path = Admob;
 			sourceTree = "<group>";
 		};
-		0EE0D03A23FD6C8E00D0C060 /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				0E5670A0240D04BB0006B158 /* FacebookBannerAd.storyboard */,
-				0EE0D04E23FD728A00D0C060 /* FacebookBannerAdViewController.swift */,
-				0E5670A1240D04BB0006B158 /* FacebookInterstitialAd.storyboard */,
-				0EE0D04D23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift */,
-				FCC64CAE25A739DE006E5A54 /* FacebookNative.storyboard */,
-				FCC64CB125A739DE006E5A54 /* FacebookNativeViewController.swift */,
-			);
-			path = Facebook;
-			sourceTree = "<group>";
-		};
 		0EE0D03C23FD6CB400D0C060 /* MediationViewController */ = {
 			isa = PBXGroup;
 			children = (
 				0EE0D03923FD6C8E00D0C060 /* Admob */,
-				0EE0D03A23FD6C8E00D0C060 /* Facebook */,
 				0EE0D03723FD6C8E00D0C060 /* SmartAd */,
 				0EE0D03D23FD6CE200D0C060 /* VideoAd */,
 			);
@@ -378,7 +343,6 @@
 		0EE0D07123FD7E0100D0C060 /* mediatedviews */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D0A523FD7E0100D0C060 /* Facebook */,
 				0EE0D09823FD7E0100D0C060 /* GoogleAdMob */,
 				0EE0D09123FD7E0100D0C060 /* SmartAd */,
 			);
@@ -416,19 +380,6 @@
 				0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */,
 			);
 			path = GoogleAdMob;
-			sourceTree = "<group>";
-		};
-		0EE0D0A523FD7E0100D0C060 /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				0EE0D0A723FD7E0100D0C060 /* ANAdAdapterBannerFacebook.h */,
-				0EE0D0AA23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m */,
-				0EE0D0A923FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.h */,
-				0EE0D0A623FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m */,
-				0EE0D0AB23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.h */,
-				0EE0D0A823FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m */,
-			);
-			path = Facebook;
 			sourceTree = "<group>";
 		};
 		0EFC4C97245CC28C008FE3C6 /* CSRViewController */ = {
@@ -500,6 +451,7 @@
 				0E82E4C9245CC33500EC19E1 /* Frameworks */,
 				0E82E4CA245CC33500EC19E1 /* Resources */,
 				FCC64C9825A7354D006E5A54 /* Embed Frameworks */,
+				8E0C19D077B762E73E394FAA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -579,9 +531,6 @@
 				0EE0D06523FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard in Resources */,
 				0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */,
 				0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */,
-				0E5670A3240D04BB0006B158 /* FacebookBannerAd.storyboard in Resources */,
-				0E5670A4240D04BB0006B158 /* FacebookInterstitialAd.storyboard in Resources */,
-				FCC64CB225A739DE006E5A54 /* FacebookNative.storyboard in Resources */,
 				0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */,
 				0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */,
 				0EE0D06B23FD7C1300D0C060 /* SmartAdBannerAd.storyboard in Resources */,
@@ -644,6 +593,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8E0C19D077B762E73E394FAA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E4427E3807B201AD8D491461 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -678,20 +644,14 @@
 				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
 				0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */,
 				0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */,
-				0EE0D0CE23FD7E0100D0C060 /* ANAdAdapterBannerFacebook.m in Sources */,
 				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
 				0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */,
 				0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 				0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */,
-				0EE0D0CC23FD7E0100D0C060 /* ANAdAdapterInterstitialFacebook.m in Sources */,
 				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
 				0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */,
-				0EE0D0CD23FD7E0100D0C060 /* ANAdAdapterNativeFacebook.m in Sources */,
 				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
 				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
-				0EE0D05023FD728A00D0C060 /* FacebookBannerAdViewController.swift in Sources */,
-				0EE0D04F23FD728A00D0C060 /* FacebookInterstitialAdViewController.swift in Sources */,
-				FCC64CB325A739DE006E5A54 /* FacebookNativeViewController.swift in Sources */,
 				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
 				0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */,
 				0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */,
@@ -883,7 +843,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9TBTYSQH6V;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -912,7 +872,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9TBTYSQH6V;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

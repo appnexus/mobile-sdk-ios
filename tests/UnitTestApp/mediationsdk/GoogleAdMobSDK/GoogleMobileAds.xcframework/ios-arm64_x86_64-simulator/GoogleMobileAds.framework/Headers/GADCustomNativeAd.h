@@ -18,12 +18,12 @@
 typedef void (^GADNativeAdCustomClickHandler)(NSString *_Nonnull assetID);
 
 /// Asset key for the GADMediaView asset view.
-GAD_EXTERN NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
+extern NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
 
 @protocol GADCustomNativeAdDelegate;
 
 /// Custom native ad. To request this ad type, you need to pass
-/// kGADAdLoaderAdTypeCustomNative (see GADAdLoaderAdTypes.h) to the |adTypes| parameter
+/// GADAdLoaderAdTypeCustomNative (see GADAdLoaderAdTypes.h) to the |adTypes| parameter
 /// in GADAdLoader's initializer method. If you request this ad type, your delegate must conform to
 /// the GADCustomNativeAdLoaderDelegate protocol.
 @interface GADCustomNativeAd : NSObject
@@ -33,10 +33,6 @@ GAD_EXTERN NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
 
 /// Array of available asset keys.
 @property(nonatomic, readonly, nonnull) NSArray<NSString *> *availableAssetKeys;
-
-/// Returns media view for rendering video loaded by the receiver. Returns nil if receiver doesn't
-/// have a video.
-@property(nonatomic, readonly, nullable) GADMediaView *mediaView;
 
 /// Custom click handler. Set this property only if this ad is configured with a custom click
 /// action, otherwise set it to nil. If this property is set to a non-nil value, the ad's built-in

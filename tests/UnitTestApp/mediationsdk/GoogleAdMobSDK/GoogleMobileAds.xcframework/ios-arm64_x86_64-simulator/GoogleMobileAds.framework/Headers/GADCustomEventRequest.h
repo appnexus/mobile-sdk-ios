@@ -14,23 +14,6 @@
 /// forwarded to custom events for purposes of populating an ad request to a 3rd party ad network.
 @interface GADCustomEventRequest : NSObject
 
-/// If the user's latitude, longitude, and accuracy are not specified, userHasLocation returns NO,
-/// and userLatitude, userLongitude, and userLocationAccuracyInMeters return 0.
-@property(nonatomic, readonly, assign) BOOL userHasLocation;
-
-/// User's latitude set in GADRequest.
-@property(nonatomic, readonly, assign) CGFloat userLatitude;
-
-/// User's longitude set in GADRequest.
-@property(nonatomic, readonly, assign) CGFloat userLongitude;
-
-/// The accuracy, in meters, of the user's location data.
-@property(nonatomic, readonly, assign) CGFloat userLocationAccuracyInMeters;
-
-/// Description of the user's location, in free form text, set in GADRequest. If not available,
-/// returns nil. This may be set even if userHasLocation is NO.
-@property(nonatomic, readonly, copy, nullable) NSString *userLocationDescription;
-
 /// Keywords set in GADRequest. Returns nil if no keywords are set.
 @property(nonatomic, readonly, copy, nullable) NSArray *userKeywords;
 
@@ -43,5 +26,29 @@
 
 /// Indicates whether the testing property has been set in GADRequest.
 @property(nonatomic, readonly, assign) BOOL isTesting;
+
+#pragma mark - Deprecated
+
+/// Deprecated and unsupported. Always NO.
+@property(nonatomic, readonly, assign)
+    BOOL userHasLocation GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated and unsupported. Always NO.");
+
+/// Deprecated and unsupported. Always 0.
+@property(nonatomic, readonly, assign)
+    CGFloat userLatitude GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated and unsupported. Always 0.");
+
+/// Deprecated and unsupported. Always 0.
+@property(nonatomic, readonly, assign)
+    CGFloat userLongitude GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated and unsupported. Always 0.");
+
+/// Deprecated and unsupported. Always 0.
+@property(nonatomic, readonly, assign)
+    CGFloat userLocationAccuracyInMeters GAD_DEPRECATED_MSG_ATTRIBUTE(
+        "Deprecated and unsupported. Always 0.");
+
+/// Deprecated and unsupported. Always nil.
+@property(nonatomic, readonly, copy, nullable)
+    NSString *userLocationDescription GAD_DEPRECATED_MSG_ATTRIBUTE(
+        "Deprecated and unsupported. Always nil.");
 
 @end

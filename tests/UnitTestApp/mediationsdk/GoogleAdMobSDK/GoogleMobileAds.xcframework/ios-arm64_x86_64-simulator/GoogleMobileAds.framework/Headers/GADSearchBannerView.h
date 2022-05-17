@@ -17,7 +17,7 @@
 ///   GADDynamicHeightSearchRequest object.
 @interface GADSearchBannerView : GADBannerView
 
-/// If the banner view is initialized with kGADAdSizeFluid and the corresponding request is created
+/// If the banner view is initialized with GADAdSizeFluid and the corresponding request is created
 /// with dynamic height parameters, this delegate will be called when the ad size changes.
 @property(nonatomic, weak, nullable) IBOutlet id<GADAdSizeDelegate> adSizeDelegate;
 

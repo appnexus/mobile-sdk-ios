@@ -258,7 +258,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  *  If rendererId is not set, the default is zero (0).
  *  A value of zero indicates that renderer_id will not be sent in the UT Request.
  */
-@property (nonatomic, readonly) NSInteger nativeAdRendererId DEPRECATED_MSG_ATTRIBUTE("nativeAdRendererId is deprecated.");
+@property (nonatomic, readwrite) NSInteger nativeAdRendererId;
 
 
 /**

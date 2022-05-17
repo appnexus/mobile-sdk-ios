@@ -2,10 +2,11 @@
 //  GADResponseInfo.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2019-2020 Google LLC. All rights reserved.
+//  Copyright 2019-2021 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 /// Response metadata for an individual ad network in an ad response.
 @interface GADAdNetworkResponseInfo : NSObject
@@ -14,7 +15,7 @@
 @property(nonatomic, readonly, nonnull) NSString *adNetworkClassName;
 
 /// Network configuration set on the AdMob UI.
-@property(nonatomic, readonly, nonnull) NSDictionary<NSString *, id> *credentials;
+@property(nonatomic, readonly, nonnull) NSDictionary<NSString *, id> *adUnitMapping;
 
 /// Error associated with the request to the network. Nil if the network successfully loaded an ad
 /// or if the network was not attempted.

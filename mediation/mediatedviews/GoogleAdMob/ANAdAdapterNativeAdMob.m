@@ -54,7 +54,7 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitId
                                              rootViewController:(UIViewController *)self.proxyViewController
-                                                        adTypes:@[kGADAdLoaderAdTypeNative]
+                                                        adTypes:@[GADAdLoaderAdTypeNative]
                                                         options:@[]];
     self.nativeAdLoader.delegate = self;
     [self.nativeAdLoader loadRequest:[ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters]];

@@ -11,6 +11,7 @@
 
 /// The interstitial custom event protocol. Your interstitial custom event handler must implement
 /// this protocol.
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationInterstitialAd and GADMediationAdapter instead.")
 @protocol GADCustomEventInterstitial <NSObject>
 
 /// Inform |delegate| with the custom event execution results to ensure mediation behaves correctly.

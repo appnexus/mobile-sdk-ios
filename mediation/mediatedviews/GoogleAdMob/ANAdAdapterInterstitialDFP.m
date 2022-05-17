@@ -72,7 +72,7 @@
     [self.delegate failedToDisplayAd];
 }
 
-- (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+- (void)adWillPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
     [self.delegate willPresentAd];
 }
 -(void) adWillDismissFullScreenContent:(id<GADFullScreenPresentingAd>)ad{
@@ -86,6 +86,7 @@
 
 - (void)adDidRecordImpression:(nonnull id<GADFullScreenPresentingAd>)ad{
     ANLogDebug(@"AdMob interstitial impression recorded");
+    [self.delegate adDidLogImpression];
 }
 
 @end

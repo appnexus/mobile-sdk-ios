@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "7.21.0"
-  s.platform     = :ios, "9.0"
+  s.version      = "7.22.0"
+  s.platform     = :ios, "10.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
   s.description  = <<-DESC
@@ -31,7 +31,7 @@ DESC
 
   s.subspec 'GoogleAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency  'Google-Mobile-Ads-SDK', '8.5.0'
+    subspec.dependency  'Google-Mobile-Ads-SDK', '9.4.0'
     subspec.source_files         = "mediation/mediatedviews/GoogleAdMob/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Google-Mobile-Ads-SDK/**' }
@@ -45,19 +45,11 @@ DESC
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
   end 
 
-  s.subspec 'FacebookAdapter' do |subspec|
-    subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'FBAudienceNetwork', '6.5.0'
-    subspec.source_files         = "mediation/mediatedviews/Facebook/*.{h,m}"
-    subspec.public_header_files  = "mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h"
-    subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
-  end 
-
   s.subspec 'SmartAdAdapter' do |subspec|
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
     subspec.source_files = "mediation/mediatedviews/SmartAd/*.{h,m}"
     subspec.public_header_files = "mediation/mediatedviews/SmartAd/ANAdAdapterSmartAdBase.h"
-    subspec.dependency 'Smart-Display-SDK', '7.10.1'
+    subspec.dependency 'Smart-Display-SDK', '7.17.1'
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Smart-Display-SDK/**' }
   end
 

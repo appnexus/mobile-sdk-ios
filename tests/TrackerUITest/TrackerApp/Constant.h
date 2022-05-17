@@ -77,6 +77,11 @@
 #define InterstitialViewabilityTrackerTest @"InterstitialViewabilityTrackerTest"
 #define VideoViewabilityTrackerTest @"VideoViewabilityTrackerTest"
 #define NativeViewabilityTrackerTest @"NativeViewabilityTrackerTest"
+
+#define NativeAdExpiry @"NativeAdExpiry"
+#define NativeAdExpiry_270 @"NativeAdExpiry_270"
+#define NativeAdExpiry_310 @"NativeAdExpiry_310"
+
 #define MARBannerViewabilityTrackerTest @"MARBannerViewabilityTrackerTest"
 #define MARNativeViewabilityTrackerTest @"MARNativeViewabilityTrackerTest"
 #define MARBannerNativeRendererViewabilityTrackerTest @"MARBannerNativeRendererViewabilityTrackerTest"

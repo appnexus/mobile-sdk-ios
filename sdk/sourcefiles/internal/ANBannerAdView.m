@@ -64,8 +64,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
-@property (nonatomic, readwrite)          NSInteger  nativeAdRendererId;
-
 @property (nonatomic, strong)             ANNativeAdResponse  *nativeAdResponse;
 
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
@@ -388,7 +386,11 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     if(self.impressionURLs != nil) {
         //this check is needed to know if the impression was fired early or when attached to window. if impressionURL is nil then either it was fired early & removed or there was no urls in the response
         ANLogDebug(@"Impression tracker fired");
-        [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:nil];
+        [ANTrackerManager fireTrackerURLArray:self.impressionURLs withBlock:^(BOOL isTrackerFired) {
+            if (isTrackerFired && [self.delegate respondsToSelector:@selector(adDidLogImpression:)]) {
+                [self.delegate adDidLogImpression:self];
+            }
+        }];
         self.impressionURLs = nil;
     }
 

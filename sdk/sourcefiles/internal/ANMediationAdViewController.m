@@ -275,6 +275,13 @@
     }];
 }
 
+- (void)adDidLogImpression {
+    if (self.hasFailed) return;
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adDidLogImpression];
+    }];
+}
+
 - (void)willPresentAd {
     if (self.hasFailed) return;
     [self runInBlock:^(void) {

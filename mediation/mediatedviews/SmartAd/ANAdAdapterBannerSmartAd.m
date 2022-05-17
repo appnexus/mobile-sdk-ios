@@ -73,4 +73,8 @@
     ANLogTrace(@"");
 }
     
+- (void)bannerView:(SASAdView *)bannerView didClickWithURL:(nonnull NSURL *)URL{
+    [self.delegate adWasClicked];
+}
+
 @end

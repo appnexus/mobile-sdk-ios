@@ -1,3 +1,26 @@
+## 7.22.0
+
+### Announcements:
+This will be the last major release in SDK v7.x.x series.
+The next major release will be SDK v8.0.0 which will include some breaking changes as proposed in Intent to Implement's listed below along with other changes. 
+
+1. Xandr SDK v8.0.0 Removal Notice for Deprecated APIs [https://github.com/appnexus/mobile-sdk-ios/issues/77]
+2. Xandr will be moving toward counting "Viewable Impressions - for Direct-Sold Inventory" [https://github.com/appnexus/mobile-sdk-ios/issues/79]
+
+
+### Improvement/Bug Fixes
++ MS-4389 Fixed ads render after expiry time reset issue
++ MS-4999 Remove the RendererID deprecation notice
++ MS-5005 Added onAdImpression callback for the Banner and Interstitial Ads [https://wiki.xandr.com/x/ogkYBg]
+
+### Mediation partner updates
++ MS-4874 Upgraded Google Play Services Ads SDK from 8.5.0 to 9.4.1
++ MS-4873 Upgraded Smart Ad Server SDK from 7.10.1 to 7.17.1
++ Discontinued support for Facebook SDK mediation Adapter
+
+## 7.21.0
+
+### Announcements:
 We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. If you are using any of the below API's  we request to migrate to their [support](https://help.xandr.com/s/login/)ed equivalent. If you have any questions reach out to Xandr support.
 
 | Class                   | Property(s) and Method(s)     |
@@ -13,7 +36,6 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 |  ANTargetingParameters   | **Property** :    externalUid
 
 
-## 7.21.0
 ### Improvement/Bug Fixes
 +MS-4954 Added support for passing Publisher/Extended User Id(s) via ANSDKSettings.userIdArray. [https://docs.xandr.com/bundle/mobile-sdk/page/user-id-s--mapping-on-ios.html]
 

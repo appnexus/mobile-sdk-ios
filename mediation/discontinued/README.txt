@@ -6,10 +6,10 @@ Amazon
 InMobi
 Millennial Media
 Mopub
+Facebook
 
 The adapters will be removed from Podspec(Cocoapods).
 
-Please note that there is no plan to remove/deprecate the aforementioned adapters in code, but rather adapters are moved into a different folder(mediation/discontinued) within the Mobile SDK repository.
-If there is enough interest in certain mediation adapter(s), we are open to the idea of adding them back to our list of supported adapters.
+These Adapters will be removed in SDK v8.0
 
 If you have any questions/comments please let us know either via GitHub/or via Xandr Support.

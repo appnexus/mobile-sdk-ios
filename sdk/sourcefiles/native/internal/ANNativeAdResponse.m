@@ -24,12 +24,12 @@
 
 NSString * const  kANNativeElementObject                               = @"ELEMENT";
 NSString * const  kANNativeCSRObject                                   = @"CSRAdObject";
-NSInteger  const  kANNativeFacebookAdAboutToExpire                    = 3600;
-NSInteger  const  kANNativeRTBAdAboutToExpire                         = 21600;
-NSInteger  const  kANNativeRTBAdAboutToExpireForMember_11217          = 300;
-NSInteger  const  kANNativeRTBAdAboutToExpireForMember_12085          = 600;
-NSInteger  const  kANNativeRTBAdAboutToExpireForMember_12317          = 3300; //InMobi
-NSInteger  const  kANNativeRTBAdAboutToExpireForMember_9642           = 300; //Index (ix)
+NSInteger  const  kANNativeFacebookAdExpireTime                    = 3600;
+NSInteger  const  kANNativeRTBAdExpireTime                         = 21600;
+NSInteger  const  kANNativeRTBAdExpireTimeForMember_11217          = 300;
+NSInteger  const  kANNativeRTBAdExpireTimeForMember_12085          = 600;
+NSInteger  const  kANNativeRTBAdExpireTimeForMember_12317          = 3300; //InMobi
+NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Index (ix)
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
@@ -333,43 +333,36 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
     [self invalidateAdExpireTimer:self.adWillExpireTimer];
     NSTimeInterval timeInterval;
     if(self.networkCode == ANNativeAdNetworkCodeFacebook){
-        timeInterval =  kANNativeFacebookAdAboutToExpire - self.aboutToExpireInterval;
+        timeInterval =  kANNativeFacebookAdExpireTime;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 ){
-        timeInterval = kANNativeRTBAdAboutToExpireForMember_11217 - self.aboutToExpireInterval;
+        timeInterval = kANNativeRTBAdExpireTimeForMember_11217;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 ){
-        timeInterval = kANNativeRTBAdAboutToExpireForMember_12085 - self.aboutToExpireInterval;
+        timeInterval = kANNativeRTBAdExpireTimeForMember_12085;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12317 ){
-        timeInterval = kANNativeRTBAdAboutToExpireForMember_12317 - self.aboutToExpireInterval;
+        timeInterval = kANNativeRTBAdExpireTimeForMember_12317;
     }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 9642 ){
-        timeInterval = kANNativeRTBAdAboutToExpireForMember_9642 - self.aboutToExpireInterval;
+        timeInterval = kANNativeRTBAdExpireTimeForMember_9642;
     }else{
-        timeInterval =  kANNativeRTBAdAboutToExpire - self.aboutToExpireInterval;
+        timeInterval =  kANNativeRTBAdExpireTime;
     }
     
-    typeof(self) __weak weakSelf = self;
-    self.adWillExpireTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval repeats:NO block:^(NSTimer * _Nonnull timer) {
-        [weakSelf onAdAboutToExpire];
+    typeof(self) __weak weakAdWillExpireTimerSelf = self;
+    self.adWillExpireTimer = [NSTimer scheduledTimerWithTimeInterval:(timeInterval - _aboutToExpireInterval) repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [weakAdWillExpireTimerSelf onAdAboutToExpire];
+    }];
+    
+    typeof(self) __weak weakAdDidExpireTimerSelf = self;
+    self.adDidExpireTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [weakAdDidExpireTimerSelf onAdExpired];
     }];
 }
 
 - (void)onAdAboutToExpire {
     if ([self.delegate respondsToSelector:@selector(adWillExpire:)] && self.adWillExpireTimer.valid) {
         [self.delegate adWillExpire:self];
-        [self setAdDidExpire];
     }
     [self invalidateAdExpireTimer:self.adWillExpireTimer];
 }
-
-
--(void)setAdDidExpire{
-    [self invalidateAdExpireTimer:self.adDidExpireTimer];
-    self.adDidExpireTimer = [NSTimer scheduledTimerWithTimeInterval:self.aboutToExpireInterval
-                                                             target:self
-                                                           selector:@selector(onAdExpired)
-                                                           userInfo:nil
-                                                            repeats:NO];
-}
-
 
 - (void)onAdExpired {
     self.expired = YES;
@@ -395,22 +388,22 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
     {
         ANLogError(@"nativeAdAboutToExpireInterval can not be set less than or equal to zero");
         return;
-    }else if(self.networkCode == ANNativeAdNetworkCodeFacebook && aboutToExpireTimeInterval >= kANNativeFacebookAdAboutToExpire){
+    }else if(self.networkCode == ANNativeAdNetworkCodeFacebook && aboutToExpireTimeInterval >= kANNativeFacebookAdExpireTime){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 60 minutes for FacebookAds");
         return;
-    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_11217 ){
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 11217 && aboutToExpireTimeInterval >= kANNativeRTBAdExpireTimeForMember_11217 ){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 11217");
         return;
-    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_12085 ){
+    }else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12085 && aboutToExpireTimeInterval >= kANNativeRTBAdExpireTimeForMember_12085 ){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 10 minutes for RTB & member 12085");
         return;
-    }  else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12317 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_12317 ){
+    }  else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 12317 && aboutToExpireTimeInterval >= kANNativeRTBAdExpireTimeForMember_12317 ){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 55 minutes for RTB & member 12317");
         return;
-    } else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 9642 && aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpireForMember_9642 ){
+    } else if ([self.adResponseInfo.contentSource isEqualToString:@"rtb"] && self.adResponseInfo.memberId == 9642 && aboutToExpireTimeInterval >= kANNativeRTBAdExpireTimeForMember_9642 ){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 5 minutes for RTB & member 9642");
         return;
-    }else if(aboutToExpireTimeInterval >= kANNativeRTBAdAboutToExpire){
+    }else if(aboutToExpireTimeInterval >= kANNativeRTBAdExpireTime){
         ANLogError(@"nativeAdAboutToExpireInterval can not be set greater than or equal to 6 hours");
         return;
     }

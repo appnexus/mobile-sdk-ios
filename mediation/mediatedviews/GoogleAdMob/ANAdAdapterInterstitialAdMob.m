@@ -74,7 +74,7 @@
     [self.delegate failedToDisplayAd];
 }
 
-- (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+- (void)adWilllPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
     [self.delegate willPresentAd];
 }
 
@@ -90,6 +90,12 @@
 
 - (void)adDidRecordImpression:(nonnull id<GADFullScreenPresentingAd>)ad{
     ANLogDebug(@"AdMob interstitial impression recorded");
+    [self.delegate adDidLogImpression];
+}
+
+// Tells the delegate that a click has been recorded for the ad.
+- (void)adDidRecordClick:(nonnull id<GADFullScreenPresentingAd>)ad{
+    [self.delegate adWasClicked];
 }
 
 @end

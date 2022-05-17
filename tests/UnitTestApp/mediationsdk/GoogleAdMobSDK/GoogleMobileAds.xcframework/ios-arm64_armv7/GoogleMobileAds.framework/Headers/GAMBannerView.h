@@ -27,7 +27,7 @@
 
 /// The view that displays Ad Manager banner ads.
 ///
-/// To request this ad type using GADAdLoader, you need to pass kGADAdLoaderAdTypeGAMBanner (see
+/// To request this ad type using GADAdLoader, you need to pass GADAdLoaderAdTypeGAMBanner (see
 /// GADAdLoaderAdTypes.h) to the |adTypes| parameter in GADAdLoader's initializer method. If you
 /// request this ad type, your delegate must conform to the GAMBannerAdLoaderDelegate protocol.
 @interface GAMBannerView : GADBannerView
@@ -47,15 +47,15 @@
 
 /// Optional array of NSValue encoded GADAdSize structs, specifying all valid sizes that are
 /// appropriate for this slot. Never create your own GADAdSize directly. Use one of the predefined
-/// standard ad sizes (such as kGADAdSizeBanner), or create one using the GADAdSizeFromCGSize
+/// standard ad sizes (such as GADAdSizeBanner), or create one using the GADAdSizeFromCGSize
 /// method.
 ///
 /// Example:
 ///
 ///   \code
 ///   NSArray *validSizes = @[
-///     NSValueFromGADAdSize(kGADAdSizeBanner),
-///     NSValueFromGADAdSize(kGADAdSizeLargeBanner)
+///     NSValueFromGADAdSize(GADAdSizeBanner),
+///     NSValueFromGADAdSize(GADAdSizeLargeBanner)
 ///   ];
 ///
 ///   bannerView.validAdSizes = validSizes;
