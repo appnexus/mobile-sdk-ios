@@ -14,18 +14,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANExternalUserId.h"
 #import "ANUserId.h"
 
 typedef void (^sdkInitCompletion)(BOOL);
 
 @interface ANSDKSettings : NSObject
-
-/**
- If YES, the SDK will make all requests in HTTPS. Default is NO.
- */
-@property (nonatomic) BOOL HTTPSEnabled DEPRECATED_MSG_ATTRIBUTE("All network calls are secure. HTTPSEnabled property is deprecated.");
-
 
 
 /**
@@ -130,22 +123,9 @@ An AppNexus disableIDFVUsage  is a boolean value which exclude the IDFV field in
 
 
 /**
- A Dictionary containing objects that hold External UserId parameters.
- */
-@property (nonatomic, readwrite, strong, nullable) NSArray<ANExternalUserId *>  *externalUserIdArray DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases. Use ANSDKSettings.userIdArray as alternative.");
-
-
-/**
  A Dictionary containing objects that hold  UserId parameters.
  */
 @property (nonatomic, readwrite, strong, nullable) NSArray<ANUserId *>  *userIdArray ;
 
-/**
- Disable usage of  ib.adnxs-simple.com.
- If YES,  SDK will make all requests to the approriate domain based on user consent and need for cookies.
- If NO,  SDK will make all requests to mediation.adnxs.com domain.
- Default is YES.
- */
-@property (nonatomic) BOOL useAdnxsSimpleDomain DEPRECATED_MSG_ATTRIBUTE("This will be removed in future releases. This is introduced just a fail safe kill switch for initial rollout. No Alternative.");
 
 @end

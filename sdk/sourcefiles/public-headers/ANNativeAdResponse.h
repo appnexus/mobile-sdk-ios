@@ -120,12 +120,6 @@ extern NSString * __nonnull const  kANNativeCSRObject;
 @property (nonatomic, readonly, strong, nullable) NSString *sponsoredBy;
 
 
-/*!
- * An AppNexus creativeID for the current creative that is displayed
- */
-@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
-
-
 /**
  An AppNexus Single Unified object that will contain all the common fields of all the ads types
  */

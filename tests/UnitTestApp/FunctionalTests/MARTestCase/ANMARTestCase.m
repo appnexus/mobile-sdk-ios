@@ -27,6 +27,7 @@
 #import "ANBannerAdView+ANTest.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANInterstitialAd+ANTest.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
 #import "ANAdView+ANTest.h"
@@ -746,27 +747,27 @@
 -(void)assertBannerAd:(ANBannerAdView *)ad size:(CGSize )size withPlacement:(NSString *)placement andCreativeId:(NSString *)creativeId {
     XCTAssertEqual(ad.frame.size.width, size.width);
     XCTAssertEqual(ad.frame.size.height, size.height);
-    XCTAssertEqual(ad.adType, ANAdTypeBanner);
-    XCTAssertEqualObjects(ad.creativeId, creativeId);
+    XCTAssertEqual(ad.adResponseInfo.adType, ANAdTypeBanner);
+    XCTAssertEqualObjects(ad.adResponseInfo.creativeId, creativeId);
     XCTAssertEqualObjects(ad.placementId, placement);
 }
 
 -(void)assertInterstitialAd:(ANInterstitialAd *)ad withPlacement:(NSString *)placement andCreativeId:(NSString *)creativeId {
-    XCTAssertEqualObjects(ad.creativeId, creativeId);
+    XCTAssertEqualObjects(ad.adResponseInfo.creativeId, creativeId);
     XCTAssertEqualObjects(ad.placementId, placement);
 }
 
 
 -(void)assertNativeAd:(ANNativeAdRequest *)request response:(ANNativeAdResponse *)response withPlacement:(NSString *)placement andCreativeId:(NSString *)creativeId {
     if(response != nil){
-        XCTAssertEqualObjects(response.creativeId, creativeId);
+        XCTAssertEqualObjects(response.adResponseInfo.creativeId, creativeId);
     }
     XCTAssertEqualObjects(request.placementId, placement);
 }
 
 -(void)assertVideoAd:(ANInstreamVideoAd *)ad withPlacement:(NSString *)placement andCreativeId:(NSString *)creativeId {
-    if(ad.creativeId != nil){
-        XCTAssertEqualObjects(ad.creativeId, creativeId);
+    if(ad.adResponseInfo.creativeId != nil){
+        XCTAssertEqualObjects(ad.adResponseInfo.creativeId, creativeId);
     }
     XCTAssertEqualObjects(ad.placementId, placement);
 }

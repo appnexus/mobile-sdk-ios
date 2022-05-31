@@ -170,7 +170,7 @@ limitations under the License.
 
     self.lazyBanner.shouldServePublicServiceAnnouncements = NO;
 
-    self.lazyBanner.externalUid              = @"banner-banner";
+   // self.lazyBanner.externalUid              = @"banner-banner";
 
     self.lazyBanner.enableLazyLoad = YES;
 
@@ -186,7 +186,7 @@ limitations under the License.
 
     self.lazyBanner.shouldServePublicServiceAnnouncements = NO;
 
-    self.multiFormatBanner.externalUid              = @"banner-multiformat";
+    //self.multiFormatBanner.externalUid              = @"banner-multiformat";
 
     self.multiFormatBanner.enableLazyLoad = NO;
 

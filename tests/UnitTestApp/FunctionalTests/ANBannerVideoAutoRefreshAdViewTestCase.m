@@ -82,7 +82,7 @@
                                      
                                  }];
     XCTAssertNotNil(self.banner.universalAdFetcher.autoRefreshTimer);
-    XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
+    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
 }
 
 

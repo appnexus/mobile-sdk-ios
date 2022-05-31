@@ -221,8 +221,8 @@
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponseInfo.creativeId) {
-        XCTAssert([self.adResponseInfo.creativeId isKindOfClass:[NSString class]]);
+    if (self.adResponseInfo.adResponseInfo.creativeId) {
+        XCTAssert([self.adResponseInfo.adResponseInfo.creativeId isKindOfClass:[NSString class]]);
     }else{
         XCTAssertTrue(false);
     }

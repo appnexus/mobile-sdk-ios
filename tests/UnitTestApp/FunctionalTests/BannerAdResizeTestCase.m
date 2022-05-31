@@ -125,7 +125,7 @@
                                      
                                  }];
     
-    XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
+    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
     
 }
 
@@ -160,8 +160,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    
-    XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
+    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
     XCTAssertTrue(self.receiveAdSuccess);
     
 }

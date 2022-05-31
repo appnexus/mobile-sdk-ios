@@ -66,11 +66,6 @@
  */
 @property (nonatomic, readwrite, assign) ANGender gender;
 
-/**
- Specifies a string that corresponds to an external user ID for  user
- */
-@property (nonatomic, readwrite, strong, nullable) NSString *externalUid DEPRECATED_MSG_ATTRIBUTE("Use ANSDKSettings.publisherUserId instead.");
-
 
 /**
  Set the user's current location.  This allows ad buyers to do location
@@ -149,12 +144,6 @@
  rates (i.e., you will make less money).
  */
 @property (nonatomic, readwrite, assign) CGFloat reserve;
-
-/**
- Report the Ad Type of the returned ad object.
- Not available until load is complete and successful.
- */
-@property (nonatomic, readwrite)  ANAdType  adType DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 /**
  Set the inventory code and member id for the place that ads will be shown.
@@ -242,13 +231,6 @@ Set the trafficSourceCode,  Specifies the third-party source of the impression.
 #pragma mark - ANAdProtocol adunit combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
-
-/**
- An AppNexus creativeID for the current creative that is displayed
- */
-// CreativeId should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid creativeID being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
-
 
 /**
  * An AppNexus Single Unified object that will contain all the common fields of all the ads types

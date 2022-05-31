@@ -183,8 +183,6 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
     TestANCSRUniversalFetcher  *adFetcher  = [[TestANCSRUniversalFetcher alloc] initWithPlacementId:PlacementID];
     
-    adFetcher.externalUid = @"AppNexus";
-    
     NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     

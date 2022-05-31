@@ -44,6 +44,5 @@
                 height: (int)height;
 
 - (void)setAdResponseInfo:(nonnull ANAdResponseInfo *)adResponseInfo;
-- (void)setCreativeId:(nonnull NSString *)creativeId;
 
 @end

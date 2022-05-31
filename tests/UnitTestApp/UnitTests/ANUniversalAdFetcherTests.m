@@ -51,7 +51,6 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 @synthesize landingPageLoadsInBackground;
 @synthesize memberId;
 @synthesize customKeywords;
-@synthesize externalUid;
 @synthesize publisherId;
 @synthesize extInvCode;
 @synthesize trafficSourceCode;

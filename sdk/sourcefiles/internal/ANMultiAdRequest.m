@@ -64,7 +64,6 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
 @synthesize  gender              = __gender;
 @synthesize  location            = __location;
 @synthesize  customKeywords      = __customKeywords;
-@synthesize  externalUid         = __externalUid;
 
 
 
@@ -283,7 +282,6 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
     __gender            = ANGenderUnknown;
     __location          = nil;
     __customKeywords    = [[NSMutableDictionary alloc] init];
-    __externalUid       = nil;
 
     //
     return  YES;

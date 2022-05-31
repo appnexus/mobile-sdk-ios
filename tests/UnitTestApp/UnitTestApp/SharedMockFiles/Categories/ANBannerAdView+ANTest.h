@@ -14,6 +14,7 @@
  */
 
 #import "ANBannerAdView.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANUniversalAdFetcher.h"
 
 @interface ANBannerAdView (ANTest) <ANUniversalAdFetcherDelegate>

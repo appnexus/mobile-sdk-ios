@@ -269,15 +269,6 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @property (nonatomic, readwrite)  BOOL  enableLazyLoad;
 
 
-
-/**
- *  Sets whether or not Native Ads(AppNexus Media Type:12) can serve on this Ad object with nativeRendererId.
- *  rendererId :  Native Assembly renderer_id that is associated with this placement.
- *  If rendererId is not set, the default is zero (0).
- *  A value of zero indicates that renderer_id will not be sent in the UT Request.
- */
-- (void)setAllowNativeDemand:(BOOL)nativeDemand withRendererId:(NSInteger)rendererId DEPRECATED_MSG_ATTRIBUTE("Use shouldAllowNativeDemand instead.");
-
 #pragma mark - Creating an ad view and loading an ad
 
 /**

@@ -442,10 +442,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         }
         
         [self setFriendlyObstruction];
-        NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-        if(creativeId){
-            [self setCreativeId:creativeId];
-        }
 
         [self videoAdReady];
 

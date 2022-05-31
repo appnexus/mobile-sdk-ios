@@ -21,10 +21,6 @@
 		0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
 		0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0099B486228CA191004E80AB /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
-		00C4919325DF043100609E49 /* ANExternalUserId.h in Headers */ = {isa = PBXBuildFile; fileRef = 00C4919225DF043100609E49 /* ANExternalUserId.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00C4919425DF043100609E49 /* ANExternalUserId.h in Headers */ = {isa = PBXBuildFile; fileRef = 00C4919225DF043100609E49 /* ANExternalUserId.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00C491C325DF15AB00609E49 /* ANExternalUserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C491C025DF15AB00609E49 /* ANExternalUserId.m */; };
-		00C491C425DF15AB00609E49 /* ANExternalUserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C491C025DF15AB00609E49 /* ANExternalUserId.m */; };
 		00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */; };
 		00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */; };
 		0E02F07024336D570073A226 /* ANCSRNativeAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E3E62241FB73500823D66 /* ANCSRNativeAdResponse.m */; };
@@ -376,8 +372,6 @@
 		006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherBase.h; sourceTree = "<group>"; };
 		0086BC9927DB006200BBDE61 /* ANUserId.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANUserId.h; sourceTree = "<group>"; };
 		0086BC9F27DB01A800BBDE61 /* ANUserId.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANUserId.m; sourceTree = "<group>"; };
-		00C4919225DF043100609E49 /* ANExternalUserId.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANExternalUserId.h; sourceTree = "<group>"; };
-		00C491C025DF15AB00609E49 /* ANExternalUserId.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANExternalUserId.m; sourceTree = "<group>"; };
 		00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANOMIDImplementation.h; sourceTree = "<group>"; };
 		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
 		0E0C5E5B2437E2EC0030B813 /* ANCSRAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANCSRAd.m; sourceTree = "<group>"; };
@@ -848,7 +842,6 @@
 				8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */,
 				8AD618AE1981C11F00AC0780 /* ANClickOverlayView.h */,
 				8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */,
-				00C491C025DF15AB00609E49 /* ANExternalUserId.m */,
 				8AD618B01981C11F00AC0780 /* ANGlobal.h */,
 				8AD618B11981C11F00AC0780 /* ANGlobal.m */,
 				60165D252464823E00E8E07C /* ANHTTPNetworkSession.h */,
@@ -1022,7 +1015,6 @@
 				ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */,
 				0E3E3E61241FB73500823D66 /* ANCSRNativeAdResponse.h */,
 				ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */,
-				00C4919225DF043100609E49 /* ANExternalUserId.h */,
 				0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */,
 				609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */,
 				ECE4EA91194B768A0069D934 /* ANInterstitialAd.h */,
@@ -1077,7 +1069,6 @@
 				0E92D3B42420D06A00209580 /* ANCSRNativeAdController.h in Headers */,
 				0E3E3E63241FB73500823D66 /* ANCSRNativeAdResponse.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
-				00C4919325DF043100609E49 /* ANExternalUserId.h in Headers */,
 				0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */,
 				8A9AEDD41A1BF88200C58BDA /* ANGlobal.h in Headers */,
 				60165D282464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
@@ -1169,7 +1160,6 @@
 				60435C61241A77E3004DDD7B /* ANCSRAd.h in Headers */,
 				0E02F07324336D6B0073A226 /* ANCSRNativeAdController.h in Headers */,
 				0E02F07124336D590073A226 /* ANCSRNativeAdResponse.h in Headers */,
-				00C4919425DF043100609E49 /* ANExternalUserId.h in Headers */,
 				F5731BC2228C9A4C0012B134 /* ANGDPRSettings.h in Headers */,
 				F5731B72228C8FD60012B134 /* ANGlobal.h in Headers */,
 				60165D292464823E00E8E07C /* ANHTTPNetworkSession.h in Headers */,
@@ -1390,7 +1380,6 @@
 				0E0C5E5C2437E2EC0030B813 /* ANCSRAd.m in Sources */,
 				0E92D3B52420D06A00209580 /* ANCSRNativeAdController.m in Sources */,
 				0E3E3E64241FB73500823D66 /* ANCSRNativeAdResponse.m in Sources */,
-				00C491C325DF15AB00609E49 /* ANExternalUserId.m in Sources */,
 				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
 				601D2CAA26DD97400019EAAC /* NSPointerArray+ANCategory.m in Sources */,
 				8A9AEDF61A1BF99D00C58BDA /* ANGlobal.m in Sources */,
@@ -1474,7 +1463,6 @@
 				0E0C5E5D2437E2EF0030B813 /* ANCSRAd.m in Sources */,
 				0E02F07224336D680073A226 /* ANCSRNativeAdController.m in Sources */,
 				0E02F07024336D570073A226 /* ANCSRNativeAdResponse.m in Sources */,
-				00C491C425DF15AB00609E49 /* ANExternalUserId.m in Sources */,
 				F5731B6C228C8E430012B134 /* ANGDPRSettings.m in Sources */,
 				F5731B71228C8FD20012B134 /* ANGlobal.m in Sources */,
 				60165D272464823E00E8E07C /* ANHTTPNetworkSession.m in Sources */,

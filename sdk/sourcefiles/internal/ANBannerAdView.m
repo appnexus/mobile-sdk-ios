@@ -548,7 +548,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
     // Try to get ANAdResponseInfo from anything that comes through.
     //
-    if (self.enableLazyLoad && adObjectHandler) {
+    if (adObjectHandler) {
         _adResponseInfo = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
         if (_adResponseInfo) {
             [self setAdResponseInfo:_adResponseInfo];
@@ -602,15 +602,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             [self setAdResponseInfo:_adResponseInfo];
         }
 
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
-        if (creativeId) {
-             [self setCreativeId:creativeId];
-        }
-
-        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
-        if (adTypeString) {
-            [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
-        }
     }
 
     // Process AdUnit according to class type of UIView.
@@ -684,6 +675,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             NSError  *registerError  = nil;
 
             self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
+            [self setAdResponseInfo:self.nativeAdResponse.adResponseInfo];
 
             if ((self.obstructionViews != nil) && (self.obstructionViews.count > 0))
             {
@@ -707,9 +699,10 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     //
     } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
         ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
-
-        self.creativeId  = nativeAdResponse.creativeId;
-        self.adType      = ANAdTypeNative;
+        
+        if(nativeAdResponse.adResponseInfo){ // For native mediation cases response info is set in the beginning and responseinfo here will be nil
+            [self setAdResponseInfo:nativeAdResponse.adResponseInfo];
+        }
 
         nativeAdResponse.clickThroughAction           = self.clickThroughAction;
         nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
@@ -791,13 +784,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 - (NSString *) adTypeForMRAID  {
     return kANInline;
-}
-
-- (void)setAllowNativeDemand: (BOOL)nativeDemand
-              withRendererId: (NSInteger)rendererId
-{
-    _nativeAdRendererId = rendererId;
-    _shouldAllowNativeDemand = nativeDemand;
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes

@@ -42,7 +42,6 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 
 @implementation OutstreamVideoAdClassObjectFromUTResponseTests
 
-@synthesize  externalUid;
 @synthesize  publisherId;
 
 
@@ -263,7 +262,6 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 @synthesize landingPageLoadsInBackground;
 @synthesize extInvCode;
 @synthesize trafficSourceCode;
-@synthesize adType;
 @synthesize clickThroughAction;
 @synthesize forceCreativeId;
 

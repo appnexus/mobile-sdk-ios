@@ -40,7 +40,6 @@
     if (!self)  { return nil; }
     
     self.placementId     = placementId;
-    self.externalUid     = @"AppNexus";
     self.allowedAdSizes  = [[NSMutableSet alloc] initWithArray:@[ [NSValue valueWithCGSize:kANAdSize1x1] ]];
     self.adAllowedMediaTypes = [mediaType copy];
     self.delegate = self;

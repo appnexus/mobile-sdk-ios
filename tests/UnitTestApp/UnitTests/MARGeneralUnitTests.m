@@ -174,48 +174,6 @@ TMARK();
     return marObject;
 }
 
-- (void)testDropMultiAdRequestThatIsOutOfScopeDuringAdUnitLoad
-{
-TMARK();
-    self.adUnitsForTest.bannerBanner.externalUid = kLocalScope;
-
-    [self declareEphemeralMultiAdRequestAtInnerScope];
-
-
-    // Demonstrate that AdUnit is independent of ephemeral MAR instance after a brief delay.
-    //
-    
-    [TestGlobal waitForSeconds: kWaitOneSecond
-              thenExecuteBlock: ^{
-                    NSDictionary  *jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.bannerBanner];
-
-                    NSString  *externalUID  = jsonBody[@"user"][@"external_uid"];
-
-                    XCTAssertTrue([externalUID isEqualToString:kLocalScope]);
-                } ];
-}
-
-- (void)declareEphemeralMultiAdRequestAtInnerScope
-{
-TMARK();
-    ANMultiAdRequest  *localMAR  = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
-                                                                     delegate: self
-                                                                      adUnits: self.adUnitsForTest.bannerBanner,
-                                                                               self.adUnitsForTest.bannerPlusNative,
-                                                                               self.adUnitsForTest.bannerPlusVideo,
-                                                                               nil ];
-    localMAR.externalUid = kGlobalScope;
-
-
-    // Demonstrate that newly added AdUnit is cleared from MAR instance after a brief delay.
-    //
-    NSDictionary  *jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.bannerBanner withMultiAdRequest:localMAR];
-
-    NSString  *externalUID  = jsonBody[@"user"][@"external_uid"];
-
-    XCTAssertTrue([externalUID isEqualToString:kGlobalScope]);
-
-}
 
 - (void)testSetLastAdUnitStrongPropertyToNil
 {
@@ -282,8 +240,6 @@ TMARK();
                                                   adUnits: self.adUnitsForTest.banner,
                                                            nil ];
 
-    //
-    self.adUnitsForTest.banner.externalUid  = bobName;
     self.adUnitsForTest.banner.gender       = bobGender;
     self.adUnitsForTest.banner.age          = bobAge;
 
@@ -293,21 +249,16 @@ TMARK();
     XCTAssertEqual([jsonBody[@"user"][@"gender"] integerValue], ANGenderUnknown);
     XCTAssertNil(jsonBody[@"user"][@"age"]);
 
-    //
-    self.mar.externalUid  = aliceName;
     self.mar.gender       = aliceGender;
     self.mar.age          = aliceAge;
 
     jsonBody  = [MARHelper getJSONBodyFromMultiAdRequestInstance:self.mar];
 
-    XCTAssertTrue([jsonBody[@"user"][@"external_uid"] isEqualToString:aliceName]);
     XCTAssertEqual([jsonBody[@"user"][@"gender"] integerValue], aliceGender);
     XCTAssertEqual([jsonBody[@"user"][@"age"] integerValue], [aliceAge integerValue]);
 
-    //
     jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner];
 
-    XCTAssertTrue([jsonBody[@"user"][@"external_uid"] isEqualToString:bobName]);
     XCTAssertEqual([jsonBody[@"user"][@"gender"] integerValue], bobGender);
     XCTAssertEqual([jsonBody[@"user"][@"age"] integerValue], [bobAge integerValue]);
 }
@@ -334,7 +285,6 @@ TMARK();
                                                   adUnits: self.adUnitsForTest.banner,
                                                            nil ];
 
-    //
     jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
 
     marCK       = jsonBody[@"keywords"];
@@ -344,7 +294,6 @@ TMARK();
     XCTAssertNil(adunitCK);
 
 
-    //
     [self.mar addCustomKeywordWithKey:marKeywordOne value:marValueOne];
     [self.mar addCustomKeywordWithKey:marKeywordTwo value:marValueTwo];
 
@@ -519,8 +468,6 @@ TMARK();
                                                   adUnits: self.adUnitsForTest.banner,
                                                            nil ];
 
-    //
-    self.adUnitsForTest.banner.externalUid  = bobName;
     self.adUnitsForTest.banner.gender       = bobGender;
     self.adUnitsForTest.banner.age          = bobAge;
 
@@ -534,8 +481,6 @@ TMARK();
     XCTAssertNil(jsonBody[@"device"][@"geo"][@"latitude"]);
 
 
-    //
-    self.mar.externalUid  = aliceName;
     self.mar.gender       = aliceGender;
     self.mar.age          = aliceAge;
 
@@ -544,7 +489,6 @@ TMARK();
 
     jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner withMultiAdRequest:self.mar];
 
-    XCTAssertTrue([jsonBody[@"user"][@"external_uid"] isEqualToString:aliceName]);
     XCTAssertEqual([jsonBody[@"user"][@"gender"] integerValue], aliceGender);
     XCTAssertEqual([jsonBody[@"user"][@"age"] integerValue], [aliceAge integerValue]);
     XCTAssertEqual([jsonBody[@"device"][@"geo"][@"lat"] integerValue], aliceLatitude);
@@ -552,7 +496,6 @@ TMARK();
     //
     jsonBody  = [MARHelper getJSONBodyFromAdUnit:self.adUnitsForTest.banner];
 
-    XCTAssertTrue([jsonBody[@"user"][@"external_uid"] isEqualToString:bobName]);
     XCTAssertEqual([jsonBody[@"user"][@"gender"] integerValue], bobGender);
     XCTAssertEqual([jsonBody[@"user"][@"age"] integerValue], [bobAge integerValue]);
     XCTAssertEqual([jsonBody[@"device"][@"geo"][@"lat"] integerValue], bobLatitude);

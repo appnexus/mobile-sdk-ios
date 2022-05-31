@@ -24,7 +24,6 @@
 #import "ANGDPRSettings.h"
 #import "ANUSPrivacySettings.h"
 #import "ANOMIDImplementation.h"
-#import "ANExternalUserId.h"
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
     #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
@@ -65,7 +64,6 @@ static NSString  *placementID  = @"9924001";
     ANSDKSettings.sharedInstance.geoOverrideCountryCode = nil;
     ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
     ANSDKSettings.sharedInstance.publisherUserId = nil;
-    ANSDKSettings.sharedInstance.externalUserIdArray = nil;
     ANSDKSettings.sharedInstance.userIdArray = nil;
     ANSDKSettings.sharedInstance.doNotTrack = NO; // Reset Donot Track to default value
     
@@ -948,9 +946,6 @@ static NSString  *placementID  = @"9924001";
     ANSDKSettings.sharedInstance.publisherUserId = @"foobar-publisherfirstpartyid"; // This value should be seen in UT Request body
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
     
-    //publisherFirstPartyID should be used instead of externalUid.
-    // If both publisherFirstPartyID and externalUid are set, publisherFirstPartyID will override externalUID
-    adFetcher.externalUid     = @"AppNexus"; // This value should not be seen in UT Request body.
     
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
     XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -976,162 +971,6 @@ static NSString  *placementID  = @"9924001";
         XCTAssertEqualObjects(puhlisherUserId, @"foobar-publisherfirstpartyid");
         
         [expectation fulfill];
-    });
-    
-    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
-    
-}
-
-- (void)testUTRequestExternalUserIds
-{
-//    ANSDKSettings.sharedInstance.externalUserIds=@{
-//        ANExternalUserIdNetId : @"999888777",
-//        ANExternalUserIdLiveRamp : @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg",
-//        ANExternalUserIdTheTradeDesk : @"00000111-91b1-49b2-ae37-17a8173dc36f",
-//        ANExternalUserIdCriteo : @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"
-//    };
-    
-    NSMutableArray<ANExternalUserId *>  *tempExternalUserIdArray  = [[NSMutableArray<ANExternalUserId *> alloc] init];
-    
-    ANExternalUserId *netIdUser = [ANExternalUserId alloc];
-    netIdUser.source = ANExternalUserIdSourceNetId;
-    netIdUser.userId = @"999888777";
-    
-    ANExternalUserId *tradeDeskUser = [ANExternalUserId alloc];
-    tradeDeskUser.source = ANExternalUserIdSourceTheTradeDesk;
-    tradeDeskUser.userId = @"00000111-91b1-49b2-ae37-17a8173dc36f";
-    
-    ANExternalUserId *uid2User = [ANExternalUserId alloc];
-    uid2User.source = ANExternalUserIdSourceUID2;
-    uid2User.userId = @"uid2_3948249329482ok";
-    
-    [tempExternalUserIdArray addObject:[[ANExternalUserId alloc] initWithSource:ANExternalUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
-    [tempExternalUserIdArray addObject:[[ANExternalUserId alloc] initWithSource:ANExternalUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
-    
-    [tempExternalUserIdArray addObject:netIdUser];
-    [tempExternalUserIdArray addObject:tradeDeskUser];
-    [tempExternalUserIdArray addObject:uid2User];
-    
-    ANSDKSettings.sharedInstance.externalUserIdArray = tempExternalUserIdArray;
-    
-    
-    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
-    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
-   
-    XCTestExpectation       *netIDExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    XCTestExpectation       *liveRampExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    XCTestExpectation       *tradeDeskExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    XCTestExpectation       *criteoExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    XCTestExpectation       *uid2Expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
-                   ^{
-        NSError *error;
-        
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
-                                                        options:kNilOptions
-                                                          error:&error];
-        TESTTRACEM(@"jsonObject=%@", jsonObject);
-        XCTAssertNil(error);
-        XCTAssertNotNil(jsonObject);
-        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
-        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
-        NSArray *eidsArray = jsonDict[@"eids"];
-        NSDictionary *eidDictionary = jsonDict[@"eids"];
-        
-        if (@available(iOS 14, *)) {
-            // External UIDs should be sent in /ut/v3 request only when  ATT Tracking status is authorized
-        #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
-                if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
-                    XCTAssertEqual(eidDictionary.count, 5 );
-                    
-                    NSUInteger count = [eidsArray count];
-                    for (NSUInteger index = 0; index < count ; index++) {
-                        TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
-                        if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
-                            [criteoExpectation fulfill];
-                        }
-                        
-                        if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
-                            [netIDExpectation fulfill];
-                        }
-                        
-                        if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
-                            [liveRampExpectation fulfill];
-                        }
-                        
-                        if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
-                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
-                            [tradeDeskExpectation fulfill];
-                        }
-                        if([eidsArray[index][@"source"] isEqualToString: @"uidapi.com"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"uidapi.com");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"uid2_3948249329482ok");
-                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
-                            [uid2Expectation fulfill];
-                        }
-                    }
-                }else {
-                    
-                    XCTAssertNil(eidDictionary );
-                    [tradeDeskExpectation fulfill];
-                    [criteoExpectation fulfill];
-                    [netIDExpectation fulfill];
-                    [liveRampExpectation fulfill];
-                    [uid2Expectation fulfill];
-
-                    }
-        #endif
-            }else{
-                XCTAssertEqual(eidDictionary.count, 5 );
-                
-                NSUInteger count = [eidsArray count];
-                for (NSUInteger index = 0; index < count ; index++) {
-                    TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
-                    if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
-                        [criteoExpectation fulfill];
-                    }
-                    
-                    if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
-                        [netIDExpectation fulfill];
-                    }
-                    
-                    if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
-                        [liveRampExpectation fulfill];
-                    }
-                    
-                    if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
-                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
-                        [tradeDeskExpectation fulfill];
-                    }
-                    
-                    if([eidsArray[index][@"source"] isEqualToString: @"uidapi.com"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"uidapi.com");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"uid2_3948249329482ok");
-                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
-                        [uid2Expectation fulfill];
-                    }
-                }
-    }
-        
-
     });
     
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];

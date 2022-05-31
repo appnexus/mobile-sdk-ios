@@ -58,9 +58,7 @@
 @synthesize  age             = __age;
 @synthesize  gender          = __gender;
 @synthesize  customKeywords  = __customKeywords;
-@synthesize  externalUid     = __externalUid;
 @synthesize  forceCreativeId     = __forceCreativeId;
-@synthesize  adType                 = __adType;
 @synthesize  rendererId             = _rendererId;
 @synthesize  extInvCode             = __extInvCode;
 @synthesize  trafficSourceCode      = __trafficSourceCode;
@@ -170,11 +168,6 @@
             [self setAdResponseInfo:adResponseInfo onObject:nativeResponse forKeyPath:kANAdResponseInfo];
         }
     }
-    //
-     if (nativeResponse.creativeId == nil) {
-         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-         [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
-     }
 
     //
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
@@ -260,11 +253,6 @@
 //
 #pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
 
-- (void)setCreativeId:(NSString *)creativeId
-             onObject:(id)object forKeyPath:(NSString *)keyPath
-{
-    [object setValue:creativeId forKeyPath:keyPath];
-}
 
 - (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo
              onObject:(id)object forKeyPath:(NSString *)keyPath
