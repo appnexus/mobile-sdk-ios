@@ -46,6 +46,21 @@
     [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout*20];;
     XCTAssertTrue(impressionTracker.exists);
 }
+
+/*
+ testBannerImpressionTrackerViaAdDidLogImpressionTestAd: To test the impression tracker is fired by the Banner Ad.
+ */
+- (void)testBannerImpressionTrackerViaAdDidLogImpressionTestAd {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerImpressionClickTrackerTestWithCallback];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:BannerImpressionClickTrackerTest];
+
+    [app launch];
+    XCUIElement *impressionTracker = app.staticTexts[@"ImpressionTracker via adDidLogImpression"];
+    [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout*20];;
+    XCTAssertTrue(impressionTracker.exists);
+}
+
 /*
  testBannerClickTrackerTestAd: To test the click tracker is fired by the Banner Ad.
  */

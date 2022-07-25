@@ -152,6 +152,12 @@
     [self.view addSubview:self.banner];
 }
 
+- (void)adDidLogImpression:(id)ad  {
+    if([[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTestWithCallback]){
+        self.impressionTracker.text  = @"ImpressionTracker via adDidLogImpression";
+    }
+}
+
 -(void)ad:(id)ad requestFailedWithError:(NSError *)error{
     NSLog(@"Ad request Failed With Error");
 }
@@ -203,7 +209,9 @@
         // Loop for Impression Tracker and match with the returned URL if matched set the label to ImpressionTracker.
         for (NSString* url in impressionTrackerURLRTB){
             if([absoluteURLText containsString:url]){
+                if(![[NSProcessInfo processInfo].arguments containsObject:BannerImpressionClickTrackerTestWithCallback]){
                 self.impressionTracker.text  = @"ImpressionTracker";
+                }
             }
         }
         // Loop for Click Tracker and match with the returned URL if matched set the label to ClickTracker.
