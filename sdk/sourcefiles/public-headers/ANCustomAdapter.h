@@ -35,7 +35,7 @@
 
 
 @protocol ANCustomAdapter <NSObject>
-@property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id delegate;
 @end
 
 
@@ -51,7 +51,6 @@
                        adUnitId:(nullable NSString *)idString
             targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
 
-@property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
 
 @end
 
@@ -69,8 +68,6 @@
 
 @optional
 - (BOOL)isReady;
-
-@property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
 
 @end
 

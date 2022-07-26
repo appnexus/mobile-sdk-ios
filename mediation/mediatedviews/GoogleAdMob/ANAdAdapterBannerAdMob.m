@@ -36,7 +36,6 @@
 
 @implementation ANAdAdapterBannerAdMob
 @synthesize delegate;
-
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
@@ -131,5 +130,6 @@
     self.bannerView.delegate = nil;
     self.bannerView = nil;
 }
+
 
 @end

@@ -38,14 +38,11 @@
 		0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09223FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m */; };
 		0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */; };
 		0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */; };
-		0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */; };
-		0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */; };
-		0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */; };
-		0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */; };
-		0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */; };
-		0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */; };
 		0EE0D0D423FD7ECE00D0C060 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */; };
 		5377DBB872736776143319CD /* libPods-SimpleMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */; };
+		883D7B5B2833C714004C2757 /* ANAdAdapterBannerAdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D7B5A2833C714004C2757 /* ANAdAdapterBannerAdMob.swift */; };
+		8895CB922835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895CB902835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift */; };
+		8895CB932835618A00CF5993 /* ANAdAdapterNativeAdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895CB912835618A00CF5993 /* ANAdAdapterNativeAdMob.swift */; };
 		FCC64C9425A7353F006E5A54 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; };
 		FCC64C9525A7353F006E5A54 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCC64C9625A7354C006E5A54 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */; };
@@ -138,21 +135,12 @@
 		0EE0D09523FD7E0100D0C060 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
 		0EE0D09623FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSmartAd.h; sourceTree = "<group>"; };
 		0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialSmartAd.m; sourceTree = "<group>"; };
-		0EE0D09923FD7E0100D0C060 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
-		0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialDFP.m; sourceTree = "<group>"; };
-		0EE0D09B23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
-		0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeAdMob.m; sourceTree = "<group>"; };
-		0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
-		0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
-		0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
-		0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
-		0EE0D0A123FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialDFP.h; sourceTree = "<group>"; };
-		0EE0D0A223FD7E0100D0C060 /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
-		0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
-		0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
 		0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleCSR.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9D464632CE623986E47C03 /* Pods-SimpleMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.release.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.release.xcconfig"; sourceTree = "<group>"; };
+		883D7B5A2833C714004C2757 /* ANAdAdapterBannerAdMob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANAdAdapterBannerAdMob.swift; sourceTree = "<group>"; };
+		8895CB902835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANAdAdapterInterstitialAdMob.swift; sourceTree = "<group>"; };
+		8895CB912835618A00CF5993 /* ANAdAdapterNativeAdMob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANAdAdapterNativeAdMob.swift; sourceTree = "<group>"; };
 		92D9B61421003C0822F05D3F /* Pods-SimpleCSR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCSR.debug.xcconfig"; path = "Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR.debug.xcconfig"; sourceTree = "<group>"; };
 		941E857F252A95374E5394AF /* Pods-SimpleMediation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.debug.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.debug.xcconfig"; sourceTree = "<group>"; };
 		DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleMediation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +196,9 @@
 				0EE0D03C23FD6CB400D0C060 /* MediationViewController */,
 				0E5B044423BF641300DEBACE /* NavigationViewController */,
 				0E56613B23BF2F120088EB36 /* SupportFiles */,
+				883D7B5A2833C714004C2757 /* ANAdAdapterBannerAdMob.swift */,
+				8895CB902835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift */,
+				8895CB912835618A00CF5993 /* ANAdAdapterNativeAdMob.swift */,
 			);
 			path = SimpleMediation;
 			sourceTree = "<group>";
@@ -343,7 +334,6 @@
 		0EE0D07123FD7E0100D0C060 /* mediatedviews */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0D09823FD7E0100D0C060 /* GoogleAdMob */,
 				0EE0D09123FD7E0100D0C060 /* SmartAd */,
 			);
 			name = mediatedviews;
@@ -361,25 +351,6 @@
 				0EE0D09323FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m */,
 			);
 			path = SmartAd;
-			sourceTree = "<group>";
-		};
-		0EE0D09823FD7E0100D0C060 /* GoogleAdMob */ = {
-			isa = PBXGroup;
-			children = (
-				0EE0D09923FD7E0100D0C060 /* ANAdAdapterBannerAdMob.h */,
-				0EE0D09F23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m */,
-				0EE0D0A423FD7E0100D0C060 /* ANAdAdapterBannerDFP.h */,
-				0EE0D09D23FD7E0100D0C060 /* ANAdAdapterBannerDFP.m */,
-				0EE0D0A323FD7E0100D0C060 /* ANAdAdapterBaseDFP.h */,
-				0EE0D09E23FD7E0100D0C060 /* ANAdAdapterBaseDFP.m */,
-				0EE0D09B23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.h */,
-				0EE0D0A023FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m */,
-				0EE0D0A123FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.h */,
-				0EE0D09A23FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m */,
-				0EE0D0A223FD7E0100D0C060 /* ANAdAdapterNativeAdMob.h */,
-				0EE0D09C23FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m */,
-			);
-			path = GoogleAdMob;
 			sourceTree = "<group>";
 		};
 		0EFC4C97245CC28C008FE3C6 /* CSRViewController */ = {
@@ -642,17 +613,14 @@
 				0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */,
 				0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */,
 				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
-				0EE0D0CA23FD7E0100D0C060 /* ANAdAdapterBannerAdMob.m in Sources */,
-				0EE0D0C823FD7E0100D0C060 /* ANAdAdapterBannerDFP.m in Sources */,
+				8895CB932835618A00CF5993 /* ANAdAdapterNativeAdMob.swift in Sources */,
 				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
-				0EE0D0C923FD7E0100D0C060 /* ANAdAdapterBaseDFP.m in Sources */,
-				0EE0D0CB23FD7E0100D0C060 /* ANAdAdapterInterstitialAdMob.m in Sources */,
-				0EE0D0C623FD7E0100D0C060 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				883D7B5B2833C714004C2757 /* ANAdAdapterBannerAdMob.swift in Sources */,
 				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
-				0EE0D0C723FD7E0100D0C060 /* ANAdAdapterNativeAdMob.m in Sources */,
 				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
 				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
 				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
+				8895CB922835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift in Sources */,
 				0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */,
 				0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */,
 				0EE0D04523FD6EB300D0C060 /* Toast.swift in Sources */,
@@ -850,6 +818,14 @@
 					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk\"/**",
 					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk/FacebookSDK\"/**",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleUtilities\"",
+					"\"${PODS_ROOT}/Headers/Public/PromisesObjC\"",
+					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
+					"\"$(SRCROOT)/SimpleMediation\"",
+				);
 				INFOPLIST_FILE = SimpleMediation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -878,6 +854,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk\"/**",
 					"\"$(SRCROOT)/SimpleMediation/SupportingFiles/mediatedsdk/FacebookSDK\"/**",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleUtilities\"",
+					"\"${PODS_ROOT}/Headers/Public/PromisesObjC\"",
+					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
+					"\"$(SRCROOT)/SimpleMediation\"",
 				);
 				INFOPLIST_FILE = SimpleMediation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

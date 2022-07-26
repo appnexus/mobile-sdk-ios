@@ -18,7 +18,7 @@ import AppNexusSDK
 import GoogleMobileAds
 class AdMobDFPNativeViewController: UIViewController , ANNativeAdRequestDelegate , ANNativeAdDelegate {
     
-    var gadNativeAdView: GADUnifiedNativeAdView?
+    var gadNativeAdView: GADNativeAdView?
     var nativeAdRequest: ANNativeAdRequest?
     var nativeAdResponse: ANNativeAdResponse?
 
@@ -27,7 +27,7 @@ class AdMobDFPNativeViewController: UIViewController , ANNativeAdRequestDelegate
         // Do any additional setup after loading the view.
         
         nativeAdRequest = ANNativeAdRequest()
-        nativeAdRequest!.placementId = "18144598"
+        nativeAdRequest!.placementId = "25115874"
         nativeAdRequest!.shouldLoadIconImage = true
         nativeAdRequest!.shouldLoadMainImage = true
         nativeAdRequest!.delegate = self
@@ -49,7 +49,7 @@ class AdMobDFPNativeViewController: UIViewController , ANNativeAdRequestDelegate
     func createGADNativeAdView() {
         let adNib = UINib(nibName: "UnifiedNativeAdView", bundle: Bundle(for: type(of: self)))
         let array = adNib.instantiate(withOwner: self, options: nil)
-        gadNativeAdView = (array.first as! GADUnifiedNativeAdView)
+        gadNativeAdView = (array.first as! GADNativeAdView)
     }
     
     func populateGADUnifiedNativeViewWithResponse() {
@@ -83,6 +83,16 @@ class AdMobDFPNativeViewController: UIViewController , ANNativeAdRequestDelegate
          Toast.show(message: "ad requestFailedWithError \(error)", controller: self)
      }
   
+    
+    func adDidLogImpression(_ ad: Any) {
+//        Toast.show(message: "adDidLogImpression", controller: self)
+        print("adDidLogImpression===?")
+
+
+    }
+    func adWillClose(_ ad: Any) {
+        print("adWillClose===?")
+    }
 }
 
 
