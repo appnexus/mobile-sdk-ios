@@ -19,6 +19,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
 
 @interface AdPerformanceStatsBannerAdTestCase : XCTestCase <ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *bannerAd;
@@ -32,6 +33,8 @@
 
 - (void)setUp {
     [self clearAd];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 }
 
 - (void)tearDown {

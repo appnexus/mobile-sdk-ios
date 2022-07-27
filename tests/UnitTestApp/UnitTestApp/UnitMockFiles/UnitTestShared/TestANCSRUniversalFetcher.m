@@ -26,7 +26,6 @@
     if (!self)  { return nil; }
     
     self.placementId     = placementId;
-    ANSDKSettings.sharedInstance.publisherUserId = @"AppNexus";
     self.allowedAdSizes  = [[NSMutableSet alloc] initWithArray:@[ [NSValue valueWithCGSize:kANAdSize1x1] ]];
 
     self.delegate = self;

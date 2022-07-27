@@ -25,6 +25,7 @@
 #import "ANAdWebViewController+ANTest.h"
 #import "ANInstreamVideoAd.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
 
 
 @interface HTTPCookieTestCase : XCTestCase <ANBannerAdViewDelegate , ANInstreamVideoAdLoadDelegate>
@@ -43,6 +44,8 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     self.banner = nil;
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
     
 }
 

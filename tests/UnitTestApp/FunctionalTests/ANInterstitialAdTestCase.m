@@ -20,6 +20,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
+#import "XandrAd.h"
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 @interface ANInterstitialAdTestCase : XCTestCase <ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
@@ -34,6 +35,8 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     self.interstitial.delegate = self;
 }

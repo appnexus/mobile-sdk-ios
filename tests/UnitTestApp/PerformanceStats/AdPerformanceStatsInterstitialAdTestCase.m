@@ -20,6 +20,8 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
+
 @interface AdPerformanceStatsInterstitialAdTestCase : XCTestCase <ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
 @property (nonatomic, strong) XCTestExpectation *firstLoadAdResponseReceivedExpectation;
@@ -33,6 +35,8 @@
     
     [self clearAd];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 }
 
 - (void)tearDown {

@@ -26,6 +26,7 @@
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "NSURLProtocol+WKWebViewSupport.h"
 #import "ANBannerAdView+ANTest.h"
+#import "XandrAd.h"
 
 static NSString   *placementID      = @"12534678";
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
@@ -70,6 +71,8 @@ static NSString   *placementID      = @"12534678";
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
 
     [self registerEventListener];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 }
 
 - (void)tearDown {

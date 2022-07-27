@@ -33,7 +33,7 @@
 }
 
 - (void)testSetTimerFor1Sec{
-   ANSDKSettings.sharedInstance.countImpressionOn1PxRendering = YES;
+   //ANSDKSettings.sharedInstance.countImpressionOn1PxRendering = YES;
    [ANRealTimer addDelegate:self];
     
    self.loadAdSuccesfulException = [self expectationWithDescription:@"Timer Exception"];

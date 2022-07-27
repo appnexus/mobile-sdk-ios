@@ -21,6 +21,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
 #import "ANAdView+PrivateMethods.h"
+#import "XandrAd.h"
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 @interface ANBannerAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate>
@@ -62,7 +63,8 @@
     self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
-
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 
 }
 

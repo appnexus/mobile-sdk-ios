@@ -51,3 +51,4 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 #import <AppNexusNativeSDK/ANCSRNativeAdResponse.h>
 
 #import <AppNexusNativeSDK/ANUserId.h>
+#import <AppNexusNativeSDK/XandrAd.h>

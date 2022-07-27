@@ -18,6 +18,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANNativeAdRequest+ANTest.h"
+#import "XandrAd.h"
 
 
 
@@ -62,6 +63,8 @@
     [super setUp];
     
     self.mar = nil;
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
     
     self.MAR_countOfCompletionSuccesses  = 0;
     self.MAR_countOfCompletionFailures   = 0;

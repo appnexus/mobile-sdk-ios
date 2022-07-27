@@ -102,12 +102,6 @@ An AppNexus disableIDFVUsage  is a boolean value which exclude the IDFV field in
 */
 @property (nonatomic, readwrite) BOOL disableIDFVUsage;
 
-/**
- Specify if impression should be counted when the creative is loaded & viewable on screen.
- This feature is disabled by default.
- */
-@property (nonatomic, readwrite, assign) BOOL countImpressionOn1PxRendering;
-
 
 /**
  Do not track flag. Set this to YES if you have information in the app about user opt out and want to disable tracking cookies for this auction.

@@ -17,4 +17,12 @@
 
 @implementation ANBaseAdObject
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.impressionType = ANBeginToRender; // Default to Begin To Render
+    }
+    return self;
+}
+
 @end

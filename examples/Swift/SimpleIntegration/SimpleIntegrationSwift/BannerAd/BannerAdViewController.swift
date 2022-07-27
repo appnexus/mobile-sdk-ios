@@ -23,6 +23,9 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        ANLogManager.setANLogLevel(ANLogLevel.all)
+        
+
         self.title = "Banner Ad"
 
         let adWidth: Int = 300

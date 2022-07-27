@@ -53,7 +53,7 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate , 
         }
     }
     
-    func adDidReceiveAd(_ ad: ANAdProtocol) {
+    func adDidReceiveAd(_ ad: Any) {
         videoContentPlayer.pause()
         videoAd.center = self.view.center
         videoAd.play(withContainer: self.view, with: self)

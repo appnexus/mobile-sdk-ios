@@ -26,6 +26,7 @@
 #import "ANInstreamVideoAd.h"
 #import "ANInstreamVideoAd+Test.h"
 #import "ANVideoAdPlayer.h"
+#import "XandrAd.h"
 
 
 static NSString   *placementID      = @"12534678";
@@ -56,6 +57,8 @@ static NSString   *inventoryCode    = @"trucksmash";
 {
     [super setUp];
     [[ANSDKSettings sharedInstance] optionalSDKInitialization:nil];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 

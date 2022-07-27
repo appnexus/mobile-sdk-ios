@@ -419,19 +419,17 @@
      self.nativeAdView.loadingDelegate = self;
 }
 
-- (void) fireImpressionTrackersEarly:(ANBaseAdObject *) ad {
-    //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView.
+- (void) checkifBeginToRenderAndFireImpressionTracker:(ANBaseAdObject *) ad {
     
-    if ([self.delegate respondsToSelector:@selector(valueOfHowImpressionBeFired)]){
-        ANImpressionFiring howImpressionFired =  [self.delegate valueOfHowImpressionBeFired];
-        //fire impression when we receive the ad or if lazy load is enabled
-        if(howImpressionFired == ANAdReceived || howImpressionFired == ANLazyLoad){
-            ANLogDebug(@"Impression tracker fired on ad received %@", ad.impressionUrls.firstObject);
+    NSArray *mediaTypes = [self.delegate adAllowedMediaTypes];
+    BOOL isBanner = (![mediaTypes containsObject:@(ANAllowedMediaTypeInterstitial)]);
+    //fire the impression tracker earlier in the lifecycle. immediatley after creating the webView if it is Begin to Render
+    if (isBanner && ad.impressionType == ANBeginToRender){
+            ANLogDebug(@"Impression tracker fired on Begin To Render %@", ad.impressionUrls.firstObject);
             [ANTrackerManager fireTrackerURLArray:ad.impressionUrls withBlock:nil];
             ad.impressionUrls = nil;
         
         }
-    }
 }
 
 
@@ -579,7 +577,9 @@
                                                             HTML: webviewContent
                                                   webViewBaseURL: [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]] ];
         
-        [self fireImpressionTrackersEarly:standardAd];
+        
+        //TODO-Kowshick Will this cause trouble for Interstitial Imp Tracking
+        [self checkifBeginToRenderAndFireImpressionTracker:standardAd];
         
         
     }

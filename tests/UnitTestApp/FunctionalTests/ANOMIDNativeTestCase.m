@@ -23,6 +23,7 @@
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "SDKValidationURLProtocol.h"
+#import "XandrAd.h"
 
 @interface ANOMIDNativeTestCase : XCTestCase<ANNativeAdRequestDelegate, SDKValidationURLProtocolDelegate>
 
@@ -46,6 +47,8 @@
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
     [SDKValidationURLProtocol setDelegate:self];
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 }
 
 - (void)tearDown {
@@ -87,7 +90,7 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.31-Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
 
 }
@@ -112,7 +115,7 @@
     XCTAssertTrue([self.requestData containsString:@"mediaType"]);
     XCTAssertTrue([self.requestData containsString:@"display"]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:@"1.3.31-Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
 
     [self.adResponseInfo unregisterViewFromTracking];

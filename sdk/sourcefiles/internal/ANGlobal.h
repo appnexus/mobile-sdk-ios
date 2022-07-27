@@ -62,6 +62,11 @@ typedef NS_ENUM(NSUInteger, ANVideoAdSubtype) {
     ANVideoAdSubtypeBannerVideo
 };
 
+typedef NS_ENUM(NSUInteger, ANImpressionType) {
+    ANBeginToRender, // When WebView starts to load the html content
+    ANViewableImpression // When 1px of the Ad is Visible to user
+};
+
 
 
 extern NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize;

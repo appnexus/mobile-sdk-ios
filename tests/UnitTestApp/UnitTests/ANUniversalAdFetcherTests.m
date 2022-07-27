@@ -17,6 +17,7 @@
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANUniversalAdFetcher.h"
+#import "XandrAd.h"
 
 
 
@@ -64,6 +65,8 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     self.placementId = @"1281482";
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     self.callbackInvoked = NO;
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
     
 }
 

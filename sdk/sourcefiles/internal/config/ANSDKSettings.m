@@ -112,7 +112,6 @@
         sdkSettings.doNotTrack = NO;
         sdkSettings.auctionTimeout = 0;
         sdkSettings.nativeAdAboutToExpireInterval = kAppNexusNativeAdAboutToExpireInterval;
-        sdkSettings.countImpressionOn1PxRendering = NO;
         sdkSettings.enableOMIDOptimization = NO;
     });
     return sdkSettings;

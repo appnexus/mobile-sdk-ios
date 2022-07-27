@@ -20,6 +20,7 @@
 #import "ANMediationAdViewController.h"
 #import "ANMockMediationAdapterBannerNeverCalled.h"
 #import "ANBrowserViewController.h"
+#import "XandrAd.h"
 
 
 
@@ -302,6 +303,8 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
     self.bannerAdViewExtended = [ANBannerAdViewExtended new];
     [self.bannerAdViewExtended setAdSize:CGSizeMake(320, 50)];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 }
 
 

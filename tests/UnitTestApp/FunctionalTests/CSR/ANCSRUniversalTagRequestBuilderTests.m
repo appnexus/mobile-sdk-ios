@@ -31,6 +31,7 @@
 #endif
 
 #import "ANFBSettings.h"
+
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 30.0;
 static NSString  *PlacementID  = @"9924001";
 
@@ -69,13 +70,18 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
 
 - (void)setUp {
     [super setUp];
+    [self clearObject];
     
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
-    
+    ANSDKSettings.sharedInstance.publisherUserId = @"AppNexus";
     [SDKValidationURLProtocol setDelegate:self];
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
+    
+    
 }
 
 - (void)tearDown {
@@ -111,6 +117,7 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     [SDKValidationURLProtocol setDelegate:nil];
     [NSURLProtocol unregisterClass:[SDKValidationURLProtocol class]];
     [ANFBSettings setFBAudienceNetworkInitialize:NO];
+    ANSDKSettings.sharedInstance.publisherUserId = nil;
 }
 
 - (void)testUTRequestWithAudienceNetwork

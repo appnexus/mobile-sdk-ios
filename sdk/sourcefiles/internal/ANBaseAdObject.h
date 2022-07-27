@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ANAdResponseInfo.h"
-
+#import "ANGlobal.h"
 
 @interface ANBaseAdObject : NSObject
 
@@ -26,6 +26,7 @@
 @property (nonatomic, readwrite, strong)  NSString              *adType;
 @property (nonatomic, readwrite, strong)  NSString              *creativeId;
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
-@property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
+@property (nonatomic, readwrite, strong)  ANAdResponseInfo      *adResponseInfo;
+@property (nonatomic, readwrite, assign)  ANImpressionType      impressionType;
 
 @end

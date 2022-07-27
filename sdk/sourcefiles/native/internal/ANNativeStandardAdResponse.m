@@ -76,6 +76,7 @@
         _dateCreated = [NSDate date];
         _impressionHasBeenTracked = NO;
         _isAdVisible100Percent    = NO;
+        _impressionType = ANBeginToRender;
 
     }
     return self;
@@ -113,20 +114,12 @@
 - (void)setupViewabilityTracker
 {
     
-    if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering || [ANSDKSettings sharedInstance].enableOMIDOptimization) {
+    if ((self.impressionType == ANViewableImpression || [ANSDKSettings sharedInstance].enableOMIDOptimization)) {
         [ANRealTimer addDelegate:self];
-    } else {
-        if(self.viewForTracking.window) {
+    }
+    
+    if(self.impressionType == ANBeginToRender) {
             [self trackImpression];
-        } else {
-            __weak ANNativeStandardAdResponse *weakSelf = self;
-
-            self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
-                                                                         block:^ {
-                                                                             ANNativeStandardAdResponse *strongSelf = weakSelf;
-                    [strongSelf checkIfIABViewable];
-                } repeats:YES];
-        }
     }
 }
 

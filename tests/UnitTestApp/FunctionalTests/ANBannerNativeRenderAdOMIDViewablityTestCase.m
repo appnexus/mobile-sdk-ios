@@ -27,6 +27,7 @@
 #import "SDKValidationURLProtocol.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANNativeAdResponse+ANTest.h"
+#import "XandrAd.h"
 
 @interface ANBannerNativeRenderAdOMIDViewablityTestCase : XCTestCase <ANBannerAdViewDelegate , SDKValidationURLProtocolDelegate , ANNativeAdResponseProtocol >
 
@@ -80,7 +81,8 @@
     
     [SDKValidationURLProtocol setDelegate:self];
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
-    
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
     
     
 }

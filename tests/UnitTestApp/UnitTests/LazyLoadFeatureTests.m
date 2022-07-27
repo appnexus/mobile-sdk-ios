@@ -36,6 +36,7 @@ limitations under the License.
 #import "ANAdFetcherBase.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANMRAIDContainerView+ANTest.h"
+#import "XandrAd.h"
 
 
 
@@ -98,7 +99,8 @@ limitations under the License.
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 
     [ANLogManager setANLogLevel:ANLogLevelAll];
-
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 
     //
     [self createAdUnits];

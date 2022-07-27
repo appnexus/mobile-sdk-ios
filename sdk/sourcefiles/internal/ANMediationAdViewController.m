@@ -359,7 +359,7 @@
         adObject = containerView;
     }
     //fire impressionURLS much earlier in the lifecycle
-    [self.adFetcher fireImpressionTrackersEarly:self.mediatedAd];
+    [self.adFetcher checkifBeginToRenderAndFireImpressionTracker:self.mediatedAd];
     
     [self finish:ANAdResponseCode.SUCCESS withAdObject:adObject];
     

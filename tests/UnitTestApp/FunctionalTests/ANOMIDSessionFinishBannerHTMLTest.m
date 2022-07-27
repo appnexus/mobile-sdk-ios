@@ -25,6 +25,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANLogging+Make.h"
 #import "ANLog.h"
+#import "XandrAd.h"
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 // The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
@@ -55,6 +56,8 @@
     self.bannerAdView.delegate = self;
     self.bannerAdView.appEventDelegate = self;
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
+    // Init here if not the tests will crash
+    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
 
 }
 
