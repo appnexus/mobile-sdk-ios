@@ -1,10 +1,11 @@
 ## 8.0.0
 
 ### Announcements:
-We have completed the removal of the APIs referenced in the 7.21.0 release. Please note there are breaking changes to some of our APIs, particularly for our init methods which is required for ad calls to be successful- xandrAd.init() [I think this should be changed specifically to match to iOS syntax].  See our 8.0 integration guide, as well as our SDK initialization guide for further details.
+We have completed the removal of the APIs referenced in the 7.21.0 release. Please note there are breaking changes to some of our APIs, particularly for our init methods which is required for ad calls to be successful-[[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];.  See our [8.0 integration guide](https://docs.xandr.com/bundle/mobile-sdk/page/ios-sdk-integration-instructions.html), as well as our [SDK initialization guide](https://docs.xandr.com/bundle/mobile-sdk/page/ios---sdk-initialization--v8-0-.html) for further details.
+
 
 ### Improvement/Bug Fixes
-+ MS-5011 Updated impression counting methodology. Please see our new impression counting methodology guide.
++ MS-5011 Updated impression counting methodology. Please see our new [impression counting methodology guide].(counting)
 + MS-4978 Fixed custom adapter issues in Swift. [Github Issue #71]
 + MS-5007 Removed all discontinued mediation adapters
 + MS-5013 Upgraded to OMSDK v1.3.31
