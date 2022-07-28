@@ -59,8 +59,8 @@
     self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
     self.nativeView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
     // Init here if not the tests will crash
-    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
-    
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)tearDown {

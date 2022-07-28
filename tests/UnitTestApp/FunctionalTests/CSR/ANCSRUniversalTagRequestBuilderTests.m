@@ -79,8 +79,8 @@ static const NSInteger CUSTOM_ADAPTER_ERROR = 11 ;
     [SDKValidationURLProtocol setDelegate:self];
     [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
     // Init here if not the tests will crash
-    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
-    
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
     
 }
 

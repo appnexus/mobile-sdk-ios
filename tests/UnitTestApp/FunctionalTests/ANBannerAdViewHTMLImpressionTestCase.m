@@ -79,7 +79,9 @@ limitations under the License.
 //Test impression tracker is fired for Count on Begin To Render cases and banner is not on Window.
 - (void)testImpressionCountOnBeginToRenderRecorded {
     //Setting Seller member id to 958, Buyer member id will be 10094 so impression type should be begin to render without banner on screen
-    [XandrAd.sharedInstance initWithMemberID:958 completionHandler:nil];
+    
+    [[XandrAd sharedInstance] initWithMemberID:958 preCacheRequestObjects:true completionHandler:nil];
+
     [self.bannerAdView loadAd];
     self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:60
@@ -94,7 +96,7 @@ limitations under the License.
 //Test impression tracker is fired for Viewable Impression cases when banner is attached to window.
 - (void)testViewableImpressionRecorded {
     //Setting Seller member id to 10094, Buyer member id will be 10094 so impression type should be begin to render without banner on screen
-    [XandrAd.sharedInstance initWithMemberID:10094 completionHandler:nil];
+    [[XandrAd sharedInstance] initWithMemberID:10094 preCacheRequestObjects:true completionHandler:nil];
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.bannerAdView];
     [self.bannerAdView loadAd];
     self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];

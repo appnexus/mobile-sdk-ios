@@ -100,7 +100,9 @@ limitations under the License.
 
     [ANLogManager setANLogLevel:ANLogLevelAll];
     // Init here if not the tests will crash
-    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
+      [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
+   
 
     //
     [self createAdUnits];
