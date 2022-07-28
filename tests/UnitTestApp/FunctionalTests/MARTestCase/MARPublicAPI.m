@@ -34,6 +34,7 @@
 #import "ANInstreamVideoAd+Test.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 
+#import "XandrAd.h"
 
 
 
@@ -91,6 +92,8 @@
     [ANInterstitialAd setDoNotResetAdUnitUUID:YES];
     [ANNativeAdRequest setDoNotResetAdUnitUUID:YES];
     [ANInstreamVideoAd setDoNotResetAdUnitUUID:YES];
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 

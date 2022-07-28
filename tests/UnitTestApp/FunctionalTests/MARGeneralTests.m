@@ -28,7 +28,7 @@
 #import "ANUniversalAdFetcher+ANTest.h"
 
 #import "ANAdViewInternalDelegate.h"
-
+#import "XandrAd.h"
 
 
 #pragma mark - Global private constants.
@@ -101,6 +101,9 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     [ANInterstitialAd setDoNotResetAdUnitUUID:YES];
     [ANNativeAdRequest setDoNotResetAdUnitUUID:YES];
     [ANInstreamVideoAd setDoNotResetAdUnitUUID:YES];
+    
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)clearCountsAndExpectations

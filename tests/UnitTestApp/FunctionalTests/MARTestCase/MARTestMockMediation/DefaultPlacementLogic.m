@@ -25,6 +25,7 @@ limitations under the License.
 #import "ANMultiAdRequest.h"
 
 #import "ANAdResponseInfo.h"
+#import "XandrAd.h"
 
 
 
@@ -90,6 +91,8 @@ limitations under the License.
     //
     self.httpStubManager = [ANHTTPStubbingManager sharedStubbingManager];
     self.httpStubManager.ignoreUnstubbedRequests = YES;
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)tearDown

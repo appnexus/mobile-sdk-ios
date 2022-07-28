@@ -29,6 +29,7 @@
 
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANNativeAdResponse+ANTest.h"
+#import "XandrAd.h"
 
 
 
@@ -67,6 +68,8 @@
     
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)tearDown {
