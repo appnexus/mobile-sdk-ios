@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         ANSDKSettings.sharedInstance().enableOMIDOptimization = true
+        ANLogManager.setANLogLevel(ANLogLevel.all)
+        XandrAd.sharedInstance().initWithMemberID(10094,preCacheRequestObjects: true, completionHandler: nil)
         return true
     }
 }

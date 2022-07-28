@@ -93,6 +93,12 @@
 }
 
 
+- (void)adDidLogImpression:(id)ad  {
+    if([[NSProcessInfo processInfo].arguments containsObject:InterstitialImpressionClickTrackerTestWithCallback]){
+        self.impressionTracker.text  = @"ImpressionTracker via adDidLogImpression";
+    }
+}
+
 # pragma mark - Ad Server Response Stubbing
 // updateNetworkLog: Will return event in fire of URL from Application(or SDK)
 - (void) updateNetworkLog:(NSNotification *) notification
@@ -104,8 +110,11 @@
         NSLog(@"absoluteURLText -> %@",absoluteURLText);
         // Loop for Impression Tracker and match with the returned URL if matched set the label to ImpressionTracker.
         for (NSString* url in impressionTrackerURLRTB){
+          
             if([absoluteURLText containsString:url]){
+                if(![[NSProcessInfo processInfo].arguments containsObject:InterstitialImpressionClickTrackerTestWithCallback]){
                 self.impressionTracker.text  = @"ImpressionTracker";
+                }
             }
         }
         // Loop for Click Tracker and match with the returned URL if matched set the label to ClickTracker.

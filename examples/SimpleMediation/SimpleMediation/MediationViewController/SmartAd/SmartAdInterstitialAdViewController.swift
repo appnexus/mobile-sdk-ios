@@ -19,7 +19,7 @@ import AppNexusSDK
 class SmartAdInterstitialAdViewController: UIViewController , ANInterstitialAdDelegate {
     
     var interstitialAd: ANInterstitialAd?
-    let kPlacementId = "10263953"
+    let kPlacementId = "25047629"
     
     
     override func viewDidLoad() {

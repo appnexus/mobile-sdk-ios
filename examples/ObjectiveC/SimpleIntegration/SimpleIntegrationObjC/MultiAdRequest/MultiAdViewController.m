@@ -49,8 +49,8 @@
     // Add Ad Units
     [self.marAdRequest addAdUnit:[self createBannerAd:self.bannerAdView]];
     //[self.marAdRequest addAdUnit:[self createInterstitialAd]];
-    //[self.marAdRequest addAdUnit: [self createVideoAd]];
-    //[self.marAdRequest addAdUnit:[self createNativeAd]];
+    [self.marAdRequest addAdUnit: [self createVideoAd]];
+    [self.marAdRequest addAdUnit:[self createNativeAd]];
     // Load Ad Units
     [self.marAdRequest load];
     

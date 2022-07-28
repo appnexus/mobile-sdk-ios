@@ -31,6 +31,7 @@
 #import "ANInstreamVideoAd+Test.h"
 #import "ANAdView+ANTest.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
 
 
 
@@ -59,6 +60,8 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

@@ -29,6 +29,7 @@
 
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANNativeAdResponse+ANTest.h"
+#import "XandrAd.h"
 
 
 
@@ -67,6 +68,8 @@
     
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)tearDown {
@@ -78,6 +81,7 @@
     self.successfulAdCall = NO;
     self.adResponseInfo = nil;
     self.adRequestError = nil;
+    ANSDKSettings.sharedInstance.publisherUserId = nil;
     self.nativeAdWillExpireExpectation = nil;
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
@@ -115,7 +119,7 @@
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setPlacementId:@"1"];
-    [self.adRequest setExternalUid:@"AppNexus"];
+    ANSDKSettings.sharedInstance.publisherUserId = @"AppNexus";
     
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
@@ -296,7 +300,7 @@
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
-    [self.adRequest setExternalUid:@"AppNexus"];
+    ANSDKSettings.sharedInstance.publisherUserId = @"AppNexus";
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -325,7 +329,7 @@
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setPlacementId:@"1"];
-    [self.adRequest setExternalUid:@"AppNexus"];
+    ANSDKSettings.sharedInstance.publisherUserId = @"AppNexus";
 
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
@@ -399,7 +403,7 @@
         XCTAssertEqual(self.adResponseInfo.networkCode, ANNativeAdNetworkCodeFacebook);
         XCTAssertNil(self.adResponseInfo.iconImage);
         XCTAssertNil(self.adResponseInfo.mainImage);
-        XCTAssertEqualObjects(self.adResponseInfo.creativeId, @"111");
+        XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.creativeId, @"111");
     } else {
         XCTAssertNotNil(self.adRequestError);
     }
@@ -479,7 +483,7 @@
     [self validateGenericNativeAdObject];
     XCTAssertEqual(self.adResponseInfo.networkCode, ANNativeAdNetworkCodeAppNexus);
     XCTAssertNil(self.adResponseInfo.iconImage);
-    XCTAssertEqualObjects(self.adResponseInfo.creativeId, @"125");
+    XCTAssertEqualObjects(self.adResponseInfo.adResponseInfo.creativeId, @"125");
     self.adResponseInfo.mainImageURL ? XCTAssertNotNil(self.adResponseInfo.mainImage) : XCTAssertNil(self.adResponseInfo.mainImage);
     self.adResponseInfo.mainImageURL ? XCTAssertTrue([self.adResponseInfo.mainImage isKindOfClass:[UIImage class]]) : nil;
 }
@@ -602,10 +606,9 @@
 - (void)loadNativeAdRequest{
     self.adRequest= [[ANNativeAdRequest alloc] init];
     [self.adRequest setPlacementId:@"1"];
-    [self.adRequest setExternalUid:@"AppNexus"];
+    ANSDKSettings.sharedInstance.publisherUserId = @"AppNexus";
     self.adRequest.forceCreativeId = 135482485;
     [self.adRequest setRendererId:127];
-    [self.adRequest setExternalUid:@"AppNexus"];
     [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
     self.adRequest.gender = ANGenderMale;
     self.adRequest.shouldLoadIconImage = YES;
@@ -741,8 +744,8 @@
     if (self.adResponseInfo.customElements) {
         XCTAssert([self.adResponseInfo.customElements isKindOfClass:[NSDictionary class]]);
     }
-    if (self.adResponseInfo.creativeId) {
-        XCTAssert([self.adResponseInfo.creativeId isKindOfClass:[NSString class]]);
+    if (self.adResponseInfo.adResponseInfo.creativeId) {
+        XCTAssert([self.adResponseInfo.adResponseInfo.creativeId isKindOfClass:[NSString class]]);
     }
 }
 

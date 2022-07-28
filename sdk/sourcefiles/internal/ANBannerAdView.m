@@ -72,6 +72,8 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
+@property (nonatomic, readwrite, assign) ANImpressionType impressionType;
+
 /**
  * This flag remembers whether the initial return of the ad object from UT Response processing
  *   indicated that the AdUnit was lazy loaded.
@@ -111,7 +113,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
 
-@synthesize  countImpressionOnAdReceived    = _countImpressionOnAdReceived;
 @synthesize  enableLazyLoad                 = _enableLazyLoad;
 
 
@@ -141,12 +142,11 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     self.loadAdHasBeenInvoked     = NO;
     self.enableNativeRendering    = NO;
 
-    _countImpressionOnAdReceived  = NO;
-
     _enableLazyLoad                 = NO;
     _didBecomeLazyAdUnit            = NO;
     _isLazySecondPassThroughAdUnit  = NO;
     _isAdVisible100Percent          = NO;
+    _impressionType                 = ANBeginToRender;
 
     //
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
@@ -393,7 +393,13 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         }];
         self.impressionURLs = nil;
     }
+    
+    [self fireOMIDImpression];
 
+}
+
+- (void)fireOMIDImpression
+{
     // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
     //
     if ([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
@@ -548,12 +554,18 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
     // Try to get ANAdResponseInfo from anything that comes through.
     //
-    if (self.enableLazyLoad && adObjectHandler) {
+    if (adObjectHandler) {
         _adResponseInfo = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:adObjectHandler];
         if (_adResponseInfo) {
             [self setAdResponseInfo:_adResponseInfo];
         }
+        
+        if([adObjectHandler isKindOfClass:[ANBaseAdObject class]]){
+            ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)response.adObjectHandler;
+            self.impressionType = baseAdObject.impressionType;
+        }
     }
+    
 
 
     //
@@ -570,7 +582,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     }
     
     //Check if its banner only & not native or native renderer
-    if(self.valueOfHowImpressionBeFired == AN1PxViewed){
+    if(self.impressionType == ANViewableImpression){
         BOOL shouldAddDelegate = TRUE;
         
         if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] || [adObject isKindOfClass:[ANNativeAdResponse class]]){
@@ -602,15 +614,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             [self setAdResponseInfo:_adResponseInfo];
         }
 
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
-        if (creativeId) {
-             [self setCreativeId:creativeId];
-        }
-
-        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
-        if (adTypeString) {
-            [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
-        }
     }
 
     // Process AdUnit according to class type of UIView.
@@ -631,20 +634,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
                 _loadedAdSize = receivedSize;
             } else {
                 _loadedAdSize = self.adSize;
-            }
-
-            if (_adResponseInfo.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
-            {
-                
-
-                // Fire trackers and OMID upon attaching to UIView hierarchy or if countImpressionOnAdReceived is enabled,
-                //   but only when the AdUnit is not lazy.
-                //
-                if((!response.isLazy && self.valueOfHowImpressionBeFired == ANAdRendered && self.window) || self.valueOfHowImpressionBeFired == ANAdReceived){
-                    self.contentView = adObject;
-                    //fire impression tracker
-                    [self fireTrackerAndOMID];
-                }
             }
         }
 
@@ -670,9 +659,11 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             self.contentView = adObject;
         }
 
-        if(self.isLazySecondPassThroughAdUnit && self.valueOfHowImpressionBeFired == ANLazyLoad){
-           [self fireTrackerAndOMID];
+        // Only Fire OMID Impression here for Begin to Render Cases. If it is Begin To Render then impression would have already fired from [ANUNiversalAdFetcher fireImpressionTrackersEarly]
+        if(self.impressionType == ANBeginToRender){
+           [self fireOMIDImpression];
         }
+
 
         if ((_adResponseInfo.adType == ANAdTypeBanner) || (_adResponseInfo.adType == ANAdTypeVideo))
         {
@@ -684,6 +675,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             NSError  *registerError  = nil;
 
             self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
+            [self setAdResponseInfo:self.nativeAdResponse.adResponseInfo];
 
             if ((self.obstructionViews != nil) && (self.obstructionViews.count > 0))
             {
@@ -707,9 +699,10 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     //
     } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
         ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
-
-        self.creativeId  = nativeAdResponse.creativeId;
-        self.adType      = ANAdTypeNative;
+        
+        if(nativeAdResponse.adResponseInfo){ // For native mediation cases response info is set in the beginning and responseinfo here will be nil
+            [self setAdResponseInfo:nativeAdResponse.adResponseInfo];
+        }
 
         nativeAdResponse.clickThroughAction           = self.clickThroughAction;
         nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
@@ -793,13 +786,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     return kANInline;
 }
 
-- (void)setAllowNativeDemand: (BOOL)nativeDemand
-              withRendererId: (NSInteger)rendererId
-{
-    _nativeAdRendererId = rendererId;
-    _shouldAllowNativeDemand = nativeDemand;
-}
-
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
     NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
@@ -844,29 +830,8 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     return  self.isLazySecondPassThroughAdUnit;
 }
 
-- (ANImpressionFiring) valueOfHowImpressionBeFired {
-    if (self.countImpressionOnAdReceived){
-        return ANAdReceived;
-    } else if (ANSDKSettings.sharedInstance.countImpressionOn1PxRendering){
-        return  AN1PxViewed;
-    } else if (self.enableLazyLoad) {
-        return ANLazyLoad;
-    }
-    return ANAdRendered;
-}
 
 #pragma mark - UIView observer methods.
-
-- (void)didMoveToWindow
-{
-    if (self.contentView && (_adResponseInfo.adType == ANAdTypeBanner))
-    {
-        if(self.valueOfHowImpressionBeFired == ANAdRendered){
-            ANLogDebug(@"Impression tracker fired on render");
-            [self fireTrackerAndOMID];
-        }
-    }
-}
 
 
 -(void) willMoveToSuperview:(UIView *)newSuperview {
@@ -891,8 +856,8 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     
     ANLogInfo(@"exposed rectangle: %@",  NSStringFromCGRect(updatedVisibleInViewRectangle));
     
-    if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0 && self.impressionURLs != nil && self.valueOfHowImpressionBeFired == AN1PxViewed){
-        ANLogDebug(@"Impression tracker fired on 1px rendering");
+    if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0 && self.impressionURLs != nil && self.impressionType == ANViewableImpression){
+        ANLogDebug(@"Impression tracker fired on Viewable Impression");
         //Fire impression tracker here
         [self fireTrackerAndOMID];
         //Firing the impression tracker & set the delegate to nil to not duplicate the firing of impressions

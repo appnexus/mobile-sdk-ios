@@ -187,7 +187,6 @@
 
     targetingParameters.customKeywords    = customKeywordsAsStrings;
     targetingParameters.age               = adView.age;
-    targetingParameters.externalUid       = adView.externalUid;
     targetingParameters.gender            = adView.gender;
     targetingParameters.location          = adView.location;
     NSString *idfa = ANAdvertisingIdentifier();
@@ -360,7 +359,7 @@
         adObject = containerView;
     }
     //fire impressionURLS much earlier in the lifecycle
-    [self.adFetcher fireImpressionTrackersEarly:self.mediatedAd];
+    [self.adFetcher checkifBeginToRenderAndFireImpressionTracker:self.mediatedAd];
     
     [self finish:ANAdResponseCode.SUCCESS withAdObject:adObject];
     

@@ -18,6 +18,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANNativeAdRequest+ANTest.h"
+#import "XandrAd.h"
 
 
 
@@ -62,7 +63,9 @@
     [super setUp];
     
     self.mar = nil;
-    
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
     self.MAR_countOfCompletionSuccesses  = 0;
     self.MAR_countOfCompletionFailures   = 0;
     self.AdUnit_countOfReceiveSuccesses = 0;
@@ -221,8 +224,8 @@
     }else{
         XCTAssertTrue(false);
     }
-    if (self.adResponseInfo.creativeId) {
-        XCTAssert([self.adResponseInfo.creativeId isKindOfClass:[NSString class]]);
+    if (self.adResponseInfo.adResponseInfo.creativeId) {
+        XCTAssert([self.adResponseInfo.adResponseInfo.creativeId isKindOfClass:[NSString class]]);
     }else{
         XCTAssertTrue(false);
     }

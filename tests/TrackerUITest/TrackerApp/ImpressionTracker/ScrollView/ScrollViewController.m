@@ -26,8 +26,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // All of the placements from this test are from member 10094 and shoudl fire impression only when 1px is on screen
+    [[XandrAd sharedInstance] initWithMemberID:10094 preCacheRequestObjects:YES completionHandler:^(BOOL success) {
+                if(success){
+                    NSLog(@"XandrAd init Complete");
+                }
+    }];
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    ANSDKSettings.sharedInstance.countImpressionOn1PxRendering = YES;
     
     if(MockTestcase){
         [self prepareStubbing];

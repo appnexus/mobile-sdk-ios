@@ -19,6 +19,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
 
 #define  PERFORMANCESTATSRTBBANNERVIDEOAD_WEBVIEW_SECOND_LOAD_TEST  2000
 
@@ -34,6 +35,8 @@
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

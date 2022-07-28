@@ -33,6 +33,7 @@
 #import "ANGDPRSettings.h"
 #import "ANHTTPNetworkSession.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
+#import "XandrAd.h"
 
 #pragma mark -
 
@@ -108,6 +109,16 @@
 - (void)requestAd
 {
     if (self.isFetcherLoading)  { return; }
+    
+    // If XandrAd.init is not called stop here and throw an exception. Dont process any further
+    if(!XandrAd.sharedInstance.isInitialised){
+        NSException* sdkInitException = [NSException
+                exceptionWithName:@"SDKNotInitialized"
+                reason:@"Xandr SDK must be initialised before making an Ad Request."
+                userInfo:nil];
+         [sdkInitException raise];
+    }
+        
     
     NSMutableURLRequest  *request    = nil;
     

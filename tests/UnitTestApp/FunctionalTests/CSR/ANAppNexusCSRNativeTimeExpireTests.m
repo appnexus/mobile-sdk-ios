@@ -28,6 +28,7 @@
 #import "ANNativeAdResponse+ANTest.h"
 
 
+
 @interface ANAppNexusCSRNativeTimeExpireTests : XCTestCase<ANNativeAdRequestDelegate, ANNativeAdDelegate >
 
 @property (nonatomic, readwrite, strong)   ANNativeAdResponse     *nativeResponse;
@@ -51,6 +52,8 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

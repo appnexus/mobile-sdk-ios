@@ -19,7 +19,7 @@ import AppNexusSDK
 class AdmobDFPInterstitialAdViewController: UIViewController , ANInterstitialAdDelegate {
     
     var interstitialAd: ANInterstitialAd?
-    let kPlacementId = "18144585"
+    let kPlacementId = "25115873"
     
     
     override func viewDidLoad() {
@@ -35,11 +35,23 @@ class AdmobDFPInterstitialAdViewController: UIViewController , ANInterstitialAdD
     
     // MARK: - ANInterstitialAdDelegate
     func adDidReceiveAd(_ ad: Any) {
-        Toast.show(message: "adDidReceiveAd", controller: self)
+        print("adDidReceiveAd===?")
         interstitialAd!.display(from: self)
     }
     
+    
     func ad(_ ad: Any, requestFailedWithError error: Error) {
-        Toast.show(message: "adFailed", controller: self)
+//        Toast.show(message: "adFailed", controller: self)
+        print("requestFailedWithError===?")
+
+    }
+    func adDidLogImpression(_ ad: Any) {
+//        Toast.show(message: "adDidLogImpression", controller: self)
+        print("adDidLogImpression===?")
+
+
+    }
+    func adWillClose(_ ad: Any) {
+        print("adWillClose===?")
     }
 }

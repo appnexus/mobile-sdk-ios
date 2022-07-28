@@ -22,6 +22,7 @@
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANGlobal.h"
+#import "XandrAd.h"
 #define kAppNexusCSMTimeoutInterval 6.0
 
 
@@ -47,6 +48,8 @@
     [self clearObject];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 -(void)loadNativeAd{
     

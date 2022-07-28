@@ -28,6 +28,7 @@
 #import "ANBannerAdView+ANTest.h"
 #import <UIKit/UIKit.h>
 #import <UnitTestApp-Swift.h>
+#import "XandrAd.h"
 
 static NSString   *placementID      = @"12534678";
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
@@ -71,6 +72,8 @@ static NSString   *placementID      = @"12534678";
     self.isOMIDImpressionEventFulfilled = NO;
     self.isOMIDAdSessionFinishedEventFulfilled = NO;
     [self registerEventListener];
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 
 }
 
@@ -394,7 +397,7 @@ static NSString   *placementID      = @"12534678";
         self.OMIDGeomentryChangeExpectation = nil;
     }
     
-    if (self.OMIDVersionExpectation && [response containsString:@"1.3.20-Appnexus"] && [response containsString:@"libraryVersion"]) {
+    if (self.OMIDVersionExpectation && [response containsString:@"1.3.31-Appnexus"] && [response containsString:@"libraryVersion"]) {
           // Only assert if it has been setup to assert.
           [self.OMIDVersionExpectation fulfill];
         self.OMIDVersionExpectation = nil;

@@ -37,10 +37,9 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate, A
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ANSDKSettings.sharedInstance().httpsEnabled = true
         playButton.layer.zPosition = CGFloat(MAXFLOAT)
         isvideoAdAvailable = false
-        ANSDKSettings.sharedInstance().httpsEnabled = false
+
         // Fix iPhone issue of log text starting in the middle of the UITextView
         automaticallyAdjustsScrollViewInsets = false
         portraitVideoViewFrame = videoView.frame

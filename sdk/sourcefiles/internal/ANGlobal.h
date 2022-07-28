@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"7.22.0"
+#define AN_SDK_VERSION                  @"8.0.0"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -60,6 +60,11 @@ typedef NS_ENUM(NSUInteger, ANVideoAdSubtype) {
     ANVideoAdSubtypeUnknown = 0,
     ANVideoAdSubtypeInstream,
     ANVideoAdSubtypeBannerVideo
+};
+
+typedef NS_ENUM(NSUInteger, ANImpressionType) {
+    ANBeginToRender, // When WebView starts to load the html content
+    ANViewableImpression // When 1px of the Ad is Visible to user
 };
 
 

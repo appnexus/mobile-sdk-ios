@@ -23,8 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        ANSDKSettings.sharedInstance().httpsEnabled = true;
-
+        
+        ANLogManager.setANLogLevel(ANLogLevel.all)
+        // ideally initialize Xandr SDK inside AppDelegate before calling any other SDK methods
+        XandrAd.sharedInstance().initWithMemberID(1234, preCacheRequestObjects: true, completionHandler: nil)
         return true
     }
 

@@ -18,6 +18,7 @@
 
 #import "XCTestCase+ANBannerAdView.h"
 #import "XCTestCase+ANAdResponse.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
@@ -228,7 +229,7 @@
 
 - (void) checkTypeURLsAndRefreshTimer
 {
-    XCTAssertTrue(ANAdTypeNative == self.multiFormatAd.adType);
+   XCTAssertTrue(ANAdTypeNative == self.multiFormatAd.adResponseInfo.adType);
 
     XCTAssertNotNil(self.nativeAd.mainImageURL);
     XCTAssertNotNil(self.nativeAd.iconImageURL);
@@ -290,7 +291,8 @@
     
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"2"];
     self.multiFormatAd.delegate = self;
-    [self.multiFormatAd setAllowNativeDemand:YES withRendererId:127];
+    [self.multiFormatAd setShouldAllowNativeDemand:YES];
+    [self.multiFormatAd setNativeAdRendererId:127];
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
     
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -319,7 +321,7 @@
     [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest handler:nil];
 
 
-    XCTAssertTrue(ANAdTypeBanner == self.multiFormatAd.adType);
+    XCTAssertTrue(ANAdTypeBanner == self.multiFormatAd.adResponseInfo.adType);
     XCTAssertNotNil(self.multiFormatAd.universalAdFetcher.autoRefreshTimer);
 
 
@@ -338,7 +340,7 @@
     [self.multiFormatAd loadAd];
     [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest handler:nil];
 
-    XCTAssertTrue(ANAdTypeNative == self.multiFormatAd.adType);
+   XCTAssertTrue(ANAdTypeNative == self.multiFormatAd.adResponseInfo.adType);
 }
 
 
@@ -358,8 +360,8 @@
     [self.multiFormatAd loadAd];
     [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest handler:nil];
 
-    XCTAssertNotNil(self.multiFormatAd.creativeId);
-    XCTAssertEqual(self.multiFormatAd.creativeId, self.nativeAd.creativeId);
+   XCTAssertNotNil(self.multiFormatAd.adResponseInfo.creativeId);
+   XCTAssertEqual(self.multiFormatAd.adResponseInfo.creativeId, self.nativeAd.adResponseInfo.creativeId);
 }
 
 - (void)testClickThruSettingsWithOpenSDKBrowser

@@ -28,6 +28,7 @@
 #import "ANInstreamVideoAd+Test.h"
 #import "ANVideoAdPlayer.h"
 #import "ANAdView+PrivateMethods.h"
+#import "XandrAd.h"
 
 
 @interface ANAdOMIDViewablityTestCase : XCTestCase<ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate , ANInstreamVideoAdLoadDelegate>
@@ -57,7 +58,9 @@
     self.receiveAdFailure = NO;
     self.friendlyObstruction=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
     self.nativeView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
-    
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)tearDown {

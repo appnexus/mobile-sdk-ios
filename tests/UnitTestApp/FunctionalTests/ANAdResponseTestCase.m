@@ -27,6 +27,7 @@ limitations under the License.
 #import "ANInstreamVideoAd.h"
 #import "ANInstreamVideoAd+Test.h"
 #import "ANVideoAdPlayer.h"
+#import "XandrAd.h"
 
 
 @interface ANAdResponseTestCase : XCTestCase<ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate, ANInstreamVideoAdLoadDelegate>
@@ -48,6 +49,8 @@ limitations under the License.
 
 - (void)setUp {
     [super setUp];
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     self.receiveAdSuccess = NO;

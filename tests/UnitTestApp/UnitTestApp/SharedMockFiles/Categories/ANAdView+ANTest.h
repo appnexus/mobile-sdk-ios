@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANAdView.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANAdViewInternalDelegate.h"
 
 

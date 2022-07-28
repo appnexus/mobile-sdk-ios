@@ -44,6 +44,24 @@
     XCTAssertTrue(impressionTracker.exists);
 }
 /*
+ testInterstitialImpressionTrackerViaAdDidLogImpressionTestAd: To test the impression tracker is fired by the Interstitial Ad.
+ */
+- (void)testInterstitialImpressionTrackerViaAdDidLogImpressionTestAd {
+   // Use recording to get started writing UI tests.
+   // Use XCTAssert and related functions to verify your tests produce the correct results.
+   XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchArguments = [app.launchArguments arrayByAddingObject:InterstitialImpressionClickTrackerTestWithCallback];
+    
+    app.launchArguments = [app.launchArguments arrayByAddingObject:InterstitialImpressionClickTrackerTest];
+
+   [app launch];
+   
+    XCUIElement *impressionTracker = app.staticTexts[@"ImpressionTracker via adDidLogImpression"];
+   [self waitForElementToAppear:impressionTracker  withTimeout:ImpressionTrackerTimeout];;
+   XCTAssertTrue(impressionTracker.exists);
+}
+
+/*
  testInterstitialClickTrackerTestAd: To test the click tracker is fired by the Interstitial Ad.
  */
 

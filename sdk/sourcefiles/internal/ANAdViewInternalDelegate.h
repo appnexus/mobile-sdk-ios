@@ -19,13 +19,6 @@
 #import "ANAdProtocol.h"
 #import "ANAdFetcherResponse.h"
 
-typedef NS_ENUM(NSUInteger, ANImpressionFiring) {
-    ANAdReceived,
-    AN1PxViewed,
-    ANLazyLoad,
-    ANAdRendered
-};
-
 // NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the
 //       request and response halves of Native entry point.
 //     See ANNativeAdRequestDelegate and ANNativeAdDelegate (for response).
@@ -43,7 +36,6 @@ typedef NS_ENUM(NSUInteger, ANImpressionFiring) {
 
 - (BOOL)valueOfEnableLazyLoad;
 - (BOOL)valueOfIsLazySecondPassThroughAdUnit;
-- (ANImpressionFiring) valueOfHowImpressionBeFired;
 
 @required
 - (void)adRequestFailedWithError:(NSError *)error andAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;

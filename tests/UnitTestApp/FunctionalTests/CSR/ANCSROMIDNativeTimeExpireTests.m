@@ -46,7 +46,9 @@
 
 - (void)setUp {
     [super setUp];
-    
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
     // Put setup code here. This method is called before the invocation of each test method in the class.
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;

@@ -54,9 +54,11 @@
  */
 #define BannerImpressionClickTrackerTest @"BannerImpressionClickTrackerTest"
 #define BannerNativeImpressionClickTrackerTest @"BannerNativeImpressionClickTrackerTest"
+#define BannerImpressionClickTrackerTestWithCallback @"BannerImpressionClickTrackerTestWithCallback"
 #define BannerNativeRendererImpressionClickTrackerTest @"BannerNativeRendererImpressionClickTrackerTest"
 #define BannerVideoImpressionClickTrackerTest @"BannerVideoImpressionClickTrackerTest"
 #define InterstitialImpressionClickTrackerTest @"InterstitialImpressionClickTrackerTest"
+#define InterstitialImpressionClickTrackerTestWithCallback @"InterstitialImpressionClickTrackerTestWithCallback"
 #define VideoImpressionClickTrackerTest @"VideoImpressionClickTrackerTest"
 #define NativeImpressionClickTrackerTest @"NativeImpressionClickTrackerTest"
 #define NativeMultiClickTrackerTest @"NativeMultiClickTrackerTest"

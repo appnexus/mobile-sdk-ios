@@ -14,6 +14,7 @@
  */
 
 #import "ANNativeAdResponse.h"
+#import "ANGlobal.h"
 
 @interface ANNativeStandardAdResponse : ANNativeAdResponse
 
@@ -41,5 +42,6 @@
 @property (nonatomic, readwrite, strong) NSString *nativeRenderingUrl;
 @property (nonatomic, readwrite, strong) NSString *nativeRenderingObject;
 @property (nonatomic, readwrite, strong)  ANAdResponseInfo *adResponseInfo;
+@property (nonatomic, readwrite, assign)  ANImpressionType      impressionType;
 
 @end

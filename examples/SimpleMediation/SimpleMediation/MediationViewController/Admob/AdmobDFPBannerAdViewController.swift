@@ -19,7 +19,7 @@ import AppNexusSDK
 class AdmobDFPBannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     var banner: ANBannerAdView?
     
-    let kPlacementId = "18144580"
+    let kPlacementId = "25115872"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,7 @@ class AdmobDFPBannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         let banner = ANBannerAdView(frame: rect, placementId: kPlacementId, adSize: size)
         banner.rootViewController = self
         banner.delegate = self
+        banner.autoRefreshInterval = 0
         banner.clickThroughAction = ANClickThroughAction.openSDKBrowser
         
         // Since this example is for testing, we'll turn on PSAs and verbose logging.
@@ -56,11 +57,21 @@ class AdmobDFPBannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     
     // MARK: - ANBannerAdViewDelegate
     func adDidReceiveAd(_ ad: Any) {
-        Toast.show(message: "adDidReceiveAd", controller: self)
+        print("adDidReceiveAd===?")
+//        Toast.show(message: "adDidReceiveAd", controller: self)
     }
     
     func ad(_ ad: Any, requestFailedWithError error: Error) {
-        Toast.show(message: "adFailed", controller: self)
+//        Toast.show(message: "adFailed", controller: self)
+        print("requestFailedWithError===?")
+
+    }
+    func adDidLogImpression(_ ad: Any) {
+//        Toast.show(message: "adDidLogImpression", controller: self)
+        print("adDidLogImpression===?")
+    }
+    func adWillClose(_ ad: Any) {
+        print("adWillClose===?")
     }
 }
 

@@ -122,8 +122,8 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
-    XCTAssertEqualObjects(self.banner.creativeId, @"65588716");
+    XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"65588716");
     XCTAssert([self.banner.universalAdFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
 }
 
@@ -139,7 +139,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.creativeId.length, 0);
+    XCTAssertEqual(self.banner.adResponseInfo.creativeId.length, 0);
 }
 
 
@@ -160,8 +160,8 @@
     
     XCTAssertNotNil(self.banner.universalAdFetcher.adView);
     XCTAssert([self.banner.universalAdFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
-    XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
-    XCTAssertEqualObjects(self.banner.creativeId, @"6332753");
+   XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
+   XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"6332753");
 }
 
 
@@ -193,8 +193,8 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.adType, ANAdTypeVideo);
-    XCTAssertEqualObjects(self.banner.creativeId, @"65588716");
+   XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeVideo);
+    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"65588716");
     XCTAssert([self.banner.universalAdFetcher.adObjectHandler isKindOfClass:[ANRTBVideoAd class]]);
     XCTAssert(![self.banner.universalAdFetcher.adObjectHandler isKindOfClass:[ANCSMVideoAd class]]);
 }
@@ -211,7 +211,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
+    XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
     XCTAssertEqual(self.banner.getVideoOrientation, ANPortrait);
 }
 
@@ -226,7 +226,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
+    XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
     XCTAssertEqual(self.banner.getVideoOrientation, ANLandscape);
 }
 
@@ -241,7 +241,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
+    XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
     XCTAssertEqual(self.banner.getVideoOrientation, ANSquare);
 }
 

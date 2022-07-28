@@ -18,6 +18,7 @@ limitations under the License.
 #import <XCTest/XCTest.h>
 #import "ANTimeTracker.h"
 #import "ANGlobal.h"
+#import "XandrAd.h"
 @interface AdPerformanceStatsReport : XCTestCase
 
 @end
@@ -26,6 +27,8 @@ limitations under the License.
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

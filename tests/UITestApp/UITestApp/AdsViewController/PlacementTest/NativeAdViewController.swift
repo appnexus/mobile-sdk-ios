@@ -20,6 +20,8 @@ import AppNexusSDK
 class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate, ANNativeAdDelegate {
 
     
+
+    
     var nativeAdRequest = ANNativeAdRequest()
     var nativeAdResponse = ANNativeAdResponse()
     var adKey  : String = ""
@@ -78,7 +80,7 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate, ANNa
         }
     }
     
-    func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error) {
+    func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error, with adResponseInfo: ANAdResponseInfo?) {
         print("requestFailedWithError \(String(describing: error))")
     }
 

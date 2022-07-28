@@ -27,6 +27,8 @@ limitations under the License.
     // Override point for customization after application launch.
     [[ANSDKSettings sharedInstance] optionalSDKInitialization:nil];
     [ANLogManager setANLogLevel:ANLogLevelAll];
+    
+    [[XandrAd sharedInstance] initWithMemberID:1234 preCacheRequestObjects:YES completionHandler:nil];
     return YES;
 }
 

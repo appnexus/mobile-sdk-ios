@@ -24,6 +24,8 @@
 #import "ANLogManager.h"
 #import "ANNativeAdResponse.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
+
 
 @interface PerformanceStatsNativeOnlyNativeAdTestCase : XCTestCase <ANNativeAdRequestDelegate>
 
@@ -41,6 +43,8 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
     [self clearAd];
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     

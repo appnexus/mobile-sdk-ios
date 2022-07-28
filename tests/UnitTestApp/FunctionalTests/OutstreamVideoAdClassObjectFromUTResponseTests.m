@@ -22,6 +22,7 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "XandrAd.h"
 
 static NSString         *outstreamVideoPlacementID  = @"12534678";
 
@@ -42,7 +43,6 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 
 @implementation OutstreamVideoAdClassObjectFromUTResponseTests
 
-@synthesize  externalUid;
 @synthesize  publisherId;
 
 
@@ -55,6 +55,8 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     [ANLogManager setANLogLevel:ANLogLevelAll];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
+
 }
 
 - (void)tearDown {
@@ -263,7 +265,6 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 @synthesize landingPageLoadsInBackground;
 @synthesize extInvCode;
 @synthesize trafficSourceCode;
-@synthesize adType;
 @synthesize clickThroughAction;
 @synthesize forceCreativeId;
 

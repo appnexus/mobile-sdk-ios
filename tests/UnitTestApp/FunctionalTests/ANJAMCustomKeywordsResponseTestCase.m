@@ -25,6 +25,7 @@
 #import "ANTestGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
+#import "XandrAd.h"
 
 
 
@@ -41,6 +42,8 @@
 
 - (void)setUp {
     [super setUp];
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     

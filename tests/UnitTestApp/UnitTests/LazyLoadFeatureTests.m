@@ -36,6 +36,7 @@ limitations under the License.
 #import "ANAdFetcherBase.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANMRAIDContainerView+ANTest.h"
+#import "XandrAd.h"
 
 
 
@@ -98,7 +99,10 @@ limitations under the License.
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 
     [ANLogManager setANLogLevel:ANLogLevelAll];
+    // Init here if not the tests will crash
+      [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 
+   
 
     //
     [self createAdUnits];
@@ -170,7 +174,7 @@ limitations under the License.
 
     self.lazyBanner.shouldServePublicServiceAnnouncements = NO;
 
-    self.lazyBanner.externalUid              = @"banner-banner";
+   // self.lazyBanner.externalUid              = @"banner-banner";
 
     self.lazyBanner.enableLazyLoad = YES;
 
@@ -186,7 +190,7 @@ limitations under the License.
 
     self.lazyBanner.shouldServePublicServiceAnnouncements = NO;
 
-    self.multiFormatBanner.externalUid              = @"banner-multiformat";
+    //self.multiFormatBanner.externalUid              = @"banner-multiformat";
 
     self.multiFormatBanner.enableLazyLoad = NO;
 

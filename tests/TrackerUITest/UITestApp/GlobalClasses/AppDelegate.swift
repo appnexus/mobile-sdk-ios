@@ -14,7 +14,7 @@
  */
 
 import UIKit
-//import AppNexusSDK
+import AppNexusSDK
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        ANSDKSettings.sharedInstance().httpsEnabled = true;
 
+        // ideally initialize Xandr SDK inside AppDelegate before calling any other SDK methods
+        XandrAd.sharedInstance().initWithMemberID(1234, preCacheRequestObjects: true, completionHandler: nil)
         return true
     }
 

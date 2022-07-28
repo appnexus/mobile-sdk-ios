@@ -31,7 +31,6 @@
 
 @property (nonatomic, readwrite, strong, nullable) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
-@property (nonatomic, readwrite, strong, nullable) NSString *externalUid DEPRECATED_MSG_ATTRIBUTE("No Alternatives");
 /**
  location may be nil if not specified by app.
  */

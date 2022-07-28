@@ -20,6 +20,8 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANTimeTracker.h"
+#import "XandrAd.h"
+
 #define  PERFORMANCESTATSRTBBANNERNATIVERENDERERADAD_WEBVIEW_SECOND_LOAD_TEST  1800
 @interface AdPerformanceStatsBannerNativeRendererAdTestCase : XCTestCase <ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *bannerAd;
@@ -34,6 +36,8 @@
 - (void)setUp {
     [self clearAd];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

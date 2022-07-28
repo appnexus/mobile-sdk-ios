@@ -28,6 +28,7 @@
 #import "ANAdResponseInfo.h"
 #import "ANGlobal.h"
 #import "ANCSRAd.h"
+#import "XandrAd.h"
 
 
 #pragma mark - Public constants.
@@ -337,6 +338,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     if (nativeAd) {
                         nativeAd.creativeId = creativeId;
                         nativeAd.adResponseInfo = adResponseInfo;
+                        // Set Impression Type for NativeAd
+                        if([XandrAd.sharedInstance isEligibleForViewableImpression:adResponseInfo.memberId]){
+                            nativeAd.impressionType = ANViewableImpression;
+                        }
                         if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
                         {
                         NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
@@ -435,6 +440,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
             baseAdObject.adType = [adType copy];
             baseAdObject.adResponseInfo = adResponseInfo;
+            // Set Impression Type for this AdObject
+            if([XandrAd.sharedInstance isEligibleForViewableImpression:adResponseInfo.memberId]){
+                baseAdObject.impressionType = ANViewableImpression;
+            }
         }
     }
 

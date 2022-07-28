@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import AppNexusSDK
+import AppNexusNativeSDK
 import FBAudienceNetwork
 class FacebookCSRNativeBanner: UIViewController , ANNativeAdRequestDelegate , ANNativeAdDelegate {
     

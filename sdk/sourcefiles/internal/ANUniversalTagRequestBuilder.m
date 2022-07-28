@@ -575,8 +575,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     // Use publisherFirstPartyID if it is present. External Id in ANAdProtocol is deprecated.
     if (publisherUserId) {
         userDict[@"external_uid"] = publisherUserId;
-    }else if ([self.adFetcherDelegate externalUid]) {
-        userDict[@"external_uid"] = [self.adFetcherDelegate externalUid];
     }else if (!ANAdvertisingTrackingEnabled()){
         // Pass IDFV as external_uid when there is no Publisher First Party Id and IDFA
         NSString *idfv = ANIdentifierForVendor();
@@ -814,46 +812,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
                 
             }
         }
-    }else{ // if userId is not present then use externalUserId
-    NSArray<ANExternalUserId *>  *externalUserIdArray  = [ANSDKSettings.sharedInstance externalUserIdArray];
-    if ([externalUserIdArray count] <= 0)  { return nil; }
-    for (ANExternalUserId *externaluserId in externalUserIdArray)
-    {
-        switch (externaluserId.source) {
-            case ANExternalUserIdSourceLiveRamp:
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : @"liveramp.com",
-                                                 @"id"          : externaluserId.userId
-                                             } ];
-                break;
-            case ANExternalUserIdSourceCriteo:
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : @"criteo.com",
-                                                 @"id"          : externaluserId.userId
-                                             } ];
-                break;
-            case ANExternalUserIdSourceNetId:
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : @"netid.de",
-                                                 @"id"          : externaluserId.userId
-                                             } ];
-                break;
-            case ANExternalUserIdSourceTheTradeDesk:
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : @"adserver.org",
-                                                 @"id"          : externaluserId.userId,
-                                                 @"rti_partner"      : @"TDID"
-                                             } ];
-                break;
-            case ANExternalUserIdSourceUID2:
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : @"uidapi.com",
-                                                 @"id"          : externaluserId.userId,
-                                                 @"rti_partner"      : @"UID2"
-                                             } ];
-                break;
-        }
-    }
     }
     //
     return [transformedeuidArray copy];

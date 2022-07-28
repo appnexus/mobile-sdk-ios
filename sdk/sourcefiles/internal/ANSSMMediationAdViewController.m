@@ -177,7 +177,7 @@
     self.ssmAdView.webViewController.adViewANJAMInternalDelegate = self.adViewDelegate;
     
     //fire impressionURLS much earlier in the lifecycle
-    [self.adFetcher fireImpressionTrackersEarly:self.ssmMediatedAd];
+    [self.adFetcher checkifBeginToRenderAndFireImpressionTracker:self.ssmMediatedAd];
     
 }
 

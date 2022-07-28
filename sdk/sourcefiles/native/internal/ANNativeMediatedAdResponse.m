@@ -49,7 +49,10 @@
     if (_expired == YES) {
         return YES;
     }
-    if (!self.adapter || [self.adapter hasExpired]) {
+    
+    
+    if (!self.adapter || ([self.adapter respondsToSelector:@selector(hasExpired)] && [self.adapter hasExpired])) {
+        
         _expired = YES;
     }
     return _expired;

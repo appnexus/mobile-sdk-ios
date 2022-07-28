@@ -76,10 +76,7 @@
 @synthesize  gender                                 = __gender;
 @synthesize  customKeywords                         = __customKeywords;
 
-@synthesize  creativeId                             = __creativeId;
 @synthesize  forceCreativeId                        = __forceCreativeId;
-@synthesize  adType                                 = __adType;
-@synthesize  externalUid                            = __externalUid;
 
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
@@ -232,17 +229,6 @@
 
 #pragma mark - ANAdProtocol: Setter methods
 
-- (void)setCreativeId:(nonnull NSString *)creativeId {
-    creativeId = ANConvertToNSString(creativeId);
-    if ([creativeId length] < 1) {
-        ANLogError(@"Could not set creativeId to non-string value");
-        return;
-    }
-    if (creativeId != __creativeId) {
-        ANLogDebug(@"Setting creativeId to %@", creativeId);
-        __creativeId = creativeId;
-    }
-}
 
 - (void)setForceCreativeId:(NSInteger)forceCreativeId {
     if (forceCreativeId <= 0) {
@@ -255,13 +241,6 @@
     }
 }
 
-- (void)setAdType:(ANAdType)adType
-{
-    if (adType != __adType) {
-        ANLogDebug(@"Setting adType to %@", @(adType));
-        __adType = adType;
-    }
-}
 
 - (void)setAdResponseInfo:(ANAdResponseInfo *)adResponseInfo {
     if (!adResponseInfo) {
@@ -516,15 +495,6 @@
     return __gender;
 }
 
-- (nullable NSString *)creativeId {
-    ANLogDebug(@"Creative Id returned %@", __creativeId);
-    return __creativeId;
-}
-
--(nullable NSString *)externalUid {
-    ANLogDebug(@"ExternalUid returned %@", __externalUid);
-    return __externalUid;
-}
 
 - (ANUniversalAdFetcher *)universalAdFetcher
 {
