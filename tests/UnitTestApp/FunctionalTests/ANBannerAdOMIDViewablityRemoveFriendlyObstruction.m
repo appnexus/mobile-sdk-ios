@@ -63,7 +63,7 @@
     [self.friendlyObstruction setBackgroundColor:[UIColor yellowColor]];
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.friendlyObstruction];
     // Init here if not the tests will crash
-    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 
 
 }

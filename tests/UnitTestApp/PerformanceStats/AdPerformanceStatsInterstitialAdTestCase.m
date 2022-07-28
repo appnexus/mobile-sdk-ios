@@ -36,7 +36,7 @@
     [self clearAd];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     // Init here if not the tests will crash
-    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

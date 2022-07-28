@@ -73,7 +73,7 @@ static NSString   *placementID      = @"12534678";
     self.isOMIDAdSessionFinishedEventFulfilled = NO;
     [self registerEventListener];
     // Init here if not the tests will crash
-    [XandrAd.sharedInstance initWithMemberID:1 completionHandler:nil];
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 
 }
 
