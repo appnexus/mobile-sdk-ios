@@ -227,6 +227,78 @@
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
 }
 
+- (void)testIsBannerNativeVideoHighImpactEnabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    self.multiFormatAd.shouldAllowHighImpactDemand = YES;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeHighImpact)]);
+}
+
+- (void)testIsBannerNativeVideoHighImpactDisabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    self.multiFormatAd.shouldAllowHighImpactDemand = NO;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeHighImpact)]);
+}
+
+- (void)testIsBannerNativeEnabledVideoDisabledHighImpactEnabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowVideoDemand = NO;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    self.multiFormatAd.shouldAllowHighImpactDemand = YES;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeHighImpact)]);
+}
+
+- (void)testIsBannerNativeDisabledVideoEnabledHighImpactEnabled
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
+    self.multiFormatAd.shouldAllowNativeDemand = NO;
+    self.multiFormatAd.shouldAllowHighImpactDemand = YES;
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeHighImpact)]);
+}
+
+- (void)testIsBannerNativeVideoHighImpactDefault
+{
+    TESTTRACE();
+
+    self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
+    XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeHighImpact)]);
+}
+
 - (void) checkTypeURLsAndRefreshTimer
 {
    XCTAssertTrue(ANAdTypeNative == self.multiFormatAd.adResponseInfo.adType);

@@ -107,6 +107,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 @synthesize  shouldAllowBannerDemand        = _shouldAllowBannerDemand;
 @synthesize  shouldAllowVideoDemand         = _shouldAllowVideoDemand;
 @synthesize  shouldAllowNativeDemand        = _shouldAllowNativeDemand;
+@synthesize  shouldAllowHighImpactDemand    = _shouldAllowHighImpactDemand;
 @synthesize  nativeAdRendererId             = _nativeAdRendererId;
 @synthesize  enableNativeRendering          = _enableNativeRendering;
 @synthesize  adResponseInfo                 = _adResponseInfo;
@@ -134,6 +135,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     _shouldAllowBannerDemand      = YES;
     _shouldAllowVideoDemand       = NO;
     _shouldAllowNativeDemand      = NO;
+    _shouldAllowHighImpactDemand  = NO;
 
     _nativeAdRendererId           = 0;
     _videoAdOrientation           = ANUnknown;
@@ -797,6 +799,9 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     }
     if(_shouldAllowVideoDemand){
         [mediaTypes addObject:@(ANAllowedMediaTypeVideo)];
+    }
+    if(_shouldAllowHighImpactDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeHighImpact)];
     }
     return  [mediaTypes copy];
 }

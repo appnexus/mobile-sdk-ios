@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,
     ANAllowedMediaTypeInterstitial  = 3,
     ANAllowedMediaTypeVideo         = 4,
+    ANAllowedMediaTypeHighImpact    = 11,
     ANAllowedMediaTypeNative        = 12
 };
 

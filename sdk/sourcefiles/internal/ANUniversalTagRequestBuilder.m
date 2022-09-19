@@ -472,6 +472,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         {
             case ANAllowedMediaTypeBanner:
             case ANAllowedMediaTypeInterstitial:
+            case ANAllowedMediaTypeHighImpact:
                 tag[@"banner_frameworks"] =  @[@(6)];
                 break;
             case ANAllowedMediaTypeNative:
