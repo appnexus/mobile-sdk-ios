@@ -25,7 +25,7 @@ DESC
     subspec.vendored_frameworks   =  "sdk/sourcefiles/Viewability/OMSDK_Appnexus.xcframework"
     subspec.frameworks           = 'WebKit'
     subspec.pod_target_xcconfig = { "VALID_ARCHS[sdk=iphoneos*]": "arm64 armv7", "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64 arm64" }
-
+    subspec.exclude_files = "sdk/sourcefiles/macOS/"
 
   end
 

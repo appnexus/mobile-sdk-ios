@@ -15,17 +15,18 @@
 
 #import "ANNativeAdResponse.h"
 #import "ANGlobal.h"
-
+#import "ANNativeAdStarRating.h"
+#import "XandrImage.h"
 @interface ANNativeStandardAdResponse : ANNativeAdResponse
 
 @property (nonatomic, readwrite, strong) NSString *title;
 @property (nonatomic, readwrite, strong) NSString *body;
 @property (nonatomic, readwrite, strong) NSString *callToAction;
 @property (nonatomic, readwrite, strong) ANNativeAdStarRating *rating;
-@property (nonatomic, readwrite, strong) UIImage *mainImage;
-@property (nonatomic, readwrite, strong) NSURL *mainImageURL;
+@property (nonatomic, readwrite, strong) XandrImage *mainImage;
+@property (nonatomic, readwrite, strong) XandrImage *iconImage;
 @property (nonatomic, readwrite, assign) CGSize mainImageSize;
-@property (nonatomic, readwrite, strong) UIImage *iconImage;
+@property (nonatomic, readwrite, strong) NSURL *mainImageURL;
 @property (nonatomic, readwrite, assign) CGSize iconImageSize;
 @property (nonatomic, readwrite, strong) NSURL *iconImageURL;
 @property (nonatomic, readwrite, strong) NSDictionary *customElements;

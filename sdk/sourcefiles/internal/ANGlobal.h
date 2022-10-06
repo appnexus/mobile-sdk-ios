@@ -135,10 +135,12 @@ CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
-BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
-CGRect ANStatusBarFrame(void);
 BOOL ANStatusBarHidden(void);
+CGRect ANStatusBarFrame(void);
+#if !APPNEXUS_NATIVE_MACOS_SDK
 UIInterfaceOrientation ANStatusBarOrientation(void);
+BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
+#endif
 
 #pragma mark - Global class.
 
@@ -155,8 +157,10 @@ UIInterfaceOrientation ANStatusBarOrientation(void);
 + (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
 + (nonnull NSString *) userAgent;
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 + (nonnull UIWindow *) getKeyWindow;
+#endif
 
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
 

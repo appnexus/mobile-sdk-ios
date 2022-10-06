@@ -74,8 +74,8 @@
 
 #pragma mark - Registration
 
-- (BOOL)registerResponseInstanceWithNativeView:(UIView *)view
-                            rootViewController:(UIViewController *)controller
+- (BOOL)registerResponseInstanceWithNativeView:(XandrView *)view
+                            rootViewController:(XandrViewController *)controller
                                 clickableViews:(NSArray *)clickableViews
                                          error:(NSError *__autoreleasing *)error {
     return [self registerAdapterWithNativeView:view

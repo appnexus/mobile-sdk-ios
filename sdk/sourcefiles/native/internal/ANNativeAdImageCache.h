@@ -13,14 +13,21 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#endif
+#import "XandrImage.h"
 
 @interface ANNativeAdImageCache : NSObject
 
 + (NSCache *)sharedImageCache;
-
-+ (UIImage *)imageForKey:(NSURL *)key;
-+ (void)setImage:(UIImage *)image forKey:(NSURL *)key;
++ (XandrImage *)imageForKey:(NSURL *)key;
++ (void)setImage:(XandrImage *)image forKey:(NSURL *)key;
 + (void)removeAllImages;
 
 @end

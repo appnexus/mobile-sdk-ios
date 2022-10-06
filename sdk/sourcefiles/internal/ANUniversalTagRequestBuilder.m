@@ -17,30 +17,44 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANReachability.h"
-#import "ANUniversalAdFetcher.h"
-#import "ANAdViewInternalDelegate.h"
 #import "ANGDPRSettings.h"
 #import "ANUSPrivacySettings.h"
 #import "ANCarrierObserver.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANSDKSettings.h"
+#import "ANAdProtocol.h"
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANOMIDImplementation.h"
+#import "ANAdViewInternalDelegate.h"
+#import "ANAdFetcher.h"
+#endif
+
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
     #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
+#import "ANNativeAdFetcher.h"
 
 #pragma mark - Private constants.
 
 
 #pragma mark -
 
+
 // This protocol definition meant for local use only, to simplify typecasting of MAR Manager objects.
-//
-@protocol  ANUniversalTagRequestBuilderFetcherDelegate  <ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
-                                                            ANAdProtocolVideo, ANAdProtocolPublicServiceAnnouncement >
+#if !APPNEXUS_NATIVE_MACOS_SDK
+// User for iOS Banner,Native, Interstitial and Video
+@protocol  ANUniversalTagRequestBuilderFetcherDelegate  <ANAdFetcherDelegate, ANAdProtocolVideo>
+    //EMPTY
+@end
+#else
+// Used for MacOS Native
+@protocol  ANUniversalTagRequestBuilderFetcherDelegate  <ANNativeAdFetcherDelegate>
     //EMPTY
 @end
 
+#endif
 
 
 
@@ -77,6 +91,8 @@
     return [requestBuilder request];
 }
 
+
+
 + (nullable NSURLRequest *)buildRequestWithAdFetcherDelegate: (nonnull id)adFetcherDelegate
                                  adunitMultiAdRequestManager: (nonnull ANMultiAdRequest *)adunitMARManager
 {
@@ -89,7 +105,7 @@
 + (nullable NSURLRequest *)buildRequestWithMultiAdRequestManager: (nonnull ANMultiAdRequest *)marManager
 {
     ANUniversalTagRequestBuilder *requestBuilder =
-        [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: (id<ANUniversalRequestTagBuilderDelegate>)marManager
+        [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate: (id<ANUniversalTagRequestBuilderFetcherDelegate>)marManager
                               optionallyWithAdunitMultiAdRequestManager: nil
                                                 orMultiAdRequestManager: marManager];
     return [requestBuilder request];
@@ -110,7 +126,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     _adunitMARManager   = adunitMARManager;
     return self;
 }
-
 
 
 
@@ -161,36 +176,36 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     //
     NSMutableArray<NSDictionary<NSString *, id> *>  *arrayOfTags  = [[NSMutableArray<NSDictionary<NSString *, id> *> alloc] init];
 
-    if (!self.fetcherMARManager)
-    {
-        NSDictionary<NSString *, id>  *singleTag =  [self tag:requestDict];
-
-        if (singleTag) {
-            arrayOfTags = [@[singleTag] mutableCopy];
-        }
-
-    } else {
-        NSPointerArray  *arrayOfAdUnits  = [self.fetcherMARManager internalGetAdUnits];
-
-        //
-        for (id au in arrayOfAdUnits)
+        if (!self.fetcherMARManager)
         {
-            if (!au) {
-                ANLogWarn(@"IGNORING nil ELEMENT in array of AdUnits.");
-                continue;
-            }
-            
-            self.adFetcherDelegate = au;
+            NSDictionary<NSString *, id>  *singleTag =  [self tag:requestDict];
 
-            NSDictionary<NSString *, id>  *tagFromAdUnit  = [self tag:requestDict];
-
-            if (tagFromAdUnit) {
-                [arrayOfTags addObject:tagFromAdUnit];
+            if (singleTag) {
+                arrayOfTags = [@[singleTag] mutableCopy];
             }
+
+        } else {
+            NSPointerArray  *arrayOfAdUnits  = [self.fetcherMARManager internalGetAdUnits];
+
+            //
+            for (id au in arrayOfAdUnits)
+            {
+                if (!au) {
+                    ANLogWarn(@"IGNORING nil ELEMENT in array of AdUnits.");
+                    continue;
+                }
+                
+                self.adFetcherDelegate = au;
+
+                NSDictionary<NSString *, id>  *tagFromAdUnit  = [self tag:requestDict];
+
+                if (tagFromAdUnit) {
+                    [arrayOfTags addObject:tagFromAdUnit];
+                }
+            }
+
+            self.adFetcherDelegate = (id<ANUniversalTagRequestBuilderFetcherDelegate>)self.fetcherMARManager;
         }
-
-        self.adFetcherDelegate = (id<ANUniversalTagRequestBuilderFetcherDelegate>)self.fetcherMARManager;
-    }
 
     if (arrayOfTags.count > 0) {
         requestDict[@"tags"] = arrayOfTags;
@@ -199,29 +214,28 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 
-
-    // If the festcher is loading an individual AdUnit that is encapsulated by MultiAdRequest,
-    //   begin using the MultiAdRequest context to define page global fields.
-    //
-    if (!self.fetcherMARManager && self.adunitMARManager) {
-        self.fetcherMARManager = self.adunitMARManager;
-        self.adFetcherDelegate = (id<ANUniversalTagRequestBuilderFetcherDelegate>)self.adunitMARManager;
-    }
-
-
-    // For MultiAdRequest (AdUnit is encapsulated in MAR): set nodes for member_id and/or publisher_id.
-    //   Compare to similar case in [self tag:].
-    //
-    if (self.fetcherMARManager)
-    {
-        if (self.fetcherMARManager.memberId > 0) {
-            requestDict[@"member_id"] = @(self.fetcherMARManager.memberId);
+        // If the festcher is loading an individual AdUnit that is encapsulated by MultiAdRequest,
+        //   begin using the MultiAdRequest context to define page global fields.
+        //
+        if (!self.fetcherMARManager && self.adunitMARManager) {
+            self.fetcherMARManager = self.adunitMARManager;
+            self.adFetcherDelegate = (id<ANUniversalTagRequestBuilderFetcherDelegate>)self.adunitMARManager;
         }
 
-        if (self.fetcherMARManager.publisherId > 0) {
-            requestDict[@"publisher_id"]  = @(self.fetcherMARManager.publisherId);
+
+        // For MultiAdRequest (AdUnit is encapsulated in MAR): set nodes for member_id and/or publisher_id.
+        //   Compare to similar case in [self tag:].
+        //
+        if (self.fetcherMARManager)
+        {
+            if (self.fetcherMARManager.memberId > 0) {
+                requestDict[@"member_id"] = @(self.fetcherMARManager.memberId);
+            }
+
+            if (self.fetcherMARManager.publisherId > 0) {
+                requestDict[@"publisher_id"]  = @(self.fetcherMARManager.publisherId);
+            }
         }
-    }
 
 
     // Set remaining page global nodes (user, device, app, keywords, sdk) and other fields.
@@ -248,13 +262,15 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"app"] = app;
     }
 
-    if (self.fetcherMARManager) {
-        NSArray<NSSet<NSString *> *>  *keywords  = [self keywords];
-        if (keywords) {
-            requestDict[@"keywords"] = keywords;
+        if (self.fetcherMARManager) {
+            NSArray<NSSet<NSString *> *>  *keywords  = [self keywords];
+            if (keywords) {
+                requestDict[@"keywords"] = keywords;
+            }
         }
-    }
-    
+        
+
+ 
     NSDictionary<NSString *, id>  *sdk  = [self sdk];
     if (sdk) {
         requestDict[@"sdk"] = sdk;
@@ -352,18 +368,17 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (invCode && memberId>0)
     {
         tagDict[@"code"] = invCode;
+            
+            if (!self.fetcherMARManager)
+            {
+                if (memberId > 0) {
+                    requestDict[@"member_id"]     = @(memberId);
+                }
 
-        if (!self.fetcherMARManager)
-        {
-            if (memberId > 0) {
-                requestDict[@"member_id"]     = @(memberId);
+                if (publisherId > 0) {
+                    requestDict[@"publisher_id"]  = @(publisherId);
+                }
             }
-
-            if (publisherId > 0) {
-                requestDict[@"publisher_id"]  = @(publisherId);
-            }
-        }
-
     } else {
         tagDict[@"id"] = @(placementId);
     }
@@ -371,9 +386,45 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     
     // Set nodes for primary_size, sizes, allow_smaller_sizes.
     //
+ 
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    NSDictionary<NSString *, id>  *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
+
+    CGSize                    primarySize         = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
+    NSMutableSet<NSValue *>  *sizes               = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
+    BOOL                      allowSmallerSizes   = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
+    
+    tagDict[@"primary_size"] = @{
+                                    @"width"  : @(primarySize.width),
+                                    @"height" : @(primarySize.height)
+                                };
+    
+    NSMutableArray<NSDictionary<NSString *, id> *>  *sizesArray  = [[NSMutableArray alloc] init];
+
+    for (id sizeElement in sizes)
+    {
+        if ([sizeElement isKindOfClass:[NSValue class]])
+        {
+            CGSize  sizeValue  = [sizeElement CGSizeValue];
+
+            [sizesArray addObject: @{
+                                         @"width"  : @(sizeValue.width),
+                                         @"height" : @(sizeValue.height)
+                                     } ];
+        }
+    }
+    tagDict[@"sizes"] = sizesArray;
+    tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
+
+#else
+
+    
     NSDictionary<NSString *, id>  *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
     
-    CGSize                    primarySize         = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
+    NSSize size = [[delegateReturnDictionary objectForKey:ANInternalDelgateTagKeyPrimarySize] sizeValue];
+    
+    CGSize                    primarySize         = NSSizeToCGSize(size);
+    
     NSMutableSet<NSValue *>  *sizes               = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
     BOOL                      allowSmallerSizes   = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
     
@@ -388,7 +439,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     {
         if ([sizeElement isKindOfClass:[NSValue class]])
         {
-            CGSize  sizeValue  = [sizeElement CGSizeValue];
+            CGSize  sizeValue  = NSSizeToCGSize([sizeElement sizeValue]);
 
             [sizesArray addObject: @{
                                          @"width"  : @(sizeValue.width),
@@ -396,6 +447,13 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
                                      } ];
         }
     }
+    tagDict[@"sizes"] = sizesArray;
+    tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
+
+
+#endif
+
+    
     
     NSString    *extInvCode  = [self.adFetcherDelegate extInvCode];
     if(extInvCode.length > 0 ){
@@ -407,11 +465,9 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         tagDict[@"traffic_source_code"] = trafficSourceCode;
     }
     
-    tagDict[@"sizes"] = sizesArray;
     
-    tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
-    
-    
+
+
     //
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
@@ -441,12 +497,15 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (nativeRendererRequest) {
         tagDict[@"native"] = nativeRendererRequest;
     }
-    
-    NSDictionary *video = [self video];
-    if(video){
-        tagDict[@"video"] = video;
-    }
-    
+    #if !APPNEXUS_NATIVE_MACOS_SDK
+        NSDictionary *video = [self video];
+        if(video){
+            tagDict[@"video"] = video;
+        }
+        
+    #endif
+
+  
     //
     CGFloat  reservePrice  = [self.adFetcherDelegate reserve];
     if (reservePrice > 0)  {
@@ -499,10 +558,10 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
                      };
         }
     }
-
     return nil;
 }
 
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (NSDictionary<NSString *, id> *) video
 {
@@ -532,6 +591,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return nil;
     }
 }
+#endif
 
 
 - (NSDictionary<NSString *, id> *)user
@@ -595,7 +655,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 {
     NSMutableDictionary<NSString *, id>  *deviceDict  = [[NSMutableDictionary<NSString *, id> alloc] init];
 
-
     //
     NSString *userAgent = [ANGlobal userAgent];
     if (userAgent) {
@@ -618,7 +677,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         deviceDict[@"model"] = deviceModel;
     }
 
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
     //
     ANCarrierObserver   *carrierObserver    = ANCarrierObserver.shared;
     ANCarrierMeta       *carrierMeta        = carrierObserver.carrierMeta;
@@ -634,6 +693,8 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     if (carrierMeta.networkCode.length > 0) {
         deviceDict[@"mnc"] = @([carrierMeta.networkCode integerValue]);
     }
+#endif
+   
     
     ANReachability      *reachability    = [ANReachability sharedReachabilityForInternetConnection];
     ANNetworkStatus      status          = [reachability currentReachabilityStatus];
@@ -674,6 +735,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary<NSString *, id> *)geo
 {
+
     ANLocation  *location  = [self.adFetcherDelegate location];
 
     if (!location)  { return nil; }
@@ -846,10 +908,14 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 - (NSDictionary *)getIABSupport
 {
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
     return  @{
         @"omidpn"  : AN_OMIDSDK_PARTNER_NAME,
         @"omidpv"    : AN_SDK_VERSION
     };
+#endif
+    return @{};
 }
 
 - (NSDictionary<NSString *, id> *)geoOverrideCountryZipCode

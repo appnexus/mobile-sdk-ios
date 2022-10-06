@@ -16,7 +16,7 @@
 #import <XCTest/XCTest.h>
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "XandrAd.h"
 
 
@@ -27,11 +27,11 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 
 
 
-@interface ANUniversalAdFetcherTests : XCTestCase<  ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
+@interface ANUniversalAdFetcherTests : XCTestCase<  ANAdFetcherFoundationDelegate,
                                                     ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement
                                                  >
 
-    @property (nonatomic, strong) ANUniversalAdFetcher *universalAdFetcher;
+    @property (nonatomic, strong) ANAdFetcher *universalAdFetcher;
     @property (nonatomic) BOOL callbackInvoked;
     @property (nonatomic, readwrite, strong, nonnull)   NSString  *utRequestUUIDString;
 
@@ -63,7 +63,7 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 - (void)setUp {
     [super setUp];
     self.placementId = @"1281482";
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    self.universalAdFetcher = [[ANAdFetcher alloc] initWithDelegate:self];
     self.callbackInvoked = NO;
     // Init here if not the tests will crash
       [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
@@ -146,7 +146,7 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     return nil;
 }
 
-- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
+- (void)adFetcher:(ANAdFetcherBase *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response{
     self.callbackInvoked = YES;
 }
 
@@ -207,7 +207,7 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     return YES;
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return CGSizeMake(320, 50);
 }
 

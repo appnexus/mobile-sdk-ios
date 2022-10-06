@@ -15,9 +15,9 @@
 
 #import "ANInterstitialAd.h"
 #import "ANInterstitialAdViewController.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 
-@interface ANInterstitialAd (ANTest) <ANUniversalAdFetcherDelegate>
+@interface ANInterstitialAd (ANTest) <ANAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 @property (nonatomic, readwrite, strong)  ANInterstitialAdViewController  *controller;

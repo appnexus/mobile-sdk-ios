@@ -17,24 +17,31 @@
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
-
+#import "ANAdResponseInfo.h"
 #import "ANStandardAd.h"
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
 #import "ANSSMStandardAd.h"
 #import "ANNativeStandardAdResponse.h"
 #import "ANMediatedAd.h"
-#import "ANNativeMediatedAdController.h"
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    #import "ANNativeMediatedAdController.h"
+    #import "ANCSRAd.h"
+    #import "ANCSRNativeAdController.h"
+#endif
+
+              
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
-#import "ANCSRAd.h"
-#import "ANCSRNativeAdController.h"
 
 @interface ANNativeAdFetcher()
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANCSRNativeAdController      *nativeBannerMediatedAdController;
+#endif
 
 @end
 
@@ -54,7 +61,10 @@
      * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
      * displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
+    
+#if !APPNEXUS_NATIVE_MACOS_SDK
     self.nativeMediationController = nil;
+#endif
     
 }
 
@@ -110,7 +120,7 @@
     
     self.adObjectHandler = nextAd;
     
-    
+#if !APPNEXUS_NATIVE_MACOS_SDK
     // CSR need to be checked first as It's inheriting ANMediatedAd
     if ([nextAd isKindOfClass:[ANCSRAd class]] ){
         [self handleCSRNativeAd:nextAd];
@@ -122,6 +132,12 @@
         ANLogError(@"Implementation error: Unspported ad in native ads waterfall.  (class=%@)", [nextAd class]);
         [self continueWaterfall:ANAdResponseCode.UNABLE_TO_FILL]; // skip this ad an jump to next ad
     }
+#else
+    if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
+        [self handleNativeStandardAd:nextAd];
+    }
+#endif
+  
 }
 
 
@@ -132,18 +148,19 @@
 
 - (void)startAutoRefreshTimer
 {
-    // Implemented only by ANUniversalAdFetcher
+    // Implemented only by ANAdFetcher
 }
 
 - (void)restartAutoRefreshTimer
 {
-    // Implemented only by ANUniversalAdFetcher
+    // Implemented only by ANAdFetcher
 }
 
 
 
 
 #pragma mark - Ad handlers.
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (void)handleCSRNativeAd:(ANCSRAd *)csrAd
 {
@@ -163,6 +180,7 @@
         // TODO: should do something here
     }
 }
+#endif
 
 - (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
 {

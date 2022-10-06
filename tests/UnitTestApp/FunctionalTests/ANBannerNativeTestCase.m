@@ -19,7 +19,7 @@
 #import "XCTestCase+ANBannerAdView.h"
 #import "XCTestCase+ANAdResponse.h"
 #import "ANAdView+PrivateMethods.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
 #import "ANTestGlobal.h"
@@ -309,7 +309,7 @@
     XCTAssertNil(self.nativeAd.mainImage);
     XCTAssertNil(self.nativeAd.iconImage);
 
-    XCTAssertNotNil(self.multiFormatAd.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
 }
 
 - (void)testReceiveNativeStandardReponseObject
@@ -394,7 +394,7 @@
 
 
     XCTAssertTrue(ANAdTypeBanner == self.multiFormatAd.adResponseInfo.adType);
-    XCTAssertNotNil(self.multiFormatAd.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
 
 
     // Load Native ad.

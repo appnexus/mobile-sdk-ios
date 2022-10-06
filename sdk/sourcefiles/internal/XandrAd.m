@@ -103,7 +103,7 @@ NSString * const  VIEWABLE_IMP_CONFIG_URL = @"https://acdn.adnxs.com/mobile/view
     }
     
     if(preCacheRequestObjects){
-        [[ANSDKSettings sharedInstance] optionalSDKInitialization:nil];
+        [[ANSDKSettings sharedInstance] optionalSDKInitialization:completionHandler];
     }
     
 }

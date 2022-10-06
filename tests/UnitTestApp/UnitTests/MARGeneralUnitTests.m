@@ -18,7 +18,7 @@ limitations under the License.
 #import "MARHelper.h"
 #import "ANMultiAdRequest.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANOMIDImplementation.h"
 

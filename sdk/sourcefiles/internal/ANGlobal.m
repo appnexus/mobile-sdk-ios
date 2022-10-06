@@ -20,7 +20,12 @@
 #import "ANLogging.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANOMIDImplementation.h"
+#endif
+
 #import "ANGDPRSettings.h"
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
     #import <AppTrackingTransparency/AppTrackingTransparency.h>
@@ -113,6 +118,8 @@ NSString *__nullable ANAdvertisingIdentifier() {
 
 NSString *__nullable ANIdentifierForVendor() {
     if (ANSDKSettings.sharedInstance.disableIDFVUsage) { return nil; }
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
     NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (idfv) {
         ANLogInfo(@"idfv = %@", idfv);
@@ -120,6 +127,8 @@ NSString *__nullable ANIdentifierForVendor() {
         ANLogWarn(@"No IDFV retrieved.");
     }
     return idfv;
+#endif
+    return nil;
 }
 
 
@@ -179,6 +188,8 @@ NSString *__nullable ANConvertToNSString(id __nullable value) {
 }
 
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
     // If portrait, no adjustment is necessary.
     if (ANStatusBarOrientation() == UIInterfaceOrientationPortrait) {
         return rect;
@@ -209,8 +220,12 @@ CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rec
             adjustedRect = rect;
             break;
     }
-    
+
     return adjustedRect;
+#endif
+
+    return rect;
+
 }
 
 NSString *__nullable ANMRAIDBundlePath() {
@@ -233,6 +248,7 @@ void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDict
                                                           userInfo:userInfo];
     }
 }
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 CGRect ANPortraitScreenBounds() {
     CGRect screenBounds = [UIScreen mainScreen].bounds;
@@ -287,11 +303,13 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     }
     return screenBounds;
 }
+#endif
 
 NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
+   
     [request setValue:[ANGlobal userAgent] forHTTPHeaderField:@"User-Agent"];
     return [request copy];
 }
@@ -311,7 +329,7 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
     }
     return nil;
 }
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController) {
     return viewController.view.window != nil ? YES : NO;
 }
@@ -358,7 +376,7 @@ UIInterfaceOrientation ANStatusBarOrientation()
     }
     return statusBarOrientation;
 }
-
+#endif
 
 @implementation ANGlobal
 
@@ -397,6 +415,7 @@ UIInterfaceOrientation ANStatusBarOrientation()
 
 
 + (void)handleUserAgentDidChangeNotification:(NSNotification *)notification {
+  
     if(utDefaultDomainMutableRequest!=nil){
         [utDefaultDomainMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
     }
@@ -405,10 +424,13 @@ UIInterfaceOrientation ANStatusBarOrientation()
         [utSimpleDomainMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+
 }
 
 + (void) openURL: (nonnull NSString *)urlString
 {
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
     if (@available(iOS 10.0, *)) {
         if([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
@@ -416,6 +438,8 @@ UIInterfaceOrientation ANStatusBarOrientation()
         }
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+#endif
+
 }
 
 #pragma mark - Custom keywords.
@@ -483,9 +507,6 @@ UIInterfaceOrientation ANStatusBarOrientation()
     ANLogError(@"UNRECOGNIZED adTypeString.  (%@)", adTypeString);
     return  ANAdTypeUnknown;
 }
-
-
-//
 + (void) getUserAgent
 {
     static BOOL       userAgentQueryIsActive  = NO;
@@ -529,14 +550,8 @@ UIInterfaceOrientation ANStatusBarOrientation()
     }
 }
 
-    
-+ (NSString *) userAgent {
-    if(anUserAgent == nil){
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
-        [ANGlobal getUserAgent];
-    } 
-    return anUserAgent;
-}
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 #pragma mark - Get KeyWindow
 
@@ -551,6 +566,17 @@ UIInterfaceOrientation ANStatusBarOrientation()
     }
     return keyWindow;
 }
+#endif
+
+
++ (NSString *) userAgent {
+    if(anUserAgent == nil){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
+        [ANGlobal getUserAgent];
+    }
+    return anUserAgent;
+}
+
 
 #pragma mark - Get Video Orientation Method
 

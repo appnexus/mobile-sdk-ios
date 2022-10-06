@@ -32,7 +32,7 @@
 @property (nonatomic, readwrite, assign)  BOOL                               hasSucceeded;
 @property (nonatomic, readwrite, assign)  BOOL                               hasFailed;
 @property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+@property (nonatomic, readwrite, weak)    id<ANAdFetcherDelegate>   adViewDelegate;
 @property (nonatomic, readwrite, strong)  ANSSMStandardAd                   *ssmMediatedAd;
 @property (nonatomic, readwrite, strong)  NSURL                             *ssmHandlerURL;
 @property (nonatomic, readwrite, strong) NSURLConnection                    *connection;
@@ -52,8 +52,8 @@
 #pragma mark - Lifecycle.
 
 + (ANSSMMediationAdViewController *)initMediatedAd:(ANSSMStandardAd *)ssmMediatedAd
-                                       withFetcher:(ANUniversalAdFetcher *)fetcher
-                                    adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
+                                       withFetcher:(ANAdFetcher *)fetcher
+                                    adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate
 {
     ANSSMMediationAdViewController *controller = [[ANSSMMediationAdViewController alloc] init];
     controller.adFetcher = fetcher;
@@ -194,7 +194,7 @@
 {
     // use queue to force return
     [self runInBlock:^(void) {
-        ANUniversalAdFetcher *fetcher = self.adFetcher;
+        ANAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.ssmMediatedAd.responseURL an_responseTrackerReasonCode: (int)errorCode
                                                                                      latency: [self getLatency] * 1000 ];

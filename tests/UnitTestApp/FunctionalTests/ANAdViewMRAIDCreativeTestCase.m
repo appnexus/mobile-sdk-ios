@@ -17,12 +17,12 @@
 #import <XCTest/XCTest.h>
 #import "XCTestCase+ANBannerAdView.h"
 #import "XCTestCase+ANAdResponse.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANAdViewMRAIDCreativeTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher *adFetcher;
+@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 
 @end
 
@@ -37,7 +37,7 @@
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
     [bannerAdView setAdSize:CGSizeMake(320, 50)];
 
-    self.adFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:bannerAdView];
+    self.adFetcher = [[ANAdFetcher alloc] initWithDelegate:bannerAdView];
 
     NSMutableArray<id>  *adsArray  = [self adsArrayFromFirstTagInJSONResource:kANAdResponseSuccessfulMRAIDListener];
 

@@ -16,7 +16,7 @@
 #import <XCTest/XCTest.h>
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANTestGlobal.h"
 #import "ANReachability.h"

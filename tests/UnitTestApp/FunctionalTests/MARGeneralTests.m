@@ -25,7 +25,7 @@
 #import "ANInterstitialAd+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 
 #import "ANAdViewInternalDelegate.h"
 #import "XandrAd.h"
@@ -653,7 +653,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     //
     [self.bannerAd1 setAutoRefreshInterval:0];
     
-    XCTAssertNil(self.bannerAd1.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNil(self.bannerAd1.adFetcher.autoRefreshTimer);
     
     [self stubRequestWithResponse:@"bannerNative_basic_banner"];
     
@@ -667,9 +667,9 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
                                  handler:^(NSError *error) {
         
     }];
-    XCTAssertNotNil(self.bannerAd1.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.bannerAd1.adFetcher.autoRefreshTimer);
     
-    [self.bannerAd1.universalAdFetcher stopAutoRefreshTimer];
+    [self.bannerAd1.adFetcher stopAutoRefreshTimer];
     
     [self stubRequestWithResponse:@"testMARCombinationSingleBanner"];
     self.mar = [[ANMultiAdRequest alloc] initWithMemberId: self.adUnitsForTest.memberIDGood
@@ -688,7 +688,7 @@ static NSString  *kGlobalScope  = @"Scope is GLOBAL.";
     }];
     
     XCTAssertEqual(self.bannerAd1.autoRefreshInterval, autoRefreshTimerInterval);
-    XCTAssertNil(self.bannerAd1.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNil(self.bannerAd1.adFetcher.autoRefreshTimer);
      
 }
 

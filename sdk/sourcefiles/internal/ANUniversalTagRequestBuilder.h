@@ -14,8 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcherBase.h"
 
 
 

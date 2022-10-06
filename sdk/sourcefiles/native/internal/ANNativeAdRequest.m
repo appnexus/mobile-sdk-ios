@@ -14,16 +14,20 @@
  */
 
 #import "ANNativeAdRequest.h"
-#import "ANNativeMediatedAdResponse.h"
 #import "ANNativeAdFetcher.h"
-#import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANOMIDImplementation.h"
+#import "ANNativeMediatedAdResponse.h"
+#endif
+#import "ANNativeAdImageCache.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANHTTPNetworkSession.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
-
+#import "XandrImage.h"
 
 
 
@@ -33,8 +37,8 @@
 
 @property (nonatomic, strong)     NSMutableSet<NSValue *>  *allowedAdSizes;
 @property (nonatomic, readwrite)  BOOL                      allowSmallerSizes;
-
 @property (nonatomic, readwrite, weak, nullable)  ANMultiAdRequest  *marManager;
+
 
 @property (nonatomic, readwrite, strong, nonnull)  NSString  *utRequestUUIDString;
 
@@ -62,6 +66,7 @@
 @synthesize  rendererId             = _rendererId;
 @synthesize  extInvCode             = __extInvCode;
 @synthesize  trafficSourceCode      = __trafficSourceCode;
+@synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
 
 
 
@@ -78,14 +83,22 @@
     self.customKeywords = [[NSMutableDictionary alloc] init];
 
     [self setupSizeParametersAs1x1];
+#if !APPNEXUS_NATIVE_MACOS_SDK
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
+#endif
+
+    
     self.utRequestUUIDString = ANUUID();
     return self;
 }
 
 - (void) setupSizeParametersAs1x1
 {
+#if !APPNEXUS_NATIVE_MACOS_SDK
     self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
+#else
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithSize:kANAdSize1x1]];
+#endif
     self.allowSmallerSizes  = NO;
     _rendererId             = 0;
 }
@@ -96,14 +109,13 @@
         ANLogError(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to begin loading");
         return;
     }
-
     [self createAdFetcher];
     [self.adFetcher requestAd];
 }
 
 /**
  *  This method provides a single point of entry for the MAR object to pass tag content received in the UT Request to the fetcher defined by the adunit.
- *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
+ *  Adding this public method which is used only for an internal process is more desirable than making the adFetcher property public.
  */
 - (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
 {
@@ -112,12 +124,10 @@
         return;
     }
 
-    //
     [self createAdFetcher];
 
     [self.adFetcher prepareForWaterfallWithAdServerResponseTag:tag];
 }
-
 
 - (void)createAdFetcher
 {
@@ -159,8 +169,7 @@
     
     // register AdWillExpire
     [nativeResponse registerAdWillExpire];
-    
-    
+        
     // In case of Mediation
     if (nativeResponse.adResponseInfo == nil) {
         ANAdResponseInfo *adResponseInfo  = (ANAdResponseInfo *) [ANGlobal valueOfGetterProperty:kANAdResponseInfo forObject:response.adObjectHandler];
@@ -185,6 +194,7 @@
         dispatch_semaphore_t  semaphoreMainImage  = nil;
         dispatch_semaphore_t  semaphoreIconImage  = nil;
 
+        
         if (self.shouldLoadMainImage && [nativeResponse respondsToSelector:@selector(setMainImage:)])
         {
             semaphoreMainImage = [self setImageInBackgroundForImageURL: nativeResponse.mainImageURL
@@ -198,7 +208,6 @@
                                                               onObject: nativeResponse
                                                             forKeyPath: @"iconImage" ];
         }
-
 
         if (semaphoreMainImage)  {
             dispatch_semaphore_wait(semaphoreMainImage, DISPATCH_TIME_FOREVER);
@@ -231,10 +240,16 @@
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+ 
+#if !APPNEXUS_NATIVE_MACOS_SDK
     [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+#else
+    [delegateReturnDictionary setObject:[NSValue valueWithSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+#endif
     [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-    
+
+  
     return  delegateReturnDictionary;
 }
 
@@ -267,14 +282,16 @@
 //   before continuing in the calling method.
 // Wait period is limited by NSURLRequest with timeoutInterval of kAppNexusNativeAdImageDownloadTimeoutInterval.
 //
+
 - (dispatch_semaphore_t) setImageInBackgroundForImageURL: (NSURL *)imageURL
                                                 onObject: (id)object
                                               forKeyPath: (NSString *)keyPath
 {
     if (!imageURL)  { return nil; }
 
-    UIImage *cachedImage = [ANNativeAdImageCache imageForKey:imageURL];
-
+   
+    XandrImage *cachedImage = [ANNativeAdImageCache imageForKey:imageURL];
+    
     if (cachedImage) {
         [object setValue:cachedImage forKeyPath:keyPath];
         return  nil;
@@ -289,13 +306,12 @@
     
     
     [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
-        UIImage  *image  = [UIImage imageWithData:data];
-
+        
+        XandrImage  *image  = [XandrImage getImageWithData:data];
         if (image) {
             [ANNativeAdImageCache setImage:image forKey:imageURL];
             [object setValue:image forKeyPath:keyPath];
         }
-        
         dispatch_semaphore_signal(semaphore);
         
     } errorHandler:^(NSError * _Nonnull error) {
@@ -305,7 +321,6 @@
     //
     return  semaphore;
 }
-
 
 
 

@@ -32,7 +32,7 @@
 #import "ANInterstitialAd+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 
 #import "XandrAd.h"
 

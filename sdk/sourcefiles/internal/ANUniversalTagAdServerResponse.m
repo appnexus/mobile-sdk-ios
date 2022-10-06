@@ -27,7 +27,11 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANAdResponseInfo.h"
 #import "ANGlobal.h"
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANCSRAd.h"
+#endif
 #import "XandrAd.h"
 
 
@@ -303,12 +307,14 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          adResponseInfo.cpm = cpm;
          adResponseInfo.cpmPublisherCurrency = cpmPublisherCurrency;
          adResponseInfo.publisherCurrencyCode = publisherCurrencyCode;
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
         ANVerificationScriptResource *omidVerificationScriptResource;
         if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
             // Parsing viewability object to create measurement resources for OMID Native integration
             omidVerificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
         }
+#endif
+
         // RTB
         if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
         {
@@ -351,11 +357,12 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                             nativeAd.nativeRenderingUrl = nativeRenderingUrl;
                          }
                         }
-
+                    #if !APPNEXUS_NATIVE_MACOS_SDK
                         // Parsing viewability object to create measurement resources for OMID Native integration
                         if(omidVerificationScriptResource != nil){
                             nativeAd.verificationScriptResource = omidVerificationScriptResource;
                         }
+                    #endif
                         [arrayOfAdUnits addObject:nativeAd];
                     }
 
@@ -375,10 +382,15 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             mediatedAd.isAdTypeNative = YES;
                             // Parsing viewability object to create measurement resources for OMID Native integration
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
                             if(omidVerificationScriptResource != nil){
                                 mediatedAd.verificationScriptResource = omidVerificationScriptResource;
                             }
+#endif
+
                         }
+
                         mediatedAd.creativeId = creativeId;
                         if (mediatedAd.className.length > 0) {
                             adResponseInfo.networkName = mediatedAd.className;
@@ -397,19 +409,23 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         // CSR - Only for Facebook Native Banner is supported by CSR
         }else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSRObject]){
             if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
-                NSDictionary *csrObject = [[self class] csrObjectFromAdObject:adObject];
-                if (csrObject) {
-                    ANCSRAd *csrAd = [[self class] mediatedAdFromCSRObject:csrObject];
-                    if (csrAd) {
-                        // Parsing viewability object to create measurement resources for OMID Native integration
-                        if(omidVerificationScriptResource != nil){
-                            csrAd.verificationScriptResource = omidVerificationScriptResource;
-                        }
-                        csrAd.creativeId = creativeId;
-                        adResponseInfo.networkName = csrAd.className;
-                        [arrayOfAdUnits addObject:csrAd];
-                    }
-                }
+              
+            #if !APPNEXUS_NATIVE_MACOS_SDK
+                            NSDictionary *csrObject = [[self class] csrObjectFromAdObject:adObject];
+                            if (csrObject) {
+                                ANCSRAd *csrAd = [[self class] mediatedAdFromCSRObject:csrObject];
+                                if (csrAd) {
+                                    // Parsing viewability object to create measurement resources for OMID Native integration
+                                    if(omidVerificationScriptResource != nil){
+                                        csrAd.verificationScriptResource = omidVerificationScriptResource;
+                                    }
+                                    csrAd.creativeId = creativeId;
+                                    adResponseInfo.networkName = csrAd.className;
+                                    [arrayOfAdUnits addObject:csrAd];
+                                }
+                            }
+            #endif
+                
             }else{
                 ANLogError(@"UNRECOGNIZED AD_TYPE in CSR.  (adObject=%@)", adObject);
             }
@@ -461,7 +477,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         return nil;
     }
 }
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 + (ANVerificationScriptResource *)anVerificationScriptFromAdObject:(NSDictionary *)adObject {
     if ([adObject[kANUniversalTagAdServerResponseKeyViewabilityObject] isKindOfClass:[NSDictionary class]]) {
         NSDictionary  *viewabilityObject  = adObject[kANUniversalTagAdServerResponseKeyViewabilityObject];
@@ -473,6 +489,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         return nil;
     }
 }
+#endif
 
 + (NSDictionary *)rtbObjectFromAdObject:(NSDictionary *)adObject {
     if ([adObject[kANUniversalTagAdServerResponseKeyAdsRTBObject] isKindOfClass:[NSDictionary class]]) {
@@ -673,7 +690,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     ANLogError(@"Response from ad server in an unexpected format. Unable to find SSM Banner in ssmObject: %@", ssmObject);
     return nil;
 }
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 + (ANCSRAd *)mediatedAdFromCSRObject:(NSDictionary *)csrObject
 {
     if ([csrObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]])
@@ -718,6 +735,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     ANLogError(@"Response from ad server in an unexpected format. Expected CSM in csmObject: %@", csrObject);
     return nil;
 }
+#endif
 
 + (NSDictionary *)nativeJson:(NSDictionary *)nativeRTBObject {
     

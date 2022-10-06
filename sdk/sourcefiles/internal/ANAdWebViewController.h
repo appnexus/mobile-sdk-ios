@@ -122,7 +122,7 @@
 
 
 // NB  This delegate is used unconventionally as a means to call back through two class compositions:
-//     ANAdWebViewController calls ANMRAIDContainerView calls ANUniversalAdFetcher.
+//     ANAdWebViewController calls ANMRAIDContainerView calls ANAdFetcher.
 //
 @protocol ANAdWebViewControllerLoadingDelegate <NSObject>
 

@@ -12,8 +12,12 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#import <Foundation/Foundation.h>
+#import "ANAdConstants.h"
 
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import <UIKit/UIKit.h>
+#endif
 
 @interface ANLocation : NSObject
 

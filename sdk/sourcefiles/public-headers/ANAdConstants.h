@@ -15,6 +15,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define APPNEXUS_NATIVE_MACOS_SDK (!(TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH))
+
 typedef NS_ENUM(NSUInteger, ANGender) {
     ANGenderUnknown,
     ANGenderMale,
@@ -44,11 +46,15 @@ typedef NS_ENUM(NSUInteger, ANAdType) {
 };
 
 typedef NS_ENUM(NSUInteger, ANClickThroughAction) {
+#if !APPNEXUS_NATIVE_MACOS_SDK
     ANClickThroughActionReturnURL,
     ANClickThroughActionOpenDeviceBrowser,
     ANClickThroughActionOpenSDKBrowser
-};
+#else
+    ANClickThroughActionReturnURL
+#endif
 
+};
 /*
  * VideoOrientation maps to the orientation of the Video being rendered
  * */

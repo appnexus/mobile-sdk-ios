@@ -15,15 +15,16 @@
 
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-#import "ANAdConstants.h"
 #import "ANLocation.h"
+#import "ANAdConstants.h"
 #import "ANAdResponseInfo.h"
 #import "ANAdResponseCode.h"
 
-@class ANLocation;
+#if !APPNEXUS_NATIVE_MACOS_SDK
+  #import <UIKit/UIKit.h>
+#endif
 
+@class ANLocation;
 
 
 #pragma mark - ANAdProtocol partitions.
@@ -49,11 +50,13 @@
  */
 @property (nonatomic, readwrite, assign) NSInteger publisherId;
 
+
 /**
  The user's location.  See ANLocation.h in this directory for
  details.
  */
 @property (nonatomic, readwrite, strong, nullable) ANLocation *location;
+
 
 /**
  The user's age.  This can contain a numeric age, a birth year, or a
@@ -239,8 +242,7 @@ Set the trafficSourceCode,  Specifies the third-party source of the impression.
  * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseInfo being accessed through ANNativeAdRequest.
  */
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
-
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 /*!
  * UI View which would consider to be part of the ad can be added as friendly obstruction
  * (all sub-views of the adView will be automatically treated as part of the ad)
@@ -256,12 +258,12 @@ Set the trafficSourceCode,  Specifies the third-party source of the impression.
  * Remove all friendly Obstruction
  */
 - (void)removeAllOpenMeasurementFriendlyObstructions;
-
+#endif
 @end
 
 
 
-@protocol ANNativeAdRequestProtocol <ANAdProtocolFoundation>
+@protocol ANNativeAdRequestProtocol <ANAdProtocolFoundation, ANAdProtocolPublicServiceAnnouncement>
     //EMPTY
 @end
 

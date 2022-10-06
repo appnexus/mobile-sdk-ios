@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANAdView.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANGlobal.h"
@@ -22,12 +22,12 @@
 
 
 
-@interface TestANUniversalFetcher : ANAdView<ANUniversalAdFetcherDelegate>
+@interface TestANUniversalFetcher : ANAdView<ANAdFetcherDelegate>
 
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 @property (nonatomic, strong)  NSArray<NSValue *>  *adAllowedMediaTypes;
 
-@property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> delegate;
 
 
 - (instancetype)initWithPlacementId:(NSString *)placementId;

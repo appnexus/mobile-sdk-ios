@@ -17,10 +17,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ANInstreamVideoAd.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANVideoAdPlayer+Test.h"
 
-@interface ANInstreamVideoAd(Test) <ANUniversalAdFetcherDelegate>
+@interface ANInstreamVideoAd(Test) <ANAdFetcherDelegate>
 
     @property (nonatomic, strong) ANVideoAdPlayer * adPlayer;
 

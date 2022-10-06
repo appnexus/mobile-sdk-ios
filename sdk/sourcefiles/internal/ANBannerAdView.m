@@ -17,7 +17,7 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANMRAIDContainerView.h"
 #import "ANSDKSettings.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANLogging.h"
 #import "ANTrackerManager.h"
 #import "ANRealTimer.h"
@@ -245,7 +245,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     //
     self.isLazySecondPassThroughAdUnit = YES;
 
-    BOOL  returnValue  = [self.universalAdFetcher allocateAndSetWebviewFromCachedAdObjectHandler];
+    BOOL  returnValue  = [self.adFetcher allocateAndSetWebviewFromCachedAdObjectHandler];
 
     if (!returnValue)
     {
@@ -369,7 +369,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
     // NB  Best effort to set critical section around fetcher for enableLazyLoad property.
     //
-    if (self.loadAdHasBeenInvoked && (YES == self.universalAdFetcher.isFetcherLoading)) {
+    if (self.loadAdHasBeenInvoked && (YES == self.adFetcher.isFetcherLoading)) {
         ANLogWarn(@"CANNOT ENABLE enableLazyLoad while fetcher is loading.");
         return;
     }
@@ -537,7 +537,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 /**
  * NOTE:  How are flags used to distinguish lazy loading from regular loading of AdUnits?
- *        With the introduction of lazy loading, there are three different cases that call universalAdFetcher:didfinishRequestWithResponse:.
+ *        With the introduction of lazy loading, there are three different cases that call adFetcher:didfinishRequestWithResponse:.
  *
  *        AdUnit is lazy loaded -- first return to AdUnit from UT Response processing.
  *              response.isLazy==YES
@@ -546,7 +546,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
  *        AdUnit is NOT lazy loaded
  *              response.isLazy==NO  &&  AdUnit.isLazySecondPassThroughAdUnit==NO
  */
-- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     id  adObject         = response.adObject;
     id  adObjectHandler  = response.adObjectHandler;
@@ -576,8 +576,8 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         [self finishRequest:response withReponseError:response.error];
 
         if (self.enableLazyLoad) {
-            [self.universalAdFetcher restartAutoRefreshTimer];
-            [self.universalAdFetcher startAutoRefreshTimer];
+            [self.adFetcher restartAutoRefreshTimer];
+            [self.adFetcher startAutoRefreshTimer];
         }
 
         return;
@@ -647,7 +647,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             self.didBecomeLazyAdUnit = YES;
             self.isLazySecondPassThroughAdUnit = NO;
 
-            [self.universalAdFetcher stopAutoRefreshTimer];
+            [self.adFetcher stopAutoRefreshTimer];
 
             [self lazyAdDidReceiveAd:self];
             return;
@@ -661,7 +661,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
             self.contentView = adObject;
         }
 
-        // Only Fire OMID Impression here for Begin to Render Cases. If it is Begin To Render then impression would have already fired from [ANUNiversalAdFetcher fireImpressionTrackersEarly]
+        // Only Fire OMID Impression here for Begin to Render Cases. If it is Begin To Render then impression would have already fired from [ANAdFetcher fireImpressionTrackersEarly]
         if(self.impressionType == ANBeginToRender){
            [self fireOMIDImpression];
         }
@@ -747,15 +747,15 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 }
 
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
     return self.autoRefreshInterval;
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return self.adSize;
 }
 
-- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANAdFetcher *)fetcher {
     return  ANVideoAdSubtypeBannerVideo;
 }
 

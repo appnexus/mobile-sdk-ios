@@ -20,7 +20,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANNativeAdRequest.h"
 #import "ANSDKSettings+PrivateMethods.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANTimeTracker.h"
 #import "XandrAd.h"

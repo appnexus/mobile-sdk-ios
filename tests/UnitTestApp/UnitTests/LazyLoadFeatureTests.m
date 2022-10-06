@@ -34,7 +34,7 @@ limitations under the License.
 #import "ANMultiAdRequest.h"
 
 #import "ANAdFetcherBase.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANMRAIDContainerView+ANTest.h"
 #import "XandrAd.h"
 
@@ -501,7 +501,7 @@ limitations under the License.
     }
 
     if (self.expectationAutoRefreshTimerIsSetProperly) {
-        XCTAssertNotNil(self.lazyBanner.universalAdFetcher.autoRefreshTimer);
+        XCTAssertNotNil(self.lazyBanner.adFetcher.autoRefreshTimer);
         [self.expectationAutoRefreshTimerIsSetProperly fulfill];
     }
 
@@ -513,7 +513,7 @@ limitations under the License.
         //
         ANBannerAdView  *banner  = (ANBannerAdView *)ad;
 
-        XCTAssertNotNil(banner.universalAdFetcher.autoRefreshTimer);
+        XCTAssertNotNil(banner.adFetcher.autoRefreshTimer);
 
         [banner loadAd];  // Run a second lazy load, after the first successful lazy load + webview load.
     }
@@ -553,7 +553,7 @@ limitations under the License.
             TINFO(@"%s -- LOADING lazy webview...", __PRETTY_FUNCTION__);
 
             if (self.expectationAutoRefreshTimerIsSetProperly) {
-                XCTAssertNil(self.lazyBanner.universalAdFetcher.autoRefreshTimer);
+                XCTAssertNil(self.lazyBanner.adFetcher.autoRefreshTimer);
             }
 
             [banner loadLazyAd];

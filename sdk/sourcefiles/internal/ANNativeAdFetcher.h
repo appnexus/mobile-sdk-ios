@@ -29,15 +29,11 @@
 @end
 
 
+#pragma mark - ANNativeAdFetcherDelegate.
 
-
-#pragma mark - ANUniversalAdFetcherDelegate partitions.
-
-@protocol ANNativeAdFetcherDelegate <ANAdProtocolFoundation,ANRequestTagBuilderCore>
+@protocol ANNativeAdFetcherDelegate <ANNativeAdRequestProtocol,ANRequestTagBuilderCore>
 
 - (void)didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
 
-- (nonnull NSString *)internalGetUTRequestUUIDString;
-- (void)internalUTRequestUUIDStringReset;
-
 @end
+

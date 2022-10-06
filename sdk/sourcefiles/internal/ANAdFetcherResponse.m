@@ -19,6 +19,9 @@
 
 #import "ANLogging.h"
 
+#if !APPNEXUS_NATIVE_MACOS_SDK
+  #import <UIKit/UIKit.h>
+#endif
 
 
 

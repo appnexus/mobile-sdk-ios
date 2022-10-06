@@ -22,6 +22,7 @@
 #import "ANWebView.h"
 #import "ANLogging.h"
 #import "ANGDPRSettings.h"
+#import "ANAdConstants.h"
 
 
 @interface ANBaseUrlConfig : NSObject
@@ -138,9 +139,13 @@
 - (void) optionalSDKInitialization:(sdkInitCompletion _Nullable)success
 {
     [[ANReachability sharedReachabilityForInternetConnection] start];
-    [ANCarrierObserver shared];
     [ANGlobal adServerRequestURL];
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    [ANCarrierObserver shared];
     [ANWebView prepareWebView];
+#endif
+
     
     if(success != nil){
         if ([ANGlobal userAgent] == nil) {

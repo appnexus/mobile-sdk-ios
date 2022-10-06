@@ -15,7 +15,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ANBannerAdView+ANTest.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
@@ -81,7 +81,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertNotNil(self.banner.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.banner.adFetcher.autoRefreshTimer);
     XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
 }
 
@@ -100,7 +100,7 @@
                                      
                                  }];
     XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeVideo);
-    XCTAssertNil(self.banner.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNil(self.banner.adFetcher.autoRefreshTimer);
 }
 
 
@@ -116,7 +116,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    XCTAssertNotNil(self.banner.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.banner.adFetcher.autoRefreshTimer);
     
     // TODO Need to inject video-error by hand here into ANAdWebViewController -->. #pragma mark - WKScriptMessageHandler. userContentController: (WKUserContentController *)userContentController
     

@@ -49,6 +49,7 @@
 #import <ifaddrs.h>
 #import <netdb.h>
 #import <sys/socket.h>
+#import "ANAdConstants.h"
 
 #import <CoreFoundation/CoreFoundation.h>
 
@@ -64,9 +65,13 @@ NSString *kANReachabilityChangedNotification = @"kANNetworkReachabilityChangedNo
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment)
 {
 #if kShouldPrintReachabilityFlags
-    
+
     NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
-          (flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
+#if !APPNEXUS_NATIVE_MACOS_SDK
+            (flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
+#else
+            'X',
+#endif
           (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
           
           (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
@@ -78,6 +83,7 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
           (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-',
           comment
           );
+
 #endif
 }
 
@@ -238,7 +244,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             returnValue = ANNetworkStatusReachableViaWiFi;
         }
     }
-    
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
     if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
     {
         /*
@@ -246,7 +253,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
          */
         returnValue = ANNetworkStatusReachableViaWWAN;
     }
-    
+#endif
+
     return returnValue;
 }
 

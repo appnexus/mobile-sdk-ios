@@ -18,7 +18,7 @@
 
 #import "XCTestCase+ANBannerAdView.h"
 #import "XCTestCase+ANAdResponse.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"

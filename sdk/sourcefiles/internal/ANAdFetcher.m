@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANLogging.h"
 #import "ANUniversalTagRequestBuilder.h"
 
@@ -34,14 +34,13 @@
 #import "NSTimer+ANCategory.h"
 #import "ANNativeRenderingViewController.h"
 #import "ANRTBNativeAdResponse.h"
-
 #import "ANAdView+PrivateMethods.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
+#import "ANVideoAdProcessor.h"
 
 
 
-
-@interface ANUniversalAdFetcher() <     ANVideoAdProcessorDelegate,
+@interface ANAdFetcher() <     ANVideoAdProcessorDelegate,
                                         ANAdWebViewControllerLoadingDelegate,
                                         ANNativeRenderingViewControllerLoadingDelegate
                                     >
@@ -61,7 +60,7 @@
 
 #pragma mark -
 
-@implementation ANUniversalAdFetcher
+@implementation ANAdFetcher
 
 #pragma mark Lifecycle.
 
@@ -152,8 +151,8 @@
     // Stop auto-refreush timer for video, but start it for everything else,
     //   unless it is the first pass for Lazy AdUnit.
     //
-    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
-        [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
+    if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
+        [self.delegate adFetcher:self didFinishRequestWithResponse:response];
     }
 
     if (    [response.adObject isKindOfClass:[ANMRAIDContainerView class]]
@@ -457,7 +456,7 @@
 }
 
 
-#pragma mark - ANUniversalAdFetcherDelegate.
+#pragma mark - ANAdFetcherDelegate.
 
 - (CGSize) getAdSizeFromDelegate
 {

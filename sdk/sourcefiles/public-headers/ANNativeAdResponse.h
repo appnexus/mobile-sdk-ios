@@ -12,12 +12,18 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-
-#import <UIKit/UIKit.h>
-
-#import "ANNativeAdDelegate.h"
-#import "ANNativeAdStarRating.h"
+#import <Foundation/Foundation.h>
 #import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
+#import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#import "XandrNativeAdView.h"
+#endif
+
+#import "ANNativeAdStarRating.h"
+#import "ANNativeAdDelegate.h"
 #import "ANAdProtocol.h"
 
 extern NSString * __nonnull const  kANNativeElementObject;
@@ -71,15 +77,6 @@ extern NSString * __nonnull const  kANNativeCSRObject;
  */
 @property (nonatomic, readonly, strong, nullable) NSString *callToAction;
 
-/*!
- * The star rating of the ad, generally reserved for an app install ad.
- */
-@property (nonatomic, readonly, strong, nullable) ANNativeAdStarRating *rating;
-
-/*!
- * The ad icon image.
- */
-@property (nonatomic, readonly, strong, nullable) UIImage *iconImage;
 
 /*!
  * The icon image size
@@ -87,9 +84,35 @@ extern NSString * __nonnull const  kANNativeCSRObject;
 @property (nonatomic, readonly, assign) CGSize iconImageSize;
 
 /*!
+ * The star rating of the ad, generally reserved for an app install ad.
+ */
+@property (nonatomic, readonly, strong, nullable) ANNativeAdStarRating *rating;
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
+/*!
+ * The ad icon image.
+ */
+@property (nonatomic, readonly, strong, nullable) UIImage *iconImage;
+
+
+/*!
  * The ad main image, also known as a cover image.
  */
 @property (nonatomic, readonly, strong, nullable) UIImage *mainImage;
+#else
+
+/*!
+ * The ad icon image.
+ */
+@property (nonatomic, readonly, strong, nullable) NSImage *iconImage;
+
+
+/*!
+ * The ad main image, also known as a cover image.
+ */
+@property (nonatomic, readonly, strong, nullable) NSImage *mainImage;
+#endif
 
 /*!
  * A URL which loads the ad main image.
@@ -163,6 +186,8 @@ extern NSString * __nonnull const  kANNativeCSRObject;
  */
 @property (nonatomic, readwrite, weak, nullable) id<ANNativeAdDelegate> delegate;
 
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
 /*!
  * Should be called when the native view has been populated with the ad elements and will be displayed.
  * Clicks will be handled automatically. If the view is already registered with another ANNativeAdResponse,
@@ -197,6 +222,27 @@ extern NSString * __nonnull const  kANNativeCSRObject;
                  clickableViews:(nullable NSArray<UIView *> *)views
                  openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionViews
                           error:(NSError *__nullable*__nullable)error;
+
+#else
+
+/*!
+ * Should be called when the native view has been populated with the ad elements and will be displayed.
+ * it will be automatically detached from that response before being attached to this response.
+ *
+ * @param view The view which is populated with the native ad elements. Must not be nil and type NSTableRowView.
+ * @param rvc The root view controller which contains the view. Must not be nil.
+ * @param views Specifies XandrNativeAdView subviews which should be clickable, instead of the whole view (the default). May be nil.
+ * @note The response holds a strong reference to the registered view.
+ * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
+ */
+- (BOOL)registerViewForTracking:(nonnull NSTableRowView *)view
+         withRootViewController:(nonnull NSViewController *)rvc
+                 clickableXandrNativeAdView:(nullable NSArray<XandrNativeAdView *> *)views
+                          error:(NSError *__nullable*__nullable)error;
+
+#endif
+
+
 
 
 @end

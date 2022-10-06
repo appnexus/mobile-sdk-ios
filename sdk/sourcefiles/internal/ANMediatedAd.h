@@ -15,8 +15,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ANBaseAdObject.h"
-#import "ANVerificationScriptResource.h"
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    #import "ANVerificationScriptResource.h"
+#endif
 @interface ANMediatedAd : ANBaseAdObject
 
 @property (nonatomic, readwrite, strong) NSString *className;
@@ -25,7 +26,9 @@
 @property (nonatomic, readwrite, strong) NSString *responseURL;
 @property (nonatomic, readwrite, strong) NSString *auctionInfo;
 @property (nonatomic, readwrite)         BOOL      isAdTypeNative;
+#if !APPNEXUS_NATIVE_MACOS_SDK
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
+#endif
 @property (nonatomic, readwrite)          int     networkTimeout;
 
 @end

@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ANMediatedAd.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANCustomAdapter.h" 
 
 
@@ -27,8 +27,8 @@
 - (void)clearAdapter;
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
-                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
+                                    withFetcher:(ANAdFetcher *)adFetcher
+                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate;
 
 @end
 
@@ -37,6 +37,6 @@
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
-@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, weak)  ANAdFetcher  *adFetcher;
 
 @end

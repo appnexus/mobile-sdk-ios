@@ -24,12 +24,21 @@
 #import "ANSSMStandardAd.h"
 #import "ANNativeStandardAdResponse.h"
 #import "ANMediatedAd.h"
+#import "ANAdConstants.h"
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANNativeMediatedAdController.h"
+#endif
+
+
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
 #import "ANUniversalTagAdServerResponse.h"
-#import "ANAdView+PrivateMethods.h"
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    #import "ANAdView+PrivateMethods.h"
+#endif
+
 #import "ANGDPRSettings.h"
 #import "ANHTTPNetworkSession.h"
 #import "ANMultiAdRequest+PrivateMethods.h"

@@ -16,23 +16,33 @@
 #import "ANNativeStandardAdResponse.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANBrowserViewController.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "NSTimer+ANCategory.h"
-#import "UIView+ANCategory.h"
 #import "ANTrackerManager.h"
-#import "ANOMIDImplementation.h"
-#import "ANSDKSettings.h"
+#import "ANAdConstants.h"
 #import "ANRealTimer.h"
+#import "ANAdConstants.h"
 
+#if !APPNEXUS_NATIVE_MACOS_SDK
+#import "UIView+ANCategory.h"
+#import "ANOMIDImplementation.h"
+#import "ANBrowserViewController.h"
+#else
+#import <AppKit/AppKit.h>
+#import "NSView+ANCategory.h"
+#endif
 
+#import "ANSDKSettings.h"
 
+#if !APPNEXUS_NATIVE_MACOS_SDK
 @interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate, ANRealTimerDelegate>
-
+@property (nonatomic, readwrite, strong) ANBrowserViewController *inAppBrowser;
+#else
+@interface ANNativeStandardAdResponse() <ANRealTimerDelegate>
+#endif
 @property (nonatomic, readwrite, strong) NSDate *dateCreated;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
-@property (nonatomic, readwrite, strong) ANBrowserViewController *inAppBrowser;
 
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
 @property (nonatomic, readwrite, assign) BOOL impressionHasBeenTracked;
@@ -50,9 +60,9 @@
 @synthesize callToAction = _callToAction;
 @synthesize rating = _rating;
 @synthesize mainImage = _mainImage;
-@synthesize mainImageURL = _mainImageURL;
-@synthesize mainImageSize = _mainImageSize;
 @synthesize iconImage = _iconImage;
+@synthesize mainImageSize = _mainImageSize;
+@synthesize mainImageURL = _mainImageURL;
 @synthesize iconImageURL = _iconImageURL;
 @synthesize customElements = _customElements;
 @synthesize iconImageSize = _iconImageSize;
@@ -91,15 +101,17 @@
 
 #pragma mark - Registration
 
-- (BOOL)registerResponseInstanceWithNativeView:(UIView *)view
-                            rootViewController:(UIViewController *)controller
+- (BOOL)registerResponseInstanceWithNativeView:(XandrView *)view
+                            rootViewController:(XandrViewController *)controller
                                 clickableViews:(NSArray *)clickableViews
                                          error:(NSError *__autoreleasing *)error {
     [self setupViewabilityTracker];
     [self attachGestureRecognizersToNativeView:view
                             withClickableViews:clickableViews];
+    
     return YES;
 }
+
 
 - (void)unregisterViewFromTracking {
     [super unregisterViewFromTracking];
@@ -108,13 +120,16 @@
 
 
 
-
 #pragma mark - Impression Tracking
 
 - (void)setupViewabilityTracker
 {
     
+#if !APPNEXUS_NATIVE_MACOS_SDK
     if ((self.impressionType == ANViewableImpression || [ANSDKSettings sharedInstance].enableOMIDOptimization)) {
+#else
+        if (self.impressionType == ANViewableImpression) {
+#endif
         [ANRealTimer addDelegate:self];
     }
     
@@ -124,15 +139,21 @@
 }
 
 - (void) checkIfViewIs1pxOnScreen {
+
     CGRect updatedVisibleInViewRectangle = [self.viewForTracking an_visibleInViewRectangle];
-    
+#if !APPNEXUS_NATIVE_MACOS_SDK
     ANLogInfo(@"visible rectangle Native: %@", NSStringFromCGRect(updatedVisibleInViewRectangle));
+#else
+    ANLogInfo(@"visible rectangle Native: %@", NSStringFromRect(updatedVisibleInViewRectangle));
+#endif
+
     if(!self.impressionHasBeenTracked){
         if(updatedVisibleInViewRectangle.size.width > 0 && updatedVisibleInViewRectangle.size.height > 0){
             ANLogInfo(@"Impression tracker fired when 1px native on screen");
             [self trackImpression];
         }
     }
+#if !APPNEXUS_NATIVE_MACOS_SDK
     if([ANSDKSettings sharedInstance].enableOMIDOptimization){
         if(updatedVisibleInViewRectangle.size.width == self.viewForTracking.frame.size.width && updatedVisibleInViewRectangle.size.height ==  self.viewForTracking.frame.size.height && !self.isAdVisible100Percent){
             self.isAdVisible100Percent = YES;
@@ -145,27 +166,44 @@
             }
         }
     }
+#endif
+
 }
 
 - (void)checkIfIABViewable {
-    if (self.viewForTracking.window) {
+  
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    
+if (self.viewForTracking.window) {
         [self trackImpression];
     }
+    
+#endif
+
 }
 
 - (void)trackImpression {
     if (!self.impressionHasBeenTracked) {
+
         ANLogDebug(@"Firing impression trackers");
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
         self.impressionHasBeenTracked = YES;
+       
+#if !APPNEXUS_NATIVE_MACOS_SDK
         if(![ANSDKSettings sharedInstance].enableOMIDOptimization){
             [ANRealTimer removeDelegate:self];
         }
+#else
+        if (self.impressionType == ANViewableImpression) {
+            [ANRealTimer removeDelegate:self];
+        }
+#endif
     }
 }
 
 - (void)fireImpTrackers {
+   
     if (self.impTrackers) {
         [ANTrackerManager fireTrackerURLArray:self.impTrackers withBlock:^(BOOL isTrackerFired) {
             if (isTrackerFired) {
@@ -173,9 +211,11 @@
             }
         }];
     }
+#if !APPNEXUS_NATIVE_MACOS_SDK
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
     }
+#endif
 }
 
 - (void) handle1SecTimerSentNotification {
@@ -214,6 +254,7 @@
 {
     switch (self.clickThroughAction)
     {
+#if !APPNEXUS_NATIVE_MACOS_SDK
         case ANClickThroughActionOpenSDKBrowser:
             // Try to use device browser even if SDK browser was requested in cases
             //   where the structure of the URL cannot be handled by the SDK browser.
@@ -230,14 +271,13 @@
             } else {
                 self.inAppBrowser.url = URL;
             }
-
             return  YES;
             break;
 
         case ANClickThroughActionOpenDeviceBrowser:
             return  [self openURLWithExternalBrowser:URL];
             break;
-
+#endif
         case ANClickThroughActionReturnURL:
             //NB -- This case handled by calling method.
             /*NOT REACHED*/
@@ -250,7 +290,11 @@
 
 - (BOOL) openURLWithExternalBrowser:(NSURL *)url
 {
+    
+#if !APPNEXUS_NATIVE_MACOS_SDK
     if (![[UIApplication sharedApplication] canOpenURL:url])  { return NO; }
+
+#endif
 
     [self willLeaveApplication];
     [ANGlobal openURL:[url absoluteString]];
@@ -268,9 +312,16 @@
 
 
 #pragma mark - ANBrowserViewControllerDelegate
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
     return self.rootViewController;
+}
+
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
+    self.inAppBrowser = nil;
+    [self didCloseAd];
 }
 
 - (void)willPresentBrowserViewController:(ANBrowserViewController *)controller {
@@ -285,16 +336,15 @@
     [self willCloseAd];
 }
 
-- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
-    self.inAppBrowser = nil;
-    [self didCloseAd];
-}
 
 - (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller {
     [self willLeaveApplication];
 }
+#endif
+
 - (void)registerAdWillExpire{
     [self registerAdAboutToExpire];
 }
+
 
 @end
