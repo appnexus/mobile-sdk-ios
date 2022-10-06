@@ -66,6 +66,7 @@
     self.foundNativeStandardAdResponseObject = NO;
     self.foundNativeMediatedAdResponseObject = NO;
     self.foundStandardAdResponseObject = NO;
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 
 
     //
@@ -250,7 +251,7 @@
     self.multiFormatAd.shouldAllowVideoDemand = YES;
     self.multiFormatAd.shouldAllowNativeDemand = YES;
     self.multiFormatAd.shouldAllowHighImpactDemand = NO;
-    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 3);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
@@ -265,7 +266,7 @@
     self.multiFormatAd.shouldAllowVideoDemand = NO;
     self.multiFormatAd.shouldAllowNativeDemand = YES;
     self.multiFormatAd.shouldAllowHighImpactDemand = YES;
-    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 3);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
     XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
@@ -280,7 +281,7 @@
     self.multiFormatAd.shouldAllowVideoDemand = YES;
     self.multiFormatAd.shouldAllowNativeDemand = NO;
     self.multiFormatAd.shouldAllowHighImpactDemand = YES;
-    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 3);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
@@ -292,7 +293,7 @@
     TESTTRACE();
 
     self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
-    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 4);
+    XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 1);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
     XCTAssertFalse([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
