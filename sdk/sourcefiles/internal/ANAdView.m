@@ -40,12 +40,12 @@
 
 
 
-@interface ANAdView () <ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
+@interface ANAdView () <ANAdFetcherDelegate>
 
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>         delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>   appEventDelegate;
 
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher    *universalAdFetcher;
+@property (nonatomic, readwrite, strong)  ANAdFetcher    *adFetcher;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
@@ -129,8 +129,8 @@
     ANLogDebug(@"%@", self.utRequestUUIDString);   //DEBUG
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    if (_universalAdFetcher) {
-        [self.universalAdFetcher stopAdLoad];
+    if (_adFetcher) {
+        [self.adFetcher stopAdLoad];
     }
 }
 
@@ -184,10 +184,10 @@
     if (! [self errorCheckConfiguration])  { return; }
 
     //
-    [self.universalAdFetcher stopAdLoad];
-    [self.universalAdFetcher requestAd];
+    [self.adFetcher stopAdLoad];
+    [self.adFetcher requestAd];
     
-    if (! self.universalAdFetcher)  {
+    if (! self.adFetcher)  {
         ANLogError(@"Fetcher is unallocated.  FAILED TO FETCH ad via UT.");
     }
 }
@@ -201,7 +201,7 @@
 
     NSMutableArray<id>  *adsArray  = [[NSMutableArray<id> alloc] initWithObjects:standardAd, nil];
 
-    [self.universalAdFetcher beginWaterfallWithAdObjects:adsArray];
+    [self.adFetcher beginWaterfallWithAdObjects:adsArray];
 }
 
 - (void)loadAdFromVast: (nonnull NSString *)xml
@@ -212,16 +212,16 @@
 
     NSMutableArray<id>  *adsArray  = [[NSMutableArray<id> alloc] initWithObjects:rtbVideoAd, nil];
 
-    [self.universalAdFetcher beginWaterfallWithAdObjects:adsArray];
+    [self.adFetcher beginWaterfallWithAdObjects:adsArray];
 }
 
 /**
  *  This method provides a single point of entry for the MAR object to pass tag content received in the UT Request to the fetcher defined by the adunit.
- *  Adding this public method which is used only for an internal process is more desirable than making the universalAdFetcher property public.
+ *  Adding this public method which is used only for an internal process is more desirable than making the adFetcher property public.
  */
 - (void)ingestAdResponseTag: (NSDictionary<NSString *, id> *)tag
 {
-    [self.universalAdFetcher prepareForWaterfallWithAdServerResponseTag:tag];
+    [self.adFetcher prepareForWaterfallWithAdServerResponseTag:tag];
 }
 
 
@@ -421,15 +421,15 @@
 }
 
 /**
- * universalAdFetcher getter returns fetcher conditional upon whether marManager is set.
- * Therefore, universalAdFetcher must be cleared anytime marManager is set to a different value.
- * universalAdFetcher will be lazily recreated next time it is needed.
+ * adFetcher getter returns fetcher conditional upon whether marManager is set.
+ * Therefore, adFetcher must be cleared anytime marManager is set to a different value.
+ * adFetcher will be lazily recreated next time it is needed.
  */
 - (void)setMarManager:(ANMultiAdRequest *)marManager
 {
-    if (_universalAdFetcher  &&  (marManager != _marManager)) {
-        [_universalAdFetcher stopAdLoad];
-        _universalAdFetcher = nil;
+    if (_adFetcher  &&  (marManager != _marManager)) {
+        [_adFetcher stopAdLoad];
+        _adFetcher = nil;
     }
 
     _marManager = marManager;
@@ -496,26 +496,26 @@
 }
 
 
-- (ANUniversalAdFetcher *)universalAdFetcher
+- (ANAdFetcher *)adFetcher
 {
-    if (_universalAdFetcher) {
-        return  _universalAdFetcher;
+    if (_adFetcher) {
+        return  _adFetcher;
     }
 
     if (self.marManager) {
-        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self andAdUnitMultiAdRequestManager:self.marManager];
+        _adFetcher = [[ANAdFetcher alloc] initWithDelegate:self andAdUnitMultiAdRequestManager:self.marManager];
     } else {
-        _universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+        _adFetcher = [[ANAdFetcher alloc] initWithDelegate:self];
     }
 
-    return  _universalAdFetcher;
+    return  _adFetcher;
 }
 
 
 
 #pragma mark - ANUniversalAdFetcherDelegate
 
-- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+- (void)       adFetcher: (ANAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
     ANLogError(@"ABSTRACT METHOD -- Implement in each adunit.");
@@ -552,13 +552,13 @@
      self.utRequestUUIDString = ANUUID();
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher
 {
     ANLogError(@"ABSTRACT METHOD -- Implement in each adunit.");
     return  CGSizeMake(-1, -1);
 }
 
-- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANAdFetcher *)fetcher
 {
     ANLogWarn(@"ABSTRACT METHOD -- Implement in each adunit.");
     return  ANVideoAdSubtypeUnknown;
@@ -659,7 +659,7 @@
 - (void)adInteractionDidBegin
 {
     ANLogDebug(@"");
-    [self.universalAdFetcher stopAdLoad];
+    [self.adFetcher stopAdLoad];
 }
 
 - (void)adInteractionDidEnd
@@ -667,8 +667,8 @@
     ANLogDebug(@"");
 
     if (ANAdTypeVideo != __adResponseInfo.adType) {
-        [self.universalAdFetcher restartAutoRefreshTimer];
-        [self.universalAdFetcher startAutoRefreshTimer];
+        [self.adFetcher restartAutoRefreshTimer];
+        [self.adFetcher startAutoRefreshTimer];
     }
 }
 

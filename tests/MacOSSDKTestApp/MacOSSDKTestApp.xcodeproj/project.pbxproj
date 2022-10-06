@@ -1,0 +1,662 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		883217C428CE655700DDC33E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 883217C328CE655700DDC33E /* AppDelegate.m */; };
+		883217C728CE655700DDC33E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 883217C628CE655700DDC33E /* ViewController.m */; };
+		883217C928CE655900DDC33E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 883217C828CE655900DDC33E /* Assets.xcassets */; };
+		883217CC28CE655900DDC33E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 883217CA28CE655900DDC33E /* Main.storyboard */; };
+		883217CE28CE655900DDC33E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 883217CD28CE655900DDC33E /* main.m */; };
+		883217D928CE655900DDC33E /* MacOSSDKTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 883217D828CE655900DDC33E /* MacOSSDKTestAppTests.m */; };
+		8832183A28CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8832183928CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json */; };
+		8832184528CE6ADF00DDC33E /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832184028CE6ADF00DDC33E /* ANHTTPStubbingManager.m */; };
+		8832184628CE6ADF00DDC33E /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832184128CE6ADF00DDC33E /* ANURLConnectionStub.m */; };
+		8832184728CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832184228CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m */; };
+		8832184828CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832184328CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
+		8832184C28CE6B6900DDC33E /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832184B28CE6B6900DDC33E /* ANTestGlobal.m */; };
+		8832184F28CE6B8600DDC33E /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832184D28CE6B8600DDC33E /* NSObject+Swizzling.m */; };
+		8832185228CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832185128CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m */; };
+		8832185828CE6CC900DDC33E /* ANHTTPCookieStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832185628CE6CC900DDC33E /* ANHTTPCookieStorage.m */; };
+		8832185A28CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832185928CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m */; };
+		8832186128CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json in Resources */ = {isa = PBXBuildFile; fileRef = 8832185E28CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json */; };
+		8832186228CE706D00DDC33E /* appnexus_standard_response_link.json in Resources */ = {isa = PBXBuildFile; fileRef = 8832185F28CE706D00DDC33E /* appnexus_standard_response_link.json */; };
+		8832186328CE706D00DDC33E /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8832186028CE706D00DDC33E /* appnexus_standard_response.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		883217D528CE655900DDC33E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 883217B728CE655700DDC33E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 883217BE28CE655700DDC33E;
+			remoteInfo = MacOSSDKTestApp;
+		};
+		8832182128CE667700DDC33E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
+		8832182328CE667700DDC33E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
+		8832182528CE667700DDC33E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 880508B128AC14A80099C6C6;
+			remoteInfo = AppNexusNativeMacOSSDK;
+		};
+		8832183528CE680800DDC33E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 880508B028AC14A80099C6C6;
+			remoteInfo = AppNexusNativeMacOSSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		883217BF28CE655700DDC33E /* MacOSSDKTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSSDKTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		883217C228CE655700DDC33E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		883217C328CE655700DDC33E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		883217C528CE655700DDC33E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		883217C628CE655700DDC33E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		883217C828CE655900DDC33E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		883217CB28CE655900DDC33E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		883217CD28CE655900DDC33E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		883217CF28CE655900DDC33E /* MacOSSDKTestApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacOSSDKTestApp.entitlements; sourceTree = "<group>"; };
+		883217D428CE655900DDC33E /* MacOSSDKTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacOSSDKTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		883217D828CE655900DDC33E /* MacOSSDKTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacOSSDKTestAppTests.m; sourceTree = "<group>"; };
+		8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
+		8832183928CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulNativeStandardAdResponse.json; sourceTree = "<group>"; };
+		8832183D28CE6ADF00DDC33E /* ANHTTPNetworkSession+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANHTTPNetworkSession+ANTest.h"; sourceTree = "<group>"; };
+		8832183E28CE6ADF00DDC33E /* ANURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANURLConnectionStub.h; sourceTree = "<group>"; };
+		8832183F28CE6ADF00DDC33E /* ANHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubURLProtocol.h; sourceTree = "<group>"; };
+		8832184028CE6ADF00DDC33E /* ANHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubbingManager.m; sourceTree = "<group>"; };
+		8832184128CE6ADF00DDC33E /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
+		8832184228CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		8832184328CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		8832184428CE6ADF00DDC33E /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
+		8832184A28CE6B6900DDC33E /* ANTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestGlobal.h; sourceTree = "<group>"; };
+		8832184B28CE6B6900DDC33E /* ANTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestGlobal.m; sourceTree = "<group>"; };
+		8832184D28CE6B8600DDC33E /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
+		8832184E28CE6B8600DDC33E /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
+		8832185028CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		8832185128CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		8832185628CE6CC900DDC33E /* ANHTTPCookieStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPCookieStorage.m; sourceTree = "<group>"; };
+		8832185728CE6CC900DDC33E /* ANHTTPCookieStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPCookieStorage.h; sourceTree = "<group>"; };
+		8832185928CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdRequestTestCase.m; sourceTree = "<group>"; };
+		8832185E28CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response_clickfallbackurl.json; sourceTree = "<group>"; };
+		8832185F28CE706D00DDC33E /* appnexus_standard_response_link.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response_link.json; sourceTree = "<group>"; };
+		8832186028CE706D00DDC33E /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		883217BC28CE655700DDC33E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		883217D128CE655900DDC33E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		883217B628CE655700DDC33E = {
+			isa = PBXGroup;
+			children = (
+				8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */,
+				883217C128CE655700DDC33E /* MacOSSDKTestApp */,
+				883217D728CE655900DDC33E /* MacOSSDKTestAppTests */,
+				883217E128CE655900DDC33E /* MacOSSDKTestAppUITests */,
+				883217C028CE655700DDC33E /* Products */,
+				8832182728CE667E00DDC33E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		883217C028CE655700DDC33E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				883217BF28CE655700DDC33E /* MacOSSDKTestApp.app */,
+				883217D428CE655900DDC33E /* MacOSSDKTestAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		883217C128CE655700DDC33E /* MacOSSDKTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				883217C228CE655700DDC33E /* AppDelegate.h */,
+				883217C328CE655700DDC33E /* AppDelegate.m */,
+				883217C528CE655700DDC33E /* ViewController.h */,
+				883217C628CE655700DDC33E /* ViewController.m */,
+				883217C828CE655900DDC33E /* Assets.xcassets */,
+				883217CA28CE655900DDC33E /* Main.storyboard */,
+				883217CD28CE655900DDC33E /* main.m */,
+				883217CF28CE655900DDC33E /* MacOSSDKTestApp.entitlements */,
+			);
+			path = MacOSSDKTestApp;
+			sourceTree = "<group>";
+		};
+		883217D728CE655900DDC33E /* MacOSSDKTestAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				8832185928CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m */,
+				883217D828CE655900DDC33E /* MacOSSDKTestAppTests.m */,
+			);
+			path = MacOSSDKTestAppTests;
+			sourceTree = "<group>";
+		};
+		883217E128CE655900DDC33E /* MacOSSDKTestAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8832184928CE6B6900DDC33E /* SDK_Mock */,
+				8832183C28CE6ADF00DDC33E /* Stubbing */,
+				8832183828CE691C00DDC33E /* response */,
+			);
+			path = MacOSSDKTestAppUITests;
+			sourceTree = "<group>";
+		};
+		8832181C28CE667700DDC33E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8832182228CE667700DDC33E /* AppNexusSDK.framework */,
+				8832182428CE667700DDC33E /* AppNexusNativeSDK.framework */,
+				8832182628CE667700DDC33E /* AppNexusNativeMacOSSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8832182728CE667E00DDC33E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8832183828CE691C00DDC33E /* response */ = {
+			isa = PBXGroup;
+			children = (
+				8832185E28CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json */,
+				8832185F28CE706D00DDC33E /* appnexus_standard_response_link.json */,
+				8832186028CE706D00DDC33E /* appnexus_standard_response.json */,
+				8832183928CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json */,
+			);
+			path = response;
+			sourceTree = "<group>";
+		};
+		8832183C28CE6ADF00DDC33E /* Stubbing */ = {
+			isa = PBXGroup;
+			children = (
+				8832185728CE6CC900DDC33E /* ANHTTPCookieStorage.h */,
+				8832185628CE6CC900DDC33E /* ANHTTPCookieStorage.m */,
+				8832183D28CE6ADF00DDC33E /* ANHTTPNetworkSession+ANTest.h */,
+				8832183E28CE6ADF00DDC33E /* ANURLConnectionStub.h */,
+				8832183F28CE6ADF00DDC33E /* ANHTTPStubURLProtocol.h */,
+				8832184028CE6ADF00DDC33E /* ANHTTPStubbingManager.m */,
+				8832184128CE6ADF00DDC33E /* ANURLConnectionStub.m */,
+				8832184228CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m */,
+				8832184328CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
+				8832184E28CE6B8600DDC33E /* NSObject+Swizzling.h */,
+				8832184D28CE6B8600DDC33E /* NSObject+Swizzling.m */,
+				8832184428CE6ADF00DDC33E /* ANHTTPStubbingManager.h */,
+				8832185028CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.h */,
+				8832185128CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m */,
+			);
+			path = Stubbing;
+			sourceTree = "<group>";
+		};
+		8832184928CE6B6900DDC33E /* SDK_Mock */ = {
+			isa = PBXGroup;
+			children = (
+				8832184A28CE6B6900DDC33E /* ANTestGlobal.h */,
+				8832184B28CE6B6900DDC33E /* ANTestGlobal.m */,
+			);
+			path = SDK_Mock;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		883217BE28CE655700DDC33E /* MacOSSDKTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 883217E828CE655900DDC33E /* Build configuration list for PBXNativeTarget "MacOSSDKTestApp" */;
+			buildPhases = (
+				883217BB28CE655700DDC33E /* Sources */,
+				883217BC28CE655700DDC33E /* Frameworks */,
+				883217BD28CE655700DDC33E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacOSSDKTestApp;
+			productName = MacOSSDKTestApp;
+			productReference = 883217BF28CE655700DDC33E /* MacOSSDKTestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		883217D328CE655900DDC33E /* MacOSSDKTestAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 883217EB28CE655900DDC33E /* Build configuration list for PBXNativeTarget "MacOSSDKTestAppTests" */;
+			buildPhases = (
+				883217D028CE655900DDC33E /* Sources */,
+				883217D128CE655900DDC33E /* Frameworks */,
+				883217D228CE655900DDC33E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8832183628CE680800DDC33E /* PBXTargetDependency */,
+				883217D628CE655900DDC33E /* PBXTargetDependency */,
+			);
+			name = MacOSSDKTestAppTests;
+			productName = MacOSSDKTestAppTests;
+			productReference = 883217D428CE655900DDC33E /* MacOSSDKTestAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		883217B728CE655700DDC33E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					883217BE28CE655700DDC33E = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					883217D328CE655900DDC33E = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = 883217BE28CE655700DDC33E;
+					};
+				};
+			};
+			buildConfigurationList = 883217BA28CE655700DDC33E /* Build configuration list for PBXProject "MacOSSDKTestApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 883217B628CE655700DDC33E;
+			productRefGroup = 883217C028CE655700DDC33E /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8832181C28CE667700DDC33E /* Products */;
+					ProjectRef = 8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				883217BE28CE655700DDC33E /* MacOSSDKTestApp */,
+				883217D328CE655900DDC33E /* MacOSSDKTestAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8832182228CE667700DDC33E /* AppNexusSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusSDK.framework;
+			remoteRef = 8832182128CE667700DDC33E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8832182428CE667700DDC33E /* AppNexusNativeSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeSDK.framework;
+			remoteRef = 8832182328CE667700DDC33E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8832182628CE667700DDC33E /* AppNexusNativeMacOSSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeMacOSSDK.framework;
+			remoteRef = 8832182528CE667700DDC33E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		883217BD28CE655700DDC33E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				883217C928CE655900DDC33E /* Assets.xcassets in Resources */,
+				883217CC28CE655900DDC33E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		883217D228CE655900DDC33E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8832186128CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json in Resources */,
+				8832186328CE706D00DDC33E /* appnexus_standard_response.json in Resources */,
+				8832183A28CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json in Resources */,
+				8832186228CE706D00DDC33E /* appnexus_standard_response_link.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		883217BB28CE655700DDC33E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				883217C728CE655700DDC33E /* ViewController.m in Sources */,
+				883217CE28CE655900DDC33E /* main.m in Sources */,
+				883217C428CE655700DDC33E /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		883217D028CE655900DDC33E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8832184628CE6ADF00DDC33E /* ANURLConnectionStub.m in Sources */,
+				883217D928CE655900DDC33E /* MacOSSDKTestAppTests.m in Sources */,
+				8832185A28CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m in Sources */,
+				8832184528CE6ADF00DDC33E /* ANHTTPStubbingManager.m in Sources */,
+				8832184F28CE6B8600DDC33E /* NSObject+Swizzling.m in Sources */,
+				8832184C28CE6B6900DDC33E /* ANTestGlobal.m in Sources */,
+				8832185828CE6CC900DDC33E /* ANHTTPCookieStorage.m in Sources */,
+				8832185228CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				8832184728CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m in Sources */,
+				8832184828CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		883217D628CE655900DDC33E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 883217BE28CE655700DDC33E /* MacOSSDKTestApp */;
+			targetProxy = 883217D528CE655900DDC33E /* PBXContainerItemProxy */;
+		};
+		8832183628CE680800DDC33E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppNexusNativeMacOSSDK;
+			targetProxy = 8832183528CE680800DDC33E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		883217CA28CE655900DDC33E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				883217CB28CE655900DDC33E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		883217E628CE655900DDC33E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		883217E728CE655900DDC33E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		883217E928CE655900DDC33E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacOSSDKTestApp/MacOSSDKTestApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Xandr.MacOSSDKTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		883217EA28CE655900DDC33E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacOSSDKTestApp/MacOSSDKTestApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Xandr.MacOSSDKTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		883217EC28CE655900DDC33E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANHTTPNetworkSession.m\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANHTTPNetworkSession.h\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANGlobal.m\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANGlobal.h\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Xandr.MacOSSDKTestAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacOSSDKTestApp.app/Contents/MacOS/MacOSSDKTestApp";
+			};
+			name = Debug;
+		};
+		883217ED28CE655900DDC33E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANHTTPNetworkSession.m\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANHTTPNetworkSession.h\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANGlobal.m\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal/ANGlobal.h\"",
+					"\"$(SRCROOT)/../../sdk/sourcefiles/internal\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Xandr.MacOSSDKTestAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacOSSDKTestApp.app/Contents/MacOS/MacOSSDKTestApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		883217BA28CE655700DDC33E /* Build configuration list for PBXProject "MacOSSDKTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				883217E628CE655900DDC33E /* Debug */,
+				883217E728CE655900DDC33E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		883217E828CE655900DDC33E /* Build configuration list for PBXNativeTarget "MacOSSDKTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				883217E928CE655900DDC33E /* Debug */,
+				883217EA28CE655900DDC33E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		883217EB28CE655900DDC33E /* Build configuration list for PBXNativeTarget "MacOSSDKTestAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				883217EC28CE655900DDC33E /* Debug */,
+				883217ED28CE655900DDC33E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 883217B728CE655700DDC33E /* Project object */;
+}

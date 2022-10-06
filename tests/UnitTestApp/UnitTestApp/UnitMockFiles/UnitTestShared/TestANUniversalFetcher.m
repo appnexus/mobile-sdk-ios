@@ -15,6 +15,7 @@
 
 #import "TestANUniversalFetcher.h"
 #import "ANSDKSettings.h"
+#import "ANLogging.h"
 
 @implementation TestANUniversalFetcher
 

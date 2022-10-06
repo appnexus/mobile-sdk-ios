@@ -15,15 +15,15 @@
 
 #import "ANBannerAdView.h"
 #import "ANAdView+PrivateMethods.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 
-@interface ANBannerAdView (ANTest) <ANUniversalAdFetcherDelegate>
+@interface ANBannerAdView (ANTest) <ANAdFetcherDelegate>
 
 @property (nonatomic) UIView *contentView;
 @property (nonatomic) NSNumber *transitionInProgress;
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *universalAdFetcher;
+@property (nonatomic, readwrite, strong)  ANAdFetcher  *adFetcher;
 
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 
 + (void)setDoNotResetAdUnitUUID:(BOOL)simulationEnabled;
 

@@ -19,8 +19,9 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XCTestCase+ANAdResponse.h"
 #import "ANTestGlobal.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANRTBVideoAd.h"
+#import "ANCSMVideoAd.h"
 #import "ANMediatedAd.h"
 
 @interface ANBannerAdViewVideoTestCase : XCTestCase<ANBannerAdViewDelegate>
@@ -124,7 +125,7 @@
                                  }];
     XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"65588716");
-    XCTAssert([self.banner.universalAdFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
+    XCTAssert([self.banner.adFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
 }
 
 
@@ -149,7 +150,7 @@
 - (void)testRTBHTMLBanner {
     [self setupBannerVideoAd];
     [self stubRequestWithResponse:@"SuccessfulStandardAdFromRTBObjectResponse"];
-    XCTAssertNil(self.banner.universalAdFetcher.adView);
+    XCTAssertNil(self.banner.adFetcher.adView);
     [self.banner loadAd];
     
     self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
@@ -158,8 +159,8 @@
                                      
                                  }];
     
-    XCTAssertNotNil(self.banner.universalAdFetcher.adView);
-    XCTAssert([self.banner.universalAdFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
+    XCTAssertNotNil(self.banner.adFetcher.adView);
+    XCTAssert([self.banner.adFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"6332753");
 }
@@ -195,8 +196,8 @@
                                  }];
    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeVideo);
     XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"65588716");
-    XCTAssert([self.banner.universalAdFetcher.adObjectHandler isKindOfClass:[ANRTBVideoAd class]]);
-    XCTAssert(![self.banner.universalAdFetcher.adObjectHandler isKindOfClass:[ANCSMVideoAd class]]);
+    XCTAssert([self.banner.adFetcher.adObjectHandler isKindOfClass:[ANRTBVideoAd class]]);
+    XCTAssert(![self.banner.adFetcher.adObjectHandler isKindOfClass:[ANCSMVideoAd class]]);
 }
 
 

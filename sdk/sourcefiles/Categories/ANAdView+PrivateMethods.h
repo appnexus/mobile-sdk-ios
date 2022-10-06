@@ -15,13 +15,13 @@
 
 #import "ANAdView.h"
 #import "ANAdViewInternalDelegate.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 
 
 
 @interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate, ANMultiAdProtocol>
 
-@property (nonatomic, readwrite, strong, nonnull)  ANUniversalAdFetcher  *universalAdFetcher;
+@property (nonatomic, readwrite, strong, nonnull)  ANAdFetcher  *adFetcher;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 

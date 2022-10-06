@@ -231,6 +231,12 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 */
 @property (nonatomic, readwrite) BOOL shouldAllowNativeDemand;
 
+/**
+ * Sets whether or not High Impact Media(AppNexus Media Type:11) can serve on this Ad object.
+ *
+*/
+@property (nonatomic, readwrite) BOOL shouldAllowHighImpactDemand;
+
 
 /**
  * Sets whether or not banner Ads(AppNexus Media Type:1) can serve on this Ad object.

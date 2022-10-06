@@ -15,7 +15,7 @@
 
 #import "ANInstreamVideoAd.h"
 #import "ANVideoAdPlayer.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANLogging.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANOMIDImplementation.h"
@@ -30,7 +30,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
+@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANAdFetcherFoundationDelegate, ANAdProtocol>
 
 @property  (weak, nonatomic, readwrite, nullable)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
@@ -83,7 +83,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
     self.landingPageLoadsInBackground = YES;
     
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    self.adFetcher = [[ANAdFetcher alloc] initWithDelegate:self];
     
     [self setupSizeParametersAs1x1];
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
@@ -134,9 +134,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     
     self.loadDelegate = loadDelegate;
     
-    if(self.universalAdFetcher != nil){
+    if(self.adFetcher != nil){
         
-        [self.universalAdFetcher requestAd];
+        [self.adFetcher requestAd];
         
     } else {
         ANLogError(@"FAILED TO FETCH video ad.");
@@ -429,7 +429,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 #pragma mark - ANUniversalAdFetcherDelegate.
 
-- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+- (void)       adFetcher: (ANAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
     if ([response.adObject isKindOfClass:[ANVideoAdPlayer class]]) {
@@ -469,7 +469,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return  delegateReturnDictionary;
 }
 
-- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANAdFetcher *)fetcher {
     return  ANVideoAdSubtypeInstream;
 }
 

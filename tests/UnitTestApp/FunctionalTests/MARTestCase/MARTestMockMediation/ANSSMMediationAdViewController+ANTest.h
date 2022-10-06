@@ -21,7 +21,7 @@
 @interface ANSSMMediationAdViewController  (ANTest)
 @property (nonatomic, readwrite, strong)  ANSSMStandardAd                   *ssmMediatedAd;
 @property (nonatomic, readwrite, strong)  NSURL                             *ssmHandlerURL;
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+@property (nonatomic, readwrite, weak)    id<ANAdFetcherDelegate>   adViewDelegate;
 
 - (void)markLatencyStart;
 - (void)handleFailure:(ANAdResponseCode *)errorCode

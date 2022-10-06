@@ -26,15 +26,17 @@
     return imageCache;
 }
 
-+ (UIImage *)imageForKey:(NSString *)key {
++ (XandrImage *)imageForKey:(NSString *)key {
     return [[[self class] sharedImageCache] objectForKey:key];
 }
 
-+ (void)setImage:(UIImage *)image
++ (void)setImage:(XandrImage *)image
           forKey:(NSString *)key {
     [[[self class] sharedImageCache] setObject:image
                                         forKey:key];
 }
+
+
 + (void)removeAllImages {
     [[[self class] sharedImageCache] removeAllObjects];
 }

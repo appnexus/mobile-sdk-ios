@@ -16,22 +16,23 @@
 #import <XCTest/XCTest.h>
 
 #import "ANTestGlobal.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANRTBVideoAd.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "XandrAd.h"
+#import "ANLogManager.h"
 
 static NSString         *outstreamVideoPlacementID  = @"12534678";
 
-@interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase< ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation,
-                                                                        ANVideoAdPlayerDelegate, ANAdProtocolVideo,
+@interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase< ANAdFetcherFoundationDelegate,
+                                                                         ANAdProtocolVideo,
                                                                         ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement
                                                                       >
 
-@property (nonatomic, strong)  ANUniversalAdFetcher  *universalAdFetcher;
+@property (nonatomic, strong)  ANAdFetcher  *adFetcher;
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 @property (nonatomic)          BOOL                      allowSmallerSizes;
 @property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
@@ -97,8 +98,8 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     [self setupSizeParametersAs1x1];
     self.placementId = outstreamVideoPlacementID;
     [self stubRequestWithResponse:@"SuccessfulOutstreamVideoResponse"];
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-    [self.universalAdFetcher requestAd];
+    self.adFetcher = [[ANAdFetcher alloc] initWithDelegate:self];
+    [self.adFetcher requestAd];
 
     self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for didFinishRequestWithResponse to be received"];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -146,15 +147,12 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 
 #pragma mark - ANUniversalRequestTagBuilderDelegate.
 
-- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
-{
+- (void)adFetcher:(ANAdFetcherBase *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response{
     TESTTRACE();
 
     [self.loadAdSuccesfulException fulfill];
     [self verifyRTBVideoAdObject:response.adObjectHandler];
 }
-
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes {
     return  @[ @(ANAllowedMediaTypeVideo) ];

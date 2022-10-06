@@ -1,0 +1,60 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 21026766,
+            "auction_id": "1771546771947894806",
+            "nobid": false,
+            "no_ad_url": "https://sin3-ib.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKrBKArAgAAAwDWAAUBCKDumoQGEJbwxufyjPPKGBjLk9jDuIqm9WMqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfCLMM6vgwo47k5A7k5IAFAAWABgAGgAeACAAQCKAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQHYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA0gMqCAASJEVCNzFCRUIwLTdEOTItNEE5Mi04OEFELTlBRkM3NzRBMEU3NxgB0gMFLfCkZWI3MWJlYjAtN2Q5Mi00YTkyLTg4YWQtOWFmYzc3NGEwZTc3GADYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBA0xMC4yNDkuMTA4LjE4qAQAsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCADgBAHwBACCBR1jb20uYXBwbmV4dXMuU2ltcGxlTmF0aXZlT25seYgFAZgFAKAFAMAFAMkFKT4U8D_SBQkJCQxwAADYBQDgBQDwBQD6BQQIABAAkAYAmAYAuAYAwQYJIxjwv9oGFgoQCQ0ZAVwQABgA4AYA8gYCCACABwGIBwCgBwC6Bw4BRAAYCbIgAEAAyAcA0gcNFW0BNQjaBwYJJCjgBwDqBwIIAPAHAA..&s=00d0e755582442b704a8b134e779ebc2e0bb4982",
+            "timeout_ms": 0,
+            "ad_profile_id": 0,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 10094,
+                    "creative_id": 196441069,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 0,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"https://cdn.adnxs.com/v/app/205/trk.js#app;vk=appnexus.com-omid;tv=app-native-23hs;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=21026766;cb=https%3A%2F%2Fsin3-ib.adnxs.com%2Fvevent%3Fan_audit%3D0%26test%3D1%26e%3DwqT_3QKvBKAvAgAAAwDWAAUBCKDumoQGEJbwxufyjPPKGBjLk9jDuIqm9WMqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfRIATDOr4MKOO5OQO5OSABQ7efVXVgAYABoAHgAgAEAigEAmAEBoAEBqAEBsAEAuAEBwAEDyAEA0AEB2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAPgqAHIAwDSAyoIABIkRUI3MUJFQjAtN0Q5Mi00QTkyLTg4QUQtOUFGQzc3NEEwRTc3GAHSAyoIABIkZWI3MWJlYjAtN2Q5Mi00YTkyLTg4YWQtOWFmYzc3NGEwZTc3GADYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBA0xMC4yNDkuMTA4LjE4qAQAsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCAHgBAHwBACCBR1jb20uYXBwbmV4dXMuU2ltcGxlTmF0aXZlT25seYgFAZgFAKAFAMAFAMkFAAAAAAAA8D_SBQkJAAAAJVFo2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGBSAcAAAA2gYWChABCS4BAFwQABgA4AYA8gYCCACABwGIBwCgBwC6Bw4BREAYACAAMAA4AEAAyAcA0gcNCRE5ATUI2gcGCSQo4AcA6gcCCADwBwA.%26s%3Dc408093465a71042897bba137fed618347bd2220;ts=1619441440;cet=0;cecb=\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "Soy española creativa",
+                            "desc": "¿Cómo están? Me siento bien hoy. Llamemos hoy. Nos vemos. buenas noches. No sé qué más escribir",
+                            "sponsored": "Soy española creativa",
+                            "ctatext": "Pégame",
+                            "icon": {
+                                "url": "https://crcdn01.adnxs.com/creative/p/10094/2019/12/5/15542819/f0053780-362d-4126-99e1-34761bee75e1.png",
+                                "width": 764,
+                                "height": 860,
+                                "prevent_crop": false
+                            },
+                            "main_img": {
+                                "url": "https://crcdn01.adnxs.com/creative/p/10094/2019/12/5/15542818/c7503df2-147d-4752-8ba9-63e01e42d334.png",
+                                "width": 700,
+                                "height": 986,
+                                "prevent_crop": false
+                            },
+                            "link": {
+                                "url": "https://appnexus.com",
+                                "fallback_url":"https://xandr.com",
+                                "click_trackers": [
+                                    "https://sin3-ib.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABa48SxnzJUYywl2iFOY6mMgt4ZgAAAAAM7XQAFuJwAAbicAAAAAAADtc7ULAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEAyQ7GDwAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
+                                ]
+                            },
+                            "impression_trackers": [
+                                "https://sin3-ib.adnxs.com/it?an_audit=0&test=1&e=wqT_3QKvBKAvAgAAAwDWAAUBCKDumoQGEJbwxufyjPPKGBjLk9jDuIqm9WMqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfRIATDOr4MKOO5OQO5OSABQ7efVXVgAYABoAHgAgAEAigEAmAEBoAEBqAEBsAEAuAEBwAEDyAEA0AEB2AEA4AEB8AEA2AIA4AIAgAMAiAMBkAMAmAMXoAMAqgMAwAPgqAHIAwDSAyoIABIkRUI3MUJFQjAtN0Q5Mi00QTkyLTg4QUQtOUFGQzc3NEEwRTc3GAHSAyoIABIkZWI3MWJlYjAtN2Q5Mi00YTkyLTg4YWQtOWFmYzc3NGEwZTc3GADYAwDgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBA0xMC4yNDkuMTA4LjE4qAQAsgQMCAAQARgAIAAwADgCuAQAwAQAyAQA2gQCCAHgBAHwBACCBR1jb20uYXBwbmV4dXMuU2ltcGxlTmF0aXZlT25seYgFAZgFAKAFAMAFAMkFAAAAAAAA8D_SBQkJAAAAJVFo2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGBSAcAAAA2gYWChABCS4BAFwQABgA4AYA8gYCCACABwGIBwCgBwC6Bw4BREAYACAAMAA4AEAAyAcA0gcNCRE5ATUI2gcGCSQo4AcA6gcCCADwBwA.&s=c408093465a71042897bba137fed618347bd2220"
+                            ],
+                            "id": 196441069
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

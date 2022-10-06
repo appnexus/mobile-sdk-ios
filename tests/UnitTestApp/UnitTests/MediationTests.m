@@ -14,7 +14,7 @@
  */
 
 #import "ANBaseTestCase.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANMediatedAd.h"
 #import "ANMRAIDContainerView.h"
 #import "ANMediationAdViewController.h"
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 #pragma mark - ANUniversalAdFetcher local interface.
 
-@interface ANUniversalAdFetcher ()
+@interface ANAdFetcherBase ()
 
 - (ANMediationAdViewController *)mediationController;
 
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 @interface ANBannerAdViewExtended : ANBannerAdView
 
 @property (nonatomic, assign)  BOOL                      testComplete;
-@property (nonatomic, strong)  ANUniversalAdFetcher     *fetcher;
+@property (nonatomic, strong)  ANAdFetcher     *fetcher;
 @property (nonatomic, strong)  id                        adapter;
 @property (nonatomic, strong)  NSError                  *anError;
 @property (nonatomic, strong)  ANMRAIDContainerView     *standardAdView;
@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 @end
 
 
-@interface ANBannerAdViewExtended () <ANUniversalAdFetcherDelegate>
+@interface ANBannerAdViewExtended () <ANAdFetcherDelegate>
 {
     NSUInteger __testNumber;
 }
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
     __testNumber    = testNumber;
     __testComplete  = NO;
 
-    __fetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    __fetcher = [[ANAdFetcher alloc] initWithDelegate:self];
     [__fetcher requestAd];
 }
 
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 #pragma mark - ANUniversalAdFetcherDelegate (for ANBannerAdViewExtended)
 
-- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+- (void)adFetcher:(ANAdFetcherBase *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
@@ -191,11 +191,11 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
     }
 }
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
     return 0.0;
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return CGSizeMake(320, 50);
 }
 

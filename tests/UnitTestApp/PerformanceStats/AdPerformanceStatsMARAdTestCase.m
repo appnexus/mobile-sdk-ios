@@ -25,7 +25,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANAdView+PrivateMethods.h"
 #import "ANBannerAdView+ANTest.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANInterstitialAd+ANTest.h"
 #import "ANNativeAdRequest+ANTest.h"
 #import "ANInstreamVideoAd+Test.h"

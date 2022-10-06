@@ -16,8 +16,6 @@
 		0E4915BB24066CE1003B7CC2 /* NativeAd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E4915B724066CE1003B7CC2 /* NativeAd.storyboard */; };
 		0E877A6023FE763000DC962F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E877A5F23FE763000DC962F /* AppDelegate.swift */; };
 		0E877A6923FE763100DC962F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E877A6823FE763100DC962F /* Assets.xcassets */; };
-		0E877A7D23FE78B200DC962F /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E877A7923FE766100DC962F /* AppNexusSDK.framework */; };
-		0E877A7E23FE78B200DC962F /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E877A7923FE766100DC962F /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E9FB94824571E420011E0F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FB94624571E420011E0F9 /* LaunchScreen.storyboard */; };
 		0EEFDB9624066E060062560E /* VideoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9524066E060062560E /* VideoAdViewController.swift */; };
 		0EEFDB9824066E6E0062560E /* NativeAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9724066E6E0062560E /* NativeAdViewController.swift */; };
@@ -25,22 +23,39 @@
 		0EEFDB9C24066E9F0062560E /* BannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9B24066E9F0062560E /* BannerAdViewController.swift */; };
 		0EEFDB9F24066F030062560E /* ANNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9D24066F030062560E /* ANNativeAdView.swift */; };
 		0EEFDBA024066F030062560E /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9E24066F030062560E /* ANNativeAdView.xib */; };
+		88A94A8128E1F5DF002EFB87 /* NativeAdViewSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A94A7D28E1F5DF002EFB87 /* NativeAdViewSecond.swift */; };
+		88CD455128B9136800381778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD455028B9136800381778 /* AppDelegate.swift */; };
+		88CD455328B9136800381778 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD455228B9136800381778 /* ViewController.swift */; };
+		88CD455528B9136B00381778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88CD455428B9136B00381778 /* Assets.xcassets */; };
+		88CD455828B9136B00381778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CD455628B9136B00381778 /* Main.storyboard */; };
+		88CD457A28B917E100381778 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CD457128B9143C00381778 /* AppNexusSDK.framework */; };
+		88CD457B28B917EB00381778 /* AppNexusNativeMacOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CD457528B9143C00381778 /* AppNexusNativeMacOSSDK.framework */; };
+		88CD458528B9191E00381778 /* NativeAdViewFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD458228B9191E00381778 /* NativeAdViewFirst.swift */; };
+		88CD458628B9191E00381778 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 88CD458328B9191E00381778 /* quotes.json */; };
+		88CD458728B9191E00381778 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD458428B9191E00381778 /* WindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0E877A7823FE766100DC962F /* PBXContainerItemProxy */ = {
+		88CD457028B9143C00381778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */;
+			containerPortal = 88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
 			remoteInfo = AppNexusSDK;
 		};
-		0E877A7A23FE766100DC962F /* PBXContainerItemProxy */ = {
+		88CD457228B9143C00381778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */;
+			containerPortal = 88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
+		};
+		88CD457428B9143C00381778 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 880508B128AC14A80099C6C6;
+			remoteInfo = AppNexusNativeMacOSSDK;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -51,7 +66,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0E877A7E23FE78B200DC962F /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,7 +84,6 @@
 		0E877A5F23FE763000DC962F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E877A6823FE763100DC962F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E877A6D23FE763100DC962F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
 		0E9FB94724571E420011E0F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SimpleIntegrationSwift/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		0EEFDB9524066E060062560E /* VideoAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAdViewController.swift; sourceTree = "<group>"; };
 		0EEFDB9724066E6E0062560E /* NativeAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +91,17 @@
 		0EEFDB9B24066E9F0062560E /* BannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdViewController.swift; sourceTree = "<group>"; };
 		0EEFDB9D24066F030062560E /* ANNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANNativeAdView.swift; sourceTree = "<group>"; };
 		0EEFDB9E24066F030062560E /* ANNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdView.xib; sourceTree = "<group>"; };
+		88A94A7D28E1F5DF002EFB87 /* NativeAdViewSecond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewSecond.swift; sourceTree = "<group>"; };
+		88CD454E28B9136800381778 /* MacOSSimpleIntegrationSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSSimpleIntegrationSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88CD455028B9136800381778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		88CD455228B9136800381778 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		88CD455428B9136B00381778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		88CD455728B9136B00381778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		88CD455928B9136B00381778 /* MacOSSimpleIntegrationSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacOSSimpleIntegrationSwift.entitlements; sourceTree = "<group>"; };
+		88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
+		88CD458228B9191E00381778 /* NativeAdViewFirst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewFirst.swift; sourceTree = "<group>"; };
+		88CD458328B9191E00381778 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
+		88CD458428B9191E00381778 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +109,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E877A7D23FE78B200DC962F /* AppNexusSDK.framework in Frameworks */,
+				88CD457A28B917E100381778 /* AppNexusSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88CD454B28B9136800381778 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88CD457B28B917EB00381778 /* AppNexusNativeMacOSSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,10 +183,11 @@
 		0E877A5323FE763000DC962F = {
 			isa = PBXGroup;
 			children = (
+				88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */,
+				88CD454F28B9136800381778 /* MacOSSimpleIntegrationSwift */,
 				0E877A7C23FE78B200DC962F /* Frameworks */,
 				0E877A5D23FE763000DC962F /* Products */,
 				0E877A5E23FE763000DC962F /* SimpleIntegrationSwift */,
-				0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				0E877A5C23FE763000DC962F /* SimpleIntegrationSwift.app */,
+				88CD454E28B9136800381778 /* MacOSSimpleIntegrationSwift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,20 +216,37 @@
 			path = SimpleIntegrationSwift;
 			sourceTree = "<group>";
 		};
-		0E877A7423FE766100DC962F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0E877A7B23FE766100DC962F /* AppNexusNativeSDK.framework */,
-				0E877A7923FE766100DC962F /* AppNexusSDK.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		0E877A7C23FE78B200DC962F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		88CD454F28B9136800381778 /* MacOSSimpleIntegrationSwift */ = {
+			isa = PBXGroup;
+			children = (
+				88CD455028B9136800381778 /* AppDelegate.swift */,
+				88CD455228B9136800381778 /* ViewController.swift */,
+				88CD458228B9191E00381778 /* NativeAdViewFirst.swift */,
+				88A94A7D28E1F5DF002EFB87 /* NativeAdViewSecond.swift */,
+				88CD458328B9191E00381778 /* quotes.json */,
+				88CD458428B9191E00381778 /* WindowController.swift */,
+				88CD455428B9136B00381778 /* Assets.xcassets */,
+				88CD455628B9136B00381778 /* Main.storyboard */,
+				88CD455928B9136B00381778 /* MacOSSimpleIntegrationSwift.entitlements */,
+			);
+			path = MacOSSimpleIntegrationSwift;
+			sourceTree = "<group>";
+		};
+		88CD456B28B9143C00381778 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88CD457128B9143C00381778 /* AppNexusSDK.framework */,
+				88CD457328B9143C00381778 /* AppNexusNativeSDK.framework */,
+				88CD457528B9143C00381778 /* AppNexusNativeMacOSSDK.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,18 +270,38 @@
 			productReference = 0E877A5C23FE763000DC962F /* SimpleIntegrationSwift.app */;
 			productType = "com.apple.product-type.application";
 		};
+		88CD454D28B9136800381778 /* MacOSSimpleIntegrationSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88CD456128B9136B00381778 /* Build configuration list for PBXNativeTarget "MacOSSimpleIntegrationSwift" */;
+			buildPhases = (
+				88CD454A28B9136800381778 /* Sources */,
+				88CD454B28B9136800381778 /* Frameworks */,
+				88CD454C28B9136800381778 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacOSSimpleIntegrationSwift;
+			productName = MacOSSimpleIntegrationSwift;
+			productReference = 88CD454E28B9136800381778 /* MacOSSimpleIntegrationSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0E877A5423FE763000DC962F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Xandr;
 				TargetAttributes = {
 					0E877A5B23FE763000DC962F = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					88CD454D28B9136800381778 = {
+						CreatedOnToolsVersion = 13.3.1;
 					};
 				};
 			};
@@ -247,30 +318,38 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 0E877A7423FE766100DC962F /* Products */;
-					ProjectRef = 0E877A7323FE766100DC962F /* AppNexusSDK.xcodeproj */;
+					ProductGroup = 88CD456B28B9143C00381778 /* Products */;
+					ProjectRef = 88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
 				0E877A5B23FE763000DC962F /* SimpleIntegrationSwift */,
+				88CD454D28B9136800381778 /* MacOSSimpleIntegrationSwift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0E877A7923FE766100DC962F /* AppNexusSDK.framework */ = {
+		88CD457128B9143C00381778 /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AppNexusSDK.framework;
-			remoteRef = 0E877A7823FE766100DC962F /* PBXContainerItemProxy */;
+			remoteRef = 88CD457028B9143C00381778 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0E877A7B23FE766100DC962F /* AppNexusNativeSDK.framework */ = {
+		88CD457328B9143C00381778 /* AppNexusNativeSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AppNexusNativeSDK.framework;
-			remoteRef = 0E877A7A23FE766100DC962F /* PBXContainerItemProxy */;
+			remoteRef = 88CD457228B9143C00381778 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88CD457528B9143C00381778 /* AppNexusNativeMacOSSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeMacOSSDK.framework;
+			remoteRef = 88CD457428B9143C00381778 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -292,6 +371,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		88CD454C28B9136800381778 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88CD455528B9136B00381778 /* Assets.xcassets in Resources */,
+				88CD455828B9136B00381778 /* Main.storyboard in Resources */,
+				88CD458628B9191E00381778 /* quotes.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -306,6 +395,18 @@
 				0E4915AC24066C6C003B7CC2 /* MultiAdViewController.swift in Sources */,
 				0EEFDB9824066E6E0062560E /* NativeAdViewController.swift in Sources */,
 				0EEFDB9624066E060062560E /* VideoAdViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88CD454A28B9136800381778 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88CD455328B9136800381778 /* ViewController.swift in Sources */,
+				88CD458728B9191E00381778 /* WindowController.swift in Sources */,
+				88CD455128B9136800381778 /* AppDelegate.swift in Sources */,
+				88A94A8128E1F5DF002EFB87 /* NativeAdViewSecond.swift in Sources */,
+				88CD458528B9191E00381778 /* NativeAdViewFirst.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +427,14 @@
 				0E9FB94724571E420011E0F9 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		88CD455628B9136B00381778 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88CD455728B9136B00381778 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -483,6 +592,68 @@
 			};
 			name = Release;
 		};
+		88CD455A28B9136B00381778 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = MacOSSimpleIntegrationSwift/MacOSSimpleIntegrationSwift.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Xandr. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Xandr.MacOSSimpleIntegrationSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		88CD455B28B9136B00381778 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = MacOSSimpleIntegrationSwift/MacOSSimpleIntegrationSwift.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Xandr. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Xandr.MacOSSimpleIntegrationSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -500,6 +671,15 @@
 			buildConfigurations = (
 				0E877A7123FE763100DC962F /* Debug */,
 				0E877A7223FE763100DC962F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88CD456128B9136B00381778 /* Build configuration list for PBXNativeTarget "MacOSSimpleIntegrationSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88CD455A28B9136B00381778 /* Debug */,
+				88CD455B28B9136B00381778 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

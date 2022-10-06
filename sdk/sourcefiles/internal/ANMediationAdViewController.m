@@ -35,7 +35,7 @@
 @property (nonatomic, readwrite, assign)  BOOL                               hasFailed;
 @property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
 
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+@property (nonatomic, readwrite, weak)    id<ANAdFetcherDelegate>   adViewDelegate;
 
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
@@ -48,8 +48,8 @@
 #pragma mark - Lifecycle.
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
-                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
+                                    withFetcher:(ANAdFetcher *)adFetcher
+                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate
 {
 
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
@@ -177,7 +177,7 @@
 - (BOOL)requestAd:(CGSize)size
   serverParameter:(NSString *)parameterString
          adUnitId:(NSString *)idString
-           adView:(id<ANUniversalAdFetcherDelegate>)adView
+           adView:(id<ANAdFetcherDelegate>)adView
 {
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
     
@@ -380,7 +380,7 @@
 
     // use queue to force return
     [self runInBlock:^(void) {
-        ANUniversalAdFetcher *fetcher = self.adFetcher;
+        ANAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode: (int)errorCode
                                                                                   latency: ([self getLatency] * 1000) ];

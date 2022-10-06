@@ -189,7 +189,7 @@
 		0E8C97A821FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971421FF32EB005D1F0E /* NSURLRequest+HTTPBodyTesting.m */; };
 		0E8C97A921FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971421FF32EB005D1F0E /* NSURLRequest+HTTPBodyTesting.m */; };
 		0E8C97AB21FF32EC005D1F0E /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971521FF32EB005D1F0E /* XCTestCase+ANBannerAdView.m */; };
-		0E8C97AE21FF32EC005D1F0E /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */; };
+		0E8C97AE21FF32EC005D1F0E /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */; };
 		0E8C97B121FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971921FF32EB005D1F0E /* XCTestCase+ANAdResponse.m */; };
 		0E8C97B221FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971921FF32EB005D1F0E /* XCTestCase+ANAdResponse.m */; };
 		0E8C97B721FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972321FF32EB005D1F0E /* XCTestCase+ANCategory.m */; };
@@ -364,7 +364,7 @@
 		0EEFE1B522008A1B002B5F5F /* ANMRAIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1B422008A1A002B5F5F /* ANMRAIDTests.m */; };
 		0EEFE1B822008C14002B5F5F /* ANMockMediationAdapterTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1B622008C14002B5F5F /* ANMockMediationAdapterTimeout.m */; };
 		0EEFE1BB22008C29002B5F5F /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1BA22008C29002B5F5F /* ANMRAIDTestResponses.m */; };
-		0EEFE1DD22008E6D002B5F5F /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */; };
+		0EEFE1DD22008E6D002B5F5F /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */; };
 		0EEFE1E8220096A9002B5F5F /* SuccessfulMRAIDListenerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1E7220096A9002B5F5F /* SuccessfulMRAIDListenerResponse.json */; };
 		0EEFE1EE22009797002B5F5F /* SuccessfulOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1ED22009797002B5F5F /* SuccessfulOutstreamVideoResponse.json */; };
 		0EEFE1F222009819002B5F5F /* SecondPriceForDFPParamIsUnset.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1F122009819002B5F5F /* SecondPriceForDFPParamIsUnset.json */; };
@@ -636,7 +636,7 @@
 		FC4E6F5D24E97B95003F2381 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		FC4E6F5E24E97C8B003F2381 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971421FF32EB005D1F0E /* NSURLRequest+HTTPBodyTesting.m */; };
 		FC4E6F5F24E97CFF003F2381 /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971521FF32EB005D1F0E /* XCTestCase+ANBannerAdView.m */; };
-		FC4E6F6024E97D0C003F2381 /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */; };
+		FC4E6F6024E97D0C003F2381 /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */; };
 		FC4E6F6124E97D7E003F2381 /* NSURLProtocol+WKWebViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 976E5A2823571682008A4E60 /* NSURLProtocol+WKWebViewSupport.m */; };
 		FC4E6F6224E97D81003F2381 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */; };
 		FC4E6F6324E97DBE003F2381 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972321FF32EB005D1F0E /* XCTestCase+ANCategory.m */; };
@@ -693,7 +693,7 @@
 		FC54F62C27AC1B6D00354121 /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972E21FF32EB005D1F0E /* ANTestGlobal.m */; };
 		FC54F62D27AC1B6D00354121 /* ANTimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3FE350245999220096A978 /* ANTimeTracker.m */; };
 		FC54F62E27AC1B6D00354121 /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971321FF32EB005D1F0E /* ANTrackerManager+ANTest.m */; };
-		FC54F63027AC1B6D00354121 /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */; };
+		FC54F63027AC1B6D00354121 /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */; };
 		FC54F63227AC1B6D00354121 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970F21FF32EB005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
 		FC54F63327AC1B6D00354121 /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */; };
 		FC54F63427AC1B6D00354121 /* AuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */; };
@@ -857,6 +857,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		002D905228B813BA00CBF78A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 880508B128AC14A80099C6C6;
+			remoteInfo = AppNexusNativeMacOSSDK;
+		};
 		0E6B7E4A22D8DE49005D069E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
@@ -1151,7 +1158,7 @@
 		0E8C971521FF32EB005D1F0E /* XCTestCase+ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANBannerAdView.m"; sourceTree = "<group>"; };
 		0E8C971621FF32EB005D1F0E /* ANAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+ANTest.h"; sourceTree = "<group>"; };
 		0E8C971721FF32EB005D1F0E /* ANInterstitialAd+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInterstitialAd+ANTest.h"; sourceTree = "<group>"; };
-		0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANUniversalAdFetcher+ANTest.m"; sourceTree = "<group>"; };
+		0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdFetcher+ANTest.m"; sourceTree = "<group>"; };
 		0E8C971921FF32EB005D1F0E /* XCTestCase+ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANAdResponse.m"; sourceTree = "<group>"; };
 		0E8C971A21FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
 		0E8C971B21FF32EB005D1F0E /* ANBannerAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANTest.m"; sourceTree = "<group>"; };
@@ -1169,7 +1176,7 @@
 		0E8C972721FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
 		0E8C972821FF32EB005D1F0E /* ANBannerAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANTest.h"; sourceTree = "<group>"; };
 		0E8C972921FF32EB005D1F0E /* XCTestCase+ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANAdResponse.h"; sourceTree = "<group>"; };
-		0E8C972A21FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANUniversalAdFetcher+ANTest.h"; sourceTree = "<group>"; };
+		0E8C972A21FF32EB005D1F0E /* ANAdFetcher+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdFetcher+ANTest.h"; sourceTree = "<group>"; };
 		0E8C972B21FF32EB005D1F0E /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
 		0E8C972C21FF32EB005D1F0E /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
 		0E8C972D21FF32EB005D1F0E /* ANAdWebViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdWebViewController+ANTest.m"; sourceTree = "<group>"; };
@@ -1989,8 +1996,8 @@
 				0E8C972B21FF32EB005D1F0E /* ANReachability+ANTest.m */,
 				0E8C972221FF32EB005D1F0E /* ANTrackerManager+ANTest.h */,
 				0E8C971321FF32EB005D1F0E /* ANTrackerManager+ANTest.m */,
-				0E8C972A21FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.h */,
-				0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */,
+				0E8C972A21FF32EB005D1F0E /* ANAdFetcher+ANTest.h */,
+				0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */,
 				9792384A22412E49007433C0 /* ANVerificationScriptResource+ANTest.h */,
 				9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */,
 				0E8C971E21FF32EB005D1F0E /* NSObject+Swizzling.h */,
@@ -2254,6 +2261,7 @@
 			children = (
 				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
+				002D905328B813BA00CBF78A /* AppNexusNativeMacOSSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2792,6 +2800,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		002D905328B813BA00CBF78A /* AppNexusNativeMacOSSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeMacOSSDK.framework;
+			remoteRef = 002D905228B813BA00CBF78A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -3370,7 +3385,7 @@
 				0EEFE18B22007696002B5F5F /* ANTestGlobal.m in Sources */,
 				0E8C983E21FF42E0005D1F0E /* ANTestResponses.m in Sources */,
 				0E8C97A521FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
-				0E8C97AE21FF32EC005D1F0E /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				0E8C97AE21FF32EC005D1F0E /* ANAdFetcher+ANTest.m in Sources */,
 				0E8C981F21FF400D005D1F0E /* ANUniversalAdFetcherTests.m in Sources */,
 				0E8C982321FF404E005D1F0E /* ANUniversalTagRequestBuilderTests.m in Sources */,
 				0E8C97A221FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
@@ -3470,7 +3485,7 @@
 				0E3FE351245999220096A978 /* ANTimeTracker.m in Sources */,
 				0E8C97A621FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
 				0EEFE1602200715C002B5F5F /* ANTrackerManagerTestCase.m in Sources */,
-				0EEFE1DD22008E6D002B5F5F /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				0EEFE1DD22008E6D002B5F5F /* ANAdFetcher+ANTest.m in Sources */,
 				0EEFE15E2200706A002B5F5F /* ANUniversalTagRequestBuilderFunctionalTests.m in Sources */,
 				0E8C97A321FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */,
@@ -3613,7 +3628,7 @@
 				389A747A250BACC80075AB70 /* ANOMIDSessionFinishBannerHTMLTest.m in Sources */,
 				FC4E6F4E24E97915003F2381 /* ANTestGlobal.m in Sources */,
 				FC4E6F4A24E978B8003F2381 /* ANTimeTracker.m in Sources */,
-				FC4E6F6024E97D0C003F2381 /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				FC4E6F6024E97D0C003F2381 /* ANAdFetcher+ANTest.m in Sources */,
 				FC4E6F4924E978A4003F2381 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				FC4E6F6724E98C0C003F2381 /* ANVerificationScriptResource+ANTest.m in Sources */,
 				FC4E6F6824E98E74003F2381 /* ANVideoAdPlayer+Test.m in Sources */,
@@ -3681,7 +3696,7 @@
 				FC54F62C27AC1B6D00354121 /* ANTestGlobal.m in Sources */,
 				FC54F62D27AC1B6D00354121 /* ANTimeTracker.m in Sources */,
 				FC54F62E27AC1B6D00354121 /* ANTrackerManager+ANTest.m in Sources */,
-				FC54F63027AC1B6D00354121 /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				FC54F63027AC1B6D00354121 /* ANAdFetcher+ANTest.m in Sources */,
 				FC54F63227AC1B6D00354121 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				FC54F6D127AC34F800354121 /* ANAdResponseTestCase.m in Sources */,
 				FC54F63327AC1B6D00354121 /* ANVerificationScriptResource+ANTest.m in Sources */,

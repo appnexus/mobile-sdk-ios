@@ -15,7 +15,7 @@
 
 #import <objc/runtime.h>
 
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANTestGlobal.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANAdView+PrivateMethods.h"
@@ -23,7 +23,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
-@implementation ANUniversalAdFetcher (ANTest)
+@implementation ANAdFetcher (ANTest)
 #pragma clang diagnostic pop
 
 @dynamic adView;

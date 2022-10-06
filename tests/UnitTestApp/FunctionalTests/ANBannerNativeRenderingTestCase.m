@@ -19,7 +19,7 @@
 
 #import "XCTestCase+ANBannerAdView.h"
 #import "XCTestCase+ANAdResponse.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANOMIDImplementation.h"
 
@@ -36,7 +36,7 @@
 @interface ANBannerNativeRenderingTestCase : XCTestCase <ANBannerAdViewDelegate >
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *multiFormatAd;
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, strong)  ANAdFetcher  *adFetcher;
 
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationRequest;
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationResponse;
@@ -192,7 +192,7 @@
     [self.multiFormatAd loadAd];
     
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval*2 handler:nil];
-    XCTAssertNotNil(self.multiFormatAd.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
     
 }
 
@@ -233,7 +233,7 @@
     [self.multiFormatAd loadAd];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
-    XCTAssertNotNil(self.multiFormatAd.universalAdFetcher.autoRefreshTimer);
+    XCTAssertNotNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
 }
 
 - (void)testNativeRenderingUsesNativeWebViewController

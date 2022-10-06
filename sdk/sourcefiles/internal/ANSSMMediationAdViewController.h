@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ANSSMStandardAd.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 
 
 @interface ANSSMMediationAdViewController : NSObject
@@ -26,11 +26,11 @@
 - (void)clearAdapter;
 
 + (ANSSMMediationAdViewController *)initMediatedAd:(ANSSMStandardAd *)ssmMediatedAd
-                                    withFetcher:(ANUniversalAdFetcher *)fetcher
-                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
+                                    withFetcher:(ANAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate;
 
 @end
 
 @interface ANSSMMediationAdViewController ()
-@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, weak)  ANAdFetcher  *adFetcher;
 @end

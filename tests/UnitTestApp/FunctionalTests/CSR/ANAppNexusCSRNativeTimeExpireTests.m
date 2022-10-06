@@ -19,7 +19,7 @@
 #import "TestANCSRUniversalFetcher.h"
 #import "ANReachability.h"
 #import "ANAdAdapterCSRNativeBannerFacebook+ANTest.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "SDKValidationURLProtocol.h"

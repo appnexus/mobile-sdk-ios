@@ -26,7 +26,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"8.0.0"
+#define AN_SDK_VERSION                  @"8.1.0"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,
     ANAllowedMediaTypeInterstitial  = 3,
     ANAllowedMediaTypeVideo         = 4,
+    ANAllowedMediaTypeHighImpact    = 11,
     ANAllowedMediaTypeNative        = 12
 };
 
@@ -134,10 +135,12 @@ CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
 NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
-BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
-CGRect ANStatusBarFrame(void);
 BOOL ANStatusBarHidden(void);
+CGRect ANStatusBarFrame(void);
+#if !APPNEXUS_NATIVE_MACOS_SDK
 UIInterfaceOrientation ANStatusBarOrientation(void);
+BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
+#endif
 
 #pragma mark - Global class.
 
@@ -154,8 +157,10 @@ UIInterfaceOrientation ANStatusBarOrientation(void);
 + (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
 + (nonnull NSString *) userAgent;
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 + (nonnull UIWindow *) getKeyWindow;
+#endif
 
 + (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
 

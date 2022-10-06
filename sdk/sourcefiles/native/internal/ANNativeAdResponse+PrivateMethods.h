@@ -12,29 +12,45 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#import <Foundation/Foundation.h>
+#import "ANAdConstants.h"
 
 #import "ANNativeAdResponse.h"
-@import OMSDK_Appnexus;
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    @import OMSDK_Appnexus;
+    #import "ANVerificationScriptResource.h"
+#else
+    #import <AppKit/AppKit.h>
+    #import "XandrNativeAdView.h"
+#endif
+#import "XandrView.h"
+#import "XandrViewController.h"
 
-#import "ANVerificationScriptResource.h"
 
 @interface ANNativeAdResponse (PrivateMethods)
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 @property (nonatomic, readonly, weak) UIViewController *rootViewController;
 @property (nonatomic, readonly, weak) UIView *viewForTracking;
 @property (nonatomic, readonly, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
+#else
+@property (nonatomic, readonly, weak) NSView *viewForTracking;
+#endif
+
 @property (nonatomic, readonly, strong) NSString *nativeRenderingUrl;
 @property (nonatomic, readonly, strong) NSString *nativeRenderingObject;
 
 
 #pragma mark - Registration
 
-- (BOOL)registerResponseInstanceWithNativeView:(UIView *)view
-                            rootViewController:(UIViewController *)controller
+- (BOOL)registerResponseInstanceWithNativeView:(XandrView *)view
+                            rootViewController:(XandrViewController *)controller
                                 clickableViews:(NSArray *)clickableViews
                                          error:(NSError *__autoreleasing*)error;
-
+#if APPNEXUS_NATIVE_MACOS_SDK
+-(void)registerClickView:(XandrNativeAdView *)view;
+#endif
 
 #pragma mark - Unregistration
 
@@ -43,8 +59,12 @@
 
 #pragma mark - Click handling
 
-- (void)attachGestureRecognizersToNativeView:(UIView *)nativeView
+- (void)attachGestureRecognizersToNativeView:(XandrView *)nativeView
                           withClickableViews:(NSArray *)clickableViews;
+
+
+
+
 - (void)handleClick;
 
 -(void)registerOMID;

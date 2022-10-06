@@ -14,8 +14,6 @@
  */
 
 #import <Foundation/Foundation.h>
-
-#import "ANVideoAdProcessor.h"
 #import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANAdFetcherResponse.h"
@@ -25,15 +23,11 @@
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
 #import "ANAdFetcherBase+PrivateMethods.h"
+#import "ANAdFetcherBase.h"
 
 
 
-
-#pragma mark -
-
-@protocol ANUniversalAdFetcherDelegate;
-
-@interface ANUniversalAdFetcher : ANAdFetcherBase
+@interface ANAdFetcher : ANAdFetcherBase
 
 - (nonnull instancetype)initWithDelegate:(nonnull id)delegate;
 
@@ -56,62 +50,29 @@
 @end
 
 
+#pragma mark -
 
-
-#pragma mark - Ad Fetcher Delegates.
-
-@protocol  ANUniversalRequestTagBuilderDelegate <ANRequestTagBuilderCore>
-
-@required
-
-- (nonnull NSArray<NSValue *> *)adAllowedMediaTypes;
-
-// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
-//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
-//
-- (nonnull NSDictionary *) internalDelegateUniversalTagSizeParameters;
-
-// AdUnit internal methods to manage UUID property used during Multi-Tag Requests.
-//
-- (nonnull NSString *)internalGetUTRequestUUIDString;
-- (void)internalUTRequestUUIDStringReset;
+// NB  ANAdFetcherFoundationDelegate is used in ANInstreamVideoAd entry point.
+@protocol  ANAdFetcherFoundationDelegate <ANRequestTagBuilderCore, ANAdProtocolFoundation>
 
 
 @optional
-
-//   If rendererId is not set, the default is zero (0).
-//   A value of zero indicates that renderer_id will not be sent in the UT Request.
-//   nativeRendererId is sufficient for ANBannerAdView and ANNativeAdRequest entry point.
 //
-- (NSInteger) nativeAdRendererId;
-
-//
-- (void)       universalAdFetcher: (nonnull ANUniversalAdFetcher *)fetcher
+- (void)       adFetcher: (nonnull ANAdFetcherBase *)fetcher
      didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
-
 @end
-
 
 
 
 #pragma mark -
 
-@protocol  ANUniversalAdFetcherFoundationDelegate <ANUniversalRequestTagBuilderDelegate, ANAdProtocolFoundation>
-    //EMPTY
-@end
-
-
-
-
-#pragma mark -
-
-// NB  ANUniversalAdFetcherDelegate is sufficient for Banner, Interstitial entry point.
+// NB  ANAdFetcherDelegate is used for Banner, Interstitial entry point.
 //
-@protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
+@protocol  ANAdFetcherDelegate <ANAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
 
 @required
 
-- (CGSize)requestedSizeForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
+- (CGSize)requestedSizeForAdFetcher:(nonnull ANAdFetcherBase *)fetcher;
 
 
 @optional
@@ -119,8 +80,8 @@
 // NB  autoRefreshIntervalForAdFetcher: and videoAdTypeForAdFetcher: are required for ANBannerAdView,
 //       but are not used by any other adunit.
 //
-- (NSTimeInterval) autoRefreshIntervalForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
-- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
+- (NSTimeInterval) autoRefreshIntervalForAdFetcher:(nonnull ANAdFetcher *)fetcher;
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(nonnull ANAdFetcher *)fetcher;
 
 
 //   If enableNativeRendering is not set, the default is false.
@@ -133,4 +94,5 @@
 -(void)setVideoAdOrientation:(ANVideoOrientation)videoOrientation;
 
 @end
+
 

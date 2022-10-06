@@ -16,7 +16,7 @@
 #import "ANInterstitialAd.h"
 #import "ANAdView+PrivateMethods.h"
 
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
@@ -353,7 +353,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 #pragma mark - ANUniversalAdFetcherDelegate
 
-- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     if (!response.isSuccessful) {
         [self adRequestFailedWithError:response.error andAdResponseInfo:response.adResponseInfo];
@@ -378,7 +378,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return self.frame.size;
 }
 

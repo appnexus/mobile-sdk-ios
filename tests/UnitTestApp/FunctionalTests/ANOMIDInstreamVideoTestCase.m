@@ -29,6 +29,7 @@
 #import <UIKit/UIKit.h>
 #import <UnitTestApp-Swift.h>
 #import "XandrAd.h"
+#import "ANLogManager.h"
 
 static NSString   *placementID      = @"12534678";
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;

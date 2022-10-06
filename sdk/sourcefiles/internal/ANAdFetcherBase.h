@@ -18,9 +18,15 @@
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"
 #import "ANUniversalTagAdServerResponse.h"
+#import "ANAdConstants.h"
 
 #import "ANNativeAdRequest.h"
 #import "ANMultiAdRequest.h"
+#if !APPNEXUS_NATIVE_MACOS_SDK
+#import "ANAdViewInternalDelegate.h"
+#endif
+
+#pragma mark -
 
 @protocol  ANRequestTagBuilderCore
 
@@ -31,6 +37,24 @@
 //     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
 //
 @property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
+//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
+//
+- (nonnull NSDictionary *) internalDelegateUniversalTagSizeParameters;
+
+- (nonnull NSString *)internalGetUTRequestUUIDString;
+- (void)internalUTRequestUUIDStringReset;
+
+- (nonnull NSArray<NSValue *> *)adAllowedMediaTypes;
+
+@optional
+//
+//   If rendererId is not set, the default is zero (0).
+//   A value of zero indicates that renderer_id will not be sent in the UT Request.
+//   nativeRendererId is sufficient for ANBannerAdView and ANNativeAdRequest entry point.
+//
+- (NSInteger) nativeAdRendererId;
 
 @end
 
@@ -86,5 +110,8 @@
 
 
 @end
+
+
+
 
 
