@@ -122,4 +122,10 @@ An AppNexus disableIDFVUsage  is a boolean value which exclude the IDFV field in
 @property (nonatomic, readwrite, strong, nullable) NSArray<ANUserId *>  *userIdArray ;
 
 
+/**
+ Specifies a string that is used as the in-app browser dismiss button title.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *sdkBrowserDismissTitle;
+
+
 @end
