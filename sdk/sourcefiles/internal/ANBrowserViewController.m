@@ -239,8 +239,13 @@ WKNavigationDelegate, WKUIDelegate>
         self.refreshButton.tintColor = nil;
         self.okButton.tintColor = nil;
     }
-    // Setting OK button Localized String
-    self.okButton.title = NSLocalizedString(@"OK", @"LabelForInAppBrowserReturnButton");
+
+    if (ANSDKSettings.sharedInstance.sdkBrowserDismissTitle) {
+        self.okButton.title = ANSDKSettings.sharedInstance.sdkBrowserDismissTitle;
+    } else {
+        // Setting OK button Localized String
+        self.okButton.title = NSLocalizedString(@"OK", @"LabelForInAppBrowserReturnButton");
+    }
 }
 
 - (void)refreshButtons {
