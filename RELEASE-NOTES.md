@@ -1,3 +1,13 @@
+## 8.1.0
+
+### New Feature
++ MS-5102 Added a new MacOS Target supporting Native Ad's.
+
+### Improvement/Bug Fixes
++ MS-5080 Enable support for high impact media type creatives in BannerAdView
++ MS-5108 Added localization configuration option for SDK browser dismiss button "OK" [Github PR #80]
+
+
 ## 8.0.0
 
 ### Announcements:
