@@ -211,7 +211,7 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
     BOOL successfulResponseRegistration = [self registerViewForTracking:(XandrView *)view withRootViewController:(XandrViewController *)rvc clickableViews:nil error:error];
     
     for(XandrNativeAdView *clickableView in views){
-        [self registerClickView:clickableView];
+        [self attachClickGestureRecognizerToView:clickableView];
     }
     
     if(!successfulResponseRegistration){
