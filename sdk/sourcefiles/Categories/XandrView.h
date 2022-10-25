@@ -19,16 +19,10 @@
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
 #import <UIKit/UIKit.h>
-
 @interface XandrView : UIView
-
 @end
-
-
 #else
 #import <AppKit/AppKit.h>
-
 @interface XandrView : NSView
-
 @end
 #endif

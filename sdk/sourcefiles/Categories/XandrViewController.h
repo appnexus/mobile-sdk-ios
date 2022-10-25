@@ -18,19 +18,11 @@
 #import "ANAdConstants.h"
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
-
-
 #import <UIKit/UIKit.h>
-
 @interface XandrViewController : UIViewController
-
 @end
-
-
 #else
 #import <AppKit/AppKit.h>
-
 @interface XandrViewController : NSViewController
-
 @end
 #endif

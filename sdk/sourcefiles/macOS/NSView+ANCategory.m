@@ -27,7 +27,7 @@
     if(self.an_isViewable){
         NSWindow *parentWindow = self.window;
         visibleRectangle = [parentWindow convertRectToScreen:self.frame];
-
+        
     }
     
     return visibleRectangle;
@@ -59,4 +59,12 @@
 }
 
 
+
+- (void)setAnNativeAdResponse:(ANNativeAdResponse *)anNativeAdResponse {
+    objc_setAssociatedObject(self, @selector(anNativeAdResponse), anNativeAdResponse, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (ANNativeAdResponse *)anNativeAdResponse {
+    return objc_getAssociatedObject(self, @selector(anNativeAdResponse));
+}
 @end

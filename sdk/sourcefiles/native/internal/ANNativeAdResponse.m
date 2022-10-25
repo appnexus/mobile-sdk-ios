@@ -27,12 +27,10 @@
 #import "ANOMIDImplementation.h"
 #import "ANVerificationScriptResource.h"
 #else
-#import "NSView+ANNativeAdCategory.h"
-#import "NSView-UserInteraction.h"
+#import "NSView+ANCategory.h"
 #import "XandrNativeAdView.h"
 #endif
 
-#import "XandrButton.h"
 #import "XandrView.h"
 #import "XandrViewController.h"
 #import "ANSDKSettings.h"
@@ -50,12 +48,13 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
 
 @interface ANNativeAdResponseGestureRecognizerRecord : NSObject
-@property (nonatomic, weak) XandrView *viewWithTracking;
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
+@property (nonatomic, weak) XandrView *viewWithTracking;
 @property (nonatomic, weak) UIGestureRecognizer *gestureRecognizer;
 #else
-@property (nonatomic, weak) NSPressGestureRecognizer *gestureRecognizer;
+@property (nonatomic, weak) XandrNativeAdView *viewWithTracking;
+@property (nonatomic, weak) NSClickGestureRecognizer *gestureRecognizer;
 #endif
 @end
 
@@ -80,7 +79,6 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
 #else
 @property (nonatomic, readwrite, weak) NSView *viewForTracking;
 @property (nonatomic, readwrite, weak) NSViewController *rootViewController;
-@property (nonatomic, readwrite, strong, nullable) NSMutableArray<NSView *> *obstructionViews;
 #endif
 @property (nonatomic, readwrite, strong) NSMutableArray *gestureRecognizerRecords;
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
@@ -167,6 +165,7 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
         self.viewForTracking = view;
         [view setAnNativeAdResponse:self];
         self.rootViewController = controller;
+// OMID is not supported by macOS
 #if !APPNEXUS_NATIVE_MACOS_SDK
         [self registerOMID];
 #endif
@@ -194,7 +193,7 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
     BOOL successfulResponseRegistration = [self registerViewForTracking:(XandrView *)view withRootViewController:(XandrViewController *)rvc clickableViews:nil error:error];
     
     for(XandrNativeAdView *clickableView in views){
-        [self registerClickView:clickableView];
+        [self attachClickGestureRecognizerToView:clickableView];
     }
     
     if(!successfulResponseRegistration){
@@ -227,7 +226,7 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
 
 
 #pragma mark - Click handling
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 - (void)attachGestureRecognizersToNativeView:(XandrView *)nativeView
                           withClickableViews:(NSArray *)clickableViews
 {
@@ -236,19 +235,11 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
     if (clickableViews.count) {
         [clickableViews enumerateObjectsUsingBlock:^(id clickableView, NSUInteger idx, BOOL *stop) {
            
-#if !APPNEXUS_NATIVE_MACOS_SDK
             if ([clickableView isKindOfClass:[UIView class]]) {
                 [self attachGestureRecognizerToView:clickableView];
             } else {
                 ANLogWarn(@"native_invalid_clickable_views");
             }
-#else
-            if ([clickableView isKindOfClass:[NSView class]]) {
-                [self attachGestureRecognizerToView:clickableView];
-            } else {
-                ANLogWarn(@"native_invalid_clickable_views");
-            }
-#endif
             
         
         }];
@@ -260,7 +251,6 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
 - (void)attachGestureRecognizerToView:(XandrView *)view
 {
     
-#if !APPNEXUS_NATIVE_MACOS_SDK
     view.userInteractionEnabled = YES;
     ANNativeAdResponseGestureRecognizerRecord *record = [[ANNativeAdResponseGestureRecognizerRecord alloc] init];
     record.viewWithTracking = view;
@@ -276,44 +266,59 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
         record.gestureRecognizer = clickRecognizer;
     }
     [self.gestureRecognizerRecords addObject:record];
-#endif
     
 }
+    
+- (void)detachAllGestureRecognizers {
+    [self.gestureRecognizerRecords enumerateObjectsUsingBlock:^(ANNativeAdResponseGestureRecognizerRecord *record, NSUInteger idx, BOOL *stop) {
+            
+            XandrView *view = record.viewWithTracking;
+            if (view) {
+                if ([view isKindOfClass:[UIButton class]]) {
+                    [(UIButton *)view removeTarget:self
+                                                    action:@selector(handleClick)
+                                    forControlEvents:UIControlEventTouchUpInside];
+                } else if (record.gestureRecognizer) {
+                    [view removeGestureRecognizer:record.gestureRecognizer];
+                }
+            }
+    }];
+        
+    [self.gestureRecognizerRecords removeAllObjects];
+}
+   
+#else
+    
+-(void)attachClickGestureRecognizerToView:(XandrNativeAdView *)registerView {
+    ANNativeAdResponseGestureRecognizerRecord *record = [[ANNativeAdResponseGestureRecognizerRecord alloc] init];
+    record.viewWithTracking = registerView;
 
-#if APPNEXUS_NATIVE_MACOS_SDK
--(void)registerClickView:(XandrNativeAdView *)registerView {
     [registerView attachClickableView];
     NSClickGestureRecognizer *clickRecognizer = [[NSClickGestureRecognizer alloc] initWithTarget:self action:@selector(handleClick)];
     [registerView addGestureRecognizer:clickRecognizer];
-}
-#endif
+    record.gestureRecognizer = clickRecognizer;
+    [self.gestureRecognizerRecords addObject:record];
 
+}
+    
 - (void)detachAllGestureRecognizers {
     [self.gestureRecognizerRecords enumerateObjectsUsingBlock:^(ANNativeAdResponseGestureRecognizerRecord *record, NSUInteger idx, BOOL *stop) {
-        XandrView *view = record.viewWithTracking;
-        if (view) {
-#if !APPNEXUS_NATIVE_MACOS_SDK
-            if ([view isKindOfClass:[UIButton class]]) {
-                [(UIButton *)view removeTarget:self
-                                           action:@selector(handleClick)
-                                 forControlEvents:UIControlEventTouchUpInside];
-            } else if (record.gestureRecognizer) {
-                [view removeGestureRecognizer:record.gestureRecognizer];
-            }
-#else
-            if ([view isKindOfClass:[NSButton class]]) {
-                NSButton *button = (NSButton *)view;
-                [button setTarget:nil];
-                [button setAction:nil];
-            } else if (record.gestureRecognizer) {
-                [view removeGestureRecognizer:record.gestureRecognizer];
-            }
-#endif
-        }
-    }];
     
+            XandrNativeAdView *view = record.viewWithTracking;
+            if (view) {
+                 if (record.gestureRecognizer) {
+                    [view removeGestureRecognizer:record.gestureRecognizer];
+                }
+            }
+       
+    }];
+        
     [self.gestureRecognizerRecords removeAllObjects];
 }
+
+#endif
+
+
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
 
@@ -369,6 +374,8 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
     [self detachAllGestureRecognizers];
     [self.viewForTracking setAnNativeAdResponse:nil];
     self.viewForTracking = nil;
+    
+// OMID is not supported by macOS
 #if !APPNEXUS_NATIVE_MACOS_SDK
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];

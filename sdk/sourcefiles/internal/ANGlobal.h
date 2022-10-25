@@ -114,7 +114,6 @@ static NSString * __nonnull const kANAdResponseInfo     = @"adResponseInfo";
 #pragma mark - Global functions.
 
 NSString *__nonnull ANDeviceModel(void);
-BOOL ANAdvertisingTrackingEnabled(void);
 BOOL ANIsFirstLaunch(void);
 
 NSString * __nonnull ANUUID(void);
@@ -138,6 +137,7 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
 BOOL ANStatusBarHidden(void);
 CGRect ANStatusBarFrame(void);
 #if !APPNEXUS_NATIVE_MACOS_SDK
+BOOL ANAdvertisingTrackingEnabled(void);
 UIInterfaceOrientation ANStatusBarOrientation(void);
 BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
 #endif
@@ -146,7 +146,6 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 @interface ANGlobal : NSObject
 
-+ (void) openURL: (nonnull NSString *)urlString;
 
 + (NSMutableDictionary<NSString *, NSString *> * __nonnull)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> * __nonnull)keywordsMap
                                                                  withSeparatorString: (nonnull NSString *)separatorString;
@@ -158,6 +157,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 + (nonnull NSString *) userAgent;
 #if !APPNEXUS_NATIVE_MACOS_SDK
++ (void) openURL: (nonnull NSString *)urlString;
 
 + (nonnull UIWindow *) getKeyWindow;
 #endif

@@ -232,24 +232,14 @@
 		8805092228AEA1C10099C6C6 /* NSTimer+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8805092628AEA2400099C6C6 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
 		8805092928AEA28D0099C6C6 /* ANMultiAdRequest+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8EBCD3235E2F6200256BFB /* ANMultiAdRequest+PrivateMethods.h */; };
-		88375F7828B93EBE00690416 /* NSView+ANNativeAdCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F7628B93EBE00690416 /* NSView+ANNativeAdCategory.h */; };
-		88375F7928B93EBE00690416 /* NSView+ANNativeAdCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F7728B93EBE00690416 /* NSView+ANNativeAdCategory.m */; };
 		88375F7A28B95C6700690416 /* ANRealTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 60C4CB0025DD76B300A744CC /* ANRealTimer.h */; };
 		88375F7B28B95C6B00690416 /* ANRealTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C4CB0125DD76B300A744CC /* ANRealTimer.m */; };
-		88375F7E28B960C600690416 /* NSView-UserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F7C28B960C600690416 /* NSView-UserInteraction.h */; };
-		88375F7F28B960C600690416 /* NSView-UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F7D28B960C600690416 /* NSView-UserInteraction.m */; };
 		88375F8428B96B2D00690416 /* XandrView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F8028B96B2D00690416 /* XandrView.h */; };
-		88375F8528B96B2D00690416 /* XandrButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F8128B96B2D00690416 /* XandrButton.h */; };
-		88375F8628B96B2D00690416 /* XandrButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F8228B96B2D00690416 /* XandrButton.m */; };
 		88375F8728B96B2D00690416 /* XandrView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F8328B96B2D00690416 /* XandrView.m */; };
 		88375F8C28B96B3800690416 /* XandrView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F8028B96B2D00690416 /* XandrView.h */; };
 		88375F8D28B96B3800690416 /* XandrView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F8328B96B2D00690416 /* XandrView.m */; };
-		88375F8E28B96B3800690416 /* XandrButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F8128B96B2D00690416 /* XandrButton.h */; };
-		88375F8F28B96B3800690416 /* XandrButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F8228B96B2D00690416 /* XandrButton.m */; };
 		88375F9028B96B3900690416 /* XandrView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F8028B96B2D00690416 /* XandrView.h */; };
 		88375F9128B96B3900690416 /* XandrView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F8328B96B2D00690416 /* XandrView.m */; };
-		88375F9228B96B3900690416 /* XandrButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F8128B96B2D00690416 /* XandrButton.h */; };
-		88375F9328B96B3900690416 /* XandrButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F8228B96B2D00690416 /* XandrButton.m */; };
 		88375F9A28B96C9800690416 /* XandrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88375F9828B96C9800690416 /* XandrViewController.m */; };
 		88375F9B28B96C9800690416 /* XandrViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F9928B96C9800690416 /* XandrViewController.h */; };
 		88375FA028B96CA000690416 /* XandrViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 88375F9928B96C9800690416 /* XandrViewController.h */; };
@@ -577,13 +567,7 @@
 		880508B128AC14A80099C6C6 /* AppNexusNativeMacOSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusNativeMacOSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		880508B328AC14A80099C6C6 /* AppNexusNativeMacOSSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusNativeMacOSSDK.h; sourceTree = "<group>"; };
 		880508B428AC14A80099C6C6 /* AppNexusNativeMacOSSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AppNexusNativeMacOSSDK.docc; sourceTree = "<group>"; };
-		88375F7628B93EBE00690416 /* NSView+ANNativeAdCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+ANNativeAdCategory.h"; sourceTree = "<group>"; };
-		88375F7728B93EBE00690416 /* NSView+ANNativeAdCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+ANNativeAdCategory.m"; sourceTree = "<group>"; };
-		88375F7C28B960C600690416 /* NSView-UserInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView-UserInteraction.h"; sourceTree = "<group>"; };
-		88375F7D28B960C600690416 /* NSView-UserInteraction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView-UserInteraction.m"; sourceTree = "<group>"; };
 		88375F8028B96B2D00690416 /* XandrView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XandrView.h; sourceTree = "<group>"; };
-		88375F8128B96B2D00690416 /* XandrButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XandrButton.h; sourceTree = "<group>"; };
-		88375F8228B96B2D00690416 /* XandrButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XandrButton.m; sourceTree = "<group>"; };
 		88375F8328B96B2D00690416 /* XandrView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XandrView.m; sourceTree = "<group>"; };
 		88375F9828B96C9800690416 /* XandrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XandrViewController.m; sourceTree = "<group>"; };
 		88375F9928B96C9800690416 /* XandrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XandrViewController.h; sourceTree = "<group>"; };
@@ -911,10 +895,6 @@
 			children = (
 				88459B2428D25C7500A59352 /* NSView+ANCategory.h */,
 				88459B2328D25C7500A59352 /* NSView+ANCategory.m */,
-				88375F7628B93EBE00690416 /* NSView+ANNativeAdCategory.h */,
-				88375F7728B93EBE00690416 /* NSView+ANNativeAdCategory.m */,
-				88375F7C28B960C600690416 /* NSView-UserInteraction.h */,
-				88375F7D28B960C600690416 /* NSView-UserInteraction.m */,
 				8803BF0628E4B72200877A74 /* XandrNativeAdView.h */,
 				8803BF0728E4B72200877A74 /* XandrNativeAdView.m */,
 			);
@@ -1125,8 +1105,6 @@
 				ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */,
 				602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */,
 				602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */,
-				88375F8128B96B2D00690416 /* XandrButton.h */,
-				88375F8228B96B2D00690416 /* XandrButton.m */,
 				88375F8028B96B2D00690416 /* XandrView.h */,
 				88375F8328B96B2D00690416 /* XandrView.m */,
 				88375FA528B96FB800690416 /* XandrImage.h */,
@@ -1230,7 +1208,6 @@
 			files = (
 				8805092628AEA2400099C6C6 /* ANBaseUrlConfig.h in Headers */,
 				8803BF0828E4B72200877A74 /* XandrNativeAdView.h in Headers */,
-				88375F7E28B960C600690416 /* NSView-UserInteraction.h in Headers */,
 				88375F9B28B96C9800690416 /* XandrViewController.h in Headers */,
 				880508DC28AE62E70099C6C6 /* ANSDKSettings+PrivateMethods.h in Headers */,
 				880508F128AE74680099C6C6 /* ANUniversalTagAdServerResponse.h in Headers */,
@@ -1251,7 +1228,6 @@
 				8805090E28AE80940099C6C6 /* ANTargetingParameters.h in Headers */,
 				880508CB28AC15E00099C6C6 /* ANAdProtocol.h in Headers */,
 				880508D728AE56130099C6C6 /* ANLogManager.h in Headers */,
-				88375F8528B96B2D00690416 /* XandrButton.h in Headers */,
 				8860676028B0436F00139573 /* ANNativeAdImageCache.h in Headers */,
 				8805091128AE80CA0099C6C6 /* ANStandardAd.h in Headers */,
 				880508FE28AE7A3B0099C6C6 /* ANNativeStandardAdResponse.h in Headers */,
@@ -1279,7 +1255,6 @@
 				880508DA28AE602A0099C6C6 /* ANSDKSettings.h in Headers */,
 				880508F628AE79A90099C6C6 /* ANCSMVideoAd.h in Headers */,
 				880508EF28AE74640099C6C6 /* ANUniversalTagRequestBuilder.h in Headers */,
-				88375F7828B93EBE00690416 /* NSView+ANNativeAdCategory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1297,7 +1272,6 @@
 				8AE5E11E1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */,
 				8A9AEDB31A1BE8C200C58BDA /* ANAdView.h in Headers */,
 				8A9AEDCE1A1BF88200C58BDA /* ANAdViewInternalDelegate.h in Headers */,
-				88375F9228B96B3900690416 /* XandrButton.h in Headers */,
 				8A9AEDD01A1BF88200C58BDA /* ANANJAMImplementation.h in Headers */,
 				381A0183245B17850093EBB2 /* ANAudioVolumeChangeListener.h in Headers */,
 				8A9AEDC61A1BF88200C58BDA /* ANBannerAdView+ANContentViewTransitions.h in Headers */,
@@ -1421,7 +1395,6 @@
 				F5731B4F228C8D1A0012B134 /* ANNativeAdDelegate.h in Headers */,
 				F5731BCD228DD90B0012B134 /* ANNativeAdFetcher.h in Headers */,
 				F5731B3F228C8CA80012B134 /* ANNativeAdImageCache.h in Headers */,
-				88375F8E28B96B3800690416 /* XandrButton.h in Headers */,
 				F5731B50228C8D230012B134 /* ANNativeAdRequest.h in Headers */,
 				F5731B42228C8CC30012B134 /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				F5731B51228C8D290012B134 /* ANNativeAdResponse.h in Headers */,
@@ -1646,7 +1619,6 @@
 				002D905928B82F2200CBF78A /* ANMultiAdRequest.m in Sources */,
 				880508DB28AE62E10099C6C6 /* ANSDKSettings.m in Sources */,
 				8803BF0928E4B72200877A74 /* XandrNativeAdView.m in Sources */,
-				88375F7F28B960C600690416 /* NSView-UserInteraction.m in Sources */,
 				880508D328AE56070099C6C6 /* ANLogging.m in Sources */,
 				880508FB28AE79D10099C6C6 /* ANMediatedAd.m in Sources */,
 				8805090B28AE805F0099C6C6 /* ANTrackerManager.m in Sources */,
@@ -1662,7 +1634,6 @@
 				8860675A28B031E500139573 /* ANNativeAdStarRating.m in Sources */,
 				880508F728AE79AE0099C6C6 /* ANCSMVideoAd.m in Sources */,
 				880508E828AE6B530099C6C6 /* ANNativeAdResponse.m in Sources */,
-				88375F8628B96B2D00690416 /* XandrButton.m in Sources */,
 				880508F528AE799C0099C6C6 /* ANBaseAdObject.m in Sources */,
 				88375F7B28B95C6B00690416 /* ANRealTimer.m in Sources */,
 				8805092028AEA1AB0099C6C6 /* NSString+ANCategory.m in Sources */,
@@ -1685,7 +1656,6 @@
 				880508E528AE6B3F0099C6C6 /* ANNativeAdRequest.m in Sources */,
 				8805090F28AE80A80099C6C6 /* ANTargetingParameters.m in Sources */,
 				880508B528AC14A80099C6C6 /* AppNexusNativeMacOSSDK.docc in Sources */,
-				88375F7928B93EBE00690416 /* NSView+ANNativeAdCategory.m in Sources */,
 				8805092128AEA1BE0099C6C6 /* NSTimer+ANCategory.m in Sources */,
 				88375FA628B96FB900690416 /* XandrImage.m in Sources */,
 				8860675828AEF9B000139573 /* ANLocation.m in Sources */,
@@ -1752,7 +1722,6 @@
 				0E7BC1CC229FC727002F41FF /* ANNativeRenderingViewController.m in Sources */,
 				8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,
 				00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */,
-				88375F9328B96B3900690416 /* XandrButton.m in Sources */,
 				8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */,
 				8A9AEE021A1BF99D00C58BDA /* ANReachability.m in Sources */,
@@ -1792,7 +1761,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				88375F8D28B96B3800690416 /* XandrView.m in Sources */,
-				88375F8F28B96B3800690416 /* XandrButton.m in Sources */,
 				4F06400823A2E7D700E7920A /* ANAdFetcherBase.m in Sources */,
 				F5731B79228C94700012B134 /* ANAdFetcherResponse.m in Sources */,
 				3850566E24DAD12F00D4B54D /* ANAdResponseCode.m in Sources */,

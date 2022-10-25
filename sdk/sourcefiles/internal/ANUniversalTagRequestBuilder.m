@@ -245,13 +245,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"user"] = user;
     }
     
-    // Set EUID node, EUID - Third party id solutions
-    //
-    NSArray<NSDictionary<NSString *, NSString *> *>  *externalUserIds  = [self externalUserIds];
-    if (externalUserIds && ANAdvertisingTrackingEnabled()) {
-        requestDict[@"eids"] = externalUserIds;
-    }
-    
+   
     NSDictionary<NSString *, id> *device = [self device];
     if (device) {
         requestDict[@"device"] = device;
@@ -280,10 +274,27 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     
     requestDict[@"supply_type"] = @"mobile_app";
     
+    // Condition will be fixed with MS-5112 -[mobile-sdk][ios]Update logic to pass PPID to impbus
+    NSArray<NSDictionary<NSString *, NSString *> *>  *externalUserIds  = [self externalUserIds];
+    #if !APPNEXUS_NATIVE_MACOS_SDK
+        // Set EUID node, EUID - Third party id solutions
+        //
+        if (externalUserIds && ANAdvertisingTrackingEnabled()) {
+            requestDict[@"eids"] = externalUserIds;
+        }
+    #else
+        if (externalUserIds) {
+            requestDict[@"eids"] = externalUserIds;
+        }
+    #endif
+
     
-    if(ANSDKSettings.sharedInstance.enableOpenMeasurement){
-        requestDict[@"iab_support"]  = [self getIABSupport];
-    }
+    #if !APPNEXUS_NATIVE_MACOS_SDK
+        if(ANSDKSettings.sharedInstance.enableOpenMeasurement){
+            requestDict[@"iab_support"]  = [self getIABSupport];
+        }
+    #endif
+
 
     
     // add GDPR Consent
@@ -636,14 +647,17 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     // Use publisherFirstPartyID if it is present. External Id in ANAdProtocol is deprecated.
     if (publisherUserId) {
         userDict[@"external_uid"] = publisherUserId;
-    }else if (!ANAdvertisingTrackingEnabled()){
-        // Pass IDFV as external_uid when there is no Publisher First Party Id and IDFA
+    }
+  #if !APPNEXUS_NATIVE_MACOS_SDK
+    else if (!ANAdvertisingTrackingEnabled()){
+        // Pass IDFV as external_uid when there is no Publisher First Party Id and IDFA, IDFV is not support by macOS.
         NSString *idfv = ANIdentifierForVendor();
         if (idfv) {
             userDict[@"external_uid"] = idfv;
         }
     }
-    
+  #endif
+
     if ([[ANSDKSettings sharedInstance] doNotTrack]) {
         userDict[@"dnt"] = [NSNumber numberWithBool:YES];
     }
@@ -678,7 +692,8 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     }
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
-    //
+//    App should be able to handle changes to the user’s cellular service provider. For example, the user could swap the device’s SIM card with one from another provider while app is running. Not applicable for macOS to know more click link https://developer.apple.com/documentation/coretelephony/cttelephonynetworkinfo
+
     ANCarrierObserver   *carrierObserver    = ANCarrierObserver.shared;
     ANCarrierMeta       *carrierMeta        = carrierObserver.carrierMeta;
 
@@ -692,6 +707,13 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     
     if (carrierMeta.networkCode.length > 0) {
         deviceDict[@"mnc"] = @([carrierMeta.networkCode integerValue]);
+    }
+    if(ANAdvertisingTrackingEnabled()){
+        deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:NO];
+    }
+    NSDictionary<NSString *, id> *deviceId = [self deviceId];
+    if (deviceId) {
+        deviceDict[@"device_id"] = deviceId;
     }
 #endif
    
@@ -715,14 +737,8 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     deviceDict[@"connectiontype"] = @(connectionType);
 
 
-    if(ANAdvertisingTrackingEnabled()){
-        deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:NO];
-    }
     
-    NSDictionary<NSString *, id> *deviceId = [self deviceId];
-    if (deviceId) {
-        deviceDict[@"device_id"] = deviceId;
-    }
+
 
     //
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
@@ -776,7 +792,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     //
     return [geoDict copy];
 }
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
 - (NSDictionary<NSString *, id> *)deviceId
 {
     if([ANGDPRSettings canAccessDeviceData] && ANAdvertisingTrackingEnabled() && !ANSDKSettings.sharedInstance.doNotTrack){
@@ -785,7 +801,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     
     return nil;
 }
-
 -(NSDictionary<NSString *, id> *) fetchAdvertisingIdentifier {
     NSString *idfa = ANAdvertisingIdentifier();
 
@@ -795,6 +810,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
+#endif
 
 
 - (NSDictionary<NSString *, id> *)app
@@ -914,18 +930,17 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
+#if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (NSDictionary *)getIABSupport
 {
-#if !APPNEXUS_NATIVE_MACOS_SDK
-
     return  @{
         @"omidpn"  : AN_OMIDSDK_PARTNER_NAME,
         @"omidpv"    : AN_SDK_VERSION
     };
-#endif
     return @{};
 }
+#endif
 
 - (NSDictionary<NSString *, id> *)geoOverrideCountryZipCode
 {

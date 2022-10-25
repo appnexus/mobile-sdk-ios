@@ -59,30 +59,6 @@ NSString *__nonnull ANDeviceModel()
 }
 
 
-/*
-True : Advertising Tracking Enabled
-False : Advertising Tracking Disabled, Restricted or NotDetermined
- */
-BOOL ANAdvertisingTrackingEnabled() {
-    // If a user does turn this off, use the unique identifier *only* for the following:
-    // - Frequency capping
-    // - Conversion events
-    // - Estimating number of unique users
-    // - Security and fraud detection
-    // - Debugging
-    
-    if (@available(iOS 14, *)) {
-#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
-        if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized ){
-            return YES;
-        }else {
-            return NO;
-        }
-#endif
-    }
-    return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
-}
-
 
 NSString * __nonnull const kANFirstLaunchKey = @"kANFirstLaunchKey";
 
@@ -115,11 +91,11 @@ NSString *__nullable ANAdvertisingIdentifier() {
     return advertisingIdentifier;
 }
 
-
+#if !APPNEXUS_NATIVE_MACOS_SDK
+// a UUID that may be used to uniquely identify the device, same across apps from a single vendor. API is under UIKit which is not supported by macOS, https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
 NSString *__nullable ANIdentifierForVendor() {
     if (ANSDKSettings.sharedInstance.disableIDFVUsage) { return nil; }
-#if !APPNEXUS_NATIVE_MACOS_SDK
-
+    
     NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (idfv) {
         ANLogInfo(@"idfv = %@", idfv);
@@ -127,10 +103,171 @@ NSString *__nullable ANIdentifierForVendor() {
         ANLogWarn(@"No IDFV retrieved.");
     }
     return idfv;
-#endif
     return nil;
 }
 
+
+/*
+True : Advertising Tracking Enabled
+False : Advertising Tracking Disabled, Restricted or NotDetermined
+ */
+BOOL ANAdvertisingTrackingEnabled() {
+    // If a user does turn this off, use the unique identifier *only* for the following:
+    // - Frequency capping
+    // - Conversion events
+    // - Estimating number of unique users
+    // - Security and fraud detection
+    // - Debugging
+    
+    if (@available(iOS 14, *)) {
+#if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+        if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized ){
+            return YES;
+        }else {
+            return NO;
+        }
+#endif
+    }
+    return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
+}
+
+
+CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+    // If portrait, no adjustment is necessary.
+    if (ANStatusBarOrientation() == UIInterfaceOrientationPortrait) {
+        return rect;
+    }
+    
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    // iOS 8
+    if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+        return rect;
+    }
+    
+    // iOS 7 and below
+    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
+    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
+    
+    CGRect adjustedRect;
+    switch (ANStatusBarOrientation()) {
+        case UIInterfaceOrientationLandscapeLeft:
+            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
+            break;
+        default:
+            adjustedRect = rect;
+            break;
+    }
+    
+    return adjustedRect;
+}
+
+
+CGRect ANPortraitScreenBounds() {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
+        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+            // need to orient screen bounds
+            switch (ANStatusBarOrientation()) {
+                case UIInterfaceOrientationLandscapeLeft:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    return screenBounds;
+}
+
+CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    UIWindow *window = [ANGlobal getKeyWindow];
+    if (@available(iOS 11.0, *)) {
+        CGFloat topPadding = window.safeAreaInsets.top;
+        CGFloat bottomPadding = window.safeAreaInsets.bottom;
+        CGFloat leftPadding = window.safeAreaInsets.left;
+        CGFloat rightPadding = window.safeAreaInsets.right;
+        screenBounds = CGRectMake(leftPadding, topPadding, screenBounds.size.width - (leftPadding + rightPadding), screenBounds.size.height - (topPadding + bottomPadding));
+    }
+    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
+        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+            // need to orient screen bounds
+            switch (ANStatusBarOrientation()) {
+                case UIInterfaceOrientationLandscapeLeft:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    return screenBounds;
+}
+BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController) {
+    return viewController.view.window != nil ? YES : NO;
+}
+
+CGRect ANStatusBarFrame(){
+    CGRect statusBarFrame;
+    if (@available(iOS 13.0, *)) {
+        statusBarFrame = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] statusBarFrame];
+    }else {
+        statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    }
+    return statusBarFrame;
+}
+
+BOOL ANStatusBarHidden(){
+    BOOL statusBarHidden;
+    if (@available(iOS 13.0, *)) {
+        statusBarHidden = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] isStatusBarHidden];
+    }else {
+        statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+    }
+    return statusBarHidden;
+}
+
+UIInterfaceOrientation ANStatusBarOrientation()
+{
+    UIInterfaceOrientation statusBarOrientation;
+    
+    if (@available(iOS 13.0, *)) {
+        // On application launch, the value of [UIApplication sharedApplication].windows is nil, in this case, the [ANGlobal getKeyWindow] returns the nil, then it picks device Orientation based screen size.
+        
+        if([ANGlobal getKeyWindow] != nil){
+            statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
+        }else{
+            CGSize screenSize = [UIScreen mainScreen].bounds.size;
+            if (screenSize.height < screenSize.width) {
+                statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+            }else{
+                statusBarOrientation = UIInterfaceOrientationPortrait;
+            }
+        }
+    }else{
+        statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    return statusBarOrientation;
+}
+#endif
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {
     return NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
@@ -187,47 +324,6 @@ NSString *__nullable ANConvertToNSString(id __nullable value) {
     return nil;
 }
 
-CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
-#if !APPNEXUS_NATIVE_MACOS_SDK
-
-    // If portrait, no adjustment is necessary.
-    if (ANStatusBarOrientation() == UIInterfaceOrientationPortrait) {
-        return rect;
-    }
-    
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    // iOS 8
-    if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
-        return rect;
-    }
-    
-    // iOS 7 and below
-    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
-    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
-    
-    CGRect adjustedRect;
-    switch (ANStatusBarOrientation()) {
-        case UIInterfaceOrientationLandscapeLeft:
-            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
-            break;
-        default:
-            adjustedRect = rect;
-            break;
-    }
-
-    return adjustedRect;
-#endif
-
-    return rect;
-
-}
-
 NSString *__nullable ANMRAIDBundlePath() {
     NSString *mraidPath = ANPathForANResource(@"ANMRAID", @"bundle");
     if (!mraidPath) {
@@ -248,62 +344,7 @@ void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDict
                                                           userInfo:userInfo];
     }
 }
-#if !APPNEXUS_NATIVE_MACOS_SDK
 
-CGRect ANPortraitScreenBounds() {
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
-        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
-            // need to orient screen bounds
-            switch (ANStatusBarOrientation()) {
-                case UIInterfaceOrientationLandscapeLeft:
-                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
-                    break;
-                case UIInterfaceOrientationLandscapeRight:
-                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
-                    break;
-                case UIInterfaceOrientationPortraitUpsideDown:
-                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    return screenBounds;
-}
-
-CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    UIWindow *window = [ANGlobal getKeyWindow];
-    if (@available(iOS 11.0, *)) {
-        CGFloat topPadding = window.safeAreaInsets.top;
-        CGFloat bottomPadding = window.safeAreaInsets.bottom;
-        CGFloat leftPadding = window.safeAreaInsets.left;
-        CGFloat rightPadding = window.safeAreaInsets.right;
-        screenBounds = CGRectMake(leftPadding, topPadding, screenBounds.size.width - (leftPadding + rightPadding), screenBounds.size.height - (topPadding + bottomPadding));
-    }
-    if (ANStatusBarOrientation() != UIInterfaceOrientationPortrait) {
-        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
-            // need to orient screen bounds
-            switch (ANStatusBarOrientation()) {
-                case UIInterfaceOrientationLandscapeLeft:
-                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
-                    break;
-                case UIInterfaceOrientationLandscapeRight:
-                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
-                    break;
-                case UIInterfaceOrientationPortraitUpsideDown:
-                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    return screenBounds;
-}
-#endif
 
 NSMutableURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
@@ -329,56 +370,40 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
     }
     return nil;
 }
-#if !APPNEXUS_NATIVE_MACOS_SDK
-BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController) {
-    return viewController.view.window != nil ? YES : NO;
-}
-
-CGRect ANStatusBarFrame(){
-    CGRect statusBarFrame;
-    if (@available(iOS 13.0, *)) {
-        statusBarFrame = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] statusBarFrame];
-    }else {
-        statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-    }
-    return statusBarFrame;
-}
-
-BOOL ANStatusBarHidden(){
-    BOOL statusBarHidden;
-    if (@available(iOS 13.0, *)) {
-        statusBarHidden = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] isStatusBarHidden];
-    }else {
-        statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
-    }
-    return statusBarHidden;
-}
-
-UIInterfaceOrientation ANStatusBarOrientation()
-{
-    UIInterfaceOrientation statusBarOrientation;
-    
-    if (@available(iOS 13.0, *)) {
-        // On application launch, the value of [UIApplication sharedApplication].windows is nil, in this case, the [ANGlobal getKeyWindow] returns the nil, then it picks device Orientation based screen size.
-
-        if([ANGlobal getKeyWindow] != nil){
-            statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
-        }else{
-            CGSize screenSize = [UIScreen mainScreen].bounds.size;
-            if (screenSize.height < screenSize.width) {
-                statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
-            }else{
-                statusBarOrientation = UIInterfaceOrientationPortrait;
-            }
-        }
-    }else{
-        statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    }
-    return statusBarOrientation;
-}
-#endif
 
 @implementation ANGlobal
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
+
+
+
++ (void) openURL: (nonnull NSString *)urlString
+{
+    
+    if (@available(iOS 10.0, *)) {
+        if([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
+            return;
+        }
+    }
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+
+#pragma mark - Get KeyWindow
+
++ (nonnull UIWindow *) getKeyWindow
+{
+    UIWindow *keyWindow = nil;
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    return keyWindow;
+}
+#endif
 
 
 +(nullable NSMutableURLRequest *) adServerRequestURL {
@@ -424,21 +449,6 @@ UIInterfaceOrientation ANStatusBarOrientation()
         [utSimpleDomainMutableRequest setValue:[ANGlobal userAgent] forHTTPHeaderField:@"user-agent"];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
-
-}
-
-+ (void) openURL: (nonnull NSString *)urlString
-{
-#if !APPNEXUS_NATIVE_MACOS_SDK
-
-    if (@available(iOS 10.0, *)) {
-        if([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
-            return;
-        }
-    }
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-#endif
 
 }
 
@@ -549,25 +559,6 @@ UIInterfaceOrientation ANStatusBarOrientation()
         ANLogDebug(@"userAgent=%@", anUserAgent);
     }
 }
-
-
-#if !APPNEXUS_NATIVE_MACOS_SDK
-
-#pragma mark - Get KeyWindow
-
-+ (nonnull UIWindow *) getKeyWindow
-{
-    UIWindow *keyWindow = nil;
-    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-        if (window.isKeyWindow) {
-            keyWindow = window;
-            break;
-        }
-    }
-    return keyWindow;
-}
-#endif
-
 
 + (NSString *) userAgent {
     if(anUserAgent == nil){
