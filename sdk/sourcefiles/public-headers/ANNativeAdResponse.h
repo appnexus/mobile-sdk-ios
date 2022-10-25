@@ -240,6 +240,23 @@ extern NSString * __nonnull const  kANNativeCSRObject;
                  clickableXandrNativeAdView:(nullable NSArray<XandrNativeAdView *> *)views
                           error:(NSError *__nullable*__nullable)error;
 
+
+/*!
+ * Should be called when the native view has been populated with the ad elements and will be displayed.
+ * it will be automatically detached from that response before being attached to this response.
+ *
+ * @param view The view which is populated with the native ad elements. Must not be nil and type NSView.
+ * @param rvc The root view controller which contains the view. Must not be nil.
+ * @param views Specifies XandrNativeAdView subviews which should be clickable, instead of the whole view (the default). May be nil.
+ * @note The response holds a strong reference to the registered view.
+ * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
+ */
+- (BOOL)registerViewTracking:(nonnull NSView *)view
+         withRootViewController:(nonnull NSViewController *)rvc
+                 clickableXandrNativeAdView:(nullable NSArray<XandrNativeAdView *> *)views
+                          error:(NSError *__nullable*__nullable)error;
+
+
 #endif
 
 

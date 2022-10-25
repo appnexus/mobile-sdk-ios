@@ -203,6 +203,25 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
     }
     return true;
 }
+
+- (BOOL)registerViewTracking:(nonnull NSView *)view
+         withRootViewController:(nonnull NSViewController *)rvc
+                 clickableXandrNativeAdView:(nullable NSArray<XandrNativeAdView *> *)views
+                       error:(NSError *__nullable*__nullable)error{
+
+    BOOL successfulResponseRegistration = [self registerViewForTracking:(XandrView *)view withRootViewController:(XandrViewController *)rvc clickableViews:nil error:error];
+    
+    for(XandrNativeAdView *clickableView in views){
+        [self registerClickView:clickableView];
+    }
+    
+    if(!successfulResponseRegistration){
+        ANLogError(@"Unable to register view for tracking");
+        return false;
+    }
+    return true;
+}
+
 #endif
 
 
