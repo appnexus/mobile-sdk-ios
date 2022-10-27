@@ -898,19 +898,11 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
 
 
 - (NSDictionary *)sdk {
-#if !APPNEXUS_NATIVE_MACOS_SDK
-
     return  @{
-              @"source" : @"ansdk",
-              @"version" : AN_SDK_VERSION
-              };
-#else
-    return  @{
-              @"source" : @"ansdk-macos",
-              @"version" : AN_SDK_VERSION
-              };
-#endif
-
+        @"source" : @"ansdk",
+        @"version" : AN_SDK_VERSION
+    };
+    
 }
 
 - (NSDictionary *)getGDPRConsentObject

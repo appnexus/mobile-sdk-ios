@@ -26,7 +26,15 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"8.1.0"
+
+
+#if !APPNEXUS_NATIVE_MACOS_SDK
+    #define AN_SDK_VERSION                  @"8.1.0"
+#else
+    #define AN_SDK_VERSION                  @"8.1.0-mac"
+#endif
+
+
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)

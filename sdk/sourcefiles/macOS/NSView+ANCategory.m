@@ -53,9 +53,19 @@
     }
     if (isInHiddenSuperview) return NO;
     
-    CGRect screenRect = [NSScreen mainScreen].visibleFrame;
     CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
-    return CGRectIntersectsRect(normalizedSelfRect, screenRect);
+    NSArray *screenList = [NSScreen screens];
+    for (NSScreen *screen in screenList)
+    {
+        CGRect screenRect = screen.visibleFrame;
+        BOOL isViewable = CGRectIntersectsRect(normalizedSelfRect, screenRect);
+        if(isViewable){
+            return YES;
+        }
+    }
+
+    
+    return NO;
 }
 
 
