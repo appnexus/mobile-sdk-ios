@@ -309,6 +309,7 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
                  if (record.gestureRecognizer) {
                     [view removeGestureRecognizer:record.gestureRecognizer];
                 }
+                [view detachClickableView];
             }
        
     }];

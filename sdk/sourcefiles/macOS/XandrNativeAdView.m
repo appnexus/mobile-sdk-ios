@@ -30,4 +30,8 @@
     self.viewForTracking.layer.backgroundColor = [[NSColor clearColor] CGColor];
     [self addSubview:self.viewForTracking positioned:NSWindowAbove relativeTo:nil];
 }
+
+-(void)detachClickableView{
+    [self.viewForTracking removeFromSuperview];
+}
 @end
