@@ -29,9 +29,9 @@
 
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
-    #define AN_SDK_VERSION                  @"8.1.0"
+    #define AN_SDK_VERSION                  @"8.1.1"
 #else
-    #define AN_SDK_VERSION                  @"8.1.0-mac"
+    #define AN_SDK_VERSION                  @"8.1.1-mac"
 #endif
 
 
