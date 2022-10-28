@@ -1,3 +1,10 @@
+## 8.1.1
+
+### Improvement/Bug Fixes for macOS SDK
++ MS-5127 Added Impression tracking API for NSView registerViewTracking  
++ MS-5128 Code optimizations
++ MS-5149 Fixed Impression tracking issue when app is on secondary displays 
+
 ## 8.1.0
 
 ### New Feature
