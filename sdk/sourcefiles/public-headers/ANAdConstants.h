@@ -46,6 +46,7 @@ typedef NS_ENUM(NSUInteger, ANAdType) {
 };
 
 typedef NS_ENUM(NSUInteger, ANClickThroughAction) {
+// ClickThrough as return URL is supported by macOS
 #if !APPNEXUS_NATIVE_MACOS_SDK
     ANClickThroughActionReturnURL,
     ANClickThroughActionOpenDeviceBrowser,

@@ -49,7 +49,7 @@
                                 clickableViews:(NSArray *)clickableViews
                                          error:(NSError *__autoreleasing*)error;
 #if APPNEXUS_NATIVE_MACOS_SDK
--(void)registerClickView:(XandrNativeAdView *)view;
+-(void)attachClickGestureRecognizerToView:(XandrNativeAdView *)view;
 #endif
 
 #pragma mark - Unregistration

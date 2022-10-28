@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XandrNativeAdView : NSView
 @property (nonatomic, readwrite, strong) NSView *viewForTracking;
 -(void)attachClickableView;
+-(void)detachClickableView;
 @end
 
 NS_ASSUME_NONNULL_END

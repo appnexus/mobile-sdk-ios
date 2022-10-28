@@ -14,11 +14,14 @@
  */
 
 #import <AppKit/AppKit.h>
+#import <objc/runtime.h>
+#import "ANNativeAdResponse.h"
 
 @interface NSView (NSCategory)
 
 
 - (BOOL)an_isViewable;
 - (CGRect)an_visibleInViewRectangle;
+@property (nonatomic, readwrite, weak) ANNativeAdResponse *anNativeAdResponse;
 
 @end

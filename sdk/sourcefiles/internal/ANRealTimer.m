@@ -107,7 +107,6 @@
             id<ANRealTimerDelegate> delegate = [self.timerDelegates objectAtIndex:i];
             if([delegate respondsToSelector:@selector(handle1SecTimerSentNotification)]){
                 ANLogInfo(@"Notifications pushed from time");
-                
                 [delegate handle1SecTimerSentNotification];
             }
         }

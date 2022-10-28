@@ -27,7 +27,7 @@
     if(self.an_isViewable){
         NSWindow *parentWindow = self.window;
         visibleRectangle = [parentWindow convertRectToScreen:self.frame];
-
+        
     }
     
     return visibleRectangle;
@@ -53,10 +53,28 @@
     }
     if (isInHiddenSuperview) return NO;
     
-    CGRect screenRect = [NSScreen mainScreen].visibleFrame;
     CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
-    return CGRectIntersectsRect(normalizedSelfRect, screenRect);
+    NSArray *screenList = [NSScreen screens];
+    for (NSScreen *screen in screenList)
+    {
+        CGRect screenRect = screen.visibleFrame;
+        BOOL isViewable = CGRectIntersectsRect(normalizedSelfRect, screenRect);
+        if(isViewable){
+            return YES;
+        }
+    }
+
+    
+    return NO;
 }
 
 
+
+- (void)setAnNativeAdResponse:(ANNativeAdResponse *)anNativeAdResponse {
+    objc_setAssociatedObject(self, @selector(anNativeAdResponse), anNativeAdResponse, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (ANNativeAdResponse *)anNativeAdResponse {
+    return objc_getAssociatedObject(self, @selector(anNativeAdResponse));
+}
 @end

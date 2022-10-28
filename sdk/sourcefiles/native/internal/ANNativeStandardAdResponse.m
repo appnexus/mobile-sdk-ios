@@ -106,9 +106,11 @@
                                 clickableViews:(NSArray *)clickableViews
                                          error:(NSError *__autoreleasing *)error {
     [self setupViewabilityTracker];
+#if !APPNEXUS_NATIVE_MACOS_SDK
     [self attachGestureRecognizersToNativeView:view
                             withClickableViews:clickableViews];
-    
+#endif
+
     return YES;
 }
 
@@ -124,12 +126,8 @@
 
 - (void)setupViewabilityTracker
 {
-    
-#if !APPNEXUS_NATIVE_MACOS_SDK
+
     if ((self.impressionType == ANViewableImpression || [ANSDKSettings sharedInstance].enableOMIDOptimization)) {
-#else
-        if (self.impressionType == ANViewableImpression) {
-#endif
         [ANRealTimer addDelegate:self];
     }
     
@@ -153,6 +151,7 @@
             [self trackImpression];
         }
     }
+// OMID is not supported by macOS
 #if !APPNEXUS_NATIVE_MACOS_SDK
     if([ANSDKSettings sharedInstance].enableOMIDOptimization){
         if(updatedVisibleInViewRectangle.size.width == self.viewForTracking.frame.size.width && updatedVisibleInViewRectangle.size.height ==  self.viewForTracking.frame.size.height && !self.isAdVisible100Percent){
@@ -170,35 +169,16 @@
 
 }
 
-- (void)checkIfIABViewable {
-  
-#if !APPNEXUS_NATIVE_MACOS_SDK
-    
-if (self.viewForTracking.window) {
-        [self trackImpression];
-    }
-    
-#endif
-
-}
-
 - (void)trackImpression {
     if (!self.impressionHasBeenTracked) {
 
         ANLogDebug(@"Firing impression trackers");
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
-        self.impressionHasBeenTracked = YES;
-       
-#if !APPNEXUS_NATIVE_MACOS_SDK
-        if(![ANSDKSettings sharedInstance].enableOMIDOptimization){
+        self.impressionHasBeenTracked = YES;       
+        if(self.impressionType == ANViewableImpression || ![ANSDKSettings sharedInstance].enableOMIDOptimization){
             [ANRealTimer removeDelegate:self];
         }
-#else
-        if (self.impressionType == ANViewableImpression) {
-            [ANRealTimer removeDelegate:self];
-        }
-#endif
     }
 }
 
@@ -211,6 +191,7 @@ if (self.viewForTracking.window) {
             }
         }];
     }
+// OMID is not supported by macOS
 #if !APPNEXUS_NATIVE_MACOS_SDK
     if(self.omidAdSession != nil){
         [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
@@ -254,6 +235,7 @@ if (self.viewForTracking.window) {
 {
     switch (self.clickThroughAction)
     {
+// Open URL in SDK Browser is not supported by macOS, macOS supports ClickThrough as return URL only
 #if !APPNEXUS_NATIVE_MACOS_SDK
         case ANClickThroughActionOpenSDKBrowser:
             // Try to use device browser even if SDK browser was requested in cases
@@ -290,14 +272,12 @@ if (self.viewForTracking.window) {
 
 - (BOOL) openURLWithExternalBrowser:(NSURL *)url
 {
-    
+// Open URL in ExternalBrowser is not supported by macOS, macOS supports ClickThrough as return URL only
 #if !APPNEXUS_NATIVE_MACOS_SDK
     if (![[UIApplication sharedApplication] canOpenURL:url])  { return NO; }
-
-#endif
-
     [self willLeaveApplication];
     [ANGlobal openURL:[url absoluteString]];
+#endif
 
     return  YES;
 }
@@ -312,6 +292,7 @@ if (self.viewForTracking.window) {
 
 
 #pragma mark - ANBrowserViewControllerDelegate
+// BrowserViewController is not supported by macOS, macOS supports ClickThrough as return URL only
 #if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {

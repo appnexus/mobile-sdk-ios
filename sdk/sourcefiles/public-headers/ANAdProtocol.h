@@ -242,7 +242,9 @@ Set the trafficSourceCode,  Specifies the third-party source of the impression.
  * It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid adResponseInfo being accessed through ANNativeAdRequest.
  */
 @property (nonatomic, readwrite, strong, nullable) ANAdResponseInfo *adResponseInfo;
+// OpenMeasurement is not supported by macOS 
 #if !APPNEXUS_NATIVE_MACOS_SDK
+
 /*!
  * UI View which would consider to be part of the ad can be added as friendly obstruction
  * (all sub-views of the adView will be automatically treated as part of the ad)

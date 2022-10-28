@@ -19,8 +19,6 @@
 #if !APPNEXUS_NATIVE_MACOS_SDK
 
 + (nullable XandrImage *)getImageWithData:(NSData *_Nonnull)data{
-    
-    
     return   [XandrImage imageWithData:data];
 }
 #else

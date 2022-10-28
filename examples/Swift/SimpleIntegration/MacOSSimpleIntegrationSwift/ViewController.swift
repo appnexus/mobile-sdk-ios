@@ -145,7 +145,8 @@ extension ViewController: NSTableViewDelegate {
             do{
                 let rowView : NSTableRowView = tableView.rowView(atRow: row, makeIfNecessary: true)!
                 
-                try self.nativeAdResponse?.registerView(forTracking: rowView, withRootViewController: self, clickableXandrNativeAdView: clickableViews)
+                try self.nativeAdResponse?.registerViewTracking(rowView, withRootViewController: self, clickableXandrNativeAdView: clickableViews)
+
             } catch {
                 print("Failed to registerView for Tracking")
             }
