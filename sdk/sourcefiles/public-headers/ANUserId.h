@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, ANUserIdSource)  {
 
 
 /**
- Defines the User Id Object from an External Thrid Party Source
+ Defines the User Id Object from an External Third Party Source
  */
 @interface ANUserId : NSObject
 
@@ -42,10 +42,38 @@ typedef NS_ENUM(NSUInteger, ANUserIdSource)  {
  */
 @property (nonatomic, readwrite, strong, nonnull) NSString *userId;
 
+/**
+ Publisher Provided Identifiers (PPIDs) are first party data identifiers that are created, owned and assigned by publishers. As Publisher Provided Identifiers is not the third party id so it should be send to Impbus even if the ATTrackingManagerAuthorizationStatusAuthorized is false.
+ set isFirstParytId to true to send first party data identifiers
+ */
+@property (nonatomic) BOOL isFirstParytId;
+
+
+
+/**
+ Specifies a string that corresponds to the Publisher User ID for current application user.
+ @param source for Source of the  User Id as per ANUserIdSource Enum
+ @param userId for The User Id String
+ */
 
 - (nullable instancetype)initWithANUserIdSource:(ANUserIdSource)source userId:(nonnull NSString *)userId;
 
-- (nullable instancetype)initWithStringSource:(nonnull NSString *)source userId:(nonnull NSString *)userId;
+/**
+ Specifies a string that corresponds to the Publisher User ID for current application user.
+ @param source for custom source of the  User Id as String
+ @param userId for The User Id String
+ */
+
+- (nullable instancetype)initWithStringSource:(nonnull NSString *)source userId:(nonnull NSString *)userId  DEPRECATED_MSG_ATTRIBUTE("Use initWithStringSource:userId isFirstParytId instead.");
+
+
+/**
+ Specifies a string that corresponds to the Publisher User ID for current application user.
+ @param  firstParytId to true to send first party data identifiers default should be send as false,  Publisher Provided Identifiers (PPIDs) are first party data identifiers that are created, owned and assigned by publishers. As Publisher Provided Identifiers is not the third party id so it should be send to Impbus even if the ATTrackingManagerAuthorizationStatusAuthorized is false.
+ @param source for custom source of the  User Id as String
+ @param userId for The User Id String
+ */
+- (nullable instancetype)initWithStringSource:(nonnull NSString *)source userId:(nonnull NSString *)userId isFirstParytId:(BOOL)firstParytId;
 
 @end
 
