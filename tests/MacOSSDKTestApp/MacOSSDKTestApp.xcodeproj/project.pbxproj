@@ -123,12 +123,12 @@
 		883217B628CE655700DDC33E = {
 			isa = PBXGroup;
 			children = (
-				8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */,
+				8832182728CE667E00DDC33E /* Frameworks */,
 				883217C128CE655700DDC33E /* MacOSSDKTestApp */,
 				883217D728CE655900DDC33E /* MacOSSDKTestAppTests */,
 				883217E128CE655900DDC33E /* MacOSSDKTestAppUITests */,
 				883217C028CE655700DDC33E /* Products */,
-				8832182728CE667E00DDC33E /* Frameworks */,
+				8832181B28CE667700DDC33E /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,12 +146,12 @@
 			children = (
 				883217C228CE655700DDC33E /* AppDelegate.h */,
 				883217C328CE655700DDC33E /* AppDelegate.m */,
+				883217C828CE655900DDC33E /* Assets.xcassets */,
+				883217CF28CE655900DDC33E /* MacOSSDKTestApp.entitlements */,
+				883217CD28CE655900DDC33E /* main.m */,
+				883217CA28CE655900DDC33E /* Main.storyboard */,
 				883217C528CE655700DDC33E /* ViewController.h */,
 				883217C628CE655700DDC33E /* ViewController.m */,
-				883217C828CE655900DDC33E /* Assets.xcassets */,
-				883217CA28CE655900DDC33E /* Main.storyboard */,
-				883217CD28CE655900DDC33E /* main.m */,
-				883217CF28CE655900DDC33E /* MacOSSDKTestApp.entitlements */,
 			);
 			path = MacOSSDKTestApp;
 			sourceTree = "<group>";
@@ -168,9 +168,9 @@
 		883217E128CE655900DDC33E /* MacOSSDKTestAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				8832183828CE691C00DDC33E /* response */,
 				8832184928CE6B6900DDC33E /* SDK_Mock */,
 				8832183C28CE6ADF00DDC33E /* Stubbing */,
-				8832183828CE691C00DDC33E /* response */,
 			);
 			path = MacOSSDKTestAppUITests;
 			sourceTree = "<group>";
@@ -178,9 +178,9 @@
 		8832181C28CE667700DDC33E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8832182228CE667700DDC33E /* AppNexusSDK.framework */,
-				8832182428CE667700DDC33E /* AppNexusNativeSDK.framework */,
 				8832182628CE667700DDC33E /* AppNexusNativeMacOSSDK.framework */,
+				8832182428CE667700DDC33E /* AppNexusNativeSDK.framework */,
+				8832182228CE667700DDC33E /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,9 +195,9 @@
 		8832183828CE691C00DDC33E /* response */ = {
 			isa = PBXGroup;
 			children = (
+				8832186028CE706D00DDC33E /* appnexus_standard_response.json */,
 				8832185E28CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json */,
 				8832185F28CE706D00DDC33E /* appnexus_standard_response_link.json */,
-				8832186028CE706D00DDC33E /* appnexus_standard_response.json */,
 				8832183928CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json */,
 			);
 			path = response;
@@ -209,15 +209,15 @@
 				8832185728CE6CC900DDC33E /* ANHTTPCookieStorage.h */,
 				8832185628CE6CC900DDC33E /* ANHTTPCookieStorage.m */,
 				8832183D28CE6ADF00DDC33E /* ANHTTPNetworkSession+ANTest.h */,
-				8832183E28CE6ADF00DDC33E /* ANURLConnectionStub.h */,
-				8832183F28CE6ADF00DDC33E /* ANHTTPStubURLProtocol.h */,
+				8832184428CE6ADF00DDC33E /* ANHTTPStubbingManager.h */,
 				8832184028CE6ADF00DDC33E /* ANHTTPStubbingManager.m */,
-				8832184128CE6ADF00DDC33E /* ANURLConnectionStub.m */,
+				8832183F28CE6ADF00DDC33E /* ANHTTPStubURLProtocol.h */,
 				8832184228CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m */,
 				8832184328CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
+				8832183E28CE6ADF00DDC33E /* ANURLConnectionStub.h */,
+				8832184128CE6ADF00DDC33E /* ANURLConnectionStub.m */,
 				8832184E28CE6B8600DDC33E /* NSObject+Swizzling.h */,
 				8832184D28CE6B8600DDC33E /* NSObject+Swizzling.m */,
-				8832184428CE6ADF00DDC33E /* ANHTTPStubbingManager.h */,
 				8832185028CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.h */,
 				8832185128CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m */,
 			);
@@ -353,10 +353,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8832186128CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json in Resources */,
 				8832186328CE706D00DDC33E /* appnexus_standard_response.json in Resources */,
-				8832183A28CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json in Resources */,
+				8832186128CE706D00DDC33E /* appnexus_standard_response_clickfallbackurl.json in Resources */,
 				8832186228CE706D00DDC33E /* appnexus_standard_response_link.json in Resources */,
+				8832183A28CE691C00DDC33E /* SuccessfulNativeStandardAdResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,9 +367,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				883217C728CE655700DDC33E /* ViewController.m in Sources */,
-				883217CE28CE655900DDC33E /* main.m in Sources */,
 				883217C428CE655700DDC33E /* AppDelegate.m in Sources */,
+				883217CE28CE655900DDC33E /* main.m in Sources */,
+				883217C728CE655700DDC33E /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,16 +377,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8832185828CE6CC900DDC33E /* ANHTTPCookieStorage.m in Sources */,
+				8832184528CE6ADF00DDC33E /* ANHTTPStubbingManager.m in Sources */,
+				8832184728CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m in Sources */,
+				8832185A28CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m in Sources */,
+				8832184C28CE6B6900DDC33E /* ANTestGlobal.m in Sources */,
+				8832184828CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				8832184628CE6ADF00DDC33E /* ANURLConnectionStub.m in Sources */,
 				883217D928CE655900DDC33E /* MacOSSDKTestAppTests.m in Sources */,
-				8832185A28CE6D9D00DDC33E /* ANNativeAdRequestTestCase.m in Sources */,
-				8832184528CE6ADF00DDC33E /* ANHTTPStubbingManager.m in Sources */,
 				8832184F28CE6B8600DDC33E /* NSObject+Swizzling.m in Sources */,
-				8832184C28CE6B6900DDC33E /* ANTestGlobal.m in Sources */,
-				8832185828CE6CC900DDC33E /* ANHTTPCookieStorage.m in Sources */,
 				8832185228CE6C0300DDC33E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
-				8832184728CE6ADF00DDC33E /* ANHTTPStubURLProtocol.m in Sources */,
-				8832184828CE6ADF00DDC33E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
