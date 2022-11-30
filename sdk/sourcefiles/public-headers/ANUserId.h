@@ -60,15 +60,6 @@ typedef NS_ENUM(NSUInteger, ANUserIdSource)  {
 
 /**
  Specifies a string that corresponds to the Publisher User ID for current application user.
- @param source for custom source of the  User Id as String
- @param userId for The User Id String
- */
-
-- (nullable instancetype)initWithStringSource:(nonnull NSString *)source userId:(nonnull NSString *)userId  DEPRECATED_MSG_ATTRIBUTE("Use initWithStringSource:userId isFirstParytId instead.");
-
-
-/**
- Specifies a string that corresponds to the Publisher User ID for current application user.
  @param  firstParytId to true to send first party data identifiers default should be send as false,  Publisher Provided Identifiers (PPIDs) are first party data identifiers that are created, owned and assigned by publishers. As Publisher Provided Identifiers is not the third party id so it should be send to Impbus even if the ATTrackingManagerAuthorizationStatusAuthorized is false.
  @param source for custom source of the  User Id as String
  @param userId for The User Id String

@@ -989,7 +989,6 @@ static NSString  *placementID  = @"9924001";
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceUID2 userId:@"uid2_3948249329482ok" ]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
-    [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar" userId:@"temp_user_id-foo-bar"]];
 
     ANSDKSettings.sharedInstance.userIdArray = tempUserIdArray;
     
@@ -1142,7 +1141,6 @@ static NSString  *placementID  = @"9924001";
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceUID2 userId:@"uid2_3948249329482ok" ]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
-    [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar" userId:@"temp_user_id-foo-bar"]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar-2" userId:@"temp_user_id-foo-bar-2" isFirstParytId:true]];
 
     ANSDKSettings.sharedInstance.userIdArray = tempUserIdArray;
