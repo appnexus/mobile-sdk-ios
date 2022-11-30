@@ -24,6 +24,7 @@
 #import "ANSDKSettings.h"
 #import "ANAdProtocol.h"
 #import "ANAdConstants.h"
+#import "ANGPPSettings.h"
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANOMIDImplementation.h"
@@ -298,6 +299,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     NSDictionary *gdprConsent = [self getGDPRConsentObject];
     if (gdprConsent) {
         requestDict[@"gdpr_consent"] = gdprConsent;
+    }
+    
+    // add GPP Privacy data
+    NSDictionary *gppPrivacyObject = [self getGPPPrivacyObject];
+    if (gppPrivacyObject) {
+        requestDict[@"privacy"] = gppPrivacyObject;
     }
     
     // add Facebook bidder token if available
@@ -928,6 +935,23 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
+
+
+- (NSDictionary *)getGPPPrivacyObject
+{
+    NSString  *gpp_string   = [ANGPPSettings getGPPString];
+    NSArray  *gpp_sid_array   = [ANGPPSettings getGPPSIDArray];
+    if(gpp_sid_array){
+        return  @{
+                    @"gpp_sid"  : gpp_sid_array,
+                    @"gpp"      : gpp_string
+                 };
+    }else{
+        return nil;
+    }
+}
+
+
 #if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (NSDictionary *)getIABSupport

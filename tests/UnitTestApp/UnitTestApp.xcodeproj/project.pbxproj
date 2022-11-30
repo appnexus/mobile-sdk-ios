@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */; };
+		004101D7292C240D00646B13 /* ANGPPSetingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 004101D6292C240D00646B13 /* ANGPPSetingsTestCase.m */; };
 		00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */; };
 		004833BF24A39D6400BFF7A6 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970C21FF32EB005D1F0E /* ANHTTPStubbingManager.m */; };
 		004833E824A3CF7300BFF7A6 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970E21FF32EB005D1F0E /* ANHTTPStubURLProtocol.m */; };
@@ -990,6 +991,7 @@
 
 /* Begin PBXFileReference section */
 		003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewHTMLImpressionTestCase.m; sourceTree = "<group>"; };
+		004101D6292C240D00646B13 /* ANGPPSetingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANGPPSetingsTestCase.m; sourceTree = "<group>"; };
 		00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMCustomKeywordsResponse.json; sourceTree = "<group>"; };
 		004833C824A3AC4300BFF7A6 /* ANGlobal+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANGlobal+ANTest.h"; sourceTree = "<group>"; };
 		004833CD24A3B81A00BFF7A6 /* ANHTTPNetworkSession+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANHTTPNetworkSession+ANTest.h"; sourceTree = "<group>"; };
@@ -2173,6 +2175,7 @@
 				0E8C983021FF41A8005D1F0E /* ANBannerAdViewTransitionsTestCase.m */,
 				0E8C982021FF4025005D1F0E /* ANContainerViewTestCase.m */,
 				38F0224924B8561500CE4CE0 /* ANGDPRSettingsTestCase.m */,
+				004101D6292C240D00646B13 /* ANGPPSetingsTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
 				0E8C983221FF41B1005D1F0E /* ANMediationAdViewControllerTestCase.m */,
 				0E8C982A21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m */,
@@ -3365,6 +3368,7 @@
 				0E5529AD2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */,
 				0EEFE14A22005951002B5F5F /* ANFailedMultiple.m in Sources */,
 				38F0224A24B8561500CE4CE0 /* ANGDPRSettingsTestCase.m in Sources */,
+				004101D7292C240D00646B13 /* ANGPPSetingsTestCase.m in Sources */,
 				0E8C979F21FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,
 				0E8C97BA21FF32EC005D1F0E /* ANInterstitialAd+ANTest.m in Sources */,
 				0EEFE14622005951002B5F5F /* ANLoadAndHitOtherCallbacks.m in Sources */,

@@ -24,6 +24,9 @@ NSString * const  ANGDPR_PurposeConsents = @"ANGDPR_PurposeConsents";
 NSString * const  ANIABTCF_ConsentString = @"IABTCF_TCString";
 NSString * const  ANIABTCF_SubjectToGDPR = @"IABTCF_gdprApplies";
 NSString * const  ANIABTCF_PurposeConsents = @"IABTCF_PurposeConsents";
+// Gpp TCF 2.0 variabled
+NSString * const  ANIABGPP_TCFEU2_PurposeConsents = @"IABGPP_TCFEU2_PurposeConsents";
+NSString * const  ANIABGPP_TCFEU2_SubjectToGDPR = @"IABGPP_TCFEU2_gdprApplies";
 
 //TCF 1.1 variables
 NSString * const  ANIABConsent_ConsentString = @"IABConsent_ConsentString";
@@ -46,6 +49,9 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANIABTCF_SubjectToGDPR];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANIABConsent_SubjectToGDPR];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANIABTCF_PurposeConsents];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANIABGPP_TCFEU2_PurposeConsents];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:ANIABGPP_TCFEU2_SubjectToGDPR];
+    
 }
 
 - (void)testGDPRConsentString
@@ -206,6 +212,20 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 - (void)testAccessDeviceData_IABTCF_PurposeConsents_False
 {
     [[NSUserDefaults standardUserDefaults] setObject:@"01010110" forKey:ANIABTCF_PurposeConsents];
+    XCTAssertTrue([ANGDPRSettings canAccessDeviceData] == false);
+}
+
+
+- (void)testAccessDeviceData_IABGPP_TCFEU2_PurposeConsents_True
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"10101001" forKey:ANIABGPP_TCFEU2_PurposeConsents];
+    XCTAssertTrue([ANGDPRSettings canAccessDeviceData] == true);
+}
+
+
+- (void)testAccessDeviceData_IABGPP_TCFEU2_PurposeConsents_False
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"01010110" forKey:ANIABGPP_TCFEU2_PurposeConsents];
     XCTAssertTrue([ANGDPRSettings canAccessDeviceData] == false);
 }
 

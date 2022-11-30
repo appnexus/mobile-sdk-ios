@@ -48,20 +48,6 @@
     return self;
 }
 
-
-- (nullable instancetype)initWithStringSource:(NSString *)source userId:(NSString *)userId{
-    self = [super init];
-    
-    if (self != nil) {
-        self.source = source;
-        self.userId = userId;
-        self.isFirstParytId = FALSE;
-    }
-    
-    return self;
-}
-
-
 - (nullable instancetype)initWithStringSource:(nonnull NSString *)source userId:(nonnull NSString *)userId isFirstParytId:(BOOL)firstParytId{
     self = [super init];
     
