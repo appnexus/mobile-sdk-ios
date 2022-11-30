@@ -249,8 +249,8 @@
 		0E82E4EF245CCA5600EC19E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
 				0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */,
+				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -613,14 +613,14 @@
 				0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */,
 				0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */,
 				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
-				8895CB932835618A00CF5993 /* ANAdAdapterNativeAdMob.swift in Sources */,
-				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
 				883D7B5B2833C714004C2757 /* ANAdAdapterBannerAdMob.swift in Sources */,
+				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
+				8895CB922835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift in Sources */,
 				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
+				8895CB932835618A00CF5993 /* ANAdAdapterNativeAdMob.swift in Sources */,
 				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
 				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
 				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
-				8895CB922835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift in Sources */,
 				0EE0D05B23FD72A200D0C060 /* SmartAdBannerAdViewController.swift in Sources */,
 				0EE0D05C23FD72A200D0C060 /* SmartAdInterstitialAdViewController.swift in Sources */,
 				0EE0D04523FD6EB300D0C060 /* Toast.swift in Sources */,
