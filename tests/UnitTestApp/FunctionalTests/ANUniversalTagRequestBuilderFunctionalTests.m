@@ -60,6 +60,10 @@ static NSString  *placementID  = @"9924001";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_AddtlConsent"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_HDR_GppString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_GppSID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_TCFEU2_PurposeConsents"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_TCFEU2_gdprApplies"];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
     ANSDKSettings.sharedInstance.geoOverrideCountryCode = nil;
     ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
@@ -507,6 +511,82 @@ static NSString  *placementID  = @"9924001";
                        NSString *privacyString = jsonDict[@"us_privacy"];
                        XCTAssertNotNil(privacyString);
                        XCTAssertTrue(privacyString, @"1yn");
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+//1 If Valid GPP string and Gpp SID is set in NSUserDefault keys AN_IABGPP_HDR_GppString and AN_IABGPP_GppSID then it should go in request
+
+- (void)testUTRequestGppString
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN" forKey:@"IABGPP_HDR_GppString"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"2_6" forKey:@"IABGPP_GppSID"];
+
+  
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                      
+                       NSDictionary *gpp_privacy = jsonDict[@"privacy"];
+                       XCTAssertNotNil(gpp_privacy);
+                       XCTAssertEqual(gpp_privacy.count, 2);
+                       XCTAssertNotNil(gpp_privacy[@"gpp_sid"]);
+                       NSArray *gppSideArray = @[@2, @6];
+                       XCTAssertTrue([gpp_privacy[@"gpp_sid"] isEqualToArray:gppSideArray]);
+        
+                       XCTAssertNotNil(gpp_privacy[@"gpp"]);
+                       XCTAssertTrue([gpp_privacy[@"gpp"] isEqualToString:@"DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN"]);
+        
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+//2 If No GPP string/ GppSID is present in NSUserDefault keys AN_IABGPP_HDR_GppString and AN_IABGPP_GppSID then it should not go in request
+- (void)testUTRequestGppPrivacyObjectNotPresent
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_HDR_GppString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_GppSID"];
+
+  
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       XCTAssertNil(jsonDict[@"privacy"]);
+        
                        [expectation fulfill];
                    });
     

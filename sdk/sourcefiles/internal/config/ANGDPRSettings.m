@@ -24,6 +24,10 @@ NSString * const  ANGDPR_PurposeConsents = @"ANGDPR_PurposeConsents";
 NSString * const  ANIABTCF_ConsentString = @"IABTCF_TCString";
 NSString * const  ANIABTCF_SubjectToGDPR = @"IABTCF_gdprApplies";
 NSString * const  ANIABTCF_PurposeConsents = @"IABTCF_PurposeConsents";
+// Gpp TCF 2.0 variabled
+NSString * const  ANIABGPP_TCFEU2_PurposeConsents = @"IABGPP_TCFEU2_PurposeConsents";
+NSString * const  ANIABGPP_TCFEU2_SubjectToGDPR = @"IABGPP_TCFEU2_gdprApplies";
+
 
 //TCF 1.1 variables
 NSString * const  ANIABConsent_ConsentString = @"IABConsent_ConsentString";
@@ -90,7 +94,7 @@ NSString * const  ANIABTCF_ADDTL_CONSENT = @"IABTCF_AddtlConsent";
 
 /**
  * Get the GDPR consent required in the SDK
- * Check for ANIABTCF_SubjectToGDPR ,  ANGDPR_ConsentRequired And ANIABConsent_SubjectToGDPR in that order  and return if present else return nil
+ * Check for ANIABTCF_SubjectToGDPR ,  ANGDPR_ConsentRequired ,  ANIABConsent_SubjectToGDPR and ANIABGPP_TCFEU2_SubjectToGDPR in that order  and return if present else return nil
  */
 + (nullable NSNumber *) getConsentRequired{
     
@@ -102,7 +106,9 @@ NSString * const  ANIABTCF_ADDTL_CONSENT = @"IABTCF_AddtlConsent";
             NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
             hasConsent = [numberFormatter numberFromString:hasConsentStringValue];
         }
-        
+        if(hasConsent == nil){
+            hasConsent = [[NSUserDefaults standardUserDefaults] valueForKey:ANIABGPP_TCFEU2_SubjectToGDPR];
+        }
     }
     return hasConsent;
 }
@@ -137,13 +143,16 @@ NSString * const  ANIABTCF_ADDTL_CONSENT = @"IABTCF_AddtlConsent";
 
 /**
 * Get the GDPR device consent required in the SDK to pass IDFA & cookies
-* Check for ANIABTCF_PurposeConsents And ANGDPR_PurposeConsents in that order  and return if present else return nil
+* Check for ANIABTCF_PurposeConsents ,  ANGDPR_PurposeConsents and ANIABGPP_TCFEU2_PurposeConsents in that order  and return if present else return nil
 */
 + (NSString *) getDeviceAccessConsent {
     
     NSString* purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABTCF_PurposeConsents];
     if(purposeConsents.length <= 0){
         purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_PurposeConsents];
+    }
+    if(purposeConsents.length <= 0){
+        purposeConsents = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABGPP_TCFEU2_PurposeConsents];
     }
     if(purposeConsents != nil && purposeConsents.length > 0){
         return [purposeConsents substringToIndex:1];

@@ -27,6 +27,12 @@
 		0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
 		0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0099B486228CA191004E80AB /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
+		00CDBF9029241DE200B1FB47 /* ANGPPSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CDBF8F29241DE200B1FB47 /* ANGPPSettings.h */; };
+		00CDBF9129241DE200B1FB47 /* ANGPPSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CDBF8F29241DE200B1FB47 /* ANGPPSettings.h */; };
+		00CDBF9229241DE200B1FB47 /* ANGPPSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CDBF8F29241DE200B1FB47 /* ANGPPSettings.h */; };
+		00CDBF9429241EA000B1FB47 /* ANGPPSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CDBF9329241EA000B1FB47 /* ANGPPSettings.m */; };
+		00CDBF9529241EA000B1FB47 /* ANGPPSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CDBF9329241EA000B1FB47 /* ANGPPSettings.m */; };
+		00CDBF9629241EA000B1FB47 /* ANGPPSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CDBF9329241EA000B1FB47 /* ANGPPSettings.m */; };
 		00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */; };
 		00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */; };
 		0E02F07024336D570073A226 /* ANCSRNativeAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E3E62241FB73500823D66 /* ANCSRNativeAdResponse.m */; };
@@ -482,6 +488,8 @@
 		006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherBase.h; sourceTree = "<group>"; };
 		0086BC9927DB006200BBDE61 /* ANUserId.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANUserId.h; sourceTree = "<group>"; };
 		0086BC9F27DB01A800BBDE61 /* ANUserId.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANUserId.m; sourceTree = "<group>"; };
+		00CDBF8F29241DE200B1FB47 /* ANGPPSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGPPSettings.h; sourceTree = "<group>"; };
+		00CDBF9329241EA000B1FB47 /* ANGPPSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANGPPSettings.m; sourceTree = "<group>"; };
 		00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANOMIDImplementation.h; sourceTree = "<group>"; };
 		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
 		0E0C5E5B2437E2EC0030B813 /* ANCSRAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANCSRAd.m; sourceTree = "<group>"; };
@@ -909,6 +917,8 @@
 				8A02D6FE1D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h */,
 				8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */,
 				973B23AA238D1E4C00717D67 /* ANUSPrivacySettings.m */,
+				00CDBF8F29241DE200B1FB47 /* ANGPPSettings.h */,
+				00CDBF9329241EA000B1FB47 /* ANGPPSettings.m */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -1206,6 +1216,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00CDBF9229241DE200B1FB47 /* ANGPPSettings.h in Headers */,
 				8805092628AEA2400099C6C6 /* ANBaseUrlConfig.h in Headers */,
 				8803BF0828E4B72200877A74 /* XandrNativeAdView.h in Headers */,
 				88375F9B28B96C9800690416 /* XandrViewController.h in Headers */,
@@ -1345,6 +1356,7 @@
 				609732D41E42E9860061EC0A /* ANUniversalTagRequestBuilder.h in Headers */,
 				973B23AB238D1E4C00717D67 /* ANUSPrivacySettings.h in Headers */,
 				972025CE222FD90E00C13454 /* ANVerificationScriptResource.h in Headers */,
+				00CDBF9029241DE200B1FB47 /* ANGPPSettings.h in Headers */,
 				609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */,
 				609732D71E42E9860061EC0A /* ANVideoAdProcessor.h in Headers */,
 				60D39E2922679E480029F741 /* ANVideoPlayerSettings+ANCategory.h in Headers */,
@@ -1417,6 +1429,7 @@
 				F5731B67228C8E230012B134 /* ANSSMVideoAd.h in Headers */,
 				F5731B69228C8E2A0012B134 /* ANStandardAd.h in Headers */,
 				F5731B6F228C8F680012B134 /* ANTargetingParameters.h in Headers */,
+				00CDBF9129241DE200B1FB47 /* ANGPPSettings.h in Headers */,
 				F5731B80228C94AE0012B134 /* ANTrackerInfo.h in Headers */,
 				005D57F12860E60200EFE90D /* XandrAd.h in Headers */,
 				F5731B59228C8DE20012B134 /* ANUniversalTagAdServerResponse.h in Headers */,
@@ -1625,6 +1638,7 @@
 				880508E028AE68880099C6C6 /* ANHTTPNetworkSession.m in Sources */,
 				880508FF28AE7A400099C6C6 /* ANNativeStandardAdResponse.m in Sources */,
 				8805090628AE7FB10099C6C6 /* ANSSMStandardAd.m in Sources */,
+				00CDBF9629241EA000B1FB47 /* ANGPPSettings.m in Sources */,
 				880508CE28AE55D10099C6C6 /* ANAdResponseInfo.m in Sources */,
 				880508D128AE55F10099C6C6 /* ANGDPRSettings.m in Sources */,
 				88D30CD328BE9D040091C735 /* NSPointerArray+ANCategory.m in Sources */,
@@ -1675,6 +1689,7 @@
 				8A9AEDF21A1BF99D00C58BDA /* ANANJAMImplementation.m in Sources */,
 				381A0184245B17850093EBB2 /* ANAudioVolumeChangeListener.m in Sources */,
 				8A9AEDE81A1BF99D00C58BDA /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
+				00CDBF9429241EA000B1FB47 /* ANGPPSettings.m in Sources */,
 				8A9AEDF31A1BF99D00C58BDA /* ANBannerAdView.m in Sources */,
 				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
 				8A9AEDF41A1BF99D00C58BDA /* ANBrowserViewController.m in Sources */,
@@ -1784,6 +1799,7 @@
 				607BB5B623E88019002A0F57 /* ANMultiAdRequest.m in Sources */,
 				F5731BCB228DD8E60012B134 /* ANNativeAdFetcher.m in Sources */,
 				F5731B40228C8CB40012B134 /* ANNativeAdImageCache.m in Sources */,
+				00CDBF9529241EA000B1FB47 /* ANGPPSettings.m in Sources */,
 				88375FA328B96CA300690416 /* XandrViewController.m in Sources */,
 				F5731B41228C8CBB0012B134 /* ANNativeAdRequest.m in Sources */,
 				F5731B43228C8CCC0012B134 /* ANNativeAdResponse.m in Sources */,
