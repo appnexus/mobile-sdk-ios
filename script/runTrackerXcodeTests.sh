@@ -89,7 +89,7 @@ USAGE_DETAILS="
 
         -help           Print these details.
 
-        
+
         Only project_directory is mandatory.
 
         If -dynamicInputs is not given and either -scheme or -versionDevice are missing, then these values
@@ -99,7 +99,7 @@ USAGE_DETAILS="
         All commandline or static inputs are checked against current Xcode config (dynamic inputs), to be sure they are valid.
 
         Results are logged in the directory of the Xcode project file.
-        
+
         SEE ALSO -- https://corpwiki.xandr-services.com/display/CT/Consistent+and+Reliable+Automated+Testing+with+Jenkins+for+iOS+Commits
   "
 
@@ -188,8 +188,9 @@ STATIC_LIST_OF_VERSIONS_AND_DEVICES="
     #13.5,iPhone_8
     #13.5,iPhone_8_Plus
     #13.5,iPhone_SE
-    14.4,iPhone_11
+    #14.4,iPhone_11
     14.4,iPhone_12
+    16.1,iPhone_14_Pro_Max
 "
 
 
@@ -264,10 +265,10 @@ runXcodebuild()   # <scheme> <iosVersion> <deviceModel>
   TEST_RESULT_CURRENT_FILE="$TEST_RESULT_DIRECTORY/${TEST_RESULT_CURRENT_FILE_PREFIX}${IOSVERSION},${DEVICEMODEL}--${SCHEME}.txt"
 
   eval $CMD 2>&1  | tee $TEST_RESULT_CURRENT_FILE
-  
+
   cat $TEST_RESULT_CURRENT_FILE | egrep '^(Test Suite|[     ]+Executed)'  >$TEST_RESULT_TEMP
   cat $TEST_RESULT_CURRENT_FILE | egrep -v '===' | $XCPRETTY -r html -o $TEST_RESULT_DIRECTORY_PRETTY/${IOSVERSION},${DEVICEMODEL}--${SCHEME}.html
-  
+
   EXPECTED_FAILED_NUMBER=$(cat $TEST_RESULT_TEMP | egrep -c "'All tests' failed")
 
   cat $TEST_RESULT_TEMP  >>$TEST_RESULT_LOG
@@ -321,7 +322,7 @@ isOptionTokenOrEmptyString()  # <token>
 
   #
   [ -z "$TOKEN" ] && { return 1; }
-  
+
   #
   RVAL=$(expr "$TOKEN" : "\-")
   [ "$RVAL" = "0" ]
@@ -508,7 +509,7 @@ setPathToResultsDirectoryAndLogFiles()
     post error "setPathToResultsDirectoryAndLogFiles(): PROJECT_DIRECTORY is undefined."
     exit 1
   }
-  
+
   #
   TEST_RESULT_DIRECTORY="$PROJECT_DIRECTORY/$TEST_RESULT_DIRECTORY"
   TEST_RESULT_DIRECTORY_PRETTY="$TEST_RESULT_DIRECTORY/$TEST_RESULT_DIRECTORY_PRETTY"
@@ -600,7 +601,7 @@ while [ "$1" ]; do
         PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-"./"}
                                         ;;
   esac
-  
+
   shift
 done
 
@@ -667,17 +668,17 @@ setPathToResultsDirectoryAndLogFiles
       }
   done
 
-  for vd in $VERSIONS_AND_DEVICES; do
-    isSharped "$vd"
-    [ $? -eq 0 ] && continue
-
-    isValidVersionDevice $vd
-    [ "$?" -ne 0 ] && {
-      post error "Version+device tuple is UNRECOGNIZED by Xcode.  ($vd)"
-      echo
-      postUsageAndExit;
-    }
-  done
+  # for vd in $VERSIONS_AND_DEVICES; do
+  #   isSharped "$vd"
+  #   [ $? -eq 0 ] && continue
+  #
+  #   isValidVersionDevice $vd
+  #   [ "$?" -ne 0 ] && {
+  #     post error "Version+device tuple is UNRECOGNIZED by Xcode.  ($vd)"
+  #     echo
+  #     postUsageAndExit;
+  #   }
+  # done
 }
 
 
@@ -715,4 +716,3 @@ else
   log "#------- ALL TESTCASES PASSED"
   exit 0
 fi
-

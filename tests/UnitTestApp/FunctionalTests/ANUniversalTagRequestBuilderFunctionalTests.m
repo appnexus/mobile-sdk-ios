@@ -1069,6 +1069,7 @@ static NSString  *placementID  = @"9924001";
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceUID2 userId:@"uid2_3948249329482ok" ]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar-27" userId:@"temp_user_id-foo-bar-27" isFirstParytId:true]];
 
     ANSDKSettings.sharedInstance.userIdArray = tempUserIdArray;
     
@@ -1138,9 +1139,9 @@ static NSString  *placementID  = @"9924001";
                             XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
                             [uid2Expectation fulfill];
                         }
-                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar");
+                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-27"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-27");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-27");
                             [customSourceExpectation fulfill];
                         }
                     }
@@ -1195,9 +1196,9 @@ static NSString  *placementID  = @"9924001";
                         XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
                         [uid2Expectation fulfill];
                     }
-                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar");
+                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-27"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-27");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-27");
                         [customSourceExpectation fulfill];
                     }
                 }
@@ -1291,9 +1292,9 @@ static NSString  *placementID  = @"9924001";
                             XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
                             [uid2Expectation fulfill];
                         }
-                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar");
+                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-2"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-2");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-2");
                             [customSourceExpectation fulfill];
                         }
                     }
@@ -1354,9 +1355,9 @@ static NSString  *placementID  = @"9924001";
                         XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
                         [uid2Expectation fulfill];
                     }
-                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar");
+                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-2"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-2");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-2");
                         [customSourceExpectation fulfill];
                     }
                 }

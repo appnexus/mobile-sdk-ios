@@ -190,8 +190,9 @@ STATIC_LIST_OF_VERSIONS_AND_DEVICES="
     #13.5,iPhone_8
     #13.5,iPhone_8_Plus
     #13.5,iPhone_SE
-    14.4,iPhone_11
+    #14.4,iPhone_11
     14.4,iPhone_12
+    16.1,iPhone_14_Pro_Max
 "
 
 
