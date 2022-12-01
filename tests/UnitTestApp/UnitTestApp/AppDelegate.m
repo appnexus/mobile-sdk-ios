@@ -36,9 +36,6 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
   
-    if (@available(iOS 14, *)) {
-            [self requestTrackingAuthorization];
-        }
     
     // Override point for customization after application launch.
     return YES;
@@ -99,6 +96,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if (@available(iOS 14, *)) {
+            [self requestTrackingAuthorization];
+        }
 }
 
 

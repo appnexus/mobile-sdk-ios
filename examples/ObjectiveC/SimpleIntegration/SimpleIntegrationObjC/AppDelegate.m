@@ -25,7 +25,13 @@ limitations under the License.
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     
-    [[XandrAd sharedInstance] initWithMemberID:1234 preCacheRequestObjects:YES completionHandler:nil];
+    [[XandrAd sharedInstance] initWithMemberID:1234 preCacheRequestObjects:YES completionHandler:^(BOOL success){
+        if(success){
+          NSLog(@"Completion is called with status success ");
+        }else{
+          NSLog(@"Completion is called with status failed ");
+        }
+    }];
     return YES;
 }
 

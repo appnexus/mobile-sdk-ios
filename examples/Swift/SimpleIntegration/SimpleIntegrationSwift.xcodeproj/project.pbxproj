@@ -183,19 +183,19 @@
 		0E877A5323FE763000DC962F = {
 			isa = PBXGroup;
 			children = (
-				88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */,
-				88CD454F28B9136800381778 /* MacOSSimpleIntegrationSwift */,
 				0E877A7C23FE78B200DC962F /* Frameworks */,
+				88CD454F28B9136800381778 /* MacOSSimpleIntegrationSwift */,
 				0E877A5D23FE763000DC962F /* Products */,
 				0E877A5E23FE763000DC962F /* SimpleIntegrationSwift */,
+				88CD456A28B9143C00381778 /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
 		0E877A5D23FE763000DC962F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E877A5C23FE763000DC962F /* SimpleIntegrationSwift.app */,
 				88CD454E28B9136800381778 /* MacOSSimpleIntegrationSwift.app */,
+				0E877A5C23FE763000DC962F /* SimpleIntegrationSwift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,14 +227,14 @@
 			isa = PBXGroup;
 			children = (
 				88CD455028B9136800381778 /* AppDelegate.swift */,
-				88CD455228B9136800381778 /* ViewController.swift */,
+				88CD455428B9136B00381778 /* Assets.xcassets */,
+				88CD455928B9136B00381778 /* MacOSSimpleIntegrationSwift.entitlements */,
+				88CD455628B9136B00381778 /* Main.storyboard */,
 				88CD458228B9191E00381778 /* NativeAdViewFirst.swift */,
 				88A94A7D28E1F5DF002EFB87 /* NativeAdViewSecond.swift */,
 				88CD458328B9191E00381778 /* quotes.json */,
+				88CD455228B9136800381778 /* ViewController.swift */,
 				88CD458428B9191E00381778 /* WindowController.swift */,
-				88CD455428B9136B00381778 /* Assets.xcassets */,
-				88CD455628B9136B00381778 /* Main.storyboard */,
-				88CD455928B9136B00381778 /* MacOSSimpleIntegrationSwift.entitlements */,
 			);
 			path = MacOSSimpleIntegrationSwift;
 			sourceTree = "<group>";
@@ -242,9 +242,9 @@
 		88CD456B28B9143C00381778 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				88CD457128B9143C00381778 /* AppNexusSDK.framework */,
-				88CD457328B9143C00381778 /* AppNexusNativeSDK.framework */,
 				88CD457528B9143C00381778 /* AppNexusNativeMacOSSDK.framework */,
+				88CD457328B9143C00381778 /* AppNexusNativeSDK.framework */,
+				88CD457128B9143C00381778 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -402,11 +402,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88CD455128B9136800381778 /* AppDelegate.swift in Sources */,
+				88CD458528B9191E00381778 /* NativeAdViewFirst.swift in Sources */,
+				88A94A8128E1F5DF002EFB87 /* NativeAdViewSecond.swift in Sources */,
 				88CD455328B9136800381778 /* ViewController.swift in Sources */,
 				88CD458728B9191E00381778 /* WindowController.swift in Sources */,
-				88CD455128B9136800381778 /* AppDelegate.swift in Sources */,
-				88A94A8128E1F5DF002EFB87 /* NativeAdViewSecond.swift in Sources */,
-				88CD458528B9191E00381778 /* NativeAdViewFirst.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

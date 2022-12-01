@@ -24,6 +24,7 @@
 #import "ANSDKSettings.h"
 #import "ANAdProtocol.h"
 #import "ANAdConstants.h"
+#import "ANGPPSettings.h"
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANOMIDImplementation.h"
@@ -245,7 +246,7 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"user"] = user;
     }
     
-   
+
     NSDictionary<NSString *, id> *device = [self device];
     if (device) {
         requestDict[@"device"] = device;
@@ -274,21 +275,18 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     
     requestDict[@"supply_type"] = @"mobile_app";
     
-    // Condition will be fixed with MS-5112 -[mobile-sdk][ios]Update logic to pass PPID to impbus
-    NSArray<NSDictionary<NSString *, NSString *> *>  *externalUserIds  = [self externalUserIds];
-    #if !APPNEXUS_NATIVE_MACOS_SDK
-        // Set EUID node, EUID - Third party id solutions
-        //
-        if (externalUserIds && ANAdvertisingTrackingEnabled()) {
-            requestDict[@"eids"] = externalUserIds;
-        }
-    #else
-        if (externalUserIds) {
-            requestDict[@"eids"] = externalUserIds;
-        }
-    #endif
+    // Update logic to pass PPID to impbus
+    NSArray<ANUserId *>  *userIdArray  = [ANSDKSettings.sharedInstance userIdArray];
+    // Set EUID node, EUID - Third & First party id solutions
+    //
+    if ([userIdArray count] > 0) {
+        NSArray<NSDictionary<NSString *, NSString *> *>  *externalUserIds  = [self externalUserIds:userIdArray];
 
-    
+        if([externalUserIds count] > 0){
+            requestDict[@"eids"] = externalUserIds;
+        }
+    }
+
     #if !APPNEXUS_NATIVE_MACOS_SDK
         if(ANSDKSettings.sharedInstance.enableOpenMeasurement){
             requestDict[@"iab_support"]  = [self getIABSupport];
@@ -301,6 +299,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     NSDictionary *gdprConsent = [self getGDPRConsentObject];
     if (gdprConsent) {
         requestDict[@"gdpr_consent"] = gdprConsent;
+    }
+    
+    // add GPP Privacy data
+    NSDictionary *gppPrivacyObject = [self getGPPPrivacyObject];
+    if (gppPrivacyObject) {
+        requestDict[@"privacy"] = gppPrivacyObject;
     }
     
     // add Facebook bidder token if available
@@ -858,44 +862,53 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     return [kvSegmentsArray copy];
 }
 
-
-
-- (NSArray<NSDictionary<NSString *, NSString *> *> *)externalUserIds
+/**
+ Get externalUserIds based on ANAdvertisingTrackingEnabled() for iOS and isFirstParytId in iOS and macOS
+ */
+- (NSArray<NSDictionary<NSString *, NSString *> *> *)externalUserIds:(NSArray<ANUserId *> *)userIdArray
 {
-    
+    BOOL isAdvertisingTrackingEnabled =  NO;
+    #if !APPNEXUS_NATIVE_MACOS_SDK
+        isAdvertisingTrackingEnabled = ANAdvertisingTrackingEnabled();
+    #endif
+
     NSMutableArray<NSDictionary<NSString *, NSString *> *>  *transformedeuidArray  = [[NSMutableArray<NSDictionary<NSString *, NSString *> *> alloc] init];
     
-    // First use userIdArray if present
-    NSArray<ANUserId *>  *userIddArray  = [ANSDKSettings.sharedInstance userIdArray];
-    if ([userIddArray count] > 0)
-    {
-        for (ANUserId *userId in userIddArray)
+        for (ANUserId *userId in userIdArray)
         {
-            if([userId.source isEqualToString:@"adserver.org"]){
+            // if ANAdvertisingTracking is Enabled we will be sending the externalUserIds
+            if(isAdvertisingTrackingEnabled){
+                if([userId.source isEqualToString:@"adserver.org"]){
+                    [transformedeuidArray addObject:@{
+                        @"source"      : @"adserver.org",
+                        @"id"          : userId.userId,
+                        @"rti_partner"      : @"TDID"
+                    } ];
+                }else if ([userId.source isEqualToString:@"uidapi.com"]){
+                    [transformedeuidArray addObject:@{
+                        @"source"      : @"uidapi.com",
+                        @"id"          : userId.userId,
+                        @"rti_partner"      : @"UID2"
+                    } ];
+                    
+                }else{
+                    [transformedeuidArray addObject:@{
+                        @"source"      : userId.source,
+                        @"id"          : userId.userId
+                    } ];
+                }
+                
+            }else if(userId.isFirstParytId){
+                // if ANAdvertisingTracking is Diabled we will be sending the externalUserIds as First party Ids
                 [transformedeuidArray addObject:@{
-                                                 @"source"      : @"adserver.org",
-                                                 @"id"          : userId.userId,
-                                                 @"rti_partner"      : @"TDID"
-                                             } ];
-            }else if ([userId.source isEqualToString:@"uidapi.com"]){
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : @"uidapi.com",
-                                                 @"id"          : userId.userId,
-                                                 @"rti_partner"      : @"UID2"
-                                             } ];
-            }else{
-                [transformedeuidArray addObject:@{
-                                                 @"source"      : userId.source,
-                                                 @"id"          : userId.userId
-                                             } ];
+                    @"source"      : userId.source,
+                    @"id"          : userId.userId
+                } ];
                 
             }
         }
-    }
-    //
     return [transformedeuidArray copy];
 }
-
 
 - (NSDictionary *)sdk {
     return  @{
@@ -922,6 +935,23 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         return  nil;
     }
 }
+
+
+- (NSDictionary *)getGPPPrivacyObject
+{
+    NSString  *gpp_string   = [ANGPPSettings getGPPString];
+    NSArray  *gpp_sid_array   = [ANGPPSettings getGPPSIDArray];
+    if(gpp_sid_array){
+        return  @{
+                    @"gpp_sid"  : gpp_sid_array,
+                    @"gpp"      : gpp_string
+                 };
+    }else{
+        return nil;
+    }
+}
+
+
 #if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (NSDictionary *)getIABSupport

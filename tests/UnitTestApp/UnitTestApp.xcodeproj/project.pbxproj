@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */; };
+		004101D7292C240D00646B13 /* ANGPPSetingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 004101D6292C240D00646B13 /* ANGPPSetingsTestCase.m */; };
 		00436C1B24A45F2C00C42D73 /* ANJAMCustomKeywordsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */; };
 		004833BF24A39D6400BFF7A6 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970C21FF32EB005D1F0E /* ANHTTPStubbingManager.m */; };
 		004833E824A3CF7300BFF7A6 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970E21FF32EB005D1F0E /* ANHTTPStubURLProtocol.m */; };
@@ -990,6 +991,7 @@
 
 /* Begin PBXFileReference section */
 		003A7D1B2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewHTMLImpressionTestCase.m; sourceTree = "<group>"; };
+		004101D6292C240D00646B13 /* ANGPPSetingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANGPPSetingsTestCase.m; sourceTree = "<group>"; };
 		00436C1724A45F1C00C42D73 /* ANJAMCustomKeywordsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMCustomKeywordsResponse.json; sourceTree = "<group>"; };
 		004833C824A3AC4300BFF7A6 /* ANGlobal+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANGlobal+ANTest.h"; sourceTree = "<group>"; };
 		004833CD24A3B81A00BFF7A6 /* ANHTTPNetworkSession+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANHTTPNetworkSession+ANTest.h"; sourceTree = "<group>"; };
@@ -1522,7 +1524,6 @@
 				0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
 				0ED159E12236B53B00D56022 /* CoreMedia.framework in Frameworks */,
-				FC5D1BD626E8EE9A001B352F /* NetworkExtension.framework in Frameworks */,
 				0ED159E32236B54100D56022 /* CoreMotion.framework in Frameworks */,
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
 				0ED159DB2236B52800D56022 /* EventKit.framework in Frameworks */,
@@ -1544,6 +1545,7 @@
 				0E56C70521F8AF3200ADE6E1 /* MessageUI.framework in Frameworks */,
 				0E56C70721F8AF3700ADE6E1 /* MobileCoreServices.framework in Frameworks */,
 				FCC2362625F12A17004A5467 /* nanopb.xcframework in Frameworks */,
+				FC5D1BD626E8EE9A001B352F /* NetworkExtension.framework in Frameworks */,
 				0E56C70921F8AF3B00ADE6E1 /* PassKit.framework in Frameworks */,
 				FCC2362C25F12A17004A5467 /* PromisesObjC.xcframework in Frameworks */,
 				0E56C70B21F8AF3E00ADE6E1 /* QuartzCore.framework in Frameworks */,
@@ -1594,7 +1596,6 @@
 				FC2A25B327B4388C004C57DB /* CoreGraphics.framework in Frameworks */,
 				FC2A25B427B4388C004C57DB /* CoreLocation.framework in Frameworks */,
 				FC2A25B527B4388C004C57DB /* CoreMedia.framework in Frameworks */,
-				FC2A25B627B4388C004C57DB /* NetworkExtension.framework in Frameworks */,
 				FC2A25B727B4388C004C57DB /* CoreMotion.framework in Frameworks */,
 				FC2A25B827B4388C004C57DB /* CoreTelephony.framework in Frameworks */,
 				FC2A25B927B4388C004C57DB /* EventKit.framework in Frameworks */,
@@ -1616,6 +1617,7 @@
 				FC2A25C927B4388C004C57DB /* MessageUI.framework in Frameworks */,
 				FC2A25CA27B4388C004C57DB /* MobileCoreServices.framework in Frameworks */,
 				FC2A25CB27B4388C004C57DB /* nanopb.xcframework in Frameworks */,
+				FC2A25B627B4388C004C57DB /* NetworkExtension.framework in Frameworks */,
 				FC2A25CC27B4388C004C57DB /* PassKit.framework in Frameworks */,
 				FC2A25CD27B4388C004C57DB /* PromisesObjC.xcframework in Frameworks */,
 				FC2A25CE27B4388C004C57DB /* QuartzCore.framework in Frameworks */,
@@ -1762,8 +1764,8 @@
 		0E5529AF2419202900D50C51 /* CSR */ = {
 			isa = PBXGroup;
 			children = (
-				FCE6FBA427B1240300BF20C2 /* ANCSROMIDNativeTimeExpireTests.m */,
 				38AD997A26315DFF008A529C /* ANAppNexusCSRNativeTimeExpireTests.m */,
+				FCE6FBA427B1240300BF20C2 /* ANCSROMIDNativeTimeExpireTests.m */,
 				0E5529B02419203400D50C51 /* ANCSRUniversalTagRequestBuilderTests.m */,
 			);
 			path = CSR;
@@ -1789,7 +1791,6 @@
 		0E56C6ED21F8AEF200ADE6E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FC5D1BD526E8EE9A001B352F /* NetworkExtension.framework */,
 				0E8C981921FF36F6005D1F0E /* Accounts.framework */,
 				0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */,
 				0E8C97D321FF34AB005D1F0E /* AppNexusSDK.framework */,
@@ -1819,6 +1820,7 @@
 				0E56C70421F8AF3200ADE6E1 /* MessageUI.framework */,
 				0ED15A702236C60B00D56022 /* MMAdSDK.framework */,
 				0E56C70621F8AF3600ADE6E1 /* MobileCoreServices.framework */,
+				FC5D1BD526E8EE9A001B352F /* NetworkExtension.framework */,
 				0E56C70821F8AF3A00ADE6E1 /* PassKit.framework */,
 				0E56C70A21F8AF3E00ADE6E1 /* QuartzCore.framework */,
 				0ED159EE2236B56B00D56022 /* SafariServices.framework */,
@@ -1970,6 +1972,8 @@
 			children = (
 				0E9441ED24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.h */,
 				0E9441EE24476B9B00D266F9 /* ANAdAdapterCSRNativeBannerFacebook+ANTest.m */,
+				0E8C972A21FF32EB005D1F0E /* ANAdFetcher+ANTest.h */,
+				0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */,
 				0E336C47246372140033C76F /* ANAdFetcherBase+ANTest.h */,
 				0E336C46246372140033C76F /* ANAdFetcherBase+ANTest.m */,
 				0E8C971621FF32EB005D1F0E /* ANAdView+ANTest.h */,
@@ -1996,8 +2000,6 @@
 				0E8C972B21FF32EB005D1F0E /* ANReachability+ANTest.m */,
 				0E8C972221FF32EB005D1F0E /* ANTrackerManager+ANTest.h */,
 				0E8C971321FF32EB005D1F0E /* ANTrackerManager+ANTest.m */,
-				0E8C972A21FF32EB005D1F0E /* ANAdFetcher+ANTest.h */,
-				0E8C971821FF32EB005D1F0E /* ANAdFetcher+ANTest.m */,
 				9792384A22412E49007433C0 /* ANVerificationScriptResource+ANTest.h */,
 				9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */,
 				0E8C971E21FF32EB005D1F0E /* NSObject+Swizzling.h */,
@@ -2118,14 +2120,16 @@
 				0EC17C3421F72D1700F0F6AF /* UnitTestApp */,
 				0EC17C5021F72EA300F0F6AF /* UnitTests */,
 				0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */,
-				FC54F6CD27AC1B6E00354121 /* ExceptionalFunctionalTests.plist */,
 				FC2A25F627B4388D004C57DB /* ExceptionalFunctionalApp-Info.plist */,
+				FC54F6CD27AC1B6E00354121 /* ExceptionalFunctionalTests.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		0EC17C3321F72D1700F0F6AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				FC2A25F427B4388C004C57DB /* ExceptionalFunctionalApp.app */,
+				FC54F6CB27AC1B6D00354121 /* ExceptionalFunctionalTests.xctest */,
 				0EC17C5D21F72EC500F0F6AF /* FunctionalTests.xctest */,
 				0EEAF621229BC8BD0008CAC9 /* FunctionalUITests.xctest */,
 				0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */,
@@ -2133,8 +2137,6 @@
 				FC4E6F2624E9779E003F2381 /* PerformanceAndOMIDTest.xctest */,
 				0EC17C3221F72D1700F0F6AF /* UnitTestApp.app */,
 				0EC17C4F21F72EA300F0F6AF /* UnitTests.xctest */,
-				FC54F6CB27AC1B6D00354121 /* ExceptionalFunctionalTests.xctest */,
-				FC2A25F427B4388C004C57DB /* ExceptionalFunctionalApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2173,6 +2175,7 @@
 				0E8C983021FF41A8005D1F0E /* ANBannerAdViewTransitionsTestCase.m */,
 				0E8C982021FF4025005D1F0E /* ANContainerViewTestCase.m */,
 				38F0224924B8561500CE4CE0 /* ANGDPRSettingsTestCase.m */,
+				004101D6292C240D00646B13 /* ANGPPSetingsTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
 				0E8C983221FF41B1005D1F0E /* ANMediationAdViewControllerTestCase.m */,
 				0E8C982A21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m */,
@@ -2259,9 +2262,9 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
-				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 				002D905328B813BA00CBF78A /* AppNexusNativeMacOSSDK.framework */,
+				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
+				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2355,8 +2358,8 @@
 				0EB24C5022CBD568008E927F /* appnexus_mock_mediation_response.json */,
 				0EEFE1A62200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json */,
 				0ED15A1B2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json */,
-				0E642D56244E63FE009084E0 /* csm_bannerad.json */,
 				FCE115CC26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json */,
+				0E642D56244E63FE009084E0 /* csm_bannerad.json */,
 				0E9441EA24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json */,
 				3812956A24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json */,
 				38A8E161248A6A7D0081E9CD /* CSR_Facebook_Banner_Native_withError_1000.json */,
@@ -2540,9 +2543,9 @@
 		FC230DB026936E000081A488 /* WkWebViewTracking */ = {
 			isa = PBXGroup;
 			children = (
+				FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */,
 				FC230DB226936E000081A488 /* NSURLProtocol+WebKitSupport.swift */,
 				FC230DB326936E000081A488 /* WebKitURLProtocol.swift */,
-				FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */,
 			);
 			path = WkWebViewTracking;
 			sourceTree = "<group>";
@@ -2969,6 +2972,7 @@
 				0E3F32F223CE68E300CA830D /* bannerNative_native_mediation.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				FCE115CE26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
 				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
 				3812956C24AA1B4000116AAB /* CSR_Facebook_Banner_Native_AdDidLogImpression.json in Resources */,
@@ -2976,7 +2980,6 @@
 				38A8E168248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1001.json in Resources */,
 				38A8E164248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1002.json in Resources */,
 				38A8E16A248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1011.json in Resources */,
-				FCE115CE26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				38A8E165248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1012.json in Resources */,
 				38A8E166248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_1203.json in Resources */,
 				38A8E16B248A6A7E0081E9CD /* CSR_Facebook_Banner_Native_withError_2000.json in Resources */,
@@ -3156,6 +3159,7 @@
 				FC54F66C27AC1B6D00354121 /* bannerNative_native_mediation.json in Resources */,
 				FC54F66D27AC1B6D00354121 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				FC54F66D27AC1B6D00354121 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				FC54F67427AC1B6D00354121 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				FC54F66E27AC1B6D00354121 /* CSR_Facebook_Banner_Native.json in Resources */,
 				FC54F66E27AC1B6D00354121 /* CSR_Facebook_Banner_Native.json in Resources */,
 				FC54F66F27AC1B6D00354121 /* CSR_Facebook_Banner_Native_AdDidLogImpression.json in Resources */,
@@ -3163,7 +3167,6 @@
 				FC54F67127AC1B6D00354121 /* CSR_Facebook_Banner_Native_withError_1001.json in Resources */,
 				FC54F67227AC1B6D00354121 /* CSR_Facebook_Banner_Native_withError_1002.json in Resources */,
 				FC54F67327AC1B6D00354121 /* CSR_Facebook_Banner_Native_withError_1011.json in Resources */,
-				FC54F67427AC1B6D00354121 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				FC54F67527AC1B6D00354121 /* CSR_Facebook_Banner_Native_withError_1012.json in Resources */,
 				FC54F67627AC1B6D00354121 /* CSR_Facebook_Banner_Native_withError_1203.json in Resources */,
 				FC54F67727AC1B6D00354121 /* CSR_Facebook_Banner_Native_withError_2000.json in Resources */,
@@ -3353,6 +3356,7 @@
 				0EEFE1252200585A002B5F5F /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				0EEFE14822005951002B5F5F /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
 				0E516FF5243FA01200B5E744 /* ANAdAdapterCSRNativeBannerFacebook.m in Sources */,
+				0E8C97AE21FF32EC005D1F0E /* ANAdFetcher+ANTest.m in Sources */,
 				0E642D53244E6098009084E0 /* ANAdMediationTimeoutTestcase.m in Sources */,
 				38904C4424E1309B00A472CC /* ANAdResponseCodeTestCase.m in Sources */,
 				0E8C982921FF4141005D1F0E /* ANAdResponseTestCase.m in Sources */,
@@ -3364,6 +3368,7 @@
 				0E5529AD2419201F00D50C51 /* ANCSRUniversalTagRequestBuilderTests.m in Sources */,
 				0EEFE14A22005951002B5F5F /* ANFailedMultiple.m in Sources */,
 				38F0224A24B8561500CE4CE0 /* ANGDPRSettingsTestCase.m in Sources */,
+				004101D7292C240D00646B13 /* ANGPPSetingsTestCase.m in Sources */,
 				0E8C979F21FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,
 				0E8C97BA21FF32EC005D1F0E /* ANInterstitialAd+ANTest.m in Sources */,
 				0EEFE14622005951002B5F5F /* ANLoadAndHitOtherCallbacks.m in Sources */,
@@ -3385,7 +3390,6 @@
 				0EEFE18B22007696002B5F5F /* ANTestGlobal.m in Sources */,
 				0E8C983E21FF42E0005D1F0E /* ANTestResponses.m in Sources */,
 				0E8C97A521FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
-				0E8C97AE21FF32EC005D1F0E /* ANAdFetcher+ANTest.m in Sources */,
 				0E8C981F21FF400D005D1F0E /* ANUniversalAdFetcherTests.m in Sources */,
 				0E8C982321FF404E005D1F0E /* ANUniversalTagRequestBuilderTests.m in Sources */,
 				0E8C97A221FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
@@ -3424,17 +3428,18 @@
 				0E9D6A6F248E8301006600CC /* ANAdAdapterInterstitialNetworkTimeout.m in Sources */,
 				0E9B358023C73943002BE178 /* ANAdAdapterNativeMock.m in Sources */,
 				0E9D6A6E248E8301006600CC /* ANAdAdapterNativeNetworkTimeout.m in Sources */,
+				0EEFE1DD22008E6D002B5F5F /* ANAdFetcher+ANTest.m in Sources */,
 				0E336C48246372140033C76F /* ANAdFetcherBase+ANTest.m in Sources */,
 				0E642D5B244E6678009084E0 /* ANAdMediationTimeoutTestCase.m in Sources */,
 				0E8C97BE21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0EEFE1AD220089F2002B5F5F /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
 				0E336C3A24631D030033C76F /* ANAdWebViewController+ANTest.m in Sources */,
+				FCE6FBA227B123E300BF20C2 /* ANAppNexusCSRNativeTimeExpireTests.m in Sources */,
 				0EEFE197220080FB002B5F5F /* ANBannerAdTestCase.m in Sources */,
 				003A7D1C2444BE5800F97F7D /* ANBannerAdViewHTMLImpressionTestCase.m in Sources */,
 				0EEFE193220080E7002B5F5F /* ANBannerAdViewVideoTestCase.m in Sources */,
 				38E70DA7250BA90B00232652 /* ANBannerNativeRenderingOMIDTrackingTestCase.m in Sources */,
 				FC4E6F5B24E97B57003F2381 /* ANBannerNativeRenderingTestCase.m in Sources */,
-				FC5D1BDB26EA3D04001B352F /* WebKitURLProtocol.swift in Sources */,
 				0EEFE1B322008A11002B5F5F /* ANBannerNativeTestCase.m in Sources */,
 				0EEFE18F220080D6002B5F5F /* ANBannerVideoAutoRefreshAdViewTestCase.m in Sources */,
 				0EEFE1882200762B002B5F5F /* ANBaseTestCase.m in Sources */,
@@ -3449,7 +3454,6 @@
 				0EEFE184220075B0002B5F5F /* ANInterstitialAdTestCase.m in Sources */,
 				60F8A81E23294BF80030D53D /* ANJAMDeviceIdResponse.json in Sources */,
 				60F8A81F23294BFC0030D53D /* ANJAMDispatchAppEventResponse.json in Sources */,
-				FC5D1BDA26EA3D04001B352F /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				60F8A82023294BFF0030D53D /* ANJAMExternalBrowserResponse.json in Sources */,
 				60F8A82123294C020030D53D /* ANJAMInternalBrowserResponse.json in Sources */,
 				60F8A82223294C060030D53D /* ANJAMMayDeepLinkResponseNo.json in Sources */,
@@ -3485,13 +3489,12 @@
 				0E3FE351245999220096A978 /* ANTimeTracker.m in Sources */,
 				0E8C97A621FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
 				0EEFE1602200715C002B5F5F /* ANTrackerManagerTestCase.m in Sources */,
-				0EEFE1DD22008E6D002B5F5F /* ANAdFetcher+ANTest.m in Sources */,
 				0EEFE15E2200706A002B5F5F /* ANUniversalTagRequestBuilderFunctionalTests.m in Sources */,
 				0E8C97A321FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */,
-				FC5D1BD926EA3D04001B352F /* AuthenticationChallengeSender.swift in Sources */,
 				973A67AA239908E60008126D /* ANVideoAdPlayer+Test.m in Sources */,
 				0E9B358323C73943002BE178 /* ANVideoAdProcessor+ANTest.m in Sources */,
+				FC5D1BD926EA3D04001B352F /* AuthenticationChallengeSender.swift in Sources */,
 				0E4701602237A30B005CFFAC /* BannerAdResizeTestCase.m in Sources */,
 				0EEFE186220075C7002B5F5F /* BasicTests.m in Sources */,
 				4F5BFB8123E513AD00C4AE32 /* DefaultPlacementLogic.m in Sources */,
@@ -3503,6 +3506,7 @@
 				0EEFE1AF220089FB002B5F5F /* MediationCallbacksTests.m in Sources */,
 				0E336C2D2461FB000033C76F /* NoNetworkAdFailTestCase.m in Sources */,
 				0E8C97CA21FF32EC005D1F0E /* NSObject+Swizzling.m in Sources */,
+				FC5D1BDA26EA3D04001B352F /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				976E5A2B23571682008A4E60 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				0E8C97A921FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				97B3C8EF223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
@@ -3512,7 +3516,7 @@
 				0E9EBD6B24336111001A30D8 /* TestANCSRUniversalFetcher.m in Sources */,
 				4FF9B85E23AC0C3E00A9EB56 /* TestGlobal.m in Sources */,
 				0E8C97C121FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */,
-				FCE6FBA227B123E300BF20C2 /* ANAppNexusCSRNativeTimeExpireTests.m in Sources */,
+				FC5D1BDB26EA3D04001B352F /* WebKitURLProtocol.swift in Sources */,
 				0E8C97B221FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
 				0E44C40122D7388100DF68D0 /* XCTestCase+ANBannerAdView.m in Sources */,
 				0E8C97B821FF32EC005D1F0E /* XCTestCase+ANCategory.m in Sources */,
@@ -3591,13 +3595,13 @@
 				FC4E6F3124E977AE003F2381 /* AdPerformanceStatsBannerAdTestCase.m in Sources */,
 				FC4E6F3424E977C2003F2381 /* AdPerformanceStatsBannerNativeAdTestCase.m in Sources */,
 				FC4E6F3224E977BA003F2381 /* AdPerformanceStatsBannerNativeRendererAdTestCase.m in Sources */,
-				FC230DF6269371440081A488 /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				FC4E6F3624E977C7003F2381 /* AdPerformanceStatsBannerVideoAdTestCase.m in Sources */,
 				FC4E6F3724E977CB003F2381 /* AdPerformanceStatsInterstitialAdTestCase.m in Sources */,
 				FC4E6F3824E977D0003F2381 /* AdPerformanceStatsMARAdTestCase.m in Sources */,
 				FC4E6F3A24E977D4003F2381 /* AdPerformanceStatsNativeAdTestCase.m in Sources */,
 				FC2B2987252DE10A00B5E72A /* AdPerformanceStatsReport.m in Sources */,
 				FC4E6F3C24E977DA003F2381 /* AdPerformanceStatsVideoAdTestCase.m in Sources */,
+				FC4E6F6024E97D0C003F2381 /* ANAdFetcher+ANTest.m in Sources */,
 				FC4E6F4D24E978F3003F2381 /* ANAdFetcherBase+ANTest.m in Sources */,
 				FC4E6F3D24E977EA003F2381 /* ANAdOMIDViewablityTestCase.m in Sources */,
 				FC45C02A264FE16B0042D09B /* ANAdView+ANTest.m in Sources */,
@@ -3607,10 +3611,8 @@
 				389A7475250BAC940075AB70 /* ANBannerAdOMIDViewablityRemoveAllFriendlyObstruction.m in Sources */,
 				389A7474250BAC8A0075AB70 /* ANBannerAdOMIDViewablityRemoveFriendlyObstruction.m in Sources */,
 				FC4E6F3E24E977F0003F2381 /* ANBannerAdOMIDViewablityTestCase.m in Sources */,
-				FC230E0D2693714B0081A488 /* AuthenticationChallengeSender.swift in Sources */,
 				FC4E6F3F24E977F4003F2381 /* ANBannerNativeRenderAdOMIDViewablityTestCase.m in Sources */,
 				389A7479250BACC10075AB70 /* ANBannerVideoAdOMIDRemoveAllFriendlyObstructionTestcase.m in Sources */,
-				FC230E02269371470081A488 /* WebKitURLProtocol.swift in Sources */,
 				389A7478250BACBC0075AB70 /* ANBannerVideoAdOMIDRemoveFriendlyObstructionTestcase.m in Sources */,
 				FC4E6F6D24E99767003F2381 /* ANGlobal+ANTest.m in Sources */,
 				FC4E6F4824E9789E003F2381 /* ANHTTPStubURLProtocol.m in Sources */,
@@ -3628,13 +3630,14 @@
 				389A747A250BACC80075AB70 /* ANOMIDSessionFinishBannerHTMLTest.m in Sources */,
 				FC4E6F4E24E97915003F2381 /* ANTestGlobal.m in Sources */,
 				FC4E6F4A24E978B8003F2381 /* ANTimeTracker.m in Sources */,
-				FC4E6F6024E97D0C003F2381 /* ANAdFetcher+ANTest.m in Sources */,
 				FC4E6F4924E978A4003F2381 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				FC4E6F6724E98C0C003F2381 /* ANVerificationScriptResource+ANTest.m in Sources */,
 				FC4E6F6824E98E74003F2381 /* ANVideoAdPlayer+Test.m in Sources */,
 				FC4E6F6924E990AF003F2381 /* ANVideoAdProcessor+ANTest.m in Sources */,
+				FC230E0D2693714B0081A488 /* AuthenticationChallengeSender.swift in Sources */,
 				FCE9649224EA5FBC002FA163 /* HTTPCookieTestCase.m in Sources */,
 				FC4E6F6424E98A35003F2381 /* NSObject+Swizzling.m in Sources */,
+				FC230DF6269371440081A488 /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				FC4E6F6124E97D7E003F2381 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				FC4E6F5E24E97C8B003F2381 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				FC4E6F6224E97D81003F2381 /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
@@ -3642,6 +3645,7 @@
 				FC4E6F5424E97984003F2381 /* SDKValidationURLProtocol.m in Sources */,
 				FC4E6F5624E97AC5003F2381 /* TestGlobal.m in Sources */,
 				FC4E6F7024E997BB003F2381 /* UIApplication+ANTest.m in Sources */,
+				FC230E02269371470081A488 /* WebKitURLProtocol.swift in Sources */,
 				FC4E6F5524E97A97003F2381 /* XCTestCase+ANAdResponse.m in Sources */,
 				FC4E6F5F24E97CFF003F2381 /* XCTestCase+ANBannerAdView.m in Sources */,
 				FC4E6F6324E97DBE003F2381 /* XCTestCase+ANCategory.m in Sources */,
@@ -3660,18 +3664,19 @@
 				FC54F5F027AC1B6D00354121 /* ANAdAdapterInterstitialNetworkTimeout.m in Sources */,
 				FC54F5F127AC1B6D00354121 /* ANAdAdapterNativeMock.m in Sources */,
 				FC54F5F227AC1B6D00354121 /* ANAdAdapterNativeNetworkTimeout.m in Sources */,
+				FC54F63027AC1B6D00354121 /* ANAdFetcher+ANTest.m in Sources */,
+				FC54F6D127AC34F800354121 /* ANAdResponseTestCase.m in Sources */,
 				FC54F5F827AC1B6D00354121 /* ANAdWebViewController+ANTest.m in Sources */,
-				FC54F5FE27AC1B6D00354121 /* WebKitURLProtocol.swift in Sources */,
+				FCE6FBA527B1240300BF20C2 /* ANCSROMIDNativeTimeExpireTests.m in Sources */,
 				FC54F60427AC1B6D00354121 /* ANFBSettings.m in Sources */,
-				FC54F6D027AC1DEE00354121 /* ANJAMCustomKeywordsResponseTestCase.m in Sources */,
 				FC54F60527AC1B6D00354121 /* ANGlobal+ANTest.m in Sources */,
 				FC54F60627AC1B6D00354121 /* ANHTTPCookieStorage.m in Sources */,
 				FC54F60727AC1B6D00354121 /* ANHTTPStubURLProtocol.m in Sources */,
 				FC54F60827AC1B6D00354121 /* ANInstreamVideoAd+Test.m in Sources */,
 				FC54F60A27AC1B6D00354121 /* ANInterstitialAd+ANTest.m in Sources */,
+				FC54F6D027AC1DEE00354121 /* ANJAMCustomKeywordsResponseTestCase.m in Sources */,
 				FC54F60D27AC1B6D00354121 /* ANJAMDeviceIdResponse.json in Sources */,
 				FC54F60E27AC1B6D00354121 /* ANJAMDispatchAppEventResponse.json in Sources */,
-				FC54F60F27AC1B6D00354121 /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				FC54F61027AC1B6D00354121 /* ANJAMExternalBrowserResponse.json in Sources */,
 				FC54F61127AC1B6D00354121 /* ANJAMInternalBrowserResponse.json in Sources */,
 				FC54F61227AC1B6D00354121 /* ANJAMMayDeepLinkResponseNo.json in Sources */,
@@ -3692,26 +3697,25 @@
 				FC54F62627AC1B6D00354121 /* ANNativeRenderingViewController+ANTest.m in Sources */,
 				FC54F62827AC1B6D00354121 /* ANReachability+ANTest.m in Sources */,
 				FC54F62B27AC1B6D00354121 /* ANSSMMediationAdViewController+ANTest.m in Sources */,
-				FCE6FBA527B1240300BF20C2 /* ANCSROMIDNativeTimeExpireTests.m in Sources */,
 				FC54F62C27AC1B6D00354121 /* ANTestGlobal.m in Sources */,
 				FC54F62D27AC1B6D00354121 /* ANTimeTracker.m in Sources */,
 				FC54F62E27AC1B6D00354121 /* ANTrackerManager+ANTest.m in Sources */,
-				FC54F63027AC1B6D00354121 /* ANAdFetcher+ANTest.m in Sources */,
 				FC54F63227AC1B6D00354121 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
-				FC54F6D127AC34F800354121 /* ANAdResponseTestCase.m in Sources */,
 				FC54F63327AC1B6D00354121 /* ANVerificationScriptResource+ANTest.m in Sources */,
-				FC54F63427AC1B6D00354121 /* AuthenticationChallengeSender.swift in Sources */,
 				FC54F63527AC1B6D00354121 /* ANVideoAdPlayer+Test.m in Sources */,
 				FC54F63627AC1B6D00354121 /* ANVideoAdProcessor+ANTest.m in Sources */,
+				FC54F63427AC1B6D00354121 /* AuthenticationChallengeSender.swift in Sources */,
 				FC54F64127AC1B6D00354121 /* NSObject+Swizzling.m in Sources */,
+				FC54F60F27AC1B6D00354121 /* NSURLProtocol+WebKitSupport.swift in Sources */,
 				FC54F64227AC1B6D00354121 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
 				FC54F64327AC1B6D00354121 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				FC54F64427AC1B6D00354121 /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
 				FC54F64627AC1B6D00354121 /* SDKValidationURLProtocol.m in Sources */,
+				FC54F64727AC1B6D00354121 /* TestANCSRUniversalFetcher.m in Sources */,
+				FC54F64727AC1B6D00354121 /* TestANCSRUniversalFetcher.m in Sources */,
 				FC54F6CF27AC1DAC00354121 /* TestGlobal.m in Sources */,
-				FC54F64727AC1B6D00354121 /* TestANCSRUniversalFetcher.m in Sources */,
-				FC54F64727AC1B6D00354121 /* TestANCSRUniversalFetcher.m in Sources */,
 				FC54F64927AC1B6D00354121 /* UIApplication+ANTest.m in Sources */,
+				FC54F5FE27AC1B6D00354121 /* WebKitURLProtocol.swift in Sources */,
 				FC54F64A27AC1B6D00354121 /* XCTestCase+ANAdResponse.m in Sources */,
 				FC54F64B27AC1B6D00354121 /* XCTestCase+ANBannerAdView.m in Sources */,
 				FC54F64C27AC1B6D00354121 /* XCTestCase+ANCategory.m in Sources */,

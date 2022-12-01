@@ -128,10 +128,12 @@ NSMutableArray<ANWebView *> *webViewQueue;
         if(webViewQueue == nil){
                 webViewQueue = [[NSMutableArray alloc] init];
         }
-        ANWebView *webView = [[ANWebView alloc] initWithSize:CGSizeZero];
-        [webView loadHTMLString:@"" baseURL:nil];
-            
-        [webViewQueue addObject:webView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ANWebView *webView = [[ANWebView alloc] initWithSize:CGSizeZero];
+            [webView loadHTMLString:@"" baseURL:nil];
+                
+            [webViewQueue addObject:webView];
+        });
     }
 
     -(void) loadWebViewWithUserScripts {

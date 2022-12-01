@@ -29,10 +29,9 @@ NSString * const  VIEWABLE_IMP_CONFIG_URL = @"https://acdn.adnxs.com/mobile/view
 
 
 @property (nonatomic, readwrite, assign)  NSInteger memberId;
-
-
 @property (nonatomic, readwrite, strong) NSMutableArray *viewableImpsMemberIdsArray;
-
+@property (nonatomic,readwrite) BOOL isHttpTaskSuccess;
+@property (nonatomic,readwrite) BOOL isOptinalSDKInitSuccess;
 @end
 
 
@@ -46,6 +45,8 @@ NSString * const  VIEWABLE_IMP_CONFIG_URL = @"https://acdn.adnxs.com/mobile/view
     dispatch_once(&xandrAdSDKToken, ^{
         xandrAdSDK = [[XandrAd alloc] init];
         xandrAdSDK.memberId = -1;
+        xandrAdSDK.isHttpTaskSuccess = NO;
+        xandrAdSDK.isOptinalSDKInitSuccess = NO;
     });
     return xandrAdSDK;
 }
@@ -55,57 +56,92 @@ NSString * const  VIEWABLE_IMP_CONFIG_URL = @"https://acdn.adnxs.com/mobile/view
     
     ANLogDebug(@"XandrAd init");
     self.memberId = memberId;
+    self.isHttpTaskSuccess = NO;
+    self.isOptinalSDKInitSuccess = NO;
     
     
-    // Setup observer for completion status first
-    if(completionHandler != nil){
-            NSOperationQueue *queue = [[NSOperationQueue alloc]init];
-            
-            [[NSNotificationCenter defaultCenter] addObserverForName:@"kXandrAdInitSuccess"
-                                                              object:nil
-                                                               queue:queue
-                                                          usingBlock:^(NSNotification *notification) {
-                completionHandler(YES);
-                [[NSNotificationCenter defaultCenter] removeObserver:@"kXandrAdInitSuccess"];
-                [[NSNotificationCenter defaultCenter] removeObserver:@"kXandrAdInitFailed"];
-            }];
-            [[NSNotificationCenter defaultCenter] addObserverForName:@"kXandrAdInitFailed"
-                                                              object:nil
-                                                               queue:queue
-                                                          usingBlock:^(NSNotification *notification) {
-                completionHandler(NO);
-                [[NSNotificationCenter defaultCenter] removeObserver:@"kXandrAdInitSuccess"];
-                [[NSNotificationCenter defaultCenter] removeObserver:@"kXandrAdInitFailed"];
-            }];
-    }
-    
-    
-    if(!_viewableImpsMemberIdsArray){
-        ANLogDebug(@"XandrAd init: Fetching Viewable Impression Member Id's");
-        NSURLRequest *request     = ANBasicRequestWithURL([NSURL URLWithString:VIEWABLE_IMP_CONFIG_URL]);
+    dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
+
+    dispatch_async(backgroundQueue,
+    ^{
+        //
+        dispatch_semaphore_t  semaphoreMemberIdHttpTask  = nil;
+        dispatch_semaphore_t  semaphoreOptionalSDKInititalization  = nil;
+
         
-        [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
-            if (!data) {
+        if (!self.viewableImpsMemberIdsArray)
+        {
+            semaphoreMemberIdHttpTask = [self fetchMemberIdList];
+        }else{
+            self.isHttpTaskSuccess = YES;
+        }
+
+        if (preCacheRequestObjects)
+        {
+            semaphoreOptionalSDKInititalization = [self performOptionalSDKInitialization];
+        }else{
+            self.isOptinalSDKInitSuccess = YES;
+        }
+
+        if (semaphoreMemberIdHttpTask)  {
+            dispatch_semaphore_wait(semaphoreMemberIdHttpTask, DISPATCH_TIME_FOREVER);
+        }
+
+        if (preCacheRequestObjects)  {
+            dispatch_semaphore_wait(semaphoreOptionalSDKInititalization, DISPATCH_TIME_FOREVER);
+        }
+        if(completionHandler != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if(self.isOptinalSDKInitSuccess && self.isHttpTaskSuccess){
+                    completionHandler(YES);
+                }else{
+                    completionHandler(NO);
+                }
+            });
+        }
+    });
+}
+
+
+- (dispatch_semaphore_t) fetchMemberIdList
+{
+    //
+    dispatch_semaphore_t  semaphore  = dispatch_semaphore_create(0);
+            ANLogDebug(@"XandrAd init: Fetching Viewable Impression Member Id's");
+            NSURLRequest *request     = ANBasicRequestWithURL([NSURL URLWithString:VIEWABLE_IMP_CONFIG_URL]);
+    
+            [ANHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+    
+                if (!data) {
+                    ANLogError(@"XandrAd Init - Fetching Viewable Impression Member Id's Failed");
+                }
+                NSError *e = nil;
+                self.viewableImpsMemberIdsArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
+                if (!self.viewableImpsMemberIdsArray) {
+                  ANLogError(@"XandrAd Init - Error parsing Viewable Impression Member List JSON: %@", e);
+                    self.isHttpTaskSuccess = NO;
+                }
+                self.isHttpTaskSuccess = YES;
+                dispatch_semaphore_signal(semaphore);
+            } errorHandler:^(NSError * _Nonnull error) {
                 ANLogError(@"XandrAd Init - Fetching Viewable Impression Member Id's Failed");
-            }
-            NSError *e = nil;
-            self.viewableImpsMemberIdsArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
-            if (!self.viewableImpsMemberIdsArray) {
-              ANLogError(@"XandrAd Init - Error parsing Viewable Impression Member List JSON: %@", e);
-            }
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kXandrAdInitSuccess" object:nil userInfo:nil];
-        } errorHandler:^(NSError * _Nonnull error) {
-            ANLogError(@"XandrAd Init - Fetching Viewable Impression Member Id's Failed");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kXandrAdInitFailed" object:nil userInfo:nil];
-        }];
-    }else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kXandrAdInitSuccess" object:nil userInfo:nil];
-    }
+                self.isHttpTaskSuccess = NO;
+                dispatch_semaphore_signal(semaphore);
+            }];
     
-    if(preCacheRequestObjects){
-        [[ANSDKSettings sharedInstance] optionalSDKInitialization:completionHandler];
-    }
-    
+    return  semaphore;
+}
+
+- (dispatch_semaphore_t) performOptionalSDKInitialization
+{
+    //
+    dispatch_semaphore_t  semaphore  = dispatch_semaphore_create(0);
+    [[ANSDKSettings sharedInstance] optionalSDKInitialization:^(BOOL success){
+                self.isOptinalSDKInitSuccess = success;
+                dispatch_semaphore_signal(semaphore);
+    }];
+    return  semaphore;
 }
 
 

@@ -60,6 +60,10 @@ static NSString  *placementID  = @"9924001";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_AddtlConsent"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_HDR_GppString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_GppSID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_TCFEU2_PurposeConsents"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_TCFEU2_gdprApplies"];
     [[ANSDKSettings sharedInstance] setAuctionTimeout:0];
     ANSDKSettings.sharedInstance.geoOverrideCountryCode = nil;
     ANSDKSettings.sharedInstance.geoOverrideZipCode = nil;
@@ -507,6 +511,82 @@ static NSString  *placementID  = @"9924001";
                        NSString *privacyString = jsonDict[@"us_privacy"];
                        XCTAssertNotNil(privacyString);
                        XCTAssertTrue(privacyString, @"1yn");
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+//1 If Valid GPP string and Gpp SID is set in NSUserDefault keys AN_IABGPP_HDR_GppString and AN_IABGPP_GppSID then it should go in request
+
+- (void)testUTRequestGppString
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN" forKey:@"IABGPP_HDR_GppString"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"2_6" forKey:@"IABGPP_GppSID"];
+
+  
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                      
+                       NSDictionary *gpp_privacy = jsonDict[@"privacy"];
+                       XCTAssertNotNil(gpp_privacy);
+                       XCTAssertEqual(gpp_privacy.count, 2);
+                       XCTAssertNotNil(gpp_privacy[@"gpp_sid"]);
+                       NSArray *gppSideArray = @[@2, @6];
+                       XCTAssertTrue([gpp_privacy[@"gpp_sid"] isEqualToArray:gppSideArray]);
+        
+                       XCTAssertNotNil(gpp_privacy[@"gpp"]);
+                       XCTAssertTrue([gpp_privacy[@"gpp"] isEqualToString:@"DBACNYA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA~1YNN"]);
+        
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+//2 If No GPP string/ GppSID is present in NSUserDefault keys AN_IABGPP_HDR_GppString and AN_IABGPP_GppSID then it should not go in request
+- (void)testUTRequestGppPrivacyObjectNotPresent
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_HDR_GppString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABGPP_GppSID"];
+
+  
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       XCTAssertNil(jsonDict[@"privacy"]);
+        
                        [expectation fulfill];
                    });
     
@@ -989,8 +1069,8 @@ static NSString  *placementID  = @"9924001";
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceUID2 userId:@"uid2_3948249329482ok" ]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
     [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
-    [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar" userId:@"temp_user_id-foo-bar"]];
-    
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar-27" userId:@"temp_user_id-foo-bar-27" isFirstParytId:true]];
+
     ANSDKSettings.sharedInstance.userIdArray = tempUserIdArray;
     
     
@@ -1059,15 +1139,17 @@ static NSString  *placementID  = @"9924001";
                             XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
                             [uid2Expectation fulfill];
                         }
-                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar"]){
-                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar");
-                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar");
+                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-27"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-27");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-27");
                             [customSourceExpectation fulfill];
                         }
                     }
                 }else {
                     
-                    XCTAssertNil(eidDictionary );
+                    
+                    XCTAssertNil(eidDictionary);
+                 
                     [tradeDeskExpectation fulfill];
                     [criteoExpectation fulfill];
                     [netIDExpectation fulfill];
@@ -1114,9 +1196,9 @@ static NSString  *placementID  = @"9924001";
                         XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
                         [uid2Expectation fulfill];
                     }
-                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar"]){
-                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar");
-                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar");
+                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-27"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-27");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-27");
                         [customSourceExpectation fulfill];
                     }
                 }
@@ -1128,6 +1210,166 @@ static NSString  *placementID  = @"9924001";
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
     
 }
+
+
+
+- (void)testUTRequestEidsFirst
+{
+    
+    NSMutableArray<ANUserId *>  *tempUserIdArray  = [[NSMutableArray<ANUserId *> alloc] init];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceNetId userId:@"999888777" ]];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceTheTradeDesk userId:@"00000111-91b1-49b2-ae37-17a8173dc36f" ]];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceUID2 userId:@"uid2_3948249329482ok" ]];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceCriteo userId:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithANUserIdSource:ANUserIdSourceLiveRamp userId:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" ]];
+    [tempUserIdArray addObject:[[ANUserId alloc] initWithStringSource:@"string-source-foo-bar-2" userId:@"temp_user_id-foo-bar-2" isFirstParytId:true]];
+
+    ANSDKSettings.sharedInstance.userIdArray = tempUserIdArray;
+    
+    
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+   
+    XCTestExpectation       *netIDExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *liveRampExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *tradeDeskExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *criteoExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *uid2Expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    XCTestExpectation       *customSourceExpectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSArray *eidsArray = jsonDict[@"eids"];
+        NSDictionary *eidDictionary = jsonDict[@"eids"];
+        
+        if (@available(iOS 14, *)) {
+            // External UIDs should be sent in /ut/v3 request only when  ATT Tracking status is authorized
+        #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
+                if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized){
+                    XCTAssertEqual(eidDictionary.count, 6 );
+                    
+                    NSUInteger count = [eidsArray count];
+                    for (NSUInteger index = 0; index < count ; index++) {
+                        TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
+                        if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
+                            [criteoExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
+                            [netIDExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
+                            [liveRampExpectation fulfill];
+                        }
+                        
+                        if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
+                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
+                            [tradeDeskExpectation fulfill];
+                        }
+                        if([eidsArray[index][@"source"] isEqualToString: @"uidapi.com"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"uidapi.com");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"uid2_3948249329482ok");
+                            XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
+                            [uid2Expectation fulfill];
+                        }
+                        if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-2"]){
+                            XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-2");
+                            XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-2");
+                            [customSourceExpectation fulfill];
+                        }
+                    }
+                }else {
+                    
+                    
+                    XCTAssertNotNil(eidDictionary);
+                    XCTAssertEqual(eidDictionary.count, 1);
+                    
+                    if([eidsArray[0][@"source"] isEqualToString: @"string-source-foo-bar-2"]){
+                        XCTAssertEqualObjects(eidsArray[0][@"source"], @"string-source-foo-bar-2");
+                        XCTAssertEqualObjects(eidsArray[0][@"id"], @"temp_user_id-foo-bar-2");
+                    }
+                    
+                    [tradeDeskExpectation fulfill];
+                    [criteoExpectation fulfill];
+                    [netIDExpectation fulfill];
+                    [liveRampExpectation fulfill];
+                    [uid2Expectation fulfill];
+                    [customSourceExpectation fulfill];
+
+                    }
+        #endif
+            }else{
+                XCTAssertEqual(eidDictionary.count, 6 );
+                
+                NSUInteger count = [eidsArray count];
+                for (NSUInteger index = 0; index < count ; index++) {
+                    TESTTRACEM(@"source==============%@", eidsArray[index][@"source"]);
+                    if([eidsArray[index][@"source"] isEqualToString: @"criteo.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"criteo.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N");
+                        [criteoExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"netid.de"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"netid.de");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"999888777");
+                        [netIDExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"liveramp.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"liveramp.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg");
+                        [liveRampExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"adserver.org"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"adserver.org");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"00000111-91b1-49b2-ae37-17a8173dc36f");
+                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"TDID");
+                        [tradeDeskExpectation fulfill];
+                    }
+                    
+                    if([eidsArray[index][@"source"] isEqualToString: @"uidapi.com"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"uidapi.com");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"uid2_3948249329482ok");
+                        XCTAssertEqualObjects(eidsArray[index][@"rti_partner"], @"UID2");
+                        [uid2Expectation fulfill];
+                    }
+                    if([eidsArray[index][@"source"] isEqualToString: @"string-source-foo-bar-2"]){
+                        XCTAssertEqualObjects(eidsArray[index][@"source"], @"string-source-foo-bar-2");
+                        XCTAssertEqualObjects(eidsArray[index][@"id"], @"temp_user_id-foo-bar-2");
+                        [customSourceExpectation fulfill];
+                    }
+                }
+    }
+        
+
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+    
+}
+
 
 
 
