@@ -1,9 +1,19 @@
+## 8.2.0
+
+### Improvement/Bug Fixes
++ MS-5172 Support for Global Privacy Platform (GPP) [https://docs.xandr.com/bundle/mobile-sdk/page/sdk-privacy-for-ios.html]
++ MS-5112 Update PPID API to indicate if its first party id [https://docs.xandr.com/bundle/mobile-sdk/page/user-id-s--mapping-on-ios.html]
++ MS-5183 Fixed Completion handler callback issues in XandrAd.init()
+
+### Mediation / CSR partner updates
++ MS-5195 Upgraded Facebook Audience Network SDK from 6.5.0 to 6.12.0
+
 ## 8.1.1
 
 ### Improvement/Bug Fixes for macOS SDK
 + MS-5127 Added Impression tracking API for NSView registerViewTracking  
 + MS-5128 Code optimizations
-+ MS-5149 Fixed Impression tracking issue when app is on secondary displays 
++ MS-5149 Fixed Impression tracking issue when app is on secondary displays
 
 ## 8.1.0
 
@@ -31,7 +41,7 @@ We have completed the removal of the APIs referenced in the 7.21.0 release. Plea
 
 ### Announcements:
 This will be the last major release in SDK v7.x.x series.
-The next major release will be SDK v8.0.0 which will include some breaking changes as proposed in Intent to Implement's listed below along with other changes. 
+The next major release will be SDK v8.0.0 which will include some breaking changes as proposed in Intent to Implement's listed below along with other changes.
 
 1. Xandr SDK v8.0.0 Removal Notice for Deprecated APIs [https://github.com/appnexus/mobile-sdk-ios/issues/77]
 2. Xandr will be moving toward counting "Viewable Impressions - for Direct-Sold Inventory" [https://github.com/appnexus/mobile-sdk-ios/issues/79]
@@ -75,11 +85,11 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 ## 7.20.0
 ### Improvement/Bug Fixes
 + MS-4952 Check navigationType when opening a URL [Github PR #73]
-+ MS-4851 Improved OMSDK performance 
++ MS-4851 Improved OMSDK performance
 
 ## 7.19.0
 ### Improvement/Bug Fixes
-+ MS-4884 Improved impression tracking methodology for Native Ads, trackers to be fired on render 
++ MS-4884 Improved impression tracking methodology for Native Ads, trackers to be fired on render
 
 ## 7.18.0
 ### New Features:
@@ -126,7 +136,7 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 * MS-4761 Added a new API to enable subscription to SDK logs for debugging/troubleshooting purposes. https://docs.xandr.com/bundle/mobile-sdk/page/configure-sdk-logging-on-ios.html
 * MS-4711 Exposed API in Custom element to support clickUrl and clickFallbackUrl for Native Ad. https://docs.xandr.com/bundle/mobile-sdk/page/show-native-ads-on-ios.html
 ### Improvements/Bug Fixes
-* MS-4753 Resolved a stability issue in Interstitial Ad due to [UIApplication.windows] being nil during Application launch 
+* MS-4753 Resolved a stability issue in Interstitial Ad due to [UIApplication.windows] being nil during Application launch
 * MS-4769 Removed duplicate calls to dispatch_async function from a couple of places
 
 
@@ -287,7 +297,7 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 
 ## 7.1
 ### New Feature
-+ MS-3956  Added ANAdResponseInfo to return associated data with Ad response 
++ MS-3956  Added ANAdResponseInfo to return associated data with Ad response
 
 ### Mediation partner upgrade
 + Google AdMob SDK v7.55.0
@@ -318,7 +328,7 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 + MS-4097 California Consumer Privacy Act (CCPA) Support (https://wiki.xandr.com/display/sdk/SDK+Privacy+for+iOS)
 
 ### Bug Fixes
-+ MS-4124: Special characters not rendering over native assembly 
++ MS-4124: Special characters not rendering over native assembly
 + MS-4084: VideoAd Object not getting deallocated
 + MS-4095: Updated OMID partner name
 
@@ -342,7 +352,7 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 
 ### New Features
 + MS-3983: Added new API to Pause/Resume(https://wiki.xandr.com/display/sdk/Show+an+Instream+Video+Ads+on+iOS) VideoAd
-+ MS-4057: Official release for iOS 13 support 
++ MS-4057: Official release for iOS 13 support
 
 ### Mediation partner upgrades
 + Smart Server SDK v7.2
@@ -350,7 +360,7 @@ We Intent to remove all the deprecated API's listed below in Xandr SDK v8.0. I
 + Google AdMob SDK v7.50
 
 ### Improvements/Bug Fixes
-+ MS-3915,MS-3916: Improved Banner Ad performance 
++ MS-3915,MS-3916: Improved Banner Ad performance
 + MS-3948: Removed AppNexusSDKResources.Bundle
 + MS-3951: Fixed open measurement geometry change events for VideoAd
 + MS-3976: Fixed escape character breaking VideoAd load
@@ -422,12 +432,12 @@ https://wiki.appnexus.com/display/sdk/iOS+v6.0+SDK+Migration+and+Integration#iOS
 + MS-3778: Added new API to get Video Orientation for BannerVideo and Video Ads
 
 ### Mediation partner upgrades/changes
-+  Removed support for following mediation Adapter 
++  Removed support for following mediation Adapter
     + AdColony SDK
     + AdMarvel SDK
     + Chartboost SDK
-    + Vdopia SDK 
-    + Vungle SDK 
+    + Vdopia SDK
+    + Vungle SDK
     + Yahoo SDK
 
 ### Improvements/Bug Fixes
@@ -505,7 +515,7 @@ Known issue: Apps integrating Smart Adapter from Code/Binary need to remove i386
 + Prevent crashes by preventing ANBannerAdView from loading when width or height are improperly configured (MS-3685)
 
 ## 4.12
-###  New Features and Bug Fixes 
+###  New Features and Bug Fixes
 + MS-3606: Updated Smart Adapter to v6.10
 + MS-3495: Updated Google Play Ad Adapter (AdMob & DFP) to v7.35.1
 + MS-3633: Added new APIs that expose additional description (`desc2`) and main image size for Native Ads
@@ -514,12 +524,12 @@ Known issue: Apps integrating Smart Adapter from Code/Binary need to remove i386
 Known Issue: Rubicon Mediation Adapter compatibility issues with iOS 12.0 - to be fixed in a future release.
 
 ## 4.11.1
-###  New Features and Bug Fixes 
-+ MS-3527: Attempt to prevent crash in OMIDAppnexusScriptInjector by error checking all MobileSDK inputs and by serializing global properties shared between threads. 
+###  New Features and Bug Fixes
++ MS-3527: Attempt to prevent crash in OMIDAppnexusScriptInjector by error checking all MobileSDK inputs and by serializing global properties shared between threads.
 + MS-3461: Update logic to center video display when video player is expanded to fill the full screen of the device.
- 
+
 ## 4.11
-###  New Features and Bug Fixes 
+###  New Features and Bug Fixes
 + MS-3401: Added an API for enabling/disabling the location access to the creative.
 + MS-3518: Updated the AppNexus GDPR constants to avoid namespace collisions with other SDKs implementing GDPR.
 + MS-3323: Updated SDK Localization for In-app browser's "OK" Button.
