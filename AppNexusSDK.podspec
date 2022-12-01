@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "8.1.1"
+  s.version      = "8.2.0"
   s.platform     = :ios, "10.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
@@ -21,7 +21,7 @@ DESC
   s.subspec 'AppNexusSDK' do |subspec|
     subspec.source_files         = "sdk/sourcefiles/**/*.{h,m}"
     subspec.public_header_files  = "sdk/sourcefiles/public-headers/*.h"
-    subspec.resources            = "sdk/sourcefiles/**/*.{png,bundle,xib,nib,js,html,strings}","sdk/AppNexusSDK/SDK-Info.plist"   
+    subspec.resources            = "sdk/sourcefiles/**/*.{png,bundle,xib,nib,js,html,strings}","sdk/AppNexusSDK/SDK-Info.plist"
     subspec.vendored_frameworks   =  "sdk/sourcefiles/Viewability/OMSDK_Appnexus.xcframework"
     subspec.frameworks           = 'WebKit'
     subspec.pod_target_xcconfig = { "VALID_ARCHS[sdk=iphoneos*]": "arm64 armv7", "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64 arm64" }
@@ -43,7 +43,7 @@ DESC
     subspec.source_files         = "csr/Facebook/*.{h,m}"
     subspec.public_header_files  = "csr/Facebook/*.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
-  end 
+  end
 
   s.subspec 'SmartAdAdapter' do |subspec|
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
