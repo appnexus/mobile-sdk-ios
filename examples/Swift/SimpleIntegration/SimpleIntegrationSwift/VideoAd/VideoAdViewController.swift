@@ -44,6 +44,8 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate, A
         
         setupContentPlayer()
         videoAd = ANInstreamVideoAd(placementId: "17058950")
+        videoAd?.forceCreativeId = 391378785 //391378785- Xandr Regular Creative
+       // videoAd?.forceCreativeId = 397986813 //397986813- Ad Choices icon
         videoAd?.load(with: self)
         videoAd?.clickThroughAction = ANClickThroughAction.openSDKBrowser
         
@@ -107,13 +109,19 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate, A
     }
     
     
-    override func viewDidDisappear(_ animated: Bool) {
-        videoContentPlayer!.pause()
-        videoAd!.remove()
-        videoAd = nil
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if self.isMovingFromParent {
+            print("we are being popped")
+            videoAd!.remove()
+            videoAd = nil
+        }
         
     }
+    
+    
+    
+    
     @objc func itemDidFinishPlaying(_ notification: Notification?) {
         print("finished playing content")
         //cleanup the player & start again

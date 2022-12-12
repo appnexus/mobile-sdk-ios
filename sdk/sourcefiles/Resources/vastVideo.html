@@ -119,6 +119,21 @@
                 }
             }, 300);
         }
+            
+            
+            function sendMute() {
+                console.log(":: mute");
+                
+                //resizePlayer();
+                APNVideo_MobileVastPlayer.sendMute(targetId);
+            }
+            
+            function sendUnMute() {
+                console.log(":: Unmute");
+                
+                //resizePlayer();
+                APNVideo_MobileVastPlayer.sendUnMute(targetId);
+            }
 
         function pauseAd() {
             console.log(":: sendPause");

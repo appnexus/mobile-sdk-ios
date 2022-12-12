@@ -191,6 +191,23 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     //
     NSString *exec = @"playAd();";
     [self.webView evaluateJavaScript:exec completionHandler:nil];
+    
+    NSTimeInterval delayInSeconds = 7.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        NSString *exec = @"sendMute();";
+        [self.webView evaluateJavaScript:exec completionHandler:nil];
+    });
+    
+    
+    NSTimeInterval delayInSeconds2 = 14.0;
+    dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds2 * NSEC_PER_SEC));
+    dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
+        
+        NSString *exec = @"sendUnMute();";
+        [self.webView evaluateJavaScript:exec completionHandler:nil];
+    });
 }
 
 - (NSUInteger) getAdDuration {
@@ -381,6 +398,11 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
         if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
             [self.delegate videoAdEventListeners:ANVideoAdPlayerEventMuteOff];
         }
+    }else if ([eventName isEqualToString:@"video-impression"]){
+        ANLogInfo(@"Kowshick:: video player impression");
+    }
+    else if ([eventName isEqualToString:@"ad-click"]){
+        ANLogInfo(@"Kowshick:: video player click");
     }
 }
 
@@ -463,10 +485,12 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
         
         NSString *videoOptions = [[ANVideoPlayerSettings sharedInstance] fetchInStreamVideoSettings];
 
+        
         NSString *exec_template = @"createVastPlayerWithContent('%@','%@');";
         exec = [NSString stringWithFormat:exec_template, self.vastContent,videoOptions];
-
         [self.webView evaluateJavaScript:exec completionHandler:nil];
+       
+       
         
     }else if([self.vastURL length] > 0){
         ANLogInfo(@"Not implemented");

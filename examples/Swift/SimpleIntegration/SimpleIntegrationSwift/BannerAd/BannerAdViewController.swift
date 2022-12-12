@@ -46,6 +46,9 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         let banner = ANBannerAdView(frame: rect, placementId: adID, adSize: size)
         banner.rootViewController = self
         banner.delegate = self
+        banner.shouldAllowVideoDemand = true
+        banner.shouldAllowBannerDemand = false
+        banner.forceCreativeId = 391378785
         view.addSubview(banner)
         // Load an ad.
         banner.loadAd()

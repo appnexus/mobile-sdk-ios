@@ -324,7 +324,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
             break;
         case ANVideoAdPlayerTrackerFourthQuartile:
             if ([self.playDelegate respondsToSelector:@selector(adDidComplete:withState:)]) {
-                [self removeAd];
+               // [self removeAd];
                 [self.playDelegate adDidComplete:self withState:ANInstreamVideoPlaybackStateCompleted];
             }
             break;
