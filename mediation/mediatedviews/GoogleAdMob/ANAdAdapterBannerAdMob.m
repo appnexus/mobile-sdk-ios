@@ -66,11 +66,11 @@
     self.bannerView.adUnitID = idString;
     self.bannerView.rootViewController = rootViewController;
     self.bannerView.delegate = self;
-    [self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
+    [self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters rootViewController: rootViewController]];
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters rootViewController: (UIViewController *)rootViewController {
+    return [ANAdAdapterBaseDFP googleAdMobRequestFromTargetingParameters:targetingParameters rootViewController: rootViewController];
 }
 
 - (AdMobBannerServerSideParameters*) parseServerSide:(NSString*) serverSideParameters

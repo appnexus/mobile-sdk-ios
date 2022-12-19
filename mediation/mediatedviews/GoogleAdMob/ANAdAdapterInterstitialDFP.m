@@ -33,7 +33,7 @@
 {
     ANLogDebug(@"Requesting DFP interstitial");    
     [GAMInterstitialAd loadWithAdManagerAdUnitID:idString
-                                          request:nil completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+                                          request:[ANAdAdapterBaseDFP dfpRequestFromTargetingParameters:targetingParameters rootViewController:nil] completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
         if (error) {
             ANLogDebug(@"DFP interstitial failed to load with error: %@", error);
             [self.delegate didFailToLoadAd:[ANAdAdapterBaseDFP responseCodeFromRequestError:error]];
@@ -44,7 +44,6 @@
         self.interstitialAd = interstitialAd;
         self.interstitialAd.fullScreenContentDelegate = self;
     }];
-     [self createRequestFromTargetingParameters:targetingParameters];
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController
@@ -59,10 +58,6 @@
         [self.delegate failedToDisplayAd];
         return;
     }
-}
-
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
 }
 
 

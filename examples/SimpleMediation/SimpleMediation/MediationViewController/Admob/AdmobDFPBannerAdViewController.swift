@@ -19,7 +19,7 @@ import AppNexusSDK
 class AdmobDFPBannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     var banner: ANBannerAdView?
     
-    let kPlacementId = "25115872"
+    let kPlacementId = "27850905"
     
     override func viewDidLoad() {
         super.viewDidLoad()

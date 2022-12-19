@@ -57,7 +57,7 @@
                                                         adTypes:@[GADAdLoaderAdTypeNative]
                                                         options:@[]];
     self.nativeAdLoader.delegate = self;
-    [self.nativeAdLoader loadRequest:[ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters]];
+    [self.nativeAdLoader loadRequest:[ANAdAdapterBaseDFP googleAdMobRequestFromTargetingParameters:targetingParameters rootViewController:nil]];
 }
 
 - (void)registerViewForImpressionTrackingAndClickHandling:(nonnull UIView *)view
