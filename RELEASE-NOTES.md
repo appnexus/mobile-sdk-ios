@@ -1,3 +1,12 @@
+## 8.3.0
+
+### Improvement/Bug Fixes
++ MS-5208, MS-5214 Upgraded OMSDK from 1.3.31 to 1.4.2
++ MS-5197 Added iPad multiwindow support for Google AdMob mediation. Refer to this doc for more information [https://docs.xandr.com/bundle/mobile-sdk/page/mediate-with-ios.html].
+
+### Mediation / CSR partner updates
++ MS-5210, MS-5213 Upgraded Google AdMob SDK from 9.4.0 to 9.14.0
+
 ## 8.2.0
 
 ### Improvement/Bug Fixes
