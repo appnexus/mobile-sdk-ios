@@ -40,9 +40,7 @@
 		0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0D09723FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m */; };
 		0EE0D0D423FD7ECE00D0C060 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */; };
 		5377DBB872736776143319CD /* libPods-SimpleMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */; };
-		883D7B5B2833C714004C2757 /* ANAdAdapterBannerAdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D7B5A2833C714004C2757 /* ANAdAdapterBannerAdMob.swift */; };
-		8895CB922835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895CB902835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift */; };
-		8895CB932835618A00CF5993 /* ANAdAdapterNativeAdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895CB912835618A00CF5993 /* ANAdAdapterNativeAdMob.swift */; };
+		C6B9C4C72950FB51007C8C4B /* GoogleAdMob in Resources */ = {isa = PBXBuildFile; fileRef = C6B9C4C32950FB51007C8C4B /* GoogleAdMob */; };
 		FCC64C9425A7353F006E5A54 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; };
 		FCC64C9525A7353F006E5A54 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCC64C9625A7354C006E5A54 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */; };
@@ -64,6 +62,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
+		};
+		C6B9C4B7294D0998007C8C4B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E82E4EE245CCA5600EC19E1 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 880508B128AC14A80099C6C6;
+			remoteInfo = AppNexusNativeMacOSSDK;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -138,11 +143,9 @@
 		0EE0D0D323FD7ECE00D0C060 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		2E25579F2531BE4E0FECD662 /* libPods-SimpleCSR.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleCSR.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9D464632CE623986E47C03 /* Pods-SimpleMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.release.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.release.xcconfig"; sourceTree = "<group>"; };
-		883D7B5A2833C714004C2757 /* ANAdAdapterBannerAdMob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANAdAdapterBannerAdMob.swift; sourceTree = "<group>"; };
-		8895CB902835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANAdAdapterInterstitialAdMob.swift; sourceTree = "<group>"; };
-		8895CB912835618A00CF5993 /* ANAdAdapterNativeAdMob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANAdAdapterNativeAdMob.swift; sourceTree = "<group>"; };
 		92D9B61421003C0822F05D3F /* Pods-SimpleCSR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCSR.debug.xcconfig"; path = "Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR.debug.xcconfig"; sourceTree = "<group>"; };
 		941E857F252A95374E5394AF /* Pods-SimpleMediation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleMediation.debug.xcconfig"; path = "Target Support Files/Pods-SimpleMediation/Pods-SimpleMediation.debug.xcconfig"; sourceTree = "<group>"; };
+		C6B9C4C32950FB51007C8C4B /* GoogleAdMob */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GoogleAdMob; sourceTree = "<group>"; };
 		DE667F379478A83D548F9F0D /* libPods-SimpleMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleMediation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8136949A8662F8B5D433773 /* Pods-SimpleCSR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCSR.release.xcconfig"; path = "Target Support Files/Pods-SimpleCSR/Pods-SimpleCSR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,9 +199,6 @@
 				0EE0D03C23FD6CB400D0C060 /* MediationViewController */,
 				0E5B044423BF641300DEBACE /* NavigationViewController */,
 				0E56613B23BF2F120088EB36 /* SupportFiles */,
-				883D7B5A2833C714004C2757 /* ANAdAdapterBannerAdMob.swift */,
-				8895CB902835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift */,
-				8895CB912835618A00CF5993 /* ANAdAdapterNativeAdMob.swift */,
 			);
 			path = SimpleMediation;
 			sourceTree = "<group>";
@@ -249,6 +249,7 @@
 		0E82E4EF245CCA5600EC19E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				C6B9C4B8294D0998007C8C4B /* AppNexusNativeMacOSSDK.framework */,
 				0E82E4F6245CCA5600EC19E1 /* AppNexusNativeSDK.framework */,
 				0E82E4F4245CCA5600EC19E1 /* AppNexusSDK.framework */,
 			);
@@ -334,6 +335,7 @@
 		0EE0D07123FD7E0100D0C060 /* mediatedviews */ = {
 			isa = PBXGroup;
 			children = (
+				C6B9C4C32950FB51007C8C4B /* GoogleAdMob */,
 				0EE0D09123FD7E0100D0C060 /* SmartAd */,
 			);
 			name = mediatedviews;
@@ -491,6 +493,13 @@
 			remoteRef = 0E82E4F5245CCA5600EC19E1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C6B9C4B8294D0998007C8C4B /* AppNexusNativeMacOSSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeMacOSSDK.framework;
+			remoteRef = C6B9C4B7294D0998007C8C4B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -502,6 +511,7 @@
 				0EE0D06523FD764800D0C060 /* AdmobDFPInterstitialAd.storyboard in Resources */,
 				0EE0D06423FD764800D0C060 /* AdMobDFPNativeAd.storyboard in Resources */,
 				0E5660F323BE39B10088EB36 /* Assets.xcassets in Resources */,
+				C6B9C4C72950FB51007C8C4B /* GoogleAdMob in Resources */,
 				0EE0D04823FD6EEC00D0C060 /* LaunchScreen.storyboard in Resources */,
 				0E5660F123BE39AF0088EB36 /* Main.storyboard in Resources */,
 				0EE0D06B23FD7C1300D0C060 /* SmartAdBannerAd.storyboard in Resources */,
@@ -613,11 +623,8 @@
 				0EE0D04A23FD723800D0C060 /* AdmobDFPBannerAdViewController.swift in Sources */,
 				0EE0D04C23FD728200D0C060 /* AdmobDFPInterstitialAdViewController.swift in Sources */,
 				0EE0D06623FD764800D0C060 /* AdMobDFPNativeViewController.swift in Sources */,
-				883D7B5B2833C714004C2757 /* ANAdAdapterBannerAdMob.swift in Sources */,
 				0EE0D0C323FD7E0100D0C060 /* ANAdAdapterBannerSmartAd.m in Sources */,
-				8895CB922835618A00CF5993 /* ANAdAdapterInterstitialAdMob.swift in Sources */,
 				0EE0D0C523FD7E0100D0C060 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
-				8895CB932835618A00CF5993 /* ANAdAdapterNativeAdMob.swift in Sources */,
 				0EE0D0C423FD7E0100D0C060 /* ANAdAdapterSmartAdBase.m in Sources */,
 				0E5660EA23BE39AF0088EB36 /* AppDelegate.swift in Sources */,
 				0E5B044023BF618800DEBACE /* SimpleMediationAdTypeListViewController.swift in Sources */,
@@ -827,7 +834,7 @@
 					"\"$(SRCROOT)/SimpleMediation\"",
 				);
 				INFOPLIST_FILE = SimpleMediation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -864,7 +871,7 @@
 					"\"$(SRCROOT)/SimpleMediation\"",
 				);
 				INFOPLIST_FILE = SimpleMediation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -887,7 +894,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				INFOPLIST_FILE = SimpleCSR/SupportingFile/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -910,7 +917,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				INFOPLIST_FILE = SimpleCSR/SupportingFile/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

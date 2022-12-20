@@ -28,8 +28,8 @@
 
 @interface ANAdAdapterBaseDFP : NSObject
 
-+ (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
-+ (GAMRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
++ (GADRequest *)googleAdMobRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters rootViewController: (UIViewController *)rootViewController;
++ (GAMRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters rootViewController: (UIViewController *)rootViewController;
 + (ANAdResponseCode *)responseCodeFromRequestError:(NSError *)error;
 
 @end

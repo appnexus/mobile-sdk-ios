@@ -14,26 +14,31 @@
  */
 
 #import "ANAdAdapterBaseDFP.h"
-
+#import "ANGoogleMediationSettings.h"
 
 
 @implementation ANAdAdapterBaseDFP
 
-+ (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
++ (GADRequest *)googleAdMobRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters rootViewController: (UIViewController *)rootViewController {
     GADRequest *request = [GADRequest request];
-    return  [[self class] completeAdRequest:request fromTargetingParameters:targetingParameters];
+    return  [[self class] completeAdRequest:request fromTargetingParameters:targetingParameters rootViewController:rootViewController];
 }
 
-+ (GAMRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
++ (GAMRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters rootViewController: (UIViewController *)rootViewController
 {
     GAMRequest  *dfpRequest  = [GAMRequest request];
-    return  (GAMRequest *)[[self class] completeAdRequest:dfpRequest fromTargetingParameters:targetingParameters];
+    return  (GAMRequest *)[[self class] completeAdRequest:dfpRequest fromTargetingParameters:targetingParameters rootViewController:rootViewController];
 }
 
 + (GADRequest *)completeAdRequest: (GADRequest *)gadRequest
           fromTargetingParameters: (ANTargetingParameters *)targetingParameters
+               rootViewController: (UIViewController *)rootViewController
 {
-
+    if ([ANGoogleMediationSettings getIPadMultiSceneSupport] && rootViewController) {
+        if (@available(iOS 13.0, *)) {
+            gadRequest.scene = rootViewController.view.window.windowScene;
+        }
+    }
     NSString *content_url = targetingParameters.customKeywords[@"content_url"];
     if ([content_url length] > 0)
     {

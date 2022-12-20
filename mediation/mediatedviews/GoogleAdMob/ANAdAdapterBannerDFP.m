@@ -87,7 +87,7 @@ static CGFloat const kANTotalRetries = 10;
         gadAdSize = GADAdSizeFromCGSize(size);
     }
 
-    self.dfpRequest  = [ANAdAdapterBaseDFP dfpRequestFromTargetingParameters:targetingParameters ];
+    self.dfpRequest  = [ANAdAdapterBaseDFP dfpRequestFromTargetingParameters:targetingParameters rootViewController:rootViewController];
     self.secondPriceAvailable     = NO;
     if (ssparam.secondPrice) {
         //NB  round() is required because [@"0.01" floatValue] approximates 1 as 0.99... which, in turn, becomes an integer of 0.

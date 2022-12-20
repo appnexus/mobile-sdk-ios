@@ -33,9 +33,8 @@
                        targetingParameters:(nullable ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting AdMob interstitial");
-    GADRequest *request = [GADRequest request];
     [GADInterstitialAd loadWithAdUnitID:idString
-                                request:request
+                                request:[self createRequestFromTargetingParameters:targetingParameters]
                       completionHandler:^(GADInterstitialAd *ad, NSError *error) {
       if (error) {
         ANLogError(@"Failed to load interstitial ad with error: %@", [error localizedDescription]);
@@ -47,7 +46,6 @@
       self.interstitialAd = ad;
       self.interstitialAd.fullScreenContentDelegate = self;
     }];
-     [self createRequestFromTargetingParameters:targetingParameters];
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController
@@ -65,7 +63,7 @@
 }
 
 - (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
+    return [ANAdAdapterBaseDFP googleAdMobRequestFromTargetingParameters:targetingParameters rootViewController:nil];
 }
 
 #pragma mark GADFullScreenContentDelegate

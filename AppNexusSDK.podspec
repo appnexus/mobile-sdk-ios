@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "8.2.0"
+  s.version      = "8.3.0"
   s.platform     = :ios, "10.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
@@ -31,9 +31,9 @@ DESC
 
   s.subspec 'GoogleAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency  'Google-Mobile-Ads-SDK', '9.4.0'
+    subspec.dependency  'Google-Mobile-Ads-SDK', '9.14.0'
     subspec.source_files         = "mediation/mediatedviews/GoogleAdMob/*.{h,m}"
-    subspec.public_header_files  = "mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h"
+    subspec.public_header_files  = "mediation/mediatedviews/GoogleAdMob/ANGoogleMediationSettings.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Google-Mobile-Ads-SDK/**' }
   end
 

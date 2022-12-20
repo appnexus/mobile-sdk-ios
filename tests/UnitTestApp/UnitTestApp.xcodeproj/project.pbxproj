@@ -477,6 +477,8 @@
 		97FFD0532372DA7900412B20 /* ANAdResponseCSM_Banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */; };
 		97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */; };
 		97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */; };
+		C6E0448229522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */; };
+		C6E0448329522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */; };
 		FC230DF6269371440081A488 /* NSURLProtocol+WebKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB226936E000081A488 /* NSURLProtocol+WebKitSupport.swift */; };
 		FC230E02269371470081A488 /* WebKitURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB326936E000081A488 /* WebKitURLProtocol.swift */; };
 		FC230E0D2693714B0081A488 /* AuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */; };
@@ -1460,6 +1462,8 @@
 		97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseCSM_Banner.json; sourceTree = "<group>"; };
 		97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Native.json; sourceTree = "<group>"; };
 		97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Video.json; sourceTree = "<group>"; };
+		C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGoogleMediationSettings.m; sourceTree = "<group>"; };
+		C6E0448129522BAD00F1B32B /* ANGoogleMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGoogleMediationSettings.h; sourceTree = "<group>"; };
 		FC230DB226936E000081A488 /* NSURLProtocol+WebKitSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLProtocol+WebKitSupport.swift"; sourceTree = "<group>"; };
 		FC230DB326936E000081A488 /* WebKitURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebKitURLProtocol.swift; sourceTree = "<group>"; };
 		FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeSender.swift; sourceTree = "<group>"; };
@@ -1725,6 +1729,8 @@
 				0E44C3A722D7371100DF68D0 /* ANAdAdapterInterstitialDFP.m */,
 				0E44C3AF22D7371100DF68D0 /* ANAdAdapterNativeAdMob.h */,
 				0E44C3A922D7371100DF68D0 /* ANAdAdapterNativeAdMob.m */,
+				C6E0448129522BAD00F1B32B /* ANGoogleMediationSettings.h */,
+				C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */,
 			);
 			path = GoogleAdMob;
 			sourceTree = "<group>";
@@ -3305,6 +3311,7 @@
 				0E8C97BC21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */,
 				0E47017F2237B35B005CFFAC /* ANBannerAdView+ANTest.m in Sources */,
 				0E6612BC22CA736300DDC5CD /* ANGADUnifiedNativeAdView.m in Sources */,
+				C6E0448229522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */,
 				0EA5DE5324C0601800614011 /* ANHTTPCookieStorage.m in Sources */,
 				0EEFE175220073F0002B5F5F /* ANHTTPStubbingManager.m in Sources */,
 				0E336C3224620A890033C76F /* ANHTTPStubURLProtocol.m in Sources */,
@@ -3553,6 +3560,7 @@
 				FC2A258727B4388C004C57DB /* ANAdView+ANTest.m in Sources */,
 				FC2A258827B4388C004C57DB /* ANBannerAdView+ANTest.m in Sources */,
 				FC2A258927B4388C004C57DB /* ANGADUnifiedNativeAdView.m in Sources */,
+				C6E0448329522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */,
 				FC2A258A27B4388C004C57DB /* ANHTTPCookieStorage.m in Sources */,
 				FC2A258B27B4388C004C57DB /* ANHTTPStubbingManager.m in Sources */,
 				FC2A258C27B4388C004C57DB /* ANHTTPStubURLProtocol.m in Sources */,
