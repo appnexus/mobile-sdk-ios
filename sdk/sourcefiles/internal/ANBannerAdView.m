@@ -277,6 +277,22 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     return _videoAdOrientation;
 }
 
+-(void)setVideoAdWidth:(NSInteger)videoAdWidth{
+    _videoAdWidth = videoAdWidth;
+}
+
+- (NSInteger) getVideoAdWidth {
+    return _videoAdWidth;
+}
+
+-(void)setVideoAdHeight:(NSInteger)videoAdHeight{
+    _videoAdHeight = videoAdHeight;
+}
+
+- (NSInteger) getVideoAdHeight {
+    return _videoAdHeight;
+}
+
 - (CGSize)adSize {
     ANLogDebug(@"adSize returned %@", NSStringFromCGSize(_adSize));
     return  _adSize;
