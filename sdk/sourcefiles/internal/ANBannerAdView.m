@@ -72,6 +72,10 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdWidth;
+
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdHeight;
+
 @property (nonatomic, readwrite, assign) ANImpressionType impressionType;
 
 /**
@@ -139,6 +143,8 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
     _nativeAdRendererId           = 0;
     _videoAdOrientation           = ANUnknown;
+    _videoAdWidth                 = 0;
+    _videoAdHeight                = 0;
 
     self.allowSmallerSizes        = NO;
     self.loadAdHasBeenInvoked     = NO;
