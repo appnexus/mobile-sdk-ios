@@ -93,6 +93,10 @@
 //   setVideoAdOrientation is sufficient to BannerAd entry point.
 -(void)setVideoAdOrientation:(ANVideoOrientation)videoOrientation;
 
+-(void)setVideoAdWidth:(NSInteger)videoAdWidth;
+
+-(void)setVideoAdHeight:(NSInteger)videoAdHeight;
+
 @end
 
 

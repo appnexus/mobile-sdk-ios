@@ -50,6 +50,8 @@
 
 @property (nonatomic, readwrite, assign)  NSTimeInterval  checkViewableTimeInterval;
 @property (nonatomic, readonly, assign)  ANVideoOrientation  videoAdOrientation;
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdWidth;
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdHeight;
 
 
 - (instancetype)initWithSize:(CGSize)size
