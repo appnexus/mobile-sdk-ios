@@ -648,16 +648,22 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         
         if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
         {
-            NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
-            NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
-
-
-            if (width && height)
-            {
-                CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
-                _loadedAdSize = receivedSize;
+            
+            if (_adResponseInfo.adType == ANAdTypeVideo && _videoAdWidth > 0 && _videoAdHeight > 0) {
+                CGSize videoAdSize = CGSizeMake(_videoAdWidth, _videoAdHeight);
+                _loadedAdSize = videoAdSize;
             } else {
-                _loadedAdSize = self.adSize;
+                NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
+                NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
+
+
+                if (width && height)
+                {
+                    CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
+                    _loadedAdSize = receivedSize;
+                } else {
+                    _loadedAdSize = self.adSize;
+                }
             }
         }
 
