@@ -451,7 +451,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
             self.videoAdOrientation = [ANGlobal parseVideoOrientation:[paramsDictionary objectForKey:kANAspectRatio]];
         }
         self.videoAdWidth = [[paramsDictionary objectForKey:@"width"] integerValue];
-        self.videoAdHeight = [[paramsDictionary objectForKey:@"width"] integerValue];
+        self.videoAdHeight = [[paramsDictionary objectForKey:@"height"] integerValue];
         // For VideoAds's wait unitll adReady to create AdSession if not the adsession will run in limited access mode.
         self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:true];
         if ([self.videoDelegate respondsToSelector:@selector(videoAdReady)]) {
