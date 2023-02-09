@@ -72,7 +72,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
 @property (nonatomic, readwrite, strong)  NSString  *videoXML;
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
-
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdWidth;
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdHeight;
 @property (nonatomic, readwrite, strong)  ANAudioVolumeChangeListener* audioVolumeChange;
 
 @end
@@ -449,6 +450,8 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
         if(paramsDictionary.count > 0){
             self.videoAdOrientation = [ANGlobal parseVideoOrientation:[paramsDictionary objectForKey:kANAspectRatio]];
         }
+        self.videoAdWidth = [[paramsDictionary objectForKey:@"width"] integerValue];
+        self.videoAdHeight = [[paramsDictionary objectForKey:@"width"] integerValue];
         // For VideoAds's wait unitll adReady to create AdSession if not the adsession will run in limited access mode.
         self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:true];
         if ([self.videoDelegate respondsToSelector:@selector(videoAdReady)]) {

@@ -148,6 +148,14 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     return _videoAdOrientation;
 }
 
+- (NSInteger) getVideoWidth {
+    return _videoAdWidth;
+}
+
+- (NSInteger) getVideoHeight {
+    return _videoAdHeight;
+}
+
 
 #pragma mark - Public methods.
 

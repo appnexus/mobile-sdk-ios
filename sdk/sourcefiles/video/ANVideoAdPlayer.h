@@ -101,5 +101,9 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
  */
 - (ANVideoOrientation) getVideoOrientation;
 
+- (NSInteger) getVideoWidth;
+
+- (NSInteger) getVideoHeight;
+
 @end
 

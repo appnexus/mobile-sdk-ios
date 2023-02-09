@@ -282,6 +282,12 @@ Set the trafficSourceCode,  Specifies the third-party source of the impression.
  * @return Default VideoOrientation value ANUnknown, which indicates that aspectRatio can't be retrieved for the video.
  */
 - (ANVideoOrientation) getVideoOrientation;
+
+- (NSInteger) getVideoWidth;
+
+- (NSInteger) getVideoHeight;
+
+
 @end
 
 
