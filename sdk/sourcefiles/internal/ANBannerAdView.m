@@ -277,19 +277,19 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
     return _videoAdOrientation;
 }
 
--(void)setVideoAdWidth:(NSInteger)videoAdWidth{
-    _videoAdWidth = videoAdWidth;
+-(void)setVideoAdWidth:(NSInteger)videoWidth{
+    _videoAdWidth = videoWidth;
 }
 
-- (NSInteger) getVideoAdWidth {
+- (NSInteger) getVideoWidth {
     return _videoAdWidth;
 }
 
--(void)setVideoAdHeight:(NSInteger)videoAdHeight{
-    _videoAdHeight = videoAdHeight;
+-(void)setVideoAdHeight:(NSInteger)videoHeight{
+    _videoAdHeight = videoHeight;
 }
 
-- (NSInteger) getVideoAdHeight {
+- (NSInteger) getVideoHeight {
     return _videoAdHeight;
 }
 
