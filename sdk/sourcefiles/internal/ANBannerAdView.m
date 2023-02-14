@@ -525,13 +525,23 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 {
     [super layoutSubviews];
     
+    CGFloat  horizontalScaleFactor   = self.frame.size.width / [self.contentView an_originalFrame].size.width;
+    CGFloat  verticalScaleFactor     = self.frame.size.height / [self.contentView an_originalFrame].size.height;
+    
     if (self.shouldResizeAdToFitContainer)
     {
-        CGFloat  horizontalScaleFactor   = self.frame.size.width / [self.contentView an_originalFrame].size.width;
-        CGFloat  verticalScaleFactor     = self.frame.size.height / [self.contentView an_originalFrame].size.height;
-        CGFloat  scaleFactor             = horizontalScaleFactor < verticalScaleFactor ? horizontalScaleFactor : verticalScaleFactor;
+        CGFloat  scaleFactor = horizontalScaleFactor < verticalScaleFactor ? horizontalScaleFactor : verticalScaleFactor;
         CGAffineTransform transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
         self.contentView.transform = transform;
+    }
+    
+    if (self.shouldResizeVideoAd && _videoAdWidth > 0 && _videoAdHeight > 0) {
+        CGAffineTransform transform = CGAffineTransformMakeScale(horizontalScaleFactor, verticalScaleFactor);
+        self.contentView.transform = transform;
+        CGSize videoAdSize = CGSizeMake(_videoAdWidth, _videoAdHeight);
+        _loadedAdSize = videoAdSize;
+        self.adSize = _loadedAdSize;
+        
     }
 }
 

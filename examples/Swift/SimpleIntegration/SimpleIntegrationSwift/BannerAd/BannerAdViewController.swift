@@ -34,8 +34,8 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         
         // We want to center our ad on the screen.
         let screenRect: CGRect = UIScreen.main.bounds
-        let originX: CGFloat = (screenRect.size.width / 2) - CGFloat((adWidth / 2))
-        let originY: CGFloat = (screenRect.size.height / 2) - CGFloat((adHeight / 2))
+        let originX: CGFloat = 10
+        let originY: CGFloat = 100
         // Needed for when we create our ad view.
         
         let rect = CGRect(origin: CGPoint(x: originX,y :originY), size: CGSize(width: adWidth, height: adHeight))
@@ -43,17 +43,23 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         let size = CGSize(width: adWidth, height: adHeight)
         
         // Make a banner ad view.
-        let banner = ANBannerAdView(frame: rect, placementId: adID, adSize: size)
-        banner.rootViewController = self
-        banner.delegate = self
-        view.addSubview(banner)
+        banner = ANBannerAdView(frame: rect, placementId: adID, adSize: size)
+            banner!.forceCreativeId = 391378785 // for landscape video ad testing
+        banner!.forceCreativeId = 414238306 // for potrait video ad testing
+        banner!.rootViewController = self
+        banner!.delegate = self
+        banner!.shouldResizeVideoAd = true
+        view.addSubview(banner!)
         // Load an ad.
-        banner.loadAd()
+        banner!.loadAd()
         
     }
     
     func adDidReceiveAd(_ ad: Any) {
         print("Ad did receive ad")
+        self.banner!.frame = CGRect(x: self.banner!.frame.origin.x, y: self.banner!.frame.origin.y, width: CGFloat(self.banner!.getVideoWidth()), height: CGFloat(self.banner!.getVideoHeight()));
+        self.banner!.backgroundColor = .yellow
+        self.banner?.adSize = CGSize(width: self.banner!.getVideoWidth(), height: self.banner!.getVideoHeight())
     }
   
     func ad(_ ad: Any, requestFailedWithError error: Error) {
