@@ -18,6 +18,7 @@ import AppNexusSDK
 
 class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     var banner: ANBannerAdView?
+    var isSizeUpdated: Bool = false
     
     
     override func viewDidLoad() {
@@ -44,11 +45,11 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         
         // Make a banner ad view.
         banner = ANBannerAdView(frame: rect, placementId: adID, adSize: size)
-            banner!.forceCreativeId = 391378785 // for landscape video ad testing
+//        banner!.forceCreativeId = 391378785 // for landscape video ad testing
         banner!.forceCreativeId = 414238306 // for potrait video ad testing
         banner!.rootViewController = self
         banner!.delegate = self
-        banner!.shouldResizeVideoAd = true
+        banner!.shouldExpandVideoToFitScreenWidth = true
         view.addSubview(banner!)
         // Load an ad.
         banner!.loadAd()
@@ -58,8 +59,8 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     func adDidReceiveAd(_ ad: Any) {
         print("Ad did receive ad")
         self.banner!.frame = CGRect(x: self.banner!.frame.origin.x, y: self.banner!.frame.origin.y, width: CGFloat(self.banner!.getVideoWidth()), height: CGFloat(self.banner!.getVideoHeight()));
-        self.banner!.backgroundColor = .yellow
         self.banner?.adSize = CGSize(width: self.banner!.getVideoWidth(), height: self.banner!.getVideoHeight())
+        
     }
   
     func ad(_ ad: Any, requestFailedWithError error: Error) {

@@ -223,6 +223,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 @property (nonatomic, readwrite, assign) BOOL shouldResizeVideoAd;
 
+@property (nonatomic, readwrite, assign) BOOL shouldExpandVideoToFitScreenWidth;
+
 /**
  * Sets whether or not Video Ads(AppNexus Media Type:4) can serve on this Ad object.
  */
