@@ -162,7 +162,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
     
     + (void) addDefaultWebViewConfiguration
     {
-        [self prepareWebConfiguration];
+        configuration = [self prepareWebConfiguration];
     }
 
 
@@ -174,7 +174,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
             anSdkProcessPool = [[WKProcessPool alloc] init];
         });
         
-        configuration  = [[WKWebViewConfiguration alloc] init];
+        WKWebViewConfiguration *configuration  = [[WKWebViewConfiguration alloc] init];
         
         configuration.processPool                   = anSdkProcessPool;
         configuration.allowsInlineMediaPlayback     = YES;
