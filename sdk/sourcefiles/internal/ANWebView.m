@@ -31,13 +31,22 @@ WKWebViewConfiguration  *configuration = nil;
 
 NSMutableArray<ANWebView *> *webViewQueue;
 
+@interface ANWebView ()
+@property (nonatomic, readwrite, assign)  BOOL          isVASTVideoAd;
+@end
+
+
 @implementation ANWebView
     
     -(instancetype) initWithSize:(CGSize)size
     {
         [[self class] loadWebViewConfigurations];
-        
-        WKWebViewConfiguration *configuration = [[self class] webConfiguration];
+        WKWebViewConfiguration *configuration;
+        if(self.isVASTVideoAd){
+            configuration = [[self class] prepareWebConfiguration];
+        }else{
+            configuration = [[self class] webConfiguration];
+        }
         
         self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height) configuration:configuration];
         if (!self)  { return nil; }
@@ -91,7 +100,12 @@ NSMutableArray<ANWebView *> *webViewQueue;
         [self loadHTMLString:htmlContent baseURL:baseURL];
         return self;
     }
-    
+        
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL isVASTVideoAd:(BOOL)videoAd {
+        self.isVASTVideoAd  = videoAd;
+        return [self initWithSize:size URL:URL];
+    }
+
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL
     {
         self = [self initWithSize:size];
@@ -148,6 +162,11 @@ NSMutableArray<ANWebView *> *webViewQueue;
     
     + (void) addDefaultWebViewConfiguration
     {
+        configuration = [self prepareWebConfiguration];
+    }
+
+
+    +(WKWebViewConfiguration *)prepareWebConfiguration {
         static dispatch_once_t   processPoolToken;
         static WKProcessPool    *anSdkProcessPool;
         
@@ -155,11 +174,11 @@ NSMutableArray<ANWebView *> *webViewQueue;
             anSdkProcessPool = [[WKProcessPool alloc] init];
         });
         
-        configuration  = [[WKWebViewConfiguration alloc] init];
+        WKWebViewConfiguration *configuration  = [[WKWebViewConfiguration alloc] init];
         
         configuration.processPool                   = anSdkProcessPool;
         configuration.allowsInlineMediaPlayback     = YES;
-
+        
         if (@available(iOS 10.0, *)) {
             configuration.requiresUserActionForMediaPlayback = NO;
             configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
@@ -174,7 +193,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
                 configuration.requiresUserActionForMediaPlayback = YES;
             }
         }
-
+        
         WKUserContentController  *controller  = [[WKUserContentController alloc] init];
         configuration.userContentController = controller;
         
@@ -212,7 +231,9 @@ NSMutableArray<ANWebView *> *webViewQueue;
             [controller addUserScript:execCurrentPositionDeniedScript];
             
         }
+        return  configuration;
     }
+
 
 + (void) loadWebViewConfigurations {
     if(mraidScript == nil){

@@ -28,6 +28,7 @@
                          baseURL:(NSURL *)baseURL;
     
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL isVASTVideoAd:(BOOL)videoAd;
 
  -(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL;
 
