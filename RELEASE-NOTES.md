@@ -1,3 +1,8 @@
+## 8.5.0
+
+### Improvement/Bug Fixes
++ MS-5227 Fixed issue with loading multiple outstream video ads simultaneously
+
 ## 8.4.0
   Update version to match Android SDK. No changes from 8.3.0
 
