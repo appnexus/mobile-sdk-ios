@@ -56,7 +56,7 @@ let package = Package(
                 .headerSearchPath("./video"),
                 .headerSearchPath("./Viewability"),
             ]
-        )
+        ),
         .target(
             name: "GoogleMediationAdapter",
             dependencies: ["AppNexusSDK","GoogleMobileAds"],
