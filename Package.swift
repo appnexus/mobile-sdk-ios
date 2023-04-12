@@ -16,6 +16,15 @@ let package = Package(
                 "AppNexusSDK",
             ]
         ),
+        .library(
+            name: "GoogleMediationAdapter",
+            targets: [
+                "GoogleMediationAdapter",
+            ]
+        ),
+    ],
+    dependencies: [
+        .package(name: "GoogleMobileAds", url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", .exact("10.3.0"))
     ],
     targets: [
         .binaryTarget(
@@ -46,6 +55,14 @@ let package = Package(
                 .headerSearchPath("./native/internal/NativeRendering"),
                 .headerSearchPath("./video"),
                 .headerSearchPath("./Viewability"),
+            ]
+        )
+        .target(
+            name: "GoogleMediationAdapter",
+            dependencies: ["AppNexusSDK","GoogleMobileAds"],
+            path: "mediation/mediatedviews/GoogleAdMob",
+            cSettings: [
+                .headerSearchPath("./"),
             ]
         )
     ]
