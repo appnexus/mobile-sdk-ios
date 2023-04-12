@@ -22,6 +22,12 @@ let package = Package(
                 "GoogleMediationAdapter",
             ]
         ),
+        .library(
+            name: "SmartAdMediationAdapter",
+            targets: [
+                "SmartAdMediationAdapter",
+            ]
+        ),
     ],
     dependencies: [
         .package(name: "GoogleMobileAds", url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", .exact("10.3.0"))
@@ -61,6 +67,14 @@ let package = Package(
             name: "GoogleMediationAdapter",
             dependencies: ["AppNexusSDK","GoogleMobileAds"],
             path: "mediation/mediatedviews/GoogleAdMob",
+            cSettings: [
+                .headerSearchPath("./"),
+            ]
+        ),
+        .target(
+            name: "SmartAdMediationAdapter",
+            dependencies: ["AppNexusSDK"],
+            path: "mediation/mediatedviews/SmartAd",
             cSettings: [
                 .headerSearchPath("./"),
             ]
