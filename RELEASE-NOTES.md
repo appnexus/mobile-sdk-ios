@@ -1,3 +1,11 @@
+## 8.6.0
+
+### Improvement/Bug Fixes
++ MS-5281 Added Swift Package Manager support for Google Mediation Adapter
+
+### Mediation / CSR partner updates
++ Upgraded Google AdMob SDK from 9.14.0 to 10.3.0
+
 ## 8.5.0
 
 ### Improvement/Bug Fixes
