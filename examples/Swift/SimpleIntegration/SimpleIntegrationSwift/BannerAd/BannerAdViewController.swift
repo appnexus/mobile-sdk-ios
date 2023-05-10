@@ -36,7 +36,7 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         banner = ANBannerAdView(frame: adViewContainer.bounds, placementId: adID)
         banner!.adSizes = [NSValue.init(cgSize: CGSize(width: 320, height: 250)),
                                NSValue.init(cgSize: CGSize(width: 400, height: 300))]
-        //banner!.forceCreativeId = 182434863 // for landscape video ad testing
+        banner!.forceCreativeId = 182434863 // for landscape video ad testing
         banner!.forceCreativeId = 414238306 // for potrait video ad testing
         banner!.rootViewController = self
         banner!.delegate = self
@@ -50,7 +50,9 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         //New API Option - 2 - end
         
         //New API Option - 3 - start
-        
+        ANVideoPlayerSettings.sharedInstance().landscapeBannerVideoPlayerSize = CGSize(width: 300, height: 250)
+        ANVideoPlayerSettings.sharedInstance().portraitBannerVideoPlayerSize = CGSize(width: 300, height: 400)
+        ANVideoPlayerSettings.sharedInstance().squareBannerVideoPlayerSize = CGSize(width: 200, height: 200)
         //New API Option - 3 - end
         
         
@@ -67,7 +69,7 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
             print("Banner:: Height= \(String(describing: banner?.loadedAdSize.height))")
             
             
-            var videoOrientation = banner?.getVideoOrientation()
+            let videoOrientation = banner?.getVideoOrientation()
             switch (videoOrientation){
             case .portrait:
                 print("Banner:: Video Orientation Portrait")

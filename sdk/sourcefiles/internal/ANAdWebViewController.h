@@ -162,6 +162,7 @@
 @protocol ANAdWebViewControllerVideoDelegate <NSObject>
 
 -(void) videoAdReady;
+-(void) videoAdResizeBasedOnVideoOrientation: (ANVideoOrientation)videoOrientation;
 -(void) videoAdLoadFailed:(NSError *)error withAdResponseInfo:(ANAdResponseInfo *)adResponseInfo;
 - (void) videoAdError:(NSError *)error;
 

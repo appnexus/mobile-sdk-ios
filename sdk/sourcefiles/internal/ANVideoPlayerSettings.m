@@ -70,6 +70,9 @@ NSString * const  ANSkipOffset = @"videoOffset";
         videoSettings.showTopBar = YES;
         videoSettings.showSkip = YES;
         videoSettings.skipOffset = 5;
+        videoSettings.landscapeBannerVideoPlayerSize = CGSizeMake(1, 1);
+        videoSettings.portraitBannerVideoPlayerSize = CGSizeMake(1, 1);
+        videoSettings.squareBannerVideoPlayerSize = CGSizeMake(1, 1);
         
     });
     return videoSettings;

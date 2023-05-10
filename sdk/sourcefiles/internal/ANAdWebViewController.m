@@ -449,6 +449,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     {
         if(paramsDictionary.count > 0){
             self.videoAdOrientation = [ANGlobal parseVideoOrientation:[paramsDictionary objectForKey:kANAspectRatio]];
+            if ([self.videoDelegate respondsToSelector:@selector(videoAdResizeBasedOnVideoOrientation:)]) {
+                [self.videoDelegate videoAdResizeBasedOnVideoOrientation:_videoAdOrientation];
+            }
         }
         self.videoAdWidth = [[paramsDictionary objectForKey:@"width"] integerValue];
         self.videoAdHeight = [[paramsDictionary objectForKey:@"height"] integerValue];

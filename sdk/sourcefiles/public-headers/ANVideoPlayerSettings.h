@@ -71,6 +71,12 @@ typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
 //Configure the skip offset on the video player
 @property (nonatomic, assign) NSInteger skipOffset;
 
+@property (nonatomic, assign) CGSize landscapeBannerVideoPlayerSize;
+
+@property (nonatomic, assign) CGSize portraitBannerVideoPlayerSize;
+
+@property (nonatomic, assign) CGSize squareBannerVideoPlayerSize;
+
 + (nonnull instancetype)sharedInstance;
 
 

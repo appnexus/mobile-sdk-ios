@@ -37,6 +37,7 @@
 #import "ANAdView+PrivateMethods.h"
 #import "ANMultiAdRequest+PrivateMethods.h"
 #import "ANVideoAdProcessor.h"
+#import "ANVideoPlayerSettings.h"
 
 
 
@@ -481,6 +482,29 @@
             if ([self.delegate respondsToSelector:@selector(setVideoAdOrientation:)]) {
                 [self.delegate setVideoAdOrientation:controller.videoAdOrientation];
             }
+            
+            CGSize   playerSize    = kANAdSize1x1;
+            switch (controller.videoAdOrientation){
+                case ANPortrait:
+                    playerSize = ANVideoPlayerSettings.sharedInstance.portraitBannerVideoPlayerSize;
+                    break;
+                case ANSquare:
+                    playerSize = ANVideoPlayerSettings.sharedInstance.squareBannerVideoPlayerSize;
+                    break;
+                case ANLandscape:
+                case ANUnknown:
+                    playerSize = ANVideoPlayerSettings.sharedInstance.landscapeBannerVideoPlayerSize;
+                    break;
+            }
+            
+            if (!CGSizeEqualToSize(playerSize, CGSizeMake(1, 1))) {
+                ANBaseAdObject  *videoAd  = (ANBaseAdObject *)self.adObjectHandler;
+                videoAd.width=[NSString stringWithFormat:@"%f", playerSize.width];
+                videoAd.height=[NSString stringWithFormat:@"%f", playerSize.height];
+            }
+            
+            
+            
         }
         
         if (controller.videoAdWidth) {

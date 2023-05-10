@@ -28,6 +28,7 @@
 #import "ANANJAMImplementation.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANOMIDImplementation.h"
+#import "ANVideoPlayerSettings.h"
 
 
 static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
@@ -1010,6 +1011,38 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     [self.VASTVideofullScreenController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     self.VASTVideofullScreenController = nil;
     self.isFullscreen = NO;
+}
+
+- (void) videoAdResizeBasedOnVideoOrientation:(ANVideoOrientation)videoOrientation
+{
+    
+//    UIView  *contentView  = videoAd.contentView;
+    UIView  *contentView = self.webViewController.contentView;
+    CGSize   playerSize    = kANAdSize1x1;
+    
+    switch (videoOrientation){
+        case ANPortrait:
+            playerSize = ANVideoPlayerSettings.sharedInstance.portraitBannerVideoPlayerSize;
+            break;
+        case ANSquare:
+            playerSize = ANVideoPlayerSettings.sharedInstance.squareBannerVideoPlayerSize;
+            break;
+        case ANLandscape:
+        case ANUnknown:
+            playerSize = ANVideoPlayerSettings.sharedInstance.landscapeBannerVideoPlayerSize;
+            break;
+    }
+    
+    if (!CGSizeEqualToSize(playerSize, CGSizeMake(1, 1))) {
+        CGRect  updatedRect  = CGRectMake(0, 0, playerSize.width, playerSize.height);
+        [self setFrame:updatedRect];
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        [contentView an_constrainToSizeOfSuperview];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                                   yAttribute:NSLayoutAttributeTop];
+    }
+
 }
 
 
