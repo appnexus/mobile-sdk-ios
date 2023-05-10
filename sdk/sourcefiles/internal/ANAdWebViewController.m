@@ -191,7 +191,7 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
     
-    _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
+    _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl] isVASTVideoAd:true];
     self.firstNavigation = _webView.navigation;
     [self loadWebViewWithUserScripts];
     

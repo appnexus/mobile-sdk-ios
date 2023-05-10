@@ -1,3 +1,19 @@
+## 8.6.0
+
+### Improvement/Bug Fixes
++ MS-5281 Added Swift Package Manager support for Google Mediation Adapter
+
+### Mediation / CSR partner updates
++ Upgraded Google AdMob SDK from 9.14.0 to 10.3.0
+
+## 8.5.0
+
+### Improvement/Bug Fixes
++ MS-5227 Fixed issue with loading multiple outstream video ads simultaneously
+
+## 8.4.0
+  Update version to match Android SDK. No changes from 8.3.0
+
 ## 8.3.0
 
 ### Improvement/Bug Fixes
