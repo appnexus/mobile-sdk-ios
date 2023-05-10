@@ -17,8 +17,9 @@ import UIKit
 import AppNexusSDK
 
 class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
+    // MARK: IBOutlets
+    @IBOutlet weak var adViewContainer: UIView!
     var banner: ANBannerAdView?
-    var isSizeUpdated: Bool = false
     
     
     override func viewDidLoad() {
@@ -28,39 +29,66 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         
 
         self.title = "Banner Ad"
-
-        let adWidth: Int = 300
-        let adHeight: Int = 250
         let adID = "17058950"
         
-        // We want to center our ad on the screen.
-        let screenRect: CGRect = UIScreen.main.bounds
-        let originX: CGFloat = 10
-        let originY: CGFloat = 100
-        // Needed for when we create our ad view.
-        
-        let rect = CGRect(origin: CGPoint(x: originX,y :originY), size: CGSize(width: adWidth, height: adHeight))
-        
-        let size = CGSize(width: adWidth, height: adHeight)
         
         // Make a banner ad view.
-        banner = ANBannerAdView(frame: rect, placementId: adID, adSize: size)
-//        banner!.forceCreativeId = 391378785 // for landscape video ad testing
+        banner = ANBannerAdView(frame: adViewContainer.bounds, placementId: adID)
+        banner!.adSizes = [NSValue.init(cgSize: CGSize(width: 320, height: 250)),
+                               NSValue.init(cgSize: CGSize(width: 400, height: 300))]
+        //banner!.forceCreativeId = 182434863 // for landscape video ad testing
         banner!.forceCreativeId = 414238306 // for potrait video ad testing
         banner!.rootViewController = self
         banner!.delegate = self
-        banner!.shouldExpandVideoToFitScreenWidth = true
-        view.addSubview(banner!)
-        // Load an ad.
+        
+        //New API Option - 1 - start
+        //banner!.shouldResizeVideoAdToFitContainer = true
+        //New API Option - 1 - end
+        
+        //New API Option - 2 - start
+        //banner!.shouldExpandVideoToFitScreenWidth = true
+        //New API Option - 2 - end
+        
+        //New API Option - 3 - start
+        
+        //New API Option - 3 - end
+        
+        
+        adViewContainer.addSubview(banner!)
         banner!.loadAd()
         
     }
     
     func adDidReceiveAd(_ ad: Any) {
         print("Ad did receive ad")
-        self.banner!.frame = CGRect(x: self.banner!.frame.origin.x, y: self.banner!.frame.origin.y, width: CGFloat(self.banner!.getVideoWidth()), height: CGFloat(self.banner!.getVideoHeight()));
-        self.banner?.adSize = CGSize(width: self.banner!.getVideoWidth(), height: self.banner!.getVideoHeight())
-        
+        if(banner?.adResponseInfo?.adType == ANAdType.video){
+            print("OutStream Ad Loaded")
+            print("Banner:: Width= \(String(describing: banner?.loadedAdSize.width))")
+            print("Banner:: Height= \(String(describing: banner?.loadedAdSize.height))")
+            
+            
+            var videoOrientation = banner?.getVideoOrientation()
+            switch (videoOrientation){
+            case .portrait:
+                print("Banner:: Video Orientation Portrait")
+            case .landscape:
+                print("Banner:: Video Orientation Landscape")
+            case .square:
+                print("Banner:: Video Orientation Square")
+            case .unknown:
+                print("Banner:: Video Orientation Unknown")
+            default:
+                    break
+            }
+            
+            
+            // New API Option  - 4 - start
+            // Actual Width and Height of the video creative is exposed to publisher
+            print("Banner:: Video Creative Width= \(String(describing: banner?.getVideoWidth()))")
+            print("Banner:: Video Creative Height= \(String(describing: banner?.getVideoHeight()))")
+            // New API Option  - 4 - end
+        }
+    
     }
   
     func ad(_ ad: Any, requestFailedWithError error: Error) {

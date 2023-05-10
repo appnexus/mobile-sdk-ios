@@ -534,7 +534,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         self.contentView.transform = transform;
     }
     
-    if (self.shouldResizeVideoAd && _videoAdWidth > 0 && _videoAdHeight > 0) {
+    if (self.shouldResizeVideoAdToFitContainer && _videoAdWidth > 0 && _videoAdHeight > 0) {
         CGFloat  horizontalScaleFactor   = self.frame.size.width / [self.contentView an_originalFrame].size.width;
         CGFloat  verticalScaleFactor     = self.frame.size.height / [self.contentView an_originalFrame].size.height;
         CGAffineTransform transform = CGAffineTransformMakeScale(horizontalScaleFactor, verticalScaleFactor);
@@ -666,11 +666,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         
         if ( (!response.isLazy && !self.isLazySecondPassThroughAdUnit) || response.isLazy )
         {
-            
-            if (_adResponseInfo.adType == ANAdTypeVideo && _videoAdWidth > 0 && _videoAdHeight > 0) {
-                CGSize videoAdSize = CGSizeMake(_videoAdWidth, _videoAdHeight);
-                _loadedAdSize = videoAdSize;
-            } else {
+
                 NSString  *width   = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth  forObject:adObjectHandler];
                 NSString  *height  = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
 
@@ -682,7 +678,6 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
                 } else {
                     _loadedAdSize = self.adSize;
                 }
-            }
         }
 
 

@@ -221,7 +221,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
 
-@property (nonatomic, readwrite, assign) BOOL shouldResizeVideoAd;
+@property (nonatomic, readwrite, assign) BOOL shouldResizeVideoAdToFitContainer;
 
 @property (nonatomic, readwrite, assign) BOOL shouldExpandVideoToFitScreenWidth;
 
