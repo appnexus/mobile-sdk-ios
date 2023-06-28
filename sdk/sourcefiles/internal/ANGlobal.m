@@ -537,23 +537,29 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
             
             dispatch_async(dispatch_get_main_queue(),
                            ^{
-                webViewForUserAgent  = [WKWebView new];
-                [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
-                                      completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
-                 {
-                    if (error != nil) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentFailedToChangeNotification" object:nil userInfo:nil];
-                        ANLogError(@"%@ error: %@", NSStringFromSelector(_cmd), error);
-                    } else if ([userAgentString isKindOfClass:NSString.class]) {
-                        ANLogDebug(@"userAgentString=%@", userAgentString);
-                        anUserAgent = userAgentString;
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
-                        @synchronized (self) {
-                            userAgentQueryIsActive = NO;
+                @try {
+                    webViewForUserAgent  = [[WKWebView alloc] initWithFrame:CGRectZero];;
+                    [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
+                                          completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
+                     {
+                        if (error != nil) {
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentFailedToChangeNotification" object:nil userInfo:nil];
+                            ANLogError(@"%@ error: %@", NSStringFromSelector(_cmd), error);
+                        } else if ([userAgentString isKindOfClass:NSString.class]) {
+                            ANLogDebug(@"userAgentString=%@", userAgentString);
+                            anUserAgent = userAgentString;
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
+                            @synchronized (self) {
+                                userAgentQueryIsActive = NO;
+                            }
                         }
-                    }
-                    webViewForUserAgent = nil;
-                }];
+                        webViewForUserAgent = nil;
+                    }];
+                }
+                @catch (NSException *exception) {
+                    ANLogError(@"Failed to fetch UserAgent with exception  (%@)", exception);
+                }
+                
             });
         }
         ANLogDebug(@"userAgent=%@", anUserAgent);
