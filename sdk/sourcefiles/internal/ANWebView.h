@@ -29,6 +29,11 @@
     
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL isVASTVideoAd:(BOOL)videoAd;
+    -(instancetype) initWithSize:(CGSize)size
+                         content:(NSString *)htmlContent
+                         baseURL:(NSURL *)baseURL
+             isNativeRenderingAd:(BOOL)nativeRenderingAd;
+
 
  -(void) loadWithSize:(CGSize)size content:(NSString *) contentString baseURL:(NSURL *)baseURL;
 

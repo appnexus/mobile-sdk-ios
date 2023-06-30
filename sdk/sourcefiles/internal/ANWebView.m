@@ -33,6 +33,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
 
 @interface ANWebView ()
 @property (nonatomic, readwrite, assign)  BOOL          isVASTVideoAd;
+@property (nonatomic, readwrite, assign)  BOOL          isNativeRenderingAd;
 @end
 
 
@@ -42,7 +43,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
     {
         [[self class] loadWebViewConfigurations];
         WKWebViewConfiguration *configuration;
-        if(self.isVASTVideoAd){
+        if(self.isVASTVideoAd || self.isNativeRenderingAd){
             configuration = [[self class] prepareWebConfiguration];
         }else{
             configuration = [[self class] webConfiguration];
@@ -99,6 +100,13 @@ NSMutableArray<ANWebView *> *webViewQueue;
 
         [self loadHTMLString:htmlContent baseURL:baseURL];
         return self;
+    }
+
+    -(instancetype) initWithSize:(CGSize)size content:(NSString *)htmlContent baseURL:(NSURL *)baseURL isNativeRenderingAd:(BOOL)nativeRenderingAd
+    {
+        self.isNativeRenderingAd = nativeRenderingAd;
+        return [self initWithSize:size content:htmlContent baseURL:baseURL];
+        
     }
         
     -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL isVASTVideoAd:(BOOL)videoAd {
