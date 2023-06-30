@@ -225,6 +225,12 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite) BOOL shouldAllowVideoDemand;
 
+@property (nonatomic, readwrite, assign) CGSize landscapeBannerVideoPlayerSize;
+
+@property (nonatomic, readwrite, assign) CGSize portraitBannerVideoPlayerSize;
+
+@property (nonatomic, readwrite, assign) CGSize squareBannerVideoPlayerSize;
+
 /**
  * Sets whether or not Native Ads(AppNexus Media Type:12) can serve on this Ad object.
  *

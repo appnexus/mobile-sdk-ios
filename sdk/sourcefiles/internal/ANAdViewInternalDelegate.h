@@ -66,6 +66,9 @@
 @protocol ANBannerAdViewInternalDelegate <ANAdViewInternalDelegate>
 
 - (NSNumber *)transitionInProgress;
+- (CGSize) landscapeBannerVideoPlayerSize;
+- (CGSize) portraitBannerVideoPlayerSize;
+- (CGSize) squareBannerVideoPlayerSize;
 
 @end
 

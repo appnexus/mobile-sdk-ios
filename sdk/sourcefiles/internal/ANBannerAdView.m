@@ -72,6 +72,10 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdWidth;
+
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdHeight;
+
 @property (nonatomic, readwrite, assign) ANImpressionType impressionType;
 
 /**
@@ -113,8 +117,10 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 @synthesize  adResponseInfo                 = _adResponseInfo;
 @synthesize  minDuration                    = __minDuration;
 @synthesize  maxDuration                    = __maxDuration;
-
 @synthesize  enableLazyLoad                 = _enableLazyLoad;
+@synthesize  landscapeBannerVideoPlayerSize                 = _landscapeBannerVideoPlayerSize;
+@synthesize  portraitBannerVideoPlayerSize                 = _portraitBannerVideoPlayerSize;
+@synthesize  squareBannerVideoPlayerSize                 = _squareBannerVideoPlayerSize;
 
 
 #pragma mark - Lifecycle.
@@ -139,6 +145,11 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
     _nativeAdRendererId           = 0;
     _videoAdOrientation           = ANUnknown;
+    _videoAdWidth                 = 0;
+    _videoAdHeight                = 0;
+    _landscapeBannerVideoPlayerSize = CGSizeMake(1, 1);
+    _portraitBannerVideoPlayerSize = CGSizeMake(1, 1);
+    _squareBannerVideoPlayerSize = CGSizeMake(1, 1);
 
     self.allowSmallerSizes        = NO;
     self.loadAdHasBeenInvoked     = NO;
@@ -269,6 +280,22 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
 
 - (ANVideoOrientation) getVideoOrientation {
     return _videoAdOrientation;
+}
+
+-(void)setVideoAdWidth:(NSInteger)videoWidth{
+    _videoAdWidth = videoWidth;
+}
+
+- (NSInteger) getVideoWidth {
+    return _videoAdWidth;
+}
+
+-(void)setVideoAdHeight:(NSInteger)videoHeight{
+    _videoAdHeight = videoHeight;
+}
+
+- (NSInteger) getVideoHeight {
+    return _videoAdHeight;
 }
 
 - (CGSize)adSize {
@@ -659,6 +686,16 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         //
         if(self.contentView == nil){
             self.contentView = adObject;
+        }
+        
+        // Once the contentView is set Video will resize based on user set size(landscape/portrait/squareBannerVideoPlayerSize),
+        // we need to update the loaded Ad Size
+        if ((_adResponseInfo.adType == ANAdTypeVideo))
+        {
+            if([self.contentView isKindOfClass:[ANMRAIDContainerView class]]){
+                ANMRAIDContainerView *adView = (ANMRAIDContainerView *)self.contentView;
+                _loadedAdSize = adView.webViewController.videoPlayerSize;
+            }
         }
 
         // Only Fire OMID Impression here for Begin to Render Cases. If it is Begin To Render then impression would have already fired from [ANAdFetcher fireImpressionTrackersEarly]
