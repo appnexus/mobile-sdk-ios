@@ -40,6 +40,8 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 @property (nonatomic, strong)             NSString                 *vastURLContent;
 @property (nonatomic, strong)             NSString                 *vastXMLContent;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdWidth;
+@property (nonatomic, readwrite, assign)  NSInteger  videoAdHeight;
 
 @property (nonatomic, readonly)  ANClickThroughAction   clickThroughAction;
 @property (nonatomic, readonly)  BOOL                   landingPageLoadsInBackground;
@@ -62,6 +64,8 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
     _vastURLContent = @"";
     _vastXMLContent = @"";
     _videoAdOrientation     = ANUnknown;
+    _videoAdWidth     = 0;
+    _videoAdHeight     = 0;
     return self;
 }
 
@@ -142,6 +146,14 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 - (ANVideoOrientation) getVideoOrientation {
     return _videoAdOrientation;
+}
+
+- (NSInteger) getVideoWidth {
+    return _videoAdWidth;
+}
+
+- (NSInteger) getVideoHeight {
+    return _videoAdHeight;
 }
 
 
@@ -307,6 +319,8 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }
+            self.videoAdWidth = [[paramsDictionary objectForKey:@"width"] integerValue];
+            self.videoAdHeight = [[paramsDictionary objectForKey:@"height"] integerValue];
         }
         if ([self.delegate respondsToSelector:@selector(videoAdReady)]) {
             [self.delegate videoAdReady];

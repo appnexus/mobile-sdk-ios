@@ -215,6 +215,38 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
             [self addSupplementaryCustomCloseRegion];
         }
     }
+    
+    
+    if ([_adViewDelegate conformsToProtocol:@protocol(ANBannerAdViewInternalDelegate)])
+    {
+        id<ANBannerAdViewInternalDelegate>  bannerDelegate  = (id<ANBannerAdViewInternalDelegate>)_adViewDelegate;
+        
+        UIView  *contentView = self.webViewController.contentView;
+        CGSize   newPlayerSize    = kANAdSize1x1;
+        switch (self.webViewController.videoAdOrientation){
+            case ANPortrait:
+                newPlayerSize = bannerDelegate.portraitBannerVideoPlayerSize;
+                break;
+            case ANSquare:
+                newPlayerSize = bannerDelegate.squareBannerVideoPlayerSize;
+                break;
+            case ANLandscape:
+            case ANUnknown:
+                newPlayerSize = bannerDelegate.landscapeBannerVideoPlayerSize;
+                break;
+        }
+        
+        if (!CGSizeEqualToSize(newPlayerSize, CGSizeMake(1, 1))) {
+            self.webViewController.videoPlayerSize = newPlayerSize;
+            CGRect  updatedRect  = CGRectMake(0, 0, newPlayerSize.width, newPlayerSize.height);
+            [self setFrame:updatedRect];
+            
+            contentView.translatesAutoresizingMaskIntoConstraints = NO;
+            [contentView an_constrainToSizeOfSuperview];
+            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                                       yAttribute:NSLayoutAttributeTop];
+        }
+    }
 }
 
 - (void)setAdInteractionInProgress:(BOOL)adInteractionInProgress {

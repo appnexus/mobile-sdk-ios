@@ -482,6 +482,18 @@
                 [self.delegate setVideoAdOrientation:controller.videoAdOrientation];
             }
         }
+        
+        if (controller.videoAdWidth) {
+            if ([self.delegate respondsToSelector:@selector(setVideoAdWidth:)]) {
+                [self.delegate setVideoAdWidth:controller.videoAdWidth];
+            }
+        }
+        
+        if (controller.videoAdHeight) {
+            if ([self.delegate respondsToSelector:@selector(setVideoAdHeight:)]) {
+                [self.delegate setVideoAdHeight:controller.videoAdHeight];
+            }
+        }
 
         fetcherResponse = [ANAdFetcherResponse responseWithAdObject: self.adView
                                                  andAdObjectHandler: self.adObjectHandler ];

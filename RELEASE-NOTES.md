@@ -1,3 +1,11 @@
+## 8.7.0
+
+### Improvement/Bug Fixes
++ MS-5346 Fixed issue where only last ad is rendered in a multi ad request for Banner Native Rendering
++ MS-5206 Added support for setting player size and getting video creative width and height for BannerVideo. New API introduced in ANBannerAdView landscapeBannerVideoPlayerSize, portraitBannerVideoPlayerSize, squareBannerVideoPlayerSize , getVideoWidth, getVideoHeight and In ANVideoAdPlayer getVideoWidth and getVideoHeight
++ MS-5344 Gracefully handle error to avoid crash during fetch User agent String
++ MS-5340 Fixed ModuleMap XCFramework Warning
+
 ## 8.6.0
 
 ### Improvement/Bug Fixes
