@@ -156,7 +156,8 @@ static CGFloat const kANTotalRetries = 10;
     if (!self.secondPriceAvailable) {
         [self.delegate didLoadBannerAd:self.dfpBanner];
     }else{
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:kANWaitIntervalMilles target:self selector:@selector(adReceiveAd) userInfo:nil repeats:YES];
+        self.timer = [NSTimer timerWithTimeInterval:kANWaitIntervalMilles target:self selector:@selector(adReceiveAd) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timer  forMode:NSRunLoopCommonModes];
     }
 }
 
