@@ -67,6 +67,8 @@
                                              selector:@selector(requestCompleted:)
                                                  name:kANHTTPStubURLProtocolRequestDidLoadNotification
                                                object:nil];
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
     
 }
 
@@ -178,7 +180,7 @@
 }
 
 
-
+// AutoRefresh is not enabled for NativeRendering
 - (void) testBannerNativeRenderingAutoRefreshSet
 {
     [self stubRequestWithResponse:@"appnexus_bannerNative_rendering"];
@@ -192,7 +194,7 @@
     [self.multiFormatAd loadAd];
     
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval*2 handler:nil];
-    XCTAssertNotNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
+    XCTAssertNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
     
 }
 
@@ -218,6 +220,7 @@
     XCTAssertFalse(self.multiFormatAd.enableNativeRendering);
 }
 
+// AutoRefresh is not enabled for NativeRendering
 - (void)testEnableNativeRenderingWithRendererIdAndRefreshTimer
 {
     TESTTRACE();
@@ -233,7 +236,7 @@
     [self.multiFormatAd loadAd];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     
-    XCTAssertNotNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
+    XCTAssertNil(self.multiFormatAd.adFetcher.autoRefreshTimer);
 }
 
 - (void)testNativeRenderingUsesNativeWebViewController

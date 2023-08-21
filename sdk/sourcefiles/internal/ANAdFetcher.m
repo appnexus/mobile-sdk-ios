@@ -148,20 +148,23 @@
 
     // AdUnit case.
     //
-    // Stop auto-refreush timer for video, but start it for everything else,
+    // Stop auto-refreush timer for video and Native, but start it for everything else,
     //   unless it is the first pass for Lazy AdUnit.
     //
     if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate adFetcher:self didFinishRequestWithResponse:response];
     }
 
-    if (    [response.adObject isKindOfClass:[ANMRAIDContainerView class]]
-         && ((ANMRAIDContainerView *)response.adObject).isBannerVideo)
+    // Restrict Auto Refresh for Banner and Native
+    if ( (   [response.adObject isKindOfClass:[ANMRAIDContainerView class]]
+          && ((ANMRAIDContainerView *)response.adObject).isBannerVideo) || ([response.adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
     {
         [self stopAutoRefreshTimer];
         return;
     }
 
+    // This below condition should be exected only for a Regular Non-Lazy HTML Banner load. This should not be executed during both the first and second pass of lazyLoad HTML Banner.
+    // For Lazy load cases startAutoRefreshTimer is called from allocateAndSetWebviewFromCachedAdObjectHandler when second pass is running.
     BOOL  isLazyLoadSecondPass  = [self.delegate respondsToSelector:@selector(valueOfIsLazySecondPassThroughAdUnit)] && [self.delegate valueOfIsLazySecondPassThroughAdUnit];
     if (!response.isLazy && !isLazyLoadSecondPass)
     {
@@ -388,10 +391,23 @@
     if ([self.delegate respondsToSelector:@selector(enableNativeRendering)]) {
         enableNativeRendering = [self.delegate enableNativeRendering];
         if (([nativeAd.nativeRenderingUrl length] > 0) && enableNativeRendering){
+            
+            
             ANRTBNativeAdResponse *rtnNativeAdResponse = [[ANRTBNativeAdResponse alloc] init];
             rtnNativeAdResponse.nativeAdResponse = nativeAd ;
-            [self renderNativeAd:rtnNativeAdResponse];
-            return;
+            
+            // Lazy Load Return before rendering native ad during first pass.
+            if ([self.delegate respondsToSelector:@selector(valueOfEnableLazyLoad)] && [self.delegate valueOfEnableLazyLoad])
+            {
+                ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse lazyResponseWithAdObject: rtnNativeAdResponse
+                                                                                    andAdObjectHandler: self.adObjectHandler ];
+                [self processFinalResponse:fetcherResponse];
+
+                return;
+            }else{
+                [self renderNativeAd:rtnNativeAdResponse];
+                return;
+            }
         }
     }
     // Traditional native ad instance.
@@ -615,21 +631,34 @@
 
 - (BOOL)allocateAndSetWebviewFromCachedAdObjectHandler
 {
-    ANStandardAd  *lazyStandardAd  = (ANStandardAd *)self.adObjectHandler;
-
-    CGSize         sizeOfWebview   = [self getWebViewSizeForCreativeWidth: lazyStandardAd.width
-                                                                andHeight: lazyStandardAd.height];
-
-    // Optimistically restart activated autorefresh timer.
-    // Successful load of lazy AdUnit webview will stop autorefresh timer.
-    //
-    [self restartAutoRefreshTimer];
-    [self startAutoRefreshTimer];
     
     
-    return  [self allocateAndSetWebviewWithSize: sizeOfWebview
-                                        content: lazyStandardAd.content
-                                  isXMLForVideo: NO ];
+    
+    if ( [self.adObjectHandler isKindOfClass:[ANStandardAd class]] ) {
+        
+        ANStandardAd  *lazyStandardAd  = (ANStandardAd *)self.adObjectHandler;
+
+        CGSize         sizeOfWebview   = [self getWebViewSizeForCreativeWidth: lazyStandardAd.width
+                                                                    andHeight: lazyStandardAd.height];
+
+        // Optimistically restart activated autorefresh timer.
+        // Successful load of lazy AdUnit webview will stop autorefresh timer.
+        //
+        [self restartAutoRefreshTimer];
+        [self startAutoRefreshTimer];
+        
+        
+        return  [self allocateAndSetWebviewWithSize: sizeOfWebview
+                                            content: lazyStandardAd.content
+                                      isXMLForVideo: NO ];
+        
+    } else if ( [self.adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] ) {
+        ANRTBNativeAdResponse *rtnNativeAdResponse = [[ANRTBNativeAdResponse alloc] init];
+        rtnNativeAdResponse.nativeAdResponse = self.adObjectHandler ;
+        [self renderNativeAd:rtnNativeAdResponse];
+        return YES;
+    }
+    return NO;
 }
 
 
