@@ -17,7 +17,11 @@
 
 #import "ANNativeAdResponse.h"
 #if !APPNEXUS_NATIVE_MACOS_SDK
-    @import OMSDK_Appnexus;
+        #if __has_include(<OMSDK_Appnexus/OMIDImports.h>)
+            #import <OMSDK_Appnexus/OMIDImports.h>
+        #else
+            #import <OMIDImports.h>
+        #endif
     #import "ANVerificationScriptResource.h"
 #else
     #import <AppKit/AppKit.h>

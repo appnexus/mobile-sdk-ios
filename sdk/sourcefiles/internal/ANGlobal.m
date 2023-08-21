@@ -43,6 +43,10 @@ NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey               
 NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
 NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                             = @"kANUniversalAdFetcherAdResponseKey";
 
+
+#define kANSDKResourcesBundleName @"ANSDKResources"
+
+
 NSMutableURLRequest  *utDefaultDomainMutableRequest = nil;
 NSMutableURLRequest  *utSimpleDomainMutableRequest = nil;
 
@@ -301,7 +305,15 @@ NSBundle *__nonnull ANResourcesBundle() {
     static ANGlobal *globalInstance;
     dispatch_once(&resBundleToken, ^{
         globalInstance = [[ANGlobal alloc] init];
-        resBundle = [NSBundle bundleForClass:[globalInstance class]];
+        NSBundle *resourcesBundle  = [NSBundle bundleForClass:[globalInstance class]];
+        
+        NSURL *resourcesBundleURL = [resourcesBundle URLForResource:kANSDKResourcesBundleName withExtension:@"bundle"];
+        if(resourcesBundleURL){
+            resBundle = [NSBundle bundleWithURL:resourcesBundleURL];
+        }else{
+            resBundle = resourcesBundle;
+        }
+        
     });
     return resBundle;
 #endif
