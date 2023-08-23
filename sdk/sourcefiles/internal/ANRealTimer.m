@@ -18,7 +18,7 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "NSPointerArray+ANCategory.h"
-
+#import "ANSDKSettings.h"
 @interface ANRealTimer()
 
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
@@ -53,15 +53,25 @@
 
 - (void) scheduleTimer {
     if(_viewabilityTimer == nil){
-    __weak ANRealTimer *weakSelf = self;
-    _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
-                                                                     block:^ {
-            ANRealTimer *strongSelf = weakSelf;
-                                                                        
-                                                                        [strongSelf notifyListenerObjects];
-                                                                     }
-                                                                   repeats:YES];
+        __weak ANRealTimer *weakSelf = self;
         
+        if ([[ANSDKSettings sharedInstance] enableContinuousTracking]) {
+            _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+                                                                     block:^ {
+                ANRealTimer *strongSelf = weakSelf;
+                
+                [strongSelf notifyListenerObjects];
+            } repeats:YES mode:NSRunLoopCommonModes];
+            
+        }else{
+            _viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+                                                                     block:^ {
+                ANRealTimer *strongSelf = weakSelf;
+                
+                [strongSelf notifyListenerObjects];
+            } repeats:YES];
+            
+        }
     }
 }
 

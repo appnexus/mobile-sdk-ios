@@ -15,7 +15,14 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-@import OMSDK_Appnexus;
+
+#if __has_include(<OMSDK_Appnexus/OMIDImports.h>)
+    #import <OMSDK_Appnexus/OMIDImports.h>
+#else
+
+#import <OMIDImports.h>
+#endif
+
 
 #pragma mark - Constants
 

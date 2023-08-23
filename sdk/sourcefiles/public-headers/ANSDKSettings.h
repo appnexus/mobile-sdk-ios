@@ -128,4 +128,10 @@ An AppNexus disableIDFVUsage  is a boolean value which exclude the IDFV field in
 @property (nonatomic, readwrite, strong, nullable) NSString *sdkBrowserDismissTitle;
 
 
+/**
+NSRunLoopCommonModes  ensure that the timers can function in various run loop modes simultaneously
+ */
+@property (nonatomic) BOOL enableContinuousTracking;
+
+
 @end

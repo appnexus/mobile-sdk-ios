@@ -1,0 +1,282 @@
+<!--
+ /*
+ *    Copyright 2017 APPNEXUS INC
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+ -->
+
+<!DOCTYPE html>
+
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    </head>
+    
+    <body style="margin: 0;padding: 0;">
+        <script src="MobileVastPlayer.js"></script>
+        <script src="ASTMediationManager.js"></script>
+        <script src="omsdk.js"></script>
+        <script src="optionsparser.js"></script>
+        <div id="video-content" style="background-color:#000000"  class="omid-element"></div>
+        <script>
+            var  ua                   = getMobileOperatingSystem();
+            var  targetId             = "video-content";
+            var  targetElement        = document.getElementById(targetId);
+            
+        function createVastPlayerWithContent(vastContent, videoOptions)
+        {
+            try {
+                console.log(':: createVastPlayerWithContent');
+                //vastContent = "VAST_CONTENT_FOR_TESTING";
+            
+                //  atob is used to decode vastContent from Base64String to VastXML
+                var videoVastContent = atob(vastContent);
+                
+                var options = constructVideoPlayerOptions(videoOptions)
+                options.targetElementId  = targetId;
+                
+                setInitialLayoutParams();
+                
+                APNVideo_MobileVastPlayer.playVast( targetElement,
+                                                   options,
+                                                   videoVastContent,
+                                                   function(eventName) {
+                                                   console.log(eventName);
+                                                   sendBackMessage(eventName);
+                                                   }
+                                                   );
+                                                   
+            } catch (e) {
+                console.log('Issue loading video into document :' + e.message);
+            }
+            
+        }
+        
+        function onSelectAdForASTResponse(adId, uuid, mediationManagerResponse) {
+            console.log(":: AST Notification for: " + adId + " uuid=" + uuid);
+            
+            var content;
+            if (mediationManagerResponse) {
+                content = retrieveContent(mediationManagerResponse);
+            }
+            if (content) {
+                createVastPlayerWithContent(btoa(content));
+            } else {
+                var nativeParams = {
+                    "event": "video-error",
+                    "params": {}
+                };
+                sendBackMessage(nativeParams);
+            }
+        }
+        
+        
+        function sendBackMessage(message)
+        {
+            if (ua == "iOS") {
+                window.webkit.messageHandlers.observe.postMessage(message);
+            } else {
+                var jsonString = JSON.stringify(message);
+                window.location = "video://" + jsonString;
+            }
+        }
+        
+        function viewabilityUpdate(isViewable) {
+            if (isViewable == "true") {
+                playAd();
+            } else {
+                pauseAd();
+            }
+        }
+        
+        // This method is intented to be private and should be called only from within this file.
+        // Native code should never call this method directly but instead call playAd();
+        function playVideoAd() {
+            resizePlayer();
+            APNVideo_MobileVastPlayer.sendPlay(targetId);
+        }
+
+        function playAd() {
+            console.log(":: sendPlay");
+            
+            playVideoAd();
+            var playInterval = window.setInterval(function () {
+                if (!getIsVideoPlaying()) {
+                    playVideoAd();
+                } else {
+                    window.clearInterval(playInterval);
+                }
+            }, 300);
+        }
+
+        function pauseAd() {
+            console.log(":: sendPause");
+            
+            pauseVideoAd();
+            var pauseInterval = window.setInterval(function () {
+                if (getIsVideoPlaying()) {
+                    pauseVideoAd();
+                } else {
+                    window.clearInterval(pauseInterval);
+                }
+            }, 300);
+        }
+
+        // This method is intented to be private and should be called only from within this file.
+        // Native code should never call this method directly but instead call pauseAd();
+        function pauseVideoAd() {
+            resizePlayer();
+            APNVideo_MobileVastPlayer.sendPause(targetId);
+        }
+
+        function getIsVideoPlaying() {
+            return APNVideo_MobileVastPlayer.getIsVideoPlaying(targetId);
+        }
+        
+        function getCurrentPlayHeadTime() {
+            var playHeadTime = APNVideo_MobileVastPlayer.getCurrentPlayHeadTime(targetId);
+            return playHeadTime;
+        }
+        
+        
+        //
+        // Player size and layout.
+        //
+        
+        // Used only during first time Layout initialization. i.e during createVastPlayerWithContent
+        // This makes it possible to create the Div in the largest size possible
+        // And a better video will be selected.
+        //
+        function setInitialLayoutParams()
+        {
+            if (targetElement !== undefined)
+            {
+                targetElement.style.position  = "absolute";
+                targetElement.style.left      = 0;
+                targetElement.style.top       = 0;
+                targetElement.style.width     = getDimensionAsPixels(screen.width  * window.devicePixelRatio);
+                targetElement.style.height    = getDimensionAsPixels(screen.height * window.devicePixelRatio);
+            }
+        }
+        
+        // Use this when calling playAd or any other time after the initial call
+        // This will make sure that the Container div doesnot have scroll to the right or down
+        //
+        function setPlayerLayout()
+        {
+            if (targetElement !== undefined)
+            {
+                targetElement.style.position  = "absolute";
+                targetElement.style.left      = 0;
+                targetElement.style.width     = getDimensionAsPixels(window.innerWidth);
+                targetElement.style.height    = getDimensionAsPixels(window.innerHeight);
+                
+                if (targetElement.style.width == "0px" || targetElement.style.height == "0px")
+                {
+                    var maxScreenSize       = Math.max(screen.width, screen.height);
+                    targetElement.style.width   = getDimensionAsPixels(maxScreenSize);
+                    targetElement.style.height  = getDimensionAsPixels(maxScreenSize);
+                }
+                
+                targetElement.style.top = 0;
+            }
+        }
+        
+        function resizePlayer() {
+            
+            if (targetElement !== undefined)
+            {
+                setPlayerLayout();
+            }
+        }
+        
+        
+        //
+        // Mediation.
+        //
+        
+        function processMediationAd(tag) {
+            try {
+                console.log(":: processMediationAd()");
+                
+                var uri_dec = decodeURIComponent(tag);
+                var adId = Math.floor((Math.random() * 1000000) + 1);
+                var options = {
+                    "enableWaterfall": false
+                };
+                var jsonObject = JSON.parse(uri_dec);
+                APNVideo_AstMediationManager.selectAd(adId, jsonObject, options, onSelectAdForASTResponse);
+            } catch (e) {
+                console.log('Issue loading video into document :' + e.message);
+                var nativeParams = {
+                    "event": "video-error",
+                    "params": {}
+                };
+                sendBackMessage(nativeParams);
+            }
+        }
+        
+        function retrieveContent(mediationManagerResponse) {
+            if (mediationManagerResponse && mediationManagerResponse.hasOwnProperty("ad"))
+            {
+                var adObj = mediationManagerResponse.ad;
+                
+                if (adObj) {
+                    var csource = adObj.content_source;
+                    var atype = adObj.ad_type;
+                    
+                    if (csource && atype)
+                    {
+                        var cs = adObj[csource][atype].content;
+                        
+                        if (cs && cs.length > 0) {
+                            return cs;
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        
+        //
+        // Helper methods.
+        //
+        
+        function getMobileOperatingSystem() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // Windows Phone must come first because its UA also contains "Android"
+            if (/windows phone/i.test(userAgent)) {
+                return "Windows Phone";
+            }
+            
+            if (/android/i.test(userAgent)) {
+                return "Android";
+            }
+            
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "iOS";
+            }
+            
+            return "unknown";
+        }
+        
+        function getDimensionAsPixels(value) {
+            return value+"px";
+        }
+        
+            </script>
+    </body>
+</html>

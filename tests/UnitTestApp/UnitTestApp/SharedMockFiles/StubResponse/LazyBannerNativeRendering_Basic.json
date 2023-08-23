@@ -1,0 +1,59 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "uuid": "8353557F-4447-4E91-8D6A-CABE36A11EF3",
+            "tag_id": 17058950,
+            "auction_id": "5735320836295980025",
+            "nobid": false,
+            "no_ad_url": "https://nym1-ib.adnxs.com/it?an_audit=0&e=wqT_3QLVCaDVBAAAAwDWAAUBCJad-aYGEPnnxYKe_fzLTxjLzMLBmfrF0kcqNgkAAAkCABEJBywAABkAAABA4XqEPyEREgApEQkAMREb9I4BMIaZkQg47k5A7k5IAFAAWJSaeGAAaO2RkQF4AIABAYoBAJIBA1VTRJgBAaABAagBAbABALgBAcABAMgBAtABANgBAOABAPABAPoBDU1vYmlsZVNES0RlbW-KAip1ZignYScsIDM5NDQ5NzMsIDApO3VmKCdyJywgMTgyNDI2NTIxLCAwKTuSAvEDIUtWZDNiQWpteDVVUUVKbTNfbFlZQUNDVW1uZ3dCRGdBUUFSSTdrNVFocG1SQ0ZnQVlKc0VhQUJ3QW5qUXRnaUFBUUtJQWRDMkNKQUJBWmdCQWFBQkVxZ0JBN0FCQUxrQnI2OUtOYmI0NUQ3QkFhLXZTalcyLU9RLXlRRTRTN2toOGhmM1A5a0JBQUFBQUFBQThEX2dBUUQxQVFBQUFBQ1lBZ0NnQWdDMUFnQUFBQUM5QWdBQUFBREFBZ0RJQWdEUUFnRFlBZ0RnQWdEb0FnRDRBZ0NBQXdHWUF3RzZBd2xPV1UweU9qWTBPVG5nQTZORWlBUUFrQVFBbUFRQndRUUFBQUFBAVoMQU1rRQUIBQEYRFlCQUR4QgUMCQEcaUFYak1xa0YJDhxBQThELXhCUREOEEFBd1FVGQ0ATRkoDEFBRFIuKAAAMi4oAPA-T0FGQWZBRmlQZkdCUGdGamVUd0FZSUdBMVZUUklnR0FKQUdBWmdHQUtFRzhXamppTFg0NUQ2b0JnR3lCaVFKGXEEQVIdDABaHQwAaBkMQEM0QmdvLpoClQEhNGhSeFl3NvUBoGxKcDRJQVFvQURIeGFPT0l0ZmprUGpvSlRsbE5Nam8yTkRrNVFLTkVTEfUMUEFfVREMDEFBQVcdDABZHQwAYR0MAGMdDBBlQUNKQR0Q8PXYAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQNMTAuMjQ5Ljk2LjE5MKgE26cEsgQOCAAQARisAiD6ATAAOAK4BADABADIBADSBA8xMDA5NCNOWU0yOjY0OTnaBAIIAOAEAfAEmbf-VoIFIGNvbS54YW5kci5TaW1wbGVJbnRlZ3JhdGlvblN3aWZ0iAUBmAUAoAX___________8BwAUAyQUAAAAAAADwP9IFCQkAAAAAAAAAANgFAeAFAfAFAfoFBAgAEACQBgGYBgC4BgDBBgCFGyjwv9AG1jPaBhYKEAUQHQFwEAAYAOAGDPIGAggAgAcBiAcAoAdByAeyhQbSBw0VYgEmCNoHBgFddBgA4AcA6gcCCADwBwCKCAIQAJUIAACAP5gIAsAIAA..&s=190c89a24a153fbf1d0e36d38f0fa791ace9ebeb",
+            "timeout_ms": 0,
+            "ad_profile_id": 1266762,
+            "rtb_video_fallback": false,
+            "ads": [
+                {
+                    "cpm": 0.000010,
+                    "cpm_publisher_currency": 0.000010,
+                    "publisher_currency_code": "$",
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 10094,
+                    "creative_id": 182426521,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 0,
+                    "brand_id": 1,
+                    "renderer_url": "https://dcdn.adnxs.com/renderer-content/721203a3-d032-46fb-b916-a260667ed18a",
+                    "renderer_id": 6640,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"https://cdn.adnxs.com/v/app/239/trk.js#app;vk=appnexus.com-omid;tv=app-native-23hs;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;tag_id=17058950;cb=https%3A%2F%2Fnym1-ib.adnxs.com%2Fvevent%3Fan_audit%3D0%26e%3DwqT_3QLdCfBD3QQAAAMA1gAFAQiWnfmmBhD558WCnv38y08Yy8zCwZn6xdJHKjYJ8WjjiLX45D4R8WjjiLX45D4ZAAAAQOF6hD8h8WgJGwApESQAMREbqDCGmZEIOO5OQO5OSAJQmbf-VliUmnhgAGjtkZEBeLKFBoABAYoBA1VTRJIFBvSBAZgBAaABAagBAbABALgBAcABBMgBAtABANgBAOABAPABAPoBDU1vYmlsZVNES0RlbW-KAip1ZignYScsIDM5NDQ5NzMsIDApO3VmKCdyJywgMTgyNDI2NTIxLCAwKTuSAvEDIUtWZDNiQWpteDVVUUVKbTNfbFlZQUNDVW1uZ3dCRGdBUUFSSTdrNVFocG1SQ0ZnQVlKc0VhQUJ3QW5qUXRnaUFBUUtJQWRDMkNKQUJBWmdCQWFBQkVxZ0JBN0FCQUxrQnI2OUtOYmI0NUQ3QkFhLXZTalcyLU9RLXlRRTRTN2toOGhmM1A5a0JBQUFBQUFBQThEX2dBUUQxQVFBQUFBQ1lBZ0NnQWdDMUFnQUFBQUM5QWdBQUFBREFBZ0RJQWdEUUFnRFlBZ0RnQWdEb0FnRDRBZ0NBQXdHWUF3RzZBd2xPV1UweU9qWTBPVG5nQTZORWlBUUFrQVFBbUFRQndRUUFBQUFBQUFBQUFNa0VBQUFBQUFBQUFBRFlCQUR4QkFBBZQBARxpQVhqTXFrRgEMAQEUOEQteEJRAQoJAQh3UVUJCQEBAE0ZKAxBQURSLigAADIuKADwPk9BRkFmQUZpUGZHQlBnRmplVHdBWUlHQTFWVFJJZ0dBSkFHQVpnR0FLRUc4V2pqaUxYNDVENm9CZ0d5QmlRSgFrDQEAUg0IAQEAWgEFDQEAaA0IIUxANEJnby6aApUBITRoUnhZd2oy9QGgbEpwNElBUW9BREh4YU9PSXRmamtQam9KVGxsTk1qbzJORGs1UUtORVMR9QxQQV9VEQwMQUFBVx0MAFkdDABhHQwAYx0MEGVBQ0pBHRD0BQHYAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQNMTAuMjQ5Ljk2LjE5MKgE26cEsgQOCAAQARisAiD6ATAAOAK4BADABADIBADSBA8xMDA5NCNOWU0yOjY0OTnaBAIIAeAEAfAEmbf-VoIFIGNvbS54YW5kci5TaW1wbGVJbnRlZ3JhdGlvblN3aWZ0iAUBmAUAoAX___________8BwAUAyQUAAAAAAADwP9IFCQkAAAAAAAAAANgFAeAFAfAFAfoFBAgAEACQBgGYBgC4BgDBBgAAAAAAAPA_0AbWM9oGFgoQBRAdAXAQABgA4AYM8gYCCACABwGIBwCgB0HIB7KFBtIHDRViASYI2gcGAV10GADgBwDqBwIIAPAHAIoIAhAAlQgAAIA_mAgCwAgA%26s%3D39f522e51e9e8469c2e29f9d583cd9230aa1dfa1;ts=1692290710;cet=0;cecb=;\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "Native Title",
+                            "desc": "This is body text of a Native ad example from Xandr",
+                            "sponsored": "Xandr",
+                            "main_img": {
+                                "url": "https://crcdn01.adnxs.com/creative/p/10094/2021/5/6/25550248/9b00d03d-d327-4f63-b53a-9488d7a31e8d.png",
+                                "width": 1200,
+                                "height": 627,
+                                "prevent_crop": false
+                            },
+                            "link": {
+                                "url": "https://www.xandr.com/",
+                                "click_trackers": [
+                                    "https://nym1-ib.adnxs.com/click2?e=wqT_3QKYAfCBmAAAAAMAxBkFAQiWnfmmBhD558WCnv38y08Yy8zCwZn6xdJHIIaZkQgo7k4w7k44AkCZt_5WSJSaeFAAWgNVU0RiA1VTRGgBcAF47ZGRAYABsoUGiAEBkAEBmAEEoAECqQHxaOOItfjkPrEB8WjjiLX45D65AQAAAEDheoQ_wQHxaAkUPMkB8WjjiLX45D7YAQDgAQA./s=b9cdffec3da6a96780c89aeda32d5074d366a6fb/bcr=AAAAAAAA8D8=/cnd=%214hRxYwjmx5UQEJm3_lYYlJp4IAQoADHxaOOItfjkPjoJTllNMjo2NDk5QKNESQAAAAAAAPA_UQAAAAAAAAAAWQAAAAAAAAAAYQAAAAAAAAAAaQAAAAAAAAAAcQAAAAAAAAAAeACJAQAAAAAAAAAA/cca=MTAwOTQjTllNMjo2NDk5/bn=98994/"
+                                ]
+                            },
+                            "impression_trackers": [
+                                "https://nym1-ib.adnxs.com/it?an_audit=0&e=wqT_3QLdCfBD3QQAAAMA1gAFAQiWnfmmBhD558WCnv38y08Yy8zCwZn6xdJHKjYJ8WjjiLX45D4R8WjjiLX45D4ZAAAAQOF6hD8h8WgJGwApESQAMREbqDCGmZEIOO5OQO5OSAJQmbf-VliUmnhgAGjtkZEBeLKFBoABAYoBA1VTRJIFBvSBAZgBAaABAagBAbABALgBAcABBMgBAtABANgBAOABAPABAPoBDU1vYmlsZVNES0RlbW-KAip1ZignYScsIDM5NDQ5NzMsIDApO3VmKCdyJywgMTgyNDI2NTIxLCAwKTuSAvEDIUtWZDNiQWpteDVVUUVKbTNfbFlZQUNDVW1uZ3dCRGdBUUFSSTdrNVFocG1SQ0ZnQVlKc0VhQUJ3QW5qUXRnaUFBUUtJQWRDMkNKQUJBWmdCQWFBQkVxZ0JBN0FCQUxrQnI2OUtOYmI0NUQ3QkFhLXZTalcyLU9RLXlRRTRTN2toOGhmM1A5a0JBQUFBQUFBQThEX2dBUUQxQVFBQUFBQ1lBZ0NnQWdDMUFnQUFBQUM5QWdBQUFBREFBZ0RJQWdEUUFnRFlBZ0RnQWdEb0FnRDRBZ0NBQXdHWUF3RzZBd2xPV1UweU9qWTBPVG5nQTZORWlBUUFrQVFBbUFRQndRUUFBQUFBQUFBQUFNa0VBQUFBQUFBQUFBRFlCQUR4QkFBBZQBARxpQVhqTXFrRgEMAQEUOEQteEJRAQoJAQh3UVUJCQEBAE0ZKAxBQURSLigAADIuKADwPk9BRkFmQUZpUGZHQlBnRmplVHdBWUlHQTFWVFJJZ0dBSkFHQVpnR0FLRUc4V2pqaUxYNDVENm9CZ0d5QmlRSgFrDQEAUg0IAQEAWgEFDQEAaA0IIUxANEJnby6aApUBITRoUnhZd2oy9QGgbEpwNElBUW9BREh4YU9PSXRmamtQam9KVGxsTk1qbzJORGs1UUtORVMR9QxQQV9VEQwMQUFBVx0MAFkdDABhHQwAYx0MEGVBQ0pBHRD0BQHYAgDgAsqoTYADAIgDAZADAJgDF6ADAaoDAMAD4KgByAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQNMTAuMjQ5Ljk2LjE5MKgE26cEsgQOCAAQARisAiD6ATAAOAK4BADABADIBADSBA8xMDA5NCNOWU0yOjY0OTnaBAIIAeAEAfAEmbf-VoIFIGNvbS54YW5kci5TaW1wbGVJbnRlZ3JhdGlvblN3aWZ0iAUBmAUAoAX___________8BwAUAyQUAAAAAAADwP9IFCQkAAAAAAAAAANgFAeAFAfAFAfoFBAgAEACQBgGYBgC4BgDBBgAAAAAAAPA_0AbWM9oGFgoQBRAdAXAQABgA4AYM8gYCCACABwGIBwCgB0HIB7KFBtIHDRViASYI2gcGAV10GADgBwDqBwIIAPAHAIoIAhAAlQgAAIA_mAgCwAgA&s=39f522e51e9e8469c2e29f9d583cd9230aa1dfa1"
+                            ],
+                            "id": 182426521
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

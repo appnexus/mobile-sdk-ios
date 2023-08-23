@@ -625,7 +625,7 @@ static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
         if(shouldAddDelegate){
             [ANRealTimer addDelegate:self];
         }
-    }else if([ANSDKSettings sharedInstance].enableOMIDOptimization){
+    }else if([ANSDKSettings sharedInstance].enableOMIDOptimization && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]] || [adObject isKindOfClass:[ANNativeAdResponse class]]) ){
         [ANRealTimer addDelegate:self];
     }
     

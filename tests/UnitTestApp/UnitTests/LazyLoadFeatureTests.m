@@ -37,6 +37,7 @@ limitations under the License.
 #import "ANAdFetcher+ANTest.h"
 #import "ANMRAIDContainerView+ANTest.h"
 #import "XandrAd.h"
+#import "ANNativeRenderingViewController.h"
 
 
 
@@ -46,6 +47,7 @@ limitations under the License.
 @interface  LazyLoadFeatureTests  :XCTestCase <ANBannerAdViewDelegate, ANMultiAdRequestDelegate, ANInstreamVideoAdLoadDelegate, ANNativeAdRequestDelegate>
 
 @property (nonatomic, readwrite, strong)  ANBannerAdView  *lazyBanner;
+@property (nonatomic, readwrite, strong)  ANBannerAdView  *lazyBannerNativeRenderer;
 @property (nonatomic, readwrite, strong)  ANBannerAdView  *multiFormatBanner;
 
 @property (nonatomic, readwrite, strong)            ANMultiAdRequest    *mar;
@@ -62,6 +64,8 @@ limitations under the License.
 @property (nonatomic, strong)  XCTestExpectation  *expectationAdDidReceiveNativeAd;
 @property (nonatomic, strong)  XCTestExpectation  *expectationMultiAdRequestSuccess;
 @property (nonatomic, strong)  XCTestExpectation  *expectationRequestFailedWithError;
+@property (nonatomic, strong)  XCTestExpectation  *expectationAdDidReceiveAdBannerNativeRenderer;
+
 
 @property (nonatomic, strong)  XCTestExpectation  *expectationAdResponseInfoIsDefined;
 @property (nonatomic, strong)  XCTestExpectation  *expectationAdResponseInfoIsDefinedAndDifferent;
@@ -138,6 +142,7 @@ limitations under the License.
     self.expectationAdDidReceiveNativeAd                        = nil;
     self.expectationMultiAdRequestSuccess                       = nil;
     self.expectationRequestFailedWithError                      = nil;
+    self.expectationAdDidReceiveAdBannerNativeRenderer          = nil;
 
     self.expectationAdResponseInfoIsDefined                     = nil;
     self.expectationAdResponseInfoIsDefinedAndDifferent         = nil;
@@ -177,6 +182,21 @@ limitations under the License.
    // self.lazyBanner.externalUid              = @"banner-banner";
 
     self.lazyBanner.enableLazyLoad = YES;
+    
+    
+    
+    
+    // Make some banner native renderer ad views.
+    //
+    self.lazyBannerNativeRenderer = [ANBannerAdView adViewWithFrame:rect placementId:@"11112222" adSize:size];
+
+    self.lazyBannerNativeRenderer.delegate                 = self;
+    self.lazyBannerNativeRenderer.shouldAllowVideoDemand   = NO;
+    self.lazyBannerNativeRenderer.shouldAllowBannerDemand = NO;
+    self.lazyBannerNativeRenderer.shouldAllowNativeDemand  = YES;
+    self.lazyBannerNativeRenderer.enableNativeRendering = YES;
+    self.lazyBannerNativeRenderer.shouldServePublicServiceAnnouncements = NO;
+    self.lazyBannerNativeRenderer.enableLazyLoad = YES;
 
 
     //
@@ -201,7 +221,7 @@ limitations under the License.
 
 #pragma mark - Tests.
 
-- (void)testBasicOperation
+- (void)testHTMLBannerBasicOperation
 {
     [TestGlobal stubRequestWithResponse:@"LazyWebview_Basic"];
 
@@ -210,6 +230,20 @@ limitations under the License.
 
     //
     [self.lazyBanner loadAd];
+
+    [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
+}
+
+- (void)testBannerNativeRenderingBasicOperation
+{
+    [TestGlobal stubRequestWithResponse:@"LazyBannerNativeRendering_Basic"];
+
+    self.expectationLazyAdDidReceiveAd  = [self expectationWithDescription:[NSString stringWithFormat:@"%s -- expectationLazyAdDidReceiveAd", __PRETTY_FUNCTION__]];
+    self.expectationAdResponseInfoIsDefined  = [self expectationWithDescription:[NSString stringWithFormat:@"%s -- expectationAdResponseInfoIsDefined", __PRETTY_FUNCTION__]];
+    self.expectationAdDidReceiveAdBannerNativeRenderer      = [self expectationWithDescription:[NSString stringWithFormat:@"%s -- expectationAdDidReceiveAd", __PRETTY_FUNCTION__]];
+
+    //
+    [self.lazyBannerNativeRenderer loadAd];
 
     [self waitForExpectationsWithTimeout:kWaitVeryLong handler:nil];
 }
@@ -520,6 +554,15 @@ limitations under the License.
 
     if (self.expectationAdDidReceiveAd) {
         [self.expectationAdDidReceiveAd fulfill];
+    }
+    
+    if(self.expectationAdDidReceiveAdBannerNativeRenderer){
+
+        //The returned AdView should be of type ANBAnnerAdview so no need to check type confermance before type casting.
+        ANBannerAdView  *banner  = (ANBannerAdView *)ad;
+        XCTAssertTrue([banner.contentView isKindOfClass:[ANNativeRenderingViewController class]]);
+        
+        [self.expectationAdDidReceiveAdBannerNativeRenderer fulfill];
     }
 }
 
