@@ -1,3 +1,13 @@
+## 8.8.0
+
+### New Features
++ MS-5345 Enabled lazy loading for banner native rendering
++ MS-5351 Support both static and dynamic AppNexus SDK framework/ library
+
+### Improvement/ Bug Fixes
++ MS-5348 Addressed issue where creative failed to render when scrolled in a collection view
++ MS-5266 Addressed issue where impression tracker did not fire when creative is scrolled in a collection view
+
 ## 8.7.0
 
 ### Improvement/Bug Fixes
