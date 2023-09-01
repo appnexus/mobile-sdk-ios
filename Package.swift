@@ -29,7 +29,7 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "OMSDK_Appnexus",
-            path: "sdk/sourcefiles/Viewability/OMSDK_Appnexus.xcframework"
+            path: "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Appnexus.xcframework"
         ),
         .target(
             name: "AppNexusSDK",
@@ -37,7 +37,9 @@ let package = Package(
             path: "sdk/sourcefiles",
             exclude: [
                 "Resources/Info.plist",
-                "Viewability/OMSDK_Appnexus.xcframework",
+                "Resources/ANSDKResources.bundle",
+                "Viewability/dynamic_framework/OMSDK_Appnexus.xcframework",
+                "Viewability/static_framework/OMSDK-Static_Appnexus.xcframework",
                 "macOS/"
             ],
             resources: [
