@@ -1,3 +1,9 @@
+## 8.8.1
+
+### Improvement/ Bug Fixes
++ MS-5384 Addressed issue while installing SDK via Swift Package Manager
++ MS-5385 Addressed issue while installing SDK via Cocoapods
+
 ## 8.8.0
 
 ### New Features
