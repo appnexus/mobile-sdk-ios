@@ -1,15 +1,18 @@
 #!/bin/bash
-# buildxcframework.sh
-#    The AppNexusSDK.xcframework and AppNexusNativeSDK.xcframework are built using the script file.
-#     These instructions will create a zip file named AppNexusSDK.xcframework.zip that contains three frameworks: AppNexusSDK.xcframework, OMSDK_Appnexus.xcframework, and AppNexusNativeSDK.xcframework.
-#     The AppNexusSDK.xcframework with OMSDK_Appnexus.xcframework or AppNexusNativeSDK.xcframework framework with OMSDK_Appnexus can be used in any combination.
-#     iphoneos archive, or iphonesimulator archive will be used to generate the xcframework.
+# buildDynamicXCframework.sh
+# You have to pass the Schema name as argument when you run the script for example:
+# From inside /app_mobile-sdk-ios/sdk(where the AppNexusSDK.xcodeproj file is present) you can run the below commands
+# sh ../script/buildDynamicXCframework.sh AppNexusSDK
+# sh ../script/buildDynamicXCframework.sh AppNexusNativeSDK
+
+#     The AppNexusSDK.xcframework.zip and AppNexusNativeSDK.xcframework.zip are built using the script file.
+#     When run "AppNexusSDK" as the schema(argument), these instructions will create a zip file named AppNexusSDK.xcframework.zip that contains: AppNexusSDK.xcframework and OMSDK_Appnexus.xcframework.
+#     When run "AppNexusNativeSDK" as the schema(argument), these instructions will create a zip file named AppNexusNativeSDK.xcframework.zip that contains: AppNexusNativeSDK.xcframework and OMSDK_Appnexus.xcframework.
+#     iphoneos archive and iphonesimulator archive will be used to generate the xcframework.
 #     All temporary binaries will be removed using rm commands once the xcframework has been produced and the zip has been created.
 
 
 
-# Output directory name
-OUTDIR=$1+"Framework"
 # Scheme name AppNexusSDK OR AppNexusNativeSDK
 SCHEMENAME=$1
 
@@ -48,17 +51,15 @@ rm -rf ./iphoneos
 # Copy OMSDK_Appnexus.xcframework from Viewability to XCFramework
 cp -a "./sourcefiles/Viewability/dynamic_framework/OMSDK_Appnexus.xcframework" "../XCFramework"
 
-#mv ../XCFramework/OMSDK-Static_Appnexus.xcframework ../XCFramework/OMSDK_Appnexus.xcframework
-
 
 # Move to XCFramework folder
-
 cd ../XCFramework
+
 ##
-## create zip with name AppNexusSDK.xcframework.zip which included   AppNexusSDK.xcframework OMSDK_Appnexus.xcframework and AppNexusNativeSDK.xcframework
+## create zip with name $SCHEMENAME.xcframework.zip which included   $SCHEMENAME.xcframework OMSDK_Appnexus.xcframework
 zip -r ../$SCHEMENAME.xcframework.zip *
 
+# Remove all temporary binaries
 cd ..
-
 rm -rf ./XCFramework
 

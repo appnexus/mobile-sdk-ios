@@ -1,9 +1,11 @@
 #!/bin/bash
-# buildxcframework.sh
-#	The AppNexusSDK.xcframework and AppNexusNativeSDK.xcframework are built using the script file.
-# 	These instructions will create a zip file named AppNexusSDK.xcframework.zip that contains three frameworks: AppNexusSDK.xcframework, OMSDK_Appnexus.xcframework, and AppNexusNativeSDK.xcframework.
-# 	The AppNexusSDK.xcframework with OMSDK_Appnexus.xcframework or AppNexusNativeSDK.xcframework framework with OMSDK_Appnexus can be used in any combination.
-# 	iphoneos archive, or iphonesimulator archive will be used to generate the xcframework.
+# buildStaticXCframework.sh
+# From inside /app_mobile-sdk-ios/sdk(where the AppNexusSDK.xcodeproj file is present) you can run the below commands
+# sh ../script/buildStaticXCframework.sh
+
+#	The AppNexusNativeStaticSDK.xcframework.zip is built using the script file.
+# 	These instructions will create a zip file named AppNexusNativeStaticSDK.xcframework.zip that contains : AppNexusNativeStaticSDK.xcframework and ANSDKResources.bundle.
+# 	iphoneos archive and iphonesimulator archive will be used to generate the xcframework.
 # 	All temporary binaries will be removed using rm commands once the xcframework has been produced and the zip has been created.
 
 
@@ -46,26 +48,16 @@ xcodebuild archive \
 rm -rf ./iphonesimulator
 rm -rf ./iphoneos
 
-# Copy OMSDK_Appnexus.xcframework from Viewability to XCFramework
-#cp -a "./sourcefiles/Viewability/static_framework/OMSDK-Static_Appnexus.xcframework" "../XCFramework"
+# Copy ANSDKResources.bundle to XCFramework
 cp -a "./sourcefiles/Resources/ANSDKResources.bundle" "../XCFramework"
-
-#mv ../XCFramework/OMSDK-Static_Appnexus.xcframework ../XCFramework/OMSDK_Appnexus.xcframework
 
 
 # Move to XCFramework folder
-
 cd ../XCFramework
-##
-## create zip with name AppNexusSDK.xcframework.zip which included   AppNexusSDK.xcframework OMSDK_Appnexus.xcframework and AppNexusNativeSDK.xcframework
+
+## create a zip file named AppNexusNativeStaticSDK.xcframework.zip that contains : AppNexusNativeStaticSDK.xcframework and ANSDKResources.bundle.
 zip -r ../AppNexusNativeStaticSDK.xcframework.zip *
-#cd ..
-##
-## Removed XCFramework  folder
-##
-#rm -rf XCFramework
-#
 
+# Remove all temporary binaries
 cd ..
-
 rm -rf ./XCFramework
