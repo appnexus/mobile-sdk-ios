@@ -217,7 +217,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
     
     
-    if ([_adViewDelegate conformsToProtocol:@protocol(ANBannerAdViewInternalDelegate)])
+    if (self.isBannerVideo && [_adViewDelegate conformsToProtocol:@protocol(ANBannerAdViewInternalDelegate)])
     {
         id<ANBannerAdViewInternalDelegate>  bannerDelegate  = (id<ANBannerAdViewInternalDelegate>)_adViewDelegate;
         
