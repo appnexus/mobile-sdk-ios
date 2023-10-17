@@ -182,7 +182,7 @@
     XCTAssertTrue([self.requestData containsString:@"viewable"]);
     XCTAssertTrue([self.requestData containsString:@"mediaType"]);
     XCTAssertTrue([self.requestData containsString:@"display"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.20-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:OMID_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
     [self.multiFormatAd removeFromSuperview];
     self.multiFormatAd = nil;

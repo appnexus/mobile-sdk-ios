@@ -26,10 +26,11 @@
 #import "ANLogging+Make.h"
 #import "ANLog.h"
 #import "XandrAd.h"
+#import "ANTestGlobal.h"
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 // The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
-// And also depend on https://acdn.adnxs.com/mobile/omsdk/validation-verification-scripts-fortesting/omid-validation-verification-script.js to send ANJAM events back to it. This is configured via the Stubbed response setup
+// And also depend on https://acdn.adnxs.com/mobile/omsdk/validation-verification-scripts-fortesting/omsdk-js-1.4.8/Validation-Script/omid-validation-verification-script-v1.js to send ANJAM events back to it. This is configured via the Stubbed response setup
 
 @interface ANOMIDBannerHTMLTest : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate, ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;
@@ -350,7 +351,7 @@
             [self.OMIDSupportedExpecation fulfill];
         }
         
-        if (self.OMIDVersionExpectation && [data containsString:@"1.3.31-Appnexus"] && [data containsString:@"libraryVersion"]) {
+        if (self.OMIDVersionExpectation && [data containsString:OMID_SDK_VERSION] && [data containsString:@"libraryVersion"]) {
             // Only assert if it has been setup to assert.
             [self.OMIDVersionExpectation fulfill];
         }
