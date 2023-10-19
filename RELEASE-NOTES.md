@@ -1,3 +1,14 @@
+## 8.9
+
+### Improvement/Bug Fixes
++ 5663106 Upgraded OMSDK from 1.4.2 to 1.4.8
++ 5732707 Addressed issue with Video Orientation Sizes getting applied to HTML Banner creatives
+
+
+### Mediation partner updates
++ 5622329 Upgraded Google AdMob SDK from 10.3.0 to 10.10.0
++ 5622334 Upgraded Smart Ad Server SDK from 7.17.1 to 7.22.0
+
 ## 8.8.1
 
 ### Improvement/ Bug Fixes
