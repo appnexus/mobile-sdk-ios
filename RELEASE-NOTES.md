@@ -1,4 +1,4 @@
-## 8.9
+## 8.9.0
 
 ### Improvement/Bug Fixes
 + 5663106 Upgraded OMSDK from 1.4.2 to 1.4.8
