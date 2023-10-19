@@ -24,6 +24,7 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "SDKValidationURLProtocol.h"
 #import "XandrAd.h"
+#import "ANTestGlobal.h"
 
 @interface ANOMIDNativeTestCase : XCTestCase<ANNativeAdRequestDelegate, SDKValidationURLProtocolDelegate>
 
@@ -90,7 +91,7 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.31-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:OMID_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
 
 }
@@ -115,7 +116,7 @@
     XCTAssertTrue([self.requestData containsString:@"mediaType"]);
     XCTAssertTrue([self.requestData containsString:@"display"]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
-    XCTAssertTrue([self.requestData containsString:@"1.3.31-Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:OMID_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"libraryVersion"]);
 
     [self.adResponseInfo unregisterViewFromTracking];

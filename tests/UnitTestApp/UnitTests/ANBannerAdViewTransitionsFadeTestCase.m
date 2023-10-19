@@ -23,7 +23,7 @@
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANBannerAdViewTransitionsFadeTestCase : XCTestCase
-@property (nonatomic, weak) ANBannerAdView *bannerAdView;
+@property (nonatomic) ANBannerAdView *bannerAdView;
 @end
 
 @implementation ANBannerAdViewTransitionsFadeTestCase

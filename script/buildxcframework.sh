@@ -1,10 +1,10 @@
 #!/bin/bash
 # buildxcframework.sh
-#	The AppNexusSDK.xcframework and AppNexusNativeSDK.xcframework are built using the script file.
-# 	These instructions will create a zip file named AppNexusSDK.xcframework.zip that contains three frameworks: AppNexusSDK.xcframework, OMSDK_Appnexus.xcframework, and AppNexusNativeSDK.xcframework.
-# 	The AppNexusSDK.xcframework with OMSDK_Appnexus.xcframework or AppNexusNativeSDK.xcframework framework with OMSDK_Appnexus can be used in any combination.
-# 	iphoneos archive, or iphonesimulator archive will be used to generate the xcframework.
-# 	All temporary binaries will be removed using rm commands once the xcframework has been produced and the zip has been created.
+# From inside /app_mobile-sdk-ios/sdk(where the AppNexusSDK.xcodeproj file is present) you can run the below commands
+# sh ../script/buildxcframework.sh
+
+#	The AppNexusSDK.xcframework.zip, AppNexusNativeSDK.xcframework.zip and AppNexusNativeStaticSDK.xcframework.zip are built using the script file.
+#   This is just an umbrella script used during release time to build all of the supported(both static and dynamic) XCFramework's for iphoneos and iphonesimulator
 
 # Build Static Framework
 sh ../script/buildStaticXCframework.sh

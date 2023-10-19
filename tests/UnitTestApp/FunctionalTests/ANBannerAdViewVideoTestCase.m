@@ -23,6 +23,7 @@
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
 #import "ANMediatedAd.h"
+#import "XandrAd.h"
 
 @interface ANBannerAdViewVideoTestCase : XCTestCase<ANBannerAdViewDelegate>
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
@@ -34,6 +35,8 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {
@@ -62,13 +65,16 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
-    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)
+    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
                                             placementId:@"9887537"
-                                                 adSize:CGSizeMake(320, 480)];
+                                                 adSize:CGSizeMake(300, 250)];
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowVideoDemand =  YES;
+    self.banner.portraitBannerVideoPlayerSize = CGSizeMake(320, 400);
+    self.banner.landscapeBannerVideoPlayerSize = CGSizeMake(330, 250);
+    self.banner.squareBannerVideoPlayerSize = CGSizeMake(200, 200);
     self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
@@ -79,13 +85,16 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
-    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)
+    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
                                             placementId:@"9887537"
-                                                 adSize:CGSizeMake(320, 480)];
+                                                 adSize:CGSizeMake(300, 250)];
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
     self.banner.shouldAllowNativeDemand =  YES;
+    self.banner.portraitBannerVideoPlayerSize = CGSizeMake(320, 400);
+    self.banner.landscapeBannerVideoPlayerSize = CGSizeMake(330, 250);
+    self.banner.squareBannerVideoPlayerSize = CGSizeMake(200, 200);
     self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
@@ -96,12 +105,15 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     
-    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)
+    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
                                             placementId:@"9887537"
-                                                 adSize:CGSizeMake(320, 480)];
+                                                 adSize:CGSizeMake(300, 250)];
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
+    self.banner.portraitBannerVideoPlayerSize = CGSizeMake(320, 400);
+    self.banner.landscapeBannerVideoPlayerSize = CGSizeMake(330, 250);
+    self.banner.squareBannerVideoPlayerSize = CGSizeMake(200, 200);
     self.banner.rootViewController = [ANGlobal getKeyWindow].rootViewController;
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.banner];
 }
@@ -161,6 +173,14 @@
     
     XCTAssertNotNil(self.banner.adFetcher.adView);
     XCTAssert([self.banner.adFetcher.adView isKindOfClass:[ANMRAIDContainerView class]]);
+
+    // Make sure AdView frame widh and heigh are proper. Portrait/Landscape/Square sizes should not be used for Banner
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.width,300);
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.height,250);
+    // Make sure LoadAdSize widh and heigh are proper. Portrait/Landscape/Square sizes should not be used for Banner
+    XCTAssertEqual(self.banner.loadedAdSize.width, 300);
+    XCTAssertEqual(self.banner.loadedAdSize.height, 250);
+
    XCTAssertEqual(self.banner.adResponseInfo.adType, ANAdTypeBanner);
    XCTAssertEqualObjects(self.banner.adResponseInfo.creativeId, @"6332753");
 }
@@ -214,6 +234,13 @@
                                  }];
     XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
     XCTAssertEqual(self.banner.getVideoOrientation, ANPortrait);
+    
+    // Make sure AdView frame widh and heigh are proper. portraitBannerVideoPlayerSize should be used for Vertical Videos
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.width,320);
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.height,400);
+    // Make sure LoadAdSize widh and heigh are proper.  portraitBannerVideoPlayerSize should be used for Vertical Videos
+    XCTAssertEqual(self.banner.loadedAdSize.width, 320);
+    XCTAssertEqual(self.banner.loadedAdSize.height, 400);
 }
 
 
@@ -229,6 +256,13 @@
                                  }];
     XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
     XCTAssertEqual(self.banner.getVideoOrientation, ANLandscape);
+    
+    // Make sure AdView frame widh and heigh are proper. landscapeBannerVideoPlayerSize should be used for Vertical Videos
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.width,330);
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.height,250);
+    // Make sure LoadAdSize widh and heigh are proper.  landscapeBannerVideoPlayerSize should be used for Vertical Videos
+    XCTAssertEqual(self.banner.loadedAdSize.width, 330);
+    XCTAssertEqual(self.banner.loadedAdSize.height, 250);
 }
 
 
@@ -244,6 +278,12 @@
                                  }];
     XCTAssertEqual(self.banner.adResponseInfo.adType , ANAdTypeVideo);
     XCTAssertEqual(self.banner.getVideoOrientation, ANSquare);
+    // Make sure AdView frame widh and heigh are proper. squareBannerVideoPlayerSize should be used for Vertical Videos
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.width,200);
+    XCTAssertEqual(self.banner.adFetcher.adView.frame.size.height,200);
+    // Make sure LoadAdSize widh and heigh are proper.  squareBannerVideoPlayerSize should be used for Vertical Videos
+    XCTAssertEqual(self.banner.loadedAdSize.width, 200);
+    XCTAssertEqual(self.banner.loadedAdSize.height, 200);
 }
 
 
