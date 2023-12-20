@@ -58,4 +58,14 @@ limitations under the License.
     XCTAssertTrue(ANSDKSettings.sharedInstance.geoOverrideCountryCode.length == 0);
 }
 
+- (void)testContentLanguage {
+    ANSDKSettings.sharedInstance.contentLanguage = @"EN";
+    XCTAssertEqual(@"EN", ANSDKSettings.sharedInstance.contentLanguage);
+}
+
+- (void)testResetContentLanguage {
+    ANSDKSettings.sharedInstance.contentLanguage = @"";
+    XCTAssertTrue(ANSDKSettings.sharedInstance.contentLanguage.length == 0);
+}
+
 @end

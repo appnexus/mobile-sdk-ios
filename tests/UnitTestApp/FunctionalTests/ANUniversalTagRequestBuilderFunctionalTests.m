@@ -70,6 +70,7 @@ static NSString  *placementID  = @"9924001";
     ANSDKSettings.sharedInstance.publisherUserId = nil;
     ANSDKSettings.sharedInstance.userIdArray = nil;
     ANSDKSettings.sharedInstance.doNotTrack = NO; // Reset Donot Track to default value
+    ANSDKSettings.sharedInstance.contentLanguage = nil;
     
     for (UIView *additionalView in [[ANGlobal getKeyWindow].rootViewController.view subviews]){
           [additionalView removeFromSuperview];
@@ -836,6 +837,64 @@ static NSString  *placementID  = @"9924001";
         NSDictionary *jsonDict = (NSDictionary *)jsonObject;
         NSDictionary *geoOverrideDict = jsonDict[@"geoOverride"];
         XCTAssertNil(geoOverrideDict);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForContentLanguage
+{
+    ANSDKSettings.sharedInstance.contentLanguage = @"EN";
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *requestContentLanguageDict = jsonDict[@"request_content"];
+        XCTAssertNotNil(requestContentLanguageDict);
+        NSString *contentLanguage = requestContentLanguageDict[@"language"];
+        XCTAssertTrue([contentLanguage isEqualToString:ANSDKSettings.sharedInstance.contentLanguage]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForEmptyContentLanguage
+{
+    ANSDKSettings.sharedInstance.contentLanguage = @"";
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *requestContentLanguageDict = jsonDict[@"request_content"];
+        XCTAssertNil(requestContentLanguageDict);
         [expectation fulfill];
     });
     
