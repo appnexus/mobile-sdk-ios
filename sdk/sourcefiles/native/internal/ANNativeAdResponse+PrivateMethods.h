@@ -17,8 +17,8 @@
 
 #import "ANNativeAdResponse.h"
 #if !APPNEXUS_NATIVE_MACOS_SDK
-        #if __has_include(<OMSDK_Appnexus/OMIDImports.h>)
-            #import <OMSDK_Appnexus/OMIDImports.h>
+        #if __has_include(<OMSDK_Microsoft/OMIDImports.h>)
+            #import <OMSDK_Microsoft/OMIDImports.h>
         #else
             #import <OMIDImports.h>
         #endif
@@ -36,7 +36,7 @@
 
 @property (nonatomic, readonly, weak) UIViewController *rootViewController;
 @property (nonatomic, readonly, weak) UIView *viewForTracking;
-@property (nonatomic, readonly, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readonly, strong) OMIDMicrosoftAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 #else
 @property (nonatomic, readonly, weak) NSView *viewForTracking;

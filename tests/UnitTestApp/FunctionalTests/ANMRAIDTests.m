@@ -25,6 +25,7 @@
 #import "XCTestCase+ANCategory.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANAdWebViewController+ANTest.h"
+#import "XandrAd.h"
 
 #define  MRAID_TESTS_TIMEOUT        60.0
 #define  MRAID_TESTS_DEFAULT_DELAY  6.0
@@ -83,6 +84,9 @@
     [super setUp];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+   
+   // Init here if not the tests will crash
+   [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

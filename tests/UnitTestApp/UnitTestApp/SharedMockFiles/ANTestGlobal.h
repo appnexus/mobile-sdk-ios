@@ -22,7 +22,7 @@
 extern NSString * const  kFauxMediationAdapterClassDoesNotExist;
 extern NSString * const  OK_RESULT_CB_URL;
 
-#define OMID_SDK_VERSION        @"1.4.8"
+#define OMID_SDK_VERSION        @"1.4.9"
 
 
 #pragma mark - Simple diagnostics for tests.

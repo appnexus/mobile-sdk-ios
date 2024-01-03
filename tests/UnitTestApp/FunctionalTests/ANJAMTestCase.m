@@ -25,7 +25,7 @@
 #import "ANTestGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
-
+#import "XandrAd.h"
 
 
 @interface ANJAMTestCase : XCTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
@@ -60,6 +60,9 @@
     self.adView.appEventDelegate = self;
     self.adView.delegate = self;
     [[ANGlobal getKeyWindow].rootViewController.view addSubview:self.adView];
+    
+    // Init here if not the tests will crash
+    [[XandrAd sharedInstance] initWithMemberID:1 preCacheRequestObjects:true completionHandler:nil];
 }
 
 - (void)tearDown {

@@ -43,6 +43,20 @@
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
 		};
+		E231A6152B289AD900A62421 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EE0577123FECA9300D61405 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 880508B128AC14A80099C6C6;
+			remoteInfo = AppNexusNativeMacOSSDK;
+		};
+		E231A6172B289AD900A62421 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EE0577123FECA9300D61405 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 469A97B92A7AE0E300D6CFFE;
+			remoteInfo = AppNexusNativeStaticSDK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -202,8 +216,10 @@
 		0EE0577223FECA9300D61405 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0EE0577923FECA9300D61405 /* AppNexusNativeSDK.framework */,
 				0EE0577723FECA9300D61405 /* AppNexusSDK.framework */,
+				0EE0577923FECA9300D61405 /* AppNexusNativeSDK.framework */,
+				E231A6162B289AD900A62421 /* AppNexusNativeMacOSSDK.framework */,
+				E231A6182B289AD900A62421 /* AppNexusNativeStaticSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -287,6 +303,20 @@
 			fileType = wrapper.framework;
 			path = AppNexusNativeSDK.framework;
 			remoteRef = 0EE0577823FECA9300D61405 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E231A6162B289AD900A62421 /* AppNexusNativeMacOSSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeMacOSSDK.framework;
+			remoteRef = E231A6152B289AD900A62421 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E231A6182B289AD900A62421 /* AppNexusNativeStaticSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeStaticSDK.framework;
+			remoteRef = E231A6172B289AD900A62421 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -398,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -450,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -465,7 +495,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TBTYSQH6V;
 				INFOPLIST_FILE = SimpleIntegrationObjC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TBTYSQH6V;
 				INFOPLIST_FILE = SimpleIntegrationObjC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

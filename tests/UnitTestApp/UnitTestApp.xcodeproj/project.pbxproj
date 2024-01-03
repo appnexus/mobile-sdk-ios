@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -160,8 +160,6 @@
 		0E6636192458D0F1008FB3FB /* PerformanceStatsRTBBannerNativeRendererAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E6636182458D0F1008FB3FB /* PerformanceStatsRTBBannerNativeRendererAd.json */; };
 		0E6B7E4522D8DE01005D069E /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; };
 		0E6B7E4722D8DE0B005D069E /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; };
-		0E6B7E4822D8DE49005D069E /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; };
-		0E6B7E4922D8DE49005D069E /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E7BC1B9229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */; };
 		0E7BC1BA229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */; };
 		0E7BC1BC229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BC1BB229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json */; };
@@ -482,6 +480,8 @@
 		97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */; };
 		C6E0448229522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */; };
 		C6E0448329522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */; };
+		E223F99C2B2B3DD500F686AD /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; };
+		E223F99D2B2B3DD500F686AD /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FC230DF6269371440081A488 /* NSURLProtocol+WebKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB226936E000081A488 /* NSURLProtocol+WebKitSupport.swift */; };
 		FC230E02269371470081A488 /* WebKitURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB326936E000081A488 /* WebKitURLProtocol.swift */; };
 		FC230E0D2693714B0081A488 /* AuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */; };
@@ -926,6 +926,13 @@
 			remoteGlobalIDString = 0EC17C3121F72D1700F0F6AF;
 			remoteInfo = UnitTestApp;
 		};
+		E28C9BD02B29F68E001A82F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 469A97B92A7AE0E300D6CFFE;
+			remoteInfo = AppNexusNativeStaticSDK;
+		};
 		FC2A257C27B4388C004C57DB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
@@ -963,8 +970,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0E6B7E4922D8DE49005D069E /* AppNexusSDK.framework in Embed Frameworks */,
 				00B5CB6F25DCC4FD003D1EFD /* FBAudienceNetwork.framework in Embed Frameworks */,
+				E223F99D2B2B3DD500F686AD /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1521,7 +1528,6 @@
 			files = (
 				0E8C981A21FF36F6005D1F0E /* Accounts.framework in Frameworks */,
 				0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */,
-				0E6B7E4822D8DE49005D069E /* AppNexusSDK.framework in Frameworks */,
 				0ED159DF2236B53000D56022 /* AssetsLibrary.framework in Frameworks */,
 				0E56C6F321F8AF0300ADE6E1 /* AudioToolbox.framework in Frameworks */,
 				0E56C6F521F8AF0A00ADE6E1 /* AVFoundation.framework in Frameworks */,
@@ -1543,6 +1549,7 @@
 				0ED159F92236B82900D56022 /* GLKit.framework in Frameworks */,
 				FCC2362F25F12A17004A5467 /* GoogleAppMeasurement.xcframework in Frameworks */,
 				FCC235D525F12709004A5467 /* GoogleMobileAds.xcframework in Frameworks */,
+				E223F99C2B2B3DD500F686AD /* AppNexusSDK.framework in Frameworks */,
 				FCC2363225F12A17004A5467 /* GoogleUtilities.xcframework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
@@ -2275,6 +2282,7 @@
 				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 				002D905328B813BA00CBF78A /* AppNexusNativeMacOSSDK.framework */,
+				E28C9BD12B29F68E001A82F5 /* AppNexusNativeStaticSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2833,6 +2841,13 @@
 			fileType = wrapper.framework;
 			path = AppNexusNativeSDK.framework;
 			remoteRef = 0ECF333F22D798DB007DB185 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E28C9BD12B29F68E001A82F5 /* AppNexusNativeStaticSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeStaticSDK.framework;
+			remoteRef = E28C9BD02B29F68E001A82F5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -3991,6 +4006,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/mediationsdk/GoogleAdMobSDK\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4070,6 +4086,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
