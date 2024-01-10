@@ -152,7 +152,9 @@
     [ANCarrierObserver shared];
     [ANWebView prepareWebView];
 #endif
-    success(YES);
+    if(success != nil){
+        success(YES);
+    }
 }
 
 -(void)setNativeAdAboutToExpireInterval:(NSInteger)nativeAdAboutToExpireInterval{
