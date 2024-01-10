@@ -7,7 +7,7 @@ let package = Package(
     name: "AppNexusSDK",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v10),
+        .iOS(.v14),
     ],
     products: [
         .library(

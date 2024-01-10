@@ -55,9 +55,7 @@ NSMutableArray<ANWebView *> *webViewQueue;
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
         
-        if (@available(iOS 11.0, *)) {
-            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
+        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         [self loadWebViewWithUserScripts];
         return self;
     }
@@ -187,20 +185,8 @@ NSMutableArray<ANWebView *> *webViewQueue;
         configuration.processPool                   = anSdkProcessPool;
         configuration.allowsInlineMediaPlayback     = YES;
         
-        if (@available(iOS 10.0, *)) {
-            configuration.requiresUserActionForMediaPlayback = NO;
-            configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
-        } else {
-            // configuration.allowsInlineMediaPlayback = YES is not respected
-            // on iPhone on WebKit versions shipped with iOS 9 and below, the
-            // video always loads in full-screen.
-            // See: https://bugs.webkit.org/show_bug.cgi?id=147512
-            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-                configuration.requiresUserActionForMediaPlayback = NO;
-            } else {
-                configuration.requiresUserActionForMediaPlayback = YES;
-            }
-        }
+        configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
+
         
         WKUserContentController  *controller  = [[WKUserContentController alloc] init];
         configuration.userContentController = controller;
