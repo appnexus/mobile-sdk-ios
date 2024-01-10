@@ -28,18 +28,18 @@ let package = Package(
     ],
     targets: [
         .binaryTarget(
-            name: "OMSDK_Appnexus",
-            path: "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Appnexus.xcframework"
+            name: "OMSDK_Microsoft",
+            path: "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Microsoft.xcframework"
         ),
         .target(
             name: "AppNexusSDK",
-            dependencies: ["OMSDK_Appnexus"],
+            dependencies: ["OMSDK_Microsoft"],
             path: "sdk/sourcefiles",
             exclude: [
                 "Resources/Info.plist",
                 "Resources/ANSDKResources.bundle",
-                "Viewability/dynamic_framework/OMSDK_Appnexus.xcframework",
-                "Viewability/static_framework/OMSDK-Static_Appnexus.xcframework",
+                "Viewability/dynamic_framework/OMSDK_Microsoft.xcframework",
+                "Viewability/static_framework/OMSDK-Static_Microsoft.xcframework",
                 "macOS/"
             ],
             resources: [
