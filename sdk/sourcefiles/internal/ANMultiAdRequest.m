@@ -324,14 +324,8 @@ NSInteger const  kMARAdUnitIndexNotFound  = -1;
         return  NO;
     }
 
-    if (@available(iOS 11, *))
-    {
-        [getProperties[0] getValue:&newMemberID    size:sizeof(NSUInteger)];
-        [getProperties[1] getValue:&newPublisherId size:sizeof(NSUInteger)];
-    } else {
-        [getProperties[0] getValue:&newMemberID];
-        [getProperties[1] getValue:&newPublisherId];
-    }
+    [getProperties[0] getValue:&newMemberID    size:sizeof(NSUInteger)];
+    [getProperties[1] getValue:&newPublisherId size:sizeof(NSUInteger)];
 
     newUUIDKey = getProperties[2];
 

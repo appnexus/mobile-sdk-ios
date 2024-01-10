@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "8.9.0"
-  s.platform     = :ios, "12.0"
+  s.version      = "8.10.0"
+  s.platform     = :ios, "14.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
   s.description  = <<-DESC
@@ -22,7 +22,7 @@ DESC
     subspec.source_files         = "sdk/sourcefiles/**/*.{h,m}"
     subspec.public_header_files  = "sdk/sourcefiles/public-headers/*.h"
     subspec.resources            = "sdk/sourcefiles/**/*.{png,bundle,xib,nib,js,html,strings}","sdk/AppNexusSDK/SDK-Info.plist"
-    subspec.vendored_frameworks   =  "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Appnexus.xcframework"
+    subspec.vendored_frameworks   =  "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Microsoft.xcframework"
     subspec.frameworks           = 'WebKit'
     subspec.pod_target_xcconfig = { "VALID_ARCHS[sdk=iphoneos*]": "arm64 armv7", "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64 arm64" }
     subspec.exclude_files = "sdk/sourcefiles/macOS/", "sdk/sourcefiles/Resources/ANSDKResources.bundle"
@@ -39,7 +39,7 @@ DESC
 
   s.subspec 'FacebookCSRAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'FBAudienceNetwork', '6.12.0'
+    subspec.dependency 'FBAudienceNetwork', '6.14.0'
     subspec.source_files         = "csr/Facebook/*.{h,m}"
     subspec.public_header_files  = "csr/Facebook/*.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }

@@ -30,7 +30,7 @@
 #define  ROOT_VIEW_CONTROLLER  [ANGlobal getKeyWindow].rootViewController;
 
 // The Test cases are based on this https://corpwiki.appnexus.com/display/CT/OM-+IOS+Test+Cases+for+MS-3289
-// And also depend on https://acdn.adnxs.com/mobile/omsdk/validation-verification-scripts-fortesting/omsdk-js-1.4.8/Validation-Script/omid-validation-verification-script-v1.js to send ANJAM events back to it. This is configured via the Stubbed response setup
+// And also depend on https://acdn.adnxs.com/mobile/omsdk/validation-verification-scripts-fortesting/omsdk-js-1.4.9/Validation-Script/omid-validation-verification-script-v1.js to send ANJAM events back to it. This is configured via the Stubbed response setup
 
 @interface ANOMIDBannerHTMLTest : XCTestCase <ANBannerAdViewDelegate, ANAppEventDelegate, ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)   ANBannerAdView     *bannerAdView;

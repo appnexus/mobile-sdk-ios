@@ -133,5 +133,9 @@ NSRunLoopCommonModes  ensure that the timers can function in various run loop mo
  */
 @property (nonatomic) BOOL enableContinuousTracking;
 
+/**
+An AppNexus contentLanguage  is a string value which will be passed to request parameters only if it isn't empty.
+*/
+@property (nonatomic, readwrite, strong, nullable) NSString *contentLanguage;
 
 @end

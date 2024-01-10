@@ -25,7 +25,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 
 @property (nonatomic, readwrite, strong) NSString* omidJSString;
 
-@property (nonatomic, readwrite, strong) OMIDAppnexusPartner* partner;
+@property (nonatomic, readwrite, strong) OMIDMicrosoftPartner* partner;
 
 @end
 
@@ -33,18 +33,18 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 @implementation ANOMIDImplementation
 
 + (instancetype)sharedInstance {
-    static dispatch_once_t omidAppnexusToken;
-    static ANOMIDImplementation *omidAppnexusImplementation;
-    dispatch_once(&omidAppnexusToken, ^{
-        omidAppnexusImplementation = [[ANOMIDImplementation alloc] init];
+    static dispatch_once_t omidMicrosoftToken;
+    static ANOMIDImplementation *omidMicrosoftImplementation;
+    dispatch_once(&omidMicrosoftToken, ^{
+        omidMicrosoftImplementation = [[ANOMIDImplementation alloc] init];
 
-        if (omidAppnexusImplementation.omidJSString != nil) {
-            omidAppnexusImplementation.omidJSString = nil;
+        if (omidMicrosoftImplementation.omidJSString != nil) {
+            omidMicrosoftImplementation.omidJSString = nil;
         }
 
-        [omidAppnexusImplementation fetchOMIDJS];
+        [omidMicrosoftImplementation fetchOMIDJS];
     });
-    return omidAppnexusImplementation;
+    return omidMicrosoftImplementation;
 }
 
 - (void) activateOMIDandCreatePartner
@@ -52,18 +52,18 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return;
     
-    if(!OMIDAppnexusSDK.sharedInstance.isActive){
-        [[OMIDAppnexusSDK sharedInstance] activate];
+    if(!OMIDMicrosoftSDK.sharedInstance.isActive){
+        [[OMIDMicrosoftSDK sharedInstance] activate];
        
         
         // This Creates / updates a partner for each new activation of OMID SDK
-        self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
+        self.partner = [[OMIDMicrosoftPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
                                                    versionString: AN_SDK_VERSION];
     }
     
     // IF partener is nil create partner
     if(!self.partner){
-        self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
+        self.partner = [[OMIDMicrosoftPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
                                                    versionString: AN_SDK_VERSION];
     }
     
@@ -74,7 +74,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     
 }
 
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd
+- (OMIDMicrosoftAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd
 {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return nil;
@@ -88,7 +88,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
      contentUrl : there is a new context parameter for “content URL”. This is the deep-link URL for the app screen that is displaying the ad.
      If the content URL is not known, pass null for the parameter.
      */
-    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:self.partner
+    OMIDMicrosoftAdSessionContext *context = [[OMIDMicrosoftAdSessionContext alloc] initWithPartner:self.partner
                                                                                           webView:webView
                                                                                        contentUrl:nil customReferenceIdentifier:customRefId error: &ctxError];
                                          
@@ -101,14 +101,14 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts
+- (OMIDMicrosoftAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts
 {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return nil;    
     
     NSError *ctxError;
 
-    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:self.partner
+    OMIDMicrosoftAdSessionContext *context = [[OMIDMicrosoftAdSessionContext alloc] initWithPartner:self.partner
                                                                                            script:self.getOMIDJS
                                                                                             resources:scripts
                                                                                             contentUrl:nil
@@ -119,7 +119,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
--(OMIDAppnexusAdSession*) initialseOMIDAdSessionForView:(id)view withSessionContext:(OMIDAppnexusAdSessionContext*)context andImpressionOwner:(OMIDOwner)impressionOwner andMediaEventsOwner:(OMIDOwner)mediaEventsOwner htmlAd:(BOOL)isBannerAd
+-(OMIDMicrosoftAdSession*) initialseOMIDAdSessionForView:(id)view withSessionContext:(OMIDMicrosoftAdSessionContext*)context andImpressionOwner:(OMIDOwner)impressionOwner andMediaEventsOwner:(OMIDOwner)mediaEventsOwner htmlAd:(BOOL)isBannerAd
 {
     //Note that it is important that the mediaEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
     NSError *cfgError;
@@ -132,7 +132,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
         creativeType = OMIDCreativeTypeDefinedByJavaScript;
     }
     
-    OMIDAppnexusAdSessionConfiguration *config = [[OMIDAppnexusAdSessionConfiguration alloc]
+    OMIDMicrosoftAdSessionConfiguration *config = [[OMIDMicrosoftAdSessionConfiguration alloc]
                                                   initWithCreativeType:creativeType
                                                   impressionType:((mediaEventsOwner == OMIDNoneOwner)?OMIDImpressionTypeViewable:OMIDImpressionTypeDefinedByJavaScript)
                                                   impressionOwner:impressionOwner
@@ -142,7 +142,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
                                                   
                                                   
     NSError *sessError;
-    OMIDAppnexusAdSession *omidAdSession = [[OMIDAppnexusAdSession alloc] initWithConfiguration:config
+    OMIDMicrosoftAdSession *omidAdSession = [[OMIDMicrosoftAdSession alloc] initWithConfiguration:config
                                                                                adSessionContext:context error:&sessError];
     @try {
         // Set the view on which to track viewability
@@ -155,7 +155,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     return omidAdSession;
 }
 
--(void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession
+-(void) stopOMIDAdSession:(OMIDMicrosoftAdSession*) omidAdSession
 {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return;
@@ -167,13 +167,13 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
-- (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession {
+- (void)fireOMIDImpressionOccuredEvent:(OMIDMicrosoftAdSession*) omidAdSession {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return;
 
     if(omidAdSession != nil){
         NSError *adEvtsError;
-        OMIDAppnexusAdEvents *adEvents = [[OMIDAppnexusAdEvents alloc] initWithAdSession:omidAdSession error:&adEvtsError];
+        OMIDMicrosoftAdEvents *adEvents = [[OMIDMicrosoftAdEvents alloc] initWithAdSession:omidAdSession error:&adEvtsError];
         NSError *loadedError;
         [adEvents loadedWithError:&loadedError];
         
@@ -185,7 +185,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 
 // This might be required for Interstitials Ads
 - (void)addFriendlyObstruction:(UIView *) view
-               toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession{
+               toOMIDAdSession:(OMIDMicrosoftAdSession*) omidAdSession{
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return;
 
@@ -195,7 +195,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
-- (void)removeFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession{
+- (void)removeFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDMicrosoftAdSession*) omidAdSession{
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return;
     
@@ -205,7 +205,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
-- (void)removeAllFriendlyObstructions:(OMIDAppnexusAdSession*) omidAdSession{
+- (void)removeAllFriendlyObstructions:(OMIDMicrosoftAdSession*) omidAdSession{
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return;
     

@@ -252,6 +252,11 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
         requestDict[@"device"] = device;
     }
     
+    NSDictionary *contentLanguage = [self contentLanguage];
+    if (contentLanguage) {
+        requestDict[@"request_content"] = contentLanguage;
+    }
+    
     NSDictionary<NSString *, id> *app = [self app];
     if (app) {
         requestDict[@"app"] = app;
@@ -951,7 +956,6 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     }
 }
 
-
 #if !APPNEXUS_NATIVE_MACOS_SDK
 
 - (NSDictionary *)getIABSupport
@@ -979,6 +983,15 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     return [geoOverrideCountryZipCode copy];
 }
 
+- (NSDictionary *)contentLanguage
+{
+    NSString *contentLang = [[ANSDKSettings sharedInstance] contentLanguage];
+    if (contentLang.length != 0) {
+        return @{@"language" : contentLang};
+    } else {
+        return  nil;
+    }
+}
 
 #pragma mark - Class methods.
 

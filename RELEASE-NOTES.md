@@ -1,3 +1,17 @@
+## 8.10.0
+
+### New Feature
+
++ 6029394 Added support for setting content language in Ad Request. New API introduced in SDKSettings setContentLanguage(String contentLanguage)
+
+### Improvement/Bug Fixes
++ 6015112 Upgraded OMSDK from 1.4.8 to 1.4.9 (Microsoft namespace) 
++ 5766029 Resolve the issue with the OutStream iPad video of size 400x980 not rendering properly
++ 5992098 Optimise user agent synchronisation to minimise delays
+
+### Mediation partner updates
++ MS-5392 Upgrade of the Facebook Audience Network to version 6.14.0
+
 ## 8.9.0
 
 ### Improvement/Bug Fixes

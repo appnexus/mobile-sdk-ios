@@ -17,7 +17,7 @@
 #import <UIKit/UIKit.h>
 
 #import "ANAdConstants.h"
-@import OMSDK_Appnexus;
+@import OMSDK_Microsoft;
 
 #import "ANAdResponseInfo.h"
 
@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 @interface ANVideoAdPlayer : UIView<WKScriptMessageHandler,WKNavigationDelegate, WKUIDelegate>
 
 @property (strong, nonatomic, nullable) id <ANVideoAdPlayerDelegate> delegate;
-@property (nonatomic, readwrite, strong, nullable) OMIDAppnexusAdSession * omidAdSession;
+@property (nonatomic, readwrite, strong, nullable) OMIDMicrosoftAdSession * omidAdSession;
 
 -(void) loadAdWithVastContent:(nonnull NSString *) vastContent;
 -(void) loadAdWithVastUrl:(nonnull NSString *) vastUrl;

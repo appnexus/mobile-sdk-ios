@@ -25,6 +25,7 @@
 #import "SDKValidationURLProtocol.h"
 #import "XandrAd.h"
 #import "ANTestGlobal.h"
+#import "ANOMIDImplementation.h"
 
 @interface ANOMIDNativeTestCase : XCTestCase<ANNativeAdRequestDelegate, SDKValidationURLProtocolDelegate>
 
@@ -87,7 +88,7 @@
     XCTAssertTrue([self.requestData containsString:@"true"]);
     XCTAssertTrue([self.requestData containsString:@"sessionStart"]);
     XCTAssertTrue([self.requestData containsString:@"partnerName"]);
-    XCTAssertTrue([self.requestData containsString:@"Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:AN_OMIDSDK_PARTNER_NAME]);
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
@@ -105,7 +106,7 @@
     XCTAssertTrue([self.requestData containsString:@"true"]);
     XCTAssertTrue([self.requestData containsString:@"sessionStart"]);
     XCTAssertTrue([self.requestData containsString:@"partnerName"]);
-    XCTAssertTrue([self.requestData containsString:@"Appnexus"]);
+    XCTAssertTrue([self.requestData containsString:AN_OMIDSDK_PARTNER_NAME]);
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);

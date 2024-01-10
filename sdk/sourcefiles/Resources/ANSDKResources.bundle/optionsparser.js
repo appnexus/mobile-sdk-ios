@@ -108,6 +108,7 @@ var outstreamOptions = {
     "allowFullscreen"  : true,          // This option shows/hides the fill screen button
     "aspectRatio"      : "auto",        // Aspect ratio we expect the video to be played in
     "showFullScreenButton"                  : true,
+    "iOSAppFullScreenOverride" : true,  // This setting is used to override iOS apps fullscreen events using a custom WKWebview
     
     "disableCollapse": {
         "enabled"  : true,              // this option is used for freeze on last frame
@@ -124,7 +125,7 @@ var outstreamOptions = {
 
 // Default Partner. This will later be overriden by call from native layer to setOMIDPartner.
 var partner = {
-    "name"  : "Appnexus",            // This option name is to get OMID partner name
+    "name"  : "Microsoft",            // This option name is to get OMID partner name
     "version"  : "Default-version",          // This option name is to get OMID partner version
 };
 

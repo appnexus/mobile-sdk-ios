@@ -21,7 +21,7 @@
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 - (void)anVerificationScriptResource:(NSDictionary *)jsonDic
 {
-    self.url = @"https://acdn.adnxs.com/mobile/omsdk/validation-verification-scripts-fortesting/omsdk-js-1.4.8/Validation-Script/omid-validation-verification-script-v1.js";
+    self.url = @"https://acdn.adnxs.com/mobile/omsdk/validation-verification-scripts-fortesting/omsdk-js-1.4.9/Validation-Script/omid-validation-verification-script-v1.js";
     self.vendorKey = @"dummyVendor";
     self.params = @"http://dummy-domain/m?msg=";
 }

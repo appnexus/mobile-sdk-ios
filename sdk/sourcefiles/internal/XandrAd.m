@@ -59,6 +59,7 @@ NSString * const  VIEWABLE_IMP_CONFIG_URL = @"https://acdn.adnxs.com/mobile/view
     self.isHttpTaskSuccess = NO;
     self.isOptinalSDKInitSuccess = NO;
     
+
     
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
 

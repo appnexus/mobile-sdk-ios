@@ -1,4 +1,0 @@
-module OMSDK_Appnexus {
-    header "Headers/OMIDImports.h"
-    export *
-}

@@ -73,7 +73,7 @@ NSInteger  const  kANNativeRTBAdExpireTimeForMember_9642           = 300; //Inde
 #if !APPNEXUS_NATIVE_MACOS_SDK
 @property (nonatomic, readwrite, weak) UIView *viewForTracking;
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
-@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readwrite, strong) OMIDMicrosoftAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong, nullable) NSMutableArray<UIView *> *obstructionViews;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 #else
@@ -348,7 +348,7 @@ openMeasurementFriendlyObstructions:(nonnull NSArray<UIView *> *)obstructionView
     NSURL *url = [NSURL URLWithString:self.verificationScriptResource.url];
     NSString *vendorKey = self.verificationScriptResource.vendorKey;
     NSString *params = self.verificationScriptResource.params;
-    [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
+    [scripts addObject:[[OMIDMicrosoftVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
     self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
     for (UIView *obstruction in self.obstructionViews){
         [[ANOMIDImplementation sharedInstance] addFriendlyObstruction:obstruction toOMIDAdSession:self.omidAdSession];

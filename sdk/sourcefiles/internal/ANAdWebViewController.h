@@ -15,7 +15,7 @@
 
 #import "ANAdViewInternalDelegate.h"
 #import "ANMRAIDUtil.h"
-@import OMSDK_Appnexus;
+@import OMSDK_Microsoft;
 
 @class ANAdWebViewControllerConfiguration;
 @class ANMRAIDExpandProperties;
@@ -35,7 +35,7 @@
 @property (nonatomic, readonly, assign)  BOOL         isMRAID;
 @property (nonatomic, readonly, strong)  UIView      *contentView;
 @property (nonatomic, readonly, assign)  BOOL         completedFirstLoad;
-@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readwrite, strong) OMIDMicrosoftAdSession *omidAdSession;
 
 @property (nonatomic, readonly, strong)  ANAdWebViewControllerConfiguration  *configuration;
 

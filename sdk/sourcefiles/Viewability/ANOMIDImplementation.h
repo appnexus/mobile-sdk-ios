@@ -16,8 +16,8 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 
-#if __has_include(<OMSDK_Appnexus/OMIDImports.h>)
-    #import <OMSDK_Appnexus/OMIDImports.h>
+#if __has_include(<OMSDK_Microsoft/OMIDImports.h>)
+    #import <OMSDK_Microsoft/OMIDImports.h>
 #else
 
 #import <OMIDImports.h>
@@ -26,7 +26,7 @@
 
 #pragma mark - Constants
 
-#define AN_OMIDSDK_PARTNER_NAME             @"Appnexus"
+#define AN_OMIDSDK_PARTNER_NAME             @"Microsoft"
 
 #pragma mark - Global class.
 
@@ -36,12 +36,12 @@
 + (instancetype)sharedInstance;
 - (void) activateOMIDandCreatePartner;
 - (NSString *)getOMIDJS;
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd;
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts;
-- (void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
-- (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession;
-- (void)addFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
-- (void)removeFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
-- (void)removeAllFriendlyObstructions:(OMIDAppnexusAdSession*) omidAdSession;
+- (OMIDMicrosoftAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd;
+- (OMIDMicrosoftAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts;
+- (void) stopOMIDAdSession:(OMIDMicrosoftAdSession*) omidAdSession;
+- (void)fireOMIDImpressionOccuredEvent:(OMIDMicrosoftAdSession*) omidAdSession;
+- (void)addFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDMicrosoftAdSession*) omidAdSession;
+- (void)removeFriendlyObstruction:(UIView *) view toOMIDAdSession:(OMIDMicrosoftAdSession*) omidAdSession;
+- (void)removeAllFriendlyObstructions:(OMIDMicrosoftAdSession*) omidAdSession;
 
 @end

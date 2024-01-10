@@ -74,7 +74,6 @@ class ViewController: NSViewController, ANNativeAdRequestDelegate , ANNativeAdDe
         nativeAdRequest!.shouldLoadMainImage = true // Optional - This instructs SDK to autodownload the Main image. Default is false and nativeAdResponse?.mainImage will return nil
         nativeAdRequest!.delegate = self
         nativeAdRequest!.rendererId = 100
-        nativeAdRequest!.forceCreativeId = 154679082
         
         nativeAdRequest!.loadAd()
     }

@@ -275,13 +275,7 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (UIBarButtonItem *)refreshIndicatorItem {
     if (!_refreshIndicatorItem) {
-        UIActivityIndicatorView *indicator;
-        if (@available(iOS 13.0, *))
-        {
-            indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-        } else {
-            indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        }
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
         [indicator startAnimating];
         _refreshIndicatorItem = [[UIBarButtonItem alloc] initWithCustomView:indicator];
     }
@@ -455,17 +449,9 @@ WKNavigationDelegate, WKUIDelegate>
     // See: https://bugs.webkit.org/show_bug.cgi?id=147512
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)] &&
         [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
-        if (@available(iOS 10.0, *)) {
             configuration.mediaTypesRequiringUserActionForPlayback = NO;
-        }else {
-            configuration.requiresUserActionForMediaPlayback = NO;
-        }
     } else {
-        if (@available(iOS 10.0, *)) {
             configuration.mediaTypesRequiringUserActionForPlayback = YES;
-        }else {
-            configuration.requiresUserActionForMediaPlayback = YES;
-        }
     }
     
     return configuration;
