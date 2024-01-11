@@ -12,6 +12,8 @@
 ### Mediation partner updates
 + MS-5392 Upgrade of the Facebook Audience Network to version 6.14.0
 
+#### The minimum supported iOS version for SDK is now increased to iOS 14
+
 ## 8.9.0
 
 ### Improvement/Bug Fixes
