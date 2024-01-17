@@ -148,12 +148,30 @@
     [ANWebView prepareWebView];
 #endif
     
-    if([ANGlobal userAgent] == nil){
-        ANLogError(@"Failed to fetch userAgent");
-    }
-    
     if(success != nil){
-        success(YES);
+        if ([ANGlobal userAgent] == nil) {
+            NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+            
+            [[NSNotificationCenter defaultCenter] addObserverForName:@"kUserAgentDidChangeNotification"
+                                                              object:nil
+                                                               queue:queue
+                                                          usingBlock:^(NSNotification *notification) {
+                success(YES);
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentFailedToChangeNotification"];
+            }];
+            
+            [[NSNotificationCenter defaultCenter] addObserverForName:@"kUserAgentFailedToChangeNotification"
+                                                              object:nil
+                                                               queue:queue
+                                                          usingBlock:^(NSNotification *notification) {
+                success(NO);
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentFailedToChangeNotification"];
+            }];
+        } else {
+            success(YES);
+        }
     }
 }
 

@@ -51,7 +51,7 @@ NSMutableURLRequest  *utDefaultDomainMutableRequest = nil;
 NSMutableURLRequest  *utSimpleDomainMutableRequest = nil;
 
 NSString *anUserAgent = nil;
-WKWebView  *webViewForUserAgent = nil;
+static BOOL userAgentQueryIsActive  = NO;
 
 
 NSString *__nonnull ANDeviceModel()
@@ -529,7 +529,9 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
 }
 
 
-+ (NSString *) userAgent {
++ (void) getUserAgent
+{
+    
     // Return customUserAgent if provided
     NSString *customUserAgent = ANSDKSettings.sharedInstance.customUserAgent;
     if(customUserAgent && customUserAgent.length != 0){
@@ -537,21 +539,42 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
         anUserAgent = customUserAgent;
     }
     
-    if(anUserAgent == nil){
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if(anUserAgent == nil){
+    if (!anUserAgent) {
+        if (!userAgentQueryIsActive)
+        {
+            @synchronized (self) {
+                userAgentQueryIsActive = YES;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(),
+                           ^{
                 @try {
                     anUserAgent = [[[WKWebView alloc] init] valueForKey:@"userAgent"];
                     ANLogDebug(@"userAgent=%@", anUserAgent);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
+                    @synchronized (self) {
+                        userAgentQueryIsActive = NO;
+                    }
                 }
                 @catch (NSException *exception) {
                     ANLogError(@"Failed to fetch UserAgent with exception  (%@)", exception);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentFailedToChangeNotification" object:nil userInfo:nil];
                 }
-            }
-        });
+                
+            });
+        }
+        ANLogDebug(@"userAgent=%@", anUserAgent);
+    }
+}
+
++ (NSString *) userAgent {
+    if(anUserAgent == nil){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
+        [ANGlobal getUserAgent];
     }
     return anUserAgent;
 }
+
 
 
 #pragma mark - Get Video Orientation Method
