@@ -1,3 +1,8 @@
+## 8.10.1
+ 
+#### The minimum supported iOS version for the SDK has been rolled back to iOS 12
+ 
+
 ## 8.10.0
 
 ### New Feature
