@@ -25,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         ANSDKSettings.sharedInstance().enableOMIDOptimization = true
         ANLogManager.setANLogLevel(ANLogLevel.all)
-        XandrAd.sharedInstance().initWithMemberID(10094,preCacheRequestObjects: true, completionHandler: nil)
+        XandrAd.sharedInstance().initWithMemberID(10094, preCacheRequestObjects: true ,completionHandler: { (status) in
+            print("Done🔨 \(status)")
+        })
         return true
     }
 }

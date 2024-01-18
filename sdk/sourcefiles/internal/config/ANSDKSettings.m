@@ -142,18 +142,36 @@
     [[ANReachability sharedReachabilityForInternetConnection] start];
     [ANGlobal adServerRequestURL];
     
-    
-    if([ANGlobal userAgent] == nil){
-        ANLogError(@"Failed to fetch userAgent");
-    }
-
     //    App should be able to handle changes to the user’s cellular service provider. For example, the user could swap the device’s SIM card with one from another provider while app is running. Not applicable for macOS to know more click link https://developer.apple.com/documentation/coretelephony/cttelephonynetworkinfo
 #if !APPNEXUS_NATIVE_MACOS_SDK
     [ANCarrierObserver shared];
     [ANWebView prepareWebView];
 #endif
+    
     if(success != nil){
-        success(YES);
+        if ([ANGlobal userAgent] == nil) {
+            NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+            
+            [[NSNotificationCenter defaultCenter] addObserverForName:@"kUserAgentDidChangeNotification"
+                                                              object:nil
+                                                               queue:queue
+                                                          usingBlock:^(NSNotification *notification) {
+                success(YES);
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentFailedToChangeNotification"];
+            }];
+            
+            [[NSNotificationCenter defaultCenter] addObserverForName:@"kUserAgentFailedToChangeNotification"
+                                                              object:nil
+                                                               queue:queue
+                                                          usingBlock:^(NSNotification *notification) {
+                success(NO);
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentDidChangeNotification"];
+                [[NSNotificationCenter defaultCenter] removeObserver:@"kUserAgentFailedToChangeNotification"];
+            }];
+        } else {
+            success(YES);
+        }
     }
 }
 

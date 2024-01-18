@@ -275,7 +275,13 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (UIBarButtonItem *)refreshIndicatorItem {
     if (!_refreshIndicatorItem) {
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+        UIActivityIndicatorView *indicator;
+        if (@available(iOS 13.0, *))
+        {
+            indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+        } else {
+            indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        }
         [indicator startAnimating];
         _refreshIndicatorItem = [[UIBarButtonItem alloc] initWithCustomView:indicator];
     }

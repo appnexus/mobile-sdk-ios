@@ -51,7 +51,7 @@ NSMutableURLRequest  *utDefaultDomainMutableRequest = nil;
 NSMutableURLRequest  *utSimpleDomainMutableRequest = nil;
 
 NSString *anUserAgent = nil;
-WKWebView  *webViewForUserAgent = nil;
+static BOOL userAgentQueryIsActive  = NO;
 
 
 NSString *__nonnull ANDeviceModel()
@@ -123,6 +123,7 @@ BOOL ANAdvertisingTrackingEnabled() {
     // - Security and fraud detection
     // - Debugging
     
+    if (@available(iOS 14, *)) {
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
         if ([ATTrackingManager trackingAuthorizationStatus] == ATTrackingManagerAuthorizationStatusAuthorized ){
             return YES;
@@ -130,6 +131,8 @@ BOOL ANAdvertisingTrackingEnabled() {
             return NO;
         }
 #endif
+    }
+    return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 
 
@@ -224,35 +227,53 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 }
 
 CGRect ANStatusBarFrame(){
-    CGRect statusBarFrame = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] statusBarFrame];
+    CGRect statusBarFrame;
+    if (@available(iOS 13.0, *)) {
+        statusBarFrame = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] statusBarFrame];
+    }else {
+        statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    }
     return statusBarFrame;
 }
 
 BOOL ANStatusBarHidden(){
-    BOOL statusBarHidden = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] isStatusBarHidden];
+    BOOL statusBarHidden;
+    if (@available(iOS 13.0, *)) {
+        statusBarHidden = [[[[ANGlobal getKeyWindow] windowScene] statusBarManager] isStatusBarHidden];
+    }else {
+        statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+    }
     return statusBarHidden;
 }
+
 
 UIInterfaceOrientation ANStatusBarOrientation()
 {
     UIInterfaceOrientation statusBarOrientation;
     
-    // On application launch, the value of [UIApplication sharedApplication].windows is nil, in this case, the [ANGlobal getKeyWindow] returns the nil, then it picks device Orientation based screen size.
-    
-    if([ANGlobal getKeyWindow] != nil){
-        statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
-    }else{
-        CGSize screenSize = [UIScreen mainScreen].bounds.size;
-        if (screenSize.height < screenSize.width) {
-            statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+    if (@available(iOS 13.0, *)) {
+        // On application launch, the value of [UIApplication sharedApplication].windows is nil, in this case, the [ANGlobal getKeyWindow] returns the nil, then it picks device Orientation based screen size.
+        
+        if([ANGlobal getKeyWindow] != nil){
+            statusBarOrientation = [[[ANGlobal getKeyWindow] windowScene] interfaceOrientation];
         }else{
-            statusBarOrientation = UIInterfaceOrientationPortrait;
+            CGSize screenSize = [UIScreen mainScreen].bounds.size;
+            if (screenSize.height < screenSize.width) {
+                statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+            }else{
+                statusBarOrientation = UIInterfaceOrientationPortrait;
+            }
         }
+    }else{
+        statusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     }
-    
     return statusBarOrientation;
 }
 #endif
+
+
+
+
 
 NSString *__nonnull ANErrorString( NSString * __nonnull key) {
     return NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
@@ -507,34 +528,53 @@ NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
     return  ANAdTypeUnknown;
 }
 
-+ (void) getUserAgent {
 
++ (void) getUserAgent
+{
+    
     // Return customUserAgent if provided
     NSString *customUserAgent = ANSDKSettings.sharedInstance.customUserAgent;
     if(customUserAgent && customUserAgent.length != 0){
         ANLogDebug(@"userAgent=%@", customUserAgent);
         anUserAgent = customUserAgent;
     }
-    if(anUserAgent == nil){
-        @try {
-            anUserAgent = [[[WKWebView alloc] init] valueForKey:@"userAgent"];
-            ANLogDebug(@"userAgent=%@", anUserAgent);
+    
+    if (!anUserAgent) {
+        if (!userAgentQueryIsActive)
+        {
+            @synchronized (self) {
+                userAgentQueryIsActive = YES;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(),
+                           ^{
+                @try {
+                    anUserAgent = [[[WKWebView alloc] init] valueForKey:@"userAgent"];
+                    ANLogDebug(@"userAgent=%@", anUserAgent);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentDidChangeNotification" object:nil userInfo:nil];
+                    @synchronized (self) {
+                        userAgentQueryIsActive = NO;
+                    }
+                }
+                @catch (NSException *exception) {
+                    ANLogError(@"Failed to fetch UserAgent with exception  (%@)", exception);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kUserAgentFailedToChangeNotification" object:nil userInfo:nil];
+                }
+                
+            });
         }
-        @catch (NSException *exception) {
-            ANLogError(@"Failed to fetch UserAgent with exception  (%@)", exception);
-        }
+        ANLogDebug(@"userAgent=%@", anUserAgent);
     }
 }
 
 + (NSString *) userAgent {
-    
     if(anUserAgent == nil){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [ANGlobal getUserAgent];
-        });
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserAgentDidChangeNotification:) name:@"kUserAgentDidChangeNotification" object:nil];
+        [ANGlobal getUserAgent];
     }
     return anUserAgent;
 }
+
 
 
 #pragma mark - Get Video Orientation Method
