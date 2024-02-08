@@ -1,3 +1,11 @@
+## 8.10.2
+
+### Improvement/Bug Fixes
+
+#### Fixed issues with Cocoapod
+#### Removed duplicated bundled resources
+
+
 ## 8.10.1
  
 #### The minimum supported iOS version for the SDK has been rolled back to iOS 12
