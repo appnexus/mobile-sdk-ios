@@ -49,8 +49,13 @@ rm -rf ./iphonesimulator
 rm -rf ./iphoneos
 
 # Copy ANSDKResources.bundle to XCFramework
-cp -a "./sourcefiles/Resources/ANSDKResources.bundle" "../XCFramework"
 
+
+
+sh ../script/buildANSDKResourcesBundle.sh
+
+cp -a "./ANSDKResources.bundle" "../XCFramework"
+rm -rf ./ANSDKResources.bundle
 
 # Move to XCFramework folder
 cd ../XCFramework
