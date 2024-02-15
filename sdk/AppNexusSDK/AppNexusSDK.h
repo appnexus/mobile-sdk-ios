@@ -50,6 +50,6 @@ FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 #import <AppNexusSDK/ANUSPrivacySettings.h>
 #import <AppNexusSDK/ANUserId.h>
 #import <AppNexusSDK/XandrAd.h>
-
-
-
+#import <AppNexusSDK/ANDSASettings.h>
+#import <AppNexusSDK/ANDSAResponseInfo.h>
+#import <AppNexusSDK/ANDSATransparencyInfo.h>

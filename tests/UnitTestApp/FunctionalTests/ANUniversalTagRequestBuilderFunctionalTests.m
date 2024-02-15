@@ -24,6 +24,8 @@
 #import "ANGDPRSettings.h"
 #import "ANUSPrivacySettings.h"
 #import "ANOMIDImplementation.h"
+#import "ANDSASettings.h"
+#import "ANDSATransparencyInfo.h"
 #if __has_include(<AppTrackingTransparency/AppTrackingTransparency.h>)
     #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
@@ -1504,6 +1506,54 @@ static NSString  *placementID  = @"9924001";
     
 }
 
+/**
+ Tests  DSA Params
+ */
+- (void)testUTRequestForDSA
+{
+    [ANDSASettings.sharedInstance setDsaRequired: 1];
+    [ANDSASettings.sharedInstance setPubRender: 0];
+    [ANDSASettings.sharedInstance setDataToPub: 1];
+    NSMutableArray<ANDSATransparencyInfo *> *transparencyList = [NSMutableArray array];
+    [transparencyList addObject:[[ANDSATransparencyInfo alloc] initWithDomain:@"example.com" andDSAParams:@[@1, @2, @3]]];
+    [transparencyList addObject:[[ANDSATransparencyInfo alloc] initWithDomain:@"example.net" andDSAParams:@[@4, @5, @6]]];
+    [ANDSASettings.sharedInstance setTransparencyList: transparencyList];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:placementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+        NSError *error;
+        
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSDictionary *requestDSADict = jsonDict[@"dsa"];
+        XCTAssertNotNil(requestDSADict);
+        XCTAssertEqual([requestDSADict[@"dsarequired"] intValue], 1);
+        XCTAssertEqual([requestDSADict[@"pubrender"] intValue], 0);
+        XCTAssertEqual([requestDSADict[@"datatopub"] intValue], 1);
+        NSArray *transparencyArray = requestDSADict[@"transparency"];
+        NSMutableArray *expectedList = [NSMutableArray array];
+        for (NSUInteger i = 0; i < transparencyList.count; i++) {
+            ANDSATransparencyInfo *transparencyInfo = transparencyList[i];
+            NSDictionary *jsonObject = @{@"domain": transparencyInfo.domain, @"dsaparams": transparencyInfo.dsaparams};
+            [expectedList addObject:jsonObject];
+        }
+        XCTAssertEqualObjects(expectedList, transparencyArray);
+
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
 
 
 @end

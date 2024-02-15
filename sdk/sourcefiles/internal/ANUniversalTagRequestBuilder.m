@@ -25,6 +25,8 @@
 #import "ANAdProtocol.h"
 #import "ANAdConstants.h"
 #import "ANGPPSettings.h"
+#import "ANDSASettings.h"
+#import "ANDSATransparencyInfo.h"
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANOMIDImplementation.h"
@@ -310,6 +312,12 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     NSDictionary *gppPrivacyObject = [self getGPPPrivacyObject];
     if (gppPrivacyObject) {
         requestDict[@"privacy"] = gppPrivacyObject;
+    }
+    
+    // add DSA Privacy
+    NSDictionary *dsaPrivacyObject = [self getDSAPrivacyObject];
+    if (dsaPrivacyObject.allKeys.count > 0) {
+        requestDict[@"dsa"] = dsaPrivacyObject;
     }
     
     // add Facebook bidder token if available
@@ -991,6 +999,41 @@ optionallyWithAdunitMultiAdRequestManager: (nullable ANMultiAdRequest *)adunitMA
     } else {
         return  nil;
     }
+}
+
+- (NSDictionary *)getDSAPrivacyObject {
+    NSMutableDictionary *dsaPrivacyObject = [NSMutableDictionary dictionary];
+    if ([ANDSASettings.sharedInstance dsaRequired] > -1) {
+        dsaPrivacyObject[@"dsarequired"] = @([ANDSASettings.sharedInstance dsaRequired]);
+    }
+    if ([ANDSASettings.sharedInstance pubRender] > -1) {
+        dsaPrivacyObject[@"pubrender"] = @([ANDSASettings.sharedInstance pubRender]);
+    }
+    if ([ANDSASettings.sharedInstance dataToPub] > -1) {
+        dsaPrivacyObject[@"datatopub"] = @([ANDSASettings.sharedInstance dataToPub]);
+    }
+
+    NSArray<ANDSATransparencyInfo *> *transparencyList = [ANDSASettings.sharedInstance transparencyList];
+    if (transparencyList && transparencyList.count > 0) {
+        NSMutableArray *transparencyArray = [NSMutableArray array];
+        for (ANDSATransparencyInfo *transparency in transparencyList) {
+            NSString *domain = [transparency domain];
+            if (domain.length != 0) {
+                NSMutableDictionary *transparencyObject = [NSMutableDictionary dictionary];
+                transparencyObject[@"domain"] = domain;
+
+                NSArray<NSNumber *> *dsaparams = [transparency dsaparams];
+                if (dsaparams) {
+                    transparencyObject[@"dsaparams"] = dsaparams;
+                }
+
+                [transparencyArray addObject:transparencyObject];
+            }
+        }
+        dsaPrivacyObject[@"transparency"] = transparencyArray;
+    }
+
+    return dsaPrivacyObject;
 }
 
 #pragma mark - Class methods.

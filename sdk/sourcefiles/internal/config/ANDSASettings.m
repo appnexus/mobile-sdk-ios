@@ -1,4 +1,4 @@
-/*   Copyright 2019 APPNEXUS INC
+/*   Copyright 2024 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,10 +13,20 @@
  limitations under the License.
  */
 
-#import "ANAdResponseInfo.h"
+#import "ANDSASettings.h"
 
-@implementation ANAdResponseInfo
+@implementation ANDSASettings
 
-@synthesize  creativeId, adType, memberId, placementId, contentSource, networkName, dsaResponseInfo;
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    static ANDSASettings *dsaSettingsInstance;
+    dispatch_once(&onceToken, ^{
+        dsaSettingsInstance = [[ANDSASettings alloc] init];
+        dsaSettingsInstance.dsaRequired = -1;
+        dsaSettingsInstance.pubRender = -1;
+        dsaSettingsInstance.dataToPub = -1;
+    });
+    return dsaSettingsInstance;
+}
 
 @end

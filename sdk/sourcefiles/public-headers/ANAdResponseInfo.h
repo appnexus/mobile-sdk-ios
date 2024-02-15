@@ -15,6 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ANAdConstants.h"
+#import "ANDSAResponseInfo.h"
 
 @interface ANAdResponseInfo : NSObject
 /**
@@ -72,5 +73,10 @@
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *publisherCurrencyCode;
 
-@end
+/**
+ Retrieves the Digital Services Act (DSA) information associated with this ad response
+ containing details such as behalf, paid, ad render, and transparency
+ */
+@property (nonatomic, readwrite, strong, nullable) ANDSAResponseInfo *dsaResponseInfo;
 
+@end
