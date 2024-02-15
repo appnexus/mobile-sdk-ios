@@ -28,7 +28,9 @@ limitations under the License.
 #import "ANInstreamVideoAd+Test.h"
 #import "ANVideoAdPlayer.h"
 #import "XandrAd.h"
-
+#import "ANAdResponseInfo.h"
+#import "ANDSAResponseInfo.h"
+#import "ANDSATransparencyInfo.h"
 
 @interface ANAdResponseTestCase : XCTestCase<ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate, ANInstreamVideoAdLoadDelegate>
 
@@ -424,6 +426,29 @@ limitations under the License.
    XCTAssertEqualObjects(self.instreamVideoAd.adResponseInfo.auctionId, @"6677786726688787883");
 }
 
+/**
+ Tests banner DSA response
+ */
+- (void)testAdResponseWithBannerDSA
+{
+    [self setupBannerAd];
+    [self stubRequestWithResponse:@"ANDSAResponse_Banner"];
+    [self.banner loadAd];
+    
+    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqualObjects(self.banner.adResponseInfo.dsaResponseInfo.behalf, @"test");
+    XCTAssertEqualObjects(self.banner.adResponseInfo.dsaResponseInfo.paid, @"testname");
+    XCTAssertTrue(self.banner.adResponseInfo.dsaResponseInfo.adRender == 1);
+    NSArray<NSNumber *> *expectedParams = @[@1, @2, @3];
+    for (ANDSATransparencyInfo *transparencyInfo in self.banner.adResponseInfo.dsaResponseInfo.transparencyList) {
+        XCTAssertEqualObjects(transparencyInfo.domain, @"test.com");
+        XCTAssertEqualObjects(transparencyInfo.dsaparams, expectedParams);
+    }
+}
 
 #pragma mark - Stubbing
 

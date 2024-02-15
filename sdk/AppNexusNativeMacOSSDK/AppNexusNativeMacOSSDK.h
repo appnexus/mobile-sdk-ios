@@ -55,3 +55,6 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 #import <AppNexusNativeMacOSSDK/XandrAd.h>
 #import <AppNexusNativeMacOSSDK/XandrNativeAdView.h>
 #import <AppNexusNativeMacOSSDK/ANMultiAdRequest.h>
+#import <AppNexusNativeMacOSSDK/ANDSASettings.h>
+#import <AppNexusNativeMacOSSDK/ANDSAResponseInfo.h>
+#import <AppNexusNativeMacOSSDK/ANDSATransparencyInfo.h>

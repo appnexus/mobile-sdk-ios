@@ -1,4 +1,4 @@
-/*   Copyright 2019 APPNEXUS INC
+/*   Copyright 2024 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,10 +13,20 @@
  limitations under the License.
  */
 
-#import "ANAdResponseInfo.h"
+#import "ANDSATransparencyInfo.h"
 
-@implementation ANAdResponseInfo
+@implementation ANDSATransparencyInfo
 
-@synthesize  creativeId, adType, memberId, placementId, contentSource, networkName, dsaResponseInfo;
+/**
+ * Initializes an ANDSATransparencyInfo instance with the specified domain and DSA params.
+*/
+- (instancetype)initWithDomain:(NSString *)domain andDSAParams:(NSArray<NSNumber *> *)dsaparams {
+    self = [super init];
+    if (self) {
+        _domain = domain;
+        _dsaparams = dsaparams;
+    }
+    return self;
+}
 
 @end

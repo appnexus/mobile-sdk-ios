@@ -28,6 +28,7 @@
 #import "ANAdResponseInfo.h"
 #import "ANGlobal.h"
 #import "ANAdConstants.h"
+#import "ANDSAResponseInfo.h"
 
 #if !APPNEXUS_NATIVE_MACOS_SDK
 #import "ANCSRAd.h"
@@ -62,6 +63,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsBuyerMemberId = @"bu
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCPM = @"cpm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCPMPublisherCurrency = @"cpm_publisher_currency";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsPublisherCurrencyCode = @"publisher_currency_code";
+
+// DSA
+static NSString *const kANUniversalTagAdServerResponseKeyAdsDSA = @"dsa";
 
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCSMObject = @"csm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
@@ -295,6 +299,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         {
             auctionId  = [NSString stringWithFormat:@"%@",tag[kANUniversalTagAdServerResponseKeyAdsAuctionId]];
         }
+        
+        NSDictionary *dsaObject = adObject[kANUniversalTagAdServerResponseKeyAdsDSA];
          
          //Initialise AdResponse object to expose all the public facing APIs from the UTv3 response
          ANAdResponseInfo *adResponseInfo = [[ANAdResponseInfo alloc] init];
@@ -307,6 +313,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
          adResponseInfo.cpm = cpm;
          adResponseInfo.cpmPublisherCurrency = cpmPublisherCurrency;
          adResponseInfo.publisherCurrencyCode = publisherCurrencyCode;
+         adResponseInfo.publisherCurrencyCode = publisherCurrencyCode;
+         adResponseInfo.dsaResponseInfo = [ANDSAResponseInfo dsaObjectFromAdObject: dsaObject];
+        
 #if !APPNEXUS_NATIVE_MACOS_SDK
         ANVerificationScriptResource *omidVerificationScriptResource;
         if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
@@ -467,7 +476,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     //
     return  [arrayOfAdUnits mutableCopy];
 }
-
 
 + (NSArray *)adsArrayFromTag:(NSDictionary *)tag {
     if ([tag[kANUniversalTagAdServerResponseKeyTagAds] isKindOfClass:[NSArray class]]) {

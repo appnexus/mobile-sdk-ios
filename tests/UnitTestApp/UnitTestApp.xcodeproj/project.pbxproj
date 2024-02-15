@@ -482,6 +482,8 @@
 		C6E0448329522BAD00F1B32B /* ANGoogleMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */; };
 		E223F99C2B2B3DD500F686AD /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; };
 		E223F99D2B2B3DD500F686AD /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E2B6E72D2B627AAF0017B7A7 /* ANDSAResponse_Banner.json in Resources */ = {isa = PBXBuildFile; fileRef = E2B6E7292B627AAF0017B7A7 /* ANDSAResponse_Banner.json */; };
+		E2B6E72E2B627AAF0017B7A7 /* ANDSAResponse_Banner.json in Resources */ = {isa = PBXBuildFile; fileRef = E2B6E7292B627AAF0017B7A7 /* ANDSAResponse_Banner.json */; };
 		FC230DF6269371440081A488 /* NSURLProtocol+WebKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB226936E000081A488 /* NSURLProtocol+WebKitSupport.swift */; };
 		FC230E02269371470081A488 /* WebKitURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB326936E000081A488 /* WebKitURLProtocol.swift */; };
 		FC230E0D2693714B0081A488 /* AuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */; };
@@ -1475,6 +1477,7 @@
 		97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Video.json; sourceTree = "<group>"; };
 		C6E0448029522BAD00F1B32B /* ANGoogleMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGoogleMediationSettings.m; sourceTree = "<group>"; };
 		C6E0448129522BAD00F1B32B /* ANGoogleMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGoogleMediationSettings.h; sourceTree = "<group>"; };
+		E2B6E7292B627AAF0017B7A7 /* ANDSAResponse_Banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANDSAResponse_Banner.json; sourceTree = "<group>"; };
 		FC230DB226936E000081A488 /* NSURLProtocol+WebKitSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLProtocol+WebKitSupport.swift"; sourceTree = "<group>"; };
 		FC230DB326936E000081A488 /* WebKitURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebKitURLProtocol.swift; sourceTree = "<group>"; };
 		FC230DB426936E000081A488 /* AuthenticationChallengeSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeSender.swift; sourceTree = "<group>"; };
@@ -2354,6 +2357,7 @@
 		0EEFE10822005532002B5F5F /* StubResponse */ = {
 			isa = PBXGroup;
 			children = (
+				E2B6E7292B627AAF0017B7A7 /* ANDSAResponse_Banner.json */,
 				0E8794F323C34D23008DA1D6 /* MARStubResponse */,
 				97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */,
 				FC4C72D524FEFD8500379108 /* ANAdResponseCSM_BannerFail.json */,
@@ -3000,6 +3004,7 @@
 				0E3F32F223CE68E300CA830D /* bannerNative_native_mediation.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				E2B6E72D2B627AAF0017B7A7 /* ANDSAResponse_Banner.json in Resources */,
 				FCE115CE26F0D18E0004D2D3 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
 				0E9441EC24476B6F00D266F9 /* CSR_Facebook_Banner_Native.json in Resources */,
@@ -3188,6 +3193,7 @@
 				FC54F66C27AC1B6D00354121 /* bannerNative_native_mediation.json in Resources */,
 				FC54F66D27AC1B6D00354121 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				FC54F66D27AC1B6D00354121 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				E2B6E72E2B627AAF0017B7A7 /* ANDSAResponse_Banner.json in Resources */,
 				FC54F67427AC1B6D00354121 /* CpmPublisherCurrencyBannerObjectResponse.json in Resources */,
 				FC54F66E27AC1B6D00354121 /* CSR_Facebook_Banner_Native.json in Resources */,
 				FC54F66E27AC1B6D00354121 /* CSR_Facebook_Banner_Native.json in Resources */,
