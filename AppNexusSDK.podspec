@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AppNexusSDK"
-  s.version      = "8.10.2"
+  s.version      = "8.11.0"
   s.platform     = :ios, "12.0"
 
   s.summary      = "AppNexus iOS Mobile Advertising SDK"
@@ -10,7 +10,7 @@ Our mobile advertising SDK gives developers a fast and convenient way to monetiz
 DESC
 
   s.homepage     = "https://github.com/appnexus/mobile-sdk-ios"
-  s.source       = { :git => "https://github.com/appnexus/mobile-sdk-ios.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/appnexus/mobile-sdk-ios.git", :branch => "master" }
   s.author       = { "AppNexus Mobile Engineering" => "sdk@appnexus.com" }
   s.license      = { :type => "Apache License, Version 2.0", :file => "LICENSE" }
 
