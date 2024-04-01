@@ -15,6 +15,8 @@
 
 import UIKit
 import AppNexusSDK
+import AppTrackingTransparency
+import AdSupport
 
 class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     var banner: ANBannerAdView?
@@ -24,7 +26,8 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         ANLogManager.setANLogLevel(ANLogLevel.all)
-        
+        requestPermission()
+
 
         self.title = "Banner Ad"
 
@@ -59,5 +62,23 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate{
     func ad(_ ad: Any, requestFailedWithError error: Error) {
         print("Ad request Failed With Error")
     }
+    
+    
+    func requestPermission() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                    case .authorized:
+                        print("enable tracking")
+                    case .denied:
+                        print("disable tracking")
+                    default:
+                        print("disable tracking")
+                }
+            }
+        }
+
+    }
+    
 }
 

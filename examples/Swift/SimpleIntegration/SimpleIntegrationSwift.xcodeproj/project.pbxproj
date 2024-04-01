@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,12 +23,15 @@
 		0EEFDB9C24066E9F0062560E /* BannerAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9B24066E9F0062560E /* BannerAdViewController.swift */; };
 		0EEFDB9F24066F030062560E /* ANNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9D24066F030062560E /* ANNativeAdView.swift */; };
 		0EEFDBA024066F030062560E /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFDB9E24066F030062560E /* ANNativeAdView.xib */; };
+		460AD1F32BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460AD1F22BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework */; };
+		460AD1F42BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 460AD1F22BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		460AD1F52BBAE54C00BF5898 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CD457128B9143C00381778 /* AppNexusSDK.framework */; };
+		460AD1F62BBAE54C00BF5898 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88CD457128B9143C00381778 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		88A94A8128E1F5DF002EFB87 /* NativeAdViewSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A94A7D28E1F5DF002EFB87 /* NativeAdViewSecond.swift */; };
 		88CD455128B9136800381778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD455028B9136800381778 /* AppDelegate.swift */; };
 		88CD455328B9136800381778 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD455228B9136800381778 /* ViewController.swift */; };
 		88CD455528B9136B00381778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88CD455428B9136B00381778 /* Assets.xcassets */; };
 		88CD455828B9136B00381778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CD455628B9136B00381778 /* Main.storyboard */; };
-		88CD457A28B917E100381778 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CD457128B9143C00381778 /* AppNexusSDK.framework */; };
 		88CD457B28B917EB00381778 /* AppNexusNativeMacOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CD457528B9143C00381778 /* AppNexusNativeMacOSSDK.framework */; };
 		88CD458528B9191E00381778 /* NativeAdViewFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD458228B9191E00381778 /* NativeAdViewFirst.swift */; };
 		88CD458628B9191E00381778 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 88CD458328B9191E00381778 /* quotes.json */; };
@@ -73,6 +76,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				460AD1F42BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework in Embed Frameworks */,
+				460AD1F62BBAE54C00BF5898 /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +103,7 @@
 		0EEFDB9B24066E9F0062560E /* BannerAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerAdViewController.swift; sourceTree = "<group>"; };
 		0EEFDB9D24066F030062560E /* ANNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANNativeAdView.swift; sourceTree = "<group>"; };
 		0EEFDB9E24066F030062560E /* ANNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdView.xib; sourceTree = "<group>"; };
+		460AD1F22BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Microsoft.xcframework; path = ../../../sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Microsoft.xcframework; sourceTree = "<group>"; };
 		88A94A7D28E1F5DF002EFB87 /* NativeAdViewSecond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdViewSecond.swift; sourceTree = "<group>"; };
 		88CD454E28B9136800381778 /* MacOSSimpleIntegrationSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSSimpleIntegrationSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88CD455028B9136800381778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,7 +122,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88CD457A28B917E100381778 /* AppNexusSDK.framework in Frameworks */,
+				460AD1F32BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework in Frameworks */,
+				460AD1F52BBAE54C00BF5898 /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +233,7 @@
 		0E877A7C23FE78B200DC962F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				460AD1F22BBAE4EA00BF5898 /* OMSDK_Microsoft.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

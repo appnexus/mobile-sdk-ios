@@ -109,6 +109,10 @@
 		38975FF42540488D006C4578 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF12540488D006C4578 /* ANBrowserViewController.xib */; };
 		38975FF52540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */; };
 		38975FF62540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */; };
+		460AD1EA2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 460AD1E92BBADDDD00BF5898 /* PrivacyInfo.xcprivacy */; };
+		460AD1EB2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 460AD1E92BBADDDD00BF5898 /* PrivacyInfo.xcprivacy */; };
+		460AD1EC2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 460AD1E92BBADDDD00BF5898 /* PrivacyInfo.xcprivacy */; };
+		460AD1ED2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 460AD1E92BBADDDD00BF5898 /* PrivacyInfo.xcprivacy */; };
 		4611A0742B70211A001468F8 /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD2194B768A0069D934 /* interstitial_closebox.png */; };
 		4611A0752B70211A001468F8 /* an_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A61A2F8AFE0000E4CC /* an_arrow_left.png */; };
 		4611A0762B70211A001468F8 /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A01A2F72D00000E4CC /* compass@2x.png */; };
@@ -689,6 +693,7 @@
 		3850566A24DAD12F00D4B54D /* ANAdResponseCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseCode.m; sourceTree = "<group>"; };
 		38975FF12540488D006C4578 /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
 		38975FF22540488D006C4578 /* ANBrowserViewController_SizeClasses.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
+		460AD1E92BBADDDD00BF5898 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4639F9392B28C5B7005FEC56 /* OMSDK-Static_Microsoft.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "OMSDK-Static_Microsoft.xcframework"; sourceTree = "<group>"; };
 		4639F93B2B28C5CF005FEC56 /* OMSDK_Microsoft.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OMSDK_Microsoft.xcframework; sourceTree = "<group>"; };
 		469A971E2A7AE09500D6CFFE /* SDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SDK-Info.plist"; sourceTree = "<group>"; };
@@ -1361,6 +1366,7 @@
 				60AB32891E521FE500429ED7 /* MobileVastPlayer.js */,
 				0E291F3622A075A300C9A851 /* nativeRenderer.html */,
 				0EEE97DA21764ACD007DADE6 /* omsdk.js */,
+				460AD1E92BBADDDD00BF5898 /* PrivacyInfo.xcprivacy */,
 				60D39E0F2256EE420029F741 /* optionsparser.js */,
 				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 				4F403A6D2043C8CF00EF75A2 /* vastVideo.html */,
@@ -1908,6 +1914,7 @@
 				4611A07C2B70211A001468F8 /* an_arrow_left@3x.png in Resources */,
 				4611A0772B70211A001468F8 /* interstitial_closebox@2x.png in Resources */,
 				4611A08B2B70214C001468F8 /* omsdk.js in Resources */,
+				460AD1ED2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */,
 				4611A07A2B70211A001468F8 /* UIButtonBarArrowLeft.png in Resources */,
 				4611A0882B702121001468F8 /* ANBrowserViewController.xib in Resources */,
 				4611A0802B70211A001468F8 /* compass@3x.png in Resources */,
@@ -1921,6 +1928,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				460AD1EC2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1936,6 +1944,7 @@
 				0E1421ED22F99AC9006C597A /* an_arrow_right@2x.png in Resources */,
 				0E1421EE22F99AC9006C597A /* an_arrow_right@3x.png in Resources */,
 				38975FF32540488D006C4578 /* ANBrowserViewController.xib in Resources */,
+				460AD1EA2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */,
 				38975FF52540488D006C4578 /* ANBrowserViewController_SizeClasses.xib in Resources */,
 				0E14221322F99AE2006C597A /* ANInterstitialAdViewController.xib in Resources */,
 				0E14221422F99AE7006C597A /* anjam.js in Resources */,
@@ -1986,6 +1995,7 @@
 				0E14220D22F99ACA006C597A /* UIButtonBarArrowLeft.png in Resources */,
 				0E14220E22F99ACA006C597A /* UIButtonBarArrowLeft@2x.png in Resources */,
 				0E14220F22F99ACA006C597A /* UIButtonBarArrowRight.png in Resources */,
+				460AD1EB2BBADDDD00BF5898 /* PrivacyInfo.xcprivacy in Resources */,
 				0E14221022F99ACA006C597A /* UIButtonBarArrowRight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

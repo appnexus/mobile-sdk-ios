@@ -23,7 +23,8 @@
 #import "ANLogging.h"
 #import "ANGDPRSettings.h"
 #import "ANAdConstants.h"
-
+#import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 
 @interface ANBaseUrlConfig : NSObject
 //EMPTY
@@ -42,14 +43,14 @@
 }
 
 - (NSString *)webViewBaseUrl {
-    if( ANGDPRSettings.canAccessDeviceData == NO || ANSDKSettings.sharedInstance.doNotTrack == YES){
+    if( ANGDPRSettings.canAccessDeviceData == NO || ANSDKSettings.sharedInstance.doNotTrack == YES || !ANAdvertisingTrackingEnabled()){
         return @"https://ib.adnxs-simple.com/";
     }
     return @"https://mediation.adnxs.com/";
 }
 
 -(NSString *) utAdRequestBaseUrl {
-    if(ANGDPRSettings.canAccessDeviceData == NO || ANSDKSettings.sharedInstance.doNotTrack == YES){
+    if(ANGDPRSettings.canAccessDeviceData == NO || ANSDKSettings.sharedInstance.doNotTrack == YES  || !ANAdvertisingTrackingEnabled()){
         return @"https://ib.adnxs-simple.com/ut/v3";
     }
     return @"https://mediation.adnxs.com/ut/v3";
