@@ -31,7 +31,7 @@ DESC
 
   s.subspec 'GoogleAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency  'Google-Mobile-Ads-SDK', '10.10.0'
+    subspec.dependency  'Google-Mobile-Ads-SDK', '11.2.0'
     subspec.source_files         = "mediation/mediatedviews/GoogleAdMob/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/GoogleAdMob/ANGoogleMediationSettings.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Google-Mobile-Ads-SDK/**' }
@@ -39,7 +39,7 @@ DESC
 
   s.subspec 'FacebookCSRAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'FBAudienceNetwork', '6.14.0'
+    subspec.dependency 'FBAudienceNetwork', '6.15.0'
     subspec.source_files         = "csr/Facebook/*.{h,m}"
     subspec.public_header_files  = "csr/Facebook/*.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/FBAudienceNetwork/**' }
