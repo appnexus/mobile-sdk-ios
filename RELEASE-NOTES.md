@@ -1,3 +1,13 @@
+## 8.11.1
+
+### Improvement/Bug Fixes
++ Added support for (privacy manifest files)[https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?language=swift].
+
+### Mediation partner updates
++ Upgrade of the Facebook Audience Network to version 6.15.0
++ Upgraded Google AdMob SDK from 10.10.0 to 11.2.0
+
+
 ## 8.11.0
  
 ### Announcements:
