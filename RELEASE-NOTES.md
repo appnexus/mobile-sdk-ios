@@ -1,3 +1,9 @@
+## 8.11.2
+
+### Improvement/Bug Fixes
+#### Fixed issues with Cocoapod for (privacy manifest files)[https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?language=swift]
+
+
 ## 8.11.1
 
 ### Improvement/Bug Fixes
