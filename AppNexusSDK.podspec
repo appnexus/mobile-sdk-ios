@@ -21,7 +21,7 @@ DESC
   s.subspec 'AppNexusSDK' do |subspec|
     subspec.source_files         = "sdk/sourcefiles/**/*.{h,m}"
     subspec.public_header_files  = "sdk/sourcefiles/public-headers/*.h"
-    subspec.resources            = "sdk/sourcefiles/Resources/*.{png,xib,nib,js,html,bundle,strings}","sdk/sourcefiles/Resources/images/*.{png}","sdk/AppNexusSDK/SDK-Info.plist"
+    subspec.resources            = "sdk/sourcefiles/Resources/*.{png,xib,nib,js,html,bundle,strings,xcprivacy}","sdk/sourcefiles/Resources/images/*.{png}","sdk/AppNexusSDK/SDK-Info.plist"
     subspec.vendored_frameworks   =  "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Microsoft.xcframework"
     subspec.frameworks           = 'WebKit'
     subspec.pod_target_xcconfig = { "VALID_ARCHS[sdk=iphoneos*]": "arm64 armv7", "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64 arm64" }
