@@ -23,10 +23,7 @@
 #import "ANLogging.h"
 #import "ANGDPRSettings.h"
 #import "ANAdConstants.h"
-#import <AdSupport/AdSupport.h>
-#if !APPNEXUS_NATIVE_MACOS_SDK
-#import <AppTrackingTransparency/AppTrackingTransparency.h>
-#endif
+
 
 @interface ANBaseUrlConfig : NSObject
 //EMPTY

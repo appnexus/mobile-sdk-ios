@@ -1,3 +1,9 @@
+## 8.11.3
+
+### Improvement/Bug Fixes
+#### Removed Privacy Tracking Domains 
+
+
 ## 8.11.2
 
 ### Improvement/Bug Fixes
