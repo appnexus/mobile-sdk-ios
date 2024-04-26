@@ -1,8 +1,7 @@
 ## 8.11.3
 
 ### Improvement/Bug Fixes
-+ Removed Privacy Tracking Domains 
-
++ Privacy Manifest update
 
 ## 8.11.2
 
