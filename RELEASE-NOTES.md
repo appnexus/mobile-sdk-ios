@@ -1,13 +1,13 @@
 ## 8.11.3
 
 ### Improvement/Bug Fixes
-#### Removed Privacy Tracking Domains 
++ Removed Privacy Tracking Domains 
 
 
 ## 8.11.2
 
 ### Improvement/Bug Fixes
-#### Fixed issues with Cocoapods for (privacy manifest files)[https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?language=swift]
++ Fixed issues with Cocoapods for (privacy manifest files)[https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?language=swift]
 
 
 ## 8.11.1
