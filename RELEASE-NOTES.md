@@ -1,3 +1,8 @@
+## 8.11.4
+
+### Improvement/Bug Fixes
++ Privacy Manifest update
+
 ## 8.11.3
 
 ### Improvement/Bug Fixes
