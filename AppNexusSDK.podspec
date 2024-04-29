@@ -19,7 +19,10 @@ DESC
   s.default_subspec = 'AppNexusSDK'
 
   s.subspec 'AppNexusSDK' do |subspec|
-    subspec.source_files         = "sdk/sourcefiles/**/*.{h,m,xcprivacy}"
+    subspec.source_files         = "sdk/sourcefiles/**/*.{h,m}"
+    subspec.resource_bundles             =  {
+      "Resources" => ["sdk/sourcefiles/**/PrivacyInfo.xcprivacy"]
+    }
     subspec.public_header_files  = "sdk/sourcefiles/public-headers/*.h"
     subspec.resources            = "sdk/sourcefiles/Resources/*.{png,xib,nib,js,html,bundle,strings}","sdk/sourcefiles/Resources/images/*.{png}","sdk/AppNexusSDK/SDK-Info.plist"
     subspec.vendored_frameworks   =  "sdk/sourcefiles/Viewability/dynamic_framework/OMSDK_Microsoft.xcframework"
